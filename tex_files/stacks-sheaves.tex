@@ -1,0 +1,4169 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Sheaves on Algebraic Stacks}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+There is a myriad of ways to think about sheaves on algebraic stacks.
+In this chapter we discuss one approach, which is particularly well
+adapted to our foundations for algebraic stacks. Whenever we introduce
+a type of sheaves we will indicate the precise relationship with
+similar notions in the literature.
+The goal of this chapter is to state those results
+that are either obviously true or straightforward to prove
+and leave more intricate constructions till later.
+
+\medskip\noindent
+In fact, it turns out that to develop a fully fledged theory of
+constructible \'etale sheaves and/or an adequate discussion of
+derived categories of complexes $\mathcal{O}$-modules whose
+cohomology sheaves are quasi-coherent takes a significant amount of work, see
+\cite{olsson_sheaves}. We will return to this in
+Cohomology of Stacks, Section \ref{stacks-cohomology-section-introduction}.
+
+\medskip\noindent
+In the literature and in research papers on sheaves on algebraic stacks
+the lisse-\'etale site of an algebraic stack often plays a prominent role.
+However, it is a problematic beast, because it turns out that a morphism of
+algebraic stacks does not induce a morphism of lisse-\'etale topoi. We have
+therefore made the design decision to avoid any mention of the lisse-\'etale
+site as long as possible. Arguments that traditionally use the lisse-\'etale
+site will be replaced by an argument using a {\v C}ech covering
+in the site $\mathcal{X}_{smooth}$ defined below.
+
+\medskip\noindent
+Some of the notation, conventions and terminology in this chapter is awkward
+and may seem backwards to the more experienced reader. This is intentional.
+Please see Quot, Section \ref{quot-section-conventions} for an
+explanation.
+
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+The conventions we use in this chapter are the same as those in the
+chapter on algebraic stacks, see
+Algebraic Stacks, Section \ref{algebraic-section-conventions}.
+For convenience we repeat them here.
+
+\medskip\noindent
+We work in a suitable big fppf site $\Sch_{fppf}$ as in
+Topologies, Definition \ref{topologies-definition-big-fppf-site}.
+So, if not explicitly stated otherwise all schemes will be objects
+of $\Sch_{fppf}$. We record what changes if you change the big
+fppf site elsewhere (insert future reference here).
+
+\medskip\noindent
+We will always work relative to a base $S$ contained in $\Sch_{fppf}$.
+And we will then work with the big fppf site $(\Sch/S)_{fppf}$, see
+Topologies, Definition \ref{topologies-definition-big-small-fppf}.
+The absolute case can be recovered by taking
+$S = \Spec(\mathbf{Z})$.
+
+
+
+
+
+\section{Presheaves}
+\label{section-presheaves}
+
+\noindent
+In this section we define presheaves on categories fibred in groupoids
+over $(\Sch/S)_{fppf}$, but most of the discussion works
+for categories over any base category. This section also serves to
+introduce the notation we will use later on.
+
+\begin{definition}
+\label{definition-presheaves}
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category fibred in
+groupoids.
+\begin{enumerate}
+\item A {\it presheaf on $\mathcal{X}$} is a presheaf on the
+underlying category of $\mathcal{X}$.
+\item A {\it morphism of presheaves on $\mathcal{X}$} is a morphism of
+presheaves on the underlying category of $\mathcal{X}$.
+\end{enumerate}
+We denote $\textit{PSh}(\mathcal{X})$ the category of presheaves on
+$\mathcal{X}$.
+\end{definition}
+
+\noindent
+This defines presheaves of sets. Of course we can also talk about
+presheaves of pointed sets, abelian groups, groups, monoids, rings,
+modules over a fixed ring, and lie algebras over a fixed field, etc.
+The category of {\it abelian presheaves}, i.e., presheaves of abelian
+groups, is denoted $\textit{PAb}(\mathcal{X})$.
+
+\medskip\noindent
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. Recall that this
+means just that $f$ is a functor over $(\Sch/S)_{fppf}$.
+The material in
+Sites, Section \ref{sites-section-more-functoriality-PSh}
+provides us with a pair of adjoint functors\footnote{These functors
+will be denoted $f^{-1}$ and $f_*$ after
+Lemma \ref{lemma-functoriality-sheaves}
+has been proved.}
+\begin{equation}
+\label{equation-pushforward-pullback}
+f^p : \textit{PSh}(\mathcal{Y}) \longrightarrow \textit{PSh}(\mathcal{X})
+\quad\text{and}\quad
+{}_pf : \textit{PSh}(\mathcal{X}) \longrightarrow \textit{PSh}(\mathcal{Y}).
+\end{equation}
+The adjointness is
+$$
+\Mor_{\textit{PSh}(\mathcal{X})}(f^p\mathcal{G}, \mathcal{F})
+=
+\Mor_{\textit{PSh}(\mathcal{Y})}(\mathcal{G}, {}_pf\mathcal{F})
+$$
+where $\mathcal{F} \in \Ob(\textit{PSh}(\mathcal{X}))$ and
+$\mathcal{G} \in \Ob(\textit{PSh}(\mathcal{Y}))$. We call
+$f^p\mathcal{G}$ the {\it pullback} of $\mathcal{G}$. It follows
+from the definitions that
+$$
+f^p\mathcal{G}(x) = \mathcal{G}(f(x))
+$$
+for any $x \in \Ob(\mathcal{X})$. The presheaf ${}_pf\mathcal{F}$
+is called the {\it pushforward} of $\mathcal{F}$. It is described
+by the formula
+$$
+({}_pf\mathcal{F})(y) = \lim_{f(x) \to y} \mathcal{F}(x).
+$$
+The rest of this section should probably be moved to the chapter
+on sites and in any case should be skipped on a first reading.
+
+\begin{lemma}
+\label{lemma-1-morphisms-presheaves}
+Let $f : \mathcal{X} \to \mathcal{Y}$ and $g : \mathcal{Y} \to \mathcal{Z}$
+be $1$-morphisms of categories fibred in groupoids over
+$(\Sch/S)_{fppf}$. Then $(g \circ f)^p = f^p \circ g^p$ and
+there is a canonical isomorphism
+${}_p(g \circ f) \to {}_pg \circ {}_pf$
+compatible with with adjointness of $(f^p, {}_pf)$, $(g^p, {}_pg)$, and
+$((g \circ f)^p, {}_p(g \circ f))$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{H}$ be a presheaf on $\mathcal{Z}$. Then
+$(g \circ f)^p\mathcal{H} = f^p (g^p\mathcal{H})$ is given
+by the equalities
+$$
+(g \circ f)^p\mathcal{H}(x) = \mathcal{H}((g \circ f)(x))
+= \mathcal{H}(g(f(x))) = f^p (g^p\mathcal{H})(x).
+$$
+We omit the verification that this is compatible with restriction maps.
+
+\medskip\noindent
+Next, we define the transformation ${}_p(g \circ f) \to {}_pg \circ {}_pf$.
+Let $\mathcal{F}$ be a presheaf on $\mathcal{X}$.
+If $z$ is an object of $\mathcal{Z}$ then we get a
+category $\mathcal{J}$ of quadruples
+$(x, f(x) \to y, y, g(y) \to z)$ and a category $\mathcal{I}$
+of pairs $(x, g(f(x)) \to z)$. There is a canonical functor
+$\mathcal{J} \to \mathcal{I}$ sending the object
+$(x, \alpha : f(x) \to y, y, \beta : g(y) \to z)$ to
+$(x, \beta \circ f(\alpha) : g(f(x)) \to z)$. This gives the arrow in
+\begin{align*}
+({}_p(g \circ f)\mathcal{F})(z) & =
+\lim_{g(f(x)) \to z} \mathcal{F}(x) \\
+& = \lim_\mathcal{I} \mathcal{F} \\
+& \to \lim_\mathcal{J} \mathcal{F} \\
+& = \lim_{g(y) \to z}
+\Big(\lim_{f(x) \to y} \mathcal{F}(x)\Big) \\
+& =
+({}_pg \circ {}_pf\mathcal{F})(x)
+\end{align*}
+by
+Categories, Lemma \ref{categories-lemma-functorial-limit}.
+We omit the verification that this is compatible with restriction maps.
+An alternative to this direct construction is to define
+${}_p(g \circ f) \cong {}_pg \circ {}_pf$
+as the unique map compatible with the adjointness properties. This also
+has the advantage that one does not need to prove the compatibility.
+
+\medskip\noindent
+Compatibility with adjointness of $(f^p, {}_pf)$, $(g^p, {}_pg)$, and
+$((g \circ f)^p, {}_p(g \circ f))$ means that given presheaves
+$\mathcal{H}$ and $\mathcal{F}$ as above we have a commutative diagram
+$$
+\xymatrix{
+\Mor_{\textit{PSh}(\mathcal{X})}(f^pg^p\mathcal{H}, \mathcal{F})
+\ar@{=}[r] \ar@{=}[d] &
+\Mor_{\textit{PSh}(\mathcal{Y})}(g^p\mathcal{H}, {}_pf\mathcal{F})
+\ar@{=}[r] &
+\Mor_{\textit{PSh}(\mathcal{Y})}(\mathcal{H}, {}_pg{}_pf\mathcal{F})
+\\
+\Mor_{\textit{PSh}(\mathcal{X})}((g \circ f)^p\mathcal{G}, \mathcal{F})
+\ar@{=}[rr] & &
+\Mor_{\textit{PSh}(\mathcal{Y})}(\mathcal{G}, {}_p(g \circ f)\mathcal{F})
+\ar[u]
+}
+$$
+Proof omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-2-morphisms-presheaves}
+Let $f, g : \mathcal{X} \to \mathcal{Y}$ be $1$-morphisms of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. Let $t : f \to g$
+be a $2$-morphism of categories fibred in groupoids over
+$(\Sch/S)_{fppf}$. Assigned to $t$ there are canonical
+isomorphisms of functors
+$$
+t^p : g^p \longrightarrow f^p
+\quad\text{and}\quad
+{}_pt : {}_pf \longrightarrow {}_pg
+$$
+which compatible with adjointness of $(f^p, {}_pf)$ and
+$(g^p, {}_pg)$ and with
+vertical and horizontal composition of $2$-morphisms.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{G}$ be a presheaf on $\mathcal{Y}$. Then
+$t^p : g^p\mathcal{G} \to f^p\mathcal{G}$ is given by the family
+of maps
+$$
+g^p\mathcal{G}(x) = \mathcal{G}(g(x))
+\xrightarrow{\mathcal{G}(t_x)}
+\mathcal{G}(f(x)) = f^p\mathcal{G}(x)
+$$
+parametrized by $x \in \Ob(\mathcal{X})$. This makes sense as
+$t_x : f(x) \to g(x)$ and $\mathcal{G}$ is a contravariant functor.
+We omit the verification that this is compatible with restriction
+mappings.
+
+\medskip\noindent
+To define the transformation ${}_pt$ for $y \in \Ob(\mathcal{Y})$
+define ${}_y^f\mathcal{I}$, resp.\ ${}_y^g\mathcal{I}$ to be the category
+of pairs $(x, \psi : f(x) \to y)$, resp.\ $(x, \psi : g(x) \to y)$, see
+Sites, Section \ref{sites-section-more-functoriality-PSh}.
+Note that $t$ defines a functor
+${}_yt : {}_y^g\mathcal{I} \to {}_y^f\mathcal{I}$
+given by the rule
+$$
+(x, g(x) \to y) \longmapsto (x, f(x) \xrightarrow{t_x} g(x) \to y).
+$$
+Note that for $\mathcal{F}$ a presheaf on $\mathcal{X}$ the composition
+of ${}_yt$ with $\mathcal{F} : {}_y^f\mathcal{I}^{opp} \to \textit{Sets}$,
+$(x, f(x) \to y) \mapsto \mathcal{F}(x)$ is equal to
+$\mathcal{F} : {}_y^g\mathcal{I}^{opp} \to \textit{Sets}$. Hence by
+Categories, Lemma \ref{categories-lemma-functorial-limit}
+we get for every $y \in \Ob(\mathcal{Y})$ a canonical map
+$$
+({}_pf\mathcal{F})(y) = \lim_{{}_y^f\mathcal{I}} \mathcal{F}
+\longrightarrow
+\lim_{{}_y^g\mathcal{I}} \mathcal{F} = ({}_pg\mathcal{F})(y)
+$$
+We omit the verification that this is compatible with restriction
+mappings. An alternative to this direct construction is to define
+${}_pt$ as the unique map compatible with the adjointness properties
+of the pairs $(f^p, {}_pf)$ and $(g^p, {}_pg)$ (see below). This also
+has the advantage that one does not need to prove the compatibility.
+
+\medskip\noindent
+Compatibility with adjointness of $(f^p, {}_pf)$ and $(g^p, {}_pg)$ means
+that given presheaves $\mathcal{G}$ and $\mathcal{F}$ as above we have
+a commutative diagram
+$$
+\xymatrix{
+\Mor_{\textit{PSh}(\mathcal{X})}(f^p\mathcal{G}, \mathcal{F})
+\ar@{=}[r] \ar[d]_{- \circ t^p} &
+\Mor_{\textit{PSh}(\mathcal{Y})}(\mathcal{G}, {}_pf\mathcal{F})
+\ar[d]^{{}_pt \circ -} \\
+\Mor_{\textit{PSh}(\mathcal{X})}(g^p\mathcal{G}, \mathcal{F})
+\ar@{=}[r] &
+\Mor_{\textit{PSh}(\mathcal{Y})}(\mathcal{G}, {}_pg\mathcal{F})
+}
+$$
+Proof omitted. Hint: Work through the proof of
+Sites, Lemma \ref{sites-lemma-adjoints-pu}
+and observe the compatibility from the explicit description of the
+horizontal and vertical maps in the diagram.
+
+\medskip\noindent
+We omit the verification that this is compatible with vertical and horizontal
+compositions. Hint: The proof of this for $t^p$ is straightforward and
+one can conclude that this holds for the ${}_pt$ maps using compatibility
+with adjointness.
+\end{proof}
+
+
+
+
+
+
+
+\section{Sheaves}
+\label{section-sheaves}
+
+\noindent
+We first make an observation that is important and trivial
+(especially for those readers who do not worry about set theoretical
+issues).
+
+\medskip\noindent
+Consider a big fppf site $\Sch_{fppf}$ as in
+Topologies, Definition \ref{topologies-definition-big-fppf-site}
+and denote its underlying category $\Sch_\alpha$.
+Besides being the underlying category of a fppf site,
+the category $\Sch_\alpha$ can also can serve as the underlying
+category for a big Zariski site, a big \'etale site, a big smooth site,
+and a big syntomic site, see
+Topologies, Remark \ref{topologies-remark-choice-sites}.
+We denote these sites $\Sch_{Zar}$, $\Sch_\etale$,
+$\Sch_{smooth}$, and $\Sch_{syntomic}$.
+In this situation, since we have defined
+the big Zariski site $(\Sch/S)_{Zar}$ of $S$,
+the big \'etale site $(\Sch/S)_\etale$ of $S$,
+the big smooth site $(\Sch/S)_{smooth}$ of $S$,
+the big syntomic site $(\Sch/S)_{syntomic}$ of $S$, and
+the big fppf site $(\Sch/S)_{fppf}$ of $S$
+as the localizations (see
+Sites, Section \ref{sites-section-localize})
+$\Sch_{Zar}/S$, $\Sch_\etale/S$,
+$\Sch_{smooth}/S$, $\Sch_{syntomic}/S$, and
+$\Sch_{fppf}/S$
+of these (absolute) big sites we see that all of these have the
+same underlying category, namely $\Sch_\alpha/S$.
+
+\medskip\noindent
+It follows that if we have a category
+$p : \mathcal{X} \to (\Sch/S)_{fppf}$ fibred in groupoids, then
+$\mathcal{X}$ inherits a Zariski, \'etale, smooth, syntomic, and
+fppf topology, see
+Stacks, Definition \ref{stacks-definition-topology-inherited}.
+
+\begin{definition}
+\label{definition-inherited-topologies}
+Let $\mathcal{X}$ be a category fibred in groupoids over
+$(\Sch/S)_{fppf}$.
+\begin{enumerate}
+\item The {\it associated Zariski site}, denoted $\mathcal{X}_{Zar}$,
+is the structure of site on $\mathcal{X}$ inherited from
+$(\Sch/S)_{Zar}$.
+\item The {\it associated \'etale site}, denoted $\mathcal{X}_\etale$,
+is the structure of site on $\mathcal{X}$ inherited from
+$(\Sch/S)_\etale$.
+\item The {\it associated smooth site}, denoted $\mathcal{X}_{smooth}$,
+is the structure of site on $\mathcal{X}$ inherited from
+$(\Sch/S)_{smooth}$.
+\item The {\it associated syntomic site}, denoted $\mathcal{X}_{syntomic}$,
+is the structure of site on $\mathcal{X}$ inherited from
+$(\Sch/S)_{syntomic}$.
+\item The {\it associated fppf site}, denoted $\mathcal{X}_{fppf}$,
+is the structure of site on $\mathcal{X}$ inherited from
+$(\Sch/S)_{fppf}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+This definition makes sense by the discussion above. If $\mathcal{X}$
+is an algebraic stack, the literature calls $\mathcal{X}_{fppf}$ (or a
+site equivalent to it) the {\it big fppf site} of $\mathcal{X}$ and similarly
+for the other ones. We may occasionally use this terminology to
+distinguish this construction from others.
+
+\begin{remark}
+\label{remark-ambiguity}
+We only use this notation when the symbol $\mathcal{X}$ refers to a
+category fibred in groupoids, and not a scheme, an algebraic space, etc.
+In this way we will avoid confusion with the small \'etale site of a
+scheme, or algebraic space which is denoted $X_\etale$ (in which
+case we use a roman capital instead of a calligraphic one).
+\end{remark}
+
+\noindent
+Now that we have these topologies defined we can say what it means
+to have a sheaf on $\mathcal{X}$, i.e., define the corresponding topoi.
+
+\begin{definition}
+\label{definition-sheaves}
+Let $\mathcal{X}$ be a category fibred in groupoids over
+$(\Sch/S)_{fppf}$. Let $\mathcal{F}$ be a presheaf on $\mathcal{X}$.
+\begin{enumerate}
+\item We say $\mathcal{F}$ is a {\it Zariski sheaf}, or a
+{\it sheaf for the Zariski topology} if $\mathcal{F}$
+is a sheaf on the associated Zariski site $\mathcal{X}_{Zar}$.
+\item We say $\mathcal{F}$ is an {\it \'etale sheaf}, or a
+{\it sheaf for the \'etale topology} if $\mathcal{F}$
+is a sheaf on the associated \'etale site $\mathcal{X}_\etale$.
+\item We say $\mathcal{F}$ is a {\it smooth sheaf}, or a
+{\it sheaf for the smooth topology} if $\mathcal{F}$
+is a sheaf on the associated smooth site $\mathcal{X}_{smooth}$.
+\item We say $\mathcal{F}$ is a {\it syntomic sheaf}, or a
+{\it sheaf for the syntomic topology} if $\mathcal{F}$
+is a sheaf on the associated syntomic site $\mathcal{X}_{syntomic}$.
+\item We say $\mathcal{F}$ is an {\it fppf sheaf}, or a {\it sheaf},
+or a {\it sheaf for the fppf topology} if $\mathcal{F}$
+is a sheaf on the associated fppf site $\mathcal{X}_{fppf}$.
+\end{enumerate}
+A morphism of sheaves is just a morphism of presheaves. We denote
+these categories of sheaves
+$\Sh(\mathcal{X}_{Zar})$,
+$\Sh(\mathcal{X}_\etale)$,
+$\Sh(\mathcal{X}_{smooth})$,
+$\Sh(\mathcal{X}_{syntomic})$, and
+$\Sh(\mathcal{X}_{fppf})$.
+\end{definition}
+
+\noindent
+Of course we can also talk about sheaves of pointed sets, abelian groups,
+groups, monoids, rings, modules over a fixed ring, and lie algebras over
+a fixed field, etc. The category of {\it abelian sheaves}, i.e., sheaves
+of abelian groups, is denoted $\textit{Ab}(\mathcal{X}_{fppf})$
+and similarly for the other topologies. If $\mathcal{X}$ is an algebraic
+stack, then $\Sh(\mathcal{X}_{fppf})$ is equivalent (modulo
+set theoretical problems) to what in the literature would be termed
+the {\it category of sheaves on the big fppf site of $\mathcal{X}$}. Similar
+for other topologies. We may occasionally use this terminology to
+distinguish this construction from others.
+
+\medskip\noindent
+Since the topologies are listed in increasing order of strength we have
+the following strictly full inclusions
+$$
+\Sh(\mathcal{X}_{fppf}) \subset
+\Sh(\mathcal{X}_{syntomic}) \subset
+\Sh(\mathcal{X}_{smooth}) \subset
+\Sh(\mathcal{X}_\etale) \subset
+\Sh(\mathcal{X}_{Zar}) \subset \textit{PSh}(\mathcal{X})
+$$
+We sometimes write
+$\Sh(\mathcal{X}_{fppf}) = \Sh(\mathcal{X})$
+and
+$\textit{Ab}(\mathcal{X}_{fppf}) = \textit{Ab}(\mathcal{X})$
+in accordance with our terminology that a sheaf on $\mathcal{X}$
+is an fppf sheaf on $\mathcal{X}$.
+
+\medskip\noindent
+With this setup functoriality of these topoi is straightforward, and
+moreover, is compatible with the inclusion functors above.
+
+\begin{lemma}
+\label{lemma-functoriality-sheaves}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. Let
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+The functors ${}_pf$ and $f^p$ of (\ref{equation-pushforward-pullback})
+transform $\tau$ sheaves into $\tau$ sheaves and define a morphism
+of topoi
+$f : \Sh(\mathcal{X}_\tau) \to \Sh(\mathcal{Y}_\tau)$.
+\end{lemma}
+
+\begin{proof}
+This follows immediately from
+Stacks, Lemma \ref{stacks-lemma-topology-inherited-functorial}.
+\end{proof}
+
+\noindent
+In other words, pushforward and pullback of presheaves as defined in
+Section \ref{section-presheaves}
+also produces {\it pushforward} and {\it pullback} of $\tau$-sheaves.
+Having said all of the above we see that we can write $f^p = f^{-1}$
+and ${}_pf = f_*$ without any possibility of confusion.
+
+\begin{definition}
+\label{definition-morphism}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. We denote
+$$
+f = (f^{-1}, f_*) :
+\Sh(\mathcal{X}_{fppf})
+\longrightarrow
+\Sh(\mathcal{Y}_{fppf})
+$$
+the {\it associated morphism of fppf topoi} constructed above.
+Similarly for the associated Zariski, \'etale, smooth, and syntomic topoi.
+\end{definition}
+
+\noindent
+As discussed in
+Sites, Section \ref{sites-section-sheaves-algebraic-structures}
+the same formula (on the underlying sheaf of sets) defines
+pushforward and pullback for sheaves (for one of our topologies)
+of pointed sets, abelian groups, groups, monoids, rings, modules
+over a fixed ring, and lie algebras over a fixed field, etc.
+
+
+
+
+
+
+
+
+\section{Computing pushforward}
+\label{section-pushforward}
+
+\noindent
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. Let $\mathcal{F}$
+be a presheaf on $\mathcal{X}$. Let $y \in \Ob(\mathcal{Y})$.
+We can compute $f_*\mathcal{F}(y)$ in the following way. Suppose that
+$y$ lies over the scheme $V$ and using the $2$-Yoneda lemma think
+of $y$ as a $1$-morphism. Consider the projection
+$$
+\text{pr} :
+(\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}
+\longrightarrow
+\mathcal{X}
+$$
+Then we have a canonical identification
+\begin{equation}
+\label{equation-pushforward}
+f_*\mathcal{F}(y) = \Gamma\Big(
+(\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X},
+\ \text{pr}^{-1}\mathcal{F}\Big)
+\end{equation}
+Namely, objects of the $2$-fibre product are triples
+$(h : U \to V, x, f(x) \to h^*y)$. Dropping the $h$ from the
+notation we see that this is equivalent to the data of an object
+$x$ of $\mathcal{X}$ and a morphism $\alpha : f(x) \to y$ of $\mathcal{Y}$.
+Since $f_*\mathcal{F}(y) = \lim_{f(x) \to y} \mathcal{F}(x)$ by definition
+the equality follows.
+
+\medskip\noindent
+As a consequence we have the following ``base change'' result for
+pushforwards. This result is trivial and hinges on the fact that
+we are using ``big'' sites.
+
+\begin{lemma}
+\label{lemma-base-change}
+Let $S$ be a scheme. Let
+$$
+\xymatrix{
+\mathcal{Y}' \times_\mathcal{Y} \mathcal{X} \ar[r]_{g'} \ar[d]_{f'} &
+\mathcal{X} \ar[d]^f \\
+\mathcal{Y}' \ar[r]^g & \mathcal{Y}
+}
+$$
+be a $2$-cartesian diagram of categories fibred in groupoids over $S$.
+Then we have a canonical isomorphism
+$$
+g^{-1}f_*\mathcal{F} \longrightarrow f'_*(g')^{-1}\mathcal{F}
+$$
+functorial in the presheaf $\mathcal{F}$ on $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Given an object $y'$ of $\mathcal{Y}'$ over $V$
+there is an equivalence
+$$
+(\Sch/V)_{fppf} \times_{g(y'), \mathcal{Y}} \mathcal{X}
+=
+(\Sch/V)_{fppf} \times_{y', \mathcal{Y}'}
+(\mathcal{Y}' \times_\mathcal{Y} \mathcal{X})
+$$
+Hence by (\ref{equation-pushforward}) a bijection
+$g^{-1}f_*\mathcal{F}(y') \to f'_*(g')^{-1}\mathcal{F}(y')$.
+We omit the verification that this is compatible with restriction
+mappings.
+\end{proof}
+
+\noindent
+In the case of a representable morphism of categories fibred in groupoids
+this formula (\ref{equation-pushforward}) simplifies. We suggest the
+reader skip the rest of this section.
+
+\begin{lemma}
+\label{lemma-representable}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. The following are
+equivalent
+\begin{enumerate}
+\item $f$ is representable, and
+\item for every $y \in \Ob(\mathcal{Y})$ the functor
+$\mathcal{X}^{opp} \to \textit{Sets}$,
+$x \mapsto \Mor_\mathcal{Y}(f(x), y)$
+is representable.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+According to the discussion in
+Algebraic Stacks, Section \ref{algebraic-section-representable-morphism}
+we see that $f$ is representable if and only if
+for every $y \in \Ob(\mathcal{Y})$
+lying over $U$ the $2$-fibre product
+$(\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$
+is representable, i.e., of the form $(\Sch/V_y)_{fppf}$ for some
+scheme $V_y$ over $U$. Objects in this $2$-fibre products are triples
+$(h : V \to U, x, \alpha : f(x) \to h^*y)$ where $\alpha$ lies
+over $\text{id}_V$. Dropping the $h$ from the notation we see that this
+is equivalent to the data of an object $x$ of $\mathcal{X}$ and a
+morphism $f(x) \to y$. Hence the $2$-fibre product is
+representable by $V_y$ and $f(x_y) \to y$ where $x_y$ is an object
+of $\mathcal{X}$ over $V_y$ if and only if the functor in (2) is representable
+by $x_y$ with universal object a map $f(x_y) \to y$.
+\end{proof}
+
+\noindent
+Let
+$$
+\xymatrix{
+\mathcal{X} \ar[rr]_f \ar[rd]_p & &  \mathcal{Y} \ar[ld]^q \\
+& (\Sch/S)_{fppf}
+}
+$$
+be a $1$-morphism of categories fibred in groupoids. Assume $f$ is
+representable. For every $y \in \Ob(\mathcal{Y})$ we choose
+an object $u(y) \in \Ob(\mathcal{X})$ representing the functor
+$x \mapsto \Mor_\mathcal{Y}(f(x), y)$ of
+Lemma \ref{lemma-representable}
+(this is possible by the axiom of choice).
+The objects come with canonical morphisms $f(u(y)) \to y$ by
+construction.
+For every morphism $\beta : y' \to y$ in $\mathcal{Y}$ we obtain a unique
+morphism $u(\beta) : u(y') \to u(y)$ in $\mathcal{X}$ such that the diagram
+$$
+\xymatrix{
+f(u(y')) \ar[d] \ar[rr]_{f(u(\beta))} & & f(u(y)) \ar[d] \\
+y' \ar[rr] & & y
+}
+$$
+commutes. In other words, $u : \mathcal{Y} \to \mathcal{X}$ is a functor.
+In fact, we can say a little bit more. Namely, suppose that
+$V' = q(y')$, $V = q(y)$, $U' = p(u(y'))$ and $U = p(u(y))$. Then
+$$
+\xymatrix{
+U' \ar[rr]_{p(u(\beta))} \ar[d] & & U \ar[d] \\
+V' \ar[rr]^{q(\beta)} & & V
+}
+$$
+is a fibre product square. This is true because $U' \to U$ represents
+the base change
+$(\Sch/V')_{fppf} \times_{y', \mathcal{Y}} \mathcal{X} \to
+(\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$
+of $V' \to V$.
+
+\begin{lemma}
+\label{lemma-representable-pushforward}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a representable $1$-morphism of
+categories fibred in groupoids over $(\Sch/S)_{fppf}$. Let
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+Then the functor $u : \mathcal{Y}_\tau \to \mathcal{X}_\tau$ is continuous
+and defines a morphism of sites $\mathcal{X}_\tau \to \mathcal{Y}_\tau$
+which induces the same morphism of topoi
+$\Sh(\mathcal{X}_\tau) \to \Sh(\mathcal{Y}_\tau)$
+as the morphism $f$ constructed in
+Lemma \ref{lemma-functoriality-sheaves}.
+Moreover, $f_*\mathcal{F}(y) = \mathcal{F}(u(y))$ for any presheaf
+$\mathcal{F}$ on $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Let $\{y_i \to y\}$ be a $\tau$-covering in $\mathcal{Y}$. By definition
+this simply means that $\{q(y_i) \to q(y)\}$ is a $\tau$-covering of
+schemes. By the final remark above the lemma we see that
+$\{p(u(y_i)) \to p(u(y))\}$ is the base change of the $\tau$-covering
+$\{q(y_i) \to q(y)\}$ by $p(u(y)) \to q(y)$, hence is itself a
+$\tau$-covering by the axioms of a site. Hence $\{u(y_i) \to u(y)\}$
+is a $\tau$-covering of $\mathcal{X}$. This proves that $u$ is
+continuous.
+
+\medskip\noindent
+Let's use the notation $u_p, u_s, u^p, u^s$ of
+Sites, Sections \ref{sites-section-functoriality-PSh} and
+\ref{sites-section-continuous-functors}.
+If we can show the final assertion of the lemma, then we see that
+$f_* = u^p = u^s$ (by continuity of $u$ seen above) and hence by adjointness
+$f^{-1} = u_s$ which will prove $u_s$ is exact, hence that $u$ determines
+a morphism of sites, and the equality will be clear as well.
+To see that $f_*\mathcal{F}(y) = \mathcal{F}(u(y))$ note that by
+definition
+$$
+f_*\mathcal{F}(y) = ({}_pf\mathcal{F})(y) =
+\lim_{f(x) \to y} \mathcal{F}(x).
+$$
+Since $u(y)$ is a final object in the category the limit is taken
+over we conclude.
+\end{proof}
+
+
+
+
+
+\section{The structure sheaf}
+\label{section-structure-sheaf}
+
+\noindent
+Let $\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category
+fibred in groupoids. The 2-category of categories fibred in groupoids over
+$(\Sch/S)_{fppf}$ has a final object, namely,
+$\text{id} : (\Sch/S)_{fppf} \to (\Sch/S)_{fppf}$
+and $p$ is a $1$-morphism from $\mathcal{X}$ to this final object.
+Hence any presheaf $\mathcal{G}$ on $(\Sch/S)_{fppf}$ gives a
+presheaf $p^{-1}\mathcal{G}$ on $\mathcal{X}$ defined by the rule
+$p^{-1}\mathcal{G}(x) = \mathcal{G}(p(x))$. Moreover, the discussion in
+Section \ref{section-sheaves}
+shows that $p^{-1}\mathcal{G}$ is a $\tau$ sheaf whenever
+$\mathcal{G}$ is a $\tau$-sheaf.
+
+\medskip\noindent
+Recall that the site $(\Sch/S)_{fppf}$ is a ringed site
+with structure sheaf $\mathcal{O}$ defined by the rule
+$$
+(\Sch/S)^{opp} \longrightarrow \textit{Rings},
+\quad
+U/S \longmapsto \Gamma(U, \mathcal{O}_U)
+$$
+see
+Descent, Definition \ref{descent-definition-structure-sheaf}.
+
+\begin{definition}
+\label{definition-structure-sheaf}
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category
+fibred in groupoids. The
+{\it structure sheaf of $\mathcal{X}$} is the sheaf of rings
+$\mathcal{O}_\mathcal{X} = p^{-1}\mathcal{O}$.
+\end{definition}
+
+\noindent
+For an object $x$ of $\mathcal{X}$ lying over $U$ we have
+$\mathcal{O}_\mathcal{X}(x) = \mathcal{O}(U) = \Gamma(U, \mathcal{O}_U)$.
+Needless to say $\mathcal{O}_\mathcal{X}$ is also a Zariski, \'etale,
+smooth, and syntomic sheaf, and hence each of the sites
+$\mathcal{X}_{Zar}$, $\mathcal{X}_\etale$, $\mathcal{X}_{smooth}$,
+$\mathcal{X}_{syntomic}$, and $\mathcal{X}_{fppf}$ is a ringed site.
+This construction is functorial as well.
+
+\begin{lemma}
+\label{lemma-functoriality-structure-sheaf}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. Let
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+There is a canonical identification
+$f^{-1}\mathcal{O}_\mathcal{X} = \mathcal{O}_\mathcal{Y}$
+which turns
+$f : \Sh(\mathcal{X}_\tau) \to \Sh(\mathcal{Y}_\tau)$
+into a morphism of ringed topoi.
+\end{lemma}
+
+\begin{proof}
+Denote $p : \mathcal{X} \to (\Sch/S)_{fppf}$ and
+$q : \mathcal{Y} \to (\Sch/S)_{fppf}$ the structural functors.
+Then $q = p \circ f$, hence $q^{-1} = f^{-1} \circ p^{-1}$ by
+Lemma \ref{lemma-1-morphisms-presheaves}.
+The result follows.
+\end{proof}
+
+\begin{remark}
+\label{remark-flat}
+In the situation of
+Lemma \ref{lemma-functoriality-structure-sheaf}
+the morphism of ringed topoi
+$f : \Sh(\mathcal{X}_\tau) \to \Sh(\mathcal{Y}_\tau)$
+is flat as is clear from the equality
+$f^{-1}\mathcal{O}_\mathcal{X} = \mathcal{O}_\mathcal{Y}$.
+This is a bit counter intuitive, for example because a closed
+immersion of algebraic stacks is typically not flat (as a morphism of
+algebraic stacks).
+However, exactly the same thing happens when taking a closed
+immersion $i : X \to Y$ of schemes: in this case the associated
+morphism of big $\tau$-sites
+$i : (\Sch/X)_\tau \to (\Sch/Y)_\tau$
+also is flat.
+\end{remark}
+
+
+
+
+\section{Sheaves of modules}
+\label{section-modules}
+
+\noindent
+Since we have a structure sheaf we have modules.
+
+\begin{definition}
+\label{definition-modules}
+Let $\mathcal{X}$ be a category fibred in groupoids over
+$(\Sch/S)_{fppf}$.
+\begin{enumerate}
+\item A {\it presheaf of modules on $\mathcal{X}$} is a
+presheaf of $\mathcal{O}_\mathcal{X}$-modules. The category of
+presheaves of modules is denoted $\textit{PMod}(\mathcal{O}_\mathcal{X})$.
+\item We say a presheaf of modules $\mathcal{F}$ is an
+{\it $\mathcal{O}_\mathcal{X}$-module}, or more precisely a
+{\it sheaf of $\mathcal{O}_\mathcal{X}$-modules} if $\mathcal{F}$
+is an fppf sheaf. The category of $\mathcal{O}_\mathcal{X}$-modules
+is denoted $\textit{Mod}(\mathcal{O}_\mathcal{X})$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+These (pre)sheaves of modules occur in the literature as {\it (pre)sheaves
+of $\mathcal{O}_\mathcal{X}$-modules on the big fppf site of $\mathcal{X}$}.
+We will occasionally use this terminology if we want to distinguish these
+categories from others. We will also encounter presheaves of modules which
+are sheaves in the Zariski, \'etale, smooth, or syntomic topologies
+(without necessarily being sheaves). If need be these will be denoted
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+and similarly for the other topologies.
+
+\medskip\noindent
+Next, we address functoriality -- first for presheaves of modules. Let
+$$
+\xymatrix{
+\mathcal{X} \ar[rr]_f \ar[rd]_p & &  \mathcal{Y} \ar[ld]^q \\
+& (\Sch/S)_{fppf}
+}
+$$
+be a $1$-morphism of categories fibred in groupoids.
+The functors $f^{-1}$, $f_*$ on abelian presheaves extend to functors
+\begin{equation}
+\label{equation-functoriality-presheaves-modules}
+f^{-1} :
+\textit{PMod}(\mathcal{O}_\mathcal{Y})
+\longrightarrow
+\textit{PMod}(\mathcal{O}_\mathcal{X})
+\quad\text{and}\quad
+f_* :
+\textit{PMod}(\mathcal{O}_\mathcal{Y})
+\longrightarrow
+\textit{PMod}(\mathcal{O}_\mathcal{X})
+\end{equation}
+This is immediate for $f^{-1}$ because
+$f^{-1}\mathcal{G}(x) = \mathcal{G}(f(x))$ which is a module over
+$\mathcal{O}_\mathcal{Y}(f(x)) = \mathcal{O}(q(f(x))) = \mathcal{O}(p(x)) =
+\mathcal{O}_\mathcal{X}(x)$. Alternatively it follows because
+$f^{-1}\mathcal{O}_\mathcal{Y} = \mathcal{O}_\mathcal{X}$
+and because $f^{-1}$ commutes with limits (on presheaves).
+Since $f_*$ is a right adjoint it commutes with all limits
+(on presheaves) in particular products. Hence we can extend
+$f_*$ to a functor on presheaves of modules as in the proof of
+Modules on Sites, Lemma \ref{sites-modules-lemma-pushforward-module}.
+We claim that the functors (\ref{equation-functoriality-presheaves-modules})
+form an adjoint pair of functors:
+$$
+\Mor_{\textit{PMod}(\mathcal{O}_\mathcal{X})}(
+f^{-1}\mathcal{G}, \mathcal{F})
+=
+\Mor_{\textit{PMod}(\mathcal{O}_\mathcal{Y})}(
+\mathcal{G}, f_*\mathcal{F}).
+$$
+As $f^{-1}\mathcal{O}_\mathcal{Y} = \mathcal{O}_\mathcal{X}$
+this follows from
+Modules on Sites, Lemma \ref{sites-modules-lemma-adjoint-push-pull-modules}
+by endowing $\mathcal{X}$ and $\mathcal{Y}$ with the chaotic
+topology.
+
+\medskip\noindent
+Next, we discuss functoriality for modules, i.e., for sheaves of modules
+in the fppf topology. Denote by $f$ also the induced morphism of ringed
+topoi, see
+Lemma \ref{lemma-functoriality-structure-sheaf}
+(for the fppf topologies right now). Note that the functors
+$f^{-1}$ and $f_*$ of (\ref{equation-functoriality-presheaves-modules})
+preserve the subcategories of sheaves of modules, see
+Lemma \ref{lemma-functoriality-sheaves}.
+Hence it follows immediately that
+\begin{equation}
+\label{equation-functoriality-sheaves-modules}
+f^{-1} :
+\textit{Mod}(\mathcal{O}_\mathcal{Y})
+\longrightarrow
+\textit{Mod}(\mathcal{O}_\mathcal{X})
+\quad\text{and}\quad
+f_* :
+\textit{Mod}(\mathcal{O}_\mathcal{Y})
+\longrightarrow
+\textit{Mod}(\mathcal{O}_\mathcal{X})
+\end{equation}
+form an adjoint pair of functors:
+$$
+\Mor_{\textit{Mod}(\mathcal{O}_\mathcal{X})}(
+f^{-1}\mathcal{G}, \mathcal{F})
+=
+\Mor_{\textit{Mod}(\mathcal{O}_\mathcal{Y})}(
+\mathcal{G}, f_*\mathcal{F}).
+$$
+By uniqueness of adjoints we conclude that
+$f^* = f^{-1}$ where $f^*$ is as defined in
+Modules on Sites, Section \ref{sites-modules-section-functoriality-modules}
+for the morphism of ringed topoi $f$ above. Of course we could have
+seen this directly because
+$f^*(-) = f^{-1}(-) \otimes_{f^{-1}\mathcal{O}_\mathcal{Y}}
+\mathcal{O}_\mathcal{X}$ and because
+$f^{-1}\mathcal{O}_\mathcal{Y} = \mathcal{O}_\mathcal{X}$.
+
+\medskip\noindent
+Similarly for sheaves of modules in the Zariski, \'etale, smooth, syntomic
+topology.
+
+
+
+\section{Representable categories}
+\label{section-representable}
+
+\noindent
+In this short section we compare our definitions with what happens
+in case the algebraic stacks in question are representable.
+
+\begin{lemma}
+\label{lemma-compare-with-scheme}
+Let $S$ be a scheme. Let $\mathcal{X}$ be a category fibred
+in groupoids over $(\Sch/S)$. Assume $\mathcal{X}$ is representable
+by a scheme $X$. For $\tau \in \{Zar,\linebreak[0] \etale,\linebreak[0]
+smooth,\linebreak[0] syntomic,\linebreak[0] fppf\}$
+there is a canonical equivalence
+$$
+(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X}) =
+((\Sch/X)_\tau, \mathcal{O}_X)
+$$
+of ringed sites.
+\end{lemma}
+
+\begin{proof}
+This follows by choosing an equivalence
+$(\Sch/X)_\tau \to \mathcal{X}$ of categories fibred in groupoids
+over $(\Sch/S)_{fppf}$ and using the functoriality of
+the construction $\mathcal{X} \leadsto \mathcal{X}_\tau$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-with-morphism-of-schemes}
+Let $S$ be a scheme. Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism
+of categories fibred in groupoids over $S$.
+Assume $\mathcal{X}$, $\mathcal{Y}$ are representable by schemes
+$X$, $Y$. Let $f : X \to Y$ be the morphism of schemes corresponding
+to $f$. For $\tau \in \{Zar,\linebreak[0] \etale,\linebreak[0]
+smooth,\linebreak[0] syntomic,\linebreak[0] fppf\}$
+the morphism of ringed topoi
+$f : (\Sh(\mathcal{X}_\tau), \mathcal{O}_\mathcal{X}) \to
+(\Sh(\mathcal{Y}_\tau), \mathcal{O}_\mathcal{Y})$
+agrees with the morphism of ringed topoi
+$f : (\Sh((\Sch/X)_\tau), \mathcal{O}_X) \to 
+(\Sh((\Sch/Y)_\tau), \mathcal{O}_Y)$ via the identifications of
+Lemma \ref{lemma-compare-with-scheme}.
+\end{lemma}
+
+\begin{proof}
+Follows by unwinding the definitions.
+\end{proof}
+
+
+
+
+\section{Restriction}
+\label{section-restriction}
+
+
+\noindent
+A trivial but useful observation is that the localization
+of a category fibred in groupoids at an object
+is equivalent to the big site of the scheme it lies over.
+
+\begin{lemma}
+\label{lemma-localizing}
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category fibred
+in groupoids. Let $\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+Let $x \in \Ob(\mathcal{X})$ lying over $U = p(x)$.
+The functor $p$ induces an equivalence of sites
+$\mathcal{X}_\tau/x \to (\Sch/U)_\tau$.
+\end{lemma}
+
+\begin{proof}
+Special case of Stacks, Lemma \ref{stacks-lemma-localizing}.
+\end{proof}
+
+\noindent
+We use the lemma above to talk about the pullback and the restriction
+of a (pre)sheaf to a scheme.
+
+\begin{definition}
+\label{definition-pullback}
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category fibred
+in groupoids. Let $x \in \Ob(\mathcal{X})$ lying over $U = p(x)$.
+Let $\mathcal{F}$ be a presheaf on $\mathcal{X}$.
+\begin{enumerate}
+\item The {\it pullback $x^{-1}\mathcal{F}$ of $\mathcal{F}$} is the
+restriction $\mathcal{F}|_{(\mathcal{X}/x)}$ viewed as a presheaf on
+$(\Sch/U)_{fppf}$ via the equivalence
+$\mathcal{X}/x \to (\Sch/U)_{fppf}$ of
+Lemma \ref{lemma-localizing}.
+\item The {\it restriction of $\mathcal{F}$ to $U_\etale$}
+is $x^{-1}\mathcal{F}|_{U_\etale}$, abusively written
+$\mathcal{F}|_{U_\etale}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+This notation makes sense because to the object $x$ the $2$-Yoneda lemma, see
+Algebraic Stacks, Section \ref{algebraic-section-2-yoneda}
+associates a $1$-morphism $x : (\Sch/U)_{fppf} \to \mathcal{X}/x$
+which is quasi-inverse to $p : \mathcal{X}/x \to (\Sch/U)_{fppf}$.
+Hence $x^{-1}\mathcal{F}$ truly is the pullback of $\mathcal{F}$ via this
+$1$-morphism. In particular, by the material above, if $\mathcal{F}$
+is a sheaf (or a Zariski, \'etale, smooth, syntomic sheaf), then
+$x^{-1}\mathcal{F}$ is a sheaf on $(\Sch/U)_{fppf}$ (or on
+$(\Sch/U)_{Zar}$, $(\Sch/U)_\etale$,
+$(\Sch/U)_{smooth}$, $(\Sch/U)_{syntomic}$).
+
+\medskip\noindent
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category fibred
+in groupoids. Let $\varphi : x \to y$ be a morphism of $\mathcal{X}$
+lying over the morphism of schemes $a : U \to V$.
+Recall that $a$ induces a morphism of small \'etale
+sites $a_{small} : U_\etale \to V_\etale$, see
+\'Etale Cohomology, Section \ref{etale-cohomology-section-functoriality}.
+Let $\mathcal{F}$ be a presheaf on $\mathcal{X}$.
+Let $\mathcal{F}|_{U_\etale}$ and
+$\mathcal{F}|_{V_\etale}$ be the restrictions of $\mathcal{F}$
+via $x$ and $y$. There is a natural {\it comparison} map
+\begin{equation}
+\label{equation-comparison-push}
+c_\varphi :
+\mathcal{F}|_{V_\etale}
+\longrightarrow
+a_{small, *}(\mathcal{F}|_{U_\etale})
+\end{equation}
+of presheaves on $U_\etale$. Namely, if $V' \to V$ is \'etale,
+set $U' = V' \times_V U$ and define $c_\varphi$ on sections over $V'$
+via
+$$
+\xymatrix{
+a_{small, *}(\mathcal{F}|_{U_\etale})(V') &
+\mathcal{F}|_{U_\etale}(U') \ar@{=}[l] &
+\mathcal{F}(x') \ar@{=}[l] \\
+\mathcal{F}|_{V_\etale}(V') \ar@{=}[rr] \ar[u]^{c_\varphi} &
+&
+\mathcal{F}(y') \ar[u]_{\mathcal{F}(\varphi')}
+}
+$$
+Here $\varphi' : x' \to y'$ is a morphism of $\mathcal{X}$
+fitting into a commutative diagram
+$$
+\vcenter{
+\xymatrix{
+x' \ar[r] \ar[d]_{\varphi'} & x \ar[d]^\varphi \\
+y' \ar[r] & y
+}
+}
+\quad\text{lying over}\quad
+\vcenter{
+\xymatrix{
+U' \ar[r] \ar[d] & U \ar[d]^a \\
+V' \ar[r] & V
+}
+}
+$$
+The existence and uniqueness of $\varphi'$ follow from the axioms
+of a category fibred in groupoids.
+We omit the verification that $c_\varphi$ so defined is indeed a map
+of presheaves (i.e., compatible with restriction mappings) and that
+it is functorial in $\mathcal{F}$. In case $\mathcal{F}$ is a sheaf for the
+\'etale topology we obtain a {\it comparison} map
+\begin{equation}
+\label{equation-comparison}
+c_\varphi : a_{small}^{-1}(\mathcal{F}|_{V_\etale})
+\longrightarrow
+\mathcal{F}|_{U_\etale}
+\end{equation}
+which is also denoted $c_\varphi$ as indicated (this is the customary abuse
+of notation in not distinguishing between adjoint maps).
+
+\begin{lemma}
+\label{lemma-comparison}
+Let $\mathcal{F}$ be an \'etale sheaf on $\mathcal{X} \to (\Sch/S)_{fppf}$.
+\begin{enumerate}
+\item If $\varphi : x \to y$ and $\psi : y \to z$
+are morphisms of $\mathcal{X}$ lying over $a : U \to V$ and
+$b : V \to W$, then the composition
+$$
+a_{small}^{-1}(b_{small}^{-1} (\mathcal{F}|_{W_\etale}))
+\xrightarrow{a_{small}^{-1}c_\psi}
+a_{small}^{-1}(\mathcal{F}|_{V_\etale})
+\xrightarrow{c_\varphi}
+\mathcal{F}|_{U_\etale}
+$$
+is equal to $c_{\psi \circ \varphi}$ via the identification
+$$
+(b \circ a)_{small}^{-1}(\mathcal{F}|_{W_\etale}) =
+a_{small}^{-1}(b_{small}^{-1} (\mathcal{F}|_{W_\etale})).
+$$
+\item If $\varphi : x \to y$ lies over an \'etale morphism of schemes
+$a : U \to V$, then (\ref{equation-comparison}) is an isomorphism.
+\item Suppose $f : \mathcal{Y} \to \mathcal{X}$ is a $1$-morphism of
+categories fibred in groupoids over $(\Sch/S)_{fppf}$ and $y$ is
+an object of $\mathcal{Y}$ lying over the scheme $U$ with image
+$x = f(y)$. Then there is a canonical identification
+$f^{-1}\mathcal{F}|_{U_\etale} = \mathcal{F}|_{U_\etale}$.
+\item Moreover, given $\psi : y' \to y$ in $\mathcal{Y}$ lying over
+$a : U' \to U$ the comparison map
+$c_\psi : a_{small}^{-1}(F^{-1}\mathcal{F}|_{U_\etale}) \to
+F^{-1}\mathcal{F}|_{U'_\etale}$ is equal to the
+comparison map $c_{f(\psi)} : a_{small}^{-1}\mathcal{F}|_{U_\etale}
+\to \mathcal{F}|_{U'_\etale}$ via the identifications in (3).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The verification of these properties is omitted.
+\end{proof}
+
+\noindent
+Next, we turn to the restriction of (pre)sheaves of modules.
+
+\begin{lemma}
+\label{lemma-localizing-structure-sheaf}
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category fibred
+in groupoids. Let $\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+Let $x \in \Ob(\mathcal{X})$ lying over $U = p(x)$.
+The equivalence of
+Lemma \ref{lemma-localizing}
+extends to an equivalence of ringed sites
+$(\mathcal{X}_\tau/x, \mathcal{O}_\mathcal{X}|_x) \to
+((\Sch/U)_\tau, \mathcal{O})$.
+\end{lemma}
+
+\begin{proof}
+This is immediate from the construction of the structure sheaves.
+\end{proof}
+
+\noindent
+Let $\mathcal{X}$ be a category fibred in groupoids over $(\Sch/S)_{fppf}$.
+Let $\mathcal{F}$ be a (pre)sheaf of modules on $\mathcal{X}$ as in
+Definition \ref{definition-modules}.
+Let $x$ be an object of $\mathcal{X}$ lying over $U$. Then
+Lemma \ref{lemma-localizing-structure-sheaf}
+guarantees that the restriction
+$x^{-1}\mathcal{F}$ is a (pre)sheaf of modules on $(\Sch/U)_{fppf}$.
+We will sometimes write $x^*\mathcal{F} = x^{-1}\mathcal{F}$ in this case.
+Similarly, if $\mathcal{F}$ is a sheaf for the Zariski, \'etale, smooth,
+or syntomic topology, then $x^{-1}\mathcal{F}$ is as well. Moreover, the
+restriction
+$\mathcal{F}|_{U_\etale} = x^{-1}\mathcal{F}|_{U_\etale}$
+to $U$ is a presheaf of $\mathcal{O}_{U_\etale}$-modules.
+If $\mathcal{F}$ is a sheaf for the \'etale topology, then
+$\mathcal{F}|_{U_\etale}$ is a sheaf of modules. Moreover,
+if $\varphi : x \to y$ is a morphism of $\mathcal{X}$ lying over
+$a : U \to V$ then the comparison map (\ref{equation-comparison})
+is compatible with $a_{small}^\sharp$ (see
+Descent, Remark \ref{descent-remark-change-topologies-ringed})
+and induces a {\it comparison} map
+\begin{equation}
+\label{equation-comparison-modules}
+c_\varphi : a_{small}^*(\mathcal{F}|_{V_\etale})
+\longrightarrow
+\mathcal{F}|_{U_\etale}
+\end{equation}
+of $\mathcal{O}_{U_\etale}$-modules.
+Note that the properties (1), (2), (3), and (4) of
+Lemma \ref{lemma-comparison}
+hold in the setting of \'etale sheaves of modules as well.
+We will use this in the following without further mention.
+
+\begin{lemma}
+\label{lemma-enough-points}
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category fibred
+in groupoids. Let $\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+The site $\mathcal{X}_\tau$ has enough points.
+\end{lemma}
+
+\begin{proof}
+By
+Sites, Lemma \ref{sites-lemma-enough-points-local}
+we have to show that there exists a family of objects $x$ of $\mathcal{X}$
+such that $\mathcal{X}_\tau/x$ has enough points and such that the sheaves
+$h_x^\#$ cover the final object of the category of sheaves.
+By
+Lemma \ref{lemma-localizing}
+and
+\'Etale Cohomology, Lemma \ref{etale-cohomology-lemma-points-fppf}
+we see that $\mathcal{X}_\tau/x$ has enough points for every object
+$x$ and we win.
+\end{proof}
+
+
+
+
+
+
+
+\section{Restriction to algebraic spaces}
+\label{section-restriction-algebraic-spaces}
+
+\noindent
+In this section we consider sheaves on categories representable by
+algebraic spaces. The following lemma is the analogue of
+Topologies, Lemma \ref{topologies-lemma-at-the-bottom-etale}
+for algebraic spaces.
+
+\begin{lemma}
+\label{lemma-compare}
+Let $S$ be a scheme. Let $\mathcal{X} \to (\Sch/S)_{fppf}$ be a category
+fibred in groupoids. Assume $\mathcal{X}$ is representable by an algebraic
+space $F$. Then there exists a continuous and cocontinuous functor
+$
+F_\etale \to \mathcal{X}_\etale
+$
+which induces a morphism of ringed sites
+$$
+\pi_F :
+(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+\longrightarrow
+(F_\etale, \mathcal{O}_F)
+$$
+and a morphism of ringed topoi
+$$
+i_F :
+(\Sh(F_\etale), \mathcal{O}_F)
+\longrightarrow
+(\Sh(\mathcal{X}_\etale), \mathcal{O}_\mathcal{X})
+$$
+such that $\pi_F \circ i_F = \text{id}$. Moreover $\pi_{F, *} = i_F^{-1}$.
+\end{lemma}
+
+\begin{proof}
+Choose an equivalence $j : \mathcal{S}_F \to \mathcal{X}$, see
+Algebraic Stacks, Sections \ref{algebraic-section-split} and
+\ref{algebraic-section-representable-by-algebraic-spaces}.
+An object of $F_\etale$ is a scheme $U$ together with an
+\'etale morphism $\varphi : U \to F$. Then $\varphi$ is an object
+of $\mathcal{S}_F$ over $U$. Hence $j(\varphi)$ is an object of
+$\mathcal{X}$ over $U$. In this way $j$ induces a functor
+$u : F_\etale \to \mathcal{X}$. It is clear that
+$u$ is continuous and cocontinuous for the \'etale topology on
+$\mathcal{X}$. Since $j$ is an equivalence, the functor $u$ is fully
+faithful. Also, fibre products and equalizers exist in $F_\etale$
+and $u$ commutes with them because these are computed on the level
+of underlying schemes in $F_\etale$. Thus
+Sites, Lemmas \ref{sites-lemma-when-shriek},
+\ref{sites-lemma-preserve-equalizers}, and
+\ref{sites-lemma-back-and-forth}
+apply. In particular $u$ defines a morphism of topoi
+$i_F : \Sh(F_\etale) \to \Sh(\mathcal{X}_\etale)$
+and there exists a left adjoint $i_{F, !}$ of $i_F^{-1}$ which commutes
+with fibre products and equalizers.
+
+\medskip\noindent
+We claim that $i_{F, !}$ is exact. If this is true, then we can define
+$\pi_F$ by the rules $\pi_F^{-1} = i_{F, !}$ and $\pi_{F, *} = i_F^{-1}$
+and everything is clear. To prove the claim, note that we already know
+that $i_{F, !}$
+is right exact and preserves fibre products. Hence it suffices to show
+that $i_{F, !}* = *$ where $*$ indicates the final object in the category
+of sheaves of sets. Let $U$ be a scheme and let
+$\varphi : U \to F$ be surjective and \'etale. Set $R = U \times_F U$.
+Then
+$$
+\xymatrix{
+h_R \ar@<1ex>[r] \ar@<-1ex>[r] & h_U \ar[r] & {*}
+}
+$$
+is a coequalizer diagram in $\Sh(F_\etale)$. Using the
+right exactness of $i_{F, !}$, using $i_{F, !} = (u_p\ )^\#$, and using
+Sites, Lemma \ref{sites-lemma-pullback-representable-presheaf}
+we see that
+$$
+\xymatrix{
+h_{u(R)} \ar@<1ex>[r] \ar@<-1ex>[r] & h_{u(U)} \ar[r] & i_{F, !}{*}
+}
+$$
+is a coequalizer diagram in $\Sh(F_\etale)$. Using that
+$j$ is an equivalence and that $F = U/R$ it follows that
+the coequalizer in $\Sh(\mathcal{X}_\etale)$ of the
+two maps $h_{u(R)} \to h_{u(U)}$ is $*$. We omit the proof that
+these morphisms are compatible with structure sheaves.
+\end{proof}
+
+\noindent
+Assume $\mathcal{X}$ is an algebraic stack represented by the
+algebraic space $F$.
+Let $j : \mathcal{S}_F \to \mathcal{X}$ be an equivalence and denote
+$u : F_\etale \to \mathcal{X}_\etale$ the
+functor of the proof of Lemma \ref{lemma-compare} above.
+Given a sheaf $\mathcal{F}$ on $\mathcal{X}_\etale$ we have
+$$
+\pi_{F, *}\mathcal{F}(U) = i_F^{-1}\mathcal{F}(U) = \mathcal{F}(u(U)).
+$$
+This is why we often think of $i_F^{-1}$ as a {\it restriction functor}
+similarly to
+Definition \ref{definition-pullback}
+and to the restriction of a sheaf on the big \'etale site of
+a scheme to the small \'etale site of a scheme. We often use the notation
+\begin{equation}
+\label{equation-restrict}
+\mathcal{F}|_{F_\etale} = i_F^{-1}\mathcal{F} = \pi_{F, *}\mathcal{F}
+\end{equation}
+in this situation.
+
+\begin{lemma}
+\label{lemma-compare-morphism}
+Let $S$ be a scheme. Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism
+of categories fibred in groupoids over $(\Sch/S)_{fppf}$. Assume
+$\mathcal{X}$, $\mathcal{Y}$ are representable by algebraic spaces $F$, $G$.
+Denote $f : F \to G$ the induced morphism of algebraic spaces, and
+$f_{small} : F_\etale \to G_\etale$
+the corresponding morphism of ringed topoi. Then
+$$
+\xymatrix{
+(\Sh(\mathcal{X}_\etale), \mathcal{O}_\mathcal{X})
+\ar[d]_{\pi_F} \ar[rr]_f & &
+(\Sh(\mathcal{Y}_\etale), \mathcal{O}_\mathcal{Y}) \ar[d]^{\pi_G} \\
+(\Sh(F_\etale), \mathcal{O}_F) \ar[rr]^{f_{small}} & &
+(\Sh(G_\etale), \mathcal{O}_G)
+}
+$$
+is a commutative diagram of ringed topoi.
+\end{lemma}
+
+\begin{proof}
+This is similar to
+Topologies, Lemma \ref{topologies-lemma-morphism-big-small-etale} (3)
+but there is a small snag due to the fact that $F \to G$ may not be
+representable by schemes. In particular we don't get a commutative diagram
+of ringed sites, but only a commutative diagram of ringed topoi.
+
+\medskip\noindent
+Before we start the proof proper, we choose equivalences
+$j : \mathcal{S}_F \to \mathcal{X}$ and
+$j' : \mathcal{S}_G \to \mathcal{Y}$ which induce functors
+$u : F_\etale \to \mathcal{X}$ and
+$u' : G_\etale \to \mathcal{Y}$ as in the proof of
+Lemma \ref{lemma-compare}. Because of the 2-functoriality of
+sheaves on categories fibred in groupoids over $\Sch_{fppf}$
+(see discussion in Section \ref{section-presheaves})
+we may assume that $\mathcal{X} = \mathcal{S}_F$ and
+$\mathcal{Y} = \mathcal{S}_G$ and that $f : \mathcal{S}_F \to \mathcal{S}_G$
+is the functor associated to the morphism $f : F \to G$. Correspondingly
+we will omit $u$ and $u'$ from the notation, i.e., given an object
+$U \to F$ of $F_\etale$ we denote $U/F$
+the corresponding object of $\mathcal{X}$. Similarly for $G$.
+
+\medskip\noindent
+Let $\mathcal{G}$ be a sheaf on $\mathcal{X}_\etale$.
+To prove (2) we compute $\pi_{G, *}f_*\mathcal{G}$ and
+$f_{small, *}\pi_{F, *}\mathcal{G}$. To do this let $V \to G$ be an object
+of $G_\etale$. Then
+$$
+\pi_{G, *}f_*\mathcal{G}(V) = f_*\mathcal{G}(V/G) =
+\Gamma\Big(
+(\Sch/V)_{fppf} \times_{\mathcal{Y}} \mathcal{X},
+\ \text{pr}^{-1}\mathcal{G}\Big)
+$$
+see (\ref{equation-pushforward}). The fibre product in the formula is
+$$
+(\Sch/V)_{fppf} \times_{\mathcal{Y}} \mathcal{X} =
+(\Sch/V)_{fppf} \times_{\mathcal{S}_G} \mathcal{S}_F =
+\mathcal{S}_{V \times_G F}
+$$
+i.e., it is the split category fibred in groupoids associated to the
+algebraic space $V \times_G F$. And $\text{pr}^{-1}\mathcal{G}$ is a
+sheaf on $\mathcal{S}_{V \times_G F}$ for the \'etale topology.
+
+\medskip\noindent
+In particular, if $V \times_G F$ is representable, i.e., if it is a scheme,
+then $\pi_{G, *}f_*\mathcal{G}(V) = \mathcal{G}(V \times_G F/F)$ and
+also
+$$
+f_{small, *}\pi_{F, *}\mathcal{G}(V) =
+\pi_{F, *}\mathcal{G}(V \times_G F) =
+\mathcal{G}(V \times_G F/F)
+$$
+which proves the desired equality in this special case.
+
+\medskip\noindent
+In general, choose a scheme $U$ and a surjective \'etale morphism
+$U \to V \times_G F$. Set $R = U \times_{V \times_G F} U$. Then
+$U/V \times_G F$ and $R/V \times_G F$ are objects of the fibre
+product category above. Since $\text{pr}^{-1}\mathcal{G}$ is a
+sheaf for the \'etale topology on $\mathcal{S}_{V \times_G F}$
+the diagram
+$$
+\xymatrix{
+\Gamma\Big(
+(\Sch/V)_{fppf} \times_{\mathcal{Y}} \mathcal{X},
+\ \text{pr}^{-1}\mathcal{G}\Big)
+\ar[r] &
+\text{pr}^{-1}\mathcal{G}(U/V \times_G F) \ar@<1ex>[r] \ar@<-1ex>[r] &
+\text{pr}^{-1}\mathcal{G}(R/V \times_G F)
+}
+$$
+is an equalizer diagram. Note that
+$\text{pr}^{-1}\mathcal{G}(U/V \times_G F) = \mathcal{G}(U/F)$
+and $\text{pr}^{-1}\mathcal{G}(R/V \times_G F) = \mathcal{G}(R/F)$
+by the definition of pullbacks. Moreover, by the material in
+Properties of Spaces, Section \ref{spaces-properties-section-etale-site}
+(especially,
+Properties of Spaces,
+Remark \ref{spaces-properties-remark-explain-equivalence} and
+Lemma \ref{spaces-properties-lemma-functoriality-etale-site})
+we see that there is an equalizer diagram
+$$
+\xymatrix{
+f_{small, *}\pi_{F, *}\mathcal{G}(V)
+\ar[r] &
+\pi_{F, *}\mathcal{G}(U/F) \ar@<1ex>[r] \ar@<-1ex>[r] &
+\pi_{F, *}\mathcal{G}(R/F)
+}
+$$
+Since we also have $\pi_{F, *}\mathcal{G}(U/F) = \mathcal{G}(U/F)$
+and $\pi_{F, *}\mathcal{G}(U/F) = \mathcal{G}(U/F)$
+we obtain a canonical identification
+$f_{small, *}\pi_{F, *}\mathcal{G}(V) = \pi_{G, *}f_*\mathcal{G}(V)$.
+We omit the proof that this is compatible with restriction mappings
+and that it is functorial in $\mathcal{G}$.
+\end{proof}
+
+\noindent
+Let $f : \mathcal{X} \to \mathcal{Y}$ and $f : F \to G$ be as in the
+second part of the lemma above. A consequence of the lemma, using
+(\ref{equation-restrict}), is that
+\begin{equation}
+\label{equation-compare-big-small}
+(f_*\mathcal{F})|_{G_\etale} =
+f_{small, *}(\mathcal{F}|_{F_\etale})
+\end{equation}
+for any sheaf $\mathcal{F}$ on $\mathcal{X}_\etale$.
+Moreover, if $\mathcal{F}$ is a sheaf of $\mathcal{O}$-modules, then
+(\ref{equation-compare-big-small}) is an isomorphism of
+$\mathcal{O}_G$-modules on $G_\etale$.
+
+\medskip\noindent
+Finally, suppose that we have a $2$-commutative diagram
+$$
+\xymatrix{
+\mathcal{U} \ar[r]^a \ar[dr]_f \drtwocell<\omit>{<-2>\varphi} &
+\mathcal{V} \ar[d]^g \\
+& \mathcal{X}
+}
+$$
+of $1$-morphisms of categories fibred in groupoids over $(\Sch/S)_{fppf}$,
+that $\mathcal{F}$ is a sheaf on $\mathcal{X}_\etale$,
+and that $\mathcal{U}, \mathcal{V}$ are representable by algebraic
+spaces $U, V$. Then we obtain a comparison map
+\begin{equation}
+\label{equation-comparison-algebraic-spaces}
+c_\varphi : a_{small}^{-1}(g^{-1}\mathcal{F}|_{V_\etale})
+\longrightarrow
+f^{-1}\mathcal{F}|_{U_\etale}
+\end{equation}
+where $a : U \to V$ denotes the morphism of algebraic spaces corresponding
+to $a$. This is the analogue of (\ref{equation-comparison}). We define
+$c_\varphi$ as the adjoint to the map
+$$
+g^{-1}\mathcal{F}|_{V_\etale}
+\longrightarrow
+a_{small, *}(f^{-1}\mathcal{F}|_{U_\etale}) =
+(a_*f^{-1}\mathcal{F})|_{V_\etale}
+$$
+(equality by (\ref{equation-compare-big-small}))
+which is the restriction to $V$ (\ref{equation-restrict}) of the map
+$$
+g^{-1}\mathcal{F} \to a_*a^{-1}g^{-1}\mathcal{F} = a_*f^{-1}\mathcal{F}
+$$
+where the last equality uses the $2$-commutativity of the diagram above.
+In case $\mathcal{F}$ is a sheaf of $\mathcal{O}_\mathcal{X}$-modules
+$c_\varphi$ induces a {\it comparison} map
+\begin{equation}
+\label{equation-comparison-algebraic-spaces-modules}
+c_\varphi : a_{small}^*(g^*\mathcal{F}|_{V_\etale})
+\longrightarrow
+f^*\mathcal{F}|_{U_\etale}
+\end{equation}
+of $\mathcal{O}_{U_\etale}$-modules.
+Note that the properties (1), (2), (3), and (4) of
+Lemma \ref{lemma-comparison}
+hold in this setting as well.
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Quasi-coherent modules}
+\label{section-quasi-coherent}
+
+\noindent
+At this point we can apply the general definition of a quasi-coherent
+module to the situation discussed in this chapter.
+
+\begin{definition}
+\label{definition-quasi-coherent}
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category fibred
+in groupoids. A {\it quasi-coherent module on $\mathcal{X}$}, or a
+{\it quasi-coherent $\mathcal{O}_\mathcal{X}$-module} is a
+quasi-coherent module on the ringed site
+$(\mathcal{X}_{fppf}, \mathcal{O}_\mathcal{X})$ as in
+Modules on Sites, Definition \ref{sites-modules-definition-site-local}.
+The category of quasi-coherent sheaves on $\mathcal{X}$
+is denoted $\QCoh(\mathcal{O}_\mathcal{X})$.
+\end{definition}
+
+\noindent
+If $\mathcal{X}$ is an algebraic stack, then this definition agrees with all
+definitions in the literature in the sense that $\QCoh(\mathcal{O}_\mathcal{X})$
+is equivalent (modulo set theoretic issues) to any variant of this category
+defined in the literature. For example, we will match our definition with
+the definition in \cite[Definition 6.1]{olsson_sheaves} in
+Cohomology on Stacks, Lemma \ref{lemma-quasi-coherent}.
+We will also see alternative constructions of this category later on.
+
+\medskip\noindent
+In general (as is the case for morphisms of schemes) the pushforward
+of quasi-coherent sheaf along a $1$-morphism is not quasi-coherent.
+Pullback does preserve quasi-coherence.
+
+\begin{lemma}
+\label{lemma-pullback-quasi-coherent}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$.
+The pullback functor
+$f^* = f^{-1} : \textit{Mod}(\mathcal{O}_\mathcal{Y}) \to
+\textit{Mod}(\mathcal{O}_\mathcal{X})$
+preserves quasi-coherent sheaves.
+\end{lemma}
+
+\begin{proof}
+This is a general fact, see
+Modules on Sites, Lemma \ref{sites-modules-lemma-local-pullback}.
+\end{proof}
+
+\noindent
+It turns out that quasi-coherent sheaves have a very simple
+characterization in terms of their pullbacks. See also
+Lemma \ref{lemma-quasi-coherent}
+for a characterization in terms of restrictions.
+
+\begin{lemma}
+\label{lemma-characterize-quasi-coherent}
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category
+fibred in groupoids. Let $\mathcal{F}$
+be a sheaf of $\mathcal{O}_\mathcal{X}$-modules. Then $\mathcal{F}$
+is quasi-coherent if and only if $x^*\mathcal{F}$ is a quasi-coherent
+sheaf on $(\Sch/U)_{fppf}$ for every object $x$ of
+$\mathcal{X}$ with $U = p(x)$.
+\end{lemma}
+
+\begin{proof}
+By
+Lemma \ref{lemma-pullback-quasi-coherent}
+the condition is necessary. Conversely, since $x^*\mathcal{F}$
+is just the restriction to $\mathcal{X}_{fppf}/x$ we see that it
+is sufficient directly from the definition of a quasi-coherent sheaf
+(and the fact that the notion of being quasi-coherent is an intrinsic
+property of sheaves of modules, see
+Modules on Sites, Section \ref{sites-modules-section-intrinsic}).
+\end{proof}
+
+\noindent
+Although there is a variant for the Zariski topology, it seems
+that the \'etale topology is the natural topology to use in the
+following definition.
+
+\begin{definition}
+\label{definition-locally-quasi-coherent}
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category
+fibred in groupoids. Let $\mathcal{F}$
+be a presheaf of $\mathcal{O}_\mathcal{X}$-modules.
+We say $\mathcal{F}$ is {\it locally quasi-coherent}\footnote{This is
+nonstandard notation.} if
+$\mathcal{F}$ is a sheaf for the \'etale topology and
+for every object $x$ of $\mathcal{X}$ the restriction
+$x^*\mathcal{F}|_{U_\etale}$ is a quasi-coherent
+sheaf. Here $U = p(x)$.
+\end{definition}
+
+\noindent
+We use $\textit{LQCoh}(\mathcal{O}_\mathcal{X})$ to indicate the category of
+locally quasi-coherent modules. We now have the following diagram
+of categories of modules
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_\mathcal{X}) \ar[r] \ar[d] &
+\textit{Mod}(\mathcal{O}_\mathcal{X}) \ar[d] \\
+\textit{LQCoh}(\mathcal{O}_\mathcal{X}) \ar[r] &
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+}
+$$
+where the arrows are strictly full embeddings.
+It turns out that many results for quasi-coherent sheaves have a
+counter part for locally quasi-coherent modules. Moreover, from many
+points of view (as we shall see later) this is a natural category to consider.
+For example the quasi-coherent sheaves are exactly those
+locally quasi-coherent modules that are ``cartesian'', i.e., satisfy
+the second condition of the lemma below.
+
+\begin{lemma}
+\label{lemma-quasi-coherent}
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category
+fibred in groupoids. Let $\mathcal{F}$
+be a presheaf of $\mathcal{O}_\mathcal{X}$-modules. Then $\mathcal{F}$
+is quasi-coherent if and only if the following two conditions hold
+\begin{enumerate}
+\item $\mathcal{F}$ is locally quasi-coherent, and
+\item for any morphism $\varphi : x \to y$ of $\mathcal{X}$ lying over
+$f : U \to V$ the comparison map
+$c_\varphi : f_{small}^*\mathcal{F}|_{V_\etale} \to
+\mathcal{F}|_{U_\etale}$ of
+(\ref{equation-comparison-modules}) is an isomorphism.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume $\mathcal{F}$ is quasi-coherent. Then $\mathcal{F}$ is a sheaf
+for the fppf topology, hence a sheaf for the \'etale topology. Moreover,
+any pullback of $\mathcal{F}$ to a ringed topos is quasi-coherent, hence
+the restrictions $x^*\mathcal{F}|_{U_\etale}$ are quasi-coherent.
+This proves $\mathcal{F}$ is locally quasi-coherent.
+Let $y$ be an object of $\mathcal{X}$ with $V = p(y)$.
+We have seen that $\mathcal{X}/y = (\Sch/V)_{fppf}$. By
+Descent, Proposition \ref{descent-proposition-equivalence-quasi-coherent}
+it follows that $y^*\mathcal{F}$ is the quasi-coherent module
+associated to a (usual) quasi-coherent module $\mathcal{F}_V$ on
+the scheme $V$. Hence certainly the comparison maps
+(\ref{equation-comparison-modules}) are isomorphisms.
+
+\medskip\noindent
+Conversely, suppose that $\mathcal{F}$ satisfies (1) and (2).
+Let $y$ be an object of $\mathcal{X}$ with $V = p(y)$. Denote
+$\mathcal{F}_V$ the quasi-coherent module on
+the scheme $V$ corresponding to the restriction
+$y^*\mathcal{F}|_{V_\etale}$ which is quasi-coherent by
+assumption (1), see
+Descent, Proposition \ref{descent-proposition-equivalence-quasi-coherent}.
+Condition (2) now signifies that the restrictions
+$x^*\mathcal{F}|_{U_\etale}$ for $x$ over $y$ are each
+isomorphic to the (\'etale sheaf associated to the) pullback of $\mathcal{F}_V$
+via the corresponding morphism of schemes $U \to V$.
+Hence $y^*\mathcal{F}$ is the sheaf on $(\Sch/V)_{fppf}$
+associated to $\mathcal{F}_V$. Hence it is quasi-coherent (by
+Descent, Proposition \ref{descent-proposition-equivalence-quasi-coherent}
+again) and we see that $\mathcal{F}$ is quasi-coherent on $\mathcal{X}$ by
+Lemma \ref{lemma-characterize-quasi-coherent}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullback-lqc}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. The pullback functor
+$f^* = f^{-1} :
+\textit{Mod}(\mathcal{Y}_\etale, \mathcal{O}_\mathcal{Y})
+\to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+preserves locally quasi-coherent sheaves.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{G}$ be locally quasi-coherent on $\mathcal{Y}$.
+Choose an object $x$ of $\mathcal{X}$ lying over the scheme $U$.
+The restriction $x^*f^*\mathcal{G}|_{U_\etale}$ equals
+$(f \circ x)^*\mathcal{G}|_{U_\etale}$
+hence is a quasi-coherent sheaf by assumption on $\mathcal{G}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lqc-colimits}
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category fibred in
+groupoids.
+\begin{enumerate}
+\item The category $\textit{LQCoh}(\mathcal{O}_\mathcal{X})$
+has colimits and they agree with colimits in the category
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$.
+\item The category $\textit{LQCoh}(\mathcal{O}_\mathcal{X})$
+is abelian with kernels and cokernels computed in
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$,
+in other words the inclusion functor is exact.
+\item Given a short exact sequence
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$ of
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+if two out of three are locally quasi-coherent so is the third.
+\item Given $\mathcal{F}, \mathcal{G}$ in
+$\textit{LQCoh}(\mathcal{O}_\mathcal{X})$
+the tensor product $\mathcal{F} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{G}$
+in $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+is an object of $\textit{LQCoh}(\mathcal{O}_\mathcal{X})$.
+\item Given $\mathcal{F}, \mathcal{G}$ in
+$\textit{LQCoh}(\mathcal{O}_\mathcal{X})$
+with $\mathcal{F}$ locally of finite presentation on
+$\mathcal{X}_\etale$ the sheaf
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+in $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+is an object of $\textit{LQCoh}(\mathcal{O}_\mathcal{X})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Each of these statements follows from the corresponding statement of
+Descent, Lemma \ref{descent-lemma-equivalence-quasi-coherent-limits}.
+For example, suppose that
+$\mathcal{I} \to \textit{LQCoh}(\mathcal{O}_\mathcal{X})$,
+$i \mapsto \mathcal{F}_i$ is a diagram.
+Consider the object $\mathcal{F} = \colim_i \mathcal{F}_i$ of
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$.
+For any object $x$ of $\mathcal{X}$ with $U = p(x)$ the pullback functor
+$x^*$ commutes with all colimits as it is a left adjoint. Hence
+$x^*\mathcal{F} = \colim_i x^*\mathcal{F}_i$. Similarly we have
+$x^*\mathcal{F}|_{U_\etale} =
+\colim_i x^*\mathcal{F}_i|_{U_\etale}$.
+Now by assumption each $x^*\mathcal{F}_i|_{U_\etale}$
+is quasi-coherent, hence the colimit is quasi-coherent by the
+aforementioned
+Descent, Lemma \ref{descent-lemma-equivalence-quasi-coherent-limits}.
+This proves (1).
+
+\medskip\noindent
+It follows from (1) that cokernels exist in
+$\textit{LQCoh}(\mathcal{O}_\mathcal{X})$ and agree with the cokernels computed
+in $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$.
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be a morphism of
+$\textit{LQCoh}(\mathcal{O}_\mathcal{X})$ and let
+$\mathcal{K} = \Ker(\varphi)$ computed in
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$.
+If we can show that $\mathcal{K}$ is a locally quasi-coherent module,
+then the proof of (2) is complete. To see this, note that kernels
+are computed in the category of presheaves (no sheafification necessary).
+Hence $\mathcal{K}|_{U_\etale}$ is the kernel of the map
+$\mathcal{F}|_{U_\etale} \to \mathcal{G}|_{U_\etale}$,
+i.e., is the kernel of a map of quasi-coherent sheaves on $U_\etale$
+whence quasi-coherent by
+Descent, Lemma \ref{descent-lemma-equivalence-quasi-coherent-limits}.
+This proves (2).
+
+\medskip\noindent
+Parts (3), (4), and (5) follow in exactly the same way. Details omitted.
+\end{proof}
+
+\noindent
+In the generality discussed here the category of quasi-coherent sheaves
+is not abelian. See Examples, Section \ref{examples-section-nonabelian-QCoh}.
+Here is what we can prove without any further work.
+
+\begin{lemma}
+\label{lemma-qc-colimits}
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$ be a category
+fibred in groupoids.
+\begin{enumerate}
+\item The category $\QCoh(\mathcal{O}_\mathcal{X})$
+has colimits and they agree with colimits in the category
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$ as well as with colimits
+in the category $\textit{LQCoh}(\mathcal{O}_\mathcal{X})$.
+\item Given $\mathcal{F}, \mathcal{G}$ in
+$\QCoh(\mathcal{O}_\mathcal{X})$
+the tensor product $\mathcal{F} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{G}$
+in $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+is an object of $\QCoh(\mathcal{O}_\mathcal{X})$.
+\item Given $\mathcal{F}, \mathcal{G}$ in
+$\QCoh(\mathcal{O}_\mathcal{X})$
+with $\mathcal{F}$ locally of finite presentation on
+$\mathcal{X}_{fppf}$ the sheaf
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+in $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+is an object of $\QCoh(\mathcal{O}_\mathcal{X})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{I} \to \QCoh(\mathcal{O}_\mathcal{X})$,
+$i \mapsto \mathcal{F}_i$ be a diagram.
+Consider the object $\mathcal{F} = \colim_i \mathcal{F}_i$ of
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$.
+For any object $x$ of $\mathcal{X}$ with $U = p(x)$ the pullback functor
+$x^*$ commutes with all colimits as it is a left adjoint. Hence
+$x^*\mathcal{F} = \colim_i x^*\mathcal{F}_i$ in
+$\textit{Mod}((\Sch/U)_{fppf}, \mathcal{O})$. We conclude from
+Descent, Lemma \ref{descent-lemma-equivalence-quasi-coherent-limits}
+that $x^*\mathcal{F}$ is quasi-coherent, hence $\mathcal{F}$
+is quasi-coherent, see
+Lemma \ref{lemma-characterize-quasi-coherent}.
+Thus we see that $\QCoh(\mathcal{O}_\mathcal{X})$
+has colimits and they agree with colimits in the category
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$. In particular the (fppf) sheaf
+$\mathcal{F}$ is also the colimit of the diagram in
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$,
+hence $\mathcal{F}$ is also the colimit in
+$\textit{LQCoh}(\mathcal{O}_\mathcal{X})$. This proves (1).
+
+\medskip\noindent
+Parts (2) and (3) are proved in the same way.
+Details omitted.
+\end{proof}
+
+
+
+
+
+
+\section{Stackification and sheaves}
+\label{section-stackification}
+
+\noindent
+It turns out that the category of sheaves on a category fibred in
+groupoids only ``knows about'' the stackification.
+
+\begin{lemma}
+\label{lemma-stackification}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. If
+$f$ induces an equivalence of stackifications, then the morphism
+of topoi
+$f : \Sh(\mathcal{X}_{fppf}) \to \Sh(\mathcal{Y}_{fppf})$
+is an equivalence.
+\end{lemma}
+
+\begin{proof}
+We may assume $\mathcal{Y}$ is the stackification of $\mathcal{X}$.
+We claim that $f : \mathcal{X} \to \mathcal{Y}$ is a special cocontinuous
+functor, see
+Sites, Definition \ref{sites-definition-special-cocontinuous-functor}
+which will prove the lemma. By
+Stacks, Lemma \ref{stacks-lemma-topology-inherited-functorial}
+the functor $f$ is continuous and cocontinuous. By
+Stacks, Lemma \ref{stacks-lemma-stackify}
+we see that conditions (3), (4), and (5) of
+Sites, Lemma \ref{sites-lemma-equivalence}
+hold.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stackification-quasi-coherent}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. If
+$f$ induces an equivalence of stackifications, then $f^*$
+induces equivalences
+$\textit{Mod}(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{O}_\mathcal{Y})$
+and
+$\QCoh(\mathcal{O}_\mathcal{X}) \to
+\QCoh(\mathcal{O}_\mathcal{Y})$.
+\end{lemma}
+
+\begin{proof}
+We may assume $\mathcal{Y}$ is the stackification of $\mathcal{X}$.
+The first assertion is clear from
+Lemma \ref{lemma-stackification}
+and
+$\mathcal{O}_\mathcal{X} = f^{-1}\mathcal{O}_\mathcal{Y}$.
+Pullback of quasi-coherent sheaves are quasi-coherent, see
+Lemma \ref{lemma-pullback-quasi-coherent}.
+Hence it suffices to show that if $f^*\mathcal{G}$ is
+quasi-coherent, then $\mathcal{G}$ is.
+To see this, let $y$ be an object of $\mathcal{Y}$.
+Translating the condition that $\mathcal{Y}$ is the stackification
+of $\mathcal{X}$ we see there exists an fppf covering $\{y_i \to y\}$
+in $\mathcal{Y}$ such that $y_i \cong f(x_i)$ for some
+$x_i$ object of $\mathcal{X}$. Say $x_i$ and $y_i$ lie over the scheme $U_i$.
+Then $f^*\mathcal{G}$ being quasi-coherent, means that $x_i^*f^*\mathcal{G}$
+is quasi-coherent. Since $x_i^*f^*\mathcal{G}$ is isomorphic to
+$y_i^*\mathcal{G}$ (as sheaves on $(\Sch/U_i)_{fppf}$ we
+see that $y_i^*\mathcal{G}$ is quasi-coherent.
+It follows from
+Modules on Sites, Lemma \ref{sites-modules-lemma-local-final-object}
+that the restriction of $\mathcal{G}$ to $\mathcal{Y}/y$ is
+quasi-coherent. Hence $\mathcal{G}$ is quasi-coherent by
+Lemma \ref{lemma-characterize-quasi-coherent}.
+\end{proof}
+
+
+
+
+
+\section{Quasi-coherent sheaves and presentations}
+\label{section-quasi-coherent-presentation}
+
+\noindent
+In
+Groupoids in Spaces, Definition
+\ref{spaces-groupoids-definition-groupoid-module}
+we have the defined the notion of a quasi-coherent module
+on an arbitrary groupoid. The following (formal) proposition tells us
+that we can study quasi-coherent sheaves on quotient stacks in
+terms of quasi-coherent modules on presentations.
+
+\begin{proposition}
+\label{proposition-quasi-coherent}
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $S$.
+Let $\mathcal{X} = [U/R]$ be the quotient stack.
+The category of quasi-coherent modules on $\mathcal{X}$
+is equivalent to the category of quasi-coherent modules
+on $(U, R, s, t, c)$.
+\end{proposition}
+
+\begin{proof}
+Denote $\QCoh(U, R, s, t, c)$ the category of quasi-coherent modules
+on the groupoid $(U, R, s, t, c)$. We will construct quasi-inverse functors
+$$
+\QCoh(\mathcal{O}_\mathcal{X})
+\longleftrightarrow
+\QCoh(U, R, s, t, c).
+$$
+According to
+Lemma \ref{lemma-stackification-quasi-coherent}
+the stackification map $[U/_{\!p}R] \to [U/R]$ (see
+Groupoids in Spaces, Definition
+\ref{spaces-groupoids-definition-quotient-stack})
+induces an equivalence of categories of quasi-coherent sheaves.
+Thus it suffices to prove the lemma with $\mathcal{X} = [U/_{\!p}R]$.
+
+\medskip\noindent
+Recall that an object $x = (T, u)$ of $\mathcal{X} = [U/_{\!p}R]$
+is given by a scheme $T$ and a morphism $u : T \to U$. A morphism
+$(T, u) \to (T', u')$ is given by a pair $(f, r)$ where $f : T \to T'$
+and $r : T \to R$ with $s \circ r = u$ and $t \circ r = u' \circ f$.
+Let us call a {\it special morphism} any morphism of the form
+$(f, e \circ u' \circ f) : (T, u' \circ f) \to (T', u')$.
+The category of $(T, u)$ with special morphisms is just the
+category of schemes over $U$.
+
+\medskip\noindent
+Let $\mathcal{F}$ be a quasi-coherent sheaf on $\mathcal{X}$.
+Then we obtain for every $x = (T, u)$ a quasi-coherent sheaf
+$\mathcal{F}_{(T, u)} = x^*\mathcal{F}|_{T_\etale}$ on $T$.
+Moreover, for any morphism $(f, r) : x = (T, u) \to (T', u') = x'$
+we obtain a comparison isomorphism
+$$
+c_{(f, r)} :
+f_{small}^*\mathcal{F}_{(T', u')}
+\longrightarrow
+\mathcal{F}_{(T, u)}
+$$
+see Lemma \ref{lemma-quasi-coherent}. Moreover, these isomorphisms are
+compatible with compositions, see
+Lemma \ref{lemma-comparison}.
+If $U$, $R$ are schemes, then we can
+construct the quasi-coherent sheaf on the groupoid as follows: First
+the object $(U, \text{id})$ corresponds to a quasi-coherent sheaf
+$\mathcal{F}_{(U, \text{id})}$ on $U$. Next, the isomorphism
+$\alpha : t_{small}^*\mathcal{F}_{(U, \text{id})} \to
+s_{small}^*\mathcal{F}_{(U, \text{id})}$
+comes from
+\begin{enumerate}
+\item the morphism $(R, \text{id}_R) : (R, s) \to (R, t)$
+in the category $[U/_{\!p}R]$ which produces an isomorphism
+$\mathcal{F}_{(R, t)} \to \mathcal{F}_{(R, s)}$,
+\item the special morphism $(R, s) \to (U, \text{id})$ which produces an
+isomorphism
+$s_{small}^*\mathcal{F}_{(U, \text{id})} \to \mathcal{F}_{(R, s)}$, and
+\item the special morphism $(R, t) \to (U, \text{id})$ which produces an
+isomorphism $t_{small}^*\mathcal{F}_{(U, \text{id})} \to \mathcal{F}_{(R, t)}$.
+\end{enumerate}
+The cocycle condition for $\alpha$ follows from the condition
+that $(U, R, s, t, c)$ is groupoid, i.e., that composition is
+associative (details omitted).
+
+\medskip\noindent
+To do this in general, i.e., when $U$ and $R$ are algebraic spaces,
+it suffices to explain how to associate to an algebraic space $(W, u)$ over
+$U$ a quasi-coherent sheaf $\mathcal{F}_{(W, u)}$ and to construct the
+comparison maps for morphisms between these. We set
+$\mathcal{F}_{(W, u)} = x^*\mathcal{F}|_{W_\etale}$
+where $x$ is the $1$-morphism
+$\mathcal{S}_W \to \mathcal{S}_U \to [U/_{\!p}R]$ and the comparison
+maps are explained in (\ref{equation-comparison-algebraic-spaces-modules}).
+
+\medskip\noindent
+Conversely, suppose that $(\mathcal{G}, \alpha)$ is a quasi-coherent
+module on $(U, R, s, t, c)$. We are going to define a presheaf of modules
+$\mathcal{F}$ on $\mathcal{X}$ as follows. Given an object
+$(T, u)$ of $[U/_{\!p}R]$ we set
+$$
+\mathcal{F}(T, u) : = \Gamma(T, u_{small}^*\mathcal{G}).
+$$
+Given a morphism $(f, r) : (T, u) \to (T', u')$ we get a map
+\begin{align*}
+\mathcal{F}(T', u') & = \Gamma(T', (u')_{small}^*\mathcal{G}) \\
+& \to \Gamma(T, f_{small}^*(u')_{small}^*\mathcal{G}) =
+\Gamma(T, (u' \circ f)_{small}^*\mathcal{G}) \\
+& = \Gamma(T, (t \circ r)_{small}^*\mathcal{G}) =
+\Gamma(T, r_{small}^*t_{small}^*\mathcal{G}) \\
+& \to \Gamma(T, r_{small}^*s_{small}^*\mathcal{G}) =
+\Gamma(T, (s \circ r)_{small}^*\mathcal{G}) \\
+& = \Gamma(T, u_{small}^*\mathcal{G}) \\
+& = \mathcal{F}(T, u)
+\end{align*}
+where the first arrow is pullback along $f$ and the second arrow is
+$\alpha$. Note that if $(T, r)$ is a special morphism, then this
+map is just pullback along $f$ as $e_{small}^*\alpha = \text{id}$ by
+the axioms of a sheaf of quasi-coherent modules on a groupoid.
+The cocycle condition implies that $\mathcal{F}$ is a presheaf
+of modules (details omitted). It is immediate from the definition that
+$\mathcal{F}$ is quasi-coherent when pulled back to
+$(\Sch/T)_{fppf}$ (by the simple description of the
+restriction maps of $\mathcal{F}$ in case of a special morphism).
+
+\medskip\noindent
+We omit the verification that the functors constructed above are
+quasi-inverse to each other.
+\end{proof}
+
+\noindent
+We finish this section with a technical lemma on maps out of quasi-coherent
+sheaves. It is an analogue of
+Schemes, Lemma \ref{schemes-lemma-compare-constructions}.
+We will see later (Criteria for Representability, Theorem
+\ref{criteria-theorem-flat-groupoid-gives-algebraic-stack})
+that the assumptions on the groupoid imply that $\mathcal{X}$ is
+an algebraic stack.
+
+\begin{lemma}
+\label{lemma-map-from-quasi-coherent}
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $S$.
+Assume $s, t$ are flat and locally of finite presentation.
+Let $\mathcal{X} = [U/R]$ be the quotient stack. Denote
+$\pi : \mathcal{S}_U \to \mathcal{X}$ the quotient map.
+Let $\mathcal{F}$ be a quasi-coherent
+$\mathcal{O}_\mathcal{X}$-module, and let $\mathcal{H}$ be any object
+of $\textit{Mod}(\mathcal{O}_\mathcal{X})$.
+The map
+$$
+\Hom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{H})
+\longrightarrow
+\Hom_{\mathcal{O}_U}(x^*\mathcal{F}|_{U_\etale},
+x^*\mathcal{H}|_{U_\etale}),
+\quad
+\phi \longmapsto x^*\phi|_{U_\etale}
+$$
+is injective and its image consists of exactly those
+$\varphi : x^*\mathcal{F}|_{U_\etale} \to
+x^*\mathcal{H}|_{U_\etale}$ which give rise to a commutative
+diagram
+$$
+\xymatrix{
+s_{small}^*(x^*\mathcal{F}|_{U_\etale})
+\ar[r] \ar[d]^{s_{small}^*\varphi} &
+(x \circ s)^*\mathcal{F}|_{R_\etale} =
+(x \circ t)^*\mathcal{F}|_{R_\etale} &
+t_{small}^*(x^*\mathcal{F}|_{U_\etale})
+\ar[l] \ar[d]_{t_{small}^*\varphi} \\
+s_{small}^*(x^*\mathcal{H}|_{U_\etale})
+\ar[r] &
+(x \circ s)^*\mathcal{H}|_{R_\etale} =
+(x \circ t)^*\mathcal{H}|_{R_\etale} &
+t_{small}^*(x^*\mathcal{H}|_{U_\etale})
+\ar[l]
+}
+$$
+of modules on $R_\etale$
+where the horizontal arrows are the comparison maps
+(\ref{equation-comparison-algebraic-spaces-modules}).
+\end{lemma}
+
+\begin{proof}
+According to
+Lemma \ref{lemma-stackification-quasi-coherent}
+the stackification map $[U/_{\!p}R] \to [U/R]$ (see
+Groupoids in Spaces, Definition
+\ref{spaces-groupoids-definition-quotient-stack})
+induces an equivalence of categories of quasi-coherent sheaves
+and of fppf $\mathcal{O}$-modules.
+Thus it suffices to prove the lemma with $\mathcal{X} = [U/_{\!p}R]$.
+By Proposition \ref{proposition-quasi-coherent}
+and its proof there exists a quasi-coherent module
+$(\mathcal{G}, \alpha)$ on $(U, R, s, t, c)$ such that
+$\mathcal{F}$ is given by the rule
+$\mathcal{F}(T, u) = \Gamma(T, u^*\mathcal{G})$.
+In particular $x^*\mathcal{F}|_{U_\etale} = \mathcal{G}$
+and it is clear that the map of the statement of the
+lemma is injective. Moreover, given a map
+$\varphi : \mathcal{G} \to x^*\mathcal{H}|_{U_\etale}$
+and given any object
+$y = (T, u)$ of $[U/_{\!p}R]$ we can consider the map
+$$
+\mathcal{F}(y) = \Gamma(T, u^*\mathcal{G})
+\xrightarrow{u_{small}^*\varphi}
+\Gamma(T, u_{small}^*x^*\mathcal{H}|_{U_\etale})
+\rightarrow
+\Gamma(T, y^*\mathcal{H}|_{T_\etale}) = \mathcal{H}(y)
+$$
+where the second arrow is the comparison map
+(\ref{equation-comparison-modules}) for the sheaf $\mathcal{H}$.
+This assignment is compatible with the restriction mappings of the
+sheaves $\mathcal{F}$ and $\mathcal{G}$ for morphisms of
+$[U/_{\!p}R]$ if the cocycle condition of
+the lemma is satisfied. Proof omitted. Hint: the restriction maps
+of $\mathcal{F}$ are made explicit in terms of $(\mathcal{G}, \alpha)$
+in the proof of
+Proposition \ref{proposition-quasi-coherent}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Quasi-coherent sheaves on algebraic stacks}
+\label{section-quasi-coherent-algebraic-stacks}
+
+\noindent
+Let $\mathcal{X}$ be an algebraic stack over $S$. By
+Algebraic Stacks, Lemma \ref{algebraic-lemma-stack-presentation}
+we can find an equivalence $[U/R] \to \mathcal{X}$
+where $(U, R, s, t, c)$ is a smooth groupoid in algebraic spaces.
+Then
+$$
+\QCoh(\mathcal{O}_\mathcal{X})
+\cong
+\QCoh(\mathcal{O}_{[U/R]})
+\cong
+\QCoh(U, R, s, t, c)
+$$
+where the second equivalence is
+Proposition \ref{proposition-quasi-coherent}.
+Hence the category of quasi-coherent sheaves on an algebraic stack
+is equivalent to the category of quasi-coherent modules on a smooth
+groupoid in algebraic spaces. In particular, by
+Groupoids in Spaces, Lemma \ref{spaces-groupoids-lemma-abelian}
+we see that $\QCoh(\mathcal{O}_\mathcal{X})$ is abelian!
+
+\medskip\noindent
+There is something slightly disconcerting about our current setup.
+It is that the fully faithful embedding
+$$
+\QCoh(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\textit{Mod}(\mathcal{O}_\mathcal{X})
+$$
+is in general {\bf not} exact. However, exactly the same thing happens
+for schemes: for most schemes $X$ the embedding
+$$
+\QCoh(\mathcal{O}_X) \cong
+\QCoh((\Sch/X)_{fppf}, \mathcal{O}_X) \longrightarrow
+\textit{Mod}((\Sch/X)_{fppf}, \mathcal{O}_X)
+$$
+isn't exact, see
+Descent, Lemma \ref{descent-lemma-equivalence-quasi-coherent-limits}.
+Parenthetically, the example in the proof of
+Descent, Lemma \ref{descent-lemma-equivalence-quasi-coherent-limits}
+shows that in general the strictly full embedding
+$\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{LQCoh}(\mathcal{O}_\mathcal{X})$ isn't exact either.
+
+\medskip\noindent
+We collect all the positive results obtained so far in a single statement.
+
+\begin{lemma}
+\label{lemma-quasi-coherent-algebraic-stack}
+Let $\mathcal{X}$ be an algebraic stack over $S$.
+\begin{enumerate}
+\item If $[U/R] \to \mathcal{X}$ is a presentation of $\mathcal{X}$
+then there is a canonical equivalence
+$\QCoh(\mathcal{O}_\mathcal{X}) \cong
+\QCoh(U, R, s, t, c)$.
+\item The category $\QCoh(\mathcal{O}_\mathcal{X})$ is abelian.
+\item The category $\QCoh(\mathcal{O}_\mathcal{X})$
+has colimits and they agree with colimits in the category
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$.
+\item Given $\mathcal{F}, \mathcal{G}$ in
+$\QCoh(\mathcal{O}_\mathcal{X})$
+the tensor product $\mathcal{F} \otimes_{\mathcal{O}_\mathcal{X}} \mathcal{G}$
+in $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+is an object of $\QCoh(\mathcal{O}_\mathcal{X})$.
+\item Given $\mathcal{F}, \mathcal{G}$ in
+$\QCoh(\mathcal{O}_\mathcal{X})$
+with $\mathcal{F}$ locally of finite presentation on
+$\mathcal{X}_{fppf}$ the sheaf
+$\SheafHom_{\mathcal{O}_\mathcal{X}}(\mathcal{F}, \mathcal{G})$
+in $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+is an object of $\QCoh(\mathcal{O}_\mathcal{X})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Properties (3), (4), and (5) were proven in
+Lemma \ref{lemma-qc-colimits}.
+Part (1) is
+Proposition \ref{proposition-quasi-coherent}.
+Part (2) follows from
+Groupoids in Spaces, Lemma \ref{spaces-groupoids-lemma-abelian}
+as discussed above.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-coherator}
+Let $\mathcal{X}$ be an algebraic stack over $S$.
+\begin{enumerate}
+\item The category $\QCoh(\mathcal{O}_\mathcal{X})$ is a Grothendieck
+abelian category. Consequently, $\QCoh(\mathcal{O}_\mathcal{X})$
+has enough injectives and all limits.
+\item The inclusion functor
+$\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{O}_\mathcal{X})$ has a right adjoint\footnote{This
+functor is sometimes called the {\it coherator}.}
+$$
+Q :
+\textit{Mod}(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{X})
+$$
+such that for every quasi-coherent sheaf $\mathcal{F}$ the adjunction mapping
+$Q(\mathcal{F}) \to \mathcal{F}$ is an isomorphism.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+This proof is a repeat of the proof in the case of schemes, see
+Properties, Proposition \ref{properties-proposition-coherator}
+and the case of algebraic spaces, see
+Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-coherator}.
+We advise the reader to read either of those proofs first.
+
+\medskip\noindent
+Part (1) means $\QCoh(\mathcal{O}_\mathcal{X})$ (a) has all colimits,
+(b) filtered colimits are exact, and (c) has a generator, see
+Injectives, Section \ref{injectives-section-grothendieck-conditions}.
+By Lemma \ref{lemma-quasi-coherent-algebraic-stack}
+colimits in $\QCoh(\mathcal{O}_X)$ exist and agree
+with colimits in $\textit{Mod}(\mathcal{O}_X)$. By
+Modules on Sites, Lemma \ref{sites-modules-lemma-limits-colimits}
+filtered colimits are exact. Hence (a) and (b) hold.
+
+\medskip\noindent
+Choose a presentation $\mathcal{X} = [U/R]$ so that $(U, R, s, t, c)$
+is a smooth groupoid in algebraic spaces and in particular $s$ and $t$
+are flat morphisms of algebraic spaces. By
+Lemma \ref{lemma-quasi-coherent-algebraic-stack}
+above we have
+$\QCoh(\mathcal{O}_\mathcal{X}) = \QCoh(U, R, s, t, c)$.
+By Groupoids in Spaces, Lemma \ref{spaces-groupoids-lemma-set-generators}
+there exists a set $T$ and a family $(\mathcal{F}_t)_{t \in T}$ of
+quasi-coherent sheaves on $\mathcal{X}$ such that every quasi-coherent
+sheaf on $\mathcal{X}$ is the directed colimit of its subsheaves
+which are isomorphic to one of the $\mathcal{F}_t$.
+Thus $\bigoplus_t \mathcal{F}_t$ is
+a generator of $\QCoh(\mathcal{O}_X)$ and we conclude that (c) holds.
+The assertions on limits and injectives hold in any
+Grothendieck abelian category, see
+Injectives, Theorem
+\ref{injectives-theorem-injective-embedding-grothendieck} and
+Lemma \ref{injectives-lemma-grothendieck-products}.
+
+\medskip\noindent
+Proof of (2). To construct $Q$ we use the following general procedure.
+Given an object $\mathcal{F}$ of $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+we consider the functor
+$$
+\QCoh(\mathcal{O}_\mathcal{X})^{opp}
+\longrightarrow
+\textit{Sets},
+\quad
+\mathcal{G}
+\longmapsto
+\Hom_\mathcal{X}(\mathcal{G}, \mathcal{F})
+$$
+This functor transforms colimits into limits,
+hence is representable, see
+Injectives, Lemma \ref{injectives-lemma-grothendieck-brown}.
+Thus there exists a quasi-coherent sheaf $Q(\mathcal{F})$
+and a functorial isomorphism
+$\Hom_\mathcal{X}(\mathcal{G}, \mathcal{F}) =
+\Hom_\mathcal{X}(\mathcal{G}, Q(\mathcal{F}))$
+for $\mathcal{G}$ in $\QCoh(\mathcal{O}_\mathcal{X})$.
+By the Yoneda lemma
+(Categories, Lemma \ref{categories-lemma-yoneda})
+the construction $\mathcal{F} \leadsto Q(\mathcal{F})$ is
+functorial in $\mathcal{F}$. By construction $Q$ is a right
+adjoint to the inclusion functor.
+The fact that $Q(\mathcal{F}) \to \mathcal{F}$ is an isomorphism
+when $\mathcal{F}$ is quasi-coherent is a formal consequence of the fact
+that the inclusion functor
+$\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{O}_\mathcal{X})$
+is fully faithful.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Cohomology}
+\label{section-cohomology-general}
+
+\noindent
+Let $S$ be a scheme and let $\mathcal{X}$ be a category fibred in groupoids
+over $(\Sch/S)_{fppf}$. For any $\tau \in \{Zariski, \etale, smooth,
+syntomic, fppf\}$ the categories $\textit{Ab}(\mathcal{X}_\tau)$ and
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$ have
+enough injectives, see
+Injectives, Theorems \ref{injectives-theorem-sheaves-injectives} and
+\ref{injectives-theorem-sheaves-modules-injectives}.
+Thus we can use the machinery of
+Cohomology on Sites, Section \ref{sites-cohomology-section-cohomology-sheaves}
+to define the cohomology groups
+$$
+H^p(\mathcal{X}_\tau, \mathcal{F}) = H^p_\tau(\mathcal{X}, \mathcal{F})
+\quad\text{and}\quad
+H^p(x, \mathcal{F}) = H^p_\tau(x, \mathcal{F})
+$$
+for any $x \in \Ob(\mathcal{X})$ and any object $\mathcal{F}$ of
+$\textit{Ab}(\mathcal{X}_\tau)$ or
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$. Moreover, if
+$f : \mathcal{X} \to \mathcal{Y}$ is a $1$-morphism of categories fibred
+in groupoids over $(\Sch/S)_{fppf}$, then we obtain the higher direct
+images $R^if_*\mathcal{F}$ in $\textit{Ab}(\mathcal{Y}_\tau)$ or
+$\textit{Mod}(\mathcal{Y}_\tau, \mathcal{O}_\mathcal{Y})$.
+Of course, as explained in
+Cohomology on Sites, Section \ref{sites-cohomology-section-derived-functors}
+there are also derived versions of $H^p(-)$ and $R^if_*$.
+
+\begin{lemma}
+\label{lemma-cohomology-restriction}
+Let $S$ be a scheme. Let $\mathcal{X}$ be a category fibred in groupoids
+over $(\Sch/S)_{fppf}$. Let $\tau \in \{Zariski, \etale, smooth,
+syntomic, fppf\}$. Let $x \in \Ob(\mathcal{X})$ be an object lying
+over the scheme $U$. Let $\mathcal{F}$ be
+an object of $\textit{Ab}(\mathcal{X}_\tau)$ or
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$. Then
+$$
+H^p_\tau(x, \mathcal{F}) = H^p((\Sch/U)_\tau, x^{-1}\mathcal{F})
+$$
+and if $\tau = \etale$, then we also have
+$$
+H^p_\etale(x, \mathcal{F}) =
+H^p(U_\etale, \mathcal{F}|_{U_\etale}).
+$$
+\end{lemma}
+
+\begin{proof}
+The first statement follows from
+Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-cohomology-of-open}
+and the equivalence of 
+Lemma \ref{lemma-localizing-structure-sheaf}.
+The second statement follows from the first combined with
+\'Etale Cohomology, Lemma
+\ref{etale-cohomology-lemma-compare-cohomology-big-small}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Injective sheaves}
+\label{section-lower-shriek}
+
+\noindent
+The pushforward of an injective abelian sheaf or module is injective.
+
+\begin{lemma}
+\label{lemma-pushforward-injective}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. Let
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+\begin{enumerate}
+\item $f_*\mathcal{I}$ is injective in $\textit{Ab}(\mathcal{Y}_\tau)$
+for $\mathcal{I}$ injective in $\textit{Ab}(\mathcal{X}_\tau)$, and
+\item $f_*\mathcal{I}$ is injective in
+$\textit{Mod}(\mathcal{Y}_\tau, \mathcal{O}_\mathcal{Y})$
+for $\mathcal{I}$ injective in
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This follows formally from the fact that $f^{-1}$ is an exact
+left adjoint of $f_*$, see
+Homology, Lemma \ref{homology-lemma-adjoint-preserve-injectives}.
+\end{proof}
+
+\noindent
+In the rest of this section we prove that pullback $f^{-1}$ has a left
+adjoint $f_!$ on abelian sheaves and modules. If $f$ is representable (by
+schemes or by algebraic spaces), then it will turn out that $f_!$ is exact
+and $f^{-1}$ will preserve injectives. We first prove a few
+preliminary lemmas about fibre products and equalizers in categories
+fibred in groupoids and their behaviour with respect to morphisms.
+
+\begin{lemma}
+\label{lemma-fibre-products}
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$
+be a category fibred in groupoids.
+\begin{enumerate}
+\item The category $\mathcal{X}$ has fibre products.
+\item If the $\mathit{Isom}$-presheaves of $\mathcal{X}$
+are representable by algebraic spaces, then $\mathcal{X}$ has equalizers.
+\item If $\mathcal{X}$ is an algebraic stack (or more generally
+a quotient stack), then $\mathcal{X}$ has equalizers.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) follows
+Categories, Lemma \ref{categories-lemma-fibred-groupoids-fibre-product-goes-up}
+as $(\Sch/S)_{fppf}$ has fibre products.
+
+\medskip\noindent
+Let $a, b : x \to y$ be morphisms of $\mathcal{X}$.
+Set $U = p(x)$ and $V = p(y)$. The category of schemes has equalizers
+hence we can let $W \to U$ be the equalizer of $p(a)$ and $p(b)$.
+Denote $c : z \to x$ a morphism of $\mathcal{X}$ lying over $W \to U$.
+The equalizer of $a$ and $b$, if it exists, is the equalizer of $a \circ c$
+and $b \circ c$. Thus we may assume that $p(a) = p(b) = f : U \to V$.
+As $\mathcal{X}$ is fibred in groupoids, there exists a unique automorphism
+$i : x \to x$ in the fibre category of $\mathcal{X}$ over $U$ such that
+$a \circ i = b$. Again the equalizer of $a$ and $b$ is the equalizer
+of $\text{id}_x$ and $i$. Recall that the $\mathit{Isom}_\mathcal{X}(x)$
+is the presheaf on $(\Sch/U)_{fppf}$ which to
+$V/U$ associates the set of automorphisms of $x|_V$ in the fibre category
+of $\mathcal{X}$ over $V$, see
+Stacks, Definition \ref{stacks-definition-mor-presheaf}.
+If $\mathit{Isom}_\mathcal{X}(x)$ is representable by an algebraic space
+$G \to U$, then we see that $\text{id}_x$ and $i$ define morphisms
+$e, i : U \to G$ over $U$. Set $V = U \times_{e, G, i} U$, which by
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-section-immersion}
+is a scheme. Then it is clear that $x|_V \to x$ is the equalizer of
+the maps $\text{id}_x$ and $i$ in $\mathcal{X}$.
+This proves (2).
+
+\medskip\noindent
+If $\mathcal{X} = [U/R]$ for some groupoid in algebraic spaces
+$(U, R, s, t, c)$ over $S$, then the hypothesis of (2) holds by
+Bootstrap, Lemma \ref{bootstrap-lemma-quotient-stack-isom}.
+If $\mathcal{X}$ is an algebraic stack, then we can choose a
+presentation $[U/R] \cong \mathcal{X}$ by
+Algebraic Stacks, Lemma \ref{algebraic-lemma-stack-presentation}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibre-products-morphism}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$.
+\begin{enumerate}
+\item The functor $f$ transforms fibre products into fibre products.
+\item If $f$ is faithful, then $f$ transforms equalizers into equalizers.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By
+Categories, Lemma \ref{categories-lemma-fibred-groupoids-fibre-product-goes-up}
+we see that a fibre product in $\mathcal{X}$ is any commutative square lying
+over a fibre product diagram in $(\Sch/S)_{fppf}$. Similarly for
+$\mathcal{Y}$. Hence (1) is clear.
+
+\medskip\noindent
+Let $x \to x'$ be the equalizer of two morphisms $a, b : x' \to x''$
+in $\mathcal{X}$. We will show that $f(x) \to f(x')$ is the equalizer
+of $f(a)$ and $f(b)$. Let $y \to f(x)$ be a morphism of $\mathcal{Y}$
+equalizing $f(a)$ and $f(b)$. Say $x, x', x''$ lie over the schemes
+$U, U', U''$ and $y$ lies over $V$. Denote $h : V \to U'$ the image
+of $y \to f(x)$ in the category of schemes. The morphism
+$y \to f(x)$ is isomorphic to $f(h^*x') \to f(x')$ by the axioms of
+fibred categories. Hence, as $f$ is faithful, we see that
+$h^*x' \to x'$ equalizes $a$ and $b$. Thus we obtain a unique morphism
+$h^*x' \to x$ whose image $y = f(h^*x') \to f(x)$ is the desired morphism
+in $\mathcal{Y}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibre-products-preserve-properties}
+Let $f : \mathcal{X} \to \mathcal{Y}$, $g : \mathcal{Z} \to \mathcal{Y}$
+be faithful $1$-morphisms of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$.
+\begin{enumerate}
+\item the functor $\mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to \mathcal{Y}$
+is faithful, and
+\item if $\mathcal{X}, \mathcal{Z}$ have equalizers, so does
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We think of objects in $\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$ as
+quadruples $(U, x, z, \alpha)$ where $\alpha : f(x) \to g(z)$ is an
+isomorphism over $U$, see
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C}.
+A morphism $(U, x, z, \alpha) \to (U', x', z', \alpha')$ is a
+pair of morphisms $a : x \to x'$ and $b : z \to z'$ compatible
+with $\alpha$ and $\alpha'$. Thus it is clear that if $f$ and
+$g$ are faithful, so is the functor
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to \mathcal{Y}$.
+Now, suppose that
+$(a, b), (a', b') : (U, x, z, \alpha) \to (U', x', z', \alpha')$
+are two morphisms of the $2$-fibre product. Then consider the equalizer
+$x'' \to x$ of $a$ and $a'$ and the equalizer $z'' \to z$ of $b$ and $b'$.
+Since $f$ commutes with equalizers (by
+Lemma \ref{lemma-fibre-products-morphism})
+we see that $f(x'') \to f(x)$ is the equalizer of $f(a)$ and $f(a')$.
+Similarly, $g(z'') \to g(z)$ is the equalizer of $g(b)$ and $g(b')$.
+Picture
+$$
+\xymatrix{
+f(x'') \ar[r] \ar@{..>}[d]_{\alpha''}&
+f(x) \ar[d]_\alpha
+\ar@<0.5ex>[r]^{f(a)}
+\ar@<-0.5ex>[r]_{f(a')}
+ &
+f(x') \ar[d]^{\alpha'} \\
+g(z'') \ar[r] &
+g(z)
+\ar@<0.5ex>[r]^{g(b)}
+\ar@<-0.5ex>[r]_{g(b')}
+ &
+g(z')
+}
+$$
+It is clear that the dotted arrow exists and is an isomorphism.
+However, it is not a priori the case that the image of $\alpha''$
+in the category of schemes is the identity of its source. On the other
+hand, the existence of $\alpha''$ means that we can assume that $x''$
+and $z''$ are defined over the same scheme and that the morphisms
+$x'' \to x$ and $z'' \to z$ have the same image in the category of schemes.
+Redoing the diagram above we see that the dotted arrow now does
+project to an identity morphism and we win. Some details omitted.
+\end{proof}
+
+\noindent
+As we are working with big sites we have the following somewhat
+counter intuitive result (which also holds for morphisms of big sites
+of schemes). Warning: This result isn't true if we drop the hypothesis
+that $f$ is faithful.
+
+\begin{lemma}
+\label{lemma-pullback-injective}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. Let
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+The functor
+$f^{-1} : \textit{Ab}(\mathcal{Y}_\tau) \to \textit{Ab}(\mathcal{X}_\tau)$
+has a left adjoint
+$f_! : \textit{Ab}(\mathcal{X}_\tau) \to \textit{Ab}(\mathcal{Y}_\tau)$.
+If $f$ is faithful and $\mathcal{X}$ has equalizers, then
+\begin{enumerate}
+\item $f_!$ is exact, and
+\item $f^{-1}\mathcal{I}$ is injective in $\textit{Ab}(\mathcal{X}_\tau)$
+for $\mathcal{I}$ injective in $\textit{Ab}(\mathcal{Y}_\tau)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By
+Stacks, Lemma \ref{stacks-lemma-topology-inherited-functorial}
+the functor $f$ is continuous and cocontinuous. Hence by
+Modules on Sites, Lemma \ref{sites-modules-lemma-g-shriek-adjoint}
+the functor
+$f^{-1} : \textit{Ab}(\mathcal{Y}_\tau) \to \textit{Ab}(\mathcal{X}_\tau)$
+has a left adjoint
+$f_! : \textit{Ab}(\mathcal{X}_\tau) \to \textit{Ab}(\mathcal{Y}_\tau)$.
+To see (1) we apply
+Modules on Sites, Lemma \ref{sites-modules-lemma-exactness-lower-shriek}
+and to see that the hypotheses of that lemma are satisfied use
+Lemmas \ref{lemma-fibre-products} and
+\ref{lemma-fibre-products-morphism}
+above. Part (2) follows from this formally, see
+Homology, Lemma \ref{homology-lemma-adjoint-preserve-injectives}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullback-injective-modules}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. Let
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+The functor
+$f^* : \textit{Mod}(\mathcal{Y}_\tau, \mathcal{O}_\mathcal{Y}) \to
+\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$
+has a left adjoint
+$f_! : \textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{Y}_\tau, \mathcal{O}_\mathcal{Y})$ which
+agrees with the functor $f_!$ of Lemma \ref{lemma-pullback-injective}
+on underlying abelian sheaves.
+If $f$ is faithful and $\mathcal{X}$ has equalizers, then
+\begin{enumerate}
+\item $f_!$ is exact, and
+\item $f^{-1}\mathcal{I}$ is injective in
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$
+for $\mathcal{I}$ injective in
+$\textit{Mod}(\mathcal{Y}_\tau, \mathcal{O}_\mathcal{X})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Recall that $f$ is a continuous and cocontinuous functor of sites
+and that $f^{-1}\mathcal{O}_\mathcal{Y} = \mathcal{O}_\mathcal{X}$. Hence
+Modules on Sites, Lemma \ref{sites-modules-lemma-lower-shriek-modules}
+implies $f^*$ has a left adjoint $f_!^{Mod}$.
+Let $x$ be an object of $\mathcal{X}$ lying over the scheme $U$.
+Then $f$ induces an equivalence of ringed sites
+$$
+\mathcal{X}/x \longrightarrow \mathcal{Y}/f(x)
+$$
+as both sides are equivalent to $(\Sch/U)_\tau$, see
+Lemma \ref{lemma-localizing-structure-sheaf}.
+Modules on Sites, Remark \ref{sites-modules-remark-when-shriek-equal}
+shows that $f_!$ agrees with the functor on abelian sheaves.
+
+\medskip\noindent
+Assume now that $\mathcal{X}$ has equalizers and that $f$ is faithful.
+Lemma \ref{lemma-pullback-injective}
+tells us that $f_!$ is exact. Finally,
+Homology, Lemma \ref{homology-lemma-adjoint-preserve-injectives}
+implies the statement on pullbacks of injective modules.
+\end{proof}
+
+
+
+
+\section{The {\v C}ech complex}
+\label{section-cech}
+
+\noindent
+To compute the cohomology of a sheaf on an algebraic stack we compare
+it to the cohomology of the sheaf restricted to coverings of the
+given algebraic stack.
+
+\medskip\noindent
+Throughout this section the situation will be as follows. We are given
+a $1$-morphism of categories fibred in groupoids
+\begin{equation}
+\label{equation-covering}
+\vcenter{
+\xymatrix{
+\mathcal{U} \ar[rr]_f \ar[rd]_q & &  \mathcal{X} \ar[ld]^p \\
+& (\Sch/S)_{fppf}
+}
+}
+\end{equation}
+We are going to think about $\mathcal{U}$ as a ``covering'' of $\mathcal{X}$.
+Hence we want to consider the simplicial object
+$$
+\xymatrix{
+\mathcal{U} \times_\mathcal{X} \mathcal{U} \times_\mathcal{X} \mathcal{U}
+\ar@<1ex>[r]
+\ar@<0ex>[r]
+\ar@<-1ex>[r]
+&
+\mathcal{U} \times_\mathcal{X} \mathcal{U}
+\ar@<0.5ex>[r]
+\ar@<-0.5ex>[r]
+&
+\mathcal{U}
+}
+$$
+in the category of categories fibred in groupoids over
+$(\Sch/S)_{fppf}$. However, since this is a $(2, 1)$-category and
+not a category, we should say explicitly what we mean. Namely, we let
+$\mathcal{U}_n$ be the category with objects
+$(u_0, \ldots, u_n, x, \alpha_0, \ldots, \alpha_n)$
+where $\alpha_i : f(u_i) \to x$ is an isomorphism in $\mathcal{X}$.
+We denote $f_n : \mathcal{U}_n \to \mathcal{X}$ the $1$-morphism
+which assigns to $(u_0, \ldots, u_n, x, \alpha_0, \ldots, \alpha_n)$
+the object $x$. Note that $\mathcal{U}_0 = \mathcal{U}$ and $f_0 = f$.
+Given a map $\varphi : [m] \to [n]$ we consider the $1$-morphism
+$\mathcal{U}_\varphi : \mathcal{U}_n \longrightarrow \mathcal{U}_n$
+given by
+$$
+(u_0, \ldots, u_n, x, \alpha_0, \ldots, \alpha_n)
+\longmapsto
+(u_{\varphi(0)}, \ldots, u_{\varphi(n)}, x,
+\alpha_{\varphi(0)}, \ldots, \alpha_{\varphi(n)})
+$$
+on objects. All of these $1$-morphisms compose correctly on the nose
+(no $2$-morphisms required) and all of these $1$-morphisms are $1$-morphisms
+over $\mathcal{X}$. We denote $\mathcal{U}_\bullet$ this simplicial object.
+If $\mathcal{F}$ is a presheaf of sets on $\mathcal{X}$, then we obtain a
+cosimplicial set
+$$
+\xymatrix{
+\Gamma(\mathcal{U}_0, f_0^{-1}\mathcal{F})
+\ar@<0.5ex>[r]
+\ar@<-0.5ex>[r]
+&
+\Gamma(\mathcal{U}_1, f_1^{-1}\mathcal{F})
+\ar@<1ex>[r]
+\ar@<0ex>[r]
+\ar@<-1ex>[r]
+&
+\Gamma(\mathcal{U}_2, f_2^{-1}\mathcal{F})
+}
+$$
+Here the arrows are the pullback maps along the given morphisms of
+the simplicial object.
+If $\mathcal{F}$ is a presheaf of abelian groups, this is a cosimplicial
+abelian group.
+
+\medskip\noindent
+Let $\mathcal{U} \to \mathcal{X}$ be as above and let $\mathcal{F}$
+be an abelian presheaf on $\mathcal{X}$.
+The {\it {\v C}ech complex} associated to the situation is denoted
+$\check{\mathcal{C}}^\bullet(\mathcal{U} \to \mathcal{X}, \mathcal{F})$.
+It is the cochain complex associated to the cosimplicial abelian group
+above, see
+Simplicial, Section \ref{simplicial-section-dold-kan-cosimplicial}.
+It has terms
+$$
+\check{\mathcal{C}}^n(\mathcal{U} \to \mathcal{X}, \mathcal{F})
+= \Gamma(\mathcal{U}_n, f_n^{-1}\mathcal{F}).
+$$
+The boundary maps are the maps
+$$
+d^n = \sum\nolimits_{i = 0}^{n + 1} (-1)^i \delta^{n + 1}_i :
+\Gamma(\mathcal{U}_n, f_n^{-1}\mathcal{F})
+\longrightarrow
+\Gamma(\mathcal{U}_{n + 1}, f_{n + 1}^{-1}\mathcal{F})
+$$
+where $\delta^{n + 1}_i$ corresponds to the map
+$[n] \to [n + 1]$ omitting the index $i$. Note that the map
+$\Gamma(\mathcal{X}, \mathcal{F}) \to
+\Gamma(\mathcal{U}_0, f_0^{-1}\mathcal{F}_0)$
+is in the kernel of the differential $d^0$. Hence we define
+the {\it extended {\v C}ech complex} to be the complex
+$$
+\ldots \to 0 \to
+\Gamma(\mathcal{X}, \mathcal{F}) \to
+\Gamma(\mathcal{U}_0, f_0^{-1}\mathcal{F}_0) \to
+\Gamma(\mathcal{U}_1, f_1^{-1}\mathcal{F}_1) \to \ldots
+$$
+with $\Gamma(\mathcal{X}, \mathcal{F})$ placed in degree $-1$.
+The extended {\v C}ech complex is acyclic if and only if the canonical map
+$$
+\Gamma(\mathcal{X}, \mathcal{F})[0]
+\longrightarrow
+\check{\mathcal{C}}^\bullet(\mathcal{U} \to \mathcal{X}, \mathcal{F})
+$$
+is a quasi-isomorphism of complexes.
+
+\begin{lemma}
+\label{lemma-generalities}
+Generalities on {\v C}ech complexes.
+\begin{enumerate}
+\item If
+$$
+\xymatrix{
+\mathcal{V} \ar[d]_g \ar[r]_h & \mathcal{U} \ar[d]^f \\
+\mathcal{Y} \ar[r]^e & \mathcal{X}
+}
+$$
+is $2$-commutative diagram of categories fibred in groupoids over
+$(\Sch/S)_{fppf}$, then there is a morphism of {\v C}ech complexes
+$$
+\check{\mathcal{C}}^\bullet(\mathcal{U} \to \mathcal{X}, \mathcal{F})
+\longrightarrow
+\check{\mathcal{C}}^\bullet(\mathcal{V} \to \mathcal{Y}, e^{-1}\mathcal{F})
+$$
+\item if $h$ and $e$ are equivalences, then the map of (1) is an isomorphism,
+\item if $f, f' : \mathcal{U} \to \mathcal{X}$ are $2$-isomorphic, then
+the associated {\v C}ech complexes are isomorphic,
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+In the situation of (1) let $t : f \circ h \to e \circ g$ be a $2$-morphism.
+The map on complexes is given in degree $n$ by
+pullback along the $1$-morphisms
+$\mathcal{V}_n \to \mathcal{U}_n$ given by the rule
+$$
+(v_0, \ldots, v_n, y, \beta_0, \ldots, \beta_n)
+\longmapsto
+(h(v_0), \ldots, h(v_n), e(y),
+e(\beta_0) \circ t_{v_0}, \ldots, e(\beta_n) \circ t_{v_n}).
+$$
+For (2), note that pullback on global sections is an isomorphism
+for any presheaf of sets when the pullback is along an equivalence
+of categories. Part (3) follows on combining (1) and (2).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-homotopy}
+If there exists a $1$-morphism $s : \mathcal{X} \to \mathcal{U}$
+such that $f \circ s$ is $2$-isomorphic to $\text{id}_\mathcal{X}$
+then the extended {\v C}ech complex is homotopic to zero.
+\end{lemma}
+
+\begin{proof}
+Set $\mathcal{U}' = \mathcal{U} \times_\mathcal{X} \mathcal{X}$
+equal to the fibre product as described in
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C}.
+Set $f' : \mathcal{U}' \to \mathcal{X}$ equal to the second projection.
+Then $\mathcal{U} \to \mathcal{U}'$, $u \mapsto (u, f(x), 1)$
+is an equivalence over $\mathcal{X}$, hence we may replace
+$(\mathcal{U}, f)$ by $(\mathcal{U}', f')$ by
+Lemma \ref{lemma-generalities}.
+The advantage of this is that now $f'$ has a section $s'$ such
+that $f' \circ s' = \text{id}_\mathcal{X}$ on the nose. Namely, if
+$t : s \circ f \to \text{id}_\mathcal{X}$ is a $2$-isomorphism
+then we can set $s'(x) = (s(x), x, t_x)$. Thus we may assume that
+$f \circ s = \text{id}_\mathcal{X}$.
+
+\medskip\noindent
+In the case that $f \circ s = \text{id}_\mathcal{X}$ the result follows
+from general principles. We give the homotopy explicitly. Namely,
+for $n \geq 0$ define $s_n : \mathcal{U}_n \to \mathcal{U}_{n + 1}$
+to be the $1$-morphism defined by the rule on objects
+$$
+(u_0, \ldots, u_n, x, \alpha_0, \ldots, \alpha_n)
+\longmapsto
+(u_0, \ldots, u_n, s(x), x,
+\alpha_0, \ldots, \alpha_n, \text{id}_x).
+$$
+Define
+$$
+h^{n + 1} :
+\Gamma(\mathcal{U}_{n + 1}, f_{n + 1}^{-1}\mathcal{F})
+\longrightarrow
+\Gamma(\mathcal{U}_n, f_n^{-1}\mathcal{F})
+$$
+as pullback along $s_n$. We also set $s_{-1} = s$ and
+$h^0 : \Gamma(\mathcal{U}_0, f_0^{-1}\mathcal{F}) \to
+\Gamma(\mathcal{X}, \mathcal{F})$ equal to pullback along $s_{-1}$.
+Then the family of maps $\{h^n\}_{n \geq 0}$ is a homotopy between
+$1$ and $0$ on the extended {\v C}ech complex.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{The relative {\v C}ech complex}
+\label{section-sheaf-cech-complex}
+
+\noindent
+Let $f : \mathcal{U} \to \mathcal{X}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$ as in
+(\ref{equation-covering}). Consider the associated simplicial
+object $\mathcal{U}_\bullet$ and the maps
+$f_n : \mathcal{U}_n \to \mathcal{X}$. Let
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+Finally, suppose that $\mathcal{F}$ is a sheaf (of sets)
+on $\mathcal{X}_\tau$. Then
+$$
+\xymatrix{
+f_{0, *}f_0^{-1}\mathcal{F}
+\ar@<0.5ex>[r]
+\ar@<-0.5ex>[r]
+&
+f_{1, *}f_1^{-1}\mathcal{F}
+\ar@<1ex>[r]
+\ar@<0ex>[r]
+\ar@<-1ex>[r]
+&
+f_{2, *}f_2^{-1}\mathcal{F}
+}
+$$
+is a cosimplicial sheaf on $\mathcal{X}_\tau$ where we use the pullback maps
+introduced in
+Sites, Section \ref{sites-section-pullback}.
+If $\mathcal{F}$ is an abelian sheaf, then $f_{n, *}f_n^{-1}\mathcal{F}$
+form a cosimplicial abelian sheaf on $\mathcal{X}_\tau$.
+The associated complex (see
+Simplicial, Section \ref{simplicial-section-dold-kan-cosimplicial})
+$$
+\ldots \to 0 \to
+f_{0, *}f_0^{-1}\mathcal{F} \to
+f_{1, *}f_1^{-1}\mathcal{F} \to
+f_{2, *}f_2^{-1}\mathcal{F} \to \ldots
+$$
+is called the {\it relative {\v C}ech complex} associated to the situation.
+We will denote this complex $\mathcal{K}^\bullet(f, \mathcal{F})$.
+The {\it extended relative {\v C}ech complex} is the complex
+$$
+\ldots \to 0 \to
+\mathcal{F} \to
+f_{0, *}f_0^{-1}\mathcal{F} \to
+f_{1, *}f_1^{-1}\mathcal{F} \to
+f_{2, *}f_2^{-1}\mathcal{F} \to \ldots
+$$
+with $\mathcal{F}$ in degree $-1$. The extended relative {\v C}ech complex
+is acyclic if and only if the map
+$\mathcal{F}[0] \to \mathcal{K}^\bullet(f, \mathcal{F})$
+is a quasi-isomorphism of complexes of sheaves.
+
+\begin{remark}
+\label{remark-cech-complex-presheaves}
+We can define the complex $\mathcal{K}^\bullet(f, \mathcal{F})$
+also if $\mathcal{F}$ is a presheaf, only we cannot use the reference to
+Sites, Section \ref{sites-section-pullback}
+to define the pullback maps. To explain the pullback maps, suppose
+given a commutative diagram
+$$
+\xymatrix{
+\mathcal{V} \ar[rd]_g \ar[rr]_h & &  \mathcal{U} \ar[ld]^f \\
+& \mathcal{X}
+}
+$$
+of categories fibred in groupoids over $(\Sch/S)_{fppf}$
+and a presheaf $\mathcal{G}$ on $\mathcal{U}$
+we can define the pullback map $f_*\mathcal{G} \to g_*h^{-1}\mathcal{G}$
+as the composition
+$$
+f_*\mathcal{G} \longrightarrow
+f_*h_*h^{-1}\mathcal{G} = g_*h^{-1}\mathcal{G}
+$$
+where the map comes from the adjunction map
+$\mathcal{G} \to h_*h^{-1}\mathcal{G}$. This works because in our situation
+the functors $h_*$ and $h^{-1}$ are adjoint in presheaves (and agree with
+their counter parts on sheaves). See
+Sections \ref{section-presheaves} and \ref{section-sheaves}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-generalities-sheafified}
+Generalities on relative {\v C}ech complexes.
+\begin{enumerate}
+\item If
+$$
+\xymatrix{
+\mathcal{V} \ar[d]_g \ar[r]_h & \mathcal{U} \ar[d]^f \\
+\mathcal{Y} \ar[r]^e & \mathcal{X}
+}
+$$
+is $2$-commutative diagram of categories fibred in groupoids over
+$(\Sch/S)_{fppf}$, then there is a morphism
+$e^{-1}\mathcal{K}^\bullet(f, \mathcal{F}) \to
+\mathcal{K}^\bullet(g, e^{-1}\mathcal{F})$.
+\item if $h$ and $e$ are equivalences, then the map of (1) is an isomorphism,
+\item if $f, f' : \mathcal{U} \to \mathcal{X}$ are $2$-isomorphic, then
+the associated relative {\v C}ech complexes are isomorphic,
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Literally the same as the proof of
+Lemma \ref{lemma-generalities}
+using the pullback maps of
+Remark \ref{remark-cech-complex-presheaves}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-homotopy-sheafified}
+If there exists a $1$-morphism $s : \mathcal{X} \to \mathcal{U}$
+such that $f \circ s$ is $2$-isomorphic to $\text{id}_\mathcal{X}$
+then the extended relative {\v C}ech complex is homotopic to zero.
+\end{lemma}
+
+\begin{proof}
+Literally the same as the proof of
+Lemma \ref{lemma-homotopy}.
+\end{proof}
+
+\begin{remark}
+\label{remark-cech-complex-sections}
+Let us ``compute'' the value of the relative {\v C}ech complex on an
+object $x$ of $\mathcal{X}$. Say $p(x) = U$.
+Consider the $2$-fibre product diagram (which serves to introduce
+the notation $g : \mathcal{V} \to \mathcal{Y}$)
+$$
+\xymatrix{
+\mathcal{V} \ar@{=}[r] \ar[d]_g &
+(\Sch/U)_{fppf} \times_{x, \mathcal{X}} \mathcal{U} \ar[r] \ar[d] &
+\mathcal{U} \ar[d]^f \\
+\mathcal{Y} \ar@{=}[r] &
+(\Sch/U)_{fppf} \ar[r]^-x & \mathcal{X}
+}
+$$
+Note that the morphism $\mathcal{V}_n \to \mathcal{U}_n$ of the proof of
+Lemma \ref{lemma-generalities}
+induces an equivalence
+$\mathcal{V}_n =
+(\Sch/U)_{fppf} \times_{x, \mathcal{X}} \mathcal{U}_n$.
+Hence we see from
+(\ref{equation-pushforward})
+that
+$$
+\Gamma(x, \mathcal{K}^\bullet(f, \mathcal{F})) =
+\check{\mathcal{C}}^\bullet(\mathcal{V} \to \mathcal{Y}, x^{-1}\mathcal{F})
+$$
+In words: The value of the relative {\v C}ech complex on an object $x$ of
+$\mathcal{X}$ is the {\v C}ech complex of the base change of $f$ to
+$\mathcal{X}/x \cong (\Sch/U)_{fppf}$. This implies for example that
+Lemma \ref{lemma-homotopy}
+implies
+Lemma \ref{lemma-homotopy-sheafified}
+and more generally that results on the (usual) {\v C}ech complex imply
+results for the relative {\v C}ech complex.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-base-change-cech-complex}
+Let
+$$
+\xymatrix{
+\mathcal{V} \ar[d]_g \ar[r]_h & \mathcal{U} \ar[d]^f \\
+\mathcal{Y} \ar[r]^e & \mathcal{X}
+}
+$$
+be a $2$-fibre product of categories fibred in groupoids over
+$(\Sch/S)_{fppf}$ and let $\mathcal{F}$ be an abelian presheaf
+on $\mathcal{X}$. Then the map
+$e^{-1}\mathcal{K}^\bullet(f, \mathcal{F}) \to
+\mathcal{K}^\bullet(g, e^{-1}\mathcal{F})$
+of
+Lemma \ref{lemma-generalities-sheafified}
+is an isomorphism of complexes of abelian presheaves.
+\end{lemma}
+
+\begin{proof}
+Let $y$ be an object of $\mathcal{Y}$ lying over the scheme $T$.
+Set $x = e(y)$. We are going to show that the map induces an isomorphism
+on sections over $y$. Note that
+$$
+\Gamma(y, e^{-1}\mathcal{K}^\bullet(f, \mathcal{F})) =
+\Gamma(x, \mathcal{K}^\bullet(f, \mathcal{F})) =
+\check{\mathcal{C}}^\bullet(
+(\Sch/T)_{fppf} \times_{x, \mathcal{X}} \mathcal{U} \to
+(\Sch/T)_{fppf}, x^{-1}\mathcal{F})
+$$
+by
+Remark \ref{remark-cech-complex-sections}. On the other hand,
+$$
+\Gamma(y, \mathcal{K}^\bullet(g, e^{-1}\mathcal{F})) =
+\check{\mathcal{C}}^\bullet(
+(\Sch/T)_{fppf} \times_{y, \mathcal{Y}} \mathcal{V} \to
+(\Sch/T)_{fppf}, y^{-1}e^{-1}\mathcal{F})
+$$
+also by
+Remark \ref{remark-cech-complex-sections}.
+Note that $y^{-1}e^{-1}\mathcal{F} = x^{-1}\mathcal{F}$
+and since the diagram is $2$-cartesian the $1$-morphism
+$$
+(\Sch/T)_{fppf} \times_{y, \mathcal{Y}} \mathcal{V} \to
+(\Sch/T)_{fppf} \times_{x, \mathcal{X}} \mathcal{U}
+$$
+is an equivalence. Hence the map on sections over $y$ is an
+isomorphism by
+Lemma \ref{lemma-generalities}.
+\end{proof}
+
+\noindent
+Exactness can be checked on a ``covering''.
+
+\begin{lemma}
+\label{lemma-check-exactness-covering}
+Let $f : \mathcal{U} \to \mathcal{X}$ be a $1$-morphism of categories fibred
+in groupoids over $(\Sch/S)_{fppf}$. Let
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+Let
+$$
+\mathcal{F} \to \mathcal{G} \to \mathcal{H}
+$$
+be a complex in $\textit{Ab}(\mathcal{X}_\tau)$. Assume that
+\begin{enumerate}
+\item for every object $x$ of $\mathcal{X}$ there exists a covering
+$\{x_i \to x\}$ in $\mathcal{X}_\tau$ such that each $x_i$ is isomorphic
+to $f(u_i)$ for some object $u_i$ of $\mathcal{U}$, and
+\item $f^{-1}\mathcal{F} \to f^{-1}\mathcal{G} \to f^{-1}\mathcal{H}$ is exact.
+\end{enumerate}
+Then the sequence $\mathcal{F} \to \mathcal{G} \to \mathcal{H}$
+is exact.
+\end{lemma}
+
+\begin{proof}
+Let $x$ be an object of $\mathcal{X}$ lying over the scheme $T$.
+Consider the sequence
+$x^{-1}\mathcal{F} \to x^{-1}\mathcal{G} \to x^{-1}\mathcal{H}$
+of abelian sheaves on $(\Sch/T)_\tau$. It suffices to show
+this sequence is exact. By assumption there exists a $\tau$-covering
+$\{T_i \to T\}$ such that $x|_{T_i}$ is isomorphic to $f(u_i)$ for
+some object $u_i$ of $\mathcal{U}$ over $T_i$ and moreover the sequence
+$u_i^{-1}f^{-1}\mathcal{F} \to u_i^{-1}f^{-1}\mathcal{G} \to
+u_i^{-1}f^{-1}\mathcal{H}$ of abelian sheaves on $(\Sch/T_i)_\tau$
+is exact. Since
+$u_i^{-1}f^{-1}\mathcal{F} = x^{-1}\mathcal{F}|_{(\Sch/T_i)_\tau}$
+we conclude that the sequence
+$x^{-1}\mathcal{F} \to x^{-1}\mathcal{G} \to x^{-1}\mathcal{H}$
+become exact after localizing at each of the members of a covering,
+hence the sequence is exact.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-exactness-cech-complex}
+Let $f : \mathcal{U} \to \mathcal{X}$ be a $1$-morphism of categories fibred
+in groupoids over $(\Sch/S)_{fppf}$. Let
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+If
+\begin{enumerate}
+\item $\mathcal{F}$ is an abelian sheaf on $\mathcal{X}_\tau$, and
+\item for every object $x$ of $\mathcal{X}$ there exists a covering
+$\{x_i \to x\}$ in $\mathcal{X}_\tau$ such that each $x_i$ is isomorphic
+to $f(u_i)$ for some object $u_i$ of $\mathcal{U}$,
+\end{enumerate}
+then the extended relative {\v C}ech complex
+$$
+\ldots \to 0 \to
+\mathcal{F} \to
+f_{0, *}f_0^{-1}\mathcal{F} \to
+f_{1, *}f_1^{-1}\mathcal{F} \to
+f_{2, *}f_2^{-1}\mathcal{F} \to \ldots
+$$
+is exact in $\textit{Ab}(\mathcal{X}_\tau)$.
+\end{proposition}
+
+\begin{proof}
+By
+Lemma \ref{lemma-check-exactness-covering}
+it suffices to check exactness after pulling back to $\mathcal{U}$.
+By
+Lemma \ref{lemma-base-change-cech-complex}
+the pullback of the extended relative {\v C}ech complex is isomorphic
+to the extend relative {\v C}ech complex for the morphism
+$\mathcal{U} \times_\mathcal{X} \mathcal{U} \to \mathcal{U}$
+and an abelian sheaf on $\mathcal{U}_\tau$. Since there is a section
+$\Delta_{\mathcal{U}/\mathcal{X}} : \mathcal{U} \to
+\mathcal{U} \times_\mathcal{X} \mathcal{U}$ exactness follows from
+Lemma \ref{lemma-homotopy-sheafified}.
+\end{proof}
+
+\noindent
+Using this we can construct the {\v C}ech-to-cohomology spectral sequence
+as follows. We first give a technical, precise version. In the next section
+we give a version that applies only to algebraic stacks.
+
+\begin{lemma}
+\label{lemma-cech-to-cohomology}
+Let $f : \mathcal{U} \to \mathcal{X}$ be a $1$-morphism of categories fibred
+in groupoids over $(\Sch/S)_{fppf}$. Let
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+Assume
+\begin{enumerate}
+\item $\mathcal{F}$ is an abelian sheaf on $\mathcal{X}_\tau$,
+\item for every object $x$ of $\mathcal{X}$ there exists a covering
+$\{x_i \to x\}$ in $\mathcal{X}_\tau$ such that each $x_i$ is isomorphic
+to $f(u_i)$ for some object $u_i$ of $\mathcal{U}$,
+\item the category $\mathcal{U}$ has equalizers, and
+\item the functor $f$ is faithful.
+\end{enumerate}
+Then there is a first quadrant spectral sequence of abelian groups
+$$
+E_1^{p, q} = H^q((\mathcal{U}_p)_\tau, f_p^{-1}\mathcal{F})
+\Rightarrow
+H^{p + q}(\mathcal{X}_\tau, \mathcal{F})
+$$
+converging to the cohomology of $\mathcal{F}$ in the $\tau$-topology.
+\end{lemma}
+
+\begin{proof}
+Before we start the proof we make some remarks. By
+Lemma \ref{lemma-fibre-products-preserve-properties}
+(and induction) all of the categories fibred in groupoids $\mathcal{U}_p$
+have equalizers and all of the morphisms $f_p : \mathcal{U}_p \to \mathcal{X}$
+are faithful. Let $\mathcal{I}$ be an injective object
+of $\textit{Ab}(\mathcal{X}_\tau)$. By
+Lemma \ref{lemma-pullback-injective}
+we see $f_p^{-1}\mathcal{I}$ is an injective object of
+$\textit{Ab}((\mathcal{U}_p)_\tau)$.
+Hence $f_{p, *}f_p^{-1}\mathcal{I}$ is an injective object of
+$\textit{Ab}(\mathcal{X}_\tau)$ by
+Lemma \ref{lemma-pushforward-injective}.
+Hence
+Proposition \ref{proposition-exactness-cech-complex}
+shows that the extended relative {\v C}ech complex
+$$
+\ldots \to 0 \to
+\mathcal{I} \to
+f_{0, *}f_0^{-1}\mathcal{I} \to
+f_{1, *}f_1^{-1}\mathcal{I} \to
+f_{2, *}f_2^{-1}\mathcal{I} \to \ldots
+$$
+is an exact complex in $\textit{Ab}(\mathcal{X}_\tau)$ all of whose
+terms are injective. Taking global sections of this complex is exact
+and we see that the {\v C}ech complex
+$\check{\mathcal{C}}^\bullet(\mathcal{U} \to \mathcal{X}, \mathcal{I})$
+is quasi-isomorphic to $\Gamma(\mathcal{X}_\tau, \mathcal{I})[0]$.
+
+\medskip\noindent
+With these preliminaries out of the way consider the two spectral sequences
+associated to the double complex (see
+Homology, Section \ref{homology-section-double-complex})
+$$
+\check{\mathcal{C}}^\bullet(\mathcal{U} \to \mathcal{X}, \mathcal{I}^\bullet)
+$$
+where $\mathcal{F} \to \mathcal{I}^\bullet$ is an injective resolution
+in $\textit{Ab}(\mathcal{X}_\tau)$.
+The discussion above shows that
+Homology, Lemma \ref{homology-lemma-double-complex-gives-resolution}
+applies which shows that
+$\Gamma(\mathcal{X}_\tau, \mathcal{I}^\bullet)$
+is quasi-isomorphic to the total complex associated to the double complex.
+By our remarks above the complex $f_p^{-1}\mathcal{I}^\bullet$ is an
+injective resolution of $f_p^{-1}\mathcal{F}$. Hence the other spectral
+sequence is as indicated in the lemma.
+\end{proof}
+
+\noindent
+To be sure there is a version for modules as well.
+
+\begin{lemma}
+\label{lemma-cech-to-cohomology-modules}
+Let $f : \mathcal{U} \to \mathcal{X}$ be a $1$-morphism of categories fibred
+in groupoids over $(\Sch/S)_{fppf}$. Let
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+Assume
+\begin{enumerate}
+\item $\mathcal{F}$ is an object of
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$,
+\item for every object $x$ of $\mathcal{X}$ there exists a covering
+$\{x_i \to x\}$ in $\mathcal{X}_\tau$ such that each $x_i$ is isomorphic
+to $f(u_i)$ for some object $u_i$ of $\mathcal{U}$,
+\item the category $\mathcal{U}$ has equalizers, and
+\item the functor $f$ is faithful.
+\end{enumerate}
+Then there is a first quadrant spectral sequence of
+$\Gamma(\mathcal{O}_\mathcal{X})$-modules
+$$
+E_1^{p, q} = H^q((\mathcal{U}_p)_\tau, f_p^*\mathcal{F})
+\Rightarrow
+H^{p + q}(\mathcal{X}_\tau, \mathcal{F})
+$$
+converging to the cohomology of $\mathcal{F}$ in the $\tau$-topology.
+\end{lemma}
+
+\begin{proof}
+The proof of this lemma is identical to the proof of
+Lemma \ref{lemma-cech-to-cohomology}
+except that it uses an injective resolution in
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$
+and it uses
+Lemma \ref{lemma-pullback-injective-modules}
+instead of
+Lemma \ref{lemma-pullback-injective}.
+\end{proof}
+
+\noindent
+Here is a lemma that translates a more usual kind of covering in the
+kinds of coverings we have encountered above.
+
+\begin{lemma}
+\label{lemma-surjective-flat-locally-finite-presentation}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of
+categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+\begin{enumerate}
+\item Assume that $f$ is representable by algebraic spaces, surjective,
+flat, and locally of finite presentation. Then for any object $y$ of
+$\mathcal{Y}$ there exists an fppf covering $\{y_i \to y\}$ and objects
+$x_i$ of $\mathcal{X}$ such that $f(x_i) \cong y_i$ in $\mathcal{Y}$.
+\item Assume that $f$ is representable by algebraic spaces, surjective,
+and smooth. Then for any object $y$ of
+$\mathcal{Y}$ there exists an \'etale covering $\{y_i \to y\}$ and objects
+$x_i$ of $\mathcal{X}$ such that $f(x_i) \cong y_i$ in $\mathcal{Y}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of (1). Suppose that $y$ lies over the scheme $V$.
+We may think of $y$ as a morphism $(\Sch/V)_{fppf} \to \mathcal{Y}$.
+By definition the $2$-fibre product
+$\mathcal{X} \times_\mathcal{Y} (\Sch/V)_{fppf}$
+is representable by an algebraic space $W$ and the morphism
+$W \to V$ is surjective, flat, and locally of finite presentation.
+Choose a scheme $U$ and a surjective \'etale morphism $U \to W$.
+Then $U \to V$ is also surjective, flat, and locally of finite presentation
+(see Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-etale-flat},
+\ref{spaces-morphisms-lemma-etale-locally-finite-presentation},
+\ref{spaces-morphisms-lemma-composition-surjective},
+\ref{spaces-morphisms-lemma-composition-finite-presentation}, and
+\ref{spaces-morphisms-lemma-composition-flat}).
+Hence $\{U \to V\}$ is an fppf covering. Denote $x$ the object of
+$\mathcal{X}$ over $U$ corresponding to the $1$-morphism
+$(\Sch/U)_{fppf} \to \mathcal{X}$. Then $\{f(x) \to y\}$ is
+the desired fppf covering of $\mathcal{Y}$.
+
+\medskip\noindent
+Proof of (1). Suppose that $y$ lies over the scheme $V$.
+We may think of $y$ as a morphism $(\Sch/V)_{fppf} \to \mathcal{Y}$.
+By definition the $2$-fibre product
+$\mathcal{X} \times_\mathcal{Y} (\Sch/V)_{fppf}$
+is representable by an algebraic space $W$ and the morphism
+$W \to V$ is surjective and smooth.
+Choose a scheme $U$ and a surjective \'etale morphism $U \to W$.
+Then $U \to V$ is also surjective and smooth
+(see Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-etale-smooth},
+\ref{spaces-morphisms-lemma-composition-surjective}, and
+\ref{spaces-morphisms-lemma-composition-smooth}).
+Hence $\{U \to V\}$ is a smooth covering. By
+More on Morphisms, Lemma \ref{more-morphisms-lemma-etale-dominates-smooth}
+there exists an \'etale covering $\{V_i \to V\}$ such that
+each $V_i \to V$ factors through $U$. Denote $x_i$ the object of
+$\mathcal{X}$ over $V_i$ corresponding to the $1$-morphism
+$$
+(\Sch/V_i)_{fppf} \to (\Sch/U)_{fppf} \to \mathcal{X}.
+$$
+Then $\{f(x_i) \to y\}$ is
+the desired \'etale covering of $\mathcal{Y}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cech-to-cohomology-relative}
+Let $f : \mathcal{U} \to \mathcal{X}$ and
+$g : \mathcal{X} \to \mathcal{Y}$
+be composable $1$-morphisms of categories fibred
+in groupoids over $(\Sch/S)_{fppf}$. Let
+$\tau \in \{Zar, \etale, smooth, syntomic, \linebreak[0] fppf\}$.
+Assume
+\begin{enumerate}
+\item $\mathcal{F}$ is an abelian sheaf on $\mathcal{X}_\tau$,
+\item for every object $x$ of $\mathcal{X}$ there exists a covering
+$\{x_i \to x\}$ in $\mathcal{X}_\tau$ such that each $x_i$ is isomorphic
+to $f(u_i)$ for some object $u_i$ of $\mathcal{U}$,
+\item the category $\mathcal{U}$ has equalizers, and
+\item the functor $f$ is faithful.
+\end{enumerate}
+Then there is a first quadrant spectral sequence of abelian sheaves
+on $\mathcal{Y}_\tau$
+$$
+E_1^{p, q} = R^q(g \circ f_p)_*f_p^{-1}\mathcal{F}
+\Rightarrow
+R^{p + q}g_*\mathcal{F}
+$$
+where all higher direct images are computed in the $\tau$-topology.
+\end{lemma}
+
+\begin{proof}
+Note that the assumptions on $f : \mathcal{U} \to \mathcal{X}$
+and $\mathcal{F}$ are identical to those in
+Lemma \ref{lemma-cech-to-cohomology}.
+Hence the preliminary remarks made in the proof of that lemma
+hold here also. These remarks imply in particular that
+$$
+0 \to g_*\mathcal{I} \to
+(g \circ f_0)_*f_0^{-1}\mathcal{I} \to
+(g \circ f_1)_*f_1^{-1}\mathcal{I} \to \ldots
+$$
+is exact if $\mathcal{I}$ is an injective object of
+$\textit{Ab}(\mathcal{X}_\tau)$.
+Having said this, consider the two spectral sequences of
+Homology, Section \ref{homology-section-double-complex}
+associated to the double complex $\mathcal{C}^{\bullet, \bullet}$ with terms
+$$
+\mathcal{C}^{p, q} = (g \circ f_p)_*\mathcal{I}^q
+$$
+where $\mathcal{F} \to \mathcal{I}^\bullet$ is an injective resolution
+in $\textit{Ab}(\mathcal{X}_\tau)$. The first spectral sequence implies, via
+Homology, Lemma \ref{homology-lemma-double-complex-gives-resolution},
+that $g_*\mathcal{I}^\bullet$ is quasi-isomorphic to the total complex
+associated to $\mathcal{C}^{\bullet, \bullet}$.
+Since $f_p^{-1}\mathcal{I}^\bullet$ is an injective resolution of
+$f_p^{-1}\mathcal{F}$ (see
+Lemma \ref{lemma-pullback-injective})
+the second spectral sequence has terms
+$E_1^{p, q} = R^q(g \circ f_p)_*f_p^{-1}\mathcal{F}$ as in the statement
+of the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cech-to-cohomology-relative-modules}
+Let $f : \mathcal{U} \to \mathcal{X}$ and
+$g : \mathcal{X} \to \mathcal{Y}$
+be composable $1$-morphisms of categories fibred
+in groupoids over $(\Sch/S)_{fppf}$. Let
+$\tau \in \{Zar, \etale, smooth, syntomic, \linebreak[0] fppf\}$.
+Assume
+\begin{enumerate}
+\item $\mathcal{F}$ is an object of
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$,
+\item for every object $x$ of $\mathcal{X}$ there exists a covering
+$\{x_i \to x\}$ in $\mathcal{X}_\tau$ such that each $x_i$ is isomorphic
+to $f(u_i)$ for some object $u_i$ of $\mathcal{U}$,
+\item the category $\mathcal{U}$ has equalizers, and
+\item the functor $f$ is faithful.
+\end{enumerate}
+Then there is a first quadrant spectral sequence in
+$\textit{Mod}(\mathcal{Y}_\tau, \mathcal{O}_\mathcal{Y})$
+$$
+E_1^{p, q} = R^q(g \circ f_p)_*f_p^{-1}\mathcal{F}
+\Rightarrow
+R^{p + q}g_*\mathcal{F}
+$$
+where all higher direct images are computed in the $\tau$-topology.
+\end{lemma}
+
+\begin{proof}
+The proof is identical to the proof of
+Lemma \ref{lemma-cech-to-cohomology-relative}
+except that it uses an injective resolution in
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$
+and it uses
+Lemma \ref{lemma-pullback-injective-modules}
+instead of
+Lemma \ref{lemma-pullback-injective}.
+\end{proof}
+
+
+
+
+
+
+\section{Cohomology on algebraic stacks}
+\label{section-cohomology}
+
+\noindent
+Let $\mathcal{X}$ be an algebraic stack over $S$. In the sections above
+we have seen how to define sheaves for the \'etale, ..., fppf
+topologies on $\mathcal{X}$. In fact, we have constructed a site
+$\mathcal{X}_\tau$ for each $\tau \in \{Zar, \etale, smooth, syntomic,
+fppf\}$. There is a notion of an abelian sheaf $\mathcal{F}$ on these sites.
+In the chapter on cohomology of sites we have explained how to define
+cohomology. Putting all of this together, let's define the
+{\it derived global sections}
+$$
+R\Gamma_{Zar}(\mathcal{X}, \mathcal{F}),
+R\Gamma_\etale(\mathcal{X}, \mathcal{F}), \ldots,
+R\Gamma_{fppf}(\mathcal{X}, \mathcal{F})
+$$
+as $\Gamma(\mathcal{X}_\tau, \mathcal{I}^\bullet)$ where
+$\mathcal{F} \to \mathcal{I}^\bullet$ is an injective resolution
+in $\textit{Ab}(\mathcal{X}_\tau)$. The $i$th cohomology group is the
+$i$th cohomology of the total derived cohomology. We will denote
+this
+$$
+H^i_{Zar}(\mathcal{X}, \mathcal{F}),
+H^i_\etale(\mathcal{X}, \mathcal{F}), \ldots,
+H^i_{fppf}(\mathcal{X}, \mathcal{F}).
+$$
+It will turn out that $H^i_\etale = H^i_{smooth}$
+because of
+More on Morphisms, Lemma \ref{more-morphisms-lemma-etale-dominates-smooth}.
+If $\mathcal{F}$ is a presheaf of $\mathcal{O}_\mathcal{X}$-modules
+which is a sheaf in the $\tau$-topology, then we use injective
+resolutions in $\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$
+to compute total derived global sections and cohomology groups; of course
+the end result is quasi-isomorphic resp.\ isomorphic by the general fact
+Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-cohomology-modules-abelian-agree}.
+
+\medskip\noindent
+So far our only tool to compute cohomology groups is the result on
+{\v C}ech complexes proved above. We rephrase it here in the language
+of algebraic stacks for the \'etale and the fppf topology. Let
+$f : \mathcal{U} \to \mathcal{X}$ be a $1$-morphism of algebraic stacks.
+Recall that
+$$
+f_p : \mathcal{U}_p =
+\mathcal{U} \times_\mathcal{X} \ldots \times_\mathcal{X} \mathcal{U}
+\longrightarrow
+\mathcal{X}
+$$
+is the structure morphism where there are $(p + 1)$-factors. Also, recall
+that a sheaf on $\mathcal{X}$ is a sheaf for the fppf topology. Note
+that if $\mathcal{U}$ is an algebraic space, then
+$f : \mathcal{U} \to \mathcal{X}$ is representable by algebraic spaces,
+see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-representable-diagonal}.
+Thus the proposition applies in particular to a smooth cover of the
+algebraic stack $\mathcal{X}$ by a scheme.
+
+\begin{proposition}
+\label{proposition-smooth-covering-compute-cohomology}
+Let $f : \mathcal{U} \to \mathcal{X}$ be a $1$-morphism of algebraic stacks.
+\begin{enumerate}
+\item Let $\mathcal{F}$ be an abelian \'etale sheaf on $\mathcal{X}$.
+Assume that $f$ is representable by algebraic spaces, surjective, and smooth.
+Then there is a spectral sequence
+$$
+E_1^{p, q} = H^q_\etale(\mathcal{U}_p, f_p^{-1}\mathcal{F})
+\Rightarrow
+H^{p + q}_\etale(\mathcal{X}, \mathcal{F})
+$$
+\item Let $\mathcal{F}$ be an abelian sheaf on $\mathcal{X}$.
+Assume that $f$ is representable by algebraic spaces, surjective, flat,
+and locally of finite presentation. Then there is
+a spectral sequence
+$$
+E_1^{p, q} = H^q_{fppf}(\mathcal{U}_p, f_p^{-1}\mathcal{F})
+\Rightarrow
+H^{p + q}_{fppf}(\mathcal{X}, \mathcal{F})
+$$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+To see this we will check the hypotheses (1) -- (4) of
+Lemma \ref{lemma-cech-to-cohomology}.
+The $1$-morphism $f$ is faithful by
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-characterize-representable-by-algebraic-spaces}.
+This proves (4).
+Hypothesis (3) follows from the fact that $\mathcal{U}$ is an algebraic
+stack, see
+Lemma \ref{lemma-fibre-products}.
+To see (2) apply
+Lemma \ref{lemma-surjective-flat-locally-finite-presentation}.
+Condition (1) is satisfied by fiat.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Higher direct images and algebraic stacks}
+\label{section-higher-direct-images}
+
+\noindent
+Let $g : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of algebraic stacks
+over $S$. In the sections above we have constructed a morphism of ringed
+topoi $g : \Sh(\mathcal{X}_\tau) \to \Sh(\mathcal{Y}_\tau)$
+for each $\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+In the chapter on cohomology of sites we have explained how to
+define higher direct images. Hence the {\it derived direct image}
+$Rg_*\mathcal{F}$ is defined as $g_*\mathcal{I}^\bullet$ where
+$\mathcal{F} \to \mathcal{I}^\bullet$ is an injective resolution in
+$\textit{Ab}(\mathcal{X}_\tau)$. The $i$th higher direct image
+$R^ig_*\mathcal{F}$ is the $i$th cohomology of the derived direct image.
+Important: it matters which topology $\tau$ is used here!
+
+\medskip\noindent
+If $\mathcal{F}$ is a presheaf of $\mathcal{O}_\mathcal{X}$-modules
+which is a sheaf in the $\tau$-topology, then we use injective
+resolutions in $\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$
+to compute derived direct image and higher direct images.
+
+\medskip\noindent
+So far our only tool to compute the higher direct images of $g_*$
+is the result on {\v C}ech complexes proved above. This requires the choice
+of a ``covering'' $f : \mathcal{U} \to \mathcal{X}$. If $\mathcal{U}$
+is an algebraic space, then $f : \mathcal{U} \to \mathcal{X}$
+is representable by algebraic spaces, see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-representable-diagonal}.
+Thus the proposition applies in particular to a smooth cover of the
+algebraic stack $\mathcal{X}$ by a scheme.
+
+\begin{proposition}
+\label{proposition-smooth-covering-compute-direct-image}
+Let $f : \mathcal{U} \to \mathcal{X}$ and $g : \mathcal{X} \to \mathcal{Y}$
+be composable $1$-morphisms of algebraic stacks.
+\begin{enumerate}
+\item Assume that $f$ is representable by algebraic spaces, surjective and
+smooth.
+\begin{enumerate}
+\item If $\mathcal{F}$ is in $\textit{Ab}(\mathcal{X}_\etale)$
+then there is a spectral sequence
+$$
+E_1^{p, q} = R^q(g \circ f_p)_*f_p^{-1}\mathcal{F}
+\Rightarrow
+R^{p + q}g_*\mathcal{F}
+$$
+in $\textit{Ab}(\mathcal{Y}_\etale)$ with higher direct images
+computed in the \'etale topology.
+\item If $\mathcal{F}$ is in
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$ then
+there is a spectral sequence
+$$
+E_1^{p, q} = R^q(g \circ f_p)_*f_p^{-1}\mathcal{F}
+\Rightarrow
+R^{p + q}g_*\mathcal{F}
+$$
+in $\textit{Mod}(\mathcal{Y}_\etale, \mathcal{O}_\mathcal{Y})$.
+\end{enumerate}
+\item Assume that $f$ is representable by algebraic spaces, surjective,
+flat, and locally of finite presentation.
+\begin{enumerate}
+\item If $\mathcal{F}$ is in $\textit{Ab}(\mathcal{X})$ then there is
+a spectral sequence
+$$
+E_1^{p, q} = R^q(g \circ f_p)_*f_p^{-1}\mathcal{F}
+\Rightarrow
+R^{p + q}g_*\mathcal{F}
+$$
+in $\textit{Ab}(\mathcal{Y})$ with higher direct images
+computed in the fppf topology.
+\item If $\mathcal{F}$ is in $\textit{Mod}(\mathcal{O}_\mathcal{X})$ then
+there is a spectral sequence
+$$
+E_1^{p, q} = R^q(g \circ f_p)_*f_p^{-1}\mathcal{F}
+\Rightarrow
+R^{p + q}g_*\mathcal{F}
+$$
+in $\textit{Mod}(\mathcal{O}_\mathcal{Y})$.
+\end{enumerate}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+To see this we will check the hypotheses (1) -- (4) of
+Lemma \ref{lemma-cech-to-cohomology-relative} and
+Lemma \ref{lemma-cech-to-cohomology-relative-modules}.
+The $1$-morphism $f$ is faithful by
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-characterize-representable-by-algebraic-spaces}.
+This proves (4).
+Hypothesis (3) follows from the fact that $\mathcal{U}$ is an algebraic
+stack, see
+Lemma \ref{lemma-fibre-products}.
+To see (2) apply
+Lemma \ref{lemma-surjective-flat-locally-finite-presentation}.
+Condition (1) is satisfied by fiat in all four cases.
+\end{proof}
+
+\noindent
+Here is a description of higher direct images for a
+morphism of algebraic stacks.
+
+\begin{lemma}
+\label{lemma-pushforward-restriction}
+Let $S$ be a scheme. Let $f : \mathcal{X} \to \mathcal{Y}$ be a
+$1$-morphism of algebraic stacks\footnote{This result should hold
+for any $1$-morphism of categories fibred in groupoids over
+$(\Sch/S)_{fppf}$.} over $S$.
+Let $\tau \in \{Zariski,\linebreak[0] \etale,\linebreak[0]
+smooth,\linebreak[0] syntomic,\linebreak[0] fppf\}$.
+Let $\mathcal{F}$ be
+an object of $\textit{Ab}(\mathcal{X}_\tau)$ or
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$.
+Then the sheaf $R^if_*\mathcal{F}$ is the sheaf associated to the
+presheaf
+$$
+y \longmapsto
+H^i_\tau\Big((\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X},
+\ \text{pr}^{-1}\mathcal{F}\Big)
+$$
+Here $y$ is a typical object of $\mathcal{Y}$ lying over the scheme $V$.
+\end{lemma}
+
+\begin{proof}
+Choose an injective resolution $\mathcal{F}[0] \to \mathcal{I}^\bullet$.
+By the formula for pushforward (\ref{equation-pushforward}) we see that
+$R^if_*\mathcal{F}$ is the sheaf associated to the presheaf which associates
+to $y$ the cohomology of the complex
+$$
+\begin{matrix}
+\Gamma\Big((\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X},
+\ \text{pr}^{-1}\mathcal{I}^{i - 1}\Big) \\
+\downarrow \\
+\Gamma\Big((\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X},
+\ \text{pr}^{-1}\mathcal{I}^i\Big) \\
+\downarrow \\
+\Gamma\Big((\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X},
+\ \text{pr}^{-1}\mathcal{I}^{i + 1}\Big)
+\end{matrix}
+$$
+Since $\text{pr}^{-1}$ is exact, it suffices to show that
+$\text{pr}^{-1}$ preserves injectives. This follows from
+Lemmas \ref{lemma-pullback-injective} and
+\ref{lemma-pullback-injective-modules}
+as well as the fact that $\text{pr}$ is a representable morphism of
+algebraic stacks (so that $\text{pr}$ is faithful by
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-characterize-representable-by-algebraic-spaces}
+and that
+$(\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$
+has equalizers by 
+Lemma \ref{lemma-fibre-products}).
+\end{proof}
+
+\noindent
+Here is a trivial base change result.
+
+\begin{lemma}
+\label{lemma-base-change-higher-direct-images}
+Let $S$ be a scheme. Let
+$\tau \in \{Zariski,\linebreak[0] \etale,\linebreak[0]
+smooth,\linebreak[0] syntomic,\linebreak[0] fppf\}$. Let
+$$
+\xymatrix{
+\mathcal{Y}' \times_\mathcal{Y} \mathcal{X} \ar[r]_{g'} \ar[d]_{f'} &
+\mathcal{X} \ar[d]^f \\
+\mathcal{Y}' \ar[r]^g & \mathcal{Y}
+}
+$$
+be a $2$-cartesian diagram of algebraic stacks over $S$. Then the base change
+map is an isomorphism
+$$
+g^{-1}Rf_*\mathcal{F} \longrightarrow Rf'_*(g')^{-1}\mathcal{F}
+$$
+functorial for $\mathcal{F}$ in $\textit{Ab}(\mathcal{X}_\tau)$
+or $\mathcal{F}$ in $\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$.
+\end{lemma}
+
+\begin{proof}
+The isomorphism $g^{-1}f_*\mathcal{F} = f'_*(g')^{-1}\mathcal{F}$ is
+Lemma \ref{lemma-base-change} (and it holds for arbitrary presheaves).
+For the derived direct images, there is a base change map because the
+morphisms $g$ and $g'$ are flat, see
+Cohomology on Sites, Section \ref{sites-cohomology-section-base-change-map}.
+To see that this map is a quasi-isomorphism we can use that for
+an object $y'$ of $\mathcal{Y}'$ over a scheme $V$ there is an equivalence
+$$
+(\Sch/V)_{fppf} \times_{g(y'), \mathcal{Y}} \mathcal{X}
+=
+(\Sch/V)_{fppf} \times_{y', \mathcal{Y}'}
+(\mathcal{Y}' \times_\mathcal{Y} \mathcal{X})
+$$
+We conclude that the induced map
+$g^{-1}R^if_*\mathcal{F} \to R^if'_*(g')^{-1}\mathcal{F}$
+is an isomorphism by
+Lemma \ref{lemma-pushforward-restriction}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Comparison}
+\label{section-compare}
+
+\noindent
+In this section we collect some results on comparing cohomology defined
+using stacks and using algebraic spaces.
+
+\begin{lemma}
+\label{lemma-compare-injectives}
+Let $S$ be a scheme. Let $\mathcal{X}$ be an algebraic stack over $S$
+representable by the algebraic space $F$.
+\begin{enumerate}
+\item If $\mathcal{I}$ injective in $\textit{Ab}(\mathcal{X}_\etale)$, then
+$\mathcal{I}|_{F_\etale}$ is injective in $\textit{Ab}(F_\etale)$,
+\item If $\mathcal{I}^\bullet$ is a K-injective complex in
+$\textit{Ab}(\mathcal{X}_\etale)$, then $\mathcal{I}^\bullet|_{F_\etale}$
+is a K-injective complex in $\textit{Ab}(F_\etale)$.
+\end{enumerate}
+The same does not hold for modules.
+\end{lemma}
+
+\begin{proof}
+This follows formally from the fact that the restriction functor
+$\pi_{F, *} = i_F^{-1}$ (see Lemma \ref{lemma-compare})
+is right adjoint to the exact functor $\pi_F^{-1}$, see
+Homology, Lemma \ref{homology-lemma-adjoint-preserve-injectives} and
+Derived Categories, Lemma \ref{derived-lemma-adjoint-preserve-K-injectives}.
+To see that the lemma does not hold for modules, we refer the
+reader to \'Etale Cohomology, Lemma
+\ref{etale-cohomology-lemma-compare-injectives}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-morphism-cohomology}
+Let $S$ be a scheme. Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism
+of algebraic stacks over $S$. Assume $\mathcal{X}$, $\mathcal{Y}$ are
+representable by algebraic spaces $F$, $G$. Denote $f : F \to G$ the
+induced morphism of algebraic spaces.
+\begin{enumerate}
+\item For any $\mathcal{F} \in \textit{Ab}(\mathcal{X}_\etale)$
+we have
+$$
+(Rf_*\mathcal{F})|_{G_\etale} =
+Rf_{small, *}(\mathcal{F}|_{F_\etale})
+$$
+in $D(G_\etale)$.
+\item For any object $\mathcal{F}$ of
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+we have
+$$
+(Rf_*\mathcal{F})|_{G_\etale} =
+Rf_{small, *}(\mathcal{F}|_{F_\etale})
+$$
+in $D(\mathcal{O}_G)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) follows immediately from
+Lemma \ref{lemma-compare-injectives}
+and (\ref{equation-compare-big-small})
+on choosing an injective resolution of $\mathcal{F}$.
+
+\medskip\noindent
+Part (2) can be proved as follows. In Lemma \ref{lemma-compare-morphism}
+we have seen that $\pi_G \circ f = f_{small} \circ \pi_F$ as morphisms
+of ringed sites. Hence we obtain
+$R\pi_{G, *} \circ Rf_* = Rf_{small, *} \circ R\pi_{F, *}$
+by Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-derived-pushforward-composition}.
+Since the restriction functors $\pi_{F, *}$ and $\pi_{G, *}$
+are exact, we conclude.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-representable-morphism-cohomology}
+Let $S$ be a scheme. Consider a $2$-fibre product square
+$$
+\xymatrix{
+\mathcal{X}' \ar[r]_{g'} \ar[d]_{f'} & \mathcal{X} \ar[d]^f \\
+\mathcal{Y}' \ar[r]^g & \mathcal{Y}
+}
+$$
+of algebraic stacks over $S$. Assume that $f$ is representable by algebraic
+spaces and that $\mathcal{Y}'$ is representable by an algebraic space $G'$.
+Then $\mathcal{X}'$ is representable by an algebraic space $F'$ and
+denoting $f' : F' \to G'$ the induced morphism of algebraic spaces
+we have
+$$
+g^{-1}(Rf_*\mathcal{F})|_{G'_\etale} =
+Rf'_{small, *}((g')^{-1}\mathcal{F}|_{F'_\etale})
+$$
+for any $\mathcal{F}$ in $\textit{Ab}(\mathcal{X}_\etale)$
+or in
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+\end{lemma}
+
+\begin{proof}
+Follows formally on combining
+Lemmas \ref{lemma-base-change-higher-direct-images} and
+\ref{lemma-compare-morphism-cohomology}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Change of topology}
+\label{section-change-topology}
+
+\noindent
+Here is a technical lemma which tells us that the
+fppf cohomology of a locally quasi-coherent sheaf is equal to its
+\'etale cohomology provided the comparison maps are isomorphisms
+for morphisms of $\mathcal{X}$ lying over flat morphisms.
+
+\begin{lemma}
+\label{lemma-lqc-flat-base-change-fppf-sheaf}
+Let $S$ be a scheme. Let $\mathcal{X}$ be an algebraic stack over $S$.
+Let $\mathcal{F}$ be a presheaf of $\mathcal{O}_\mathcal{X}$-modules.
+Assume
+\begin{enumerate}
+\item[(a)] $\mathcal{F}$ is locally quasi-coherent, and
+\item[(b)] for any morphism $\varphi : x \to y$ of $\mathcal{X}$ which lies
+over a morphism of schemes $f : U \to V$ which is flat and
+locally of finite presentation the comparison map
+$c_\varphi : f_{small}^*\mathcal{F}|_{V_\etale} \to
+\mathcal{F}|_{U_\etale}$ of
+(\ref{equation-comparison-modules}) is an isomorphism.
+\end{enumerate}
+Then $\mathcal{F}$ is a sheaf for the fppf topology.
+\end{lemma}
+
+\begin{proof}
+Let $\{x_i \to x\}$ be an fppf covering of $\mathcal{X}$ lying over the
+fppf covering $\{f_i : U_i \to U\}$ of schemes over $S$.
+By assumption the restriction $\mathcal{G} = \mathcal{F}|_{U_\etale}$
+is quasi-coherent and the comparison maps
+$f_{i, small}^*\mathcal{G} \to \mathcal{F}|_{U_{i, \etale}}$
+are isomorphisms. Hence the sheaf condition for $\mathcal{F}$
+and the covering $\{x_i \to x\}$ is equivalent to the sheaf condition
+for $\mathcal{G}^a$ on $(\Sch/U)_{fppf}$ and the covering $\{U_i \to U\}$
+which holds by
+Descent, Lemma \ref{descent-lemma-sheaf-condition-holds}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-fppf-etale}
+Let $S$ be a scheme. Let $\mathcal{X}$ be an algebraic stack over $S$.
+Let $\mathcal{F}$ be a presheaf $\mathcal{O}_\mathcal{X}$-module such that
+\begin{enumerate}
+\item[(a)] $\mathcal{F}$ is locally quasi-coherent, and
+\item[(b)] for any morphism $\varphi : x \to y$ of $\mathcal{X}$ which lies
+over a morphism of schemes $f : U \to V$ which is flat and
+locally of finite presentation, the comparison map
+$c_\varphi : f_{small}^*\mathcal{F}|_{V_\etale} \to
+\mathcal{F}|_{U_\etale}$ of
+(\ref{equation-comparison-modules}) is an isomorphism.
+\end{enumerate}
+Then $\mathcal{F}$ is an $\mathcal{O}_\mathcal{X}$-module and
+we have the following
+\begin{enumerate}
+\item If $\epsilon : \mathcal{X}_{fppf} \to \mathcal{X}_\etale$
+is the comparison morphism, then
+$R\epsilon_*\mathcal{F} = \epsilon_*\mathcal{F}$.
+\item The cohomology groups $H^p_{fppf}(\mathcal{X}, \mathcal{F})$ are equal
+to the cohomology groups computed in the \'etale topology on $\mathcal{X}$.
+Similarly for the cohomology groups $H^p_{fppf}(x, \mathcal{F})$ and the
+derived versions $R\Gamma(\mathcal{X}, \mathcal{F})$ and
+$R\Gamma(x, \mathcal{F})$.
+\item If $f : \mathcal{X} \to \mathcal{Y}$ is a $1$-morphism of
+categories fibred in groupoids over $(\Sch/S)_{fppf}$ then
+$R^if_*\mathcal{F}$ is equal to the fppf-sheafification of the
+higher direct image computed in the \'etale cohomology.
+Similarly for derived pushforward.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The assertion that $\mathcal{F}$ is an $\mathcal{O}_\mathcal{X}$-module
+follows from
+Lemma \ref{lemma-lqc-flat-base-change-fppf-sheaf}.
+Note that $\epsilon$ is a morphism of sites given by the identity
+functor on $\mathcal{X}$. The sheaf $R^p\epsilon_*\mathcal{F}$ is therefore
+the sheaf associated to the presheaf
+$x \mapsto H^p_{fppf}(x, \mathcal{F})$, see
+Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-higher-direct-images}.
+To prove (1) it suffices to show that
+$H^p_{fppf}(x, \mathcal{F}) = 0$ for $p > 0$
+whenever $x$ lies over an affine scheme $U$. By
+Lemma \ref{lemma-cohomology-restriction}
+we have
+$H^p_{fppf}(x, \mathcal{F}) = H^p((\Sch/U)_{fppf}, x^{-1}\mathcal{F})$.
+Combining
+Descent, Lemma \ref{descent-lemma-quasi-coherent-and-flat-base-change}
+with Cohomology of Schemes, Lemma
+\ref{coherent-lemma-quasi-coherent-affine-cohomology-zero}
+we see that these cohomology groups are zero.
+
+\medskip\noindent
+We have seen above that $\epsilon_*\mathcal{F}$ and $\mathcal{F}$ are the
+sheaves on $\mathcal{X}_\etale$ and $\mathcal{X}_{fppf}$
+corresponding to the same presheaf on $\mathcal{X}$ (and this is true more
+generally for any sheaf in the fppf topology on $\mathcal{X}$).
+We often abusively identify $\mathcal{F}$ and $\epsilon_*\mathcal{F}$
+and this is the sense in which parts (2) and (3) of the lemma should be
+understood. Thus part (2) follows formally from (1) and the Leray spectral
+sequence, see
+Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-apply-Leray}.
+
+\medskip\noindent
+Finally we prove (3). The sheaf $R^if_*\mathcal{F}$
+(resp.\ $Rf_{\etale, *}\mathcal{F}$)
+is the sheaf associated to the presheaf
+$$
+y \longmapsto
+H^i_\tau\Big((\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X},
+\ \text{pr}^{-1}\mathcal{F}\Big)
+$$
+where $\tau$ is $fppf$ (resp.\ $\etale$), see
+Lemma \ref{lemma-pushforward-restriction}.
+Note that $\text{pr}^{-1}\mathcal{F}$ satisfies properties (a) and (b)
+also (by Lemmas \ref{lemma-pullback-lqc} and \ref{lemma-comparison}),
+hence these two presheaves are equal by (2).
+This immediately implies (3).
+\end{proof}
+
+\noindent
+We will use the following lemma to compare \'etale cohomology of sheaves
+on algebraic stacks with cohomology on the lisse-\'etale topos.
+
+\begin{lemma}
+\label{lemma-cohomology-on-subcategory}
+Let $S$ be a scheme. Let $\mathcal{X}$ be an algebraic stack over $S$.
+Let $\tau = \etale$ (resp.\ $\tau = fppf$). Let
+$\mathcal{X}' \subset \mathcal{X}$ be a full subcategory with the
+following properties
+\begin{enumerate}
+\item if $x \to x'$ is a morphism of $\mathcal{X}$ which lies over a
+smooth (resp.\ flat and locally finitely presented) morphism of
+schemes and $x' \in \Ob(\mathcal{X}')$, then $x \in \Ob(\mathcal{X}')$, and
+\item there exists an object $x \in \Ob(\mathcal{X}')$ lying over
+a scheme $U$ such that the associated $1$-morphism
+$x : (\Sch/U)_{fppf} \to \mathcal{X}$ is smooth and surjective.
+\end{enumerate}
+We get a site $\mathcal{X}'_\tau$ by declaring a covering of $\mathcal{X}'$
+to be any family of morphisms $\{x_i \to x\}$ in $\mathcal{X}'$ which is a
+covering in $\mathcal{X}_\tau$. Then the inclusion functor
+$\mathcal{X}' \to \mathcal{X}_\tau$ is fully faithful, cocontinuous, and
+continuous, whence defines a morphism of topoi
+$$
+g : \Sh(\mathcal{X}'_\tau) \longrightarrow \Sh(\mathcal{X}_\tau)
+$$
+and $H^p(\mathcal{X}'_\tau, g^{-1}\mathcal{F}) =
+H^p(\mathcal{X}_\tau, \mathcal{F})$ for all $p \geq 0$ and all
+$\mathcal{F} \in \textit{Ab}(\mathcal{X}_\tau)$.
+\end{lemma}
+
+\begin{proof}
+Note that assumption (1) implies that if $\{x_i \to x\}$ is a covering
+of $\mathcal{X}_\tau$ and $x \in \Ob(\mathcal{X}')$, then we have
+$x_i \in \Ob(\mathcal{X}')$. Hence we see that $\mathcal{X}' \to \mathcal{X}$
+is continuous and cocontinuous as the coverings of objects of
+$\mathcal{X}'_\tau$ agree with their coverings seen as objects of
+$\mathcal{X}_\tau$. We obtain the morphism $g$ and the functor
+$g^{-1}$ is identified with the restriction functor, see
+Sites, Lemma \ref{sites-lemma-when-shriek}.
+
+\medskip\noindent
+In particular, if $\{x_i \to x\}$ is a covering in $\mathcal{X}'_\tau$,
+then for any abelian sheaf $\mathcal{F}$ on $\mathcal{X}$ then
+$$
+\check H^p(\{x_i \to x\}, g^{-1}\mathcal{F}) =
+\check H^p(\{x_i \to x\}, \mathcal{F})
+$$
+Thus if $\mathcal{I}$ is an injective abelian sheaf on $\mathcal{X}_\tau$
+then we see that the higher {\v C}ech cohomology groups are zero
+(Cohomology on Sites,
+Lemma \ref{sites-cohomology-lemma-injective-trivial-cech}).
+Hence $H^p(x, g^{-1}\mathcal{I}) = 0$ for all objects $x$
+of $\mathcal{X}'$
+(Cohomology on Sites,
+Lemma \ref{sites-cohomology-lemma-cech-vanish-collection}).
+In other words injective abelian sheaves on $\mathcal{X}_\tau$
+are right acyclic for the functor $H^0(x, g^{-1}-)$.
+It follows that $H^p(x, g^{-1}\mathcal{F}) = H^p(x, \mathcal{F})$
+for all $\mathcal{F} \in \textit{Ab}(\mathcal{X})$ and all
+$x \in \Ob(\mathcal{X}')$.
+
+\medskip\noindent
+Choose an object $x \in \mathcal{X}'$ lying over a scheme $U$
+as in assumption (2). In particular $\mathcal{X}/x \to \mathcal{X}$
+is a morphism of algebraic stacks which representable by algebraic spaces,
+surjective, and smooth. (Note that $\mathcal{X}/x$ is equivalent to
+$(\Sch/U)_{fppf}$, see Lemma \ref{lemma-localizing}.)
+The map of sheaves
+$$
+h_x \longrightarrow *
+$$
+in $\Sh(\mathcal{X}_\tau)$ is surjective. Namely, for any object $x'$
+of $\mathcal{X}$ there exists a $\tau$-covering $\{x'_i \to x'\}$
+such that there exist morphisms $x'_i \to x$, see
+Lemma \ref{lemma-surjective-flat-locally-finite-presentation}.
+Since $g$ is exact, the map of sheaves
+$$
+g^{-1}h_x \longrightarrow * = g^{-1}*
+$$
+in $\Sh(\mathcal{X}'_\tau)$ is surjective also. Let $h_{x, n}$ be
+the $(n + 1)$-fold product $h_x \times \ldots \times h_x$.
+Then we have spectral sequences
+\begin{equation}
+\label{equation-spectral-sequence-one}
+E_1^{p, q} = H^q(h_{x, p}, \mathcal{F}) \Rightarrow
+H^{p + q}(\mathcal{X}_\tau, \mathcal{F})
+\end{equation}
+and
+\begin{equation}
+\label{equation-spectral-sequence-two}
+E_1^{p, q} = H^q(g^{-1}h_{x, p}, g^{-1}\mathcal{F}) \Rightarrow
+H^{p + q}(\mathcal{X}'_\tau, g^{-1}\mathcal{F})
+\end{equation}
+see Cohomology on Sites,
+Lemma \ref{sites-cohomology-lemma-cech-to-cohomology-sheaf-sets}.
+
+\medskip\noindent
+Case I: $\mathcal{X}$ has a final object $x$ which is also an object of
+$\mathcal{X}'$. This case follows immediately from the discussion
+in the second paragraph above.
+
+\medskip\noindent
+Case II: $\mathcal{X}$ is representable by an algebraic space $F$.
+In this case the sheaves $h_{x, n}$ are representable by an
+object $x_n$ in $\mathcal{X}$. (Namely, if $\mathcal{S}_F = \mathcal{X}$
+and $x : U \to F$ is the given object, then $h_{x, n}$ is representable
+by the object $U \times_F \ldots \times_F U \to F$ of $\mathcal{S}_F$.)
+It follows that $H^q(h_{x, p}, \mathcal{F}) = H^q(x_p, \mathcal{F})$.
+The morphisms $x_n \to x$ lie over smooth morphisms of schemes, hence
+$x_n \in \mathcal{X}'$ for all $n$. Hence
+$H^q(g^{-1}h_{x, p}, g^{-1}\mathcal{F}) = H^q(x_p, g^{-1}\mathcal{F})$.
+Thus in the two spectral sequences
+(\ref{equation-spectral-sequence-one}) and
+(\ref{equation-spectral-sequence-two}) above the $E_1^{p, q}$ terms agree
+by the discussion in the second paragraph. The lemma follows in Case II
+as well.
+
+\medskip\noindent
+Case III: $\mathcal{X}$ is an algebraic stack. We claim that in this case
+the cohomology groups $H^q(h_{x, p}, \mathcal{F})$ and
+$H^q(g^{-1}h_{x, n}, g^{-1}\mathcal{F})$ agree by Case II above.
+Once we have proved this the result will follow as before.
+
+\medskip\noindent
+Namely, consider the category $\mathcal{X}/h_{x, n}$, see
+Sites, Lemma \ref{sites-lemma-localize-topos-site}.
+Since $h_{x, n}$ is the $(n + 1)$-fold product of $h_x$ an
+object of this category is an $(n + 2)$-tuple
+$(y, s_0, \ldots, s_n)$ where $y$ is an object of $\mathcal{X}$ and each
+$s_i : y \to x$ is a morphism of $\mathcal{X}$.
+This is a category over $(\Sch/S)_{fppf}$. There is an equivalence
+$$
+\mathcal{X}/h_{x, n}
+\longrightarrow
+(\Sch/U)_{fppf} \times_\mathcal{X} \ldots \times_\mathcal{X} (\Sch/U)_{fppf}
+=: \mathcal{U}_n
+$$
+over $(\Sch/S)_{fppf}$. Namely, if $x : (\Sch/U)_{fppf} \to \mathcal{X}$ also
+denotes the $1$-morphism associated with $x$ and
+$p : \mathcal{X} \to (\Sch/S)_{fppf}$ the structure functor,
+then we can think of $(y, s_0, \ldots, s_n)$ as
+$(y, f_0, \ldots, f_n, \alpha_0, \ldots, \alpha_n)$
+where $y$ is an object of $\mathcal{X}$, $f_i : p(y) \to p(x)$ is a
+morphism of schemes, and $\alpha_i : y \to x(f_i)$ an isomorphism.
+The category of $2n+3$-tuples
+$(y, f_0, \ldots, f_n, \alpha_0, \ldots, \alpha_n)$
+is an incarnation of the $(n + 1)$-fold fibred product $\mathcal{U}_n$
+of algebraic stacks displayed above, as we discussed in
+Section \ref{section-cech}.
+By Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-cohomology-on-sheaf-sets}
+we have
+$$
+H^p(\mathcal{U}_n, \mathcal{F}|_{\mathcal{U}_n}) =
+H^p(\mathcal{X}/h_{x, n}, \mathcal{F}|_{\mathcal{X}/h_{x, n}}) =
+H^p(h_{x, n}, \mathcal{F}).
+$$
+Finally, we discuss the ``primed'' analogue of this. Namely,
+$\mathcal{X}'/h_{x, n}$ corresponds, via the equivalence above
+to the full subcategory $\mathcal{U}'_n \subset \mathcal{U}_n$
+consisting of those tuples
+$(y, f_0, \ldots, f_n, \alpha_0, \ldots, \alpha_n)$
+with $y \in \mathcal{X}'$. Hence certainly property (1) of the
+statement of the lemma holds
+for the inclusion $\mathcal{U}'_n \subset \mathcal{U}_n$.
+To see property (2) choose an object $\xi = (y, s_0, \ldots, s_n)$ which
+lies over a scheme $W$ such that $(\Sch/W)_{fppf} \to \mathcal{U}_n$
+is smooth and surjective (this is possible as $\mathcal{U}_n$ is
+an algebraic stack). Then
+$(\Sch/W)_{fppf} \to \mathcal{U}_n \to (\Sch/U)_{fppf}$
+is smooth as a composition of base changes of the morphism
+$x : (\Sch/U)_{fppf} \to \mathcal{X}$, see
+Algebraic Stacks, Lemmas
+\ref{algebraic-lemma-base-change-representable-transformations-property} and
+\ref{algebraic-lemma-composition-representable-transformations-property}.
+Thus axiom (1) for $\mathcal{X}$ implies that $y$ is an object of
+$\mathcal{X}'$ whence $\xi$ is an object of $\mathcal{U}'_n$.
+Using again
+$$
+H^p(\mathcal{U}'_n, \mathcal{F}|_{\mathcal{U}'_n}) =
+H^p(\mathcal{X}'/h_{x, n}, \mathcal{F}|_{\mathcal{X}'/h_{x, n}}) =
+H^p(g^{-1}h_{x, n}, g^{-1}\mathcal{F}).
+$$
+we now can use Case II for 
+$\mathcal{U}'_n \subset \mathcal{U}_n$
+to conclude.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

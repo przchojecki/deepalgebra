@@ -1,0 +1,4716 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Schemes}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+In this document we define schemes.
+A basic reference is \cite{EGA}.
+
+
+
+
+
+
+
+
+
+\section{Locally ringed spaces}
+\label{section-locally-ringed-spaces}
+
+\noindent
+Recall that we defined ringed spaces
+in Sheaves, Section \ref{sheaves-section-ringed-spaces}.
+Briefly, a ringed space is a pair $(X, \mathcal{O}_X)$ consisting
+of a topological space $X$ and a sheaf of rings $\mathcal{O}_X$.
+A morphism of ringed spaces $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$
+is given by a continuous map $f : X \to Y$ and an $f$-map of sheaves
+of rings $f^\sharp : \mathcal{O}_Y \to \mathcal{O}_X$. You can
+think of $f^\sharp$ as a map $\mathcal{O}_Y \to f_*\mathcal{O}_X$, see
+Sheaves, Definition \ref{sheaves-definition-f-map} and
+Lemma \ref{sheaves-lemma-f-map}.
+
+\medskip\noindent
+A good geometric example of this to keep in mind is
+$\mathcal{C}^\infty$-manifolds and morphisms of
+$\mathcal{C}^\infty$-manifolds. Namely, if $M$ is a
+$\mathcal{C}^\infty$-manifold, then the sheaf $\mathcal{C}^\infty_M$
+of smooth functions is a sheaf of rings on $M$. And any
+map $f : M \to N$ of manifolds is smooth if and only if
+for every local section $h$ of $\mathcal{C}^\infty_N$
+the composition $h \circ f$ is a local section of $\mathcal{C}^\infty_M$.
+Thus a smooth map $f$ gives rise in a natural way to a morphism
+of ringed spaces
+$$
+f : (M , \mathcal{C}^\infty_M) \longrightarrow (N, \mathcal{C}^\infty_N)
+$$
+see Sheaves, Example \ref{sheaves-example-continuous-map-ringed}.
+It is instructive to consider what happens to stalks. Namely, let
+$m \in M$ with image $f(m) = n \in N$. Recall that the stalk
+$\mathcal{C}^\infty_{M, m}$ is the ring of germs of smooth
+functions at $m$, see
+Sheaves, Example \ref{sheaves-example-germs-functions}.
+The algebra of germs of functions on $(M, m)$ is a local ring with maximal
+ideal the functions which vanish at $m$.
+Similarly for $\mathcal{C}^\infty_{N, n}$. The map on stalks
+$f^\sharp : \mathcal{C}^\infty_{N, n} \to \mathcal{C}^\infty_{M, m}$
+maps the maximal ideal into the maximal ideal, simply
+because $f(m) = n$.
+
+\medskip\noindent
+In algebraic geometry we study schemes. On a scheme the sheaf of rings
+is not determined by an intrinsic property of the space.
+The spectrum of a ring $R$
+(see Algebra, Section \ref{algebra-section-spectrum-ring}) endowed
+with a sheaf of rings constructed out of $R$ (see below),
+will be our basic building block. It will turn out that
+the stalks of $\mathcal{O}$ on $\Spec(R)$ are the local
+rings of $R$ at its primes. There are two reasons to introduce
+locally ringed spaces in this setting: (1) There is in general
+no mechanism that assigns to a continuous map of spectra a
+map of the corresponding rings. This is why we add as an extra datum
+the map $f^\sharp$. (2) If we consider morphisms
+of these spectra in the category of ringed spaces, then the
+maps on stalks may not be local homomorphisms. Since our
+geometric intuition says it should we introduce locally ringed spaces
+as follows.
+
+\begin{definition}
+\label{definition-locally-ringed-space}
+Locally ringed spaces.
+\begin{enumerate}
+\item A {\it locally ringed space $(X, \mathcal{O}_X)$}
+is a pair consisting of a
+topological space $X$ and a sheaf of rings $\mathcal{O}_X$ all of whose stalks
+are local rings.
+\item Given a locally ringed space $(X, \mathcal{O}_X)$ we say that
+$\mathcal{O}_{X, x}$ is the {\it local ring of $X$ at $x$}.
+We denote $\mathfrak{m}_{X, x}$ or simply $\mathfrak{m}_x$
+the maximal ideal of $\mathcal{O}_{X, x}$. Moreover, the
+{\it residue field of $X$ at $x$} is the residue field
+$\kappa(x) = \mathcal{O}_{X, x}/\mathfrak{m}_x$.
+\item A {\it morphism of locally ringed spaces}
+$(f, f^\sharp) : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$
+is a morphism of ringed spaces such that for all $x \in X$
+the induced ring map $\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$ is a
+local ring map.
+\end{enumerate}
+\end{definition}
+
+\noindent
+We will usually suppress the sheaf of rings $\mathcal{O}_X$
+in the notation when discussing locally ringed spaces. We will
+simply refer to ``the locally ringed space $X$''.
+We will by abuse of notation think of $X$ also as
+the underlying topological space. Finally we will denote
+the corresponding sheaf of rings
+$\mathcal{O}_X$ as the {\it structure sheaf of $X$}.
+In addition, it is customary to denote the maximal ideal
+of the local ring $\mathcal{O}_{X, x}$ by
+$\mathfrak{m}_{X, x}$ or simply $\mathfrak{m}_x$.
+We will say ``let $f : X \to Y$ be a morphism of locally ringed
+spaces'' thereby suppressing the structure sheaves even further.
+In this case, we will by abuse of notation think of $f : X\to Y$
+also as the underlying continuous map of topological spaces.
+The $f$-map corresponding to $f$ will customarily
+be denoted $f^\sharp$. The condition that $f$ is a morphism
+of locally ringed spaces can then be expressed by saying that
+for every $x\in X$ the map on stalks
+$$
+f^\sharp_x : \mathcal{O}_{Y, f(x)} \longrightarrow \mathcal{O}_{X, x}
+$$
+maps the maximal ideal $\mathfrak m_{Y, f(x)}$ into
+$\mathfrak m_{X, x}$.
+
+\medskip\noindent
+Let us use these notational conventions to show that the
+collection of locally ringed spaces and morphisms of locally
+ringed spaces forms a category. In order to see this we have
+to show that the composition of morphisms of locally ringed
+spaces is a morphism of locally ringed spaces. OK, so let
+$f : X \to Y$ and $g : Y \to Z$ be morphism of locally
+ringed spaces. The composition of $f$ and $g$ is defined in
+Sheaves, Definition \ref{sheaves-definition-composition-maps-ringed-spaces}.
+Let $x \in X$. By
+Sheaves, Lemma \ref{sheaves-lemma-compose-f-maps-stalks}
+the composition
+$$
+\mathcal{O}_{Z, g(f(x))}
+\xrightarrow{g^\sharp}
+\mathcal{O}_{Y, f(x)}
+\xrightarrow{f^\sharp}
+\mathcal{O}_{X, x}
+$$
+is the associated map on stalks for the morphism $g \circ f$.
+The result follows since a composition of local ring
+homomorphisms is a local ring homomorphism.
+
+\medskip\noindent
+A pleasing feature of the definition is the fact that the functor
+$$
+\textit{Locally ringed spaces}
+\longrightarrow
+\textit{Ringed spaces}
+$$
+reflects isomorphisms (plus more).
+Here is a less abstract statement.
+
+\begin{lemma}
+\label{lemma-isomorphism-locally-ringed}
+\begin{slogan}
+An isomorphism of ringed spaces between locally ringed spaces is an
+isomorphism of locally ringed spaces.
+\end{slogan}
+Let $X$, $Y$ be locally ringed spaces.
+If $f : X \to Y$ is an isomorphism of
+ringed spaces, then $f$ is an isomorphism
+of locally ringed spaces.
+\end{lemma}
+
+\begin{proof}
+This follows trivially from the corresponding fact in algebra:
+Suppose $A$, $B$ are local rings. Any isomorphism of rings
+$A \to B$ is a local ring homomorphism.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Open immersions of locally ringed spaces}
+\label{section-open-immersion}
+
+\begin{definition}
+\label{definition-immersion-locally-ringed-spaces}
+Let $f : X \to Y$ be a morphism of locally ringed spaces.
+We say that $f$ is an {\it open immersion} if
+$f$ is a homeomorphism of $X$ onto an open subset
+of $Y$, and the map $f^{-1}\mathcal{O}_Y \to \mathcal{O}_X$
+is an isomorphism.
+\end{definition}
+
+\noindent
+The following construction is parallel to
+Sheaves, Definition \ref{sheaves-definition-restriction} (3).
+
+\begin{example}
+\label{example-open-subspace}
+Let $X$ be a locally ringed space.
+Let $U \subset X$ be an open subset.
+Let $\mathcal{O}_U = \mathcal{O}_X|_U$
+be the restriction of $\mathcal{O}_X$ to $U$.
+For $u \in U$ the stalk $\mathcal{O}_{U, u}$
+is equal to the stalk $\mathcal{O}_{X, u}$, and hence is a
+local ring. Thus $(U, \mathcal{O}_U)$ is a locally ringed
+space and the morphism $j : (U, \mathcal{O}_U) \to (X, \mathcal{O}_X)$
+is an open immersion.
+\end{example}
+
+\begin{definition}
+\label{definition-open-subspace}
+Let $X$ be a locally ringed space.
+Let $U \subset X$ be an open subset.
+The locally ringed space $(U, \mathcal{O}_U)$
+of Example \ref{example-open-subspace} above
+is the {\it open subspace of $X$ associated to $U$}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-open-immersion}
+Let $f : X \to Y$ be an open immersion of
+locally ringed spaces. Let $j : V = f(X) \to Y$
+be the open subspace of $Y$ associated to the image of $f$.
+There is a unique isomorphism $f' : X \cong V$ of
+locally ringed spaces such that $f = j \circ f'$.
+\end{lemma}
+
+\begin{proof}
+Let $f'$ be the homeomorphism between $X$ and $V$ induced by $f$. Then
+$f = j \circ f'$ as maps of topological spaces. Since there
+is an isomorphism of sheaves
+$f^\sharp : f^{-1}(\mathcal{O}_Y) \to \mathcal{O}_X$, there is an isomorphism
+of rings
+$f^\sharp : \Gamma(U, f^{-1}(\mathcal{O}_Y)) \to \Gamma(U, \mathcal{O}_X)$
+for each open subset $U \subset X$. Since
+$\mathcal{O}_V = j^{-1}\mathcal{O}_Y$ and $f^{-1} = f'^{-1} j^{-1}$
+(Sheaves, Lemma \ref{sheaves-lemma-pullback-composition}) we
+see that $f^{-1}\mathcal{O}_Y = f'^{-1}\mathcal{O}_V$, hence
+$\Gamma(U, f'^{-1}(\mathcal{O}_V)) \to \Gamma(U, f^{-1}(\mathcal{O}_Y))$
+for every $U \subset X$ open. By composing these we get an isomorphism of rings
+$$
+\Gamma(U, f'^{-1}(\mathcal{O}_V)) \to \Gamma(U, \mathcal{O}_X)
+$$
+for each open subset $U \subset X$, and therefore an isomorphism of sheaves
+$f^{-1}(\mathcal{O}_V) \to \mathcal{O}_X$. In other words, we have an
+isomorphism $f'^{\sharp} : f'^{-1}(\mathcal{O}_V) \to \mathcal{O}_X$ and
+therefore an isomorphism of locally ringed spaces
+$(f', f'^{\sharp}) : (X, \mathcal{O}_X) \to (V, \mathcal{O}_V)$
+(use Lemma \ref{lemma-isomorphism-locally-ringed}).
+Note that $f = j \circ f'$ as morphisms of locally ringed spaces
+by construction.
+
+\medskip\noindent
+Suppose we have another morphism
+$f'' : (X, \mathcal{O}_X) \to (V, \mathcal{O}_Y)$ such that $f = j \circ f''$.
+At any point $x \in X$, we have $j(f'(x)) = j(f''(x))$ from which it follows
+that $f'(x) = f''(x)$ since $j$ is the inclusion map; therefore $f'$ and $f''$
+are the same as morphisms of topological spaces. On structure sheaves,
+for each open subset $U \subset X$ we have a commutative diagram
+$$
+\xymatrix @R=5em{
+\Gamma(U, f^{-1}(\mathcal{O}_Y)) \ar[d]_\cong\ar[r]^\cong &
+\Gamma(U, \mathcal{O}_X) \\
+\Gamma(U, f'^{-1}(\mathcal{O}_V)) \ar@/^/[ru]^{f'^\sharp}
+\ar@/_/[ru]_{f''^\sharp} &
+}
+$$
+from which we see that $f'^\sharp$ and $f''^\sharp$ define
+the same morphism of sheaves.
+\end{proof}
+
+\noindent
+From now on we do not distinguish between open subsets
+and their associated subspaces.
+
+\begin{lemma}
+\label{lemma-restrict-map-to-opens}
+Let $f : X \to Y$ be a morphism of locally ringed spaces.
+Let $U \subset X$, and $V \subset Y$ be open subsets.
+Suppose that $f(U) \subset V$. There exists a unique
+morphism of locally ringed spaces $f|_U : U \to V$ such
+that the following diagram is a commutative square of
+locally ringed spaces
+$$
+\xymatrix{
+U \ar[d]_{f|_U} \ar[r] & X \ar[d]^f \\
+V \ar[r] & Y
+}
+$$
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\noindent
+In the following we will use without further mention the following
+fact which follows from the lemma above. Given any morphism
+$f : Y \to X$ of locally ringed spaces, and any open subset
+$U \subset X$ such that $f(Y) \subset U$, then there exists
+a unique morphism of locally ringed spaces $Y \to U$ such that
+the composition $Y \to U \to X$ is equal to $f$. In fact, we will
+even by abuse of notation write $f : Y \to U$ since this rarely
+gives rise to confusion.
+
+
+
+
+
+
+
+
+
+\section{Closed immersions of locally ringed spaces}
+\label{section-closed-immersion}
+
+\noindent
+We follow our conventions introduced in
+Modules, Definition \ref{modules-definition-closed-immersion}.
+
+\begin{definition}
+\label{definition-closed-immersion-locally-ringed-spaces}
+Let $i : Z \to X$ be a morphism of locally ringed spaces.
+We say that $i$ is a {\it closed immersion} if:
+\begin{enumerate}
+\item The map $i$ is a homeomorphism of $Z$ onto a closed subset of $X$.
+\item The map $\mathcal{O}_X \to i_*\mathcal{O}_Z$ is surjective;
+let $\mathcal{I}$ denote the kernel.
+\item The $\mathcal{O}_X$-module $\mathcal{I}$
+is locally generated by sections.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-closed-local-target}
+Let $f : Z \to X$ be a morphism of locally ringed spaces.
+In order for $f$ to be a closed immersion it suffices
+that there exists an open covering $X = \bigcup U_i$ such
+that each $f : f^{-1}U_i \to U_i$ is a closed immersion.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{example}
+\label{example-closed-subspace}
+Let $X$ be a locally ringed space.
+Let $\mathcal{I} \subset \mathcal{O}_X$ be a sheaf
+of ideals which is locally generated by sections as a sheaf
+of $\mathcal{O}_X$-modules. Let $Z$ be the support of
+the sheaf of rings $\mathcal{O}_X/\mathcal{I}$.
+This is a closed subset of $X$, by
+Modules, Lemma \ref{modules-lemma-support-sheaf-rings-closed}.
+Denote $i : Z \to X$ the inclusion map.
+By Modules, Lemma \ref{modules-lemma-i-star-exact}
+there is a unique sheaf of rings $\mathcal{O}_Z$ on $Z$
+with $i_*\mathcal{O}_Z = \mathcal{O}_X/\mathcal{I}$.
+For any $z \in Z$ the stalk $\mathcal{O}_{Z, z}$
+is equal to a quotient $\mathcal{O}_{X, i(z)}/\mathcal{I}_{i(z)}$
+of a local ring and nonzero, hence a local ring.
+Thus $i : (Z, \mathcal{O}_Z) \to (X, \mathcal{O}_X)$ is
+a closed immersion of locally ringed spaces.
+\end{example}
+
+\begin{definition}
+\label{definition-closed-subspace}
+Let $X$ be a locally ringed space.
+Let $\mathcal{I}$ be a sheaf of ideals on $X$
+which is locally generated by sections.
+The locally ringed space $(Z, \mathcal{O}_Z)$
+of Example \ref{example-closed-subspace} above
+is the {\it closed subspace of $X$ associated to
+the sheaf of ideals $\mathcal{I}$}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-closed-immersion}
+Let $f : X \to Y$ be a closed immersion of
+locally ringed spaces. Let $\mathcal{I}$ be the
+kernel of the map $\mathcal{O}_Y \to f_*\mathcal{O}_X$.
+Let $i : Z \to Y$ be the closed subspace of $Y$
+associated to $\mathcal{I}$.
+There is a unique isomorphism $f' : X \cong Z$ of
+locally ringed spaces such that $f = i \circ f'$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-closed-subspace}
+Let $X$, $Y$ be locally ringed spaces. Let
+$\mathcal{I} \subset \mathcal{O}_X$ be a sheaf of ideals locally generated
+by sections. Let $i : Z \to X$ be the associated closed subspace.
+A morphism $f : Y \to X$ factors through $Z$ if and only if the map
+$f^*\mathcal{I} \to f^*\mathcal{O}_X = \mathcal{O}_Y$
+is zero. If this is the case the morphism $g : Y \to Z$
+such that $f = i \circ g$ is unique.
+\end{lemma}
+
+\begin{proof}
+Clearly if $f$ factors as $Y \to Z \to X$ then the map
+$f^*\mathcal{I} \to \mathcal{O}_Y$ is zero. Conversely
+suppose that $f^*\mathcal{I} \to \mathcal{O}_Y$ is zero.
+Pick any $y \in Y$, and consider the ring map
+$f^\sharp_y : \mathcal{O}_{X, f(y)} \to \mathcal{O}_{Y, y}$.
+Since the composition
+$\mathcal{I}_{f(y)} \to \mathcal{O}_{X, f(y)} \to \mathcal{O}_{Y, y}$
+is zero by assumption and since $f^\sharp_y(1) = 1$
+we see that $1 \not \in \mathcal{I}_{f(y)}$, i.e.,
+$\mathcal{I}_{f(y)} \not = \mathcal{O}_{X, f(y)}$. We conclude that
+$f(Y) \subset Z = \text{Supp}(\mathcal{O}_X/\mathcal{I})$.
+Hence $f = i \circ g$ where $g : Y \to Z$ is continuous.
+Consider the map $f^\sharp : \mathcal{O}_X \to f_*\mathcal{O}_Y$.
+The assumption $f^*\mathcal{I} \to \mathcal{O}_Y$ is zero implies that
+the composition $\mathcal{I} \to \mathcal{O}_X \to f_*\mathcal{O}_Y$ is
+zero by adjointness of $f_*$ and $f^*$.
+In other words, we obtain a morphism of sheaves of rings
+$\overline{f^\sharp} : \mathcal{O}_X/\mathcal{I} \to f_*\mathcal{O}_Y$.
+Note that $f_*\mathcal{O}_Y = i_*g_*\mathcal{O}_Y$ and
+that $\mathcal{O}_X/\mathcal{I} = i_*\mathcal{O}_Z$.
+By Sheaves, Lemma \ref{sheaves-lemma-equivalence-categories-closed-structures}
+we obtain a unique morphism of sheaves of rings
+$g^\sharp : \mathcal{O}_Z \to g_*\mathcal{O}_Y$ whose pushforward
+under $i$ is $\overline{f^\sharp}$. We omit the verification that
+$(g, g^\sharp)$ defines a morphism of locally ringed spaces
+and that $f = i \circ g$ as a morphism of locally ringed spaces.
+The uniqueness of $(g, g^\sharp)$ was pointed out above.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-restrict-map-to-closed}
+Let $f : X \to Y$ be a morphism of locally ringed spaces.
+Let $\mathcal{I} \subset \mathcal{O}_Y$ be a sheaf of
+ideals which is locally generated by sections.
+Let $i : Z \to Y$ be the closed subspace associated to the
+sheaf of ideals $\mathcal{I}$.
+Let $\mathcal{J}$ be the image of the map
+$f^*\mathcal{I} \to f^*\mathcal{O}_Y = \mathcal{O}_X$.
+Then this ideal is locally generated by sections.
+Moreover, let $i' : Z' \to X$ be the associated closed
+subspace of $X$. There exists a unique
+morphism of locally ringed spaces $f' : Z' \to Z$ such
+that the following diagram is a commutative square of
+locally ringed spaces
+$$
+\xymatrix{
+Z' \ar[d]_{f'} \ar[r]_{i'} & X \ar[d]^f \\
+Z \ar[r]^{i} & Y
+}
+$$
+Moreover, this diagram is a fibre square in the category of
+locally ringed spaces.
+\end{lemma}
+
+\begin{proof}
+The ideal $\mathcal{J}$ is locally generated by sections
+by Modules, Lemma \ref{modules-lemma-pullback-locally-generated}.
+The rest of the lemma follows from the characterization,
+in Lemma \ref{lemma-characterize-closed-subspace} above,
+of what it means for a morphism to factor through a closed
+subspace.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Affine schemes}
+\label{section-affine-schemes}
+
+\noindent
+Let $R$ be a ring. Consider the topological space $\Spec(R)$
+associated to $R$, see Algebra, Section \ref{algebra-section-spectrum-ring}.
+We will endow this space with a sheaf of rings $\mathcal{O}_{\Spec(R)}$
+and the resulting pair $(\Spec(R), \mathcal{O}_{\Spec(R)})$
+will be an affine scheme.
+
+\medskip\noindent
+Recall that $\Spec(R)$ has a basis of open sets $D(f)$,
+$f \in R$ which we call standard opens, see Algebra,
+Definition \ref{algebra-definition-Zariski-topology}.
+In addition, the intersection of two standard opens is another:
+$D(f) \cap D(g) = D(fg)$, $f, g\in R$.
+
+\begin{lemma}
+\label{lemma-standard-open}
+Let $R$ be a ring. Let $f \in R$.
+\begin{enumerate}
+\item If $g\in R$ and $D(g) \subset D(f)$, then
+\begin{enumerate}
+\item $f$ is invertible in $R_g$,
+\item $g^e = af$ for some $e \geq 1$ and $a \in R$,
+\item there is a canonical ring map $R_f \to R_g$, and
+\item there is a canonical $R_f$-module map
+$M_f \to M_g$ for any $R$-module $M$.
+\end{enumerate}
+\item Any open covering of $D(f)$ can be refined to a finite
+open covering of the form $D(f) = \bigcup_{i = 1}^n D(g_i)$.
+\item If $g_1, \ldots, g_n \in R$, then $D(f) \subset \bigcup D(g_i)$
+if and only if $g_1, \ldots, g_n$ generate the unit ideal in $R_f$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Recall that $D(g) = \Spec(R_g)$ (see
+Algebra, Lemma \ref{algebra-lemma-standard-open}).
+Thus (a) holds because $f$
+maps to an element of $R_g$ which is not
+contained in any prime ideal, and hence invertible,
+see Algebra, Lemma \ref{algebra-lemma-Zariski-topology}.
+Write the inverse of $f$ in $R_g$ as $a/g^d$.
+This means $g^d - af$ is annihilated by a power of $g$, whence (b).
+For (c), the map $R_f \to R_g$ exists by (a) from the universal property
+of localization, or we can define it by mapping $b/f^n$
+to $a^nb/g^{ne}$. The equality $M_f = M \otimes_R R_f$
+can be used to obtain the map on modules, or
+we can define $M_f \to M_g$ by mapping
+$x/f^n$ to $a^nx/g^{ne}$.
+
+\medskip\noindent
+Recall that $D(f)$ is quasi-compact, see
+Algebra, Lemma \ref{algebra-lemma-qc-open}.
+Hence the second statement follows directly
+from the fact that the standard opens form
+a basis for the topology.
+
+\medskip\noindent
+The third statement follows directly from
+Algebra, Lemma \ref{algebra-lemma-Zariski-topology}.
+\end{proof}
+
+\noindent
+In Sheaves, Section \ref{sheaves-section-bases} we defined
+the notion of a sheaf on a basis, and we showed that it is
+essentially equivalent to the notion of a sheaf on the space,
+see Sheaves, Lemmas \ref{sheaves-lemma-extend-off-basis} and
+\ref{sheaves-lemma-extend-off-basis-structures}. Moreover,
+we showed in
+Sheaves, Lemma \ref{sheaves-lemma-cofinal-systems-coverings-standard-case}
+that it is sufficient to check the sheaf
+condition on a cofinal system of open coverings for each
+standard open. By the lemma above it suffices to check
+on the finite coverings by standard opens.
+
+\begin{definition}
+\label{definition-standard-covering}
+Let $R$ be a ring.
+\begin{enumerate}
+\item A {\it standard open covering} of $\Spec(R)$
+is a covering $\Spec(R) = \bigcup_{i = 1}^n D(f_i)$,
+where $f_1, \ldots, f_n \in R$.
+\item Suppose that $D(f) \subset \Spec(R)$ is a standard
+open. A {\it standard open covering} of $D(f)$
+is a covering $D(f) = \bigcup_{i = 1}^n D(g_i)$,
+where $g_1, \ldots, g_n \in R$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Let $R$ be a ring. Let $M$ be an $R$-module. We will define
+a presheaf $\widetilde M$ on the basis of standard opens.
+Suppose that $U \subset \Spec(R)$ is a standard open.
+If $f, g \in R$ are such that $D(f) = D(g)$, then
+by Lemma \ref{lemma-standard-open} above there are canonical
+maps $M_f \to M_g$ and $M_g \to M_f$ which are mutually inverse.
+Hence we may choose any $f$ such that $U = D(f)$
+and define
+$$
+\widetilde M(U) = M_f.
+$$
+Note that if $D(g) \subset D(f)$, then by
+Lemma \ref{lemma-standard-open} above we have
+a canonical map
+$$
+\widetilde M(D(f)) = M_f \longrightarrow M_g = \widetilde M(D(g)).
+$$
+Clearly, this defines a presheaf of abelian groups on the basis
+of standard opens. If $M = R$, then $\widetilde R$ is a presheaf
+of rings on the basis of standard opens.
+
+\medskip\noindent
+Let us compute the stalk of $\widetilde M$ at a point $x \in \Spec(R)$.
+Suppose that $x$ corresponds to the prime $\mathfrak p \subset R$.
+By definition of the stalk we see that
+$$
+\widetilde M_x = \colim_{f\in R, f\not\in \mathfrak p} M_f
+$$
+Here the set $\{f \in R, f \not \in \mathfrak p\}$ is preordered by
+the rule $f \geq f' \Leftrightarrow D(f) \subset D(f')$.
+If $f_1, f_2 \in R \setminus \mathfrak p$, then we have
+$f_1f_2 \geq f_1$ in this ordering. Hence by
+Algebra, Lemma \ref{algebra-lemma-localization-colimit}
+we conclude that
+$$
+\widetilde M_x = M_{\mathfrak p}.
+$$
+
+\medskip\noindent
+Next, we check the sheaf condition for the standard open coverings.
+If $D(f) = \bigcup_{i = 1}^n D(g_i)$, then the sheaf condition
+for this covering is equivalent with the exactness of the
+sequence
+$$
+0 \to M_f \to \bigoplus M_{g_i} \to \bigoplus M_{g_ig_j}.
+$$
+Note that $D(g_i) = D(fg_i)$, and hence we can rewrite this
+sequence as the sequence
+$$
+0 \to M_f \to \bigoplus M_{fg_i} \to \bigoplus M_{fg_ig_j}.
+$$
+In addition, by Lemma \ref{lemma-standard-open} above
+we see that $g_1, \ldots, g_n$ generate the unit ideal
+in $R_f$. Thus we may apply
+Algebra, Lemma \ref{algebra-lemma-cover-module}
+to the module $M_f$ over $R_f$ and the elements $g_1, \ldots, g_n$.
+We conclude that the sequence is exact. By the remarks
+made above, we see that $\widetilde M$ is a sheaf
+on the basis of standard opens.
+
+\medskip\noindent
+Thus we conclude from the material in
+Sheaves, Section \ref{sheaves-section-bases}
+that there exists a
+unique sheaf of rings $\mathcal{O}_{\Spec(R)}$
+which agrees with $\widetilde R$ on the standard opens.
+Note that by our computation of stalks above, the
+stalks of this sheaf of rings are all local rings.
+
+\medskip\noindent
+Similarly, for any $R$-module $M$ there exists
+a unique sheaf of $\mathcal{O}_{\Spec(R)}$-modules
+$\mathcal{F}$ which agrees with $\widetilde M$ on the
+standard opens, see
+Sheaves, Lemma \ref{sheaves-lemma-extend-off-basis-module}.
+
+\begin{definition}
+\label{definition-structure-sheaf}
+Let $R$ be a ring.
+\begin{enumerate}
+\item The {\it structure sheaf $\mathcal{O}_{\Spec(R)}$ of the
+spectrum of $R$} is the unique sheaf of rings $\mathcal{O}_{\Spec(R)}$
+which agrees with $\widetilde R$ on the basis of standard opens.
+\item The locally ringed space
+$(\Spec(R), \mathcal{O}_{\Spec(R)})$ is called
+the {\it spectrum} of $R$ and denoted $\Spec(R)$.
+\item The sheaf of $\mathcal{O}_{\Spec(R)}$-modules
+extending $\widetilde M$ to all opens of $\Spec(R)$
+is called the sheaf of $\mathcal{O}_{\Spec(R)}$-modules
+associated to $M$. This sheaf is denoted $\widetilde M$ as
+well.
+\end{enumerate}
+\end{definition}
+
+\noindent
+We summarize the results obtained so far.
+
+\begin{lemma}
+\label{lemma-spec-sheaves}
+Let $R$ be a ring. Let $M$ be an $R$-module. Let $\widetilde M$
+be the sheaf of $\mathcal{O}_{\Spec(R)}$-modules
+associated to $M$.
+\begin{enumerate}
+\item We have $\Gamma(\Spec(R), \mathcal{O}_{\Spec(R)}) = R$.
+\item We have $\Gamma(\Spec(R), \widetilde M) = M$ as an $R$-module.
+\item For every $f \in R$ we have
+$\Gamma(D(f), \mathcal{O}_{\Spec(R)}) = R_f$.
+\item For every $f\in R$ we have $\Gamma(D(f), \widetilde M) = M_f$
+as an $R_f$-module.
+\item Whenever $D(g) \subset D(f)$ the restriction mappings
+on $\mathcal{O}_{\Spec(R)}$ and $\widetilde M$
+are the maps
+$R_f \to R_g$ and $M_f \to M_g$ from Lemma
+\ref{lemma-standard-open}.
+\item Let $\mathfrak p$ be a prime of $R$, and let $x \in \Spec(R)$
+be the corresponding point. We have
+$\mathcal{O}_{\Spec(R), x} = R_{\mathfrak p}$.
+\item Let $\mathfrak p$ be a prime of $R$, and let $x \in \Spec(R)$
+be the corresponding point. We have $\mathcal{F}_x = M_{\mathfrak p}$
+as an $R_{\mathfrak p}$-module.
+\end{enumerate}
+Moreover, all these identifications are functorial in the $R$
+module $M$. In particular, the functor $M \mapsto \widetilde M$
+is an exact functor from the category of $R$-modules
+to the category of $\mathcal{O}_{\Spec(R)}$-modules.
+\end{lemma}
+
+\begin{proof}
+Assertions (1) - (7) are clear from the discussion above.
+The exactness of the functor $M \mapsto \widetilde M$
+follows from the fact that the functor $M \mapsto M_{\mathfrak p}$
+is exact and the fact that exactness of short exact sequences
+may be checked on stalks, see
+Modules, Lemma \ref{modules-lemma-abelian}.
+\end{proof}
+
+\begin{definition}
+\label{definition-affine-scheme}
+An {\it affine scheme} is a locally ringed space isomorphic
+as a locally ringed space to $\Spec(R)$ for some ring $R$.
+A {\it morphism of affine schemes} is a morphism in the category
+of locally ringed spaces.
+\end{definition}
+
+\noindent
+It turns out that affine schemes play a special role
+among all locally ringed spaces, which is what the next
+section is about.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{The category of affine schemes}
+\label{section-category-affine-schemes}
+
+\noindent
+Note that if $Y$ is an affine scheme, then its
+points are in canonical $1-1$ bijection with
+prime ideals in $\Gamma(Y, \mathcal{O}_Y)$.
+
+\begin{lemma}
+\label{lemma-morphism-into-affine-where-point-goes}
+Let $X$ be a locally ringed space.
+Let $Y$ be an affine scheme.
+Let $f \in \Mor(X, Y)$ be a morphism
+of locally ringed spaces. Given a point $x \in X$
+consider the ring maps
+$$
+\Gamma(Y, \mathcal{O}_Y) \xrightarrow{f^\sharp}
+\Gamma(X, \mathcal{O}_X) \to \mathcal{O}_{X, x}
+$$
+Let $\mathfrak p \subset \Gamma(Y, \mathcal{O}_Y)$ denote
+the inverse image of $\mathfrak m_x$. Let $y \in Y$ be the
+corresponding point. Then $f(x) = y$.
+\end{lemma}
+
+\begin{proof}
+Consider the commutative diagram
+$$
+\xymatrix{
+\Gamma(X, \mathcal{O}_X) \ar[r] &
+\mathcal{O}_{X, x} \\
+\Gamma(Y, \mathcal{O}_Y) \ar[r] \ar[u] &
+\mathcal{O}_{Y, f(x)} \ar[u]
+}
+$$
+(see the discussion of $f$-maps below
+Sheaves, Definition \ref{sheaves-definition-f-map}).
+Since the right vertical arrow is local
+we see that $\mathfrak m_{f(x)}$ is the
+inverse image of $\mathfrak m_x$. The result
+follows.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-f-open}
+Let $X$ be a locally ringed space.
+Let $f \in \Gamma(X, \mathcal{O}_X)$.
+The set
+$$
+D(f) = \{x \in X \mid \text{image }f \not\in \mathfrak m_x\}
+$$
+is open. Moreover $f|_{D(f)}$ has an inverse.
+\end{lemma}
+
+\begin{proof}
+This is a special case of Modules, Lemma \ref{modules-lemma-s-open}, but
+we also give a direct proof.
+Suppose that $U \subset X$ and $V \subset X$ are
+two open subsets such that $f|_U$ has an inverse
+$g$ and $f|_V$ has an inverse $h$. Then clearly
+$g|_{U\cap V} = h|_{U\cap V}$. Thus it suffices
+to show that $f$ is invertible in an open neighbourhood
+of any $x \in D(f)$. This is clear because
+$f \not \in \mathfrak m_x$ implies that $f \in \mathcal{O}_{X, x}$
+has an inverse $g \in \mathcal{O}_{X, x}$ which means there
+is some open neighbourhood $x \in U \subset X$ so
+that $g \in \mathcal{O}_X(U)$ and $g\cdot f|_U = 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-f-open-affine}
+In Lemma \ref{lemma-f-open} above, if $X$ is an affine scheme,
+then the open $D(f)$ agrees with the standard open $D(f)$
+defined previously (in
+Algebra, Definition \ref{algebra-definition-spectrum-ring}).
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-into-affine}
+Let $X$ be a locally ringed space.
+Let $Y$ be an affine scheme.
+The map
+$$
+\Mor(X, Y)
+\longrightarrow
+\Hom(\Gamma(Y, \mathcal{O}_Y), \Gamma(X, \mathcal{O}_X))
+$$
+which maps $f$ to $f^\sharp$ (on global sections) is bijective.
+\end{lemma}
+
+\begin{proof}
+Since $Y$ is affine we have
+$(Y, \mathcal{O}_Y) \cong (\Spec(R), \mathcal{O}_{\Spec(R)})$
+for some ring $R$.
+During the proof we will use facts about $Y$ and
+its structure sheaf which are direct consequences of things
+we know about the spectrum of a ring, see e.g.\ Lemma
+\ref{lemma-spec-sheaves}.
+
+\medskip\noindent
+Motivated by the lemmas above we construct the inverse map.
+Let $\psi_Y : \Gamma(Y, \mathcal{O}_Y) \to \Gamma(X, \mathcal{O}_X)$
+be a ring map. First, we define the corresponding map of
+spaces
+$$
+\Psi : X \longrightarrow Y
+$$
+by the rule of
+Lemma \ref{lemma-morphism-into-affine-where-point-goes}.
+In other words, given $x \in X$ we define $\Psi(x)$
+to be the point of $Y$ corresponding to the prime
+in $\Gamma(Y, \mathcal{O}_Y)$ which is the inverse
+image of $\mathfrak m_x$ under the composition
+$
+\Gamma(Y, \mathcal{O}_Y) \xrightarrow{\psi_Y}
+\Gamma(X, \mathcal{O}_X) \to
+\mathcal{O}_{X, x}
+$.
+
+\medskip\noindent
+We claim that the map $\Psi : X \to Y$ is continuous.
+The standard opens $D(g)$, for $g \in \Gamma(Y, \mathcal{O}_Y)$
+are a basis for the topology of $Y$. Thus it suffices to prove
+that $\Psi^{-1}(D(g))$ is open. By construction of $\Psi$
+the inverse image $\Psi^{-1}(D(g))$ is exactly the set
+$D(\psi_Y(g)) \subset X$ which is open by Lemma \ref{lemma-f-open}.
+Hence $\Psi$ is continuous.
+
+\medskip\noindent
+Next we construct a $\Psi$-map of sheaves from
+$\mathcal{O}_Y$ to $\mathcal{O}_X$. By
+Sheaves, Lemma \ref{sheaves-lemma-f-map-basis-below-structures}
+it suffices to define ring maps
+$\psi_{D(g)} : \Gamma(D(g), \mathcal{O}_Y) \to
+\Gamma(\Psi^{-1}(D(g)), \mathcal{O}_X)$
+compatible with restriction maps.
+We have a canonical isomorphism
+$\Gamma(D(g), \mathcal{O}_Y) = \Gamma(Y, \mathcal{O}_Y)_g$,
+because $Y$ is an affine scheme.
+Because $\psi_Y(g)$ is invertible on $D(\psi_Y(g))$
+we see that there is a canonical map
+$$
+\Gamma(Y, \mathcal{O}_Y)_g
+\longrightarrow
+\Gamma(\Psi^{-1}(D(g)), \mathcal{O}_X)
+=
+\Gamma(D(\psi_Y(g)), \mathcal{O}_X)
+$$
+extending the map $\psi_Y$
+by the universal property of localization.
+Note that there is no choice but to take the canonical map here!
+And we take this, combined
+with the canonical identification
+$\Gamma(D(g), \mathcal{O}_Y) = \Gamma(Y, \mathcal{O}_Y)_g$, to
+be $\psi_{D(g)}$. This is compatible with localization since the
+restriction mapping on the affine schemes are defined in terms
+of the universal properties of localization also, see
+Lemmas \ref{lemma-spec-sheaves} and \ref{lemma-standard-open}.
+
+\medskip\noindent
+Thus we have defined a morphism of ringed spaces
+$(\Psi, \psi) : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$
+recovering $\psi_Y$ on global sections. To see that it is
+a morphism of locally ringed spaces we have to show that
+the induced maps on local rings
+$$
+\psi_x : \mathcal{O}_{Y, \Psi(x)} \longrightarrow \mathcal{O}_{X, x}
+$$
+are local. This follows immediately from the commutative diagram
+of the proof of Lemma \ref{lemma-morphism-into-affine-where-point-goes}
+and the definition of $\Psi$.
+
+\medskip\noindent
+Finally, we have to show that the constructions
+$(\Psi, \psi) \mapsto \psi_Y$ and the construction
+$\psi_Y \mapsto (\Psi, \psi)$ are inverse to each other.
+Clearly, $\psi_Y \mapsto (\Psi, \psi) \mapsto \psi_Y$.
+Hence the only thing to prove is that given $\psi_Y$
+there is at most one pair $(\Psi, \psi)$ giving rise
+to it. The uniqueness of $\Psi$ was shown in Lemma
+\ref{lemma-morphism-into-affine-where-point-goes} and
+given the uniqueness of $\Psi$ the uniqueness of the
+map $\psi$ was pointed out during the course of the proof
+above.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-category-affine-schemes}
+The category of affine schemes is equivalent to the opposite of the
+category of rings. The equivalence is given by the functor that associates
+to an affine scheme the global sections of its structure sheaf.
+\end{lemma}
+
+\begin{proof}
+This is now clear from Definition \ref{definition-affine-scheme}
+and Lemma \ref{lemma-morphism-into-affine}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-standard-open-affine}
+Let $Y$ be an affine scheme.
+Let $f \in \Gamma(Y, \mathcal{O}_Y)$.
+The open subspace $D(f)$ is an affine scheme.
+\end{lemma}
+
+\begin{proof}
+We may assume that $Y = \Spec(R)$ and $f \in R$.
+Consider the morphism of affine schemes
+$\phi : U = \Spec(R_f) \to \Spec(R) = Y$ induced by the ring
+map $R \to R_f$. By Algebra, Lemma \ref{algebra-lemma-standard-open}
+we know that it is a homeomorphism onto $D(f)$.
+On the other hand, the map $\phi^{-1}\mathcal{O}_Y \to \mathcal{O}_U$
+is an isomorphism on stalks, hence an isomorphism. Thus we see
+that $\phi$ is an open immersion. We conclude that $D(f)$
+is isomorphic to $U$ by Lemma \ref{lemma-open-immersion}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibre-product-affine-schemes}
+The category of affine schemes has finite products, and fibre products.
+In other words, it has finite limits. Moreover, the products
+and fibre products in the category of affine schemes
+are the same as in the category of locally ringed spaces.
+In a formula, we have (in the category of locally ringed spaces)
+$$
+\Spec(R) \times \Spec(S) =
+\Spec(R \otimes_{\mathbf{Z}} S)
+$$
+and given ring maps $R \to A$, $R \to B$ we have
+$$
+\Spec(A) \times_{\Spec(R)} \Spec(B)
+=
+\Spec(A \otimes_R B).
+$$
+\end{lemma}
+
+\begin{proof}
+This is just an application of Lemma \ref{lemma-morphism-into-affine}.
+First of all, by that lemma, the affine scheme
+$\Spec(\mathbf{Z})$ is the final object in the category
+of locally ringed spaces. Thus the first displayed formula
+follows from the second. To prove the second note that
+for any locally ringed space $X$ we have
+\begin{eqnarray*}
+\Mor(X, \Spec(A \otimes_R B))
+& = &
+\Hom(A \otimes_R B, \mathcal{O}_X(X)) \\
+& = &
+\Hom(A, \mathcal{O}_X(X))
+\times_{\Hom(R, \mathcal{O}_X(X))}
+\Hom(B, \mathcal{O}_X(X)) \\
+& = &
+\Mor(X, \Spec(A))
+\times_{\Mor(X, \Spec(R))}
+\Mor(X, \Spec(B))
+\end{eqnarray*}
+which proves the formula.
+See Categories, Section \ref{categories-section-fibre-products} for the
+relevant definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-disjoint-union-affines}
+Let $X$ be a locally ringed space.
+Assume $X = U \amalg V$ with $U$ and $V$ open and
+such that $U$, $V$ are affine schemes. Then $X$ is an affine scheme.
+\end{lemma}
+
+\begin{proof}
+Set $R = \Gamma(X, \mathcal{O}_X)$.
+Note that $R = \mathcal{O}_X(U) \times \mathcal{O}_X(V)$
+by the sheaf property. By Lemma \ref{lemma-morphism-into-affine}
+there is a canonical morphism of locally ringed spaces
+$X \to \Spec(R)$. By Algebra, Lemma \ref{algebra-lemma-spec-product}
+we see that as a topological space
+$\Spec(\mathcal{O}_X(U)) \amalg \Spec(\mathcal{O}_X(V)) =
+\Spec(R)$
+with the maps coming from the ring homomorphisms
+$R \to \mathcal{O}_X(U)$ and $R \to \mathcal{O}_X(V)$.
+This of course means that $\Spec(R)$ is the coproduct
+in the category of locally ringed spaces as well.
+By assumption the morphism $X \to \Spec(R)$ induces an isomorphism
+of $\Spec(\mathcal{O}_X(U))$ with $U$ and similarly
+for $V$. Hence $X \to \Spec(R)$ is an isomorphism.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Quasi-coherent sheaves on affines}
+\label{section-quasi-coherent-affine}
+
+\noindent
+Recall that we have defined the abstract notion of a quasi-coherent
+sheaf in Modules, Definition \ref{modules-definition-quasi-coherent}.
+In this section we show that any quasi-coherent sheaf on an affine
+scheme $\Spec(R)$ corresponds to the sheaf $\widetilde M$ associated to
+an $R$-module $M$.
+
+\begin{lemma}
+\label{lemma-compare-constructions}
+Let $(X, \mathcal{O}_X) = (\Spec(R), \mathcal{O}_{\Spec(R)})$
+be an affine scheme. Let $M$ be an $R$-module. There exists a canonical
+isomorphism between the sheaf $\widetilde M$ associated to the $R$-module
+$M$ (Definition \ref{definition-structure-sheaf}) and the sheaf
+$\mathcal{F}_M$ associated to the $R$-module $M$
+(Modules, Definition \ref{modules-definition-sheaf-associated}).
+This isomorphism is functorial in $M$. In particular,
+the sheaves $\widetilde M$ are quasi-coherent. Moreover, they
+are characterized by the following mapping property
+$$
+\Hom_{\mathcal{O}_X}(\widetilde M, \mathcal{F})
+=
+\Hom_R(M, \Gamma(X, \mathcal{F}))
+$$
+for any sheaf of $\mathcal{O}_X$-modules $\mathcal{F}$.
+Here a map $\alpha : \widetilde M \to \mathcal{F}$ corresponds
+to its effect on global sections.
+\end{lemma}
+
+\begin{proof}
+By Modules, Lemma \ref{modules-lemma-construct-quasi-coherent-sheaves}
+we have a morphism $\mathcal{F}_M \to \widetilde M$ corresponding
+to the map $M \to \Gamma(X, \widetilde M) = M$. Let $x \in X$
+correspond to the prime $\mathfrak p \subset R$.
+The induced map on stalks are the maps
+$\mathcal{O}_{X, x} \otimes_R M \to M_{\mathfrak p}$
+which are isomorphisms because
+$R_{\mathfrak p} \otimes_R M = M_{\mathfrak p}$.
+Hence the map $\mathcal{F}_M \to \widetilde M$ is an isomorphism.
+The mapping property follows from the mapping property of
+the sheaves $\mathcal{F}_M$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-widetilde-constructions}
+Let $(X, \mathcal{O}_X) = (\Spec(R), \mathcal{O}_{\Spec(R)})$
+be an affine scheme. There are canonical isomorphisms
+\begin{enumerate}
+\item
+$
+\widetilde{M \otimes_R N}
+\cong
+\widetilde M \otimes_{\mathcal{O}_X} \widetilde N
+$,
+see Modules, Section \ref{modules-section-tensor-product}.
+\item
+$
+\widetilde{\text{T}^n(M)}
+\cong
+\text{T}^n(\widetilde M)
+$,
+$
+\widetilde{\text{Sym}^n(M)}
+\cong
+\text{Sym}^n(\widetilde M)
+$, and
+$
+\widetilde{\wedge^n(M)}
+\cong
+\wedge^n(\widetilde M)
+$,
+see
+Modules, Section \ref{modules-section-symmetric-exterior}.
+\item if $M$ is a finitely presented $R$-module, then
+$
+\SheafHom_{\mathcal{O}_X}(\widetilde M, \widetilde N)
+\cong
+\widetilde{\Hom_R(M,  N)}
+$,
+see
+Modules, Section \ref{modules-section-internal-hom}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}[First proof]
+By Lemma \ref{lemma-compare-constructions} to give a map
+$\widetilde{M \otimes_R N}$ into
+$\widetilde M \otimes_{\mathcal{O}_X} \widetilde N$
+we have to give a map on global sections
+$M \otimes_R N \to
+\Gamma(X, \widetilde M \otimes_{\mathcal{O}_X} \widetilde N)$
+which exists by definition of the tensor product of sheaves
+of modules. To see that this map is an isomorphism it
+suffices to check that it is an isomorphism on stalks.
+And this follows from the description of the stalks
+of $\widetilde{M}$ (either in Lemma \ref{lemma-spec-sheaves} or in
+Modules, Lemma \ref{modules-lemma-construct-quasi-coherent-sheaves}),
+the fact that tensor product commutes with localization
+(Algebra, Lemma \ref{algebra-lemma-tensor-product-localization}) and
+Modules, Lemma \ref{modules-lemma-stalk-tensor-product}.
+
+\medskip\noindent
+The proof of (2) is similar, using
+Algebra, Lemma \ref{algebra-lemma-tensor-algebra-localization} and
+Modules, Lemma \ref{modules-lemma-stalk-tensor-algebra}.
+
+\medskip\noindent
+For (3) note that if $M$ is finitely presented as an $R$-module
+then $\widetilde M$ has a global finite presentation as an
+$\mathcal{O}_X$-module. Hence we conclude using
+Algebra, Lemma \ref{algebra-lemma-hom-from-finitely-presented} and
+Modules, Lemma \ref{modules-lemma-stalk-internal-hom}.
+\end{proof}
+
+\begin{proof}[Second proof]
+Using Lemma \ref{lemma-compare-constructions} and
+Modules, Lemma \ref{modules-lemma-construct-quasi-coherent-sheaves}
+we see that the functor $M \mapsto \widetilde M$ can be viewed
+as $\pi^*$ for a morphism $\pi$ of ringed spaces.
+And pulling back modules commutes with tensor constructions by
+Modules, Lemmas \ref{modules-lemma-tensor-product-pullback}
+and \ref{modules-lemma-pullback-tensor-algebra}.
+The morphism $\pi : (X, \mathcal{O}_X) \to (\{*\}, R)$ is
+flat for example because the stalks of $\mathcal{O}_X$ are
+localizations of $R$ (Lemma \ref{lemma-spec-sheaves})
+and hence flat over $R$. Thus pullback by $\pi$ commutes
+with internal hom if the first module is finitely presented by
+Modules, Lemma \ref{modules-lemma-pullback-internal-hom}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-widetilde-pullback}
+Let
+$(X, \mathcal{O}_X) = (\Spec(S), \mathcal{O}_{\Spec(S)})$,
+$(Y, \mathcal{O}_Y) = (\Spec(R), \mathcal{O}_{\Spec(R)})$
+be affine schemes.
+Let $\psi : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ be a
+morphism of affine schemes, corresponding to the ring map
+$\psi^\sharp : R \to S$ (see Lemma \ref{lemma-category-affine-schemes}).
+\begin{enumerate}
+\item We have $\psi^* \widetilde M = \widetilde{S \otimes_R M}$
+functorially in the $R$-module $M$.
+\item We have $\psi_* \widetilde N = \widetilde{N_R}$ functorially
+in the $S$-module $N$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The first assertion follows from the identification in
+Lemma \ref{lemma-compare-constructions}
+and the result of Modules, Lemma \ref{modules-lemma-restrict-quasi-coherent}.
+The second assertion follows from the fact
+that $\psi^{-1}(D(f)) = D(\psi^\sharp(f))$ and hence
+$$
+\psi_* \widetilde N(D(f)) = \widetilde N(D(\psi^\sharp(f))) =
+N_{\psi^\sharp(f)} = (N_R)_f = \widetilde{N_R}(D(f))
+$$
+as desired.
+\end{proof}
+
+\noindent
+Lemma \ref{lemma-widetilde-pullback} above says in particular
+that if you restrict
+the sheaf $\widetilde M$ to a standard affine open subspace
+$D(f)$, then you get $\widetilde{M_f}$. We will use this from
+now on without further mention.
+
+\begin{lemma}
+\label{lemma-quasi-coherent-affine}
+Let $(X, \mathcal{O}_X) = (\Spec(R), \mathcal{O}_{\Spec(R)})$
+be an affine scheme. Let $\mathcal{F}$ be a
+quasi-coherent $\mathcal{O}_X$-module. Then
+$\mathcal{F}$ is isomorphic to the sheaf associated to
+the $R$-module $\Gamma(X, \mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Since every standard open $D(f)$ is quasi-compact we see that
+$X$ is a locally quasi-compact, i.e., every point has a fundamental
+system of quasi-compact neighbourhoods, see Topology,
+Definition \ref{topology-definition-locally-quasi-compact}.
+Hence by Modules, Lemma \ref{modules-lemma-quasi-coherent-module}
+for every prime $\mathfrak p \subset R$ corresponding to $x \in X$
+there exists an open neighbourhood $x \in U \subset X$ such that
+$\mathcal{F}|_U$ is isomorphic to the quasi-coherent
+sheaf associated to some $\mathcal{O}_X(U)$-module $M$.
+In other words, we get an open covering by $U$'s with this property.
+By Lemma \ref{lemma-standard-open} for example we can refine this
+covering to  a standard open covering.
+Thus we get a covering $\Spec(R) = \bigcup D(f_i)$
+and $R_{f_i}$-modules $M_i$ and isomorphisms
+$\varphi_i : \mathcal{F}|_{D(f_i)} \to \mathcal{F}_{M_i}$
+for some $R_{f_i}$-module $M_i$. On the overlaps
+we get isomorphisms
+$$
+\xymatrix{
+\mathcal{F}_{M_i}|_{D(f_if_j)}
+\ar[rr]^{\varphi_i^{-1}|_{D(f_if_j)}}
+& &
+\mathcal{F}|_{D(f_if_j)}
+\ar[rr]^{\varphi_j|_{D(f_if_j)}}
+& &
+\mathcal{F}_{M_j}|_{D(f_if_j)}.
+}
+$$
+Let us denote these $\psi_{ij}$. It is clear that
+we have the cocycle condition
+$$
+\psi_{jk}|_{D(f_if_jf_k)}
+\circ
+\psi_{ij}|_{D(f_if_jf_k)}
+=
+\psi_{ik}|_{D(f_if_jf_k)}
+$$
+on triple overlaps.
+
+\medskip\noindent
+Recall that each of the open subspaces $D(f_i)$, $D(f_if_j)$,
+$D(f_if_jf_k)$ is an affine scheme. Hence the sheaves $\mathcal{F}_{M_i}$
+are isomorphic to the sheaves $\widetilde M_i$ by Lemma
+\ref{lemma-compare-constructions} above. In particular we see that
+$\mathcal{F}_{M_i}(D(f_if_j)) = (M_i)_{f_j}$, etc.
+Also by Lemma \ref{lemma-compare-constructions} above we see
+that $\psi_{ij}$ corresponds to a unique $R_{f_if_j}$-module isomorphism
+$$
+\psi_{ij} : (M_i)_{f_j} \longrightarrow (M_j)_{f_i}
+$$
+namely, the effect of $\psi_{ij}$ on sections over $D(f_if_j)$.
+Moreover these then satisfy the cocycle condition that
+$$
+\xymatrix{
+(M_i)_{f_jf_k}
+\ar[rd]_{\psi_{ij}}
+\ar[rr]^{\psi_{ik}}
+& &
+(M_k)_{f_if_j} \\
+&
+(M_j)_{f_if_k} \ar[ru]_{\psi_{jk}}
+}
+$$
+commutes (for any triple $i, j, k$).
+
+\medskip\noindent
+Now Algebra, Lemma \ref{algebra-lemma-glue-modules}
+shows that there exist an $R$-module $M$ such that
+$M_i = M_{f_i}$ compatible with the morphisms $\psi_{ij}$.
+Consider $\mathcal{F}_M = \widetilde M$. At this point it is
+a formality to show that $\widetilde M$ is isomorphic to
+the quasi-coherent sheaf $\mathcal{F}$ we started out with.
+Namely, the sheaves $\mathcal{F}$ and $\widetilde M$ give
+rise to isomorphic sets of glueing data of sheaves of $\mathcal{O}_X$-modules
+with respect to the covering $X = \bigcup D(f_i)$, see
+Sheaves, Section \ref{sheaves-section-glueing-sheaves}
+and in particular Lemma \ref{sheaves-lemma-mapping-property-glue}.
+Explicitly, in the current situation, this boils down to
+the following argument: Let us construct an $R$-module map
+$$
+M \longrightarrow \Gamma(X, \mathcal{F}).
+$$
+Namely, given $m \in M$ we get $m_i = m/1 \in M_{f_i} = M_i$
+by construction of $M$. By construction of $M_i$ this corresponds
+to a section $s_i \in \mathcal{F}(U_i)$. (Namely, $\varphi^{-1}_i(m_i)$.)
+We claim that $s_i|_{D(f_if_j)} = s_j|_{D(f_if_j)}$. This is
+true because, by construction of $M$, we have $\psi_{ij}(m_i) = m_j$,
+and by the construction of the $\psi_{ij}$. By the sheaf condition of
+$\mathcal{F}$ this collection of sections gives rise to a unique
+section $s$ of $\mathcal{F}$ over $X$. We leave it to the reader
+to show that $m \mapsto s$ is a $R$-module map.
+By Lemma \ref{lemma-compare-constructions} we obtain an associated
+$\mathcal{O}_X$-module map
+$$
+\widetilde M \longrightarrow \mathcal{F}.
+$$
+By construction this map reduces to the isomorphisms
+$\varphi_i^{-1}$ on each $D(f_i)$ and hence is an isomorphism.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-equivalence-quasi-coherent}
+Let $(X, \mathcal{O}_X) = (\Spec(R), \mathcal{O}_{\Spec(R)})$
+be an affine scheme.
+The functors $M \mapsto \widetilde M$ and
+$\mathcal{F} \mapsto \Gamma(X, \mathcal{F})$ define quasi-inverse
+equivalences of categories
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_X)
+\ar@<1ex>[r]
+&
+\text{Mod-}R
+\ar@<1ex>[l]
+}
+$$
+between the category of quasi-coherent $\mathcal{O}_X$-modules
+and the category of $R$-modules.
+\end{lemma}
+
+\begin{proof}
+See Lemmas \ref{lemma-compare-constructions}
+and \ref{lemma-quasi-coherent-affine} above.
+\end{proof}
+
+\noindent
+From now on we will not distinguish between quasi-coherent
+sheaves on affine schemes and sheaves of the form $\widetilde M$.
+
+\begin{lemma}
+\label{lemma-kernel-cokernel-quasi-coherent}
+Let $X = \Spec(R)$ be an affine scheme.
+Kernels and cokernels of maps of quasi-coherent
+$\mathcal{O}_X$-modules are quasi-coherent.
+\end{lemma}
+
+\begin{proof}
+This follows from the exactness of the functor $\widetilde{\ }$
+since by Lemma \ref{lemma-compare-constructions} we know that any map
+$\psi : \widetilde{M} \to \widetilde{N}$ comes from
+an $R$-module map $\varphi : M \to N$. (So we have
+$\Ker(\psi) = \widetilde{\Ker(\varphi)}$ and
+$\Coker(\psi) = \widetilde{\Coker(\varphi)}$.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-colimit-quasi-coherent}
+Let $X = \Spec(R)$ be an affine scheme.
+The direct sum of an arbitrary collection of quasi-coherent sheaves
+on $X$ is quasi-coherent. The same holds for colimits.
+\end{lemma}
+
+\begin{proof}
+Suppose $\mathcal{F}_i$, $i \in I$ is a collection of quasi-coherent
+sheaves on $X$. By Lemma \ref{lemma-equivalence-quasi-coherent}
+above we can write $\mathcal{F}_i = \widetilde{M_i}$ for some $R$-module
+$M_i$. Set $M = \bigoplus M_i$. Consider the sheaf $\widetilde{M}$.
+For each standard open $D(f)$ we have
+$$
+\widetilde{M}(D(f)) = M_f =
+\left(\bigoplus M_i\right)_f =
+\bigoplus M_{i, f}.
+$$
+Hence we see that the quasi-coherent $\mathcal{O}_X$-module
+$\widetilde{M}$ is the direct sum of the sheaves $\mathcal{F}_i$.
+A similar argument works for general colimits.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extension-quasi-coherent}
+Let $(X, \mathcal{O}_X) = (\Spec(R), \mathcal{O}_{\Spec(R)})$
+be an affine scheme. Suppose that
+$$
+0 \to
+\mathcal{F}_1 \to
+\mathcal{F}_2 \to
+\mathcal{F}_3 \to
+0
+$$
+is a short exact sequence of sheaves $\mathcal{O}_X$-modules.
+If two out of three are quasi-coherent then so is the third.
+\end{lemma}
+
+\begin{proof}
+This is clear in case both $\mathcal{F}_1$ and $\mathcal{F}_2$ are
+quasi-coherent because the functor $M \mapsto \widetilde M$
+is exact, see Lemma \ref{lemma-spec-sheaves}.
+Similarly in case both $\mathcal{F}_2$ and $\mathcal{F}_3$ are
+quasi-coherent. Now, suppose that $\mathcal{F}_1 = \widetilde M_1$ and
+$\mathcal{F}_3 = \widetilde M_3$ are quasi-coherent.
+Set $M_2 = \Gamma(X, \mathcal{F}_2)$. We claim it suffices to show that
+the sequence
+$$
+0 \to M_1 \to M_2 \to M_3 \to 0
+$$
+is exact. Namely, if this is the case, then (by using the mapping
+property of Lemma \ref{lemma-compare-constructions}) we get a commutative
+diagram
+$$
+\xymatrix{
+0 \ar[r] &
+\widetilde M_1 \ar[r] \ar[d] &
+\widetilde M_2 \ar[r] \ar[d] &
+\widetilde M_3 \ar[r] \ar[d] &
+0 \\
+0 \ar[r] &
+\mathcal{F}_1 \ar[r] &
+\mathcal{F}_2 \ar[r] &
+\mathcal{F}_3 \ar[r] &
+0
+}
+$$
+and we win by the snake lemma.
+
+\medskip\noindent
+The ``correct'' argument here would be to show first
+that $H^1(X, \mathcal{F}) = 0$ for any quasi-coherent sheaf $\mathcal{F}$.
+This is actually not all that hard, but it is perhaps better to postpone
+this till later. Instead we use a small trick.
+
+\medskip\noindent
+Pick $m \in M_3 = \Gamma(X, \mathcal{F}_3)$.
+Consider the following set
+$$
+I = \{ f \in R \mid \text{the element }fm\text{ comes from }M_2\}.
+$$
+Clearly this is an ideal. It suffices to show $1 \in I$.
+Hence it suffices to show that for any prime $\mathfrak p$
+there exists an $f \in I$, $f \not\in \mathfrak p$.
+Let $x \in X$ be the point corresponding to $\mathfrak p$.
+Because surjectivity can be checked on stalks
+there exists an open neighbourhood $U$ of $x$ such that
+$m|_U$ comes from a local section $s \in \mathcal{F}_2(U)$.
+In fact we may assume that $U = D(f)$ is a standard open,
+i.e., $f \in R$, $f \not \in \mathfrak p$. We will show
+that for some $N \gg 0$ we have $f^N \in I$, which
+will finish the proof.
+
+\medskip\noindent
+Take any point $z \in V(f)$, say corresponding to the
+prime $\mathfrak q \subset R$. We can also find a $g \in R$,
+$g \not \in \mathfrak q$ such that $m|_{D(g)}$ lifts
+to some $s' \in \mathcal{F}_2(D(g))$.
+Consider the difference $s|_{D(fg)} - s'|_{D(fg)}$.
+This is an element $m'$ of $\mathcal{F}_1(D(fg)) = (M_1)_{fg}$.
+For some integer $n = n(z)$ the element $f^n m'$ comes
+from some $m'_1 \in (M_1)_g$. We see that
+$f^n s$ extends to a section $\sigma$ of $\mathcal{F}_2$ on $D(f) \cup D(g)$
+because it agrees with the restriction of
+$f^n s' + m'_1$ on $D(f) \cap D(g) = D(fg)$.
+Moreover, $\sigma$ maps to the restriction of $f^n m$
+to $D(f) \cup D(g)$.
+
+\medskip\noindent
+Since $V(f)$ is quasi-compact, there exists a finite list
+of elements $g_1, \ldots, g_m \in R$ such that
+$V(f) \subset \bigcup D(g_j)$, an integer $n > 0$ and sections
+$\sigma_j \in \mathcal{F}_2(D(f) \cup D(g_j))$ such that
+$\sigma_j|_{D(f)} = f^n s$ and $\sigma_j$ maps to the section
+$f^nm|_{D(f) \cup D(g_j)}$ of $\mathcal{F}_3$.
+Consider the differences
+$$
+\sigma_j|_{D(f) \cup D(g_jg_k)}
+-
+\sigma_k|_{D(f) \cup D(g_jg_k)}.
+$$
+These correspond to sections of $\mathcal{F}_1$
+over $D(f) \cup D(g_jg_k)$ which are zero
+on $D(f)$. In particular their images in
+$\mathcal{F}_1(D(g_jg_k)) = (M_1)_{g_jg_k}$
+are zero in $(M_1)_{g_jg_kf}$.
+Thus some high power of $f$ kills each and every one of these.
+In other words, the elements $f^N \sigma_j$, for some $N \gg 0$
+satisfy the glueing condition of the sheaf property and
+give rise to a section $\sigma $ of $\mathcal{F}_2$
+over $\bigcup (D(f) \cup D(g_j)) = X$ as desired.
+\end{proof}
+
+
+
+
+
+
+
+\section{Closed subspaces of affine schemes}
+\label{section-closed-in-affine}
+
+\begin{example}
+\label{example-closed-immersion-affines}
+Let $R$ be a ring.
+Let $I \subset R$ be an ideal.
+Consider the morphism of affine schemes
+$i : Z = \Spec(R/I) \to \Spec(R) = X$.
+By Algebra, Lemma \ref{algebra-lemma-spec-closed}
+this is a homeomorphism of $Z$ onto a closed
+subset of $X$. Moreover, if $I \subset \mathfrak p \subset R$
+is a prime corresponding to a point $x = i(z)$, $x \in X$,
+$z \in Z$, then on stalks we get the map
+$$
+\mathcal{O}_{X, x} = R_{\mathfrak p}
+\longrightarrow
+R_{\mathfrak p}/IR_{\mathfrak p} = \mathcal{O}_{Z, z}
+$$
+Thus we see that $i$ is a closed immersion of locally ringed spaces,
+see Definition \ref{definition-closed-immersion-locally-ringed-spaces}.
+Clearly, this is (isomorphic) to the closed subspace associated
+to the quasi-coherent sheaf of ideals $\widetilde I$, as in
+Example \ref{example-closed-subspace}.
+\end{example}
+
+\begin{lemma}
+\label{lemma-closed-immersion-affine-case}
+\begin{slogan}
+For affine schemes, closed immersions correspond to ideals.
+\end{slogan}
+Let $(X, \mathcal{O}_X) = (\Spec(R), \mathcal{O}_{\Spec(R)})$
+be an affine scheme. Let $i : Z \to X$ be any closed immersion
+of locally ringed spaces. Then there exists a unique ideal
+$I \subset R$ such that the morphism $i : Z \to X$ can be identified
+with the closed immersion $\Spec(R/I) \to \Spec(R)$
+constructed in Example \ref{example-closed-immersion-affines} above.
+\end{lemma}
+
+\begin{proof}
+This is kind of silly! Namely, by Lemma \ref{lemma-closed-immersion}
+we can identify $Z \to X$ with the closed subspace associated to
+a sheaf of ideals $\mathcal{I} \subset \mathcal{O}_X$ as in
+Definition \ref{definition-closed-subspace} and
+Example \ref{example-closed-subspace}.
+By our conventions this sheaf of ideals is locally generated
+by sections as a sheaf of $\mathcal{O}_X$-modules.
+Hence the quotient sheaf $\mathcal{O}_X / \mathcal{I}$
+is locally on $X$ the cokernel
+of a map $\bigoplus_{j \in J} \mathcal{O}_U \to \mathcal{O}_U$.
+Thus by definition, $\mathcal{O}_X / \mathcal{I}$ is quasi-coherent.
+By our results in Section \ref{section-quasi-coherent-affine}
+it is of the form $\widetilde S$ for some $R$-module $S$.
+Moreover, since $\mathcal{O}_X = \widetilde R \to \widetilde S$
+is surjective we see by Lemma \ref{lemma-extension-quasi-coherent}
+that also $\mathcal{I}$ is quasi-coherent, say $\mathcal{I} = \widetilde I$.
+Of course $I \subset R$ and $S = R/I$ and everything is clear.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Schemes}
+\label{section-schemes}
+
+\begin{definition}
+\label{definition-scheme}
+\begin{history}
+In \cite{EGA1} what we call a scheme was called a ``pre-sch\'ema'' and the
+name ``sch\'ema'' was reserved for what is a separated scheme in the
+Stacks project. In the second edition \cite{EGA1-second} the terminology
+was changed to the terminology that is now standard. However, one may
+occasionally encounter the terminology ``prescheme'', for example in
+\cite{Murre-lectures}.
+\end{history}
+A {\it scheme} is a locally ringed space with the property that
+every point has an open neighbourhood which is an affine scheme.
+A {\it morphism of schemes} is a morphism of locally
+ringed spaces. The category of schemes will be denoted
+$\Sch$.
+\end{definition}
+
+\noindent
+Let $X$ be a scheme.
+We will use the following (very slight) abuse of language.
+We will say $U \subset X$ is an {\it affine open}, or an {\it open affine}
+if the open subspace $U$ is an affine scheme. We will often
+write $U = \Spec(R)$ to indicate that $U$ is isomorphic
+to $\Spec(R)$ and moreover that we will identify (temporarily)
+$U$ and $\Spec(R)$.
+
+\begin{lemma}
+\label{lemma-open-subspace-scheme}
+Let $X$ be a scheme. Let $j : U \to X$ be an open immersion
+of locally ringed spaces. Then $U$ is a scheme. In particular,
+any open subspace of $X$ is a scheme.
+\end{lemma}
+
+\begin{proof}
+Let $U \subset X$. Let $u \in U$.
+Pick an affine open neighbourhood $u \in V \subset X$.
+Because standard opens of $V$ form a basis of the topology
+on $V$ we see that there exists a $f\in \mathcal{O}_V(V)$
+such that $u \in D(f) \subset U$. And $D(f)$ is an affine scheme
+by Lemma \ref{lemma-standard-open-affine}. This proves that every point
+of $U$ has an open neighbourhood which is affine.
+\end{proof}
+
+\noindent
+Clearly the lemma (or its proof) shows that any scheme
+$X$ has a basis (see Topology, Section \ref{topology-section-bases})
+for the topology consisting of affine opens.
+
+\begin{example}
+\label{example-not-affine}
+Let $k$ be a field.
+An example of a scheme which is not affine is
+given by the open subspace
+$U = \Spec(k[x, y]) \setminus \{ (x, y)\}$
+of the affine scheme $X =\Spec(k[x, y])$.
+It is covered by two affines, namely $D(x) = \Spec(k[x, y, 1/x])$
+and $D(y) = \Spec(k[x, y, 1/y])$ whose intersection is
+$D(xy) = \Spec(k[x, y, 1/xy])$. By the sheaf property
+for $\mathcal{O}_U$ there is an exact sequence
+$$
+0 \to
+\Gamma(U, \mathcal{O}_U) \to
+k[x, y, 1/x] \times k[x, y, 1/y] \to
+k[x, y, 1/xy]
+$$
+We conclude that the map $k[x, y] \to \Gamma(U, \mathcal{O}_U)$
+(coming from the morphism $U \to X$) is an isomorphism.
+Therefore $U$ cannot be affine since if it was then by
+Lemma \ref{lemma-category-affine-schemes} we would have $U \cong X$.
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+\section{Immersions of schemes}
+\label{section-immersions}
+
+\noindent
+In Lemma \ref{lemma-open-subspace-scheme} we saw that any open subspace
+of a scheme is a scheme. Below we will prove that the same holds for
+a closed subspace of a scheme.
+
+\medskip\noindent
+Note that the notion of a quasi-coherent sheaf of $\mathcal{O}_X$-modules
+is defined for any ringed space $X$ in particular when $X$ is a scheme.
+By our efforts in Section \ref{section-quasi-coherent-affine} we
+know that such a sheaf is on any affine open $U \subset X$
+of the form $\widetilde M$ for some $\mathcal{O}_X(U)$-module $M$.
+
+\begin{lemma}
+\label{lemma-closed-subspace-scheme}
+Let $X$ be a scheme. Let $i : Z \to X$ be a closed immersion
+of locally ringed spaces.
+\begin{enumerate}
+\item The locally ringed space $Z$ is a scheme,
+\item the kernel $\mathcal{I}$ of the map
+$\mathcal{O}_X \to i_*\mathcal{O}_Z$ is a quasi-coherent
+sheaf of ideals,
+\item for any affine open $U = \Spec(R)$ of $X$
+the morphism $i^{-1}(U) \to U$ can be identified with
+$\Spec(R/I) \to \Spec(R)$ for some ideal $I \subset R$, and
+\item we have $\mathcal{I}|_U = \widetilde I$.
+\end{enumerate}
+In particular, any sheaf of ideals locally generated by sections
+is a quasi-coherent sheaf of ideals (and vice versa),
+and any closed subspace of $X$ is a scheme.
+\end{lemma}
+
+\begin{proof}
+Let $i : Z \to X$ be a closed immersion.
+Let $z \in Z$ be a point. Choose any affine open
+neighbourhood $i(z) \in U \subset X$. Say $U = \Spec(R)$.
+By Lemma \ref{lemma-closed-immersion-affine-case} we know
+that $i^{-1}(U) \to U$ can be identified with the morphism
+of affine schemes $\Spec(R/I) \to \Spec(R)$.
+First of all this implies that $z \in i^{-1}(U) \subset Z$ is an
+affine neighbourhood of $z$. Thus $Z$ is a scheme. Second
+this implies that $\mathcal{I}|_U$ is $\widetilde I$.
+In other words for every point $x \in i(Z)$ there exists an
+open neighbourhood such that $\mathcal{I}$ is quasi-coherent in
+that neighbourhood. Note that $\mathcal{I}|_{X \setminus i(Z)}
+\cong \mathcal{O}_{X \setminus i(Z)}$. Thus the restriction
+of the sheaf of ideals is quasi-coherent on $X \setminus i(Z)$
+also. We conclude that $\mathcal{I}$ is quasi-coherent.
+\end{proof}
+
+\begin{definition}
+\label{definition-immersion}
+Let $X$ be a scheme.
+\begin{enumerate}
+\item A morphism of schemes is called an {\it open immersion}
+if it is an open immersion of locally ringed spaces (see
+Definition \ref{definition-immersion-locally-ringed-spaces}).
+\item An {\it open subscheme} of $X$ is an open subspace of $X$
+which is a scheme by Lemma \ref{lemma-open-subspace-scheme} above.
+\item A morphism of schemes is called a {\it closed immersion}
+if it is a closed immersion of locally ringed spaces (see
+Definition \ref{definition-closed-immersion-locally-ringed-spaces}).
+\item A {\it closed subscheme} of $X$ is a closed subspace of $X$
+which is a scheme by Lemma \ref{lemma-closed-subspace-scheme} above.
+\item A morphism of schemes $f : X \to Y$ is called an {\it immersion},
+or a {\it locally closed immersion} if it can be factored as
+$j \circ i$ where $i$ is a closed immersion and $j$ is an open
+immersion.
+\end{enumerate}
+\end{definition}
+
+\noindent
+It follows from the lemmas in Sections \ref{section-open-immersion}
+and \ref{section-closed-immersion} that any open
+(resp.\ closed) immersion of schemes
+is isomorphic to the inclusion of an open
+(resp.\ closed) subscheme of the target.
+We will define locally closed subschemes below.
+
+\begin{remark}
+\label{remark-not-reverse-open-closed}
+If $f : X \to Y$ is an immersion of schemes, then it is in general
+not possible to factor $f$ as an open immersion followed
+by a closed immersion. See Morphisms, Example \ref{morphisms-example-thibaut}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-immersion-when-closed}
+Let $f : Y \to X$ be an immersion of schemes. Then $f$ is a closed
+immersion if and only if $f(Y) \subset X$ is a closed subset.
+\end{lemma}
+
+\begin{proof}
+If $f$ is a closed immersion then $f(Y)$ is closed by definition.
+Conversely, suppose that $f(Y)$ is closed. By definition
+there exists an open subscheme $U \subset X$ such that $f$ is the composition
+of a closed immersion $i : Y \to U$ and the open immersion
+$j : U \to X$. Let $\mathcal{I} \subset \mathcal{O}_U$ be the
+quasi-coherent sheaf of ideals associated to the closed immersion
+$i$. Note that
+$\mathcal{I}|_{U \setminus i(Y)}
+= \mathcal{O}_{U \setminus i(Y)}
+= \mathcal{O}_{X \setminus i(Y)}|_{U \setminus i(Y)}$.
+Thus we may glue (see Sheaves, Section \ref{sheaves-section-glueing-sheaves})
+$\mathcal{I}$ and $\mathcal{O}_{X \setminus i(Y)}$ to a sheaf of
+ideals $\mathcal{J} \subset \mathcal{O}_X$. Since every
+point of $X$ has a neighbourhood where $\mathcal{J}$ is
+quasi-coherent, we see that $\mathcal{J}$ is quasi-coherent
+(in particular locally generated by sections).
+By construction $\mathcal{O}_X/\mathcal{J}$ is supported
+on $U$ and equal to $\mathcal{O}_U/\mathcal{I}$.
+Thus we see that the closed subspaces associated to $\mathcal{I}$
+and $\mathcal{J}$ are canonically isomorphic, see
+Example \ref{example-closed-subspace}.
+In particular the closed subspace of $U$ associated to $\mathcal{I}$
+is isomorphic to a closed subspace of $X$.
+Since $Y \to U$ is identified with the closed subspace
+associated to $\mathcal{I}$, see Lemma \ref{lemma-closed-immersion},
+we conclude that $Y \to U \to X$
+is a closed immersion.
+\end{proof}
+
+\noindent
+Let $f : Y \to X$ be an immersion.
+Let $Z = \overline{f(Y)} \setminus f(Y)$ which is a closed subset of $X$.
+Let $U = X \setminus Z$.
+The lemma implies that $U$ is the biggest open subspace of $X$
+such that $f : Y \to X$ factors through a closed immersion into $U$.
+We define a {\it locally closed subscheme of $X$} as a pair
+$(Z, U)$ consisting of a closed subscheme $Z$ of an open subscheme $U$
+of $X$ such that in addition $\overline{Z} \cup U = X$. We usually
+just say ``let $Z$ be a locally closed subscheme of $X$'' since we may
+recover $U$ from the morphism $Z \to X$. The above
+then shows that any immersion $f : Y \to X$ factors uniquely
+as $Y \to Z \to X$ where $Z$ is a locally closed subspace of $X$
+and $Y \to Z$ is an isomorphism.
+
+\medskip\noindent
+The interest of this is that the collection of locally closed subschemes
+of $X$ forms a set. We may define a partial ordering on this set,
+which we call inclusion for obvious reasons. To be explicit, if
+$Z \to X$ and $Z' \to X$ are two locally closed subschemes of $X$, then
+we say that {\it $Z$ is contained in $Z'$} simply if the morphism
+$Z \to X$ factors through $Z'$. If it does, then of course $Z$ is identified
+with a unique locally closed subscheme of $Z'$, and so on.
+
+
+
+
+
+
+
+
+
+
+
+\section{Zariski topology of schemes}
+\label{section-topology}
+
+\noindent
+See Topology, Section \ref{topology-section-introduction}
+for some basic material in topology adapted to the Zariski
+topology of schemes.
+
+\begin{lemma}
+\label{lemma-scheme-sober}
+Let $X$ be a scheme.
+Any irreducible closed subset of $X$ has a unique generic point.
+In other words, $X$ is a sober topological space, see
+Topology, Definition \ref{topology-definition-generic-point}.
+\end{lemma}
+
+\begin{proof}
+Let $Z \subset X$ be an irreducible closed subset.
+For every affine open $U \subset X$, $U = \Spec(R)$
+we know that $Z \cap U = V(I)$ for a unique
+radical ideal $I \subset R$. Note that $Z \cap U$ is either
+empty or irreducible. In the second case (which occurs
+for at least one $U$) we see that $I = \mathfrak p$
+is a prime ideal, which is a generic point $\xi$ of $Z \cap U$.
+It follows that $Z = \overline{\{\xi\}}$, in other words
+$\xi$ is a generic point of $Z$. If $\xi'$ was a second
+generic point, then $\xi' \in Z \cap U$ and it follows
+immediately that $\xi' = \xi$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-basis-affine-opens}
+Let $X$ be a scheme. The collection of affine opens
+of $X$ forms a basis for the topology on $X$.
+\end{lemma}
+
+\begin{proof}
+This follows from the discussion on open subschemes
+in Section \ref{section-schemes}.
+\end{proof}
+
+\begin{remark}
+\label{remark-intersection-affine-opens}
+In general the intersection of two affine opens in $X$
+is not affine open. See Example \ref{example-affine-space-zero-doubled}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-locally-quasi-compact}
+The underlying topological space of any scheme is
+locally quasi-compact, see
+Topology, Definition \ref{topology-definition-locally-quasi-compact}.
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-basis-affine-opens} above
+and the fact that the spectrum of ring is quasi-compact, see
+Algebra, Lemma \ref{algebra-lemma-quasi-compact}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-standard-open-two-affines}
+Let $X$ be a scheme.
+Let $U, V$ be affine opens of $X$, and let $x \in U \cap V$.
+There exists an affine open neighbourhood $W$ of $x$
+such that $W$ is a standard open of both $U$ and $V$.
+\end{lemma}
+
+\begin{proof}
+Write $U = \Spec(A)$ and $V = \Spec(B)$.
+Say $x$ corresponds to the prime $\mathfrak p \subset A$
+and the prime $\mathfrak q \subset B$.
+We may choose a $f \in A$, $f \not \in \mathfrak p$ such that
+$D(f) \subset U \cap V$. Note that any standard open of $D(f)$
+is a standard open of $\Spec(A) = U$. Hence we may assume
+that $U \subset V$. In other words, now we may think of $U$
+as an affine open of $V$. Next we choose a
+$g \in B$, $g \not \in \mathfrak q$ such that
+$D(g) \subset U$. In this case we see that $D(g) = D(g_A)$
+where $g_A \in A$ denotes the image of $g \in A$. Thus the lemma
+is proved.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-good-subcover}
+Let $X$ be a scheme.
+Let $X = \bigcup_i U_i$ be an affine open covering.
+Let $V \subset X$ be an affine open.
+There exists a standard open covering
+$V = \bigcup_{j = 1, \ldots, m} V_j$ (see
+Definition \ref{definition-standard-covering})
+such that each $V_j$ is a standard open in one of the $U_i$.
+\end{lemma}
+
+\begin{proof}
+Pick $v \in V$. Then $v \in U_i$ for some $i$.
+By Lemma \ref{lemma-standard-open-two-affines} above there exists an open
+$v \in W_v \subset V \cap U_i$ such that
+$W_v$ is a standard open in both $V$ and $U_i$.
+Since $V$ is quasi-compact the lemma follows.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-scheme-finite-discrete-affine}
+Let $X$ be a scheme whose underlying topological space
+is a finite discrete set.
+Then $X$ is affine.
+\end{lemma}
+
+\begin{proof}
+Say $X = \{x_1, \ldots, x_n\}$. Then $U_i = \{x_i\}$ is an open neighbourhood
+of $x_i$. By
+Lemma \ref{lemma-basis-affine-opens}
+it is affine. Hence $X$ is a finite disjoint union of affine schemes, and
+hence is affine by
+Lemma \ref{lemma-disjoint-union-affines}.
+\end{proof}
+
+\begin{example}
+\label{example-scheme-without-closed-points}
+There exists a scheme without closed points.
+Namely, let $R$ be a local domain whose spectrum
+looks like
+$(0) = \mathfrak p_0 \subset \mathfrak p_1 \subset \mathfrak p_2
+\subset \ldots \subset \mathfrak m$. Then the open subscheme
+$\Spec(R) \setminus \{\mathfrak m\}$ does not have
+a closed point. To see that such a ring $R$ exists, we use
+that given any totally ordered group $(\Gamma, \geq)$
+there exists a valuation ring $A$ with valuation group $(\Gamma, \geq)$,
+see \cite{Krull}. See Algebra, Section \ref{algebra-section-valuation-rings}
+for notation. We take
+$\Gamma = \mathbf{Z}x_1 \oplus \mathbf{Z}x_2 \oplus \mathbf{Z}x_3 \oplus
+\ldots$ and we define $\sum_i a_i x_i \geq 0$ if and only
+if the first nonzero $a_i$ is $> 0$, or all $a_i = 0$.
+So $x_1 \geq x_2 \geq x_3 \geq  \ldots \geq 0$.
+The subsets $x_i + \Gamma_{\geq 0}$ are prime ideals
+of $(\Gamma, \geq)$, see Algebra, notation above
+Lemma \ref{algebra-lemma-ideals-valuation-ring}. These together
+with $\emptyset$ and $\Gamma_{\geq 0}$ are the only prime ideals.
+Hence $A$ is an example of a ring with the given structure of
+its spectrum, by
+Algebra, Lemma \ref{algebra-lemma-ideals-valuation-ring}.
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Reduced schemes}
+\label{section-reduced}
+
+\begin{definition}
+\label{definition-reduced}
+Let $X$ be a scheme. We say $X$ is {\it reduced} if every local ring
+$\mathcal{O}_{X, x}$ is reduced.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-reduced}
+A scheme $X$ is reduced if and only if $\mathcal{O}_X(U)$
+is a reduced ring for all $U \subset X$ open.
+\end{lemma}
+
+\begin{proof}
+Assume that $X$ is reduced.
+Let $f \in \mathcal{O}_X(U)$ be a section such that $f^n = 0$.
+Then the image of $f$ in $\mathcal{O}_{U, u}$ is zero for
+all $u \in U$. Hence $f$ is zero, see
+Sheaves, Lemma \ref{sheaves-lemma-sheaf-subset-stalks}.
+Conversely, assume that $\mathcal{O}_X(U)$ is reduced
+for all opens $U$. Pick any nonzero element $f \in \mathcal{O}_{X, x}$.
+Any representative $(U, f \in \mathcal{O}(U))$  of $f$ is nonzero and
+hence not nilpotent. Hence $f$ is not nilpotent in $\mathcal{O}_{X, x}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-affine-reduced}
+An affine scheme $\Spec(R)$ is reduced
+if and only if $R$ is reduced.
+\end{lemma}
+
+\begin{proof}
+The direct implication follows immediately from
+Lemma \ref{lemma-reduced} above.
+In the other direction it follows since any localization of
+a reduced ring is reduced, and in particular the local rings
+of a reduced ring are reduced.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reduced-closed-subscheme}
+Let $X$ be a scheme. Let $T \subset X$ be a closed subset.
+There exists a unique closed subscheme $Z \subset X$ with
+the following properties: (a) the underlying topological
+space of $Z$ is equal to $T$, and (b) $Z$ is reduced.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{I} \subset \mathcal{O}_X$ be the sub presheaf
+defined by the rule
+$$
+\mathcal{I}(U) = \{f \in \mathcal{O}_X(U) \mid
+f(t) = 0\text{ for all }t \in T\cap U\}
+$$
+Here we use $f(t)$ to indicate the image of
+$f$ in the residue field $\kappa(t)$ of $X$ at $t$.
+Because of the local nature of the condition it is
+clear that $\mathcal{I}$ is a sheaf of ideals. Moreover,
+let $U = \Spec(R)$ be an affine open.
+We may write $T \cap U = V(I)$ for a unique radical
+ideal $I \subset R$. Given a prime $\mathfrak p \in V(I)$
+corresponding to $t \in T \cap U$ and an element $f \in R$ we have
+$f(t) = 0 \Leftrightarrow f \in \mathfrak p$.
+Hence $\mathcal{I}(U) = \cap_{\mathfrak p \in V(I)} \mathfrak p
+= I$ by Algebra, Lemma \ref{algebra-lemma-Zariski-topology}.
+Moreover, for any standard open $D(g) \subset \Spec(R) = U$
+we have $\mathcal{I}(D(g)) = I_g$ by the same reasoning.
+Thus $\widetilde I$ and $\mathcal{I}|_U$ agree (as ideals)
+on a basis of opens and hence are equal. Therefore
+$\mathcal{I}$ is a quasi-coherent sheaf of ideals.
+
+\medskip\noindent
+At this point we may define $Z$ as the closed subspace
+associated to the sheaf of ideals $\mathcal{I}$. For every
+affine open $U = \Spec(R)$ of $X$ we see that
+$Z \cap U = \Spec(R/I)$ where $I$ is a radical ideal and
+hence $Z$ is reduced (by Lemma \ref{lemma-affine-reduced} above).
+By construction the underlying closed subset of $Z$ is $T$.
+Hence we have found a closed subscheme with properties (a) and (b).
+
+\medskip\noindent
+Let $Z' \subset X$ be a second closed subscheme with properties (a) and (b).
+For every affine open $U = \Spec(R)$ of $X$ we see that
+$Z' \cap U = \Spec(R/I')$ for some ideal $I' \subset R$.
+By Lemma \ref{lemma-affine-reduced} the ring $R/I'$ is
+reduced and hence $I'$ is radical. Since $V(I') = T \cap U = V(I)$
+we deduced that $I = I'$ by
+Algebra, Lemma \ref{algebra-lemma-Zariski-topology}.
+Hence $Z'$ and $Z$ are defined by the same sheaf of ideals
+and hence are equal.
+\end{proof}
+
+\begin{definition}
+\label{definition-reduced-induced-scheme}
+Let $X$ be a scheme. Let $Z \subset X$ be a closed subset.
+A {\it scheme structure on $Z$} is given by a closed subscheme $Z'$ of
+$X$ whose underlying set is equal to $Z$. We often say
+``let $(Z, \mathcal{O}_Z)$ be a scheme structure on $Z$'' to
+indicate this. The {\it reduced induced scheme structure}
+on $Z$ is the one constructed in Lemma \ref{lemma-reduced-closed-subscheme}.
+The {\it reduction $X_{red}$ of $X$} is the reduced induced scheme
+structure on $X$ itself.
+\end{definition}
+
+\noindent
+Often when we say ``let $Z \subset X$ be an irreducible component of $X$''
+we think of $Z$ as a reduced closed subscheme of $X$ using the reduced induced
+scheme structure.
+
+\begin{lemma}
+\label{lemma-map-into-reduction}
+Let $X$ be a scheme.
+Let $Z \subset X$ be a closed subscheme.
+Let $Y$ be a reduced scheme.
+A morphism $f : Y \to X$ factors through $Z$ if and only if
+$f(Y) \subset Z$ (set theoretically). In particular, any
+morphism $Y \to X$ factors as $Y \to X_{red} \to X$.
+\end{lemma}
+
+\begin{proof}
+Assume $f(Y) \subset Z$ (set theoretically).
+Let $I \subset \mathcal{O}_X$ be the ideal sheaf of $Z$.
+For any affine opens $U \subset X$, $\Spec(B) = V \subset Y$
+with $f(V) \subset U$ and any $g \in \mathcal{I}(U)$
+the pullback $b = f^\sharp(g) \in \Gamma(V, \mathcal{O}_Y) = B$
+maps to zero in the residue field of any $y \in V$.
+In other words $b \in \bigcap_{\mathfrak p \subset B} \mathfrak p$.
+This implies $b = 0$ as $B$ is reduced (Lemma \ref{lemma-reduced}, and
+Algebra, Lemma \ref{algebra-lemma-Zariski-topology}).
+Hence $f$ factors through
+$Z$ by Lemma \ref{lemma-characterize-closed-subspace}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Points of schemes}
+\label{section-points}
+
+\noindent
+Given a scheme $X$ we can define a functor
+$$
+h_X : \Sch^{opp}
+\longrightarrow
+\textit{Sets}, \quad
+T \longmapsto \Mor(T, X).
+$$
+See Categories, Example \ref{categories-example-hom-functor}.
+This is called the {\it functor of points of $X$}.
+A fun part of scheme theory is to find descriptions of
+the internal geometry of $X$ in terms of this functor $h_X$.
+In this section we find a simple way to describe
+points of $X$.
+
+\medskip\noindent
+Let $X$ be a scheme. Let $R$ be a local ring with maximal ideal
+$\mathfrak m \subset R$. Suppose that $f : \Spec(R) \to X$
+is a morphism of schemes. Let $x \in X$ be the image of the closed point
+$\mathfrak m \in \Spec(R)$. Then we obtain a local homomorphism
+of local rings
+$$
+f^\sharp :
+\mathcal{O}_{X, x}
+\longrightarrow
+\mathcal{O}_{\Spec(R), \mathfrak m} = R.
+$$
+
+\begin{lemma}
+\label{lemma-morphism-from-spec-local-ring}
+Let $X$ be a scheme. Let $R$ be a local ring.
+The construction above gives a bijective correspondence
+between morphisms $\Spec(R) \to X$ and pairs
+$(x, \varphi)$ consisting of a point $x \in X$ and
+a local homomorphism of local rings $\varphi : \mathcal{O}_{X, x} \to R$.
+\end{lemma}
+
+\begin{proof}
+Let $A$ be a ring. For any ring homomorphism $\psi : A \to R$
+there exists a unique prime ideal $\mathfrak p \subset A$
+and a factorization $A \to A_{\mathfrak p} \to R$ where the
+last map is a local homomorphism of local rings. Namely,
+$\mathfrak p = \psi^{-1}(\mathfrak m)$. Via
+Lemma \ref{lemma-morphism-into-affine}
+this proves that the lemma holds if $X$ is an affine scheme.
+
+\medskip\noindent
+Let $X$ be a general scheme. Any $x \in X$ is contained in
+an open affine $U \subset X$. By the affine case we conclude that every pair
+$(x, \varphi)$ occurs as the end product of the construction
+above the lemma.
+
+\medskip\noindent
+To finish the proof it suffices to show that any morphism
+$f : \Spec(R) \to X$ has image contained in any affine
+open containing the image $x$ of the closed
+point of $\Spec(R)$. In fact, let $x \in V \subset X$
+be any open neighbourhood containing $x$. Then
+$f^{-1}(V) \subset \Spec(R)$ is an open containing
+the unique closed point and hence equal to $\Spec(R)$.
+\end{proof}
+
+\noindent
+As a special case of the lemma above we obtain for every
+point $x$ of a scheme $X$ a canonical morphism
+\begin{equation}
+\label{equation-canonical-morphism}
+\Spec(\mathcal{O}_{X, x}) \longrightarrow X
+\end{equation}
+corresponding to the identity map on the local ring of $X$ at $x$.
+We may reformulate the lemma above as saying that for any
+morphism $f : \Spec(R) \to X$ there exists a unique point
+$x \in X$ such that $f$ factors as
+$\Spec(R) \to \Spec(\mathcal{O}_{X, x}) \to X$
+where the first map comes from a local homomorphism
+$\mathcal{O}_{X, x} \to R$.
+
+\medskip\noindent
+In case we have a morphism of schemes $f : X \to S$,
+and a point $x$ mapping to a point $s \in S$ we obtain
+a commutative diagram
+$$
+\xymatrix{
+\Spec(\mathcal{O}_{X, x}) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(\mathcal{O}_{S, s}) \ar[r] & S
+}
+$$
+where the left vertical map corresponds to the local ring map
+$f^\sharp_x : \mathcal{O}_{S, s} \to \mathcal{O}_{X, x}$.
+
+\begin{lemma}
+\label{lemma-specialize-points}
+Let $X$ be a scheme.
+Let $x, x' \in X$ be points of $X$.
+Then $x' \in X$ is a generalization of $x$ if and only if
+$x'$ is in the image of the canonical morphism
+$\Spec(\mathcal{O}_{X, x}) \to X$.
+\end{lemma}
+
+\begin{proof}
+A continuous map preserves the relation of specialization/generalization.
+Since every point of $\Spec(\mathcal{O}_{X, x})$ is a
+generalization of the closed point we see every point in the image
+of $\Spec(\mathcal{O}_{X, x}) \to X$ is a generalization of $x$.
+Conversely, suppose that $x'$ is a generalization of $x$.
+Choose an affine open neighbourhood $U = \Spec(R)$ of
+$x$. Then $x' \in U$. Say $\mathfrak p \subset R$ and
+$\mathfrak p' \subset R$ are the primes corresponding
+to $x$ and $x'$. Since $x'$ is a generalization of $x$
+we see that $\mathfrak p' \subset \mathfrak p$. This means
+that $\mathfrak p'$ is in the image of the morphism
+$\Spec(\mathcal{O}_{X, x}) = \Spec(R_{\mathfrak p})
+\to \Spec(R) = U \subset X$ as desired.
+\end{proof}
+
+\noindent
+Now, let us discuss morphisms from spectra of fields.
+Let $(R, \mathfrak m, \kappa)$ be a local ring
+with maximal ideal $\mathfrak m$ and residue field $\kappa$.
+Let $K$ be a field. A local homomorphism $R \to K$ by definition
+factors as $R \to \kappa \to K$, i.e., is the same thing as
+a morphism $\kappa \to K$. Thus we see that morphisms
+$$
+\Spec(K) \longrightarrow X
+$$
+correspond to pairs $(x, \kappa(x) \to K)$. We may define
+a preorder on morphisms of spectra of fields to $X$
+by saying that $\Spec(K) \to X$ dominates
+$\Spec(L) \to X$ if $\Spec(K) \to X$
+factors through $\Spec(L) \to X$. This suggests
+the following notion: Let us temporarily
+say that two morphisms $p : \Spec(K) \to X$ and
+$q : \Spec(L) \to X$ are {\it equivalent} if there exists
+a third field $\Omega$ and a commutative diagram
+$$
+\xymatrix{
+\Spec(\Omega) \ar[r] \ar[d] &
+\Spec(L) \ar[d]^q \\
+\Spec(K) \ar[r]^p &
+X
+}
+$$
+Of course this immediately implies that the unique points of
+all three of the schemes $\Spec(K)$,
+$\Spec(L)$, and $\Spec(\Omega)$
+map to the same $x \in X$. Thus a diagram (by the remarks above)
+corresponds to a point $x \in X$ and a commutative diagram
+$$
+\xymatrix{
+\Omega &
+L \ar[l] \\
+K \ar[u] &
+\kappa(x) \ar[l] \ar[u]
+}
+$$
+of fields. This defines an equivalence relation, because given
+any set of extensions $\kappa \subset K_i$ there exists
+some field extension $\kappa \subset \Omega$ such that all
+the field extensions $K_i$ are contained in the extension $\Omega$.
+
+\begin{lemma}
+\label{lemma-characterize-points}
+Let $X$ be a scheme. Points of $X$ correspond bijectively
+to equivalence classes of morphisms from spectra of
+fields into $X$. Moreover, each equivalence class contains
+a (unique up to unique isomorphism) smallest element
+$\Spec(\kappa(x)) \to X$.
+\end{lemma}
+
+\begin{proof}
+Follows from the discussion above.
+\end{proof}
+
+\noindent
+Of course the morphisms $\Spec(\kappa(x)) \to X$
+factor through the canonical morphisms
+$\Spec(\mathcal{O}_{X, x}) \to X$.
+And the content of Lemma \ref{lemma-specialize-points} is in
+this setting that the morphism $\Spec(\kappa(x')) \to X$
+factors as
+$\Spec(\kappa(x')) \to \Spec(\mathcal{O}_{X, x}) \to X$
+whenever $x'$ is a generalization of $x$.
+In case we have a morphism of schemes $f : X \to S$,
+and a point $x$ mapping to a point $s \in S$ we obtain
+a commutative diagram
+$$
+\xymatrix{
+\Spec(\kappa(x)) \ar[r] \ar[d] &
+\Spec(\mathcal{O}_{X, x}) \ar[r] \ar[d] &
+X \ar[d] \\
+\Spec(\kappa(s)) \ar[r] &
+\Spec(\mathcal{O}_{S, s}) \ar[r] &
+S.
+}
+$$
+
+
+
+
+
+
+
+
+
+
+\section{Glueing schemes}
+\label{section-glueing-schemes}
+
+\noindent
+Let $I$ be a set.
+For each $i \in I$ let $(X_i, \mathcal{O}_i)$ be
+a locally ringed space. (Actually the construction that
+follows works equally well for ringed spaces.)
+For each pair $i, j \in I$ let $U_{ij} \subset X_i$
+be an open subspace.
+For each pair $i, j \in I$, let
+$$
+\varphi_{ij} : U_{ij} \to U_{ji}
+$$
+be an isomorphism of locally ringed spaces.
+For convenience we assume that $U_{ii} = X_i$ and
+$\varphi_{ii} = \text{id}_{X_i}$.
+For each triple $i, j, k \in I$ assume that
+\begin{enumerate}
+\item we have
+$\varphi_{ij}^{-1}(U_{ji} \cap U_{jk}) =  U_{ij} \cap U_{ik}$, and
+\item the diagram
+$$
+\xymatrix{
+U_{ij} \cap U_{ik} \ar[rr]_{\varphi_{ik}} \ar[rd]_{\varphi_{ij}} & &
+U_{ki} \cap U_{kj} \\
+& U_{ji} \cap U_{jk} \ar[ru]_{\varphi_{jk}}
+}
+$$
+is commutative.
+\end{enumerate}
+Let us call a collection
+$(I, (X_i)_{i\in I}, (U_{ij})_{i, j\in I}, (\varphi_{ij})_{i, j\in I})$
+satisfying the conditions above a glueing data.
+
+\begin{lemma}
+\label{lemma-glue}
+\begin{slogan}
+If you have two locally ringed spaces, and a subspace of the first one
+is isomorphic to a subspace of the other, then you can glue them together
+into one big locally ringed space.
+\end{slogan}
+Given any glueing data of locally ringed spaces there
+exists a locally ringed space $X$ and open subspaces
+$U_i \subset X$ together with isomorphisms
+$\varphi_i : X_i \to U_i$ of locally ringed spaces such that
+\begin{enumerate}
+\item $\varphi_i(U_{ij}) = U_i \cap U_j$, and
+\item $\varphi_{ij} =
+\varphi_j^{-1}|_{U_i \cap U_j} \circ \varphi_i|_{U_{ij}}$.
+\end{enumerate}
+The locally ringed space $X$ is characterized by the following
+mapping properties: Given a locally ringed space $Y$ we have
+\begin{eqnarray*}
+\Mor(X, Y) & = & \{ (f_i)_{i\in I} \mid
+f_i : X_i \to Y, \ f_j \circ \varphi_{ij} = f_i|_{U_{ij}}\} \\
+f & \mapsto & (f|_{U_i} \circ \varphi_i)_{i \in I} \\
+\Mor(Y, X) & = &
+\left\{
+\begin{matrix}
+\text{open covering }Y = \bigcup\nolimits_{i \in I} V_i\text{ and }
+(g_i : V_i \to X_i)_{i \in I}
+\text{ such that}\\
+g_i^{-1}(U_{ij}) = V_i \cap V_j
+\text{ and }
+g_j|_{V_i \cap V_j} = \varphi_{ij} \circ g_i|_{V_i \cap V_j}
+\end{matrix}
+\right\} \\
+g & \mapsto &
+V_i = g^{-1}(U_i), \ g_i = \varphi_i^{-1} \circ g|_{V_i}
+\end{eqnarray*}
+\end{lemma}
+
+\begin{proof}
+We construct $X$ in stages.
+As a set we take
+$$
+X = (\coprod X_i) / \sim.
+$$
+Here given $x \in X_i$ and $x' \in X_j$ we say
+$x \sim x'$ if and only if $x \in U_{ij}$, $x' \in U_{ji}$
+and $\varphi_{ij}(x) = x'$. This is an equivalence relation
+since if $x \in X_i$, $x' \in X_j$, $x'' \in X_k$, and $x \sim x'$ and
+$x' \sim x''$, then $x' \in U_{ji} \cap U_{jk}$, hence by condition (1) of
+a glueing data also $x \in U_{ij} \cap U_{ik}$ and
+$x'' \in U_{ki} \cap U_{kj}$ and by condition (2)
+we see that $\varphi_{ik}(x) = x''$. (Reflexivity and symmetry
+follows from our assumptions that $U_{ii} = X_i$ and
+$\varphi_{ii} = \text{id}_{X_i}$.)
+Denote $\varphi_i : X_i \to X$
+the natural maps. Denote $U_i = \varphi_i(X_i) \subset X$.
+Note that $\varphi_i : X_i \to U_i$ is a bijection.
+
+\medskip\noindent
+The topology on $X$ is defined by the rule that
+$U \subset X$ is open if and only if $\varphi_i^{-1}(U)$
+is open for all $i$. We leave it to the reader to verify
+that this does indeed define a topology.
+Note that in particular $U_i$ is open since $\varphi_j^{-1}(U_i)
+= U_{ji}$ which is open in $X_j$ for all $j$.
+Moreover, for any open set $W \subset X_i$ the image
+$\varphi_i(W) \subset U_i$ is open because
+$\varphi_j^{-1}(\varphi_i(W)) = \varphi_{ji}^{-1}(W \cap U_{ij})$.
+Therefore $\varphi_i : X_i \to U_i$ is a homeomorphism.
+
+\medskip\noindent
+To obtain a locally ringed space we have to construct the
+sheaf of rings $\mathcal{O}_X$. We do this by glueing the
+sheaves of rings $\mathcal{O}_{U_i} := \varphi_{i, *} \mathcal{O}_i$.
+Namely, in the commutative diagram
+$$
+\xymatrix{
+U_{ij} \ar[rr]_{\varphi_{ij}} \ar[rd]_{\varphi_i|_{U_{ij}}}
+& &
+U_{ji} \ar[ld]^{\varphi_j|_{U_{ji}}} \\
+& U_i \cap U_j &
+}
+$$
+the arrow on top is an isomorphism of ringed spaces,
+and hence we get unique isomorphisms of sheaves of rings
+$$
+\mathcal{O}_{U_i}|_{U_i \cap U_j}
+\longrightarrow
+\mathcal{O}_{U_j}|_{U_i \cap U_j}.
+$$
+These satisfy a cocycle condition as in Sheaves,
+Section \ref{sheaves-section-glueing-sheaves}.
+By the results of that section we obtain a sheaf of rings
+$\mathcal{O}_X$ on $X$ such that $\mathcal{O}_X|_{U_i}$
+is isomorphic to $\mathcal{O}_{U_i}$ compatibly with
+the glueing maps displayed above.
+In particular $(X, \mathcal{O}_X)$ is a locally ringed
+space since the stalks of $\mathcal{O}_X$ are equal
+to the stalks of $\mathcal{O}_i$ at corresponding
+points.
+
+\medskip\noindent
+The proof of the mapping properties is omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glue-schemes}
+\begin{slogan}
+Schemes can be glued to give new schemes.
+\end{slogan}
+In Lemma \ref{lemma-glue} above, assume that all
+$X_i$ are schemes. Then the resulting locally ringed
+space $X$ is a scheme.
+\end{lemma}
+
+\begin{proof}
+This is clear since each of the $U_i$ is a scheme
+and hence every $x \in X$ has an affine neighbourhood.
+\end{proof}
+
+\noindent
+It is customary to think of $X_i$ as an open subspace of
+$X$ via the isomorphisms $\varphi_i$. We will do this in
+the next two examples.
+
+\begin{example}[Affine space with zero doubled]
+\label{example-affine-space-zero-doubled}
+Let $k$ be a field. Let $n \geq 1$.
+Let $X_1 = \Spec(k[x_1, \ldots, x_n])$,
+let $X_2 = \Spec(k[y_1, \ldots, y_n])$.
+Let $0_1 \in X_1$ be the point corresponding to the maximal ideal
+$(x_1, \ldots, x_n) \subset k[x_1, \ldots, x_n]$.
+Let $0_2 \in X_2$ be the point corresponding to the maximal ideal
+$(y_1, \ldots, y_n) \subset k[y_1, \ldots, y_n]$.
+Let $U_{12} = X_1 \setminus \{0_1\}$ and
+let $U_{21} = X_2 \setminus \{0_2\}$. Let
+$\varphi_{12} : U_{12} \to U_{21}$ be the isomorphism
+coming from the isomorphism of $k$-algebras
+$k[y_1, \ldots, y_n] \to k[x_1, \ldots, x_n]$
+mapping $y_i$ to $x_i$ (which induces $X_1 \cong X_2$ mapping
+$0_1$ to $0_2$).
+Let $X$ be the scheme obtained from the glueing data
+$(X_1, X_2, U_{12}, U_{21}, \varphi_{12},
+\varphi_{21} = \varphi_{12}^{-1})$. Via the slight abuse
+of notation introduced above the example we think of
+$X_i \subset X$ as open subschemes.
+There is a morphism $f : X \to \Spec(k[t_1, \ldots, t_n])$
+which on $X_i$ corresponds to $k$ algebra map
+$k[t_1, \ldots, t_n] \to k[x_1, \ldots, x_n]$
+(resp.\ $k[t_1, \ldots, t_n] \to k[y_1, \ldots, y_n]$)
+mapping $t_i$ to $x_i$ (resp.\  $t_i$ to $y_i$).
+It is easy to see that this morphism identifies
+$k[t_1, \ldots, t_n]$ with $\Gamma(X, \mathcal{O}_X)$. Since
+$f(0_1) = f(0_2)$ we see that $X$ is not affine.
+
+\medskip\noindent
+Note that $X_1$ and $X_2$ are affine opens of $X$.
+But, if $n = 2$, then $X_1 \cap X_2$ is the scheme
+described in Example \ref{example-not-affine} and hence not affine.
+Thus in general the intersection of affine opens of a scheme
+is not affine. (This fact holds more generally for any $n > 1$.)
+
+\medskip\noindent
+Another curious feature of this example is the following.
+If $n > 1$ there are many irreducible closed subsets $T \subset X$
+(take the closure of any non closed point in $X_1$ for example).
+But unless $T = \{0_1\}$, or $T = \{0_2\}$ we have
+$0_1 \in T \Leftrightarrow 0_2 \in T$. Proof omitted.
+\end{example}
+
+\begin{example}[Projective line]
+\label{example-projective-line}
+Let $k$ be a field.
+Let $X_1 = \Spec(k[x])$,
+let $X_2 = \Spec(k[y])$.
+Let $0 \in X_1$ be the point corresponding to the maximal ideal
+$(x) \subset k[x]$.
+Let $\infty \in X_2$ be the point corresponding to the maximal ideal
+$(y) \subset k[y]$.
+Let $U_{12} = X_1 \setminus \{0\} = D(x) = \Spec(k[x, 1/x])$ and
+let $U_{21} = X_2 \setminus \{\infty\} = D(y) = \Spec(k[y, 1/y])$.
+Let $\varphi_{12} : U_{12} \to U_{21}$ be the isomorphism
+coming from the isomorphism of $k$-algebras
+$k[y, 1/y] \to k[x, 1/x]$ mapping $y$ to $1/x$.
+Let $\mathbf{P}^1_k$ be the scheme obtained from the glueing data
+$(X_1, X_2, U_{12}, U_{21}, \varphi_{12},
+\varphi_{21} = \varphi_{12}^{-1})$. Via the slight abuse
+of notation introduced above the example we think of
+$X_i \subset \mathbf{P}^1_k$ as open subschemes. In this case
+we see that $\Gamma(\mathbf{P}^1_k, \mathcal{O}) = k$ because the
+only polynomials $g(x)$ in $x$ such that $g(1/y)$ is
+also a polynomial in $y$ are constant polynomials.
+Since $\mathbf{P}^1_k$ is infinite we see that $\mathbf{P}^1_k$ is not affine.
+
+\medskip\noindent
+We claim that there exists an affine open $U \subset \mathbf{P}^1_k$
+which contains both $0$ and $\infty$. Namely, let
+$U = \mathbf{P}^1_k \setminus \{1\}$, where $1$ is the point
+of $X_1$ corresponding to the maximal ideal $(x - 1)$
+and also the point of $X_2$ corresponding to the
+maximal ideal $(y - 1)$. Then it is easy to see that
+$s = 1/(x - 1) = y/(1 - y) \in \Gamma(U, \mathcal{O}_U)$.
+In fact you can show that $\Gamma(U, \mathcal{O}_U)$
+is equal to the polynomial ring $k[s]$ and that the
+corresponding morphism $U \to \Spec(k[s])$ is
+an isomorphism of schemes. Details omitted.
+\end{example}
+
+
+
+
+\section{A representability criterion}
+\label{section-representable}
+
+\noindent
+In this section we reformulate the glueing lemma
+of Section \ref{section-glueing-schemes} in terms
+of functors. We recall some of the material from
+Categories, Section \ref{categories-section-opposite}.
+Recall that given a scheme $X$ we
+can define a functor
+$$
+h_X : \Sch^{opp}
+\longrightarrow
+\textit{Sets}, \quad
+T \longmapsto \Mor(T, X).
+$$
+This is called the {\it functor of points of $X$}.
+
+\medskip\noindent
+Let $F$ be a contravariant functor from the category
+of schemes to the category of sets. In a formula
+$$
+F : \Sch^{opp}
+\longrightarrow
+\textit{Sets}.
+$$
+We will use the same terminology as in Sites, Section
+\ref{sites-section-presheaves}. Namely, given a scheme
+$T$, an element $\xi \in F(T)$, and a morphism $f : T' \to T$
+we will denote $f^*\xi$ the element $F(f)(\xi)$, and sometimes
+we will even use the notation $\xi|_{T'}$
+
+\begin{definition}
+\label{definition-representable-functor}
+(See Categories, Definition \ref{categories-definition-representable-functor}.)
+Let $F$ be a contravariant functor from the category
+of schemes to the category of sets (as above).
+We say that $F$ is {\it representable by a scheme}
+or {\it representable} if there exists a scheme $X$
+such that $h_X \cong F$.
+\end{definition}
+
+\noindent
+Suppose that $F$ is representable by the scheme $X$ and that
+$s : h_X \to F$ is an isomorphism.
+By Categories, Yoneda Lemma \ref{categories-lemma-yoneda}
+the pair $(X, s : h_X \to F)$ is unique up to unique
+isomorphism if it exists.
+Moreover, the Yoneda lemma says that
+given any contravariant functor $F$ as above
+and any scheme $Y$, we have a bijection
+$$
+\Mor_{\text{Fun}(\Sch^{opp}, \textit{Sets})} (h_Y, F)
+\longrightarrow
+F(Y), \quad
+s \longmapsto s(\text{id}_Y).
+$$
+Here is the reverse construction. Given any $\xi \in F(Y)$
+the transformation of functors $s_\xi : h_Y \to F$
+associates to any morphism $f : T \to Y$ the
+element $f^*\xi \in F(T)$.
+
+\medskip\noindent
+In particular, in the case that $F$ is representable, there exists
+a scheme $X$ and an element $\xi \in F(X)$ such that the corresponding
+morphism $h_X \to F$ is an isomorphism.
+In this case we also say {\it the pair $(X, \xi)$ represents $F$}.
+The element $\xi \in F(X)$
+is often called the {\it ``universal family''} for reasons that will become
+more clear when we talk about algebraic stacks (insert future reference here).
+For the moment we simply observe that the fact that if the pair $(X, \xi)$
+represents $F$, then every element $\xi' \in F(T)$ for any $T$ is of
+the form $\xi' = f^*\xi$ for a unique morphism $f : T \to X$.
+
+\begin{example}
+\label{example-global-sections}
+Consider the rule which associates to every scheme $T$ the set
+$F(T) = \Gamma(T, \mathcal{O}_T)$. We can turn this into a contravariant
+functor by using for a morphism $f : T' \to T$ the pullback map
+$f^\sharp : \Gamma(T, \mathcal{O}_T) \to \Gamma(T', \mathcal{O}_{T'})$.
+Given a ring $R$ and an element $t \in R$ there exists a unique
+ring homomorphism $\mathbf{Z}[x] \to R$ which maps $x$ to $t$.
+Thus, using Lemma \ref{lemma-morphism-into-affine}, we see that
+$$
+\Mor(T, \Spec(\mathbf{Z}[x])) =
+\Hom(\mathbf{Z}[x], \Gamma(T, \mathcal{O}_T)) =
+\Gamma(T, \mathcal{O}_T).
+$$
+This does indeed
+give an isomorphism $h_{\Spec(\mathbf{Z}[x])} \to F$.
+What is the ``universal family'' $\xi$? To get it we have to
+apply the identifications above to $\text{id}_{\Spec(\mathbf{Z}[x])}$.
+Clearly under the identifications above this gives
+that
+$\xi = x \in \Gamma(\Spec(\mathbf{Z}[x]),
+\mathcal{O}_{\Spec(\mathbf{Z}[x])}) = \mathbf{Z}[x]$
+as expected.
+\end{example}
+
+\begin{definition}
+\label{definition-representable-by-open-immersions}
+Let $F$ be a contravariant functor on the category
+of schemes with values in sets.
+\begin{enumerate}
+\item We say that $F$ {\it satisfies the sheaf property for the
+Zariski topology} if for every scheme $T$ and every open covering
+$T = \bigcup_{i \in I} U_i$, and for any collection of elements
+$\xi_i \in F(U_i)$ such that $\xi_i|_{U_i \cap U_j} =
+\xi_j|_{U_i \cap U_j}$ there exists a unique element
+$\xi \in F(T)$ such that $\xi_i = \xi|_{U_i}$ in $F(U_i)$.
+\item A {\it subfunctor $H \subset F$} is a rule that associates
+to every scheme $T$ a subset $H(T) \subset F(T)$ such that
+the maps $F(f) : F(T) \to F(T')$ maps $H(T)$ into
+$H(T')$ for all morphisms of schemes $f : T' \to T$.
+\item Let $H \subset F$ be a subfunctor. We say that
+$H \subset F$ is {\it representable by open immersions}
+if for all pairs $(T, \xi)$, where $T$ is a scheme and $\xi \in F(T)$
+there exists an open subscheme $U_\xi \subset T$ with the following
+property:
+\begin{itemize}
+\item[$(*)$] A morphism $f : T' \to T$ factors through $U_\xi$ if and only
+if $f^*\xi \in H(T')$.
+\end{itemize}
+\item Let $I$ be a set. For each $i \in I$ let $H_i \subset F$
+be a subfunctor. We say that the collection $(H_i)_{i \in I}$
+{\it covers $F$} if and only if for every $\xi \in F(T)$
+there exists an open covering $T = \bigcup U_i$ such that
+$\xi|_{U_i} \in H_i(U_i)$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+In condition (4), if $H_i \subset F$ is representable by open immersions
+for all $i$, then to check $(H_i)_{i \in I}$ covers $F$, it suffices to
+check $F(T) = \bigcup H_i(T)$ whenever $T$ is the spectrum of a field.
+
+\begin{lemma}
+\label{lemma-glue-functors}
+Let $F$ be a contravariant functor on the category of schemes
+with values in the category of sets. Suppose that
+\begin{enumerate}
+\item $F$ satisfies the sheaf property for the Zariski topology,
+\item there exists a set $I$ and a collection of subfunctors
+$F_i \subset F$ such that
+\begin{enumerate}
+\item each $F_i$ is representable,
+\item each $F_i \subset F$ is representable by open immersions, and
+\item the collection $(F_i)_{i \in I}$ covers $F$.
+\end{enumerate}
+\end{enumerate}
+Then $F$ is representable.
+\end{lemma}
+
+\begin{proof}
+Let $X_i$ be a scheme representing $F_i$ and let
+$\xi_i \in F_i(X_i) \subset F(X_i)$ be the ``universal family''.
+Because $F_j \subset F$ is representable by open immersions,
+there exists an open $U_{ij} \subset X_i$ such that
+$T \to X_i$ factors through $U_{ij}$ if and only if
+$\xi_i|_T \in F_j(T)$. In particular
+$\xi_i|_{U_{ij}} \in F_j(U_{ij})$ and therefore we obtain a
+canonical morphism $\varphi_{ij} : U_{ij} \to X_j$ such that
+$\varphi_{ij}^*\xi_j = \xi_i|_{U_{ij}}$. By definition of $U_{ji}$
+this implies that $\varphi_{ij}$ factors through $U_{ji}$.
+Since $(\varphi_{ij} \circ \varphi_{ji})^*\xi_j
+=\varphi_{ji}^*(\varphi_{ij}^*\xi_j) =
+\varphi_{ji}^*\xi_i = \xi_j$ we conclude that
+$\varphi_{ij} \circ \varphi_{ji} = \text{id}_{U_{ji}}$
+because the pair $(X_j, \xi_j)$ represents $F_j$.
+In particular the maps $\varphi_{ij} : U_{ij} \to U_{ji}$
+are isomorphisms of schemes.
+Next we have to show that
+$\varphi_{ij}^{-1}(U_{ji} \cap U_{jk}) = U_{ij} \cap U_{ik}$.
+This is true because (a) $U_{ji} \cap U_{jk}$ is the largest
+open of $U_{ji}$ such that $\xi_j$ restricts to an element
+of $F_k$, (b) $U_{ij} \cap U_{ik}$ is the largest
+open of $U_{ij}$ such that $\xi_i$ restricts to an element
+of $F_k$, and (c) $\varphi_{ij}^*\xi_j = \xi_i$. Moreover,
+the cocycle condition in Section \ref{section-glueing-schemes}
+follows because both
+$\varphi_{jk}|_{U_{ji} \cap U_{jk}} \circ
+\varphi_{ij}|_{U_{ij} \cap U_{ik}}$ and
+$\varphi_{ik}|_{U_{ij} \cap U_{ik}}$ pullback $\xi_k$
+to the element $\xi_i$.
+Thus we may apply Lemma \ref{lemma-glue-schemes}
+to obtain a scheme $X$ with an open
+covering $X = \bigcup U_i$ and isomorphisms $\varphi_i : X_i \to U_i$
+with properties as in Lemma \ref{lemma-glue}.
+Let $\xi_i' = (\varphi_i^{-1})^* \xi_i$.
+The conditions of Lemma \ref{lemma-glue} imply that
+$\xi_i'|_{U_i \cap U_j} = \xi_j'|_{U_i \cap U_j}$.
+Therefore, by the condition that $F$ satisfies the sheaf
+condition in the Zariski topology we see that
+there exists an element $\xi' \in F(X)$ such that
+$\xi_i = \varphi_i^*\xi'|_{U_i}$ for all $i$.
+Since $\varphi_i$ is an isomorphism we also get that
+$(U_i, \xi'|_{U_i})$ represents the functor $F_i$.
+
+\medskip\noindent
+We claim that the pair $(X, \xi')$ represents the functor $F$.
+To show this, let $T$ be a scheme and let $\xi \in F(T)$.
+We will construct a unique morphism $g : T \to X$ such that
+$g^*\xi' = \xi$. Namely, by the condition that the subfunctors
+$F_i$ cover $T$ there exists an open covering $T = \bigcup V_i$
+such that for each $i$ the restriction $\xi|_{V_i} \in F_i(V_i)$.
+Moreover, since each of the inclusions $F_i \subset F$ are representable
+by open immersions we may assume that each $V_i \subset T$ is maximal
+open with this property.
+Because, $(U_i, \xi'_{U_i})$ represents the functor $F_i$ we
+get a unique morphism $g_i : V_i \to U_i$ such that
+$g_i^*\xi'|_{U_i} = \xi|_{V_i}$. On the overlaps $V_i \cap V_j$
+the morphisms $g_i$ and $g_j$ agree, for example because they both
+pull back $\xi'|_{U_i \cap U_j} \in F_i(U_i \cap U_j)$
+to the same element. Thus the morphisms $g_i$ glue to a unique morphism
+from $T \to X$ as desired.
+\end{proof}
+
+\begin{remark}
+\label{remark-representable-locally-ringed}
+Suppose the functor $F$ is defined on all locally ringed spaces,
+and if conditions of Lemma \ref{lemma-glue-functors} are replaced by
+the following:
+\begin{enumerate}
+\item $F$ satisfies the sheaf property on the category of locally ringed
+spaces,
+\item there exists a set $I$ and a collection of subfunctors
+$F_i \subset F$ such that
+\begin{enumerate}
+\item each $F_i$ is representable by a scheme,
+\item each $F_i \subset F$ is representable by open immersions
+on the category of locally ringed spaces, and
+\item the collection $(F_i)_{i \in I}$ covers $F$
+as a functor on the category of locally ringed spaces.
+\end{enumerate}
+\end{enumerate}
+We leave it to the reader to spell this out further.
+Then the end result is that the functor $F$ is
+representable in the category of locally ringed spaces
+and that the representing object is a scheme.
+\end{remark}
+
+
+
+\section{Existence of fibre products of schemes}
+\label{section-existence-fibre-products}
+
+\noindent
+A very basic question is whether or not products and fibre products
+exist on the category of schemes. We first prove abstractly that
+products and fibre products exist, and in the next section
+we show how we may think in a reasonable way about fibre
+products of schemes.
+
+\begin{lemma}
+\label{lemma-fibre-products}
+The category of schemes has a final object, products and fibre products.
+In other words, the category of schemes has finite limits, see
+Categories, Lemma \ref{categories-lemma-finite-limits-exist}.
+\end{lemma}
+
+\begin{proof}
+Please skip this proof. It is more important to learn
+how to work with the fibre product which is explained in
+the next section.
+
+\medskip\noindent
+By Lemma \ref{lemma-morphism-into-affine}
+the scheme $\Spec(\mathbf{Z})$ is a final
+object in the category of locally ringed spaces. Thus it
+suffices to prove that fibred products exist.
+
+\medskip\noindent
+Let $f : X \to S$ and $g : Y \to S$ be morphisms of schemes. We have to show
+that the functor
+\begin{eqnarray*}
+F : \Sch^{opp} & \longrightarrow & \textit{Sets} \\
+T & \longmapsto &
+\Mor(T, X) \times_{\Mor(T, S)} \Mor(T, Y)
+\end{eqnarray*}
+is representable. We claim that Lemma \ref{lemma-glue-functors}
+applies to the functor $F$. If we prove this then the lemma is proved.
+
+\medskip\noindent
+First we show that $F$ satisfies the sheaf property in the
+Zariski topology. Namely, suppose that $T$ is a scheme,
+$T = \bigcup_{i \in I} U_i$ is an open covering, and
+$\xi_i \in F(U_i)$ such that
+$\xi_i|_{U_i \cap U_j} =  \xi_j|_{U_i \cap U_j}$ for
+all pairs $i, j$. By definition $\xi_i$ corresponds to
+a pair $(a_i, b_i)$ where $a_i : U_i \to X$ and $b_i : U_i \to Y$
+are morphisms of schemes such that $f \circ a_i = g \circ b_i$.
+The glueing condition says that
+$a_i|_{U_i \cap U_j} =  a_j|_{U_i \cap U_j}$
+and
+$b_i|_{U_i \cap U_j} =  b_j|_{U_i \cap U_j}$.
+Thus by glueing the morphisms $a_i$ we obtain a morphism
+of locally ringed spaces (i.e., a morphism of schemes)
+$a : T \to X$ and similarly $b : T \to Y$ (see for example
+the mapping property of Lemma \ref{lemma-glue}). Moreover,
+on the members of an open covering the compositions
+$f \circ a$ and $g \circ b$ agree. Therefore
+$f \circ a = g \circ b$ and the pair $(a, b)$ defines
+an element of $F(T)$ which restricts to the pairs
+$(a_i, b_i)$ on each $U_i$. The sheaf condition is verified.
+
+\medskip\noindent
+Next, we construct the family of subfunctors.
+Choose an open covering by open affines
+$S = \bigcup\nolimits_{i \in I} U_i$.
+For every $i \in I$ choose open coverings by open affines
+$f^{-1}(U_i) = \bigcup\nolimits_{j \in J_i} V_j$ and
+$g^{-1}(U_i) = \bigcup\nolimits_{k \in K_i} W_k$.
+Note that $X = \bigcup_{i \in I} \bigcup_{j \in J_i} V_j$
+is an open covering and similarly for $Y$.
+For any $i \in I$ and each pair $(j, k) \in J_i \times K_i$
+we have a commutative diagram
+$$
+\xymatrix{
+    & W_k \ar[d] \ar[rd] &   \\
+V_j \ar[rd] \ar[r] & U_i \ar[rd] & Y \ar[d] \\
+    & X \ar[r]  & S
+}
+$$
+where all the skew arrows are open immersions. For such a
+triple we get a functor
+\begin{eqnarray*}
+F_{i, j, k} : \Sch^{opp} & \longrightarrow & \textit{Sets} \\
+T & \longmapsto &
+\Mor(T, V_j) \times_{\Mor(T, U_i)} \Mor(T, W_j).
+\end{eqnarray*}
+There is an obvious transformation of functors $F_{i, j, k} \to F$
+(coming from the huge commutative diagram above)
+which is injective, so we may think of $F_{i, j, k}$ as a subfunctor
+of $F$.
+
+\medskip\noindent
+We check condition (2)(a) of Lemma \ref{lemma-glue-functors}.
+This follows directly from Lemma \ref{lemma-fibre-product-affine-schemes}.
+(Note that we use here that the fibre products in the category of
+affine schemes are also fibre products in the whole category of locally
+ringed spaces.)
+
+\medskip\noindent
+We check condition (2)(b) of Lemma \ref{lemma-glue-functors}.
+Let $T$ be a scheme and let $\xi \in F(T)$. In other words,
+$\xi = (a, b)$ where $a : T \to X$ and $b : T \to Y$ are
+morphisms of schemes such that $f \circ a = g \circ b$.
+Set $V_{i, j, k} = a^{-1}(V_j) \cap b^{-1}(W_k)$. For any
+further morphism $h : T' \to T$ we have
+$h^*\xi = (a \circ h, b \circ h)$. Hence we see that
+$h^*\xi \in F_{i, j, k}(T')$ if and only if
+$a(h(T')) \subset V_j$ and $b(h(T')) \subset W_k$.
+In other words, if and only if $h(T') \subset V_{i, j, k}$.
+This proves condition (2)(b).
+
+\medskip\noindent
+We check condition (2)(c) of Lemma \ref{lemma-glue-functors}.
+Let $T$ be a scheme and let $\xi = (a, b) \in F(T)$ as above.
+Set $V_{i, j, k} = a^{-1}(V_j) \cap b^{-1}(W_k)$ as above.
+Condition (2)(c) just means that $T = \bigcup V_{i, j, k}$
+which is evident. Thus the lemma is proved and fibre products
+exist.
+\end{proof}
+
+\begin{remark}
+\label{remark-fibre-product-schemes-locally-ringed}
+Using Remark \ref{remark-representable-locally-ringed}
+you can show that the fibre product of morphisms of schemes
+exists in the category of locally ringed spaces and is a
+scheme.
+\end{remark}
+
+
+
+
+\section{Fibre products of schemes}
+\label{section-fibre-products}
+
+\noindent
+Here is a review of the general definition, even though
+we have already shown that fibre products of schemes exist.
+
+\begin{definition}
+\label{definition-fibre-product}
+Given morphisms of schemes $f : X \to S$ and $g : Y \to S$
+the {\it fibre product} is a scheme $X \times_S Y$ together
+with projection morphisms $p : X \times_S Y \to X$
+and $q : X \times_S Y \to Y$ sitting into the following
+commutative diagram
+$$
+\xymatrix{
+X \times_S Y \ar[r]_q \ar[d]_p & Y \ar[d]^g \\
+X \ar[r]^f & S
+}
+$$
+which is universal among all diagrams of this sort,
+see Categories, Definition \ref{categories-definition-fibre-products}.
+\end{definition}
+
+\noindent
+In other words, given any solid commutative diagram of
+morphisms of schemes
+$$
+\xymatrix{
+T \ar[rrrd] \ar@{-->}[rrd] \ar[rrdd]
+&
+&
+\\
+&
+&
+X \times_S Y \ar[d] \ar[r]
+&
+Y \ar[d]
+\\
+&
+&
+X \ar[r]
+&
+S
+}
+$$
+there exists a unique dotted arrow making the diagram commute.
+We will prove some lemmas which will tell us how to think about
+fibre products.
+
+\begin{lemma}
+\label{lemma-fibre-product-affines}
+Let $f : X \to S$ and $g : Y \to S$ be morphisms of schemes
+with the same target. If $X, Y, S$ are all affine then
+$X \times_S Y$ is affine.
+\end{lemma}
+
+\begin{proof}
+Suppose that $X = \Spec(A)$, $Y = \Spec(B)$
+and $S = \Spec(R)$. By Lemma \ref{lemma-fibre-product-affine-schemes}
+the affine scheme $\Spec(A \otimes_R B)$
+is the fibre product $X \times_S Y$ in the category
+of locally ringed spaces. Hence it is a fortiori the
+fibre product in the category of schemes.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-fibre-product}
+Let $f : X \to S$ and $g : Y \to S$ be morphisms of schemes
+with the same target. Let $X \times_S Y$, $p$, $q$ be the fibre product.
+Suppose that $U \subset S$,
+$V \subset X$, $W \subset Y$ are open subschemes
+such that $f(V) \subset U$ and $g(W) \subset U$.
+Then the canonical morphism
+$V \times_U W \to X \times_S Y$ is an open immersion
+which identifies $V \times_U W$ with $p^{-1}(V) \cap q^{-1}(W)$.
+\end{lemma}
+
+\begin{proof}
+Let $T$ be a scheme
+Suppose $a : T \to V$ and $b : T \to W$ are morphisms
+such that $f \circ a = g \circ b$ as morphisms into $U$.
+Then they agree as morphisms into $S$.
+By the universal property of the fibre product we get
+a unique morphism $T \to X \times_S Y$. Of course this morphism
+has image contained in the open $p^{-1}(V) \cap q^{-1}(W)$.
+Thus $p^{-1}(V) \cap q^{-1}(W)$ is a fibre product of
+$V$ and $W$ over $U$. The result follows from the uniqueness
+of fibre products, see Categories, Section
+\ref{categories-section-fibre-products}.
+\end{proof}
+
+\noindent
+In particular this shows that $V \times_U W = V \times_S W$
+in the situation of the lemma. Moreover, if $U, V, W$ are all
+affine, then we know that $V \times_U W$ is affine. And of course
+we may cover $X \times_S Y$ by such affine opens $V \times_U W$.
+We formulate this as a lemma.
+
+\begin{lemma}
+\label{lemma-affine-covering-fibre-product}
+\begin{slogan}
+Bare-hands construction of fiber products: an affine open cover of a
+fiber product of schemes can be assembled from compatible
+affine open covers of the pieces.
+\end{slogan}
+Let $f : X \to S$ and $g : Y \to S$ be morphisms of schemes
+with the same target. Let $S = \bigcup U_i$ be any affine open
+covering of $S$. For each $i \in I$, let
+$f^{-1}(U_i) = \bigcup_{j \in J_i} V_j$ be an affine open covering
+of $f^{-1}(U_i)$ and let
+$g^{-1}(U_i) = \bigcup_{k \in K_i} W_k$ be an affine open covering
+of $g^{-1}(U_i)$. Then
+$$
+X \times_S Y =
+\bigcup\nolimits_{i \in I}
+\bigcup\nolimits_{j \in J_i, \ k \in K_i}
+V_j \times_{U_i} W_k
+$$
+is an affine open covering of $X \times_S Y$.
+\end{lemma}
+
+\begin{proof}
+See discussion above the lemma.
+\end{proof}
+
+\noindent
+In other words, we might have used the previous lemma
+as a way of construction the fibre product directly by
+glueing the affine schemes. (Which is of course exactly
+what we did in the proof of Lemma \ref{lemma-fibre-products} anyway.)
+Here is a way to describe the set of points of a fibre product of schemes.
+
+\begin{lemma}
+\label{lemma-points-fibre-product}
+Let $f : X \to S$ and $g : Y \to S$ be morphisms of schemes
+with the same target. Points $z$ of $X \times_S Y$ are in bijective
+correspondence to quadruples
+$$
+(x, y, s, \mathfrak p)
+$$
+where $x \in X$, $y \in Y$, $s \in S$ are points with
+$f(x) = s$, $g(y) = s$ and $\mathfrak p$ is a prime ideal
+of the ring $\kappa(x) \otimes_{\kappa(s)} \kappa(y)$.
+The residue field of $z$ corresponds to
+the residue field of the prime $\mathfrak p$.
+\end{lemma}
+
+\begin{proof}
+Let $z$ be a point of $X \times_S Y$ and let us construct a
+triple as above. Recall that we may think of $z$ as a morphism
+$\Spec(\kappa(z)) \to X \times_S Y$, see
+Lemma \ref{lemma-characterize-points}. This morphism corresponds
+to morphisms $a : \Spec(\kappa(z)) \to X$
+and $b : \Spec(\kappa(z)) \to Y$ such that
+$f \circ a = g \circ b$. By the same lemma again
+we get points $x \in X$, $y \in Y$ lying over the same point
+$s \in S$ as well as field maps $\kappa(x) \to \kappa(z)$,
+$\kappa(y) \to \kappa(z)$ such that the compositions
+$\kappa(s) \to \kappa(x) \to \kappa(z)$
+and
+$\kappa(s) \to \kappa(y) \to \kappa(z)$
+are the same. In other words we get a ring map
+$\kappa(x) \otimes_{\kappa(s)} \kappa(y) \to \kappa(z)$.
+We let $\mathfrak p$ be the kernel of this map.
+
+\medskip\noindent
+Conversely, given a quadruple $(x, y, s, \mathfrak p)$ we get a
+commutative solid diagram
+$$
+\xymatrix{
+X \times_S Y
+\ar@/_/[dddr] \ar@/^/[rrrd]
+& & & \\
+&
+\Spec(\kappa(x) \otimes_{\kappa(s)} \kappa(y)/\mathfrak p)
+\ar[r] \ar[d] \ar@{-->}[lu]
+&
+\Spec(\kappa(y)) \ar[d] \ar[r] &
+Y \ar[dd] \\
+&
+\Spec(\kappa(x)) \ar[r] \ar[d] &
+\Spec(\kappa(s)) \ar[rd] &
+\\
+&
+X \ar[rr] &
+&
+S
+}
+$$
+see the discussion in Section \ref{section-points}. Thus we get the
+dotted arrow. The corresponding point $z$ of $X \times_S Y$ is the
+image of the generic point of
+$\Spec(\kappa(x) \otimes_{\kappa(s)} \kappa(y)/\mathfrak p)$.
+We omit the verification that the two constructions are inverse
+to each other.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibre-product-immersion}
+Let $f : X \to S$ and $g : Y \to S$ be morphisms of schemes
+with the same target.
+\begin{enumerate}
+\item If $f : X \to S$ is a closed immersion,
+then $X \times_S Y \to Y$ is a closed immersion.
+Moreover, if $X \to S$ corresponds to the quasi-coherent
+sheaf of ideals $\mathcal{I} \subset \mathcal{O}_S$, then
+$X \times_S Y \to Y$ corresponds to the sheaf of ideals
+$\Im(g^*\mathcal{I} \to \mathcal{O}_Y)$.
+\item If $f : X \to S$ is an open immersion,
+then $X \times_S Y \to Y$ is an open immersion.
+\item If $f : X \to S$ is an immersion,
+then $X \times_S Y \to Y$ is an immersion.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume that $X \to S$ is a closed immersion corresponding
+to the quasi-coherent sheaf of ideals $\mathcal{I} \subset \mathcal{O}_S$.
+By Lemma \ref{lemma-restrict-map-to-closed} the closed subspace
+$Z \subset Y$ defined by the sheaf of ideals
+$\Im(g^*\mathcal{I} \to \mathcal{O}_Y)$ is the fibre product
+in the category of locally ringed spaces.
+By Lemma \ref{lemma-closed-subspace-scheme} $Z$ is a scheme.
+Hence $Z = X \times_S Y$ and the first statement follows.
+The second follows from Lemma \ref{lemma-open-fibre-product}
+for example. The third is a combination of
+the first two.
+\end{proof}
+
+\begin{definition}
+\label{definition-inverse-image-closed-subscheme}
+Let $f : X \to Y$ be a morphism of schemes. Let $Z \subset Y$ be a
+closed subscheme of $Y$. The {\it inverse image $f^{-1}(Z)$ of the
+closed subscheme $Z$} is the closed subscheme $Z \times_Y X$ of
+$X$. See Lemma \ref{lemma-fibre-product-immersion} above.
+\end{definition}
+
+\noindent
+We may occasionally also use this terminology with locally closed and
+open subschemes.
+
+
+
+
+
+
+
+
+
+\section{Base change in algebraic geometry}
+\label{section-base-change}
+
+\noindent
+One motivation for the introduction of the language of schemes
+is that it gives a very precise notion of what it means to
+define a variety over a particular field. For example a variety
+$X$ over $\mathbf{Q}$ is synonymous (insert future reference here)
+with $X \to \Spec(\mathbf{Q})$ which is of finite type,
+separated, irreducible and reduced\footnote{Of course algebraic
+geometers still quibble over whether one should require $X$ to be
+geometrically irreducible over $\mathbf{Q}$.}. In any case, the idea
+is more generally to work with schemes over a given {\it base scheme},
+often denoted $S$. We use the language: ``let $X$ be a scheme over $S$''
+to mean simply that $X$ comes equipped with a morphism $X \to S$.
+In diagrams we will try to picture the {\it structure morphism}
+$X \to S$ as a downward arrow from $X$ to $S$.
+We are often more interested in the properties of $X$ relative
+to $S$ rather than the internal geometry of $X$.
+For example, we would like to know things about the fibres of $X \to S$,
+what happens to $X$ after base change, and so on.
+
+\medskip\noindent
+We introduce some of the language that is customarily used.
+Of course this language is just a special case of thinking
+about the category of objects over a given object in a category,
+see Categories, Example \ref{categories-example-category-over-X}.
+
+\begin{definition}
+\label{definition-base-change}
+Let $S$ be a scheme.
+\begin{enumerate}
+\item We say $X$ is a {\it scheme over $S$} to mean that $X$
+comes equipped with a morphism of schemes $X \to S$.
+The morphism $X \to S$ is sometimes called the
+{\it structure morphism}.
+\item If $R$ is a ring we say
+$X$ is a {\it scheme over $R$} instead of
+$X$ is a scheme over $\Spec(R)$.
+\item A {\it morphism $f : X \to Y$ of schemes over $S$}
+is a morphism of schemes such that the composition
+$X \to Y \to S$ of $f$ with the structure morphism of $Y$ is
+equal to the structure morphism of $X$.
+\item We denote $\Mor_S(X, Y)$ the set of all morphisms
+from $X$ to $Y$ over $S$.
+\item Let $X$ be a scheme over $S$. Let $S' \to S$ be a
+morphism of schemes. The {\it base change} of $X$
+is the scheme $X_{S'} = S' \times_S X$ over $S'$.
+\item Let $f : X \to Y$ be a morphism of schemes over $S$. Let $S' \to S$
+be a morphism of schemes. The {\it base change} of $f$ is
+the induced morphism $f' : X_{S'} \to Y_{S'}$ (namely the
+morphism $\text{id}_{S'} \times_{\text{id}_S} f$).
+\item Let $R$ be a ring. Let $X$ be a scheme over $R$.
+Let $R \to R'$ be a ring map. The {\it base change} $X_{R'}$
+is the scheme $\Spec(R') \times_{\Spec(R)} X$
+over $R'$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Here is a typical result.
+
+\begin{lemma}
+\label{lemma-base-change-immersion}
+Let $S$ be a scheme. Let $f : X \to Y$ be an
+immersion (resp.\ closed immersion, resp. open immersion)
+of schemes over $S$. Then any base change of $f$ is an
+immersion (resp.\ closed immersion, resp. open immersion).
+\end{lemma}
+
+\begin{proof}
+We can think of the base change of $f$ via the morphism
+$S' \to S$ as the top left vertical arrow in the following
+commutative diagram:
+$$
+\xymatrix{
+X_{S'} \ar[r] \ar[d] & X \ar[d] \ar@/^4ex/[dd] \\
+Y_{S'} \ar[r] \ar[d] & Y \ar[d] \\
+S' \ar[r] & S
+}
+$$
+The diagram implies $X_{S'} \cong Y_{S'} \times_Y X$,
+and the lemma follows from Lemma \ref{lemma-fibre-product-immersion}.
+\end{proof}
+
+\noindent
+In fact this type of result is so typical that there is a
+piece of language to express it. Here it is.
+
+\begin{definition}
+\label{definition-preserved-by-base-change}
+Properties and base change.
+\begin{enumerate}
+\item Let $\mathcal{P}$ be a property of schemes over a base.
+We say that $\mathcal{P}$ is {\it preserved under arbitrary base change},
+or simply that $\mathcal{P}$ is {\it preserved under base change}
+if whenever $X/S$
+has $\mathcal{P}$, any base change $X_{S'}/S'$ has $\mathcal{P}$.
+\item Let $\mathcal{P}$ be a property of morphisms of schemes over a base.
+We say that $\mathcal{P}$ is {\it preserved under arbitrary base change},
+or simply that {\it preserved under base change} if whenever
+$f : X \to Y$ over $S$ has $\mathcal{P}$, any base change
+$f' : X_{S'} \to Y_{S'}$ over $S'$ has $\mathcal{P}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+At this point we can say that ``being a closed immersion'' is
+preserved under arbitrary base change.
+
+\begin{definition}
+\label{definition-fibre}
+Let $f : X \to S$ be a morphism of schemes.
+Let $s \in S$ be a point.
+The {\it scheme theoretic fibre $X_s$ of $f$ over $s$},
+or simply the {\it fibre of $f$ over $s$},
+is the scheme fitting in the following fibre product diagram
+$$
+\xymatrix{
+X_s = \Spec(\kappa(s)) \times_S X \ar[r] \ar[d] &
+X \ar[d] \\
+\Spec(\kappa(s)) \ar[r] &
+S
+}
+$$
+We think of the fibre $X_s$ always as a scheme over $\kappa(s)$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-fibre-topological}
+Let $f : X \to S$ be a morphism of schemes.
+Consider the diagrams
+$$
+\xymatrix{
+X_s \ar[r] \ar[d] &
+X \ar[d] &
+\Spec(\mathcal{O}_{S, s}) \times_S X \ar[r] \ar[d] &
+X \ar[d]
+\\
+\Spec(\kappa(s)) \ar[r] &
+S &
+\Spec(\mathcal{O}_{S, s}) \ar[r] &
+S
+}
+$$
+In both cases the top horizontal arrow is a homeomorphism
+onto its image.
+\end{lemma}
+
+\begin{proof}
+Choose an open affine $U \subset S$ that contains $s$.
+The bottom horizontal morphisms factor through $U$, see
+Lemma \ref{lemma-morphism-from-spec-local-ring} for example.
+Thus we may assume that $S$ is affine. If $X$ is also affine, then
+the result follows from
+Algebra, Remark \ref{algebra-remark-fundamental-diagram}.
+In the general case the result follows by covering $X$ by open affines.
+\end{proof}
+
+
+
+
+
+
+
+\section{Quasi-compact morphisms}
+\label{section-quasi-compact}
+
+\noindent
+A scheme is {\it quasi-compact} if its underlying topological space is
+quasi-compact. There is a relative notion which is defined as follows.
+
+\begin{definition}
+\label{definition-quasi-compact}
+A morphism of schemes is called {\it quasi-compact}
+if the underlying map of topological spaces is
+quasi-compact, see
+Topology, Definition \ref{topology-definition-quasi-compact}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-quasi-compact-affine}
+Let $f : X \to S$ be a morphism of schemes.
+The following are equivalent
+\begin{enumerate}
+\item $f : X \to S$ is quasi-compact,
+\item the inverse image of every affine open is quasi-compact, and
+\item there exists some affine open covering $S = \bigcup_{i \in I} U_i$
+such that $f^{-1}(U_i)$ is quasi-compact for all $i$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Suppose we are given a covering $S = \bigcup_{i \in I} U_i$ as in (3).
+First, let $U \subset S$ be any affine open. For any $u \in U$
+we can find an index $i(u) \in I$ such that $u \in U_{i(u)}$.
+As standard opens form a basis for the topology on $U_{i(u)}$ we can find
+$W_u \subset U \cap U_{i(u)}$ which is standard open in $U_{i(u)}$.
+By compactness we can find finitely many points $u_1, \ldots, u_n \in U$
+such that $U = \bigcup_{j = 1}^n W_{u_j}$. For each $j$ write
+$f^{-1}U_{i(u_j)} = \bigcup_{k \in K_j} V_{jk}$ as a finite
+union of affine opens. Since $W_{u_j} \subset U_{i(u_j)}$ is a standard
+open we see that $f^{-1}(W_{u_j}) \cap V_{jk}$ is a standard
+open of $V_{jk}$, see Algebra, Lemma \ref{algebra-lemma-spec-functorial}.
+Hence $f^{-1}(W_{u_j}) \cap V_{jk}$ is affine, and so
+$f^{-1}(W_{u_j})$ is a finite union of affines. This proves that the
+inverse image of any affine open is a finite union of affine opens.
+
+\medskip\noindent
+Next, assume that the inverse image of every affine open is a finite
+union of affine opens.
+Let $K \subset S$ be any quasi-compact open. Since $S$ has a basis
+of the topology consisting of affine opens we see that $K$ is a finite
+union of affine opens. Hence the inverse image of $K$ is a finite
+union of affine opens. Hence $f$ is quasi-compact.
+
+\medskip\noindent
+Finally, assume that $f$ is quasi-compact. In this case the argument
+of the previous paragraph shows that the inverse image of any affine
+is a finite union of affine opens.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-compact-preserved-base-change}
+Being quasi-compact is a property of morphisms of schemes
+over a base which is preserved under arbitrary base change.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-quasi-compact}
+The composition of quasi-compact morphisms is quasi-compact.
+\end{lemma}
+
+\begin{proof}
+This follows from the definitions and
+Topology, Lemma \ref{topology-lemma-composition-quasi-compact}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-closed-immersion-quasi-compact}
+A closed immersion is quasi-compact.
+\end{lemma}
+
+\begin{proof}
+Follows from the definitions and
+Topology, Lemma \ref{topology-lemma-closed-in-quasi-compact}.
+\end{proof}
+
+\begin{example}
+\label{example-open-immersion-not-quasi-compact}
+An open immersion is in general not quasi-compact.
+The standard example of this is the open subspace
+$U \subset X$, where $X = \Spec(k[x_1, x_2, x_3, \ldots])$,
+where $U$ is $X \setminus \{0\}$, and where $0$ is the point
+of $X$ corresponding to the maximal ideal
+$(x_1, x_2, x_3, \ldots)$.
+\end{example}
+
+\begin{lemma}
+\label{lemma-image-quasi-compact-closed}
+Let $f : X \to S$ be a quasi-compact morphism of schemes.
+The following are equivalent
+\begin{enumerate}
+\item $f(X) \subset S$ is closed, and
+\item $f(X) \subset S$ is stable under specialization.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We have (1) $\Rightarrow$ (2) by
+Topology, Lemma \ref{topology-lemma-open-closed-specialization}.
+Assume (2). Let $U \subset S$ be an affine open. It suffices to prove
+that $f(X) \cap U$ is closed. Since $U \cap f(X)$ is stable under
+specializations, we have reduced to the case where $S$ is affine.
+Because $f$ is quasi-compact we deduce that $X = f^{-1}(S)$ is
+quasi-compact as $S$ is affine. Thus we may write
+$X = \bigcup_{i = 1}^n U_i$ with $U_i \subset X$ open affine.
+Say $S = \Spec(R)$ and
+$U_i = \Spec(A_i)$ for some $R$-algebra $A_i$.
+Then $f(X) = \Im(\Spec(A_1 \times \ldots \times A_n)
+\to \Spec(R))$. Thus the lemma follows from
+Algebra, Lemma \ref{algebra-lemma-image-stable-specialization-closed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-compact-closed}
+Let $f : X \to S$ be a quasi-compact morphism of schemes.
+Then $f$ is closed if and only if specializations lift
+along $f$, see
+Topology, Definition \ref{topology-definition-lift-specializations}.
+\end{lemma}
+
+\begin{proof}
+According to
+Topology, Lemma \ref{topology-lemma-closed-open-map-specialization}
+if $f$ is closed then specializations lift along $f$.
+Conversely, suppose that specializations lift along $f$.
+Let $Z \subset X$ be a closed subset. We may think of $Z$
+as a scheme with the reduced induced scheme structure, see
+Definition \ref{definition-reduced-induced-scheme}.
+Since $Z \subset X$ is closed the restriction
+of $f$ to $Z$ is still quasi-compact. Moreover specializations lift
+along $Z \to S$ as well,
+see Topology, Lemma \ref{topology-lemma-lift-specialization-composition}.
+Hence it suffices to prove $f(X)$ is closed if specializations lift along $f$.
+In particular $f(X)$ is stable under specializations, see
+Topology, Lemma \ref{topology-lemma-lift-specializations-images}.
+Thus $f(X)$ is closed by
+Lemma \ref{lemma-image-quasi-compact-closed}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Valuative criterion for universal closedness}
+\label{section-valuative-criterion-universal-closedness}
+
+\noindent
+In Topology, Section \ref{topology-section-proper} there is a
+discussion of proper maps as closed maps of topological spaces
+all of whose fibres are quasi-compact, or as maps such that
+all base changes are closed maps. Here is the corresponding notion
+in algebraic geometry.
+
+\begin{definition}
+\label{definition-universally-closed}
+A morphism of schemes $f : X \to S$ is said to be
+{\it universally closed} if every base change
+$f' : X_{S'} \to S'$ is closed.
+\end{definition}
+
+\noindent
+In fact the adjective ``universally'' is often used in this way.
+In other words, given a property $\mathcal{P}$ of morphisms
+the we say that ``$X \to S$ is universally $\mathcal{P}$''
+if and only if every base change $X_{S'} \to S'$ has $\mathcal{P}$.
+
+\medskip\noindent
+Please take a look at Morphisms, Section \ref{morphisms-section-proper} for a
+more detailed discussion of the properties of universally closed morphisms.
+In this section we restrict the discussion to the relationship between
+universal closed morphisms and morphisms satisfying the
+existence part of the valuative criterion.
+
+\begin{lemma}
+\label{lemma-specializations-lift}
+Let $f : X \to S$ be a morphism of schemes.
+\begin{enumerate}
+\item If $f$ is universally closed then specializations lift
+along any base change of $f$, see
+Topology, Definition \ref{topology-definition-lift-specializations}.
+\item If $f$ is quasi-compact and specializations lift
+along any base change of $f$, then $f$ is universally closed.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) is a direct consequence of
+Topology, Lemma \ref{topology-lemma-closed-open-map-specialization}.
+Part (2) follows from
+Lemmas \ref{lemma-quasi-compact-closed} and
+\ref{lemma-quasi-compact-preserved-base-change}.
+\end{proof}
+
+\begin{definition}
+\label{definition-valuative-criterion}
+Let $f : X \to S$ be a morphism of schemes. We say $f$
+{\it satisfies the existence part of the valuative criterion}
+if given any commutative solid diagram
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & S
+}
+$$
+where $A$ is a valuation ring with field of fractions $K$, the
+dotted arrow exists. We say $f$ {\it satisfies the uniqueness
+part of the valuative criterion} if there is at most one
+dotted arrow given any diagram as above (without requiring
+existence of course).
+\end{definition}
+
+\noindent
+A {\it valuation ring} is a local domain maximal among the relation
+of domination in its fraction field, see
+Algebra, Definition \ref{algebra-definition-valuation-ring}.
+Hence the spectrum of a valuation ring has a unique generic point
+$\eta$ and a unique closed point $0$, and of course we have the
+specialization $\eta \leadsto 0$.
+The significance of valuation rings is that any specialization of
+points in any scheme is the image of $\eta \leadsto 0$
+under some morphism from the spectrum of some valuation ring.
+Here is the precise result.
+
+\begin{lemma}
+\label{lemma-points-specialize}
+Let $S$ be a scheme. Let $s' \leadsto s$ be a specialization of points of $S$.
+Then
+\begin{enumerate}
+\item there exists a valuation ring $A$ and a morphism
+$\Spec(A) \to S$ such that the generic point $\eta$ of
+$\Spec(A)$ maps to $s'$ and the special point maps to $s$, and
+\item given a field extension $\kappa(s') \subset K$
+we may arrange it so that the extension
+$\kappa(s') \subset \kappa(\eta)$ induced by $f$
+is isomorphic to the given extension.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $s' \leadsto s$ be a specialization in $S$, and let
+$\kappa(s') \subset K$ be an extension of fields. By
+Lemma \ref{lemma-specialize-points}
+and the discussion following
+Lemma \ref{lemma-characterize-points}
+this leads to ring maps $\mathcal{O}_{S, s} \to \kappa(s') \to K$.
+Let $A \subset K$ be any valuation ring whose field of fractions is
+$K$ and which dominates the image of $\mathcal{O}_{S, s} \to K$, see
+Algebra, Lemma \ref{algebra-lemma-dominate}.
+The ring map $\mathcal{O}_{S, s} \to A$ induces the morphism
+$f : \Spec(A) \to S$, see
+Lemma \ref{lemma-morphism-from-spec-local-ring}.
+This morphism has all the desired properties by construction.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lift-specializations-valuative}
+Let $f : X \to S$ be a morphism of schemes.
+The following are equivalent
+\begin{enumerate}
+\item Specializations lift along any base change of $f$
+\item The morphism $f$ satisfies the existence part of the
+valuative criterion.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (1) holds. Let a solid diagram as in
+Definition \ref{definition-valuative-criterion} be given.
+In order to find the dotted arrow we may replace $X \to S$
+by $X_{\Spec(A)} \to \Spec(A)$ since after all
+the assumption is stable under base change.
+Thus we may assume $S = \Spec(A)$.
+Let $x' \in X$ be the image of $\Spec(K) \to X$, so
+that we have $\kappa(x') \subset K$, see
+Lemma \ref{lemma-characterize-points}.
+By assumption there exists a specialization $x' \leadsto x$
+in $X$ such that $x$ maps to the closed point of $S = \Spec(A)$.
+We get a local ring map $A \to \mathcal{O}_{X, x}$ and a ring
+map $\mathcal{O}_{X, x} \to \kappa(x')$, see
+Lemma \ref{lemma-specialize-points} and the discussion following
+Lemma \ref{lemma-characterize-points}. The composition
+$A \to \mathcal{O}_{X, x} \to \kappa(x') \to K$ is the
+given injection $A \to K$. Since $A \to \mathcal{O}_{X, x}$
+is local, the image of $\mathcal{O}_{X, x} \to K$
+dominates $A$ and hence is equal to $A$, by
+Algebra, Definition \ref{algebra-definition-valuation-ring}.
+Thus we obtain a ring map $\mathcal{O}_{X, x} \to A$ and
+hence a morphism $\Spec(A) \to X$
+(see Lemma \ref{lemma-morphism-from-spec-local-ring} and
+discussion following it). This proves (2).
+
+\medskip\noindent
+Conversely, assume (2) holds. It is immediate that
+the existence part of the valuative criterion holds for
+any base change $X_{S'} \to S'$ of $f$ by considering
+the following commutative diagram
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X_{S'} \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] \ar@{-->}[rru] & S' \ar[r] & S
+}
+$$
+Namely, the more horizontal dotted arrow will lead to the
+other one by definition of the fibre product. OK, so it clearly
+suffices to show that specializations lift along $f$.
+Let $s' \leadsto s$ be a specialization in $S$, and let
+$x' \in X$ be a point lying over $s'$. Apply
+Lemma \ref{lemma-points-specialize}
+to $s' \leadsto s$ and the extension of fields
+$\kappa(s') \subset \kappa(x') = K$.
+We get a commutative diagram
+$$
+\xymatrix{
+\Spec(K) \ar[rr] \ar[d] & & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[rru] &
+\Spec(\mathcal{O}_{S, s}) \ar[r] & S
+}
+$$
+and by condition (2) we get the dotted arrow.
+The image $x$ of the closed point of $\Spec(A)$
+in $X$ will be a solution to our problem, i.e.,
+$x$ is a specialization of $x'$ and maps to $s$.
+\end{proof}
+
+\begin{proposition}[Valuative criterion of universal closedness]
+\label{proposition-characterize-universally-closed}
+Let $f$ be a quasi-compact morphism of schemes.
+Then $f$ is universally closed if and only if $f$
+satisfies the existence part of the valuative criterion.
+\end{proposition}
+
+\begin{proof}
+This is a formal consequence of
+Lemmas \ref{lemma-specializations-lift} and
+\ref{lemma-lift-specializations-valuative} above.
+\end{proof}
+
+\begin{example}
+\label{example-projective-line-universally-closed}
+Let $k$ be a field. Consider the structure morphism
+$p : \mathbf{P}^1_k \to \Spec(k)$ of the projective
+line over $k$, see Example \ref{example-projective-line}.
+Let us use the valuative criterion above to prove that $p$
+is universally closed.
+By construction $\mathbf{P}^1_k$ is covered by two
+affine opens and hence $p$ is quasi-compact.
+Let a commutative diagram
+$$
+\xymatrix{
+\Spec(K) \ar[r]_\xi \ar[d] & \mathbf{P}^1_k \ar[d] \\
+\Spec(A) \ar[r]^\varphi & \Spec(k)
+}
+$$
+be given, where $A$ is a valuation ring and $K$ is its field
+of fractions. Recall that $\mathbf{P}^1_k$ is gotten by glueing
+$\Spec(k[x])$ to $\Spec(k[y])$ by glueing
+$D(x)$ to $D(y)$ via $x = y^{-1}$ (or more symmetrically $xy = 1$).
+To show there is a morphism $\Spec(A) \to \mathbf{P}^1_k$
+fitting diagonally into the diagram above we may assume that $\xi$
+maps into the open $\Spec(k[x])$ (by symmetry). This gives the following
+commutative diagram of rings
+$$
+\xymatrix{
+K & k[x] \ar[l]^{\xi^\sharp} \\
+A \ar[u] & k \ar[u] \ar[l]_{\varphi^\sharp}
+}
+$$
+By Algebra, Lemma \ref{algebra-lemma-valuation-ring-x-or-x-inverse}
+we see that either
+$\xi^\sharp(x) \in A$ or $\xi^\sharp(x)^{-1} \in A$.
+In the first case we get a ring map
+$$
+k[x] \to A,
+\ \lambda \mapsto \varphi^\sharp(\lambda),
+\  x \mapsto \xi^\sharp(x)
+$$
+fitting into the diagram of rings above, and we win.
+In the second case we see that we get a ring map
+$$
+k[y] \to A,
+\ \lambda \mapsto \varphi^\sharp(\lambda),
+\ y \mapsto \xi^\sharp(x)^{-1}.
+$$
+This gives a morphism
+$\Spec(A) \to \Spec(k[y]) \to \mathbf{P}^1_k$
+which fits diagonally into the initial commutative diagram of this example
+(check omitted).
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Separation axioms}
+\label{section-separation-axioms}
+
+\noindent
+A topological space $X$ is Hausdorff if and only if the
+diagonal $\Delta \subset X \times X$ is a closed subset.
+The analogue in algebraic geometry is, given a scheme $X$ over
+a base scheme $S$, to consider the
+diagonal morphism
+$$
+\Delta_{X/S} : X \longrightarrow X \times_S X.
+$$
+This is the unique morphism of schemes such that
+$\text{pr}_1 \circ \Delta_{X/S} = \text{id}_X$ and
+$\text{pr}_2 \circ \Delta_{X/S} = \text{id}_X$ (it exists in
+any category with fibre products).
+
+\begin{lemma}
+\label{lemma-diagonal-affines-closed}
+The diagonal morphism of a morphism between affines is closed.
+\end{lemma}
+
+\begin{proof}
+The diagonal morphism associated to the morphism
+$\Spec(S) \to \Spec(R)$ is the morphism on spectra
+corresponding to the ring
+map $S \otimes_R S \to S$, $a \otimes b \mapsto ab$.
+This map is clearly surjective, so $S \cong S \otimes_R S/J$
+for some ideal $J \subset S \otimes_R S$. Hence
+$\Delta$ is a closed immersion according to
+Example \ref{example-closed-immersion-affines}
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagonal-immersion}
+\begin{slogan}
+The diagonal morphism for relative schemes is an immersion.
+\end{slogan}
+Let $X$ be a scheme over $S$.
+The diagonal morphism $\Delta_{X/S}$ is an immersion.
+\end{lemma}
+
+\begin{proof}
+Recall that if $V \subset X$ is affine open and maps into
+$U \subset S$ affine open, then $V \times_U V$ is affine open
+in $X \times_S X$, see Lemmas \ref{lemma-fibre-product-affines}
+and \ref{lemma-open-fibre-product}.
+Consider the open subscheme $W$ of $X \times_S X$ which
+is the union of these affine opens $V \times_U V$.
+By Lemma \ref{lemma-closed-local-target} it is enough
+to show that each morphism
+$\Delta_{X/S}^{-1}(V \times_U V) \to V \times_U V$ is
+a closed immersion. Since $V = \Delta_{X/S}^{-1}(V \times_U V)$
+we are just checking that $\Delta_{V/U}$ is a closed
+immersion, which is Lemma \ref{lemma-diagonal-affines-closed}.
+\end{proof}
+
+\begin{definition}
+\label{definition-separated}
+Let $f : X \to S$ be a morphism of schemes.
+\begin{enumerate}
+\item We say $f$ is {\it separated} if the diagonal morphism $\Delta_{X/S}$
+is a closed immersion.
+\item We say $f$ is {\it quasi-separated} if the diagonal morphism
+$\Delta_{X/S}$ is a quasi-compact morphism.
+\item We say a scheme $Y$ is {\it separated} if the morphism
+$Y \to \Spec(\mathbf{Z})$ is separated.
+\item We say a scheme $Y$ is {\it quasi-separated} if the morphism
+$Y \to \Spec(\mathbf{Z})$ is quasi-separated.
+\end{enumerate}
+\end{definition}
+
+\noindent
+By Lemmas \ref{lemma-diagonal-immersion} and \ref{lemma-immersion-when-closed}
+we see that $\Delta_{X/S}$ is a closed immersion if an only if
+$\Delta_{X/S}(X) \subset X \times_S X$ is a closed subset. Moreover,
+by Lemma \ref{lemma-closed-immersion-quasi-compact} we see that a
+separated morphism is quasi-separated. The reason for introducing
+quasi-separated morphisms is that nonseparated morphisms come up naturally
+in studying algebraic varieties (especially when doing moduli,
+algebraic stacks, etc). But most often they are still quasi-separated.
+
+\begin{example}
+\label{example-not-quasi-separated}
+Here is an example of a non-quasi-separated morphism.
+Suppose $X = X_1 \cup X_2 \to S = \Spec(k)$ with
+$X_1 = X_2 = \Spec(k[t_1, t_2, t_3, \ldots])$
+glued along the complement of $\{0\} = \{(t_1, t_2, t_3, \ldots)\}$
+(glued as in Example \ref{example-affine-space-zero-doubled}).
+In this case the inverse image of the affine scheme
+$X_1 \times_S X_2$ under $\Delta_{X/S}$ is the scheme
+$\Spec(k[t_1, t_2, t_3, \ldots]) \setminus \{0\}$
+which is not quasi-compact.
+\end{example}
+
+\begin{lemma}
+\label{lemma-where-are-they-equal}
+Let $X$, $Y$ be schemes over $S$.
+Let $a, b : X \to Y$ be morphisms of schemes over $S$.
+There exists a largest locally closed subscheme
+$Z \subset X$ such that $a|_Z = b|_Z$. In fact $Z$ is
+the equalizer of $(a, b)$. Moreover, if $Y$ is separated
+over $S$, then $Z$ is a closed subscheme.
+\end{lemma}
+
+\begin{proof}
+The equalizer of $(a, b)$ is for categorical reasons
+the fibre product $Z$ in the following diagram
+$$
+\xymatrix{
+Z = Y \times_{(Y \times_S Y)} X \ar[r] \ar[d] &
+ X \ar[d]^{(a , b)} \\
+Y \ar[r]^-{\Delta_{Y/S}} & Y \times_S Y
+}
+$$
+Thus the lemma follows from Lemmas
+\ref{lemma-base-change-immersion}, \ref{lemma-diagonal-immersion} and
+Definition \ref{definition-separated}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-affine-separated}
+An affine scheme is separated.
+A morphism of affine schemes is separated.
+\end{lemma}
+
+\begin{proof}
+See Lemma \ref{lemma-diagonal-affines-closed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-quasi-separated}
+Let $f : X \to S$ be a morphism of schemes.
+The following are equivalent:
+\begin{enumerate}
+\item The morphism $f$ is quasi-separated.
+\item For every pair of affine opens $U, V \subset X$
+which map into a common affine open of $S$ the intersection
+$U \cap V$ is a finite union of affine opens of $X$.
+\item There exists an affine open covering $S = \bigcup_{i \in I} U_i$
+and for each $i$ an affine open covering $f^{-1}U_i = \bigcup_{j \in I_i} V_j$
+such that for each $i$ and each pair $j, j' \in I_i$ the
+intersection $V_j \cap V_{j'}$ is a finite union of affine
+opens of $X$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let us prove that (3) implies (1).
+By Lemma \ref{lemma-affine-covering-fibre-product}
+the covering $X \times_S X = \bigcup_i \bigcup_{j, j'} V_j \times_{U_i} V_{j'}$
+is an affine open covering of $X \times_S X$.
+Moreover, $\Delta_{X/S}^{-1}(V_j \times_{U_i} V_{j'}) = V_j \cap V_{j'}$.
+Hence the implication follows from Lemma \ref{lemma-quasi-compact-affine}.
+
+\medskip\noindent
+The implication (1) $\Rightarrow$ (2) follows from the fact
+that under the hypotheses of (2) the fibre product
+$U \times_S V$ is an affine open of $X \times_S X$.
+The implication (2) $\Rightarrow$ (3) is trivial.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-separated}
+Let $f : X \to S$ be a morphism of schemes.
+\begin{enumerate}
+\item If $f$ is separated then for every pair of affine
+opens $(U, V)$ of $X$ which map into a
+common affine open of $S$ we have
+\begin{enumerate}
+\item the intersection $U \cap V$ is affine.
+\item the ring map
+$\mathcal{O}_X(U) \otimes_{\mathbf{Z}} \mathcal{O}_X(V)
+\to \mathcal{O}_X(U \cap V)$
+is surjective.
+\end{enumerate}
+\item If any pair of points $x_1, x_2 \in X$ lying over a common
+point $s \in S$ are contained in affine opens $x_1 \in U$,
+$x_2 \in V$ which map into a common affine open of $S$ such
+that (a), (b) hold, then $f$ is separated.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume $f$ separated. Suppose $(U, V)$ is a pair as in (1).
+Let $W = \Spec(R)$ be an affine open of $S$ containing
+both $f(U)$ and $f(V)$. Write $U = \Spec(A)$ and
+$V = \Spec(B)$ for $R$-algebras $A$ and $B$.
+By Lemma \ref{lemma-open-fibre-product} we see that
+$U \times_S V = U \times_W V = \Spec(A \otimes_R B)$
+is an affine open of $X \times_S X$. Hence, by
+Lemma \ref{lemma-closed-subspace-scheme} we see that
+$\Delta^{-1}(U \times_S V) \to U \times_S V$
+can be identified with $\Spec(A \otimes_R B/J)$
+for some ideal $J \subset A \otimes_R B$.
+Thus $U \cap V = \Delta^{-1}(U \times_S V)$ is affine.
+Assertion (1)(b) holds because
+$A \otimes_{\mathbf{Z}} B \to (A \otimes_R B)/J$ is surjective.
+
+\medskip\noindent
+Assume the hypothesis formulated in (2) holds.
+Clearly the collection of affine opens $U \times_S V$
+for pairs $(U, V)$ as in (2) form an affine open covering
+of $X \times_S X$ (see e.g.\ Lemma \ref{lemma-affine-covering-fibre-product}).
+Hence it suffices to show that each morphism
+$U \cap V = \Delta_{X/S}^{-1}(U \times_S V) \to U \times_S V$
+is a closed immersion, see Lemma \ref{lemma-closed-local-target}.
+By assumption (a) we have $U \cap V = \Spec(C)$ for some ring $C$.
+After choosing an affine open $W = \Spec(R)$ of $S$
+into which both $U$ and $V$ map and writing $U = \Spec(A)$,
+$V = \Spec(B)$ we see that the assumption (b) means
+that the composition
+$$
+A \otimes_{\mathbf{Z}} B \to A \otimes_R B \to C
+$$
+is surjective. Hence $A \otimes_R B \to C$ is surjective and
+we conclude that $\Spec(C) \to \Spec(A \otimes_R B)$
+is a closed immersion.
+\end{proof}
+
+\begin{example}
+\label{example-projective-line-separated}
+Let $k$ be a field. Consider the structure morphism
+$p : \mathbf{P}^1_k \to \Spec(k)$ of the projective
+line over $k$, see Example \ref{example-projective-line}.
+Let us use the lemma above to prove that $p$
+is separated. By construction $\mathbf{P}^1_k$ is covered by two
+affine opens $U = \Spec(k[x])$ and $V = \Spec(k[y])$
+with intersection $U \cap V = \Spec(k[x, y]/(xy - 1))$
+(using obvious notation). Thus it suffices to check that
+conditions (2)(a) and (2)(b) of Lemma \ref{lemma-characterize-separated}
+hold for the pairs of affine opens $(U, U)$, $(U, V)$, $(V, U)$
+and $(V, V)$. For the pairs $(U, U)$ and $(V, V)$ this is trivial.
+For the pair $(U, V)$ this amounts to proving
+that $U \cap V$ is affine, which is true, and that the ring map
+$$
+k[x] \otimes_{\mathbf{Z}} k[y] \longrightarrow k[x, y]/(xy - 1)
+$$
+is surjective. This is clear because any element in the
+right hand side can be written as a sum of a polynomial
+in $x$ and a polynomial in $y$.
+\end{example}
+
+\begin{lemma}
+\label{lemma-fibre-product-after-map}
+Let $f : X \to T$ and $g : Y \to T$ be morphisms of schemes
+with the same target. Let $h : T \to S$ be a morphism of schemes.
+Then the induced morphism $i : X \times_T Y \to X \times_S Y$ is
+an immersion. If $T \to S$ is separated, then $i$ is a closed
+immersion. If $T \to S$ is quasi-separated, then $i$ is a
+quasi-compact morphism.
+\end{lemma}
+
+\begin{proof}
+By general category theory the following diagram
+$$
+\xymatrix{
+X \times_T Y \ar[r] \ar[d] & X \times_S Y \ar[d] \\
+T \ar[r]^{\Delta_{T/S}} \ar[r] & T \times_S T
+}
+$$
+is a fibre product diagram. The lemma follows
+from Lemmas \ref{lemma-diagonal-immersion},
+\ref{lemma-fibre-product-immersion} and
+\ref{lemma-quasi-compact-preserved-base-change}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-semi-diagonal}
+Let $g : X \to Y$ be a morphism of schemes over $S$.
+The morphism $i : X \to X \times_S Y$ is an immersion.
+If $Y$ is separated over $S$ it is a closed immersion.
+If $Y$ is quasi-separated over $S$ it is quasi-compact.
+\end{lemma}
+
+\begin{proof}
+This is a special case of Lemma \ref{lemma-fibre-product-after-map}
+applied to the morphism $X = X \times_Y Y \to X \times_S Y$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-section-immersion}
+Let $f : X \to S$ be a morphism of schemes.
+Let $s : S \to X$ be a section of $f$ (in a formula $f \circ s = \text{id}_S$).
+Then $s$ is an immersion.
+If $f$ is separated then $s$ is a closed immersion.
+If $f$ is quasi-separated, then $s$ is quasi-compact.
+\end{lemma}
+
+\begin{proof}
+This is a special case of Lemma \ref{lemma-semi-diagonal} applied to
+$g =s$ so the morphism $i = s : S \to S \times_S X$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-separated-permanence}
+Permanence properties.
+\begin{enumerate}
+\item A composition of separated morphisms is separated.
+\item A composition of quasi-separated morphisms is quasi-separated.
+\item The base change of a separated morphism is separated.
+\item The base change of a quasi-separated morphism is quasi-separated.
+\item A (fibre) product of separated morphisms is separated.
+\item A (fibre) product of quasi-separated morphisms is quasi-separated.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $X \to Y \to Z$ be morphisms. Assume that $X \to Y$ and
+$Y \to Z$ are separated. The composition
+$$
+X \to X \times_Y X \to X \times_Z X
+$$
+is closed because the first one is by assumption and the second
+one by Lemma \ref{lemma-fibre-product-after-map}. The same argument
+works for ``quasi-separated'' (with the same references).
+
+\medskip\noindent
+Let $f : X \to Y$ be a morphism of schemes over a base $S$.
+Let $S' \to S$ be a morphism of schemes. Let $f' : X_{S'} \to Y_{S'}$
+be the base change of $f$. Then the diagonal morphism
+of $f'$ is a morphism
+$$
+\Delta_{f'} :
+X_{S'} = S' \times_S X
+\longrightarrow
+X_{S'} \times_{Y_{S'}} X_{S'} = S' \times _S (X \times_Y X)
+$$
+which is easily seen to be the base change of $\Delta_f$.
+Thus (3) and (4) follow from the fact that
+closed immersions and quasi-compact morphisms are preserved
+under arbitrary base change (Lemmas
+\ref{lemma-fibre-product-immersion} and
+\ref{lemma-quasi-compact-preserved-base-change}).
+
+\medskip\noindent
+If $f : X \to Y$ and $g : U \to V$ are morphisms of schemes over a base $S$,
+then $f \times g$ is the composition of $X \times_S U \to X \times_S V$
+(a base change of $g$) and $X \times_S V \to Y \times_S V$ (a base change
+of $f$). Hence (5) and (6) follow from (1) -- (4).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compose-after-separated}
+\begin{slogan}
+Separated and quasi-separated morphisms satisfy cancellation.
+\end{slogan}
+Let $f : X \to Y$ and $g : Y \to Z$ be morphisms of schemes.
+If $g \circ f$ is separated then so is $f$.
+If $g \circ f$ is quasi-separated then so is $f$.
+\end{lemma}
+
+\begin{proof}
+Assume that $g \circ f$ is separated.
+Consider the factorization $X \to X \times_Y X \to X \times_Z X$
+of the diagonal morphism of $g \circ f$.
+By Lemma \ref{lemma-fibre-product-after-map}
+the last morphism is an immersion. By assumption the image
+of $X$ in $X \times_Z X$ is closed. Hence it is also closed
+in $X \times_Y X$. Thus we see that $X \to X \times_Y X$
+is a closed immersion by Lemma \ref{lemma-immersion-when-closed}.
+
+\medskip\noindent
+Assume that $g \circ f$ is quasi-separated.
+Let $V \subset Y$ be an affine open which maps into an affine
+open of $Z$. Let $U_1, U_2 \subset X$ be affine opens which
+map into $V$. Then $U_1 \cap U_2$ is a finite union of affine
+opens because $U_1, U_2$ map into a common affine open
+of $Z$. Since we may cover $Y$ by affine opens like $V$ we
+deduce the lemma from Lemma \ref{lemma-characterize-quasi-separated}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-compact-permanence}
+Let $f : X \to Y$ and $g : Y \to Z$ be morphisms of schemes.
+If $g \circ f$ is quasi-compact and $g$ is quasi-separated
+then $f$ is quasi-compact.
+\end{lemma}
+
+\begin{proof}
+This is true because $f$ equals the composition
+$(1, f) : X \to X \times_Z Y \to Y$. The first map
+is quasi-compact by Lemma \ref{lemma-section-immersion}
+because it is a section of the quasi-separated morphism $X \times_Z Y \to X$
+(a base change of $g$, see Lemma \ref{lemma-separated-permanence}).
+The second map is quasi-compact as it
+is the base change of $f$, see
+Lemma \ref{lemma-quasi-compact-preserved-base-change}.
+And compositions of quasi-compact
+morphisms are quasi-compact, see Lemma \ref{lemma-composition-quasi-compact}.
+\end{proof}
+
+\noindent
+You may have been wondering whether the condition
+of only considering pairs of affine opens whose image is contained
+in an affine open is really necessary to be able to conclude
+that their intersection is affine. Often it isn't!
+
+\begin{lemma}
+\label{lemma-curiosity}
+Let $f : X \to S$ be a morphism.
+Assume $f$ is separated and $S$ is a separated scheme.
+Suppose $U \subset X$ and $V \subset X$ are affine.
+Then $U \cap V$ is affine (and a closed subscheme of $U \times V$).
+\end{lemma}
+
+\begin{proof}
+In this case $X$ is separated by Lemma \ref{lemma-separated-permanence}.
+Hence $U \cap V$ is affine by
+applying Lemma \ref{lemma-characterize-separated} to the
+morphism $X \to \Spec(\mathbf{Z})$.
+\end{proof}
+
+\noindent
+On the other hand, the following example shows that we cannot
+expect the image of an affine to be contained in an affine.
+
+\begin{example}
+\label{example-image-affine-projective}
+Consider the nonaffine scheme
+$U = \Spec(k[x, y]) \setminus \{(x, y)\}$ of
+Example \ref{example-not-affine}. On the other hand, consider the
+scheme
+$$
+\mathbf{GL}_{2, k} = \Spec(k[a, b, c, d, 1/ad - bc]).
+$$
+There is a morphism $\mathbf{GL}_{2, k} \to U$ corresponding
+to the ring map $x \mapsto a$, $y \mapsto b$. It is easy to see that
+this is a surjective morphism, and hence the image is not contained
+in any affine open of $U$. In fact, the affine scheme
+$\mathbf{GL}_{2, k}$ also surjects onto $\mathbf{P}^1_k$, and
+$\mathbf{P}^1_k$ does not even have an immersion into {\it any} affine scheme.
+\end{example}
+
+\begin{remark}
+\label{remark-quasi-compact-and-quasi-separated}
+The category of quasi-compact and quasi-separated schemes $\mathcal{C}$
+has the following properties. If $X, Y \in \Ob(\mathcal{C})$, then any
+morphism of schemes $f : X \to Y$ is quasi-compact and quasi-separated by
+Lemmas \ref{lemma-quasi-compact-permanence} and
+\ref{lemma-compose-after-separated}
+with $Z = \Spec(\mathbf{Z})$. Moreover, if $X \to Y$ and $Z \to Y$
+are morphisms $\mathcal{C}$, then $X \times_Y Z$ is an object of $\mathcal{C}$
+too. Namely, the projection $X \times_Y Z \to Z$ is quasi-compact and
+quasi-separated as a base change of the morphism $Z \to Y$, see
+Lemmas \ref{lemma-separated-permanence} and
+\ref{lemma-quasi-compact-preserved-base-change}.
+Hence the composition $X \times_Y Z \to Z \to \Spec(\mathbf{Z})$
+is quasi-compact and quasi-separated, see
+Lemmas \ref{lemma-separated-permanence} and
+\ref{lemma-composition-quasi-compact}.
+\end{remark}
+
+
+
+
+
+\section{Valuative criterion of separatedness}
+\label{section-valuative-separatedness}
+
+\begin{lemma}
+\label{lemma-separated-implies-valuative}
+Let $f : X \to S$ be a morphism of schemes.
+If $f$ is separated, then $f$ satisfies the uniqueness
+part of the valuative criterion.
+\end{lemma}
+
+\begin{proof}
+Let a diagram as in Definition \ref{definition-valuative-criterion}
+be given. Suppose there are two morphisms
+$a, b : \Spec(A) \to X$ fitting into the diagram.
+Let $Z \subset \Spec(A)$ be the equalizer of $a$ and $b$.
+By Lemma \ref{lemma-where-are-they-equal} this is a closed
+subscheme of $\Spec(A)$. By assumption it contains
+the generic point of $\Spec(A)$. Since $A$ is a domain
+this implies $Z = \Spec(A)$. Hence $a = b$ as desired.
+\end{proof}
+
+\begin{lemma}[Valuative criterion separatedness]
+\label{lemma-valuative-criterion-separatedness}
+\begin{reference}
+\cite[II Proposition 7.2.3]{EGA}
+\end{reference}
+Let $f : X \to S$ be a morphism.
+Assume
+\begin{enumerate}
+\item the morphism $f$ is quasi-separated, and
+\item the morphism $f$ satisfies the uniqueness
+part of the valuative criterion.
+\end{enumerate}
+Then $f$ is separated.
+\end{lemma}
+
+\begin{proof}
+By assumption (1),
+Proposition \ref{proposition-characterize-universally-closed},
+and Lemma \ref{lemma-immersion-when-closed}
+we see that it suffices to prove the morphism
+$\Delta_{X/S} : X \to X \times_S X$ satisfies the existence
+part of the valuative criterion.
+Let a solid commutative diagram
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] \ar@{-->}[ru] & X \times_S X
+}
+$$
+be given. The lower right arrow corresponds to a
+pair of morphisms $a, b : \Spec(A) \to X$ over $S$.
+By (2) we see that $a = b$. Hence using $a$ as the dotted
+arrow works.
+\end{proof}
+
+
+
+
+
+\section{Monomorphisms}
+\label{section-monomorphisms}
+
+\begin{definition}
+\label{definition-monomorphism}
+A morphism of schemes is called a {\it monomorphism} if it is
+a monomorphism in the category of schemes, see
+Categories, Definition \ref{categories-definition-mono-epi}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-monomorphism}
+\begin{slogan}
+A scheme morphism is a monomorphism iff its diagonal is an isomorphism.
+\end{slogan}
+Let $j : X \to Y$ be a morphism of schemes.
+Then $j$ is a monomorphism if and only if the
+diagonal morphism $\Delta_{X/Y} : X \to X \times_Y X$ is
+an isomorphism.
+\end{lemma}
+
+\begin{proof}
+This is true in any category with fibre products.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-monomorphism-separated}
+A monomorphism of schemes is separated.
+\end{lemma}
+
+\begin{proof}
+This is true because an isomorphism is a closed immersion,
+and Lemma \ref{lemma-monomorphism} above.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-monomorphism}
+A composition of monomorphisms is a monomorphism.
+\end{lemma}
+
+\begin{proof}
+True in any category.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-monomorphism}
+The base change of a monomorphism is a monomorphism.
+\end{lemma}
+
+\begin{proof}
+True in any category with fibre products.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-injective-points}
+Let $j : X \to Y$ be a morphism of schemes.
+If $j$ is injective on points, then $j$ is separated.
+\end{lemma}
+
+\begin{proof}
+Let $z$ be a point of $X \times_Y X$. Then $x = \text{pr}_1(z)$ and
+$\text{pr}_2(z)$ are the same because $j$ maps these points to
+the same point $y$ of $Y$. Then we can choose an affine
+open neighbourhood $V \subset Y$ of $y$ and an affine open
+neighbourhood $U \subset X$ of $x$ with $j(U) \subset V$.
+Then $z \in U \times_V U \subset X \times_Y X$.
+Hence $X \times_Y X$ is the union of the affine
+opens $U \times_V U$. Since $\Delta_{X/Y}^{-1}(U \times_V U) = U$
+and since $U \to U \times_V U$ is a closed immersion, we conclude
+that $\Delta_{X/Y}$ is a closed immersion (see argument in the
+proof of Lemma \ref{lemma-diagonal-immersion}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-injective-points-surjective-stalks}
+Let $j : X \to Y$ be a morphism of schemes.
+If
+\begin{enumerate}
+\item $j$ is injective on points, and
+\item for any $x \in X$ the ring map
+$j^\sharp_x : \mathcal{O}_{Y, j(x)} \to \mathcal{O}_{X, x}$
+is surjective,
+\end{enumerate}
+then $j$ is a monomorphism.
+\end{lemma}
+
+\begin{proof}
+Let $a, b : Z \to X$ be two morphisms of schemes such that
+$j \circ a  = j \circ b$.
+Then (1) implies $a = b$ as underlying
+maps of topological spaces.
+For any $z \in Z$ we have
+$a^\sharp_z \circ j^\sharp_{a(z)} = b^\sharp_z \circ j^\sharp_{b(z)}$
+as maps $\mathcal{O}_{Y, j(a(z))} \to \mathcal{O}_{Z, z}$.
+The surjectivity of the maps
+$j^\sharp_x$ forces $a^\sharp_z = b^\sharp_z$, $\forall z \in Z$.
+This implies that $a^\sharp = b^\sharp$.
+Hence we conclude $a = b$ as morphisms of schemes
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-immersions-monomorphisms}
+An immersion of schemes is a monomorphism.
+In particular, any immersion is separated.
+\end{lemma}
+
+\begin{proof}
+We can see this by checking that the criterion of
+Lemma \ref{lemma-injective-points-surjective-stalks} applies.
+More elegantly perhaps, we can use that
+Lemmas \ref{lemma-restrict-map-to-opens} and
+\ref{lemma-characterize-closed-subspace} imply that
+open and closed immersions are monomorphisms and hence
+any immersion (which is a composition of such)
+is a monomorphism.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-subscheme-of-separated-scheme}
+Let $f : X \to S$ be a separated morphism.
+Any locally closed subscheme $Z \subset X$ is separated over $S$.
+\end{lemma}
+
+\begin{proof}
+Follows from Lemma \ref{lemma-immersions-monomorphisms}
+and the fact that a composition of separated morphisms is separated
+(Lemma \ref{lemma-separated-permanence}).
+\end{proof}
+
+\begin{example}
+\label{example-Q-over-Z}
+The morphism $\Spec(\mathbf{Q}) \to \Spec(\mathbf{Z})$
+is a monomorphism. This is true because
+$\mathbf{Q} \otimes_{\mathbf{Z}} \mathbf{Q} = \mathbf{Q}$.
+More generally, for any scheme $S$ and any point $s \in S$ the
+canonical morphism
+$$
+\Spec(\mathcal{O}_{S, s}) \longrightarrow S
+$$
+is a monomorphism.
+\end{example}
+
+\begin{lemma}
+\label{lemma-mono-towards-spec-field}
+Let $k_1, \ldots, k_n$ be fields.
+For any monomorphism of schemes
+$X \to \Spec(k_1 \times \ldots \times k_n)$
+there exists a subset $I \subset \{1, \ldots, n\}$ such
+that $X \cong \Spec(\prod_{i \in I} k_i)$ as
+schemes over $\Spec(k_1 \times \ldots \times k_n)$.
+More generally, if $X = \coprod_{i \in I} \Spec(k_i)$
+is a disjoint union of spectra of fields and $Y \to X$ is a monomorphism,
+then there exists a subset $J \subset I$ such that
+$Y = \coprod_{i \in J} \Spec(k_i)$.
+\end{lemma}
+
+\begin{proof}
+First reduce to the case $n = 1$ (or $\# I = 1$)
+by taking the inverse images of the
+open and closed subschemes $\Spec(k_i)$.
+In this case $X$ has only one point hence is affine.
+The corresponding algebra problem is this:
+If $k \to R$ is an algebra map
+with $R \otimes_k R \cong R$, then $R \cong k$ or $R = 0$.
+This holds for dimension reasons.
+See also
+Algebra, Lemma \ref{algebra-lemma-epimorphism-over-field}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Functoriality for quasi-coherent modules}
+\label{section-quasi-coherent}
+
+\noindent
+Let $X$ be a scheme. We denote $\QCoh(\mathcal{O}_X)$ the
+category of quasi-coherent $\mathcal{O}_X$-modules as defined in
+Modules, Definition \ref{modules-definition-quasi-coherent}.
+We have seen in
+Section \ref{section-quasi-coherent-affine}
+that the category $\QCoh(\mathcal{O}_X)$ has a lot of good properties
+when $X$ is affine. Since the property of being quasi-coherent is
+local on $X$, these properties are inherited by the category
+of quasi-coherent sheaves on any scheme $X$. We enumerate them here.
+\begin{enumerate}
+\item A sheaf of $\mathcal{O}_X$-modules $\mathcal{F}$ is
+quasi-coherent if and only if the restriction of $\mathcal{F}$
+to each affine open $U = \Spec(R)$ is of the form
+$\widetilde M$ for some $R$-module $M$.
+\item A sheaf of $\mathcal{O}_X$-modules $\mathcal{F}$ is
+quasi-coherent if and only if the restriction of $\mathcal{F}$
+to each of the members of an affine open covering is quasi-coherent.
+\item Any direct sum of quasi-coherent sheaves is quasi-coherent.
+\item Any colimit of quasi-coherent sheaves is quasi-coherent.
+\item
+\label{item-kernel}
+The kernel and cokernel of a morphism of quasi-coherent sheaves
+is quasi-coherent.
+\item Given a short exact sequence of $\mathcal{O}_X$-modules
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+if two out of three are quasi-coherent so is the third.
+\item Given a morphism of schemes $f : Y \to X$ the pullback
+of a quasi-coherent $\mathcal{O}_X$-module is a quasi-coherent
+$\mathcal{O}_Y$-module. See
+Modules, Lemma \ref{modules-lemma-pullback-quasi-coherent}.
+\item Given two quasi-coherent $\mathcal{O}_X$-modules
+the tensor product is quasi-coherent, see
+Modules, Lemma \ref{modules-lemma-tensor-product-permanence}.
+\item Given a quasi-coherent $\mathcal{O}_X$-module $\mathcal{F}$
+the tensor, symmetric and exterior algebras on $\mathcal{F}$
+are quasi-coherent, see
+Modules, Lemma \ref{modules-lemma-whole-tensor-algebra-permanence}.
+\item Given two quasi-coherent $\mathcal{O}_X$-modules
+$\mathcal{F}$, $\mathcal{G}$ such that $\mathcal{F}$
+is of finite presentation, then the internal hom
+$\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$
+is quasi-coherent, see
+Modules, Lemma \ref{modules-lemma-internal-hom-locally-kernel-direct-sum}
+and (\ref{item-kernel}) above.
+\end{enumerate}
+On the other hand, it is in general not the case that the
+pushforward of a quasi-coherent module is quasi-coherent.
+Here is a case where this does hold.
+
+\begin{lemma}
+\label{lemma-push-forward-quasi-coherent}
+Let $f : X \to S$ be a morphism of schemes.
+If $f$ is quasi-compact and quasi-separated then
+$f_*$ transforms quasi-coherent $\mathcal{O}_X$-modules
+into quasi-coherent $\mathcal{O}_S$-modules.
+\end{lemma}
+
+\begin{proof}
+The question is local on $S$ and hence we may assume that
+$S$ is affine. Because $X$ is quasi-compact we may write
+$X = \bigcup_{i = 1}^n U_i$ with each $U_i$ open affine.
+Because $f$ is quasi-separated we may write
+$U_i \cap U_j = \bigcup_{k = 1}^{n_{ij}} U_{ijk}$ for some
+affine open $U_{ijk}$, see Lemma \ref{lemma-characterize-quasi-separated}.
+Denote $f_i : U_i \to S$ and $f_{ijk} : U_{ijk} \to S$ the
+restrictions of $f$. For any open $V$ of $S$ and any sheaf
+$\mathcal{F}$ on $X$ we have
+\begin{eqnarray*}
+f_*\mathcal{F}(V) & = & \mathcal{F}(f^{-1}V) \\
+& = &
+\Ker\left(
+\bigoplus\nolimits_i \mathcal{F}(f^{-1}V \cap U_i)
+\to
+\bigoplus\nolimits_{i, j, k} \mathcal{F}(f^{-1}V \cap U_{ijk})\right) \\
+& = &
+\Ker\left(
+\bigoplus\nolimits_i f_{i, *}(\mathcal{F}|_{U_i})(V)
+\to
+\bigoplus\nolimits_{i, j, k} f_{ijk, *}(\mathcal{F}|_{U_{ijk}})\right)(V) \\
+& = &
+\Ker\left(
+\bigoplus\nolimits_i f_{i, *}(\mathcal{F}|_{U_i})
+\to
+\bigoplus\nolimits_{i, j, k} f_{ijk, *}(\mathcal{F}|_{U_{ijk}})\right)(V)
+\end{eqnarray*}
+In other words there is an exact sequence of sheaves
+$$
+0 \to f_*\mathcal{F}
+\to \bigoplus f_{i, *}\mathcal{F}_i
+\to \bigoplus f_{ijk, *}\mathcal{F}_{ijk}
+$$
+where $\mathcal{F}_i, \mathcal{F}_{ijk}$ denotes the
+restriction of $\mathcal{F}$ to the corresponding open.
+If $\mathcal{F}$ is a quasi-coherent $\mathcal{O}_X$-modules
+then $\mathcal{F}_i$, $\mathcal{F}_{ijk}$ is a quasi-coherent
+$\mathcal{O}_{U_i}$, $\mathcal{O}_{U_{ijk}}$-module.
+Hence by Lemma \ref{lemma-widetilde-pullback} we see that the second and
+third term of the exact sequence are quasi-coherent
+$\mathcal{O}_S$-modules. Thus we conclude that
+$f_*\mathcal{F}$ is a quasi-coherent $\mathcal{O}_S$-module.
+\end{proof}
+
+\noindent
+Using this we can characterize (closed) immersions of schemes
+as follows.
+
+\begin{lemma}
+\label{lemma-characterize-closed-immersions}
+Let $f : X \to Y$ be a morphism of schemes.
+Suppose that
+\begin{enumerate}
+\item $f$ induces a homeomorphism of $X$ with a
+closed subset of $Y$, and
+\item $f^\sharp : \mathcal{O}_Y \to f_*\mathcal{O}_X$
+is surjective.
+\end{enumerate}
+Then $f$ is a closed immersion of schemes.
+\end{lemma}
+
+\begin{proof}
+Assume (1) and (2). By (1) the morphism $f$ is quasi-compact
+(see Topology, Lemma \ref{topology-lemma-closed-in-quasi-compact}).
+Conditions (1) and (2) imply conditions (1) and (2) of
+Lemma \ref{lemma-injective-points-surjective-stalks}.
+Hence $f : X \to Y$ is a monomorphism. In particular, $f$
+is separated, see Lemma \ref{lemma-monomorphism-separated}.
+Hence Lemma \ref{lemma-push-forward-quasi-coherent}
+above applies and we conclude that $f_*\mathcal{O}_X$ is a quasi-coherent
+$\mathcal{O}_Y$-module. Therefore the kernel of
+$\mathcal{O}_Y \to f_*\mathcal{O}_X$ is quasi-coherent
+by Lemma \ref{lemma-extension-quasi-coherent}. Since a quasi-coherent
+sheaf is locally generated by sections (see
+Modules, Definition \ref{modules-definition-quasi-coherent})
+this implies that $f$ is a closed immersion, see
+Definition \ref{definition-closed-immersion-locally-ringed-spaces}.
+\end{proof}
+
+\noindent
+We can use this lemma to prove the following lemma.
+
+\begin{lemma}
+\label{lemma-composition-immersion}
+A composition of immersions of schemes is an immersion,
+a composition of closed immersions of schemes is a closed immersion, and
+a composition of open immersions of schemes is an open immersion.
+\end{lemma}
+
+\begin{proof}
+This is clear for the case of open immersions since an open subspace of
+an open subspace is also an open subspace.
+
+\medskip\noindent
+Suppose $a : Z \to Y$ and $b : Y \to X$ are closed immersions of schemes.
+We will verify that $c = b \circ a$ is also a closed immersion.
+The assumption implies that $a$ and $b$ are homeomorphisms onto closed subsets,
+and hence also $c = b \circ a$ is a homeomorphism onto a closed subset.
+Moreover, the map $\mathcal{O}_X \to c_*\mathcal{O}_Z$ is surjective
+since it factors as the composition of the surjective maps
+$\mathcal{O}_X \to b_*\mathcal{O}_Y$ and
+$b_*\mathcal{O}_Y \to b_*a_*\mathcal{O}_Z$ (surjective as $b_*$ is exact,
+see Modules, Lemma \ref{modules-lemma-i-star-exact}).
+Hence by Lemma \ref{lemma-characterize-closed-immersions}
+above $c$ is a closed immersion.
+
+\medskip\noindent
+Finally, we come to the case of immersions.
+Suppose $a : Z \to Y$ and $b : Y \to X$ are immersions of schemes.
+This means there exist open subschemes
+$V \subset Y$ and $U \subset X$ such that
+$a(Z) \subset V$, $b(Y) \subset U$ and $a : Z \to V$
+and $b : Y \to U$ are closed immersions.
+Since the topology on $Y$ is induced from the topology on
+$U$ we can find an open $U' \subset U$ such that
+$V = b^{-1}(U')$. Then we see that
+$Z \to V = b^{-1}(U') \to U'$ is a composition of
+closed immersions and hence a closed immersion.
+This proves that $Z \to X$ is an immersion and we win.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

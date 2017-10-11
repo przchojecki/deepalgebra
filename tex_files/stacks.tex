@@ -1,0 +1,3532 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Stacks}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+In this very short chapter we introduce stacks, and
+stacks in groupoids. See \cite{DM}, and \cite{Vis2}.
+
+
+\section{Presheaves of morphisms associated to fibred categories}
+\label{section-morphisms}
+
+\noindent
+Let $\mathcal{C}$ be a category.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a fibred category,
+see Categories, Section \ref{categories-section-fibred-categories}.
+Suppose that $x, y\in \Ob(\mathcal{S}_U)$ are
+objects in the fibre category over $U$. We are going to define
+a functor
+$$
+\mathit{Mor}(x, y) : (\mathcal{C}/U)^{opp} \longrightarrow \textit{Sets}.
+$$
+In other words this will be a presheaf on $\mathcal{C}/U$, see
+Sites, Definition \ref{sites-definition-presheaf}.
+Make a choice of pullbacks as in
+Categories,
+Definition \ref{categories-definition-pullback-functor-fibred-category}.
+Then, for $f : V \to U$ we set
+$$
+\mathit{Mor}(x, y)(f : V \to U) =
+\Mor_{\mathcal{S}_V}(f^\ast x, f^\ast y).
+$$
+Let $f' : V' \to U$ be a second object of $\mathcal{C}/U$.
+We also have to define the restriction map corresponding to a
+morphism $g : V'/U  \to V/U$ in $\mathcal{C}/U$,
+in other words $g : V' \to V$ and $f' = f \circ g$.
+This will be a map
+$$
+\Mor_{\mathcal{S}_V}(f^\ast x, f^\ast y)
+\longrightarrow
+\Mor_{\mathcal{S}_{V'}}({f'}^\ast x, {f'}^\ast y), \quad
+\phi \longmapsto \phi|_{V'}
+$$
+This map will basically be $g^\ast$, except that this transforms
+an element $\phi$ of the left hand side into an element
+$g^\ast \phi$
+of $\Mor_{\mathcal{S}_{V'}}(g^\ast f^\ast x, g^\ast f^\ast y)$.
+At this point we use the transformation $\alpha_{g, f}$ of
+Categories, Lemma \ref{categories-lemma-fibred}.
+In a formula, the restriction map is described by
+$$
+\phi|_{V'} =
+(\alpha_{g, f})_y^{-1} \circ
+g^\ast \phi \circ
+(\alpha_{g, f})_x.
+$$
+Of course, nobody thinks of this restriction map in this way.
+We will only do this once in order to verify the following
+lemma.
+
+\begin{lemma}
+\label{lemma-painful}
+This actually does give a presheaf.
+\end{lemma}
+
+\begin{proof}
+Let $g : V'/U \to V/U$ be as above and similarly
+$g' : V''/U \to V'/U$ be morphisms in $\mathcal{C}/U$.
+So $f' = f \circ g$ and $f'' = f' \circ g' = f \circ g \circ g'$.
+Let $\phi \in \Mor_{\mathcal{S}_V}(f^\ast x, f^\ast y)$.
+Then we have
+\begin{eqnarray*}
+& &
+(\alpha_{g \circ g', f})_y^{-1} \circ
+(g \circ g')^\ast \phi \circ
+(\alpha_{g \circ g', f})_x
+\\
+& = &
+(\alpha_{g \circ g', f})_y^{-1} \circ
+(\alpha_{g', g})_{f^*y}^{-1} \circ
+(g')^*g^\ast \phi \circ
+(\alpha_{g', g})_{f^*x} \circ
+(\alpha_{g \circ g', f})_x
+\\
+& = &
+(\alpha_{g', f'})_y^{-1} \circ
+(g')^*(\alpha_{g, f})_y^{-1} \circ
+(g')^* g^\ast \phi \circ
+(g')^*(\alpha_{g, f})_x
+\circ
+(\alpha_{g', f'})_x
+\\
+& = &
+(\alpha_{g', f'})_y^{-1} \circ
+(g')^*\Big(
+(\alpha_{g, f})_y^{-1} \circ
+g^\ast \phi \circ
+(\alpha_{g, f})_x
+\Big) \circ
+(\alpha_{g', f'})_x
+\end{eqnarray*}
+which is what we want, namely $\phi|_{V''} = (\phi|_{V'})|_{V''}$.
+The first equality holds because
+$\alpha_{g', g}$ is a transformation of functors, and hence
+$$
+\xymatrix{
+(g \circ g')^*f^*x
+\ar[rr]_{(g \circ g')^\ast \phi}
+\ar[d]_{(\alpha_{g', g})_{f^*x}} & &
+(g \circ g')^*f^*y
+\ar[d]^{(\alpha_{g', g})_{f^*y}} \\
+(g')^*g^*f^*x
+\ar[rr]^{(g')^*g^\ast \phi} & &
+(g')^*g^*f^*y
+}
+$$
+commutes. The second equality holds because of property (d) of
+a pseudo functor since $f' = f \circ g$ (see
+Categories, Definition \ref{categories-definition-functor-into-2-category}).
+The last equality follows from the fact that $(g')^*$ is a functor.
+\end{proof}
+
+\noindent
+From now on we often omit mentioning the transformations
+$\alpha_{g, f}$ and we simply identify the functors
+$g^* \circ f^*$ and $(f \circ g)^*$. In particular,
+given $g : V'/U \to V/U$ the restriction
+mappings for the presheaf $\mathit{Mor}(x, y)$
+will sometimes be denoted $\phi \mapsto g^*\phi$.
+We formalize the construction in a definition.
+
+\begin{definition}
+\label{definition-mor-presheaf}
+Let $\mathcal{C}$ be a category.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a fibred category,
+see Categories, Section \ref{categories-section-fibred-categories}.
+Given an object $U$ of $\mathcal{C}$ and objects
+$x$, $y$ of the fibre category, the {\it presheaf
+of morphisms from $x$ to $y$} is the presheaf
+$$
+(f : V \to U) \longmapsto \Mor_{\mathcal{S}_V}(f^*x, f^*y)
+$$
+described above. It is denoted $\mathit{Mor}(x, y)$.
+The subpresheaf $\mathit{Isom}(x, y)$ whose values
+over $V$ is the set of isomorphisms
+$f^*x \to f^*y$ in the fibre category $\mathcal{S}_V$
+is called the {\it presheaf of isomorphisms from $x$ to $y$}.
+\end{definition}
+
+\noindent
+If $\mathcal{S}$ is fibred in groupoids then of course
+$\mathit{Isom}(x, y) = \mathit{Mor}(x, y)$, and it is
+customary to use the $\mathit{Isom}$ notation.
+
+\begin{lemma}
+\label{lemma-presheaf-mor-map-fibred-categories}
+Let $F : \mathcal{S}_1 \to \mathcal{S}_2$ be a $1$-morphism of fibred
+categories over the category $\mathcal{C}$. Let $U \in \Ob(\mathcal{C})$
+and $x, y\in \Ob(\mathcal{S}_U)$. Then $F$ defines a canonical
+morphism of presheaves
+$$
+\mathit{Mor}_{\mathcal{S}_1}(x, y)
+\longrightarrow
+\mathit{Mor}_{\mathcal{S}_2}(F(x), F(y))
+$$
+on $\mathcal{C}/U$.
+\end{lemma}
+
+\begin{proof}
+By
+Categories, Definition \ref{categories-definition-fibred-categories-over-C}
+the functor $F$ maps strongly cartesian morphisms to strongly cartesian
+morphisms. Hence if $f : V \to U$ is a morphism in $\mathcal{C}$, then
+there are canonical isomorphisms $\alpha_V : f^*F(x) \to F(f^*x)$,
+$\beta_V : f^*F(y) \to F(f^*y)$ such that $f^*F(x) \to F(f^*x) \to F(x)$
+is the canonical morphism $f^*F(x) \to F(x)$, and similarly for $\beta_V$.
+Thus we may define
+$$
+\xymatrix{
+\mathit{Mor}_{\mathcal{S}_1}(x, y)(f : V \to U) \ar@{=}[r] &
+\Mor_{\mathcal{S}_{1, V}}(f^\ast x, f^\ast y) \ar[d] \\
+\mathit{Mor}_{\mathcal{S}_2}(F(x), F(y))(f : V \to U) \ar@{=}[r] &
+\Mor_{\mathcal{S}_{2, V}}(f^\ast F(x), f^\ast F(y))
+}
+$$
+by $\phi \mapsto \beta_V^{-1} \circ F(\phi) \circ \alpha_V$.
+We omit the verification that this is compatible with the restriction
+mappings.
+\end{proof}
+
+\begin{remark}
+\label{remark-alternative}
+Suppose that $p : \mathcal{S} \to \mathcal{C}$ is fibred in groupoids.
+In this case we can prove
+Lemma \ref{lemma-painful}
+using
+Categories, Lemma \ref{categories-lemma-fibred-strict}
+which says that $\mathcal{S} \to \mathcal{C}$ is equivalent to the
+category associated to a contravariant functor
+$F : \mathcal{C} \to \textit{Groupoids}$.
+In the case of the fibred category associated to $F$
+we have $g^* \circ f^* = (f \circ g)^*$ on the nose
+and there is no need to use the maps $\alpha_{g, f}$.
+In this case the lemma is (even more) trivial. Of course then
+one uses that the $\mathit{Mor}(x, y)$ presheaf is
+unchanged when passing to an equivalent fibred category which follows from
+Lemma \ref{lemma-presheaf-mor-map-fibred-categories}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-isom-as-2-fibre-product}
+Let $\mathcal{C}$ be a category.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a fibred category,
+see Categories, Section \ref{categories-section-fibred-categories}.
+Let $U \in \Ob(\mathcal{C})$ and let $x, y \in \Ob(\mathcal{S}_U)$.
+Denote $x, y : \mathcal{C}/U \to \mathcal{S}$ also the corresponding
+$1$-morphisms, see
+Categories, Lemma \ref{categories-lemma-yoneda-2category}.
+Then
+\begin{enumerate}
+\item the $2$-fibre product
+$\mathcal{S} \times_{\mathcal{S} \times \mathcal{S}, (x, y)} \mathcal{C}/U$
+is fibred in setoids over $\mathcal{C}/U$, and
+\item $\mathit{Isom}(x, y)$ is the presheaf of sets corresponding
+to this category fibred in setoids, see
+Categories, Lemma \ref{categories-lemma-2-category-fibred-setoids}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Objects of the $2$-fibre product are
+$(a : V \to U, z, a : V \to U, (\alpha, \beta))$ where
+$\alpha : z \to a^*x$ and $\beta : z \to a^*y$ are isomorphisms
+in $\mathcal{S}_V$. Thus the relationship with $\mathit{Isom}(x, y)$
+comes by assigning to such an object the isomorphism
+$\beta \circ \alpha^{-1}$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Descent data in fibred categories}
+\label{section-descent-data}
+
+\noindent
+In this section we define the notion of a descent datum
+in the abstract setting of a fibred category. Before we
+do so we point out that this is completely analogous to
+descent data for quasi-coherent sheaves
+(Descent, Section \ref{descent-section-equivalence})
+and descent data for schemes over schemes
+(Descent, Section \ref{descent-section-descent-datum}).
+
+\medskip\noindent
+We will use the convention where the projection maps
+$\text{pr}_i : X \times \ldots \times X \to X$
+are labeled starting with $i = 0$. Hence we have
+$\text{pr}_0, \text{pr}_1 : X \times X  \to X$,
+$\text{pr}_0, \text{pr}_1, \text{pr}_2 : X \times X \times X  \to X$,
+etc.
+
+\begin{definition}
+\label{definition-descent-data}
+Let $\mathcal{C}$ be a category.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a fibred category.
+Make a choice of pullbacks as in Categories,
+Definition \ref{categories-definition-pullback-functor-fibred-category}.
+Let $\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$
+be a family of morphisms of $\mathcal{C}$. Assume all the fibre products
+$U_i \times_U U_j$, and $U_i \times_U U_j \times_U U_k$ exist.
+\begin{enumerate}
+\item A {\it descent datum $(X_i, \varphi_{ij})$ in $\mathcal{S}$
+relative to the family $\{f_i : U_i \to U\}$} is given by an object $X_i$
+of $\mathcal{S}_{U_i}$ for each $i \in I$, an isomorphism
+$\varphi_{ij} : \text{pr}_0^*X_i \to \text{pr}_1^*X_j$
+in $\mathcal{S}_{U_i \times_U U_j}$ for each pair $(i, j) \in I^2$
+such that for every triple of indices $(i, j, k) \in I^3$ the
+diagram
+$$
+\xymatrix{
+\text{pr}_0^*X_i \ar[rd]_{\text{pr}_{01}^*\varphi_{ij}}
+\ar[rr]_{\text{pr}_{02}^*\varphi_{ik}} & &
+\text{pr}_2^*X_k \\
+& \text{pr}_1^*X_j \ar[ru]_{\text{pr}_{12}^*\varphi_{jk}} &
+}
+$$
+in the category $\mathcal{S}_{U_i \times_U U_j \times_U U_k}$
+commutes. This is called the {\it cocycle condition}.
+\item A {\it morphism $\psi : (X_i, \varphi_{ij}) \to
+(X'_i, \varphi'_{ij})$ of descent data} is given
+by a family $\psi = (\psi_i)_{i\in I}$ of morphisms
+$\psi_i : X_i \to X'_i$ in $\mathcal{S}_{U_i}$
+such that all the diagrams
+$$
+\xymatrix{
+\text{pr}_0^*X_i \ar[r]_{\varphi_{ij}} \ar[d]_{\text{pr}_0^*\psi_i}
+& \text{pr}_1^*X_j \ar[d]^{\text{pr}_1^*\psi_j} \\
+\text{pr}_0^*X'_i \ar[r]^{\varphi'_{ij}} &
+\text{pr}_1^*X'_j \\
+}
+$$
+in the categories $\mathcal{S}_{U_i \times_U U_j}$ commute.
+\item The category of descent data relative to
+$\mathcal{U}$ is denoted $DD(\mathcal{U})$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+The fibre products $U_i \times_U U_j$ and $U_i \times_U U_j \times_U U_k$
+will exist if each of the morphisms $f_i : U_i \to U$ is {\it representable},
+see Categories, Definition \ref{categories-definition-representable-morphism}.
+Recall that in a site one of the conditions for a covering $\{U_i \to U\}$ is
+that each of the morphisms is representable, see
+Sites, Definition \ref{sites-definition-site} part (3).
+In fact the main interest in the definition above is where $\mathcal{C}$
+is a site and $\{U_i \to U\}$ is a covering of $\mathcal{C}$. However,
+a descent datum is just an abstract gadget that can be defined as above.
+This is useful: for example, given a fibred category over $\mathcal{C}$
+one can look at the collection of families with respect to which descent data
+are effective, and try to use these as the family of coverings for a site.
+
+\begin{remarks}
+\label{remarks-definition-descent-datum}
+Two remarks on Definition \ref{definition-descent-data} are in order.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a fibred category.
+Let $\{f_i : U_i \to U\}_{i \in I}$, and $(X_i, \varphi_{ij})$
+be as in Definition \ref{definition-descent-data}.
+\begin{enumerate}
+\item There is a diagonal morphism $\Delta : U_i \to U_i \times_U U_i$.
+We can pull back $\varphi_{ii}$ via this morphism to get an automorphism
+$\Delta^\ast \varphi_{ii} \in \text{Aut}_{U_i}(x_i)$.
+On pulling back the cocycle condition for the triple $(i, i, i)$
+by $\Delta_{123} : U_i \to U_i \times_U U_i \times_U U_i$ we deduce that
+$\Delta^\ast \varphi_{ii} \circ \Delta^\ast \varphi_{ii} =
+\Delta^\ast \varphi_{ii}$; thus $\Delta^\ast \varphi_{ii} =
+\text{id}_{x_i}$.
+\item There is a morphism
+$\Delta_{13}: U_i \times_U U_j \to U_i \times_U U_j \times_U U_i$
+and we can pull back the
+cocycle condition for the triple $(i, j, i)$ to get the
+identity $(\sigma^\ast \varphi_{ji}) \circ \varphi_{ij} =
+\text{id}_{\text{pr}_0^\ast x_i}$, where
+$\sigma : U_i \times_U U_j \to U_j \times_U U_i$ is the switching morphism.
+\end{enumerate}
+\end{remarks}
+
+\begin{lemma}
+\label{lemma-pullback}
+(Pullback of descent data.)
+Let $\mathcal{C}$ be a category.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a fibred category.
+Make a choice pullbacks as in Categories,
+Definition \ref{categories-definition-pullback-functor-fibred-category}.
+Let $\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$, and
+$\mathcal{V} = \{V_j \to V\}_{j \in J}$
+be a families of morphisms of $\mathcal{C}$ with fixed target.
+Assume all the fibre products
+$U_i \times_U U_{i'}$, $U_i \times_U U_{i'} \times_U U_{i''}$,
+$V_j \times_V V_{j'}$, and $V_j \times_V V_{j'} \times_V V_{j''}$ exist.
+Let $\alpha : I \to J$, $h : U \to V$ and
+$g_i : U_i \to V_{\alpha(i)}$ be a morphism of families
+of maps with fixed target, see
+Sites, Definition \ref{sites-definition-morphism-coverings}.
+\begin{enumerate}
+\item Let $(Y_j, \varphi_{jj'})$ be a descent datum relative to the
+family $\{V_j \to V\}$. The system
+$$
+\left(
+g_i^*Y_{\alpha(i)},
+(g_i \times g_{i'})^*\varphi_{\alpha(i)\alpha(i')}
+\right)
+$$
+is a descent datum relative to $\mathcal{U}$.
+\item This construction defines a functor between descent data relative
+to $\mathcal{V}$ and descent data relative to $\mathcal{U}$.
+\item Given a second $\alpha' : I \to J$, $h' : U \to V$ and
+$g'_i : U_i \to V_{\alpha'(i)}$ morphism of families
+of maps with fixed target, then if $h = h'$ the two resulting functors
+between descent data are canonically isomorphic.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{definition}
+\label{definition-pullback-functor}
+With $\mathcal{U} = \{U_i \to U\}_{i \in I}$,
+$\mathcal{V} = \{V_j \to V\}_{j \in J}$,
+$\alpha : I \to J$, $h : U \to V$,
+and $g_i : U_i \to V_{\alpha(i)}$ as in Lemma \ref{lemma-pullback}
+the functor
+$$
+(Y_j, \varphi_{jj'}) \longmapsto
+(g_i^*Y_{\alpha(i)}, (g_i \times g_{i'})^*\varphi_{\alpha(i)\alpha(i')})
+$$
+constructed in that lemma
+is called the {\it pullback functor} on descent data.
+\end{definition}
+
+\noindent
+Given $h : U \to V$, if there exists a morphism
+$\tilde h : \mathcal{U} \to \mathcal{V}$ covering $h$
+then $\tilde h^*$ is independent of the choice of
+$\tilde h$ as we saw in Lemma \ref{lemma-pullback}.
+Hence we will sometimes simply write $h^*$ to indicate
+the pullback functor.
+
+\begin{definition}
+\label{definition-effective-descent-datum}
+Let $\mathcal{C}$ be a category.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a fibred category.
+Make a choice of pullbacks as in Categories,
+Definition \ref{categories-definition-pullback-functor-fibred-category}.
+Let $\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$ be a family of morphisms
+with target $U$. Assume all the fibre products
+$U_i \times_U U_j$ and $U_i \times_U U_j \times_U U_k$ exist.
+\begin{enumerate}
+\item Given an object $X$ of $\mathcal{S}_U$ the {\it trivial descent datum}
+is the descent datum $(X, \text{id}_X)$ with respect to the family
+$\{\text{id}_U : U \to U\}$.
+\item Given an object $X$ of $\mathcal{S}_U$
+we have a {\it canonical descent datum} on the family of
+objects $f_i^*X$ by pulling back the trivial
+descent datum $(X, \text{id}_X)$ via the
+obvious map $\{f_i : U_i \to U\} \to \{\text{id}_U : U \to U\}$.
+We denote this descent datum $(f_i^*X, can)$.
+\item A descent datum $(X_i, \varphi_{ij})$
+relative to $\{f_i : U_i \to U\}$ is called {\it effective}
+if there exists an object $X$ of $\mathcal{S}_U$ such that
+$(X_i, \varphi_{ij})$ is isomorphic to $(f_i^*X, can)$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Note that the rule that associates to $X \in \mathcal{S}_U$ its
+canonical descent datum relative to $\mathcal{U}$ defines a
+functor
+$$
+\mathcal{S}_U \longrightarrow DD(\mathcal{U}).
+$$
+A descent datum is effective if and only if it is in the essential
+image of this functor.
+Let us make explicit the canonical descent datum as follows.
+
+\begin{lemma}
+\label{lemma-trivial-cocycle}
+In the situation of
+Definition \ref{definition-effective-descent-datum} part (2) the maps
+$can_{ij} : \text{pr}_0^*f_i^*X \to \text{pr}_1^*f_j^*X$ are equal to
+$(\alpha_{\text{pr}_1, f_j})_X \circ (\alpha_{\text{pr}_0, f_i})_X^{-1}$
+where $\alpha_{\cdot, \cdot}$ is as in
+Categories, Lemma \ref{categories-lemma-fibred}
+and where we
+use the equality $f_i \circ \text{pr}_0 = f_j \circ \text{pr}_1$
+as maps $U_i \times_U U_j \to U$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Stacks}
+\label{section-definition}
+
+\noindent
+Here is the definition of a stack. It mixes the notion of a fibred
+category with the notion of descent.
+
+\begin{definition}
+\label{definition-stack}
+Let $\mathcal{C}$ be a site. A {\it stack} over $\mathcal{C}$
+is a category $p : \mathcal{S} \to \mathcal{C}$ over $\mathcal{C}$ which
+satisfies the following conditions:
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ is a fibred category, see
+Categories, Definition \ref{categories-definition-fibred-category},
+\item for any $U \in \Ob(\mathcal{C})$ and any $x, y \in \mathcal{S}_U$
+the presheaf $\mathit{Mor}(x, y)$ (see
+Definition \ref{definition-mor-presheaf}) is a sheaf on
+the site $\mathcal{C}/U$, and
+\item for any covering $\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$
+of the site $\mathcal{C}$, any descent datum in $\mathcal{S}$
+relative to $\mathcal{U}$ is effective.
+\end{enumerate}
+\end{definition}
+
+\noindent
+We find the formulation above the most convenient way to think about
+a stack. Namely, given a category over $\mathcal{C}$ in order to verify
+that it is a stack you proceed to check properties (1), (2) and
+(3) in that order. Certainly properties (2) and (3) do not make sense
+if the category isn't fibred. Without (2) we cannot prove that the
+descent in (3) is unique up to unique isomorphism and functorial.
+
+\medskip\noindent
+The following lemma provides an alternative definition.
+
+\begin{lemma}
+\label{lemma-stack-equivalences}
+Let $\mathcal{C}$ be a site.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a fibred category
+over $\mathcal{C}$. The following are equivalent
+\begin{enumerate}
+\item $\mathcal{S}$ is a stack over $\mathcal{C}$, and
+\item for any covering $\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$
+of the site $\mathcal{C}$ the functor
+$$
+\mathcal{S}_U \longrightarrow DD(\mathcal{U})
+$$
+which associates to an
+object its canonical descent datum is an equivalence.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-substack}
+Let $p : \mathcal{S} \to \mathcal{C}$ be a stack over the site $\mathcal{C}$.
+Let $\mathcal{S}'$ be a subcategory of $\mathcal{S}$.
+Assume
+\begin{enumerate}
+\item if $\varphi : y \to x$ is a strongly cartesian
+morphism of $\mathcal{S}$ and
+$x$ is an object of $\mathcal{S}'$, then $y$ is isomorphic to an
+object of $\mathcal{S}'$,
+\item $\mathcal{S}'$ is a full subcategory of $\mathcal{S}$, and
+\item if $\{f_i : U_i \to U\}$ is a covering of $\mathcal{C}$,
+and $x$ an object of $\mathcal{S}$ over $U$ such that $f_i^*x$
+is isomorphic to an object of $\mathcal{S}'$ for each $i$,
+then $x$ is isomorphic to an object of $\mathcal{S}'$.
+\end{enumerate}
+Then $\mathcal{S}' \to \mathcal{C}$ is a stack.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hints:
+The first condition guarantees that $\mathcal{S}'$ is a fibred category.
+The second condition guarantees that the $\mathit{Isom}$-presheaves
+of $\mathcal{S}'$ are sheaves (as they are identical to their counter parts
+in $\mathcal{S}$). The third condition guarantees that the descent condition
+holds in $\mathcal{S}'$ as we can first descend in $\mathcal{S}$ and
+then (3) implies the resulting object is isomorphic to an object of
+$\mathcal{S}'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-equivalent}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{S}_1$, $\mathcal{S}_2$ be categories over $\mathcal{C}$.
+Suppose that $\mathcal{S}_1$ and $\mathcal{S}_2$ are equivalent
+as categories over $\mathcal{C}$.
+Then $\mathcal{S}_1$ is a stack over $\mathcal{C}$ if and only if
+$\mathcal{S}_2$ is a stack over $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Let $F : \mathcal{S}_1 \to \mathcal{S}_2$,
+$G : \mathcal{S}_2 \to \mathcal{S}_1$ be functors over $\mathcal{C}$, and let
+$i : F \circ G \to \text{id}_{\mathcal{S}_2}$,
+$j : G \circ F \to \text{id}_{\mathcal{S}_1}$ be isomorphisms of
+functors over $\mathcal{C}$. By
+Categories, Lemma \ref{categories-lemma-fibred-equivalent}
+we see that $\mathcal{S}_1$ is fibred if and only if $\mathcal{S}_2$
+is fibred over $\mathcal{C}$. Hence we may assume that both
+$\mathcal{S}_1$ and $\mathcal{S}_2$ are fibred. Moreover, the proof of
+Categories, Lemma \ref{categories-lemma-fibred-equivalent}
+shows that $F$ and $G$ map strongly cartesian morphisms to strongly
+cartesian morphisms, i.e., $F$ and $G$ are $1$-morphisms of fibred
+categories over $\mathcal{C}$. This means that given
+$U \in \Ob(\mathcal{C})$, and $x, y \in \mathcal{S}_{1, U}$ then
+the presheaves
+$$
+\mathit{Mor}_{\mathcal{S}_1}(x, y),
+\mathit{Mor}_{\mathcal{S}_1}(F(x), F(y)) :
+(\mathcal{C}/U)^{opp} \longrightarrow \textit{Sets}.
+$$
+are identified, see
+Lemma \ref{lemma-presheaf-mor-map-fibred-categories}. Hence
+the first is a sheaf if and only if the second is a sheaf.
+Finally, we have to show that if every descent datum in $\mathcal{S}_1$
+is effective, then so is every descent datum in $\mathcal{S}_2$.
+To do this, let $(X_i, \varphi_{ii'})$ be a descent datum
+in $\mathcal{S}_2$ relative the covering $\{U_i \to U\}$ of the site
+$\mathcal{C}$. Then $(G(X_i), G(\varphi_{ii'}))$ is a descent datum
+in $\mathcal{S}_1$ relative the covering $\{U_i \to U\}$.
+Let $X$ be an object of $\mathcal{S}_{1, U}$ such that the
+descent datum $(f_i^*X, can)$ is isomorphic to
+$(G(X_i), G(\varphi_{ii'}))$. Then $F(X)$ is an object of $\mathcal{S}_{2, U}$
+such that the descent datum $(f_i^*F(X), can)$ is isomorphic to
+$(F(G(X_i)), F(G(\varphi_{ii'})))$ which in turn is isomorphic to
+the original descent datum $(X_i, \varphi_{ii'})$ using $i$.
+\end{proof}
+
+\noindent
+The $2$-category of stacks over $\mathcal{C}$
+is defined as follows.
+
+\begin{definition}
+\label{definition-stacks-over-C}
+Let $\mathcal{C}$ be a site.
+The {\it $2$-category of stacks over $\mathcal{C}$}
+is the sub $2$-category of the $2$-category of fibred categories
+over $\mathcal{C}$ (see
+Categories, Definition \ref{categories-definition-fibred-categories-over-C})
+defined as follows:
+\begin{enumerate}
+\item Its objects will be stacks $p : \mathcal{S} \to \mathcal{C}$.
+\item Its $1$-morphisms $(\mathcal{S}, p) \to (\mathcal{S}', p')$
+will be functors $G : \mathcal{S} \to \mathcal{S}'$ such that
+$p' \circ G = p$ and such that $G$ maps strongly cartesian
+morphisms to strongly cartesian morphisms.
+\item Its $2$-morphisms $t : G \to H$ for
+$G, H : (\mathcal{S}, p) \to (\mathcal{S}', p')$
+will be morphisms of functors
+such that $p'(t_x) = \text{id}_{p(x)}$
+for all $x \in \Ob(\mathcal{S})$.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-2-product-stacks}
+Let $\mathcal{C}$ be a site.
+The $(2, 1)$-category of stacks over $\mathcal{C}$
+has 2-fibre products, and they are described as in
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C}.
+\end{lemma}
+
+\begin{proof}
+Let $f : \mathcal{X} \to \mathcal{S}$ and
+$g : \mathcal{Y} \to \mathcal{S}$ be
+$1$-morphisms of stacks over $\mathcal{C}$
+as defined above. The category
+$\mathcal{X} \times_\mathcal{S} \mathcal{Y}$
+described in
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C} is a
+fibred category according to
+Categories, Lemma \ref{categories-lemma-2-product-fibred-categories-over-C}.
+(This is where we use that $f$ and $g$ preserve strongly cartesian
+morphisms.) It remains to show that the morphism presheaves are sheaves
+and that descent relative to coverings of $\mathcal{C}$ is effective.
+
+\medskip\noindent
+Recall that an object of $\mathcal{X} \times_\mathcal{S} \mathcal{Y}$
+is given by a quadruple $(U, x, y, \phi)$.
+It lies over the object
+$U$ of $\mathcal{C}$. Next, let $(U, x', y', \phi')$ be second
+object lying over $U$.
+Recall that $\phi : f(x) \to g(y)$, and $\phi' : f(x') \to g(y')$
+are isomorphisms in the category $\mathcal{S}_U$. Let us
+use these isomorphisms to identify $z = f(x) = g(y)$ and
+$z' = f(x') = g(y')$. With this identifications
+it is clear that
+$$
+\mathit{Mor}((U, x, y, \phi), (U, x', y', \phi'))
+=
+\mathit{Mor}(x, x')
+\times_{\mathit{Mor}(z, z')}
+\mathit{Mor}(y, y')
+$$
+as presheaves. However, as the fibred product in the category of
+presheaves preserves sheaves (Sites, Lemma \ref{sites-lemma-limit-sheaf})
+we see that this is a sheaf.
+
+\medskip\noindent
+Let $\mathcal{U} = \{f_i : U_i \to U\}_{i \in I}$ be a covering of the site
+$\mathcal{C}$. Let $(X_i, \chi_{ij})$ be a descent datum
+in $\mathcal{X} \times_\mathcal{S} \mathcal{Y}$ relative to $\mathcal{U}$.
+Write $X_i = (U_i, x_i, y_i, \phi_i)$ as above. Write
+$\chi_{ij} = (\varphi_{ij}, \psi_{ij})$ as in the definition of
+the category $\mathcal{X} \times_\mathcal{S} \mathcal{Y}$ (see
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C}).
+It is clear that $(x_i, \varphi_{ij})$ is a descent datum in
+$\mathcal{X}$ and that $(y_i, \psi_{ij})$ is a descent datum in
+$\mathcal{Y}$. Since $\mathcal{X}$ and $\mathcal{Y}$ are stacks these
+descent data are effective. Thus we get
+$x \in \Ob(\mathcal{X}_U)$, and $y \in \Ob(\mathcal{Y}_U)$
+with $x_i = x|_{U_i}$, and $y_i = y|_{U_i}$ compatibly with descent data.
+Set $z = f(x)$ and $z' = g(y)$ which are both objects of $\mathcal{S}_U$.
+The morphisms $\phi_i$ are elements of
+$\mathit{Isom}(z, z')(U_i)$ with the property that
+$\phi_i|_{U_i \times_U U_j} = \phi_j|_{U_i \times_U U_j}$.
+Hence by the sheaf property of $\mathit{Isom}(z, z')$
+we obtain an isomorphism $\phi : z = f(x) \to z' = g(y)$.
+We omit the verification that the canonical descent datum associated to
+the object $(U, x, y, \phi)$ of
+$(\mathcal{X} \times_\mathcal{S} \mathcal{Y})_U$ is isomorphic
+to the descent datum we started with.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-ff}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{S}_1$, $\mathcal{S}_2$ be stacks over $\mathcal{C}$.
+Let $F : \mathcal{S}_1 \to \mathcal{S}_2$ be a $1$-morphism.
+Then the following are equivalent
+\begin{enumerate}
+\item $F$ is fully faithful,
+\item for every $U \in \Ob(\mathcal{C})$ and for every
+$x, y \in \Ob(\mathcal{S}_{1, U})$ the map
+$$
+F :
+\mathit{Mor}_{\mathcal{S}_1}(x, y)
+\longrightarrow
+\mathit{Mor}_{\mathcal{S}_2}(F(x), F(y))
+$$
+is an isomorphism of sheaves on $\mathcal{C}/U$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (1). For $U, x, y$ as in (2) the displayed map $F$ evaluates to the map
+$F : \Mor_{\mathcal{S}_{1, V}}(x|_V, y|_V) \to
+\Mor_{\mathcal{S}_{2, V}}(F(x|_V), F(y|_V))$
+on an object $V$ of $\mathcal{C}$ lying over $U$.
+Now, since $F$ is fully faithful, the corresponding map
+$\Mor_{\mathcal{S}_1}(x|_V, y|_V) \to \Mor_{\mathcal{S}_2}(F(x|_V), F(y|_V))$
+is a bijection. Morphisms in the fibre category $\mathcal{S}_{1, V}$ are
+exactly those morphisms between $x|_V$ and $y|_V$ in $\mathcal{S}_1$ lying
+over $\text{id}_V$. Similarly, morphisms in the fibre category
+$\mathcal{S}_{2, V}$ are exactly those morphisms between $F(x|_V)$ and
+$F(y|_V)$ in $\mathcal{S}_2$ lying over $\text{id}_V$. Thus we find that $F$
+induces a bijection between these also. Hence (2) holds.
+
+\medskip\noindent
+Assume (2). Suppose given objects $U$, $V$ of $\mathcal{C}$ and
+$x \in \Ob(\mathcal{S}_{1, U})$ and
+$y \in \Ob(\mathcal{S}_{1, V})$. To show that $F$ is fully faithful,
+it suffices to prove it induces a bijection on
+morphisms lying over a fixed $f : U \to V$. Choose a strongly Cartesian
+$f^*y \to y$ in $\mathcal{S}_1$ lying above $f$. This results in a
+bijection between the set of morphisms $x \to y$ in $\mathcal{S}_1$ lying
+over $f$ and $\Mor_{\mathcal{S}_{1, U}}(x, f^*y)$. Since $F$ preserves
+strongly Cartesian morphisms as a $1$-morphism in the $2$-category
+of stacks over $\mathcal{C}$, we also get a bijection
+between the set of morphisms $F(x) \to F(y)$ in $\mathcal{S}_2$ lying
+over $f$ and $\Mor_{\mathcal{S}_{2, U}}(F(x), F(f^*y))$.
+Since $F$ induces a bijection
+$\Mor_{\mathcal{S}_{1, U}}(x, f^*y) \to
+\Mor_{\mathcal{S}_{2, U}}(F(x), F(f^*y))$
+we conclude (1) holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-essentially-surjective-when-ff}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{S}_1$, $\mathcal{S}_2$ be stacks over $\mathcal{C}$.
+Let $F : \mathcal{S}_1 \to \mathcal{S}_2$ be a $1$-morphism which is
+fully faithful. Then the following are equivalent
+\begin{enumerate}
+\item $F$ is an equivalence,
+\item for every $U \in \Ob(\mathcal{C})$ and for every
+$x \in \Ob(\mathcal{S}_{2, U})$ there exists a covering
+$\{f_i : U_i \to U\}$ such that $f_i^*x$ is in the essential image
+of the functor $F : \mathcal{S}_{1, U_i} \to \mathcal{S}_{2, U_i}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implication (1) $\Rightarrow$ (2) is immediate.
+To see that (2) implies (1) we have to show that every
+$x$ as in (2) is in the essential image of the functor $F$.
+To do this choose a covering as in (2),
+$x_i \in \Ob(\mathcal{S}_{1, U_i})$, and
+isomorphisms $\varphi_i : F(x_i) \to f_i^*x$. Then we get a descent
+datum for $\mathcal{S}_1$ relative to $\{f_i : U_i \to U\}$
+by taking
+$$
+\varphi_{ij} :
+x_i|_{U_i \times_U U_j}
+\longrightarrow
+x_j|_{U_i \times_U U_j}
+$$
+the arrow such that $F(\varphi_{ij}) = \varphi_j^{-1} \circ \varphi_i$.
+This descent datum is effective by the axioms of a stack, and hence
+we obtain an object $x_1$ of $\mathcal{S}_1$ over $U$. We omit the
+verification that $F(x_1)$ is isomorphic to $x$ over $U$.
+\end{proof}
+
+\begin{remark}
+\label{remark-stack-make-small}
+(Cutting down a ``big'' stack to get a stack.)
+Let $\mathcal{C}$ be a site. Suppose that $p : \mathcal{S} \to \mathcal{C}$
+is functor from a ``big'' category to $\mathcal{C}$, i.e., suppose
+that the collection of objects of $\mathcal{S}$ forms a proper class.
+Finally, suppose that $p : \mathcal{S} \to \mathcal{C}$ satisfies
+conditions (1), (2), (3) of
+Definition \ref{definition-stack}.
+In general there is no way to replace $p : \mathcal{S} \to \mathcal{C}$
+by a equivalent category such that we obtain a stack. The reason is that
+it can happen that a fibre categories $\mathcal{S}_U$ may have a proper
+class of isomorphism classes of objects.
+On the other hand, suppose that
+\begin{enumerate}
+\item[(4)] for every $U \in \Ob(\mathcal{C})$ there exists a set
+$S_U \subset \Ob(\mathcal{S}_U)$ such that every object of
+$\mathcal{S}_U$ is isomorphic in $\mathcal{S}_U$ to an element of $S_U$.
+\end{enumerate}
+In this case we can find a full subcategory $\mathcal{S}_{small}$
+of $\mathcal{S}$ such that, setting $p_{small} = p|_{\mathcal{S}_{small}}$,
+we have
+\begin{enumerate}
+\item[(a)] the functor $p_{small} : \mathcal{S}_{small} \to \mathcal{C}$
+defines a stack, and
+\item[(b)] the inclusion $\mathcal{S}_{small} \to \mathcal{S}$
+is fully faithful and essentially surjective.
+\end{enumerate}
+(Hint: For every $U \in \Ob(\mathcal{C})$
+let $\alpha(U)$ denote the smallest ordinal such that
+$\Ob(\mathcal{S}_U) \cap V_{\alpha(U)}$ surjects onto the set
+of isomorphism classes of $\mathcal{S}_U$, and set
+$\alpha = \sup_{U \in \Ob(\mathcal{C})} \alpha(U)$.
+Then take
+$\Ob(\mathcal{S}_{small}) = \Ob(\mathcal{S}) \cap V_\alpha$.
+For notation used see Sets, Section \ref{sets-section-sets-hierarchy}.)
+\end{remark}
+
+
+
+
+
+
+
+\section{Stacks in groupoids}
+\label{section-stacks-in-groupoids}
+
+\noindent
+Among stacks those which are fibred in groupoids are somewhat easier
+to comprehend. We redefine them as follows.
+
+\begin{definition}
+\label{definition-stack-in-groupoids}
+A {\it stack in groupoids} over a site $\mathcal{C}$ is a
+category $p : \mathcal{S} \to \mathcal{C}$ over $\mathcal{C}$
+such that
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ is fibred
+in groupoids over $\mathcal{C}$ (see
+Categories, Definition \ref{categories-definition-fibred-groupoids}),
+\item for all $U \in \Ob(\mathcal{C})$,
+for all $x, y\in \Ob(\mathcal{S}_U)$ the presheaf
+$\mathit{Isom}(x, y)$ is a sheaf on the site $\mathcal{C}/U$, and
+\item for all coverings $\mathcal{U} = \{U_i \to U\}$ in $\mathcal{C}$,
+all descent data $(x_i, \phi_{ij})$ for $\mathcal{U}$ are effective.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Usually the hardest part to check is the third condition.
+Here is the lemma comparing this with the notion of a stack.
+
+\begin{lemma}
+\label{lemma-stack-in-groupoids-stack}
+Let $\mathcal{C}$ be a site.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a category over $\mathcal{C}$.
+The following are equivalent
+\begin{enumerate}
+\item $\mathcal{S}$ is a stack in groupoids over $\mathcal{C}$,
+\item $\mathcal{S}$ is a stack over $\mathcal{C}$ and all
+fibre categories are groupoids, and
+\item $\mathcal{S}$ is fibred in groupoids over $\mathcal{C}$
+and is a stack over $\mathcal{C}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted, but see Categories, Lemma \ref{categories-lemma-fibred-groupoids}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-gives-stack-groupoids}
+Let $\mathcal{C}$ be a site.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a stack.
+Let $p' : \mathcal{S}' \to \mathcal{C}$
+be the category fibred in groupoids associated to $\mathcal{S}$
+constructed in
+Categories, Lemma \ref{categories-lemma-fibred-gives-fibred-groupoids}.
+Then $p' : \mathcal{S}' \to \mathcal{C}$ is a stack in groupoids.
+\end{lemma}
+
+\begin{proof}
+Recall that the morphisms in $\mathcal{S}'$ are exactly the
+strongly cartesian morphisms of $\mathcal{S}$, and that any isomorphism of
+$\mathcal{S}$ is such a morphism. Hence descent data in $\mathcal{S}'$
+are exactly the same thing as descent data in $\mathcal{S}$. Now apply
+Lemma \ref{lemma-stack-equivalences}. Some details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-groupoids-equivalent}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{S}_1$, $\mathcal{S}_2$ be categories over $\mathcal{C}$.
+Suppose that $\mathcal{S}_1$ and $\mathcal{S}_2$ are equivalent
+as categories over $\mathcal{C}$.
+Then $\mathcal{S}_1$ is a stack in groupoids over $\mathcal{C}$ if and only if
+$\mathcal{S}_2$ is a stack in groupoids over $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Follows by combining
+Lemmas \ref{lemma-stack-in-groupoids-stack} and \ref{lemma-stack-equivalent}.
+\end{proof}
+
+\noindent
+The $2$-category of stacks in groupoids over $\mathcal{C}$
+is defined as follows.
+
+\begin{definition}
+\label{definition-stacks-in-groupoids-over-C}
+Let $\mathcal{C}$ be a site.
+The {\it $2$-category of stacks in groupoids over $\mathcal{C}$}
+is the sub $2$-category of the $2$-category of stacks
+over $\mathcal{C}$ (see Definition \ref{definition-stacks-over-C})
+defined as follows:
+\begin{enumerate}
+\item Its objects will be stacks in groupoids
+$p : \mathcal{S} \to \mathcal{C}$.
+\item Its $1$-morphisms $(\mathcal{S}, p) \to (\mathcal{S}', p')$
+will be functors $G : \mathcal{S} \to \mathcal{S}'$ such that
+$p' \circ G = p$. (Since every morphism is strongly cartesian
+every functor preserves them.)
+\item Its $2$-morphisms $t : G \to H$ for
+$G, H : (\mathcal{S}, p) \to (\mathcal{S}', p')$
+will be morphisms of functors
+such that $p'(t_x) = \text{id}_{p(x)}$
+for all $x \in \Ob(\mathcal{S})$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Note that any $2$-morphism is automatically an isomorphism, so
+that in fact the $2$-category of stacks in groupoids over $\mathcal{C}$
+is a (strict) $(2, 1)$-category.
+
+\begin{lemma}
+\label{lemma-2-product-stacks-in-groupoids}
+Let $\mathcal{C}$ be a category.
+The $2$-category of stacks in groupoids over $\mathcal{C}$
+has 2-fibre products, and they are described as in
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C}.
+\end{lemma}
+
+\begin{proof}
+This is clear from
+Categories, Lemma \ref{categories-lemma-2-product-fibred-categories}
+and Lemmas \ref{lemma-stack-in-groupoids-stack}
+and \ref{lemma-2-product-stacks}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Stacks in setoids}
+\label{section-stacks-in-setoids}
+
+\noindent
+This is just a brief section saying that a stack in sets
+is the same thing as a sheaf of sets. Please consult
+Categories, Section \ref{categories-section-fibred-in-setoids}
+for notation.
+
+\begin{definition}
+\label{definition-stack-in-sets}
+Let $\mathcal{C}$ be a site.
+\begin{enumerate}
+\item A {\it stack in setoids} over $\mathcal{C}$
+is a stack over $\mathcal{C}$ all of whose fibre categories are
+setoids.
+\item A {\it stack in sets}, or a {\it stack in discrete categories}
+is a stack over $\mathcal{C}$ all of whose fibre categories are discrete.
+\end{enumerate}
+\end{definition}
+
+\noindent
+From the discussion in
+Section \ref{section-stacks-in-groupoids}
+this is the same thing as a stack in groupoids whose fibre categories
+are setoids (resp.\ discrete). Moreover, it is also the same thing
+as a category fibred in setoids (resp.\ sets) which is a stack.
+
+\begin{lemma}
+\label{lemma-when-stack-in-sets}
+Let $\mathcal{C}$ be a site. Under the equivalence
+$$
+\left\{
+\begin{matrix}
+\text{the category of presheaves}\\
+\text{of sets over }\mathcal{C}
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{the category of categories}\\
+\text{fibred in sets over }\mathcal{C}
+\end{matrix}
+\right\}
+$$
+of
+Categories, Lemma \ref{categories-lemma-2-category-fibred-sets}
+the stacks in sets correspond precisely to the sheaves.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Show that effectivity of descent corresponds exactly to
+the sheaf condition.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-setoids-characterize}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{S}$ be a category fibred in setoids over $\mathcal{C}$.
+Then $\mathcal{S}$ is a stack in setoids if and only if the unique
+equivalent category $\mathcal{S}'$ fibred in sets (see
+Categories, Lemma \ref{categories-lemma-setoid-fibres})
+is a stack in sets. In other words, if and only if the presheaf
+$$
+U \longmapsto \Ob(\mathcal{S}_U)/\!\!\cong
+$$
+is a sheaf.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-setoids-equivalent}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{S}_1$, $\mathcal{S}_2$ be categories over $\mathcal{C}$.
+Suppose that $\mathcal{S}_1$ and $\mathcal{S}_2$ are equivalent
+as categories over $\mathcal{C}$.
+Then $\mathcal{S}_1$ is a stack in setoids over $\mathcal{C}$ if and only if
+$\mathcal{S}_2$ is a stack in setoids over $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+By
+Categories, Lemma \ref{categories-lemma-setoid-fibres}
+we see that a category $\mathcal{S}$ over $\mathcal{C}$ is fibred in setoids
+over $\mathcal{C}$ if and only if it is equivalent over $\mathcal{C}$
+to a category fibred in sets.
+Hence we see that $\mathcal{S}_1$ is fibred in setoids over $\mathcal{C}$
+if and only if $\mathcal{S}_2$ is fibred in setoids over $\mathcal{C}$.
+Hence now the lemma follows from
+Lemma \ref{lemma-stack-in-setoids-characterize}.
+\end{proof}
+
+\noindent
+The $2$-category of stacks in setoids over $\mathcal{C}$
+is defined as follows.
+
+\begin{definition}
+\label{definition-stacks-in-setoids-over-C}
+Let $\mathcal{C}$ be a site.
+The {\it $2$-category of stacks in setoids over $\mathcal{C}$}
+is the sub $2$-category of the $2$-category of stacks
+over $\mathcal{C}$ (see Definition \ref{definition-stacks-over-C})
+defined as follows:
+\begin{enumerate}
+\item Its objects will be stacks in setoids
+$p : \mathcal{S} \to \mathcal{C}$.
+\item Its $1$-morphisms $(\mathcal{S}, p) \to (\mathcal{S}', p')$
+will be functors $G : \mathcal{S} \to \mathcal{S}'$ such that
+$p' \circ G = p$. (Since every morphism is strongly cartesian
+every functor preserves them.)
+\item Its $2$-morphisms $t : G \to H$ for
+$G, H : (\mathcal{S}, p) \to (\mathcal{S}', p')$
+will be morphisms of functors
+such that $p'(t_x) = \text{id}_{p(x)}$
+for all $x \in \Ob(\mathcal{S})$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Note that any $2$-morphism is automatically an isomorphism, so
+that in fact the $2$-category of stacks in setoids over $\mathcal{C}$
+is a (strict) $(2, 1)$-category.
+
+\begin{lemma}
+\label{lemma-2-product-stacks-in-setoids}
+Let $\mathcal{C}$ be a site.
+The $2$-category of stacks in setoids over $\mathcal{C}$
+has 2-fibre products, and they are described as in
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C}.
+\end{lemma}
+
+\begin{proof}
+This is clear from
+Categories, Lemmas \ref{categories-lemma-2-product-fibred-categories} and
+\ref{categories-lemma-2-product-categories-fibred-setoids}
+and
+Lemmas \ref{lemma-stack-in-groupoids-stack} and
+\ref{lemma-2-product-stacks}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-2-fibre-product-gives-stack-in-setoids}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{S}, \mathcal{T}$ be stacks in groupoids over $\mathcal{C}$
+and let $\mathcal{R}$ be a stack in setoids over $\mathcal{C}$.
+Let $f : \mathcal{T} \to \mathcal{S}$ and $g : \mathcal{R} \to \mathcal{S}$
+be $1$-morphisms. If $f$ is faithful, then the $2$-fibre product
+$$
+\mathcal{T} \times_{f, \mathcal{S}, g} \mathcal{R}
+$$
+is a stack in setoids over $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Immediate from the explicit description of the $2$-fibre product in
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-2-fibre-product-stacks-in-setoids-over-stack-in-groupoids}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{S}$ be a stack in groupoids over $\mathcal{C}$ and
+let $\mathcal{S}_i$, $i = 1, 2$ be stacks in setoids over $\mathcal{C}$.
+Let $f_i : \mathcal{S}_i \to \mathcal{S}$ be $1$-morphisms.
+Then the $2$-fibre product
+$$
+\mathcal{S}_1 \times_{f_1, \mathcal{S}, f_2} \mathcal{S}_2
+$$
+is a stack in setoids over $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+This is a special case of
+Lemma \ref{lemma-2-fibre-product-gives-stack-in-setoids}
+as $f_2$ is faithful.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-faithful-descent}
+Let $\mathcal{C}$ be a site. Let
+$$
+\xymatrix{
+\mathcal{T}_2 \ar[r] \ar[d]_{G'} & \mathcal{T}_1 \ar[d]^G \\
+\mathcal{S}_2 \ar[r]^F & \mathcal{S}_1
+}
+$$
+be a $2$-cartesian diagram of stacks in groupoids over $\mathcal{C}$.
+Assume
+\begin{enumerate}
+\item for every $U \in \Ob(\mathcal{C})$ and
+$x \in \Ob((\mathcal{S}_1)_U)$ there exists a covering
+$\{U_i \to U\}$ such that $x|_{U_i}$ is in the essential
+image of $F : (\mathcal{S}_2)_{U_i} \to (\mathcal{S}_1)_{U_i}$, and
+\item $G'$ is faithful,
+\end{enumerate}
+then $G$ is faithful.
+\end{lemma}
+
+\begin{proof}
+We may assume that $\mathcal{T}_2$ is the category
+$\mathcal{S}_2 \times_{\mathcal{S}_1} \mathcal{T}_1$
+described in
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C}.
+By
+Categories, Lemma \ref{categories-lemma-equivalence-fibred-categories}
+the faithfulness of $G, G'$ can be checked on fibre categories.
+Suppose that $y, y'$ are objects of $\mathcal{T}_1$ over the object $U$
+of $\mathcal{C}$. Let $\alpha, \beta : y \to y'$ be morphisms of
+$(\mathcal{T}_1)_U$ such that $G(\alpha) = G(\beta)$. Our object is to
+show that $\alpha = \beta$. Considering instead
+$\gamma = \alpha^{-1} \circ \beta$ we see that $G(\gamma) = \text{id}_{G(y)}$
+and we have to show that $\gamma = \text{id}_y$. By assumption we
+can find a covering $\{U_i \to U\}$ such that $G(y)|_{U_i}$ is in the
+essential image of $F :(\mathcal{S}_2)_{U_i} \to (\mathcal{S}_1)_{U_i}$.
+Since it suffices to show that $\gamma|_{U_i} = \text{id}$ for each $i$,
+we may therefore assume that we have
+$f : F(x) \to G(y)$ for some object $x$ of $\mathcal{S}_2$ over $U$
+and morphisms $f$ of $(\mathcal{S}_1)_U$. In this case we get
+a morphism
+$$
+(1, \gamma) : (U, x, y, f) \longrightarrow (U, x, y, f)
+$$
+in the fibre category of $\mathcal{S}_2 \times_{\mathcal{S}_1} \mathcal{T}_1$
+over $U$ whose image under $G'$ in $\mathcal{S}_1$ is $\text{id}_x$.
+As $G'$ is faithful we conclude that $\gamma = \text{id}_y$ and we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-setoids-descent}
+Let $\mathcal{C}$ be a site.
+Let
+$$
+\xymatrix{
+\mathcal{T}_2 \ar[r] \ar[d] & \mathcal{T}_1 \ar[d]^G \\
+\mathcal{S}_2 \ar[r]^F & \mathcal{S}_1
+}
+$$
+be a $2$-cartesian diagram of stacks in groupoids over $\mathcal{C}$.
+If
+\begin{enumerate}
+\item $F : \mathcal{S}_2 \to \mathcal{S}_1$ is fully faithful,
+\item for every $U \in \Ob(\mathcal{C})$ and
+$x \in \Ob((\mathcal{S}_1)_U)$ there exists a covering
+$\{U_i \to U\}$ such that $x|_{U_i}$ is in the essential
+image of $F : (\mathcal{S}_2)_{U_i} \to (\mathcal{S}_1)_{U_i}$, and
+\item $\mathcal{T}_2$ is a stack in setoids.
+\end{enumerate}
+then $\mathcal{T}_1$ is a stack in setoids.
+\end{lemma}
+
+\begin{proof}
+We may assume that $\mathcal{T}_2$ is the category
+$\mathcal{S}_2 \times_{\mathcal{S}_1} \mathcal{T}_1$
+described in
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C}.
+Pick $U \in \Ob(\mathcal{C})$ and
+$y \in \Ob((\mathcal{T}_1)_U)$.
+We have to show that the sheaf $\mathit{Aut}(y)$ on $\mathcal{C}/U$
+is trivial. To to this we may replace $U$ by the members of
+a covering of $U$. Hence by assumption (2) we may assume that
+there exists an object $x \in \Ob((\mathcal{S}_2)_U)$
+and an isomorphism $f : F(x) \to G(y)$.
+Then $y' = (U, x, y, f)$ is an object of $\mathcal{T}_2$ over $U$
+which is mapped to $y$ under the projection $\mathcal{T}_2 \to \mathcal{T}_1$.
+Because $F$ is fully faithful by (1) the map
+$\mathit{Aut}(y') \to \mathit{Aut}(y)$ is surjective, use the explicit
+description of morphisms in $\mathcal{T}_2$ in
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C}.
+Since by (3) the sheaf $\mathit{Aut}(y')$ is trivial
+we get the result of the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-sheaf-over-stack-is-stack}
+Let $\mathcal{C}$ be a site. Let $F : \mathcal{S} \to \mathcal{T}$
+be a $1$-morphism of categories fibred in groupoids over $\mathcal{C}$.
+Assume that
+\begin{enumerate}
+\item $\mathcal{T}$ is a stack in groupoids over $\mathcal{C}$,
+\item for every $U \in \Ob(\mathcal{C})$ the functor
+$\mathcal{S}_U \to \mathcal{T}_U$ of fibre categories is faithful,
+\item for each $U$ and each $y \in \Ob(\mathcal{T}_U)$ the presheaf
+$$
+(h : V \to U)
+\longmapsto
+\{(x, f) \mid x \in \Ob(\mathcal{S}_V), f : F(x) \to f^*y\text{ over }V\}/\cong
+$$
+is a sheaf on $\mathcal{C}/U$.
+\end{enumerate}
+Then $\mathcal{S}$ is a stack in groupoids over $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+We have to prove descent for morphisms and descent for objects.
+
+\medskip\noindent
+Descent for morphisms. Let $\{U_i \to U\}$ be a covering of $\mathcal{C}$.
+Let $x, x'$ be objects of $\mathcal{S}$ over $U$. For each $i$
+let $\alpha_i : x|_{U_i} \to x'|_{U_i}$ be a morphism over $U_i$
+such that $\alpha_i$ and $\alpha_j$ restrict to the same morphism
+$x|_{U_i \times_U U_j} \to x'|_{U_i \times_U U_j}$.
+Because $\mathcal{T}$ is a stack in groupoids, there is a morphism
+$\beta : F(x) \to F(x')$ over $U$ whose restriction to $U_i$ is $F(\alpha_i)$.
+Then we can think of $\xi = (x, \beta)$ and $\xi' = (x', \text{id}_{F(x')})$
+as sections of the presheaf associated to $y = F(x')$ over $U$
+in assumption (3). On the other hand, the restrictions of
+$\xi$ and $\xi'$ to $U_i$ are $(x|_{U_i}, F(\alpha_i))$
+and $(x'|_{U_i}, \text{id}_{F(x'|_{U_i})})$.
+These are isomorphic to each other by the morphism $\alpha_i$.
+Thus $\xi$ and $\xi'$ are isomorphic by assumption (3). This means there is a
+morphism $\alpha : x \to x'$ over $U$ with $F(\alpha) = \beta$.
+Since $F$ is faithful on fibre categories we obtain
+$\alpha|_{U_i} = \alpha_i$.
+
+\medskip\noindent
+Descent of objects. Let $\{U_i \to U\}$ be a covering of $\mathcal{C}$.
+Let $(x_i, \varphi_{ij})$ be a descent datum for $\mathcal{S}$ with
+respect to the given covering. Because $\mathcal{T}$ is a stack in groupoids,
+there is an object $y$ in $\mathcal{T}_U$ and isomorphisms
+$\beta_i : F(x_i) \to y|_{U_i}$ such that
+$F(\varphi_{ij}) = \beta_j|_{U_i \times_U U_j} \circ
+(\beta_i|_{U_i \times_U U_j})^{-1}$.
+Then $(x_i, \beta_i)$ are sections of the presheaf associated to
+$y$ over $U$ defined in assumption (3).
+Moreover, $\varphi_{ij}$ defines an isomorphism
+from the pair $(x_i, \beta_i)|_{U_i \times_U U_j}$ to 
+the pair $(x_j, \beta_j)|_{U_i \times_U U_j}$.
+Hence by assumption (3) there exists a pair $(x, \beta)$ over $U$
+whose restriction to $U_i$ is isomorphic to $(x_i, \beta_i)$.
+This means there are morphisms $\alpha_i : x_i \to x|_{U_i}$
+with $\beta_i = \beta|_{U_i} \circ F(\alpha_i)$.
+Since $F$ is faithful on fibre categories a calculation shows
+that $\varphi_{ij} = \alpha_j|_{U_i \times_U U_j} \circ
+(\alpha_i|_{U_i \times_U U_j})^{-1}$. This finishes the proof.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{The inertia stack}
+\label{section-the-inertia-stack}
+
+\noindent
+Let
+$p : \mathcal{S} \to \mathcal{C}$ and
+$p' : \mathcal{S}' \to \mathcal{C}$
+be fibred categories over the category $\mathcal{C}$.
+Let $F : \mathcal{S} \to \mathcal{S}'$ be a $1$-morphism of
+fibred categories over $\mathcal{C}$.
+Recall that we have defined in
+Categories, Definition \ref{categories-definition-inertia-fibred-category}
+an {\it relative inertia fibred category}
+$\mathcal{I}_{\mathcal{S}/\mathcal{S}'} \to \mathcal{C}$ as the
+category whose objects are pairs $(x , \alpha)$ where
+$x \in \Ob(\mathcal{S})$ and $\alpha : x \to x$ with
+$F(\alpha) = \text{id}_{F(x)}$. There is also an absolute version,
+namely the {\it inertia} $\mathcal{I}_\mathcal{S}$ of $\mathcal{S}$.
+These inertia categories are actually stacks over $\mathcal{C}$ provided
+that $\mathcal{S}$ and $\mathcal{S}'$ are stacks.
+
+\begin{lemma}
+\label{lemma-inertia}
+Let $\mathcal{C}$ be a site. Let
+$p : \mathcal{S} \to \mathcal{C}$ and
+$p' : \mathcal{S}' \to \mathcal{C}$
+be stacks over the site $\mathcal{C}$.
+Let $F : \mathcal{S} \to \mathcal{S}'$ be a $1$-morphism of
+stacks over $\mathcal{C}$.
+\begin{enumerate}
+\item The inertia $\mathcal{I}_{\mathcal{S}/\mathcal{S}'}$ and
+$\mathcal{I}_\mathcal{S}$ are stacks over $\mathcal{C}$.
+\item If $\mathcal{S}, \mathcal{S}'$ are stacks in groupoids over
+$\mathcal{S}$, then so are $\mathcal{I}_{\mathcal{S}/\mathcal{S}'}$ and
+$\mathcal{I}_\mathcal{S}$.
+\item If $\mathcal{S}, \mathcal{S}'$ are stacks in setoids over $\mathcal{S}$,
+then so are $\mathcal{I}_{\mathcal{S}/\mathcal{S}'}$ and
+$\mathcal{I}_\mathcal{S}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The first three assertions follow from
+Lemmas \ref{lemma-2-product-stacks},
+\ref{lemma-2-product-stacks-in-groupoids}, and
+\ref{lemma-2-product-stacks-in-setoids}
+and the equivalence in
+Categories, Lemma \ref{categories-lemma-inertia-fibred-category} part (1).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-stack-in-setoids}
+Let $\mathcal{C}$ be a site.
+If $\mathcal{S}$ is a stack in groupoids, then the
+canonical $1$-morphism $\mathcal{I}_\mathcal{S} \to \mathcal{S}$
+is an equivalence if and only if $\mathcal{S}$ is a stack in setoids.
+\end{lemma}
+
+\begin{proof}
+Follows directly from
+Categories, Lemma \ref{categories-lemma-characterize-fibred-setoids-inertia}.
+\end{proof}
+
+
+
+
+\section{Stackification of fibred categories}
+\label{section-stackify}
+
+\noindent
+Here is the result.
+
+\begin{lemma}
+\label{lemma-stackify}
+Let $\mathcal{C}$ be a site.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a fibred category over $\mathcal{C}$.
+There exists a stack $p' : \mathcal{S}' \to \mathcal{C}$ and a
+$1$-morphism $G : \mathcal{S} \to \mathcal{S}'$
+of fibred categories over $\mathcal{C}$ (see
+Categories, Definition \ref{categories-definition-fibred-categories-over-C})
+such that
+\begin{enumerate}
+\item for every $U \in \Ob(\mathcal{C})$, and any
+$x, y \in \Ob(\mathcal{S}_U)$ the map
+$$
+\mathit{Mor}(x, y) \longrightarrow \mathit{Mor}(G(x), G(y))
+$$
+induced by $G$ identifies the right hand side with the sheafification
+of the left hand side, and
+\item for every $U \in \Ob(\mathcal{C})$, and any
+$x' \in \Ob(\mathcal{S}'_U)$ there exists a covering
+$\{U_i \to U\}_{i \in I}$ such that for every $i \in I$ the
+object $x'|_{U_i}$ is in the essential image of the
+functor $G : \mathcal{S}_U \to \mathcal{S}'_U$.
+\end{enumerate}
+Moreover the stack $\mathcal{S}'$ is determined up to unique
+$2$-isomorphism by these conditions.
+\end{lemma}
+
+\begin{proof}[Proof by naive method]
+In this proof method we proceed in stages:
+
+\medskip\noindent
+First, given $x$ lying over $U$ and any object $y$ of
+$\mathcal{S}$, we say that two morphisms
+$a, b : x \to y$ of $\mathcal{S}$
+lying over the same arrow of $\mathcal{C}$
+are {\it locally equal}
+if there exists a covering $\{f_i : U_i \to U\}$ of $\mathcal{C}$
+such that the compositions
+$$
+f_i^*x \to x \xrightarrow{a} y,
+\quad
+f_i^*x \to x \xrightarrow{b} y
+$$
+are equal. This gives an equivalence relation $\sim$
+on arrows of $\mathcal{S}$. If $b \sim b'$ then
+$a \circ b \circ c \sim a \circ b' \circ c$ (verification omitted).
+Hence we can quotient out by this equivalence relation to
+obtain a new category $\mathcal{S}^1$ over $\mathcal{C}$
+together with a morphism $G^1 : \mathcal{S} \to \mathcal{S}^1$.
+
+\medskip\noindent
+One checks that $G^1$ preserves strongly cartesian morphisms
+and that $\mathcal{S}^1$ is a fibred category over $\mathcal{C}$.
+Checks omitted. Thus we reduce to the case where locally equal
+morphisms are equal.
+
+\medskip\noindent
+Next, we add morphisms as follows. Given
+$x$ lying over $U$ and any object $y$ of lying over $V$
+a {\it locally defined morphism from $x$ to $y$} is given by
+\begin{enumerate}
+\item a morphism $f : U \to V$,
+\item a covering $\{f_i : U_i \to U\}$ of $U$, and
+\item morphisms $a_i : f_i^*x \to y$ with $p(a_i) = f \circ f_i$
+\end{enumerate}
+with the property that the compositions
+$$
+(f_i \times f_j)^*x \to f_i^*x \xrightarrow{a_i} y,
+\quad
+(f_i \times f_j)^*x \to f_j^*x \xrightarrow{a_j} y
+$$
+are equal. Note that a usual morphism $a : x \to y$ gives a locally
+defined morphism $(p(a) : U \to V, \{\text{id}_U\}, a)$.
+We say two locally defined morphisms
+$(f, \{f_i : U_i \to U\}, a_i)$ and $(g, \{g_j : U'_j \to U\}, b_j)$
+are {\it equal} if $f = g$ and the compositions
+$$
+(f_i \times g_j)^*x \to f_i^*x \xrightarrow{a_i} y,
+\quad
+(f_i \times g_j)^*x \to g_j^*x \xrightarrow{b_j} y
+$$
+are equal (this is the right condition since we are in the
+situation where locally equal morphisms are equal).
+To compose locally defined morphisms
+$(f, \{f_i : U_i \to U\}, a_i)$ from $x$ to $y$ and
+$(g, \{g_j : V_j \to V\}, b_j)$ from $y$ to $z$ lying over $W$,
+just take $g \circ f : U \to W$, the covering
+$\{U_i \times_V V_j \to U\}$, and as maps the compositions
+$$
+x|_{U_i \times_V V_j}
+\xrightarrow{\text{pr}_0^*a_i}
+y|_{V_j}
+\xrightarrow{b_j}
+z
+$$
+We omit the verification that this is a locally defined morphism.
+
+\medskip\noindent
+One checks that $\mathcal{S}^2$ with the same objects as
+$\mathcal{S}$ and with locally defined morphisms as morphisms
+is a category over $\mathcal{C}$, that there is a functor
+$G^2 : \mathcal{S} \to \mathcal{S}^2$ over $\mathcal{C}$,
+that this functor preserves strongly cartesian objects,
+and that $\mathcal{S}^2$ is a fibred category over $\mathcal{C}$.
+Checks omitted. This reduces one to the case where the
+morphism presheaves of $\mathcal{S}$ are all sheaves, by
+checking that the effect of using locally defined morphisms
+is to take the sheafification of the (separated) morphisms
+presheaves.
+
+\medskip\noindent
+Finally, in the case where the morphism presheaves are all sheaves
+we have to add objects in order to make sure descent conditions are
+effective in the end result. The simplest way to do this is to
+consider the category $\mathcal{S}'$ whose objects are
+pairs $(\mathcal{U}, \xi)$ where
+$\mathcal{U} = \{U_i \to U\}$ is a covering of $\mathcal{C}$ and
+$\xi = (X_i, \varphi_{ii'})$ is a descent datum relative $\mathcal{U}$.
+Suppose given two such data
+$(\mathcal{U}, \xi) = (\{f_i : U_i \to U\},  x_i, \varphi_{ii'})$ and
+$(\mathcal{V}, \eta) = (\{g_j : V_j \to V\},  y_j, \psi_{jj'})$.
+We define
+$$
+\Mor_{\mathcal{S}'}((\mathcal{U}, \xi), (\mathcal{V}, \eta))
+$$
+as the set of $(f, a_{ij})$, where $f : U \to V$ and
+$$
+a_{ij} :
+x_i|_{U_i \times_V V_j}
+\longrightarrow
+y_j
+$$
+are morphisms of $\mathcal{S}$ lying over $U_i \times_V V_j \to V_j$.
+These have to satisfy the following condition: for any
+$i, i' \in I$ and $j, j' \in J$ set
+$W = (U_i \times_U U_{i'}) \times_V (V_j \times_V V_{j'})$. Then
+$$
+\xymatrix{
+x_i|_W \ar[r]_{a_{ij}|_W} \ar[d]_{\varphi_{ii'}|_W} &
+y_j|_W \ar[d]^{\psi_{jj'}|_W} \\
+x_{i'}|_W \ar[r]^{a_{i'j'}|_W} &
+y_{j'}|_W
+}
+$$
+commutes. At this point you have to verify the following things:
+\begin{enumerate}
+\item there is a well defined composition on morphisms as above,
+\item this turns $\mathcal{S}'$ into a category over $\mathcal{C}$,
+\item there is a functor $G : \mathcal{S} \to \mathcal{S}'$ over $\mathcal{C}$,
+\item for $x, y$ objects of $\mathcal{S}$ we have
+$\Mor_\mathcal{S}(x, y) = \Mor_{\mathcal{S}'}(G(x), G(y))$,
+\item any object of $\mathcal{S}'$ locally comes from an object of
+$\mathcal{S}$, i.e., part (2) of the lemma holds,
+\item $G$ preserves strongly cartesian morphisms,
+\item $\mathcal{S}'$ is a fibred category over $\mathcal{C}$, and
+\item $\mathcal{S}'$ is a stack over $\mathcal{C}$.
+\end{enumerate}
+This is all not hard but there is a lot of it. Details omitted.
+\end{proof}
+
+\begin{proof}[Less naive proof]
+Here is a less naive proof.
+By Categories, Lemma \ref{categories-lemma-fibred-strict}
+there exists an equivalence of
+fibred categories $\mathcal{S} \to \mathcal{S}'$ where $\mathcal{S}'$
+is a split fibred category, i.e., one in which the pullback
+functors compose on the nose. Obviously the lemma for $\mathcal{S}'$
+implies the lemma for $\mathcal{S}$. Hence we may think of $\mathcal{S}$
+as a presheaf in categories.
+
+\medskip\noindent
+Consider the $2$-category $\textit{Cat}$ temporarily as a
+category by forgetting about $2$-morphisms.
+Let us think of a category as a quintuple
+$(\text{Ob}, \text{Arrows}, s, t, \circ)$ as in
+Categories, Section \ref{categories-section-definition-categories}.
+Consider the forgetful functor
+$$
+forget : \textit{Cat} \to \textit{Sets}, \quad
+(\text{Ob}, \text{Arrows}, s, t, \circ)
+\mapsto
+\text{Ob} \amalg \text{Arrows}.
+$$
+Then $forget$ is faithful, $\textit{Cat}$ has limits and
+$forget$ commutes with them, $\textit{Cat}$ has directed colimits and
+$forget$ commutes with them, and $forget$ reflects isomorphisms.
+Hence, according to the first part of
+Sites, Section \ref{sites-section-sheaves-algebraic-structures}
+we can sheafify presheaves with values in $\textit{Cat}$, and
+the result commutes with $forget$. Applying this to
+$\mathcal{S}$ we obtain a sheafification $\mathcal{S}^\#$
+which has a sheaf of objects and a sheaf of morphisms
+both of which are the sheafifications of the corresponding
+presheaves for $\mathcal{S}$. In this case it is quite
+easy to see that the map $\mathcal{S} \to \mathcal{S}^\#$
+has the properties (1) and (2) of the lemma.
+
+\medskip\noindent
+However, the category $\mathcal{S}^\#$ may not yet be a
+stack since, although the presheaf of objects is a sheaf,
+the descent condition may not yet be satisfied.
+To remedy this we have to add more objects. But the argument
+above does reduce us to the case where $\mathcal{S} = \mathcal{S}_F$
+for some sheaf(!) $F : \mathcal{C}^{opp} \to \textit{Cat}$ of
+categories. In this case consider the functor
+$F' : \mathcal{C}^{opp} \to \textit{Cat}$ defined by
+\begin{enumerate}
+\item The set $\Ob(F'(U))$ is the set of pairs
+$(\mathcal{U}, \xi)$ where $\mathcal{U} = \{U_i \to U\}$
+is a covering of $U$ and $\xi = (x_i, \varphi_{ii'})$ is
+a descent datum relative to $\mathcal{U}$.
+\item A morphism in $F'(U)$ from
+$(\mathcal{U}, \xi)$ to $(\mathcal{V}, \eta)$
+is an element of
+$$
+\colim \Mor_{DD(\mathcal{W})}(a^*\xi, b^*\eta)
+$$
+where the colimit is over all common refinements
+$a : \mathcal{W} \to \mathcal{U}$, $b : \mathcal{W} \to \mathcal{V}$.
+This colimit is filtered (verification omitted).
+Hence composition of morphisms in $F(U)$ is defined by
+finding a common refinement and composing in $DD(\mathcal{W})$.
+\item Given $h : V \to U$ and an object
+$(\mathcal{U}, \xi)$ of $F'(U)$ we set $F'(h)(\mathcal{U}, \xi)$
+equal to $(V \times_U \mathcal{U}, \text{pr}_1^*\xi)$.
+More precisely, if $\mathcal{U} = \{U_i \to U\}$
+and $\xi = (x_i, \varphi_{ii'})$, then
+$V \times_U \mathcal{U} = \{V \times_U U_i \to V\}$
+which comes with a canonical morphism
+$\text{pr}_1 : V \times_U \mathcal{U} \to \mathcal{U}$ and
+$\text{pr}_1^*\xi$ is the pullback of $\xi$ with respect to
+this morphism (see Definition \ref{definition-pullback-functor}).
+\item Given $h : V \to U$, objects $(\mathcal{U}, \xi)$
+and $(\mathcal{V}, \eta)$ and a morphism between them, represented by
+$a : \mathcal{W} \to \mathcal{U}$, $b : \mathcal{W} \to \mathcal{V}$,
+and $\alpha : a^*\xi \to b^*\eta$, then $F'(h)(\alpha)$ is
+represented by
+$a' : V \times_U\mathcal{W} \to V \times_U\mathcal{U}$,
+$b' : V \times_U\mathcal{W} \to V \times_U\mathcal{V}$,
+and the pullback $\alpha'$ of the morphism $\alpha$ via
+the map $V \times_U \mathcal{W} \to \mathcal{W}$. This works
+since pullbacks in $\mathcal{S}_F$ commute on the nose.
+\end{enumerate}
+There is a map $F \to F'$ given by associating to
+an object $x$ of $F(U)$ the object $(\{U \to U\}, (x, triv))$ of
+$F'(U)$. At this point you have to check that the corresponding
+functor $\mathcal{S}_F \to \mathcal{S}_{F'}$ has properties (1)
+and (2) of the lemma, and finally that $\mathcal{S}_{F'}$ is
+a stack. Details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stackify-universal-property}
+Let $\mathcal{C}$ be a site.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a fibred category over $\mathcal{C}$.
+Let $p' : \mathcal{S}' \to \mathcal{C}$ and $G : \mathcal{S} \to \mathcal{S}'$
+the stack and $1$-morphism constructed in Lemma \ref{lemma-stackify}.
+This construction has the following universal property: Given a stack
+$q : \mathcal{X} \to \mathcal{C}$ and a $1$-morphism
+$F : \mathcal{S} \to \mathcal{X}$ of fibred categories over $\mathcal{C}$
+there exists a $1$-morphism $H : \mathcal{S}' \to \mathcal{X}$
+such that the diagram
+$$
+\xymatrix{
+\mathcal{S} \ar[rr]_F \ar[rd]_G & & \mathcal{X} \\
+& \mathcal{S}' \ar[ru]_H
+}
+$$
+is $2$-commutative.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Suppose that $x' \in \Ob(\mathcal{S}'_U)$.
+By the result of Lemma \ref{lemma-stackify}
+there exists a covering $\{U_i \to U\}_{i \in I}$
+such that $x'|_{U_i} = G(x_i)$ for some $x_i \in \Ob(\mathcal{S}_{U_i})$.
+Moreover, there exist coverings $\{U_{ijk} \to U_i \times_U U_j\}$
+and isomorphisms $\alpha_{ijk} : x_i|_{U_{ijk}} \to x_j|_{U_{ijk}}$
+with $G(\alpha_{ijk}) = \text{id}_{x'|_{U_{ijk}}}$. Set $y_i = F(x_i)$.
+Then you can check that
+$$
+F(\alpha_{ijk}) : y_i|_{U_{ijk}} \to y_j|_{U_{ijk}}
+$$
+agree on overlaps and therefore (as $\mathcal{X}$ is a stack) define
+a morphism $\beta_{ij} : y_i|_{U_i \times_U U_j} \to y_j|_{U_i \times_U U_j}$.
+Next, you check that the $\beta_{ij}$ define a descent datum. Since
+$\mathcal{X}$ is a stack these descent data are effective and we find
+an object $y$ of $\mathcal{X}_U$ agreeing with $G(x_i)$ over $U_i$.
+The hint is to set $H(x') = y$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stackify-universal-property-more}
+Notation and assumptions as in
+Lemma \ref{lemma-stackify-universal-property}.
+There is a canonical equivalence of categories
+$$
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, \mathcal{X})
+=
+\Mor_{\textit{Stacks}/\mathcal{C}}(\mathcal{S}', \mathcal{X})
+$$
+given by the constructions in the proof of the aforementioned lemma.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stackification-fibre-product-fibred-categories}
+Let $\mathcal{C}$ be a site.
+Let $f : \mathcal{X} \to \mathcal{Y}$ and $g : \mathcal{Z} \to \mathcal{Y}$
+be morphisms of fibred categories over $\mathcal{C}$.
+In this case the stackification of the $2$-fibre product is the $2$-fibre
+product of the stackifications.
+\end{lemma}
+
+\begin{proof}
+Let us denote $\mathcal{X}', \mathcal{Y}', \mathcal{Z}'$ the stackifications
+and $\mathcal{W}$ the stackification of
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$. By construction of $2$-fibre
+products there is a canonical $1$-morphism
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to
+\mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$.
+As the second $2$-fibre product is a stack (see
+Lemma \ref{lemma-2-product-stacks})
+this $1$-morphism induces a $1$-morphism
+$h : \mathcal{W} \to \mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$
+by the universal property of stackification, see
+Lemma \ref{lemma-stackify-universal-property}.
+Now $h$ is a morphism of stacks, and we may check that it is an
+equivalence using
+Lemmas \ref{lemma-characterize-ff} and
+\ref{lemma-characterize-essentially-surjective-when-ff}.
+
+\medskip\noindent
+Thus we first prove that $h$ induces isomorphisms of $\mathit{Mor}$-sheaves.
+Let $\xi, \xi'$ be objects of $\mathcal{W}$ over
+$U \in \Ob(\mathcal{C})$. We want to show that
+$$
+h : \mathit{Mor}(\xi, \xi') \longrightarrow \mathit{Mor}(h(\xi), h(\xi'))
+$$
+is an isomorphism. To do this we may work locally on $U$ (see
+Sites, Section \ref{sites-section-glueing-sheaves}).
+Hence by construction of $\mathcal{W}$ (see
+Lemma \ref{lemma-stackify})
+we may assume that $\xi, \xi'$
+actually come from objects $(x, y, \alpha)$ and $(x', y', \alpha')$
+of $\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$ over $U$.
+By the same lemma once more we see that in this case
+$\mathit{Mor}(\xi, \xi')$ is the sheafification of
+$$
+V/U \longmapsto
+\Mor_{\mathcal{X}_V}(x|_V, x'|_V)
+\times_{\Mor_{\mathcal{Z}_V}(f(x)|_V, f(x')|_V)}
+\Mor_{\mathcal{Y}_V}(y|_V, y'|_V)
+$$
+and that $\mathit{Mor}(h(\xi), h(\xi'))$ is equal to the fibre product
+$$
+\mathit{Mor}(i(x), i(x'))
+\times_{\mathit{Mor}(k(f(x)), k(f(x'))}
+\mathit{Mor}(j(x), j(x'))
+$$
+where $i : \mathcal{X} \to \mathcal{X}'$,
+$j : \mathcal{Y} \to \mathcal{Y}'$, and
+$k : \mathcal{Z} \to \mathcal{Z}'$ are the canonical functors.
+Thus the first displayed map of this paragraph is an isomorphism as
+sheafification is exact (and hence the sheafification of a fibre product
+of presheaves is the fibre product of the sheafifications).
+
+\medskip\noindent
+Finally, we have to check that any object of
+$\mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$
+over $U$ is locally on $U$ in the essential image of $h$.
+Write such an object as a triple $(x', y', \alpha)$.
+Then $x'$ locally comes from an object of $\mathcal{X}$,
+$y'$ locally comes from an object of $\mathcal{Y}$, and
+having made suitable replacements for $x'$, $y'$ the morphism
+$\alpha$ of $\mathcal{Z}'_U$ locally comes from a morphism of
+$\mathcal{Z}$. In other words, we have shown that any object of
+$\mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$
+over $U$ is locally on $U$ in the essential image of
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to
+\mathcal{X}' \times_{\mathcal{Y}'} \mathcal{Z}'$, hence
+a fortiori it is locally in the essential image of $h$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stackification-inertia}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{X}$ be a fibred category over $\mathcal{C}$.
+The stackification of the inertia fibred category $\mathcal{I}_\mathcal{X}$
+is inertia of the stackification of $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+This follows from the fact that stackification is compatible
+with $2$-fibre products by
+Lemma \ref{lemma-stackification-fibre-product-fibred-categories}
+and the fact that there is a formula for the inertia in terms of
+$2$-fibre products of categories over $\mathcal{C}$, see
+Categories, Lemma \ref{categories-lemma-inertia-fibred-category}.
+\end{proof}
+
+
+
+
+
+\section{Stackification of categories fibred in groupoids}
+\label{section-stackify-groupoids}
+
+\noindent
+Here is the result.
+
+\begin{lemma}
+\label{lemma-stackify-groupoids}
+Let $\mathcal{C}$ be a site.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a category
+fibred in groupoids over $\mathcal{C}$.
+There exists a stack in groupoids
+$p' : \mathcal{S}' \to \mathcal{C}$ and a
+$1$-morphism $G : \mathcal{S} \to \mathcal{S}'$
+of categories fibred in groupoids over $\mathcal{C}$ (see
+Categories, Definition
+\ref{categories-definition-categories-fibred-in-groupoids-over-C})
+such that
+\begin{enumerate}
+\item for every $U \in \Ob(\mathcal{C})$, and any
+$x, y \in \Ob(\mathcal{S}_U)$ the map
+$$
+\mathit{Mor}(x, y) \longrightarrow \mathit{Mor}(G(x), G(y))
+$$
+induced by $G$ identifies the right hand side with the sheafification
+of the left hand side, and
+\item for every $U \in \Ob(\mathcal{C})$, and any
+$x' \in \Ob(\mathcal{S}'_U)$ there exists a covering
+$\{U_i \to U\}_{i \in I}$ such that for every $i \in I$ the
+object $x'|_{U_i}$ is in the essential image of the
+functor $G : \mathcal{S}_{U_i} \to \mathcal{S}'_{U_i}$.
+\end{enumerate}
+Moreover the stack in groupoids $\mathcal{S}'$ is determined up to unique
+$2$-isomorphism by these conditions.
+\end{lemma}
+
+\begin{proof}
+Apply Lemma \ref{lemma-stackify}. The result will be a
+stack in groupoids by applying Lemma \ref{lemma-stack-in-groupoids-stack}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stackify-groupoids-universal-property}
+Let $\mathcal{C}$ be a site.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a category fibred in groupoids
+over $\mathcal{C}$. Let $p' : \mathcal{S}' \to \mathcal{C}$ and
+$G : \mathcal{S} \to \mathcal{S}'$
+the stack in groupoids and $1$-morphism constructed in
+Lemma \ref{lemma-stackify-groupoids}.
+This construction has the following universal property: Given a stack
+in groupoids $q : \mathcal{X} \to \mathcal{C}$ and a $1$-morphism
+$F : \mathcal{S} \to \mathcal{X}$ of categories over $\mathcal{C}$
+there exists a $1$-morphism $H : \mathcal{S}' \to \mathcal{X}$
+such that the diagram
+$$
+\xymatrix{
+\mathcal{S} \ar[rr]_F \ar[rd]_G & & \mathcal{X} \\
+& \mathcal{S}' \ar[ru]_H
+}
+$$
+is $2$-commutative.
+\end{lemma}
+
+\begin{proof}
+This is a special case of
+Lemma \ref{lemma-stackify-universal-property}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stackification-fibre-product-categories-fibred-in-groupoids}
+Let $\mathcal{C}$ be a site.
+Let $f : \mathcal{X} \to \mathcal{Y}$ and $g : \mathcal{Y} \to \mathcal{Z}$
+be morphisms of categories fibred in groupoids over $\mathcal{C}$.
+In this case the stackification of the $2$-fibre product is the $2$-fibre
+product of the stackifications.
+\end{lemma}
+
+\begin{proof}
+This is a special case of
+Lemma \ref{lemma-stackification-fibre-product-fibred-categories}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Inherited topologies}
+\label{section-topology}
+
+\noindent
+It turns out that a fibred category over a site inherits a canonical
+topology from the underlying site.
+
+\begin{lemma}
+\label{lemma-topology-inherited}
+Let $\mathcal{C}$ be a site. Let $p : \mathcal{S} \to \mathcal{C}$
+be a fibred category. Let $\text{Cov}(\mathcal{S})$
+be the set of families $\{x_i \to x\}_{i \in I}$ of morphisms in $\mathcal{S}$
+with fixed target such that (a) each $x_i \to x$ is strongly cartesian,
+and (b) $\{p(x_i) \to p(x)\}_{i \in I}$ is a covering of $\mathcal{C}$.
+Then $(\mathcal{S}, \text{Cov}(\mathcal{S}))$ is a site.
+\end{lemma}
+
+\begin{proof}
+We have to check the three conditions of
+Sites, Definition \ref{sites-definition-site}.
+\begin{enumerate}
+\item If $x \to y$ is an isomorphism of $\mathcal{S}$, then
+it is strongly cartesian by
+Categories, Lemma \ref{categories-lemma-composition-cartesian}
+and $p(x) \to p(y)$ is an isomorphism of $\mathcal{C}$. Thus
+$\{p(x) \to p(y)\}$ is a covering of $\mathcal{C}$ whence
+$\{x \to y\} \in \text{Cov}(\mathcal{S})$.
+\item If $\{x_i \to x\}_{i\in I} \in \text{Cov}(\mathcal{S})$ and for each
+$i$ we have $\{y_{ij} \to x_i\}_{j\in J_i} \in \text{Cov}(\mathcal{S})$, then
+each composition $p(y_{ij}) \to p(x)$ is strongly cartesian by
+Categories, Lemma \ref{categories-lemma-composition-cartesian}
+and $\{p(y_{ij}) \to p(x)\}_{i \in I, j\in J_i} \in \text{Cov}(\mathcal{C})$.
+Hence also $\{y_{ij} \to x\}_{i \in I, j\in J_i} \in \text{Cov}(\mathcal{S})$.
+\item Suppose $\{x_i \to x\}_{i\in I}\in \text{Cov}(\mathcal{S})$
+and $y \to x$ is a morphism of $\mathcal{S}$. As $\{p(x_i) \to p(x)\}$
+is a covering of $\mathcal{C}$ we see that $p(x_i) \times_{p(x)} p(y)$
+exists. Hence
+Categories, Lemma \ref{categories-lemma-fibred-category-representable-goes-up}
+implies that $x_i \times_x y$ exists, that $p(x_i \times_x y) =
+p(x_i) \times_{p(x)} p(y)$, and that $x_i \times_x y \to y$ is
+strongly cartesian. Since also
+$\{p(x_i) \times_{p(x)} p(y) \to p(y) \}_{i\in I} \in \text{Cov}(\mathcal{C})$
+we conclude that
+$\{x_i \times_x y \to y \}_{i\in I} \in \text{Cov}(\mathcal{S})$
+\end{enumerate}
+This finishes the proof.
+\end{proof}
+
+\noindent
+Note that if $p : \mathcal{S} \to \mathcal{C}$ is fibred in groupoids, then
+the coverings of the site $\mathcal{S}$ in
+Lemma \ref{lemma-topology-inherited}
+are characterized by
+$$
+\{x_i \to x\} \in \text{Cov}(\mathcal{S})
+\Leftrightarrow
+\{p(x_i) \to p(x)\} \in \text{Cov}(\mathcal{C})
+$$
+because every morphism of $\mathcal{S}$ is strongly cartesian.
+
+\begin{definition}
+\label{definition-topology-inherited}
+Let $\mathcal{C}$ be a site. Let $p : \mathcal{S} \to \mathcal{C}$ be a
+fibred category. We say $(\mathcal{S}, \text{Cov}(\mathcal{S}))$ as in
+Lemma \ref{lemma-topology-inherited}
+is the {\it structure of site on $\mathcal{S}$ inherited from $\mathcal{C}$}.
+We sometimes indicate this by saying that
+{\it $\mathcal{S}$ is endowed with the topology inherited from $\mathcal{C}$}.
+\end{definition}
+
+\noindent
+In particular we obtain a topos of sheaves $\Sh(\mathcal{S})$
+in this situation. It turns out that this topos is functorial with respect
+to $1$-morphisms of fibred categories.
+
+\begin{lemma}
+\label{lemma-topology-inherited-functorial}
+Let $\mathcal{C}$ be a site. Let $F : \mathcal{X} \to \mathcal{Y}$
+be a $1$-morphism of fibred categories over $\mathcal{C}$.
+Then $F$ is a continuous and cocontinuous functor between the structure
+of sites inherited from $\mathcal{C}$. Hence $F$ induces a morphism of topoi
+$f : \Sh(\mathcal{X}) \to \Sh(\mathcal{Y})$ with
+$f_* = {}_sF = {}_pF$ and $f^{-1} = F^s = F^p$. In particular
+$f^{-1}(\mathcal{G})(x) = \mathcal{G}(F(x))$
+for a sheaf $\mathcal{G}$ on $\mathcal{Y}$ and object $x$ of $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+We first prove that $F$ is continuous.
+Let $\{x_i \to x\}_{i \in I}$ be a covering of $\mathcal{X}$. By
+Categories, Definition \ref{categories-definition-fibred-categories-over-C}
+the functor $F$ transforms strongly cartesian morphisms into strongly
+cartesian morphisms, hence $\{F(x_i) \to F(x)\}_{i \in I}$ is a covering
+of $\mathcal{Y}$. This proves part (1) of
+Sites, Definition \ref{sites-definition-continuous}.
+Moreover, let $x' \to x$ be a morphism of $\mathcal{X}$. By
+Categories, Lemma \ref{categories-lemma-fibred-category-representable-goes-up}
+the fibre product $x_i \times_x x'$ exists and $x_i \times_x x' \to x'$
+is strongly cartesian. Hence $F(x_i \times_x x') \to F(x')$ is strongly
+cartesian. By
+Categories, Lemma \ref{categories-lemma-fibred-category-representable-goes-up}
+applied to $\mathcal{Y}$ this means that
+$F(x_i \times_x x') = F(x_i) \times_{F(x)} F(x')$.
+This proves part (2) of
+Sites, Definition \ref{sites-definition-continuous}
+and we conclude that $F$ is continuous.
+
+\medskip\noindent
+Next we prove that $F$ is cocontinuous.
+Let $x \in \Ob(\mathcal{X})$ and let $\{y_i \to F(x)\}_{i \in I}$
+be a covering in $\mathcal{Y}$. Denote $\{U_i \to U\}_{i \in I}$ the
+corresponding covering of $\mathcal{C}$. For each $i$ choose a strongly
+cartesian morphism $x_i \to x$ in $\mathcal{X}$ lying over $U_i \to U$.
+Then $F(x_i) \to F(x)$ and $y_i \to F(x)$ are both a strongly cartesian
+morphisms in $\mathcal{Y}$ lying over $U_i \to U$. Hence there exists
+a unique isomorphism $F(x_i) \to y_i$ in $\mathcal{Y}_{U_i}$ compatible
+with the maps to $F(x)$. Thus $\{x_i \to x\}_{i \in I}$ is a covering of
+$\mathcal{X}$ such that $\{F(x_i) \to F(x)\}_{i \in I}$ is isomorphic to
+$\{y_i \to F(x)\}_{i \in I}$. Hence $F$ is cocontinuous, see
+Sites, Definition \ref{sites-definition-cocontinuous}.
+
+\medskip\noindent
+The final assertion follows from the first two, see
+Sites, Lemmas
+\ref{sites-lemma-cocontinuous-morphism-topoi},
+\ref{sites-lemma-pu-sheaf}, and
+\ref{sites-lemma-when-shriek}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-localizing}
+Let $\mathcal{C}$ be a site. Let $p : \mathcal{X} \to \mathcal{C}$
+be a category fibred in groupoids. Let $x \in \Ob(\mathcal{X})$
+lying over $U = p(x)$. The functor $p$ induces an equivalence of sites
+$\mathcal{X}/x \to \mathcal{C}/U$ where $\mathcal{X}$ is endowed with
+the topology inherited from $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Here $\mathcal{C}/U$ is the localization of the site
+$\mathcal{C}$ at the object $U$ and similarly for $\mathcal{X}/x$.
+It follows from
+Categories, Definition \ref{categories-definition-fibred-groupoids}
+that the rule $x'/x \mapsto p(x')/p(x)$ defines an equivalence of
+categories $\mathcal{X}/x \to \mathcal{C}/U$. Whereupon it follows from
+Definition \ref{definition-topology-inherited}
+that coverings of $x'$ in $\mathcal{X}/x$ are in bijective correspondence
+with coverings of $p(x')$ in $\mathcal{C}/U$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-groupoids-over-stack-in-groupoids}
+Let $\mathcal{C}$ be a site. Let $p : \mathcal{X} \to \mathcal{C}$
+and $q : \mathcal{Y} \to \mathcal{C}$
+be stacks in groupoids. Let $F : \mathcal{X} \to \mathcal{Y}$
+be a $1$-morphism of categories over $\mathcal{C}$. If $F$ turns
+$\mathcal{X}$ into a category fibred in groupoids over $\mathcal{Y}$,
+then $\mathcal{X}$ is a stack in groupoids over $\mathcal{Y}$ (with
+topology inherited from $\mathcal{C}$).
+\end{lemma}
+
+\begin{proof}
+Let us prove descent for objects. Let $\{y_i \to y\}$ be a covering
+of $\mathcal{Y}$. Let $(x_i, \varphi_{ij})$ be a descent datum in $\mathcal{X}$
+with respect to this covering. Then $(x_i, \varphi_{ij})$ is also a descent
+datum with respect to the covering $\{q(y_i) \to q(y)\}$ of
+$\mathcal{C}$. As $\mathcal{X}$ is a stack in groupoids we obtain an
+object $x$ over $q(y)$ and isomorphisms $\psi_i : x|_{q(y_i)} \to x_i$
+over $q(y_i)$ compatible with the $\varphi_{ij}$, i.e., such that
+$$
+\varphi_{ij} = \psi_j|_{q(y_i) \times_{q(y)} q(y_j)}
+\circ \psi_i^{-1}|_{q(y_i) \times_{q(y)} q(y_j)}.
+$$
+Consider the sheaf $\mathit{I} = \mathit{Isom}_\mathcal{Y}(F(x), y)$
+on $\mathcal{C}/p(x)$. Note that $s_i = F(\psi_i) \in \mathit{I}(q(x_i))$
+because $F(x_i) = y_i$. Because $F(\varphi_{ij}) = \text{id}$ (as we started
+with a descent datum over $\{y_i \to y\}$) the displayed formula shows
+that $s_i|_{q(y_i) \times_{q(y)} q(y_j)} = s_j|_{q(y_i) \times_{q(y)} q(y_j)}$.
+Hence the local sections $s_i$ glue to $s : F(x) \to y$. As $F$ is fibred in
+groupoids we see that $x$ is isomorphic to an object $x'$ with $F(x') = y$.
+We omit the verification that $x'$ in the fibre category of $\mathcal{X}$
+over $y$ is a solution to the problem of descent posed by the descent datum
+$(x_i, \varphi_{ij})$. We also omit the proof of the sheaf property
+of the $\mathit{Isom}$-presheaves of $\mathcal{X}/\mathcal{Y}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-over-stack}
+Let $\mathcal{C}$ be a site. Let $p : \mathcal{X} \to \mathcal{C}$
+be a stack. Endow $\mathcal{X}$ with the topology inherited from
+$\mathcal{C}$ and let $q : \mathcal{Y} \to \mathcal{X}$ be a stack.
+Then $\mathcal{Y}$ is a stack over $\mathcal{C}$.
+If $p$ and $q$ define stacks in groupoids, then
+$\mathcal{Y}$ is a stack in groupoids over $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+We check the three conditions in Definition \ref{definition-stack}
+to prove that $\mathcal{Y}$ is a stack over $\mathcal{C}$.
+By Categories, Lemma \ref{categories-lemma-fibred-over-fibred}
+we find that $\mathcal{Y}$ is a fibred category over $\mathcal{C}$.
+Thus condition (1) holds.
+
+\medskip\noindent
+Let $U$ be an object of $\mathcal{C}$ and let $y_1, y_2$ be objects
+of $\mathcal{Y}$ over $U$. Denote $x_i = q(y_i)$ in $\mathcal{X}$.
+Consider the map of presheaves
+$$
+q : \mathit{Mor}_{\mathcal{Y}/\mathcal{C}}(y_1, y_2)
+\longrightarrow
+\mathit{Mor}_{\mathcal{X}/\mathcal{C}}(x_1, x_2)
+$$
+on $\mathcal{C}/U$, see Lemma \ref{lemma-presheaf-mor-map-fibred-categories}.
+Let $\{U_i \to U\}$ be a covering and let $\varphi_i$ be a section
+of the presheaf on the left over $U_i$ such that $\varphi_i$ and
+$\varphi_j$ restrict to the same section over $U_i \times_U U_j$.
+We have to find a morphism $\varphi : x_1 \to x_2$ restricting to $\varphi_i$.
+Note that $q(\varphi_i) = \psi|_{U_i}$ for some morphism
+$\psi : x_1 \to x_2$ over $U$ because the second presheaf is a sheaf
+(by assumption). Let $y_{12} \to y_2$ be the stronly $\mathcal{X}$-cartesian
+morphism of $\mathcal{Y}$ lying over $\psi$. Then $\varphi_i$ corresponds
+to a morphism $\varphi'_i : y_1|_{U_i} \to y_{12}|_{U_i}$ over $x_1|_{U_i}$.
+In other words, $\varphi'_i$ now define local sections of the presheaf
+$$
+\mathit{Mor}_{\mathcal{Y}/\mathcal{X}}(y_1, y_{12})
+$$
+over the members of the covering $\{x_1|_{U_i} \to x_1\}$. By assumption these
+glue to a unique morphism $y_1 \to y_{12}$ which composed with the given
+morphism $y_{12} \to y_2$ produces the desired morphism $y_1 \to y_2$.
+
+\medskip\noindent
+Finally, we show that descent data are effective. Let $\{f_i : U_i \to U\}$
+be a covering of $\mathcal{C}$ and let $(y_i, \varphi_{ij})$ be a descent
+datum relative to this covering (Definition \ref{definition-descent-data}).
+Setting $x_i = q(y_i)$ and $\psi_{ij} = q(\varphi_{ij})$
+we obtain a descent datum $(x_i, \psi_{ij})$ for the covering in $\mathcal{X}$.
+By assumption on $\mathcal{X}$ we may assume $x_i = x|_{U_i}$
+and the $\psi_{ij}$ equal to the canonical descent datum
+(Definition \ref{definition-effective-descent-datum}).
+In this case $\{x|_{U_i} \to x\}$ is a covering and we can view
+$(y_i, \varphi_{ij})$ as a descent datum relative to this covering.
+By our assumption that $\mathcal{Y}$ is a stack over $\mathcal{C}$
+we see that it is effective which finishes the proof of condition (3).
+
+\medskip\noindent
+The final assertion follows because $\mathcal{Y}$ is a stack over
+$\mathcal{C}$ and is fibred in groupoids by
+Categories, Lemma
+\ref{categories-lemma-fibred-in-groupoids-over-fibred-in-groupoids}.
+\end{proof}
+
+
+
+
+
+\section{Gerbes}
+\label{section-gerbes}
+
+\noindent
+Gerbes are a special kind of stacks in groupoids.
+
+\begin{definition}
+\label{definition-gerbe}
+A {\it gerbe} over a site $\mathcal{C}$ is a category
+$p : \mathcal{S} \to \mathcal{C}$ over $\mathcal{C}$ such that
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ is a stack
+in groupoids over $\mathcal{C}$ (see
+Definition \ref{definition-stack-in-groupoids}),
+\item for $U \in \Ob(\mathcal{C})$ there exists
+a covering $\{U_i \to U\}$ in $\mathcal{C}$ such that
+$\mathcal{S}_{U_i}$ is nonempty, and
+\item for $U \in \Ob(\mathcal{C})$ and
+$x, y \in \Ob(\mathcal{S}_U)$ there exists
+a covering $\{U_i \to U\}$ in $\mathcal{C}$ such that
+$x|_{U_i} \cong y|_{U_i}$ in $\mathcal{S}_{U_i}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+In other words, a gerbe is a stack in groupoids such that any two objects
+are locally isomorphic and such that objects exist locally.
+
+\begin{lemma}
+\label{lemma-gerbe-equivalent}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{S}_1$, $\mathcal{S}_2$ be categories over $\mathcal{C}$.
+Suppose that $\mathcal{S}_1$ and $\mathcal{S}_2$ are equivalent
+as categories over $\mathcal{C}$.
+Then $\mathcal{S}_1$ is a gerbe over $\mathcal{C}$ if and only if
+$\mathcal{S}_2$ is a gerbe over $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Assume $\mathcal{S}_1$ is a gerbe over $\mathcal{C}$. By
+Lemma \ref{lemma-stack-in-groupoids-equivalent}
+we see $\mathcal{S}_2$ is a stack in groupoids over $\mathcal{C}$.
+Let $F : \mathcal{S}_1 \to \mathcal{S}_2$,
+$G : \mathcal{S}_2 \to \mathcal{S}_1$ be equivalences of categories over
+$\mathcal{C}$. Given $U \in \Ob(\mathcal{C})$ we see that there exists
+a covering $\{U_i \to U\}$ such that $(\mathcal{S}_1)_{U_i}$ is
+nonempty. Applying $F$ we see that $(\mathcal{S}_2)_{U_i}$ is nonempty.
+Given $U \in \Ob(\mathcal{C})$ and
+$x, y \in \Ob((\mathcal{S}_2)_U)$ there exists
+a covering $\{U_i \to U\}$ in $\mathcal{C}$ such that
+$G(x)|_{U_i} \cong G(y)|_{U_i}$ in $(\mathcal{S}_1)_{U_i}$. By
+Categories, Lemma \ref{categories-lemma-equivalence-fibred-categories}
+this implies $x|_{U_i} \cong y|_{U_i}$ in $(\mathcal{S}_2)_{U_i}$.
+\end{proof}
+
+\noindent
+We want to generalize the definition of gerbes a bit. Namely, let
+$F : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of stacks in groupoids
+over a site $\mathcal{C}$. We want to say what it
+means for $\mathcal{X}$ to be a gerbe over $\mathcal{Y}$. By
+Section \ref{section-topology}
+the category $\mathcal{Y}$ inherits the structure of a site from
+$\mathcal{C}$. A naive guess is: Just require that
+$\mathcal{X} \to \mathcal{Y}$ {\it is} a gerbe in the sense above. Except
+the notion so obtained is not invariants under replacing $\mathcal{X}$
+by an equivalent stack in groupoids over $\mathcal{C}$; this is even the
+case for the property of being fibred in groupoids over $\mathcal{Y}$.
+However, it turns out that we can replace $\mathcal{X}$ by an equivalent
+stack in groupoids over $\mathcal{Y}$ which is fibred in groupoids over
+$\mathcal{Y}$, and then the property of being a gerbe over $\mathcal{Y}$
+is independent of this choice. Here is the precise formulation.
+
+\begin{lemma}
+\label{lemma-when-gerbe}
+Let $\mathcal{C}$ be a site. Let $p : \mathcal{X} \to \mathcal{C}$
+and $q : \mathcal{Y} \to \mathcal{C}$ be stacks in groupoids.
+Let $F : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+over $\mathcal{C}$. The following are equivalent
+\begin{enumerate}
+\item For some (equivalently any) factorization $F = F' \circ a$ where
+$a : \mathcal{X} \to \mathcal{X}'$ is an equivalence of categories over
+$\mathcal{C}$ and $F'$ is fibred in groupoids, the map
+$F' : \mathcal{X}' \to \mathcal{Y}$ is a gerbe (with the topology
+on $\mathcal{Y}$ inherited from $\mathcal{C}$).
+\item The following two conditions are satisfied
+\begin{enumerate}
+\item for $y \in \Ob(\mathcal{Y})$ lying over
+$U \in \Ob(\mathcal{C})$ there exists a covering
+$\{U_i \to U\}$ in $\mathcal{C}$ and objects $x_i$ of $\mathcal{X}$
+over $U_i$ such that $F(x_i) \cong y|_{U_i}$ in $\mathcal{Y}_{U_i}$, and
+\item for $U \in \Ob(\mathcal{C})$,
+$x, x' \in \Ob(\mathcal{X}_U)$, and $b : F(x) \to F(x')$ in
+$\mathcal{Y}_U$ there exists
+a covering $\{U_i \to U\}$ in $\mathcal{C}$ and morphisms
+$a_i : x|_{U_i} \to x'|_{U_i}$ in $\mathcal{X}_{U_i}$ with
+$F(a_i) = b|_{U_i}$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By
+Categories, Lemma
+\ref{categories-lemma-ameliorate-morphism-categories-fibred-groupoids}
+there exists a factorization $F = F' \circ a$ where
+$a : \mathcal{X} \to \mathcal{X}'$ is an equivalence of categories over
+$\mathcal{C}$ and $F'$ is fibred in groupoids. By
+Categories, Lemma \ref{categories-lemma-amelioration-unique}
+given any two such factorizations $F = F' \circ a = F'' \circ b$
+we have that $\mathcal{X}'$ is equivalent to $\mathcal{X}''$ as
+categories over $\mathcal{Y}$. Hence
+Lemma \ref{lemma-gerbe-equivalent}
+guarantees that the condition (1) is independent of the choice of the
+factorization. Moreover, this means that we may assume
+$\mathcal{X}' = \mathcal{X} \times_{F, \mathcal{Y}, \text{id}} \mathcal{Y}$
+as in the proof of
+Categories, Lemma
+\ref{categories-lemma-ameliorate-morphism-categories-fibred-groupoids}
+
+\medskip\noindent
+Let us prove that (a) and (b) imply that $\mathcal{X}' \to \mathcal{Y}$
+is a gerbe. First of all, by
+Lemma \ref{lemma-stack-in-groupoids-over-stack-in-groupoids}
+we see that $\mathcal{X}' \to \mathcal{Y}$ is a stack in groupoids.
+Next, let $y$ be an object of $\mathcal{Y}$ lying over
+$U \in \Ob(\mathcal{C})$. By (a) we can find a covering
+$\{U_i \to U\}$ in $\mathcal{C}$ and objects $x_i$ of $\mathcal{X}$
+over $U_i$ and isomorphisms $f_i : F(x_i) \to y|_{U_i}$ in
+$\mathcal{Y}_{U_i}$. Then $(U_i, x_i, y|_{U_i}, f_i)$ are objects
+of $\mathcal{X}'_{U_i}$, i.e., the second condition of
+Definition \ref{definition-gerbe}
+holds. Finally, let $(U, x, y, f)$ and $(U, x', y, f')$ be objects
+of $\mathcal{X}'$ lying over the same object $y \in \Ob(\mathcal{Y})$.
+Set $b = (f')^{-1} \circ f$. By condition (b) we can find a covering
+$\{U_i \to U\}$ and isomorphisms $a_i : x|_{U_i} \to x'|_{U_i}$
+in $\mathcal{X}_{U_i}$ with $F(a_i) = b|_{U_i}$. Then
+$$
+(a_i, \text{id}) : (U, x, y, f)|_{U_i} \to (U, x', y, f')|_{U_i}
+$$
+is a morphism in $\mathcal{X}'_{U_i}$ as desired. This proves that
+(2) implies (1).
+
+\medskip\noindent
+To prove that (1) implies (2) one reads the arguments
+in the preceding paragraph backwards. Details omitted.
+\end{proof}
+
+\begin{definition}
+\label{definition-gerbe-over-stack-in-groupoids}
+Let $\mathcal{C}$ be a site. Let $\mathcal{X}$
+and $\mathcal{Y}$ be stacks in groupoids over $\mathcal{C}$.
+Let $F : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+over $\mathcal{C}$. We say $\mathcal{X}$ is a {\it gerbe over} $\mathcal{Y}$
+if the equivalent conditions of
+Lemma \ref{lemma-when-gerbe}
+are satisfied.
+\end{definition}
+
+\noindent
+This definition does not conflict with
+Definition \ref{definition-gerbe}
+when $\mathcal{Y} = \mathcal{C}$ because in this case we may take
+$\mathcal{X}' = \mathcal{X}$ in part (1) of
+Lemma \ref{lemma-when-gerbe}.
+Note that conditions (2)(a) and (2)(b) of
+Lemma \ref{lemma-when-gerbe}
+are quite close in spirit to conditions (2) and (3) of
+Definition \ref{definition-gerbe}.
+Namely, (2)(a) says that the map of presheaves of isomorphism
+classes of objects becomes a surjection after sheafification.
+Moreover, (2)(b) says that
+$$
+\mathit{Isom}_\mathcal{X}(x, x')
+\longrightarrow
+\mathit{Isom}_\mathcal{Y}(F(x), F(x'))
+$$
+is a surjection of sheaves on $\mathcal{C}/U$ for any $U$ and
+$x, x' \in \Ob(\mathcal{X}_U)$.
+
+\begin{lemma}
+\label{lemma-base-change-gerbe}
+Let $\mathcal{C}$ be a site. Let
+$$
+\xymatrix{
+\mathcal{X}' \ar[r]_{G'} \ar[d]_{F'} & \mathcal{X} \ar[d]^F \\
+\mathcal{Y}' \ar[r]^G & \mathcal{Y}
+}
+$$
+be a $2$-fibre product of stacks in groupoids over $\mathcal{C}$.
+If $\mathcal{X}$ is a gerbe over $\mathcal{Y}$, then
+$\mathcal{X}'$ is a gerbe over $\mathcal{Y}'$.
+\end{lemma}
+
+\begin{proof}
+By the uniqueness property of a $2$-fibre product may assume that
+$\mathcal{X}' = \mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$
+as in
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C}.
+Let us prove properties (2)(a) and (2)(b) of
+Lemma \ref{lemma-when-gerbe}
+for $\mathcal{Y}' \times_\mathcal{Y} \mathcal{X} \to \mathcal{Y}'$.
+
+\medskip\noindent
+Let $y'$ be an object of $\mathcal{Y}'$ lying over the object $U$
+of $\mathcal{C}$. By assumption there exists
+a covering $\{U_i \to U\}$ of $U$ and objects
+$x_i \in \mathcal{X}_{U_i}$ with isomorphisms
+$\alpha_i : G(y')|_{U_i} \to F(x_i)$.
+Then $(U_i, y'|_{U_i}, x_i, \alpha_i)$ is an object of
+$\mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$ over $U_i$
+whose image in $\mathcal{Y}'$ is $y'|_{U_i}$. Thus (2)(a) holds.
+
+\medskip\noindent
+Let $U \in \Ob(\mathcal{C})$, let $x'_1, x'_2$ be objects of
+$\mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$ over $U$, and let
+$b' : F'(x'_1) \to F'(x'_2)$ be a morphism in $\mathcal{Y}'_U$.
+Write $x'_i = (U, y'_i, x_i, \alpha_i)$. Note that $F'(x'_i) = x_i$
+and $G'(x'_i) = y'_i$. By assumption there exists
+a covering $\{U_i \to U\}$ in $\mathcal{C}$ and morphisms
+$a_i : x_1|_{U_i} \to x_2|_{U_i}$ in $\mathcal{X}_{U_i}$ with
+$F(a_i) = G(b')|_{U_i}$. Then $(b'|_{U_i}, a_i)$ is a morphism
+$x'_1|_{U_i} \to x'_2|_{U_i}$ as required in (2)(b).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-gerbe}
+Let $\mathcal{C}$ be a site. Let
+$F : \mathcal{X} \to \mathcal{Y}$ and $G : \mathcal{Y} \to \mathcal{Z}$
+be $1$-morphisms of stacks in groupoids over $\mathcal{C}$.
+If $\mathcal{X}$ is a gerbe over $\mathcal{Y}$ and
+$\mathcal{Y}$ is a gerbe over $\mathcal{Z}$, then
+$\mathcal{X}$ is a gerbe over $\mathcal{Z}$.
+\end{lemma}
+
+\begin{proof}
+Let us prove properties (2)(a) and (2)(b) of
+Lemma \ref{lemma-when-gerbe}
+for $\mathcal{X} \to \mathcal{Z}$.
+
+\medskip\noindent
+Let $z$ be an object of $\mathcal{Z}$ lying over the object $U$
+of $\mathcal{C}$. By assumption on $G$ there exists
+a covering $\{U_i \to U\}$ of $U$ and objects
+$y_i \in \mathcal{Y}_{U_i}$ such that $G(y_i) \cong z|_{U_i}$.
+By assumption on $F$ there exist coverings $\{U_{ij} \to U_i\}$
+and objects $x_{ij} \in \mathcal{X}_{U_{ij}}$ such that
+$F(x_{ij}) \cong y_i|_{U_{ij}}$.
+Then $\{U_{ij} \to U\}$ is a covering of $\mathcal{C}$
+and $(G \circ F)(x_{ij}) \cong z|_{U_{ij}}$. Thus (2)(a) holds.
+
+\medskip\noindent
+Let $U \in \Ob(\mathcal{C})$, let $x_1, x_2$ be objects of
+$\mathcal{X}$ over $U$, and let
+$c : (G \circ F)(x_1) \to (G \circ F)(x_2)$ be a morphism in
+$\mathcal{Z}_U$. By assumption on $G$ there exists
+a covering $\{U_i \to U\}$ of $U$ and morphisms
+$b_i : F(x_1)|_{U_i} \to F(x_2)|_{U_i}$ in $\mathcal{Y}_{U_i}$
+such that $G(b_i) = c|_{U_i}$.
+By assumption on $F$ there exist coverings $\{U_{ij} \to U_i\}$
+and morphisms $a_{ij} : x_1|_{U_{ij}} \to x_2|_{U_{ij}}$ in
+$\mathcal{X}_{U_{ij}}$ such that $F(a_{ij}) = b_i|_{U_{ij}}$.
+Then $\{U_{ij} \to U\}$ is a covering of $\mathcal{C}$
+and $(G \circ F)(a_{ij}) = c|_{U_{ij}}$ as required in (2)(b).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-gerbe-descent}
+Let $\mathcal{C}$ be a site. Let
+$$
+\xymatrix{
+\mathcal{X}' \ar[r]_{G'} \ar[d]_{F'} & \mathcal{X} \ar[d]^F \\
+\mathcal{Y}' \ar[r]^G & \mathcal{Y}
+}
+$$
+be a $2$-cartesian diagram of stacks in groupoids over $\mathcal{C}$.
+If for every $U \in \Ob(\mathcal{C})$ and
+$x \in \Ob(\mathcal{Y}_U)$ there exists a covering
+$\{U_i \to U\}$ such that $x|_{U_i}$ is in the essential
+image of $G : \mathcal{Y}'_{U_i} \to \mathcal{Y}_{U_i}$ and
+$\mathcal{X}'$ is a gerbe over $\mathcal{Y}'$, then
+$\mathcal{X}$ is a gerbe over $\mathcal{Y}$.
+\end{lemma}
+
+\begin{proof}
+By the uniqueness property of a $2$-fibre product may assume that
+$\mathcal{X}' = \mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$
+as in
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C}.
+Let us prove properties (2)(a) and (2)(b) of
+Lemma \ref{lemma-when-gerbe}
+for $\mathcal{X} \to \mathcal{Y}$.
+
+\medskip\noindent
+Let $y$ be an object of $\mathcal{Y}$ lying over the object $U$
+of $\mathcal{C}$. By assumption there exists
+a covering $\{U_i \to U\}$ of $U$ and objects
+$y'_i \in \mathcal{Y}'_{U_i}$ with $G(y'_i) \cong y|_{U_i}$.
+By (2)(a) for $\mathcal{X}' \to \mathcal{Y}'$ there exist
+coverings $\{U_{ij} \to U_i\}$ and objects $x'_{ij}$ of
+$\mathcal{X}'$ over $U_{ij}$ with $F'(x'_{ij})$ isomorphic
+to the restriction of $y'_i$ to $U_{ij}$. Then
+$\{U_{ij} \to U\}$ is a covering of $\mathcal{C}$ and
+$G'(x'_{ij})$ are objects of $\mathcal{X}$ over $U_{ij}$
+whose images in $\mathcal{Y}$ are isomorphic to the restrictions
+$y|_{U_{ij}}$. This proves (2)(a) for $\mathcal{X} \to \mathcal{Y}$.
+
+\medskip\noindent
+Let $U \in \Ob(\mathcal{C})$, let $x_1, x_2$ be objects of
+$\mathcal{X}$ over $U$, and let $b : F(x_1) \to F(x_2)$ be a morphism
+in $\mathcal{Y}_U$. By assumption we may choose a covering
+$\{U_i \to U\}$ and objects $y'_i$ of $\mathcal{Y}'$
+over $U_i$ such that there exist isomorphisms
+$\alpha_i : G(y'_i) \to F(x_1)|_{U_i}$.
+Then we get objects
+$$
+x'_{1i} = (U_i, y'_i, x_1|_{U_i}, \alpha_i)
+\quad\text{and}\quad
+x'_{2i} = (U_i, y'_i, x_2|_{U_i}, b|_{U_i} \circ \alpha_i)
+$$
+of $\mathcal{X}'$ over $U_i$. The identity morphism on $y'_i$ is a
+morphism $F'(x'_{1i}) \to F'(x'_{2i})$. By (2)(b) for
+$\mathcal{X}' \to \mathcal{Y}'$ there exist coverings
+$\{U_{ij} \to U_i\}$ and morphisms
+$a'_{ij} : x'_{1i}|_{U_{ij}} \to x'_{2i}|_{U_{ij}}$
+such that $F'(a'_{ij}) = \text{id}_{y'_i}|_{U_{ij}}$. Unwinding the definition
+of morphisms in $\mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$
+we see that $G'(a'_{ij}) : x_1|_{U_{ij}} \to x_2|_{U_{ij}}$ are
+the morphisms we're looking for, i.e., (2)(b) holds for
+$\mathcal{X} \to \mathcal{Y}$.
+\end{proof}
+
+\noindent
+Gerbes all of whose automorphism sheaves are abelian play an important
+role in algebraic geometry.
+
+\begin{lemma}
+\label{lemma-gerbe-abelian-auts}
+Let $p : \mathcal{S} \to \mathcal{C}$ be a gerbe over a site $\mathcal{C}$.
+Assume that for all $U \in \Ob(\mathcal{C})$ and $x \in \Ob(\mathcal{S}_U)$
+the sheaf of groups $\mathit{Aut}(x) = \mathit{Isom}(x, x)$ on $\mathcal{C}/U$
+is abelian. Then there exist
+\begin{enumerate}
+\item a sheaf $\mathcal{G}$ of abelian groups on $\mathcal{C}$,
+\item for every $U \in \Ob(\mathcal{C})$ and every $x \in \Ob(\mathcal{S}_U)$
+an isomorphism $\mathcal{G}|_U \to \mathit{Aut}(x)$
+\end{enumerate}
+such that for every $U$ and every morphism $\varphi : x \to y$
+in $\mathcal{S}_U$ the diagram
+$$
+\xymatrix{
+\mathcal{G}|_U \ar[d] \ar@{=}[rr] & & \mathcal{G}|_U \ar[d] \\
+\mathit{Aut}(x)
+\ar[rr]^{\alpha \mapsto \varphi \circ \alpha \circ \varphi^{-1}} & &
+\mathit{Aut}(y)
+}
+$$
+is commutative.
+\end{lemma}
+
+\begin{proof}
+Let $x, y$ be two objects of $\mathcal{S}$ with $U = p(x) = p(y)$.
+
+\medskip\noindent
+If there is a morphism $\varphi : x \to y$ over $U$, then it is an
+isomorphism and then we indeed get an isomorphism
+$\mathit{Aut}(x) \to \mathit{Aut}(y)$ sending
+$\alpha$ to $\varphi \circ \alpha \circ \varphi^{-1}$.
+Moreover, since we are assuming $\mathit{Aut}(x)$ is
+commutative, this isomorphism is independent of the choice
+of $\varphi$ by a simple computation: namely, if $\psi$ is
+a second such map, then
+$$
+\varphi \circ \alpha \circ \varphi^{-1} =
+\psi \circ \psi^{-1} \circ \varphi \circ \alpha \circ \varphi^{-1} =
+\psi \circ \alpha \circ \psi^{-1} \circ \varphi \circ \varphi^{-1} =
+\psi \circ \alpha \circ \psi^{-1}
+$$
+The upshot is a canonical isomorphism of sheaves
+$\mathit{Aut}(x) \to \mathit{Aut}(y)$. Furthermore, if there
+is a third object $z$ and a morphism $y \to z$ (and hence
+also a morphism $x \to z$), then the
+canonical isomorphisms $\mathit{Aut}(x) \to \mathit{Aut}(y)$,
+$\mathit{Aut}(y) \to \mathit{Aut}(z)$, and
+$\mathit{Aut}(x) \to \mathit{Aut}(z)$ are compatible in the sense
+that
+$$
+\xymatrix{
+\mathit{Aut}(x) \ar[rd] \ar[rr] & &  \mathit{Aut}(z) \\
+& \mathit{Aut}(y) \ar[ru]
+}
+$$
+commutes.
+
+\medskip\noindent
+If there is no morphism from $x$ to $y$ over $U$, then we can
+choose a covering $\{U_i \to U\}$ such that there exist morphisms
+$x|_{U_i} \to y|_{U_i}$. This gives canonical isomorphisms
+$$
+\mathit{Aut}(x)|_{U_i} \longrightarrow \mathit{Aut}(y)|_{U_i}
+$$
+which agree over $U_i \times_U U_j$ (by canonicity). By glueing of
+sheaves (Sites, Lemma \ref{sites-lemma-glue-maps}) we get a unique
+isomorphism $\mathit{Aut}(x) \to \mathit{Aut}(y)$ whose restriction
+to any $U_i$ is the canonical isomorphism of the previous paragraph.
+Similarly to the above these canonical isomorphisms satisfy
+a compatibility if we have a third object over $U$.
+
+\medskip\noindent
+What if the fibre category of $\mathcal{S}$ over $U$ is empty?
+Well, in this case we can find a covering $\{U_i \to U\}$
+and objects $x_i$ of $\mathcal{S}$ over $U_i$. Then we set
+$\mathcal{G}_i = \mathit{Aut}(x_i)$. By the above we obtain
+canonical isomorphisms
+$$
+\varphi_{ij} :
+\mathcal{G}_i|_{U_i \times_U U_j}
+\longrightarrow
+\mathcal{G}_j|_{U_i \times_U U_j}
+$$
+whose restrictions to $U_i \times_U U_j \times_U U_k$ satisfy
+the cocycle condition explained in Sites, Section
+\ref{sites-section-glueing-sheaves}.
+By Sites, Lemma \ref{sites-lemma-glue-sheaves}
+we obtain a sheaf $\mathcal{G}$ over $U$ whose
+restriction to $U_i$ gives $\mathcal{G}_i$
+in a manner compatible with the glueing maps $\varphi_{ij}$.
+
+\medskip\noindent
+If $\mathcal{C}$ has a final object $U$, then this finishes the proof
+as we can take $\mathcal{G}$ equal to the sheaf we just constructed.
+In the general case we need to verify that the sheaves $\mathcal{G}$
+constructed over varying $U$ are compatible in a canonical manner.
+This is omitted.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Functoriality for stacks}
+\label{section-inverse-image}
+
+\noindent
+In this section we study what happens if we want to change the base site
+of a stack. This section can be skipped on a first reading.
+
+\medskip\noindent
+Let $u : \mathcal{C} \to \mathcal{D}$ be a functor between categories.
+Let $p : \mathcal{S} \to \mathcal{D}$ be a category over $\mathcal{D}$.
+In this situation we denote $u^p\mathcal{S}$ the category over $\mathcal{C}$
+defined as follows
+\begin{enumerate}
+\item An object of $u^p\mathcal{S}$ is a pair $(U, y)$ consisting
+of an object $U$ of $\mathcal{C}$ and an object $y$ of $\mathcal{S}_{u(U)}$.
+\item A morphism $(a, \beta) : (U, y) \to (U', y')$ is given by
+a morphism $a : U \to U'$ of $\mathcal{C}$ and a morphism $\beta : y \to y'$
+of $\mathcal{S}$ such that $p(\beta) = u(a)$.
+\end{enumerate}
+Note that with these definitions the fibre category of
+$u^p\mathcal{S}$ over $U$ is equal to the fibre category of
+$\mathcal{S}$ over $u(U)$.
+
+\begin{lemma}
+\label{lemma-fibred-category-pushforward}
+In the situation above, if $\mathcal{S}$ is a fibred category over
+$\mathcal{D}$ then $u^p\mathcal{S}$ is a fibred category over $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+Please take a look at the discussion surrounding
+Categories, Definitions \ref{categories-definition-cartesian-over-C} and
+\ref{categories-definition-fibred-category}
+before reading this proof.
+Let $(a, \beta) : (U, y) \to (U', y')$ be a morphism of $u^p\mathcal{S}$.
+We claim that $(a, \beta)$ is strongly cartesian if and only if
+$\beta$ is strongly cartesian. First, assume $\beta$ is strongly cartesian.
+Consider any second morphism
+$(a_1, \beta_1) : (U_1, y_1) \to (U', y')$ of $u^p\mathcal{S}$.
+Then
+\begin{align*}
+& \Mor_{u^p\mathcal{S}}((U_1, y_1), (U, y)) \\
+& =
+\Mor_\mathcal{C}(U_1, U)
+\times_{\Mor_\mathcal{D}(u(U_1), u(U))}
+\Mor_\mathcal{S}(y_1, y) \\
+& =
+\Mor_\mathcal{C}(U_1, U)
+\times_{\Mor_\mathcal{D}(u(U_1), u(U))}
+\Mor_\mathcal{S}(y_1, y')
+\times_{\Mor_\mathcal{D}(u(U_1), u(U'))}
+\Mor_\mathcal{D}(u(U_1), u(U)) \\
+& =
+\Mor_\mathcal{S}(y_1, y')
+\times_{\Mor_\mathcal{D}(u(U_1), u(U'))}
+\Mor_\mathcal{C}(U_1, U) \\
+& =
+\Mor_{u^p\mathcal{S}}((U_1, y_1), (U', y'))
+\times_{\Mor_\mathcal{C}(U_1, U')}
+\Mor_\mathcal{C}(U_1, U)
+\end{align*}
+the second equality as $\beta$ is strongly cartesian. Hence we see that
+indeed $(a, \beta)$ is strongly cartesian. Conversely, suppose that
+$(a, \beta)$ is strongly cartesian. Choose a strongly cartesian morphism
+$\beta' : y'' \to y'$ in $\mathcal{S}$ with $p(\beta') = u(a)$.
+Then bot $(a, \beta) : (U, y) \to (U, y')$ and
+$(a, \beta') : (U, y'') \to (U, y)$ are strongly cartesian and
+lift $a$. Hence, by the uniqueness of strongly cartesian morphisms
+(see discussion in
+Categories, Section \ref{categories-section-fibred-categories})
+there exists an isomorphism $\iota : y \to y''$ in $\mathcal{S}_{u(U)}$
+such that $\beta = \beta' \circ \iota$, which implies that
+$\beta$ is strongly cartesian in $\mathcal{S}$ by
+Categories, Lemma \ref{categories-lemma-composition-cartesian}.
+
+\medskip\noindent
+Finally, we have to show
+that given $(U', y')$ and $U \to U'$ we can find a strongly
+cartesian morphism $(U, y) \to (U', y')$ in $u^p\mathcal{S}$
+lifting the morphism $U \to U'$. This follows from the above as by assumption
+we can find a strongly cartesian morphism $y \to y'$ lifting the
+morphism $u(U) \to u(U')$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-pushforward}
+Let $u : \mathcal{C} \to \mathcal{D}$ be a continuous functor of sites.
+Let $p : \mathcal{S} \to \mathcal{D}$ be a stack over $\mathcal{D}$.
+Then $u^p\mathcal{S}$ is a stack over $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+We have seen in
+Lemma \ref{lemma-fibred-category-pushforward}
+that $u^p\mathcal{S}$ is a fibred category over $\mathcal{C}$.
+Moreover, in the proof of that lemma we have seen that a morphism
+$(a, \beta)$ of $u^p\mathcal{S}$ is strongly cartesian if and
+only $\beta$ is strongly cartesian in $\mathcal{S}$. Hence,
+given a morphism $a : U \to U'$ of $\mathcal{C}$, not only
+do we have the equalities
+$(u^p\mathcal{S})_U = \mathcal{S}_U$ and
+$(u^p\mathcal{S})_{U'} = \mathcal{S}_{U'}$, but via these
+equalities the pullback functors agree; in a formula
+$a^*(U', y') = (U, u(a)^*y')$.
+
+\medskip\noindent
+Having said this, let $\mathcal{U} = \{U_i \to U\}$ be a covering
+of $\mathcal{C}$. As $u$ is continuous we see that
+$\mathcal{V} = \{u(U_i) \to u(U)\}$ is a covering of $\mathcal{D}$,
+and that $u(U_i \times_U U_j) = u(U_i) \times_{u(U)} u(U_j)$ and
+similarly for the triple fibre products $U_i \times_U U_j \times_U U_k$.
+As we have the identifications of fibre categories and pullbacks
+we see that descend data relative to $\mathcal{U}$ are identical
+to descend data relative to $\mathcal{V}$. Since by assumption we have
+effective descent in $\mathcal{S}$ we conclude the same holds for
+$u^p\mathcal{S}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-groupoids-pushforward}
+Let $u : \mathcal{C} \to \mathcal{D}$ be a continuous functor of sites.
+Let $p : \mathcal{S} \to \mathcal{D}$ be a stack in groupoids
+over $\mathcal{D}$. Then $u^p\mathcal{S}$ is a stack in groupoids
+over $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+This follows immediately from
+Lemma \ref{lemma-stack-pushforward}
+and the fact that all fibre categories are groupoids.
+\end{proof}
+
+\begin{definition}
+\label{definition-pushforward-stack}
+Let $f : \mathcal{D} \to \mathcal{C}$ be a morphism of sites
+given by the continuous functor $u : \mathcal{C} \to \mathcal{D}$.
+Let $\mathcal{S}$ be a fibred category over $\mathcal{D}$.
+In this setting we write {\it $f_*\mathcal{S}$} for the fibred
+category $u^p\mathcal{S}$ defined above. We say that
+$f_*\mathcal{S}$ is the {\it pushforward of $\mathcal{S}$ along $f$}.
+\end{definition}
+
+\noindent
+By the results above we know that $f_*\mathcal{S}$ is a stack (in groupoids)
+if $\mathcal{S}$ is a stack (in groupoids).
+It is harder to define the pullback of a stack (and we'll need additional
+assumptions for our particular construction -- feel free to write up and
+submit a more general construction). We do this in several steps.
+
+\medskip\noindent
+Let $u : \mathcal{C} \to \mathcal{D}$ be a functor between categories.
+Let $p : \mathcal{S} \to \mathcal{C}$ be a category over $\mathcal{C}$.
+In this setting we define a category $u_{pp}\mathcal{S}$ as follows:
+\begin{enumerate}
+\item An object of $u_{pp}\mathcal{S}$ is a triple
+$(U, \phi : V \to u(U), x)$ where $U \in \Ob(\mathcal{C})$,
+the map $\phi : V \to u(U)$ is a morphism in $\mathcal{D}$,
+and $x \in \Ob(\mathcal{S}_U)$.
+\item A morphism
+$$
+(U_1, \phi_1 : V_1 \to u(U_1), x_1)
+\longrightarrow
+(U_2, \phi_2 : V_2 \to u(U_2), x_2)
+$$
+of $u_{pp}\mathcal{S}$ is given by a
+$(a, b, \alpha)$ where $a : U_1 \to U_2$ is a morphism of $\mathcal{C}$,
+$b : V_1 \to V_2$ is a morphism of $\mathcal{D}$, and
+$\alpha : x_1 \to x_2$ is morphism of $\mathcal{S}$,
+such that $p(\alpha) = a$ and the diagram
+$$
+\xymatrix{
+V_1 \ar[d]_{\phi_1} \ar[r]_b & V_2 \ar[d]^{\phi_2} \\
+u(U_1) \ar[r]^{u(a)} & u(U_2)
+}
+$$
+commutes in $\mathcal{D}$.
+\end{enumerate}
+We think of $u_{pp}\mathcal{S}$ as a category over $\mathcal{D}$ via
+$$
+p_{pp} : u_{pp}\mathcal{S} \longrightarrow \mathcal{D},
+\quad
+(U, \phi : V \to u(U), x) \longmapsto V.
+$$
+The fibre category of $u_{pp}\mathcal{S}$ over an object $V$ of $\mathcal{D}$
+does not have a simple description.
+
+\begin{lemma}
+\label{lemma-right-multiplicative-system}
+In the situation above assume
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ is a fibred category,
+\item $\mathcal{C}$ has nonempty finite limits, and
+\item $u : \mathcal{C} \to \mathcal{D}$ commutes with nonempty finite limits.
+\end{enumerate}
+Consider the set $R \subset \text{Arrows}(u_{pp}\mathcal{S})$ of morphisms
+of the form
+$$
+(a, \text{id}_V, \alpha) :
+(U', \phi' : V \to u(U'), x')
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+with $\alpha$ strongly cartesian. Then $R$ is a right multiplicative system.
+\end{lemma}
+
+\begin{proof}
+According to
+Categories, Definition \ref{categories-definition-multiplicative-system}
+we have to check RMS1, RMS2, RMS3.
+Condition RMS1 holds as a composition of strongly cartesian morphisms is
+strongly cartesian, see
+Categories, Lemma \ref{categories-lemma-composition-cartesian}.
+
+\medskip\noindent
+To check RMS2 suppose we have a morphism
+$$
+(a, b, \alpha) :
+(U_1, \phi_1 : V_1 \to u(U_1), x_1)
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+of $u_{pp}\mathcal{S}$ and a morphism
+$$
+(c, \text{id}_V, \gamma) :
+(U', \phi' : V \to u(U'), x')
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+with $\gamma$ strongly cartesian from $R$. In this situation set
+$U'_1 = U_1 \times_U U'$, and denote $a' : U'_1 \to U'$ and
+$c' : U'_1 \to U_1$ the projections.
+As $u(U'_1) = u(U_1) \times_{u(U)} u(U')$
+we see that $\phi'_1 = (\phi_1, \phi') : V_1 \to u(U'_1)$ is
+a morphism in $\mathcal{D}$. Let $\gamma_1 : x_1' \to x_1$
+be a strongly cartesian morphism of $\mathcal{S}$ with
+$p(\gamma_1) = \phi'_1$ (which exists because $\mathcal{S}$ is a
+fibred category over $\mathcal{C}$). Then as $\gamma : x' \to x$ is
+strongly cartesian there exists a unique morphism
+$\alpha' : x'_1 \to x'$ with $p(\alpha') = a'$.
+At this point we see that
+$$
+(a', b, \alpha') :
+(U_1, \phi_1 : V_1 \to u(U'_1), x'_1)
+\longrightarrow
+(U, \phi : V \to u(U'), x')
+$$
+is a morphism and that
+$$
+(c', \text{id}_{V_1}, \gamma_1) :
+(U'_1, \phi'_1 : V_1 \to u(U'_1), x'_1)
+\longrightarrow
+(U_1, \phi : V_1 \to u(U_1), x_1)
+$$
+is an element of $R$ which form a solution of the existence problem
+posed by RMS2.
+
+\medskip\noindent
+Finally, suppose that
+$$
+(a, b, \alpha), (a', b', \alpha') :
+(U_1, \phi_1 : V_1 \to u(U_1), x_1)
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+are two morphisms of $u_{pp}\mathcal{S}$ and suppose that
+$$
+(c, \text{id}_V, \gamma) :
+(U, \phi : V \to u(U), x)
+\longrightarrow
+(U', \phi : V \to u(U'), x')
+$$
+is an element of $R$ which equalizes the morphisms
+$(a, b, \alpha)$ and $(a', b', \alpha')$. This implies in particular
+that $b = b'$. Let $d : U_2 \to U_1$ be the equalizer of $a, a'$ which
+exists (see
+Categories, Lemma \ref{categories-lemma-almost-finite-limits-exist}).
+Moreover, $u(d) : u(U_2) \to u(U_1)$ is the equalizer of $u(a), u(a')$
+hence (as $b = b'$) there is a morphism $\phi_2 : V_1 \to u(U_2)$ such that
+$\phi_1 = u(d) \circ \phi_1$. Let $\delta : x_2 \to x_1$ be a strongly
+cartesian morphism of $\mathcal{S}$ with $p(\delta) = u(d)$.
+Now we claim that $\alpha \circ \delta = \alpha' \circ \delta$.
+This is true because
+$\gamma$ is strongly cartesian,
+$\gamma \circ \alpha \circ \delta = \gamma \circ \alpha' \circ \delta$, and
+$p(\alpha \circ \delta) = p(\alpha' \circ \delta)$.
+Hence the arrow
+$$
+(d, \text{id}_{V_1}, \delta) :
+(U_2, \phi_2 : V_1 \to u(U_2), x_2)
+\longrightarrow
+(U_1, \phi_1 : V_1 \to u(U_1), x_1)
+$$
+is an element of $R$ and equalizes $(a, b, \alpha)$ and $(a', b', \alpha')$.
+Hence $R$ satisfies RMS3 as well.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibred-category-pullback}
+With notation and assumptions as in
+Lemma \ref{lemma-right-multiplicative-system}.
+Set $u_p\mathcal{S} = R^{-1}u_{pp}\mathcal{S}$, see
+Categories, Section \ref{categories-section-localization}.
+Then $u_p\mathcal{S}$ is a fibred category over $\mathcal{D}$.
+\end{lemma}
+
+\begin{proof}
+We use the description of $u_p\mathcal{S}$ given just above
+Categories, Lemma \ref{categories-lemma-right-localization}.
+Note that the functor $p_{pp} : u_{pp}\mathcal{S} \to \mathcal{D}$
+transforms every element of $R$ to an identity morphism.
+Hence by
+Categories, Lemma \ref{categories-lemma-properties-right-localization}
+we obtain a canonical functor $p_p : u_p\mathcal{S} \to \mathcal{D}$
+extending the given functor. This is how we think of
+$u_p\mathcal{S}$ as a category over $\mathcal{D}$.
+
+\medskip\noindent
+First we want to characterize the $\mathcal{D}$-strongly cartesian morphisms
+in $u_p\mathcal{S}$.
+A morphism $f : X \to Y$ of $u_p\mathcal{S}$ is the equivalence class of
+a pair $(f' : X' \to Y, r : X' \to X)$ with $r \in R$.
+In fact, in $u_p\mathcal{S}$ we have $f = (f', 1) \circ (r, 1)^{-1}$
+with obvious notation.
+Note that an isomorphism is always strongly cartesian, as are
+compositions of strongly cartesian morphisms, see
+Categories, Lemma \ref{categories-lemma-composition-cartesian}.
+Hence $f$ is strongly cartesian if and only if $(f', 1)$ is so.
+Thus the following claim completely characterizes strongly cartesian
+morphisms. Claim: A morphism
+$$
+(a, b, \alpha) :
+X_1 = (U_1, \phi_1 : V_1 \to u(U_1), x_1)
+\longrightarrow
+(U_2, \phi_2 : V_2 \to u(U_2), x_2) = X_2
+$$
+of $u_{pp}\mathcal{S}$ has image $f = ((a, b, \alpha), 1)$
+strongly cartesian in $u_p\mathcal{S}$ if and only if $\alpha$
+is a strongly cartesian morphism of $\mathcal{S}$.
+
+\medskip\noindent
+Assume $\alpha$ strongly cartesian.
+Let $X = (U, \phi : V \to u(U), x)$ be another object, and let
+$f_2 : X \to X_2$ be a morphism of $u_p\mathcal{S}$
+such that $p_p(f_2) = b \circ b_1$ for some $b_1 : U \to U_1$.
+To show that $f$ is strongly cartesian we have to show
+that there exists a unique morphism $f_1 : X \to X_1$ in $u_p\mathcal{S}$
+such that $p_p(f_1) = b_1$ and $f_2 = f \circ f_1$ in $u_p\mathcal{S}$.
+Write $f_2 = (f'_2 : X' \to X_2, r : X' \to X)$. Again we can write
+$f_2 = (f'_2, 1) \circ (r, 1)^{-1}$ in $u_p\mathcal{S}$. Since $(r, 1)$
+is an isomorphism whose image in $\mathcal{D}$ is an identity we
+see that finding a morphism $f_1 : X \to X_1$ with the required
+properties is the same thing as finding a morphism $f'_1 : X' \to X_1$
+in $u_p\mathcal{S}$ with $p(f'_1) = b_1$ and $f'_2 = f \circ f'_1$.
+Hence we may assume that $f_2$ is of the form
+$f_2 = ((a_2, b_2, \alpha_2), 1)$ with $b_2 = b \circ b_1$. Here is
+a picture
+$$
+\xymatrix{
+& & (U_1, V_1 \to u(U_1), x_1) \ar[d]^{(a, b, \alpha)} \\
+(U, V \to u(U), x) \ar[rr]^{(a_2, b_2, \alpha_2)} & &
+(U_2, V_2 \to u(U_2), x_2)
+}
+$$
+Now it is clear how to construct the morphism $f_1$.
+Namely, set $U' = U \times_{U_2} U_1$ with projections
+$c : U' \to U$ and $a_1 : U' \to U_1$.
+Pick a strongly cartesian morphism $\gamma : x' \to x$
+lifting the morphism $c$. Since $b_2 = b \circ b_1$,
+and since $u(U') = u(U) \times_{u(U_2)} u(U_1)$ we see that
+$\phi' = (\phi, \phi_1 \circ b_1) : V \to u(U')$. Since
+$\alpha$ is strongly cartesian, and
+$a \circ a_1 = a_2 \circ c = p(\alpha_2 \circ \gamma)$
+there exists a morphism
+$\alpha_1 : x' \to x_1$ lifting $a_1$ such that
+$\alpha \circ \alpha_1 = \alpha_2 \circ \gamma$.
+Set $X' = (U', \phi' : V \to u(U'), x')$.
+Thus we see that
+$$
+f_1 =
+((a_1, b_1, \alpha_1) : X' \to X_1, (c, \text{id}_V, \gamma) : X' \to X) :
+X \longrightarrow X_1
+$$
+works, in fact the diagram
+$$
+\xymatrix{
+(U', \phi' : V \to u(U'), x')
+\ar[d]_{(c, \text{id}_V, \gamma)}
+\ar[rr]_{(a_1, b_1, \alpha_1)}
+& & (U_1, V_1 \to u(U_1), x_1) \ar[d]^{(a, b, \alpha)} \\
+(U, V \to u(U), x) \ar[rr]^{(a_2, b_2, \alpha_2)} & &
+(U_2, V_2 \to u(U_2), x_2)
+}
+$$
+is commutative by construction. This proves existence.
+
+\medskip\noindent
+Next we prove uniqueness, still in the special case
+$f = ((a, b, \alpha), 1)$ and $f_2 = ((a_2, b_2, \alpha_2), 1)$.
+We strongly advise the reader to skip this part.
+Suppose that $g_1, g'_1 : X \to X_1$ are two morphisms of
+$u_p\mathcal{S}$ such that $p_p(g_1) = p_p(g'_1) = b_1$ and
+$f_2 = f \circ g_1 = f \circ g'_1$. Our goal is to show that
+$g_1 = g'_1$. By
+Categories, Lemma \ref{categories-lemma-morphisms-right-localization}
+we may represent $g_1$ and $g'_1$ as the equivalence classes of
+$(f_1 : X' \to X_1, r : X' \to X)$ and
+$(f'_1 : X' \to X_1, r : X' \to X)$ for some $r \in R$. By
+Categories, Lemma \ref{categories-lemma-equality-morphisms-right-localization}
+we see that $f_2 = f \circ g_1 = f \circ g'_1$ means that there
+exists a morphism $r' : X'' \to X'$ in $u_{pp}\mathcal{S}$ such that
+$r' \circ r \in R$ and
+$$
+(a, b, \alpha) \circ f_1 \circ r' =
+(a, b, \alpha) \circ f'_1 \circ r' =
+(a_2, b_2, \alpha_2) \circ r'
+$$
+in $u_{pp}\mathcal{S}$. Note that
+now $g_1$ is represented by $(f_1 \circ r', r \circ r')$ and
+similarly for $g'_1$. Hence we may assume that
+$$
+(a, b, \alpha) \circ f_1 =
+(a, b, \alpha) \circ f'_1 =
+(a_2, b_2, \alpha_2).
+$$
+Write $r = (c, \text{id}_V, \gamma) : (U', \phi' : V \to u(U'), x')$,
+$f_1 = (a_1, b_1, \alpha_1)$, and $f'_1 = (a'_1, b_1, \alpha'_1)$.
+Here we have used the condition that $p_p(g_1) = p_p(g'_1)$.
+The equalities above are now equivalent to
+$a \circ a_1 = a \circ a'_1 = a_2 \circ c$ and
+$\alpha \circ \alpha_1 = \alpha \circ \alpha'_1 = \alpha_2 \circ \gamma$.
+It need not be the case that $a_1 = a'_1$ in this situation.
+Thus we have to precompose by one more morphism from $R$.
+Namely, let $U'' = \text{Eq}(a_1, a'_1)$ be the equalizer of
+$a_1$ and $a'_1$ which is a subobject of $U'$. Denote
+$c' : U'' \to U'$ the canonical monomorphism.
+Because of the relations among the morphisms
+above we see that $V \to u(U')$ maps into
+$u(U'') = u(\text{Eq}(a_1, a'_1)) = \text{Eq}(u(a_1), u(a'_1))$.
+Hence we get a new object $(U'', \phi'' : V \to u(U''), x'')$, where
+$\gamma' : x'' \to x'$ is a strongly cartesian morphism lifting $\gamma$.
+Then we see that we may precompose $f_1$ and $f'_1$ with the element
+$(c', \text{id}_V, \gamma')$ of $R$. After doing this, i.e., replacing
+$(U', \phi' : V \to u(U'), x')$ with
+$(U'', \phi'' : V \to u(U''), x'')$, we get back to the previous
+situation where in addition we now have that $a_1 = a'_1$.
+In this case it follows formally from the fact that $\alpha$
+is strongly cartesian (!) that $\alpha_1 = \alpha'_1$.
+This shows that $g_1 = g'_1$ as desired.
+
+\medskip\noindent
+We omit the proof of the fact that for any strongly cartesian morphism
+of $u_p\mathcal{S}$ of the form $((a, b, \alpha), 1)$ the morphism
+$\alpha$ is strongly cartesian in $\mathcal{S}$.
+(We do not need the characterization of strongly cartesian morphisms
+in the rest of the proof, although we do use it later in this section.)
+
+\medskip\noindent
+Let $(U, \phi : V \to u(U), x)$ be an object of $u_p\mathcal{S}$.
+Let $b : V' \to V$ be a morphism of $\mathcal{D}$. Then the morphism
+$$
+(\text{id}_U, b, \text{id}_x) :
+(U, \phi \circ b : V' \to u(U), x)
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+is strongly cartesian by the result of the preceding paragraphs and we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibred-groupoids-category-pullback}
+With notation and assumptions as in
+Lemma \ref{lemma-fibred-category-pullback}.
+If $\mathcal{S}$ is fibred in groupoids, then $u_p\mathcal{S}$ is fibred
+in groupoids.
+\end{lemma}
+
+\begin{proof}
+By
+Lemma \ref{lemma-fibred-category-pullback}
+we know that $u_p\mathcal{S}$ is a fibred category.
+Let $f : X \to Y$ be a morphism of $u_p\mathcal{S}$ with
+$p_p(f) = \text{id}_V$. We are done if we can show that $f$ is invertible, see
+Categories, Lemma \ref{categories-lemma-fibred-groupoids}.
+Write $f$ as the equivalence class of
+a pair $((a, b, \alpha), r)$ with $r \in R$. Then $p_p(r) = \text{id}_V$,
+hence $p_{pp}((a, b, \alpha)) = \text{id}_V$. Hence $b = \text{id}_V$.
+But any morphism of $\mathcal{S}$ is strongly cartesian, see
+Categories, Lemma \ref{categories-lemma-fibred-groupoids}
+hence we see that $(a, b, \alpha) \in R$ is invertible
+in $u_p\mathcal{S}$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-adjointness-pullback-pushforward}
+Let $u : \mathcal{C} \to \mathcal{D}$ be a functor.
+Let $p : \mathcal{S} \to \mathcal{C}$ and $q : \mathcal{T} \to \mathcal{D}$
+be categories over $\mathcal{C}$ and $\mathcal{D}$. Assume that
+\begin{enumerate}
+\item $p : \mathcal{S} \to \mathcal{C}$ is a fibred category,
+\item $q : \mathcal{T} \to \mathcal{D}$ is a fibred category,
+\item $\mathcal{C}$ has nonempty finite limits, and
+\item $u : \mathcal{C} \to \mathcal{D}$ commutes with nonempty finite limits.
+\end{enumerate}
+Then we have a canonical equivalence of categories
+$$
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, u^p\mathcal{T})
+=
+\Mor_{\textit{Fib}/\mathcal{D}}(u_p\mathcal{S}, \mathcal{T})
+$$
+of morphism categories.
+\end{lemma}
+
+\begin{proof}
+In this proof we use the notation $x/U$ to denote an object
+$x$ of $\mathcal{S}$ which lies over $U$ in $\mathcal{C}$.
+Similarly $y/V$ denotes an object $y$ of $\mathcal{T}$
+which lies over $V$ in $\mathcal{D}$. In the same vein
+$\alpha/a : x/U \to x'/U'$ denotes the morphism
+$\alpha : x \to x'$ with image $a : U \to U'$ in $\mathcal{C}$.
+
+\medskip\noindent
+Let $G : u_p\mathcal{S} \to \mathcal{T}$ be a $1$-morphism of fibred
+categories over $\mathcal{D}$. Denote $G' : u_{pp}\mathcal{S} \to \mathcal{T}$
+the composition of $G$ with the canonical (localization) functor
+$u_{pp}\mathcal{S} \to u_p\mathcal{S}$. Then consider the functor
+$H : \mathcal{S} \to u^p\mathcal{T}$ given by
+$$
+H(x/U) = (U, G'(U, \text{id}_{u(U)} : u(U) \to u(U), x))
+$$
+on objects and by
+$$
+H((\alpha, a) : x/U \to x'/U') = G'(a, u(a), \alpha)
+$$
+on morphisms. Since $G$ transforms strongly cartesian morphisms
+into strongly cartesian morphisms, we see that if $\alpha$ is strongly
+cartesian, then $H(\alpha)$ is strongly cartesian.
+Namely, we've seen in the proof of
+Lemma \ref{lemma-fibred-category-pullback}
+that in this case the map $(a, u(a), \alpha)$ becomes
+strongly cartesian in $u_p\mathcal{S}$. Clearly this construction is
+functorial in $G$ and we obtain a functor
+$$
+A :
+\Mor_{\textit{Fib}/\mathcal{D}}(u_p\mathcal{S}, \mathcal{T})
+\longrightarrow
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, u^p\mathcal{T})
+$$
+
+\medskip\noindent
+Conversely, let $H : \mathcal{S} \to u^p\mathcal{T}$ be a $1$-morphism
+of fibred categories. Recall that an object of $u^p\mathcal{T}$ is
+a pair $(U, y)$ with $y \in \Ob(\mathcal{T}_{u(U)})$. We denote
+$\text{pr} : u^p\mathcal{T} \to \mathcal{T}$ the functor $(U, y) \mapsto y$.
+In this case we define a functor
+$G' : u_{pp}\mathcal{S} \to \mathcal{T}$ by the rules
+$$
+G'(U, \phi : V \to u(U), x) = \phi^*\text{pr}(H(x))
+$$
+on objects and we let
+$$
+G'((a, b, \alpha) : (U, \phi : V \to u(U), x)
+\to (U', \phi' : V' \to u(U'), x'))
+=
+\beta
+$$
+be the unique morphism
+$\beta : \phi^*\text{pr}(H(x)) \to (\phi')^*\text{pr}(H(x'))$
+such that $q(\beta) = b$ and the diagram
+$$
+\xymatrix{
+\phi^*\text{pr}(H(x)) \ar[d] \ar[r]_-{\beta} &
+(\phi')^*\text{pr}(H(x')) \ar[d] \\
+\text{pr}(H(x)) \ar[r]^{\text{pr}(H(a, \alpha))} & \text{pr}(H(x'))
+}
+$$
+Such a morphism exists and is unique because $\mathcal{T}$ is a fibred
+category.
+
+\medskip\noindent
+We check that $G'(r)$ is an isomorphism if $r \in R$.
+Namely, if
+$$
+(a, \text{id}_V, \alpha) :
+(U', \phi' : V \to u(U'), x')
+\longrightarrow
+(U, \phi : V \to u(U), x)
+$$
+with $\alpha$ strongly cartesian is an element of the right multiplicative
+system $R$ of
+Lemma \ref{lemma-right-multiplicative-system}
+then $H(\alpha)$ is strongly cartesian, and
+$\text{pr}(H(\alpha))$ is strongly cartesian, see proof of
+Lemma \ref{lemma-fibred-category-pushforward}.
+Hence in this case the morphism $\beta$ has $q(\beta) = \text{id}_V$
+and is strongly cartesian. Hence $\beta$ is an isomorphism by
+Categories, Lemma \ref{categories-lemma-composition-cartesian}.
+Thus by
+Categories, Lemma \ref{categories-lemma-properties-right-localization}
+we obtain a canonical extension $G : u_p\mathcal{S} \to \mathcal{T}$.
+
+\medskip\noindent
+Next, let us prove that $G$ transforms strongly cartesian morphisms
+into strongly cartesian morphisms.
+Suppose that $f : X \to Y$ is a strongly cartesian. By the characterization
+of strongly cartesian morphisms in $u_p\mathcal{S}$ we can write $f$ as
+$((a, b, \alpha) : X' \to Y, r : X' \to Y)$ where $r \in R$ and
+$\alpha$ strongly cartesian in $\mathcal{S}$. By the above it suffices
+to show that $G'(a, b \alpha)$ is strongly cartesian. As before
+the condition that $\alpha$ is strongly cartesian implies that
+$\text{pr}(H(a, \alpha)) : \text{pr}(H(x)) \to \text{pr}(H(x'))$
+is strongly cartesian in $\mathcal{T}$. Since in the commutative
+square above now all arrows except possibly $\beta$ is strongly cartesian
+it follows that also $\beta$ is strongly cartesian as desired.
+Clearly the construction $H \mapsto G$ is functorial in $H$ and we
+obtain a functor
+$$
+B :
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, u^p\mathcal{T})
+\longrightarrow
+\Mor_{\textit{Fib}/\mathcal{D}}(u_p\mathcal{S}, \mathcal{T})
+$$
+To finish the proof of the lemma we have to show that the functors
+$A$ and $B$ are mutually quasi-inverse. We omit the verifications.
+\end{proof}
+
+\begin{definition}
+\label{definition-pullback-stack}
+Let $f : \mathcal{D} \to \mathcal{C}$ be a morphism of sites
+given by a continuous functor $u : \mathcal{C} \to \mathcal{D}$
+satisfying the hypotheses and conclusions of
+Sites, Proposition \ref{sites-proposition-get-morphism}.
+Let $\mathcal{S}$ be a stack over $\mathcal{C}$.
+In this setting we write {\it $f^{-1}\mathcal{S}$} for the stackification
+of the fibred category $u_p\mathcal{S}$ over $\mathcal{D}$ constructed
+above. We say that $f^{-1}\mathcal{S}$ is the
+{\it pullback of $\mathcal{S}$ along $f$}.
+\end{definition}
+
+\noindent
+Of course, if $\mathcal{S}$ is a stack in groupoids, then $f^{-1}\mathcal{S}$
+is a stack in groupoids by
+Lemmas \ref{lemma-stackify-groupoids} and
+\ref{lemma-fibred-groupoids-category-pullback}.
+
+\begin{lemma}
+\label{lemma-adjointness-pullback-pushforward-stacks}
+Let $f : \mathcal{D} \to \mathcal{C}$ be a morphism of sites
+given by a continuous functor $u : \mathcal{C} \to \mathcal{D}$
+satisfying the hypotheses and conclusions of
+Sites, Proposition \ref{sites-proposition-get-morphism}.
+Let $p : \mathcal{S} \to \mathcal{C}$ and
+$q : \mathcal{T} \to \mathcal{D}$ be stacks.
+Then we have a canonical equivalence of categories
+$$
+\Mor_{\textit{Stacks}/\mathcal{C}}(\mathcal{S}, f_*\mathcal{T})
+=
+\Mor_{\textit{Stacks}/\mathcal{D}}(f^{-1}\mathcal{S}, \mathcal{T})
+$$
+of morphism categories.
+\end{lemma}
+
+\begin{proof}
+For $i = 1, 2$ an $i$-morphism of stacks is the same thing as a
+$i$-morphism of fibred categories, see
+Definition \ref{definition-stacks-over-C}.
+By
+Lemma \ref{lemma-adjointness-pullback-pushforward}
+we have already
+$$
+\Mor_{\textit{Fib}/\mathcal{C}}(\mathcal{S}, u^p\mathcal{T})
+=
+\Mor_{\textit{Fib}/\mathcal{D}}(u_p\mathcal{S}, \mathcal{T})
+$$
+Hence the result follows from
+Lemma \ref{lemma-stackify-universal-property-more}
+as $u^p\mathcal{T} = f_*\mathcal{T}$ and $f^{-1}\mathcal{S}$ is the
+stackification of $u_p\mathcal{S}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-technical-up}
+Let $f : \mathcal{D} \to \mathcal{C}$ be a morphism of sites
+given by a continuous functor $u : \mathcal{C} \to \mathcal{D}$
+satisfying the hypotheses and conclusions of
+Sites, Proposition \ref{sites-proposition-get-morphism}.
+Let $\mathcal{S} \to \mathcal{C}$ be a fibred category, and
+let $\mathcal{S} \to \mathcal{S}'$ be the stackification of $\mathcal{S}$.
+Then $f^{-1}\mathcal{S}'$ is the stackification of
+$u_p\mathcal{S}$.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint:
+This is the analogue of Sites, Lemma \ref{sites-lemma-technical-up}.
+\end{proof}
+
+\noindent
+The following lemma tells us that the $2$-category of stacks
+over $\Sch_{fppf}$ is a ``full 2-sub category'' of the
+$2$-category of stacks over $\Sch'_{fppf}$ provided that
+$\Sch'_{fppf}$ contains $\Sch_{fppf}$ (see
+Topologies, Section \ref{topologies-section-change-alpha}).
+
+\begin{lemma}
+\label{lemma-bigger-site}
+Let $\mathcal{C}$ and $\mathcal{D}$ be sites.
+Let $u : \mathcal{C} \to \mathcal{D}$ be a functor satisfying the
+assumptions of
+Sites, Lemma \ref{sites-lemma-bigger-site}.
+Let $f : \mathcal{D} \to \mathcal{C}$ be the corresponding
+morphism of sites. Then
+\begin{enumerate}
+\item for every stack $p : \mathcal{S} \to \mathcal{C}$ the
+canonical functor $\mathcal{S} \to f_*f^{-1}\mathcal{S}$ is
+an equivalence of stacks,
+\item given stacks $\mathcal{S}, \mathcal{S}'$ over $\mathcal{C}$
+the construction $f^{-1}$
+induces an equivalence
+$$
+\Mor_{\textit{Stacks}/\mathcal{C}}(\mathcal{S}, \mathcal{S}')
+\longrightarrow
+\Mor_{\textit{Stacks}/\mathcal{D}}(f^{-1}\mathcal{S}, f^{-1}\mathcal{S}')
+$$
+of morphism categories.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Note that by
+Lemma \ref{lemma-adjointness-pullback-pushforward-stacks}
+we have an equivalence of categories
+$$
+\Mor_{\textit{Stacks}/\mathcal{D}}(f^{-1}\mathcal{S}, f^{-1}\mathcal{S}')
+=
+\Mor_{\textit{Stacks}/\mathcal{C}}(\mathcal{S}, f_*f^{-1}\mathcal{S}')
+$$
+Hence (2) follows from (1).
+
+\medskip\noindent
+To prove (1) we are going to use
+Lemma \ref{lemma-characterize-essentially-surjective-when-ff}.
+This lemma tells us that we have to show that
+$can : \mathcal{S} \to f_*f^{-1}\mathcal{S}$ is
+fully faithful and that all objects of $f_*f^{-1}\mathcal{S}$
+are locally in the essential image.
+
+\medskip\noindent
+We quickly describe the functor $can$, see proof of
+Lemma \ref{lemma-adjointness-pullback-pushforward}.
+To do this we introduce the functor
+$c'' : \mathcal{S} \to u_{pp}\mathcal{S}$ defined by
+$c''(x/U) = (U, \text{id} : u(U) \to u(U), x)$, and
+$c''(\alpha/a) = (a, u(a), \alpha)$. We set
+$c' : \mathcal{S} \to u_p\mathcal{S}$ equal to the composition
+of $c''$ and the canonical functor $u_{pp}\mathcal{S} \to u_p\mathcal{S}$.
+We set $c : \mathcal{S} \to f^{-1}\mathcal{S}$ equal to the composition
+of $c'$ and the canonical functor $u_p\mathcal{S} \to f^{-1}\mathcal{S}$.
+Then $can : \mathcal{S} \to f_*f^{-1}\mathcal{S}$ is the functor
+which to $x/U$ associates the pair $(U, c(x))$ and to
+$\alpha/a$ the morphism $(a, c(\alpha))$.
+
+\medskip\noindent
+Fully faithfulness. To prove this we are going to use
+Lemma \ref{lemma-characterize-ff}.
+Let $U \in \Ob(\mathcal{C})$.
+Let $x, y \in \mathcal{S}_U$.
+First off, as $u$ is fully faithful, we have
+$$
+\Mor_{(f_*f^{-1}\mathcal{S})_U}(can(x), can(y))
+=
+\Mor_{(f^{-1}\mathcal{S})_{u(U)}}(c(x), c(y))
+$$
+directly from the definition of $f_*$. Similar holds after
+pulling back to any $U'/U$. Because $f^{-1}\mathcal{S}$ is the
+stackification of $u_p\mathcal{S}$, and since $u$ is continuous
+and cocontinuous the presheaf
+$$
+U'/U \longmapsto
+\Mor_{(f^{-1}\mathcal{S})_{u(U')}}(c(x|_{U'}), c(y|_{U'}))
+$$
+is the sheafification of the presheaf
+$$
+U'/U \longmapsto
+\Mor_{(u_p\mathcal{S})_{u(U')}}(c'(x|_{U'}), c'(y|_{U'}))
+$$
+Hence to finish the proof of fully faithfulness it suffices
+to show that for any $U$ and $x, y$ the map
+$$
+\Mor_{\mathcal{S}_U}(x, y)
+\longrightarrow
+\Mor_{(u_p\mathcal{S})_U}(c'(x), c'(y))
+$$
+is bijective. A morphism $f : x \to y$ in $u_p\mathcal{S}$ over $u(U)$
+is given by an equivalence class of diagrams
+$$
+\xymatrix{
+(U', \phi : u(U) \to u(U'), x')
+\ar[d]_{(c, \text{id}_{u(U)}, \gamma)}
+\ar[r]_{(a, b, \alpha)} &
+(U, \text{id} : u(U) \to u(U), y)
+\\
+(U, \text{id} : u(U) \to u(U), x)
+}
+$$
+with $\gamma$ strongly cartesian and $b = \text{id}_{u(U)}$.
+But since $u$ is fully faithful we can write $\phi = u(c')$ for some
+morphism $c' : U \to U'$
+and then we see that $a \circ c' = \text{id}_U$ and
+$c \circ c' = \text{id}_{U'}$. Because $\gamma$ is strongly cartesian
+we can find a morphism $\gamma' : x \to x'$ lifting $c'$ such that
+$\gamma \circ \gamma' = \text{id}_x$. By definition of the equivalence
+classes defining morphisms in $u_p\mathcal{S}$ it follows that
+the morphism
+$$
+\xymatrix{
+(U, \text{id} : u(U) \to u(U), x)
+\ar[rr]_{(\text{id}, \text{id}, \alpha \circ \gamma')} & &
+(U, \text{id} : u(U) \to u(U), y)
+}
+$$
+of $u_{pp}\mathcal{S}$ induces the morphism $f$ in $u_p\mathcal{S}$.
+This proves that the map is surjective. We omit the proof that it is
+injective.
+
+\medskip\noindent
+Finally, we have to show that any object of $f_*f^{-1}\mathcal{S}$
+locally comes from an object of $\mathcal{S}$. This is clear from the
+constructions (details omitted).
+\end{proof}
+
+
+
+
+\section{Stacks and localization}
+\label{section-localize}
+
+\noindent
+Let $\mathcal{C}$ be a site.
+Let $U$ be an object of $\mathcal{C}$.
+We want to understand stacks over $\mathcal{C}/U$ as stacks
+over $\mathcal{C}$ together with a morphism towards $U$.
+The following lemma is the reason why this is easier to do
+when the presheaf $h_U$ is a sheaf.
+
+\begin{lemma}
+\label{lemma-when-localization-stack}
+Let $\mathcal{C}$ be a site. Let $U \in \Ob(\mathcal{C})$.
+Then $j_U : \mathcal{C}/U \to \mathcal{C}$ is a stack over $\mathcal{C}$
+if and only if $h_U$ is a sheaf.
+\end{lemma}
+
+\begin{proof}
+Combine
+Lemma \ref{lemma-stack-in-setoids-characterize}
+with
+Categories,
+Example \ref{categories-example-fibred-category-from-functor-of-points}.
+\end{proof}
+
+\noindent
+Assume that $\mathcal{C}$ is a site,
+and $U$ is an object of $\mathcal{C}$ whose associated representable
+presheaf is a sheaf. We denote $j : \mathcal{C}/U \to \mathcal{C}$
+the localization functor.
+
+\medskip\noindent
+{\bf Construction A.} Let $p : \mathcal{S} \to \mathcal{C}/U$ be a stack
+over the site $\mathcal{C}/U$. We define a stack
+$j_!p : j_!\mathcal{S} \to \mathcal{C}$ as follows:
+\begin{enumerate}
+\item As a category $j_!\mathcal{S} = \mathcal{S}$, and
+\item the functor $j_!p : j_!\mathcal{S} \to \mathcal{C}$
+is just the composition $j \circ p$.
+\end{enumerate}
+We omit the verification that this is a stack (hint: Use that
+$h_U$ is a sheaf to glue morphisms to $U$). There is a canonical
+functor
+$$
+j_!\mathcal{S} \longrightarrow \mathcal{C}/U
+$$
+namely the functor $p$ which is a $1$-morphism of stacks over $\mathcal{C}$.
+
+\medskip\noindent
+{\bf Construction B.}
+Let $q : \mathcal{T} \to \mathcal{C}$ be a stack over $\mathcal{C}$
+which is endowed with a morphism of stacks $p : \mathcal{T} \to \mathcal{C}/U$
+over $\mathcal{C}$. In this case it is automatically the case that
+$p : \mathcal{T} \to \mathcal{C}/U$ is a stack over $\mathcal{C}/U$.
+
+\begin{lemma}
+\label{lemma-localize-stacks}
+Assume that $\mathcal{C}$ is a site,
+and $U$ is an object of $\mathcal{C}$ whose associated representable
+presheaf is a sheaf. Constructions A and B above define
+mutually inverse (!) functors of $2$-categories
+$$
+\left\{
+\begin{matrix}
+2\text{-category of}\\
+\text{stacks over }\mathcal{C}/U
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+2\text{-category of pairs }(\mathcal{T}, p)
+\text{ consisting} \\
+\text{of a stack }\mathcal{T}\text{ over }\mathcal{C}\text{ and a morphism} \\
+p : \mathcal{T} \to \mathcal{C}/U\text{ of stacks over }\mathcal{C}
+\end{matrix}
+\right\}
+$$
+\end{lemma}
+
+\begin{proof}
+This is clear.
+\end{proof}
+
+
+
+\input{chapters}
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

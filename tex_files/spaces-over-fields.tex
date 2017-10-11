@@ -1,0 +1,2046 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Algebraic Spaces over Fields}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+This chapter is the analogue of the chapter on varieties in the setting
+of algebraic spaces. A reference for algebraic spaces is
+\cite{Kn}.
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+The standing assumption is that all schemes are contained in
+a big fppf site $\Sch_{fppf}$. And all rings $A$ considered
+have the property that $\Spec(A)$ is (isomorphic) to an
+object of this big site.
+
+\medskip\noindent
+Let $S$ be a scheme and let $X$ be an algebraic space over $S$.
+In this chapter and the following we will write $X \times_S X$
+for the product of $X$ with itself (in the category of algebraic
+spaces over $S$), instead of $X \times X$.
+
+
+
+\section{Generically finite morphisms}
+\label{section-generically-finite}
+
+\noindent
+This section continues the discussion in
+Decent Spaces, Section \ref{decent-spaces-section-generically-finite}
+and the analogue for morphisms of algebraic spaces of
+Varieties, Section \ref{varieties-section-generically-finite}.
+
+\begin{lemma}
+\label{lemma-quasi-finite-in-codim-1}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Assume $f$ is locally of finite type and $Y$ is locally Noetherian.
+Let $y \in |Y|$ be a point of codimension $\leq 1$ on $Y$.
+Let $X^0 \subset |X|$ be the set of points of codimension $0$ on $X$.
+Assume in addition one of the following conditions is satisfied
+\begin{enumerate}
+\item for every $x \in X^0$ the transcendence degree of $x/f(x)$ is $0$,
+\item for every $x \in X^0$ with $f(x) \leadsto y$
+the transcendence degree of $x/f(x)$ is $0$,
+\item $f$ is quasi-finite at every $x \in X^0$,
+\item $f$ is quasi-finite at a dense set of points of $|X|$,
+\item add more here.
+\end{enumerate}
+Then $f$ is quasi-finite at every point of $X$ lying over $y$.
+\end{lemma}
+
+\begin{proof}
+We want to reduce the proof to the case of schemes. To do this we
+choose a commutative diagram
+$$
+\xymatrix{
+U \ar[r] \ar[d]_g & X \ar[d]^f \\
+V \ar[r] & Y
+}
+$$
+where $U$, $V$ are schemes and where the horizontal arrows are \'etale
+and surjective. Pick $v \in V$ mapping to $y$. Observe that
+$V$ is locally Noetherian and that $\dim(\mathcal{O}_{V, v}) \leq 1$
+(see Properties of Spaces, Definitions
+\ref{spaces-properties-definition-dimension-local-ring} and
+Remark \ref{spaces-properties-remark-list-properties-local-etale-topology}).
+The fibre $U_v$ of $U \to V$ over $v$ surjects onto
+$f^{-1}(\{y\}) \subset |X|$. The inverse image of $X^0$ in $U$
+is exactly the set of
+generic points of irreducible components of $U$ (Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-codimension-0-points}).
+If $\eta \in U$ is such a point with image $x \in X^0$, then
+the transcendence degree of $x / f(x)$ is the transcendence
+degree of $\kappa(\eta)$ over $\kappa(g(\eta))$
+(Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-dimension-fibre}).
+Observe that $U \to V$ is quasi-finite at $u \in U$ if and only if
+$f$ is quasi-finite at the image of $u$ in $X$.
+
+\medskip\noindent
+Case (1). Here case (1) of
+Varieties, Lemma \ref{varieties-lemma-quasi-finite-in-codim-1} applies
+and we conclude that $U \to V$ is quasi-finite at all points of $U_v$.
+Hence $f$ is quasi-finite at every point lying over $y$.
+
+\medskip\noindent
+Case (2). Let $u \in U$ be a generic point of an irreducible component
+whose image in $V$ specializes to $v$. Then the image $x \in X^0$ of
+$u$ has the property that $f(x) \leadsto y$. Hence we see that
+case (2) of
+Varieties, Lemma \ref{varieties-lemma-quasi-finite-in-codim-1} applies
+and we conclude as before.
+
+\medskip\noindent
+Case (3) follows from case (3) of
+Varieties, Lemma \ref{varieties-lemma-quasi-finite-in-codim-1}.
+
+\medskip\noindent
+In case (4), since $|U| \to |X|$ is open, we see that
+the set of points where $U \to V$ is quasi-finite is dense as well.
+Hence case (4) of
+Varieties, Lemma \ref{varieties-lemma-quasi-finite-in-codim-1} applies.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-in-codim-1}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Assume $f$ is proper and $Y$ is locally Noetherian.
+Let $y \in Y$ be a point of codimension $\leq 1$ in $Y$.
+Let $X^0 \subset |X|$ be the set of points of codimension $0$ on $X$.
+Assume in addition one of the
+following conditions is satisfied
+\begin{enumerate}
+\item for every $x \in X^0$ the transcendence degree of $x/f(x)$ is $0$,
+\item for every $x \in X^0$ with $f(x) \leadsto y$ the transcendence degree
+of $x/f(x)$ is $0$,
+\item $f$ is quasi-finite at every $x \in X^0$,
+\item $f$ is quasi-finite at a dense set of points of $|X|$,
+\item add more here.
+\end{enumerate}
+Then there exists an open subspace $Y' \subset Y$ containing $y$ such that
+$Y' \times_Y X \to Y'$ is finite.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-quasi-finite-in-codim-1} the morphism $f$ is
+quasi-finite at every point lying over $y$. Let $\overline{y} : \Spec(k) \to Y$
+be a geometric point lying over $y$. Then $|X_{\overline{y}}|$ is a
+discrete space (Decent Spaces, Lemma
+\ref{decent-spaces-lemma-conditions-on-fibre-and-qf}).
+Since $X_{\overline{y}}$ is quasi-compact as $f$ is proper we conclude
+that $|X_{\overline{y}}|$ is finite.
+Thus we can apply Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-proper-finite-fibre-finite-in-neighbourhood}
+to conclude.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-modification-normal-iso-over-codimension-1}
+Let $S$ be a scheme. Let $X$ be a Noetherian algebraic space over $S$.
+Let $f : Y \to X$ be a birational proper morphism of algebraic spaces
+with $Y$ reduced.
+Let $U \subset X$ be the maximal open over which $f$ is an isomorphism.
+Then $U$ contains
+\begin{enumerate}
+\item every point of codimension $0$ in $X$,
+\item every $x \in |X|$ of codimension $1$ on $X$ such that the local ring of
+$X$ at $x$ is normal (Properties of Spaces, Remark
+\ref{spaces-properties-remark-list-properties-local-ring-local-etale-topology}),
+and
+\item every $x \in |X|$ such that the fibre of $|Y| \to |X|$ over $x$ is
+finite and such that the local ring of $X$ at $x$ is normal.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) follows from Decent Spaces, Lemma
+\ref{decent-spaces-lemma-birational-isomorphism-over-dense-open}
+(and the fact that the Noetherian algebraic spaces $X$ and $Y$
+are quasi-separated and hence decent).
+Part (2) follows from part (3) and Lemma \ref{lemma-finite-in-codim-1}
+(and the fact that finite morphisms have finite fibres).
+Let $x \in |X|$ be as in (3). By
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-proper-finite-fibre-finite-in-neighbourhood}
+(which applies by Decent Spaces, Lemma
+\ref{decent-spaces-lemma-conditions-on-fibre-and-qf})
+we may assume $f$ is finite. Choose an affine scheme $X'$ and
+an \'etale morphism $X' \to X$ and a point $x' \in X$ mapping to $x$.
+It suffices to show there exists an open neighbourhood $U'$ of $x' \in X'$
+such that $Y \times_X X' \to X'$ is an isomorphism over $U'$
+(namely, then $U$ contains the image of $U'$ in $X$, see Spaces, Lemma
+\ref{spaces-lemma-descent-representable-transformations-property}).
+Then $Y \times_X X' \to X$ is a finite birational
+(Decent Spaces, Lemma \ref{decent-spaces-lemma-birational-etale-localization})
+morphism. Since a finite morphism is affine we reduce to
+the case of a finite birational morphism of Noetherian affine schemes
+$Y \to X$ and $x \in X$ such that $\mathcal{O}_{X, x}$ is a
+normal domain. This is treated in Varieties, Lemma
+\ref{varieties-lemma-modification-normal-iso-over-codimension-1}.
+\end{proof}
+
+
+
+
+
+
+\section{Integral algebraic spaces}
+\label{section-integral-spaces}
+
+\noindent
+We have not yet defined the notion of an integral algebraic space. The
+problem is that being integral is not an \'etale local property of schemes.
+We could use the property, that $X$ is reduced and $|X|$ is irreducible,
+given in Properties, Lemma \ref{properties-lemma-characterize-integral}
+to define integral algebraic spaces. In this case the algebraic
+space described in Spaces, Example \ref{spaces-example-infinite-product}
+would be integral which does not seem right.
+To avoid this type of pathology we will in addition assume that $X$ is a
+decent algebraic space, although perhaps a weaker alternative exists.
+
+\begin{definition}
+\label{definition-integral-algebraic-space}
+Let $S$ be a scheme. We say an algebraic space $X$ over $S$ is
+{\it integral} if it is reduced, decent, and $|X|$ is irreducible.
+\end{definition}
+
+\noindent
+In this case the irreducible topological space $|X|$ is sober
+(Decent Spaces, Proposition \ref{decent-spaces-proposition-reasonable-sober}).
+Hence it has a unique generic point $x$.
+Then $x$ is contained in the schematic locus of $X$
+(Decent Spaces, Theorem \ref{decent-spaces-theorem-decent-open-dense-scheme})
+and we can look at its residue field as a substitute for
+the function field of $X$ (not yet defined; insert future reference here).
+In Decent Spaces, Lemma
+\ref{decent-spaces-lemma-finitely-many-irreducible-components}
+we characterized decent algebraic spaces with finitely many
+irreducible components. Applying that lemma we see that an
+algebraic space $X$ is integral if it is
+reduced, has an irreducible dense open subscheme $X'$
+with generic point $x'$ and the morphism $x' \to X$ is quasi-compact.
+
+\begin{lemma}
+\label{lemma-integral-sections}
+Let $S$ be a scheme. Let $X$ be an integral algebraic space over $S$.
+Then $\Gamma(X, \mathcal{O}_X)$ is a domain.
+\end{lemma}
+
+\begin{proof}
+Set $R = \Gamma(X, \mathcal{O}_X)$. If $f, g \in R$ are nonzero and
+$fg = 0$ then $X = V(f) \cup V(g)$ where $V(f)$ denotes the closed subspace
+of $X$ cut out by $f$. Since $X$ is irreducible, we see that either
+$V(f) = X$ or $V(g) = X$. Then either $f = 0$ or $g = 0$ by
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-reduced-space}.
+\end{proof}
+
+\noindent
+The following lemma characterizes dominant morphisms of finite degree
+between integral algebraic spaces.
+
+\begin{lemma}
+\label{lemma-finite-degree}
+Let $S$ be a scheme. Let $X$, $Y$ be integral algebraic spaces over $S$
+Let $x \in |X|$ and $y \in |Y|$ be the generic points. Let $f : X \to Y$
+be locally of finite type. Assume $f$ is dominant
+(Morphisms of Spaces, Definition \ref{spaces-morphisms-definition-dominant}).
+The following are equivalent:
+\begin{enumerate}
+\item the transcendence degree of $x/y$ is $0$,
+\item the extension $\kappa(x) \supset \kappa(y)$ (see proof) is finite,
+\item there exist nonempty affine opens $U \subset X$ and $V \subset Y$
+such that $f(U) \subset V$ and $f|_U : U \to V$ is finite,
+\item $f$ is quasi-finite at $x$, and
+\item $x$ is the only point of $|X|$ mapping to $y$.
+\end{enumerate}
+If $f$ is separated or if $f$ is quasi-compact, then these are
+also equivalent to
+\begin{enumerate}
+\item[(6)] there exists a nonempty affine open $V \subset Y$ such
+that $f^{-1}(V) \to V$ is finite.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By elementary topology, we see that $f(x) = y$ as $f$ is dominant.
+Let $Y' \subset Y$ be the schematic locus of $Y$ and let
+$X' \subset f^{-1}(Y')$ be the schematic locus of $f^{-1}(Y')$.
+By the discussion above, using
+Decent Spaces, Proposition \ref{decent-spaces-proposition-reasonable-sober} and
+Theorem \ref{decent-spaces-theorem-decent-open-dense-scheme},
+we see that $x \in |X'|$ and $y \in |Y'|$.
+Then $f|_{X'} : X' \to Y'$ is a morphism of integral schemes
+which is locally of finite type. Thus we see that (1), (2), (3)
+are equivalent by Morphisms, Lemma \ref{morphisms-lemma-finite-degree}.
+
+\medskip\noindent
+Condition (4) implies condition (1) by
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-compare-tr-deg}
+applied to $X \to Y \to Y$.
+On the other hand, condition (3) implies condition (4) as
+a finite morphism is quasi-finite and as $x \in U$ because $x$
+is the generic point. Thus (1) -- (4) are equivalent.
+
+\medskip\noindent
+Assume the equivalent conditions (1) -- (4). Suppose that
+$x' \mapsto y$. Then $x \leadsto x'$ is a specialization in the
+fibre of $|X| \to |Y|$ over $y$. If $x' \not = x$, then $f$ is not
+quasi-finite at $x$ by Decent Spaces, Lemma
+\ref{decent-spaces-lemma-conditions-on-point-in-fibre-and-qf}.
+Hence $x = x'$ and (5) holds. Conversely, if (5) holds, then
+(5) holds for the morphism of schemes $X' \to Y'$ (see above)
+and we can use
+Morphisms, Lemma \ref{morphisms-lemma-finite-degree}
+to see that (1) holds.
+
+\medskip\noindent
+Observe that (6) implies the equivalent conditions (1) -- (5)
+without any further assumptions on $f$. To finish the proof
+we have to show the equivalent conditions (1) -- (5) imply (6).
+This follows from Decent Spaces, Lemma
+\ref{decent-spaces-lemma-finite-over-dense-open}.
+\end{proof}
+
+\begin{definition}
+\label{definition-degree}
+Let $S$ be a scheme.
+Let $X$ and $Y$ be integral algebraic spaces over $S$.
+Let $f : X \to Y$ be locally of finite type and dominant.
+Assume any of the equivalent conditions (1) -- (5) of
+Lemma \ref{lemma-finite-degree}. Let $x \in |X|$ and $y \in |Y|$
+be the generic points. Then the positive integer
+$$
+\text{deg}(X/Y) = [\kappa(x) : \kappa(y)]
+$$
+is called the {\it degree of $X$ over $Y$}.
+\end{definition}
+
+\noindent
+Here is a lemma about normal integral algebraic spaces.
+
+\begin{lemma}
+\label{lemma-normal-integral-cover-by-affines}
+Let $S$ be a scheme. Let $X$ be a normal integral algebraic space over $S$.
+For every $x \in |X|$ there exists a normal integral affine scheme $U$
+and an \'etale morphism $U \to X$ such that $x$ is in the image.
+\end{lemma}
+
+\begin{proof}
+Choose an affine scheme $U$ and an \'etale morphism $U \to X$ such that
+$x$ is in the image. Let $u_i$, $i \in I$ be the generic points of irreducible
+components of $U$. Then each $u_i$ maps to the generic point of $X$
+(Decent Spaces, Lemma \ref{decent-spaces-lemma-decent-generic-points}). By 
+our definition of a decent space
+(Decent Spaces, Definition \ref{decent-spaces-definition-very-reasonable}),
+we see that $I$ is finite. Hence $U = \Spec(A)$ where $A$ is a normal ring
+with finitely many minimal primes.
+Thus $A = \prod_{i \in I} A_i$ is a product of normal domains by
+Algebra, Lemma \ref{algebra-lemma-characterize-reduced-ring-normal}.
+Then $U = \coprod U_i$ with $U_i = \Spec(A_i)$ and $x$ is in the image of
+$U_i \to X$ for some $i$. This proves the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normal-integral-sections}
+Let $S$ be a scheme. Let $X$ be a normal integral algebraic space over $S$.
+Then $\Gamma(X, \mathcal{O}_X)$ is a normal domain.
+\end{lemma}
+
+\begin{proof}
+Set $R = \Gamma(X, \mathcal{O}_X)$. Then $R$ is a domain by
+Lemma \ref{lemma-integral-sections}.
+Let $f = a/b$ be an element of the fraction field of $R$
+which is integral over $R$.
+For any $U \to X$ \'etale with $U$ a scheme there is at most one
+$f_U \in \Gamma(U, \mathcal{O}_U)$ with $b|_U f_U = a|_U$.
+Namely, $U$ is reduced and the generic points of $U$ map to
+the generic point of $X$ which implies that $b|_U$ is a
+nonzerodivisor.
+For every $x \in |X|$ we choose $U \to X$ as in
+Lemma \ref{lemma-normal-integral-cover-by-affines}.
+Then there is a unique $f_U \in \Gamma(U, \mathcal{O}_U)$
+with $b|_U f_U = a|_U$ because
+$\Gamma(U, \mathcal{O}_U)$ is a normal domain by
+Properties, Lemma \ref{properties-lemma-normal-integral-sections}.
+By the uniqueness mentioned above these $f_U$
+glue and define a global section $f$ of the structure
+sheaf, i.e., of $R$.
+\end{proof}
+
+
+
+
+
+
+\section{Modifications and alterations}
+\label{section-modifications-alterations}
+
+\noindent
+Using our notion of an integral algebraic space we can define a modification
+as follows.
+
+\begin{definition}
+\label{definition-modification}
+Let $S$ be a scheme. Let $X$ be an integral algebraic space over $S$. A
+{\it modification of $X$} is a birational proper morphism
+$f : X' \to X$ of algebraic spaces over $S$ with $X'$ integral.
+\end{definition}
+
+\noindent
+For birational morphisms of algebraic spaces, see
+Decent Spaces, Definition \ref{decent-spaces-definition-birational}.
+
+\begin{lemma}
+\label{lemma-modification-iso-over-open}
+Let $f : X' \to X$ be a modification as in
+Definition \ref{definition-modification}.
+There exists a nonempty open $U \subset X$ such that $f^{-1}(U) \to U$
+is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+By
+Lemma \ref{lemma-finite-degree} there exists a nonempty $U \subset X$ such
+that $f^{-1}(U) \to U$ is finite. By generic flatness
+(Morphisms of Spaces, Proposition
+\ref{spaces-morphisms-proposition-generic-flatness-reduced})
+we may assume $f^{-1}(U) \to U$ is flat and of finite presentation.
+So $f^{-1}(U) \to U$ is finite locally free
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-finite-flat}).
+Since $f$ is birational, the degree of $X'$ over $X$ is $1$.
+Hence $f^{-1}(U) \to U$ is finite locally free of degree $1$,
+in other words it is an isomorphism.
+\end{proof}
+
+\begin{definition}
+\label{definition-alteration}
+Let $S$ be a scheme. Let $X$ be an integral algebraic space over $S$.
+An {\it alteration of $X$} is a proper dominant morphism $f : Y \to X$
+of algebraic spaces over $S$ with $Y$ integral such that $f^{-1}(U) \to U$
+is finite for some nonempty open $U \subset X$.
+\end{definition}
+
+\noindent
+If $f : Y \to X$ is a dominant and proper morphism between integral
+algebraic spaces, then it is an alteration as soon as the induced
+extension of residue fields in generic points is finite. Here is the
+precise statement.
+
+\begin{lemma}
+\label{lemma-alteration-generically-finite}
+Let $S$ be a scheme. Let $f : X \to Y$ be a proper dominant morphism of
+integral algebraic spaces over $S$. Then $f$ is an alteration
+if and only if any of the equivalent conditions (1) -- (6) of
+Lemma \ref{lemma-finite-degree} hold.
+\end{lemma}
+
+\begin{proof}
+Immediate consequence of the lemma referenced in the statement.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-alteration-contained-in}
+Let $S$ be a scheme. Let $f : X \to Y$ be a proper surjective morphism of
+algebraic spaces over $S$. Assume $Y$ is integral. Then
+there exists an integral closed subspace $X' \subset X$ such that
+$f' = f|_{X'} : X' \to Y$ is an alteration.
+\end{lemma}
+
+\begin{proof}
+Let $V \subset Y$ be a nonempty open affine
+(Decent Spaces, Theorem \ref{decent-spaces-theorem-decent-open-dense-scheme}).
+Let $\eta \in V$ be the generic point. Then
+$X_\eta$ is a nonempty proper algebraic space over $\eta$.
+Choose a closed point $x \in |X_\eta|$
+(exists because $|X_\eta|$ is a quasi-compact, sober
+topological space, see Decent Spaces, Proposition
+\ref{decent-spaces-proposition-reasonable-sober}
+and Topology, Lemma \ref{topology-lemma-quasi-compact-closed-point}.)
+Let $X'$ be the reduced induced closed subspace structure on
+$\overline{\{x\}} \subset |X|$ (Properties of Spaces, Definition
+\ref{spaces-properties-definition-reduced-induced-space}.
+Then $f' : X' \to Y$ is surjective as the image contains $\eta$.
+Also $f'$ is proper as a composition of a closed immersion
+and a proper morphism. Finally, the fibre $X'_\eta$ has a
+single point; to see this use
+Decent Spaces, Lemma \ref{decent-spaces-lemma-topology-fibre}
+for both $X \to Y$ and $X' \to Y$ and the point $\eta$.
+Since $Y$ is decent and $X' \to Y$ is separated we see that $X'$ is decent
+(Decent Spaces, Lemmas
+\ref{decent-spaces-lemma-properties-trivial-implications} and
+\ref{decent-spaces-lemma-property-over-property}).
+Thus $f'$ is an alteration by
+Lemma \ref{lemma-alteration-generically-finite}.
+\end{proof}
+
+
+
+
+
+
+\section{Schematic locus}
+\label{section-schematic}
+
+\noindent
+We have already proven a number of results on the schematic locus
+of an algebraic space. Here is a list of references:
+\begin{enumerate}
+\item Properties of Spaces, Sections
+\ref{spaces-properties-section-schematic} and
+\ref{spaces-properties-section-getting-a-scheme},
+\item Decent Spaces, Section \ref{decent-spaces-section-schematic},
+\item Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-point-like-spaces}
+$\Leftarrow$
+Decent Spaces, Lemma \ref{decent-spaces-lemma-decent-point-like-spaces}
+$\Leftarrow$
+Decent Spaces, Lemma \ref{decent-spaces-lemma-when-field},
+\item Limits of Spaces, Section \ref{spaces-limits-section-affine}, and
+\item Limits of Spaces, Section \ref{spaces-limits-section-representable}.
+\end{enumerate}
+There are some cases where certain types of morphisms of algebraic spaces
+are automatically representable, for example
+separated, locally quasi-finite morphisms (Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable}),
+and flat monomorphisms (More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-flat-case})
+In Section \ref{section-schematic-and-field-extension}
+we will study what happens with the schematic
+locus under extension of base field.
+
+\begin{lemma}
+\label{lemma-locally-finite-type-dim-zero}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+In each of the following cases $X$ is a scheme:
+\begin{enumerate}
+\item $X$ is quasi-compact and quasi-separated and $\dim(X) = 0$,
+\item $X$ is locally of finite type over a field $k$ and $\dim(X) = 0$,
+\item $X$ is Noetherian and $\dim(X) = 0$, and
+\item add more here.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Cases (2) and (3) follow immediately from case (1) but we will give a separate
+proofs of (2) and (3) as these proofs use significantly less theory.
+
+\medskip\noindent
+Proof of (3). Let $U$ be an affine scheme and let $U \to X$ be an
+\'etale morphism. Set $R = U \times_X U$. The two projection
+morphisms $s, t : R \to U$ are \'etale morphisms of schemes. By
+Properties of Spaces, Definition \ref{spaces-properties-definition-dimension}
+we see that $\dim(U) = 0$ and $\dim(R) = 0$.
+Since $R$ is a locally Noetherian scheme of dimension $0$,
+we see that $R$ is a disjoint union of spectra of
+Artinian local rings
+(Properties, Lemma \ref{properties-lemma-locally-Noetherian-dimension-0}).
+Since we assumed that $X$ is Noetherian (so quasi-separated) we
+conclude that $R$ is quasi-compact. Hence $R$ is an affine scheme
+(use Schemes, Lemma \ref{schemes-lemma-disjoint-union-affines}).
+The \'etale morphisms $s, t : R \to U$ induce finite residue field
+extensions. Hence $s$ and $t$ are finite by
+Algebra, Lemma
+\ref{algebra-lemma-essentially-of-finite-type-into-artinian-local}
+(small detail omitted). 
+Thus
+Groupoids, Proposition \ref{groupoids-proposition-finite-flat-equivalence}
+shows that $X = U/R$ is an affine scheme.
+
+\medskip\noindent
+Proof of (2) -- almost identical to the proof of (4).
+Let $U$ be an affine scheme and let $U \to X$ be an \'etale morphism.
+Set $R = U \times_X U$. The two projection morphisms
+$s, t : R \to U$ are \'etale morphisms of schemes. By
+Properties of Spaces, Definition \ref{spaces-properties-definition-dimension}
+we see that $\dim(U) = 0$ and similarly $\dim(R) = 0$.
+On the other hand, the morphism $U \to \Spec(k)$ is locally of finite
+type as the composition of the \'etale morphism $U \to X$ and
+$X \to \Spec(k)$, see
+Morphisms of Spaces,
+Lemmas \ref{spaces-morphisms-lemma-composition-finite-type} and
+\ref{spaces-morphisms-lemma-etale-locally-finite-type}.
+Similarly, $R \to \Spec(k)$ is locally of finite type.
+Hence by
+Varieties, Lemma \ref{varieties-lemma-algebraic-scheme-dim-0}
+we see that $U$ and $R$ are disjoint unions of spectra of
+local Artinian $k$-algebras finite over $k$. The same thing
+is therefore true of $U \times_{\Spec(k)} U$. As
+$$
+R = U \times_X U \longrightarrow U \times_{\Spec(k)} U
+$$
+is a monomorphism, we see that $R$ is a finite(!) union of spectra of
+finite $k$-algebras. It follows that $R$ is affine, see
+Schemes, Lemma \ref{schemes-lemma-disjoint-union-affines}.
+Applying
+Varieties, Lemma \ref{varieties-lemma-algebraic-scheme-dim-0}
+once more we see that $R$ is finite over $k$. Hence $s, t$
+are finite, see
+Morphisms, Lemma \ref{morphisms-lemma-finite-permanence}.
+Thus
+Groupoids, Proposition \ref{groupoids-proposition-finite-flat-equivalence}
+shows that the open subspace $U/R$ of $X$ is an affine scheme. Since the
+schematic locus of $X$ is an open subspace (see
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-subscheme}),
+and since $U \to X$ was an arbitrary \'etale morphism from an affine scheme
+we conclude that $X$ is a scheme.
+
+\medskip\noindent
+Proof of (1). By Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-vanishing-above-dimension}
+we have vanishing of higher cohomology groups for all
+quasi-coherent sheaves $\mathcal{F}$ on $X$. Hence $X$
+is affine (in particular a scheme) by
+Cohomology of Spaces, Proposition
+\ref{spaces-cohomology-proposition-vanishing-affine}.
+\end{proof}
+
+\noindent
+The following lemma tells us that a quasi-separated algebraic space
+is a scheme away from codimension $1$.
+
+\begin{lemma}
+\label{lemma-generic-point-in-schematic-locus}
+Let $S$ be a scheme. Let $X$ be a quasi-separated algebraic space over $S$.
+Let $x \in |X|$. The following are equivalent
+\begin{enumerate}
+\item $x$ is a point of codimension $0$ on $X$,
+\item the local ring of $X$ at $x$ has dimension $0$, and
+\item $x$ is a generic point of an irreducible component of $|X|$.
+\end{enumerate}
+If true, then there exists an open subspace of $X$
+containing $x$ which is a scheme.
+\end{lemma}
+
+\begin{proof}
+The equivalence of (1), (2), and (3) follows from
+Decent Spaces, Lemma \ref{decent-spaces-lemma-decent-generic-points}
+and the fact that a quasi-separated algebraic space is decent
+(Decent Spaces, Section \ref{decent-spaces-section-reasonable-decent}).
+However in the next paragraph we will give a more elementary proof of the
+equivalence.
+
+\medskip\noindent
+Note that (1) and (2) are equivalent by definition
+(Properties of Spaces, Definition
+\ref{spaces-properties-definition-dimension-local-ring}).
+To prove the equivalence of (1) and (3) we may assume $X$ is quasi-compact.
+Choose
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+and $f_i : V_i \to U_i$ as in Decent Spaces, Lemma
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated}.
+Say $x \in U_i$, $x \not \in U_{i + 1}$. Then $x = f_i(y)$ for
+a unique $y \in V_i$. If (1) holds, then $y$ is a generic point of
+an irreducible component of $V_i$ (Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-codimension-0-points}).
+Since $f_i^{-1}(U_{i + 1})$ is a quasi-compact open of $V_i$
+not containing $y$, there is an open neighbourhood $W \subset V_i$
+of $y$ disjoint from $f_i^{-1}(V_i)$
+(see
+Properties, Lemma \ref{properties-lemma-generic-point-in-constructible}
+or more simply Algebra, Lemma
+\ref{algebra-lemma-standard-open-containing-maximal-point}).
+Then $f_i|_W : W \to X$ is an isomorphism onto its image and hence
+$x = f_i(y)$ is a generic point of $|X|$. Conversely, assume (3) holds.
+Then $f_i$ maps $\overline{\{y\}}$ onto the irreducible component
+$\overline{\{x\}}$ of $|U_i|$. Since $|f_i|$ is bijective over
+$\overline{\{x\}}$, it follows that $\overline{\{y\}}$
+is an irreducible component of $U_i$. Thus $x$ is a point of
+codimension $0$.
+
+\medskip\noindent
+The final statement of the lemma is
+Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}.
+\end{proof}
+
+\noindent
+The following lemma says that a separated locally Noetherian algebraic
+space is a scheme in codimension $1$, i.e., away from codimension $2$.
+
+\begin{lemma}
+\label{lemma-codim-1-point-in-schematic-locus}
+\begin{slogan}
+Separated algebraic spaces are schemes in codimension 1.
+\end{slogan}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $x \in |X|$. If $X$ is separated, locally Noetherian, and
+the dimension of the local ring of $X$ at $x$ is $\leq 1$
+(Properties of Spaces, Definition
+\ref{spaces-properties-definition-dimension-local-ring}),
+then there exists an open subspace of $X$ containing $x$ which is a scheme.
+\end{lemma}
+
+\begin{proof}
+(Please see the remark below for a different approach avoiding the material on
+finite groupoids.) We can replace $X$ by an quasi-compact neighbourhood of
+$x$, hence we may assume $X$ is quasi-compact, separated, and Noetherian.
+There exists a scheme $U$ and a finite surjective morphism $U \to X$,
+see Limits of Spaces, Proposition
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}.
+Let $R = U \times_X U$. Then $j : R \to U \times_S U$ is an equivalence
+relation and we obtain a groupoid scheme $(U, R, s, t, c)$ over $S$
+with $s, t$ finite and $U$ Noetherian and separated.
+Let $\{u_1, \ldots, u_n\} \subset U$ be the set of points mapping to $x$. 
+Then $\dim(\mathcal{O}_{U, u_i}) \leq 1$ by
+Decent Spaces, Lemma
+\ref{decent-spaces-lemma-dimension-local-ring-quasi-finite}.
+
+\medskip\noindent
+By More on Groupoids, Lemma
+\ref{more-groupoids-lemma-find-affine-codimension-1}
+there exists an $R$-invariant affine open $W \subset U$ containing
+the orbit $\{u_1, \ldots, u_n\}$. Since $U \to X$ is finite surjective
+the continuous map $|U| \to |X|$ is closed surjective, hence
+submersive by Topology, Lemma
+\ref{topology-lemma-closed-morphism-quotient-topology}.
+Thus $f(W)$ is open and there is an open subspace $X' \subset X$
+with $f : W \to X'$ a surjective finite morphism.
+Then $X'$ is an affine scheme by
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-image-affine-finite-morphism-affine-Noetherian}
+and the proof is finished.
+\end{proof}
+
+\begin{remark}
+\label{remark-alternate-proof-scheme-codim-1}
+Here is a sketch of a proof of
+Lemma \ref{lemma-codim-1-point-in-schematic-locus}
+which avoids using
+More on Groupoids, Lemma
+\ref{more-groupoids-lemma-find-affine-codimension-1}.
+
+\medskip\noindent
+Step 1. We may assume $X$ is a reduced Noetherian separated algebraic space
+(for example by Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-image-affine-finite-morphism-affine-Noetherian}
+or by
+Limits of Spaces, Lemma \ref{spaces-limits-lemma-reduction-scheme})
+and we may choose a finite surjective morphism
+$Y \to X$ where $Y$ is a Noetherian scheme (by
+Limits of Spaces, Proposition
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}).
+
+\medskip\noindent
+Step 2. After replacing $X$ by an open neighbourhood of $x$, there
+exists a birational finite morphism $X' \to X$ and a closed subscheme
+$Y' \subset X' \times_X Y$ such that $Y' \to X'$ is surjective
+finite locally free. Namely, because $X$ is reduced there is a dense
+open subspace $U \subset X$ over which $Y$ is flat (Morphisms of Spaces,
+Proposition \ref{spaces-morphisms-proposition-generic-flatness-reduced}).
+Then we can choose a $U$-admissible blow up $b : \tilde X \to X$ such
+that the strict transform $\tilde Y$ of $Y$ is flat over $\tilde X$, see
+More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-flat-after-blowing-up}.
+(An alternative is to use Hilbert schemes if one wants to avoid using
+the result on blow ups).
+Then we let $X' \subset \tilde X$ be the scheme theoretic
+closure of $b^{-1}(U)$ and $Y' = X' \times_{\tilde X} \tilde Y$.
+Since $x$ is a codimension $1$ point, we see that $X' \to X$ is finite over a
+neighbourhood of $x$ (Lemma \ref{lemma-finite-in-codim-1}).
+
+\medskip\noindent
+Step 3. After shrinking $X$ to a smaller neighbourhood of $x$ we get that
+$X'$ is a scheme. This holds because $Y'$ is a scheme and $Y' \to X'$
+being finite locally free and because every finite set of codimension $1$
+points of $Y'$ is contained in an affine open. Use
+Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-finite-flat-equivalence-global}
+and
+Varieties, Proposition
+\ref{varieties-proposition-finite-set-of-points-of-codim-1-in-affine}.
+
+\medskip\noindent
+Step 4. There exists an affine open $W' \subset X'$ containing all points
+lying over $x$ which is the inverse image of an open subspace of $X$.
+To prove this let $Z \subset X$ be the closure of the set of points
+where $X' \to X$ is not an isomorphism. We may assume $x \in Z$ otherwise
+we are already done. Then $x$ is a generic point of an irreducible
+component of $Z$ and after shrinking $X$ we may assume $Z$ is an affine scheme
+(Lemma \ref{lemma-generic-point-in-schematic-locus}).
+Then the inverse image $Z' \subset X'$ is an affine scheme as well.
+Say $x_1, \ldots, x_n \in Z'$ are the points mapping to $x$.
+Then we can find an affine open $W'$ in $X'$ whose intersection with
+$Z'$ is the inverse image of a principal open of $Z$ containing $x$.
+Namely, we first pick an affine open $W' \subset X'$ containing
+$x_1, \ldots, x_n$ using Varieties, Proposition
+\ref{varieties-proposition-finite-set-of-points-of-codim-1-in-affine}.
+Then we pick a principal open $D(f) \subset Z$ containing $x$
+whose inverse image $D(f|_{Z'})$ is contained in $W' \cap Z'$.
+Then we pick $f' \in \Gamma(W', \mathcal{O}_{W'})$ restricting
+to $f|_{Z'}$ and we replace $W'$ by $D(f') \subset W'$.
+Since $X' \to X$ is an isomorphism away from $Z' \to Z$ the choice
+of $W'$ guarantees that the image $W \subset X$ of $W'$ is open
+with inverse image $W'$ in $X'$.
+
+\medskip\noindent
+Step 5. Then $W' \to W$ is a finite surjective morphism and $W$ is a scheme by
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-image-affine-finite-morphism-affine-Noetherian}
+and the proof is complete.
+\end{remark}
+
+
+
+
+
+\section{Schematic locus and field extension}
+\label{section-schematic-and-field-extension}
+
+\noindent
+It can happen that a nonrepresentable algebraic space over a field $k$
+becomes representable (i.e., a scheme) after base change to an extension
+of $k$. See Spaces, Example \ref{spaces-example-non-representable-descent}.
+In this section we address this issue.
+
+\begin{lemma}
+\label{lemma-scheme-after-purely-inseparable-base-change}
+Let $k$ be a field. Let $X$ be an algebraic space over $k$.
+If there exists a purely inseparable field extension $k \subset k'$
+such that $X_{k'}$ is a scheme, then $X$ is a scheme.
+\end{lemma}
+
+\begin{proof}
+The morphism $X_{k'} \to X$ is integral, surjective, and
+universally injective. Hence this lemma follows from
+Limits of Spaces, Lemma
+\ref{spaces-limits-lemma-integral-universally-bijective-scheme}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-when-scheme-after-base-change}
+Let $k$ be a field with algebraic closure $\overline{k}$.
+Let $X$ be a quasi-separated algebraic space over $k$.
+\begin{enumerate}
+\item If there exists a field extension $k \subset K$ such that
+$X_K$ is a scheme, then $X_{\overline{k}}$ is a scheme.
+\item If $X$ is quasi-compact and there exists a field extension
+$k \subset K$ such that $X_K$ is a scheme, then $X_{k'}$
+is a scheme for some finite separable extension $k'$ of $k$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Since every algebraic space is the union of its quasi-compact open
+subspaces, we see that the first part of the lemma follows from
+the second part (some details omitted). Thus we assume $X$ is quasi-compact
+and we assume given an extension $k \subset K$ with $K_K$ representable.
+Write $K = \bigcup A$ as the colimit of finitely generated $k$-subalgebras
+$A$. By Limits of Spaces, Lemma \ref{spaces-limits-lemma-limit-is-scheme}
+we see that $X_A$ is a scheme for some $A$. Choose a maximal ideal
+$\mathfrak m \subset A$. By the Hilbert Nullstellensatz
+(Algebra, Theorem \ref{algebra-theorem-nullstellensatz})
+the residue field $k' = A/\mathfrak m$ is a finite extension of $k$.
+Thus we see that $X_{k'}$ is a scheme. If $k' \supset k$ is not
+separable, let $k' \supset k'' \supset k$ be the subextension
+found in Fields, Lemma \ref{fields-lemma-separable-first}.
+Since $k'/k''$ is purely inseparable, by
+Lemma \ref{lemma-scheme-after-purely-inseparable-base-change}
+the algebraic space $X_{k''}$ is a scheme. Since $k''|k$ is separable
+the proof is complete.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-by-Galois}
+Let $k \subset k'$ be a finite Galois extension with Galois group $G$.
+Let $X$ be an algebraic space over $k$. Then $G$ acts freely on the
+algebraic space $X_{k'}$ and $X = X_{k'}/G$ in the sense of
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-quotient}.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hints: First show that $\Spec(k) = \Spec(k')/G$.
+Then use compatibility of taking quotients with base change.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-when-quotient-scheme-at-point}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$ and
+let $G$ be a finite group acting freely on $X$. Set $Y = X/G$ as
+in Properties of Spaces, Lemma \ref{spaces-properties-lemma-quotient}.
+For $y \in |Y|$ the following are equivalent
+\begin{enumerate}
+\item $y$ is in the schematic locus of $Y$, and
+\item there exists an affine open $U \subset X$
+containing the preimage of $y$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+It follows from the construction of $Y = X/G$ in
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-quotient}
+that the morphism $X \to Y$ is surjective and \'etale.
+Of course we have $X \times_Y X = X \times G$ hence the morphism
+$X \to Y$ is even finite \'etale. It is also surjective.
+Thus the lemma follows from
+Decent Spaces, Lemma \ref{decent-spaces-lemma-when-quotient-scheme-at-point}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-scheme-after-purely-transcendental-base-change}
+Let $k$ be a field. Let $X$ be a quasi-separated
+algebraic space over $k$. If there exists a purely transcendental
+field extension $k \subset K$ such that $X_K$ is a scheme, then
+$X$ is a scheme.
+\end{lemma}
+
+\begin{proof}
+Since every algebraic space is the union of its quasi-compact open
+subspaces, we may assume $X$ is quasi-compact (some details omitted).
+Recall (Fields, Definition \ref{fields-definition-transcendence})
+that the assumption on the extension $K/k$ signifies that
+$K$ is the fraction field of a polynomial ring (in possibly infinitely
+many variables) over $k$. Thus $K = \bigcup A$ is the union of subalgebras
+each of which is a localization of a finite polynomial algebra over $k$.
+By Limits of Spaces, Lemma \ref{spaces-limits-lemma-limit-is-scheme}
+we see that $X_A$ is a scheme for some $A$. Write
+$$
+A = k[x_1, \ldots, x_n][1/f]
+$$
+for some nonzero $f \in k[x_1, \ldots, x_n]$.
+
+\medskip\noindent
+If $k$ is infinite then we can finish the proof as follows: choose
+$a_1, \ldots, a_n \in k$ with $f(a_1, \ldots, a_n) \not = 0$.
+Then $(a_1, \ldots, a_n)$ define an $k$-algebra map $A \to k$
+mapping $x_i$ to $a_i$ and $1/f$ to $1/f(a_1, \ldots, a_n)$.
+Thus the base change $X_A \times_{\Spec(A)} \Spec(k) \cong X$ is a
+scheme as desired.
+
+\medskip\noindent
+In this paragraph we finish the proof in case $k$ is finite. In this
+case we write $X = \lim X_i$ with $X_i$ of finite presentation over $k$
+and with affine transition morphisms
+(Limits of Spaces, Lemma \ref{spaces-limits-lemma-relative-approximation}).
+Using Limits of Spaces, Lemma \ref{spaces-limits-lemma-limit-is-scheme}
+we see that $X_{i, A}$ is a scheme for some $i$. Thus we may assume
+$X \to \Spec(k)$ is of finite presentation. Let $x \in |X|$ be a closed
+point. We may represent $x$ by a closed immersion
+$\Spec(\kappa) \to X$
+(Decent Spaces, Lemma \ref{decent-spaces-lemma-decent-space-closed-point}).
+Then $\Spec(\kappa) \to \Spec(k)$ is of finite type, hence $\kappa$
+is a finite extension of $k$ (by the Hilbert Nullstellensatz, see
+Algebra, Theorem \ref{algebra-theorem-nullstellensatz};
+some details omitted). Say $[\kappa : k] = d$. Choose an integer
+$n \gg 0$ prime to $d$ and let $k \subset k'$ be the extension
+of degree $n$. Then $k'/k$ is Galois with $G = \text{Aut}(k'/k)$
+cyclic of order $n$. If $n$ is large enough there will be $k$-algebra
+homomorphism $A \to k'$ by the same reason as above.
+Then $X_{k'}$ is a scheme and $X = X_{k'}/G$
+(Lemma \ref{lemma-base-change-by-Galois}).
+On the other hand, since $n$ and $d$ are relatively prime we see that
+$$
+\Spec(\kappa) \times_{X} X_{k'} =
+\Spec(\kappa) \times_{\Spec(k)} \Spec(k') =
+\Spec(\kappa \otimes_k k')
+$$
+is the spectrum of a field. In other words, the fibre of $X_{k'} \to X$
+over $x$ consists of a single point. Thus by
+Lemma \ref{lemma-when-quotient-scheme-at-point}
+we see that $x$ is in the schematic locus of $X$ as desired.
+\end{proof}
+
+\begin{remark}
+\label{remark-when-does-the-argument-work}
+Let $k$ be finite field. Let $K \supset k$ be a geometrically
+irreducible field extension. Then $K$ is the limit of geometrically
+irreducible finite type $k$-algebras $A$. Given $A$ the estimates
+of Lang and Weil \cite{LW}, show that for $n \gg 0$ there exists
+an $k$-algebra homomorphism $A \to k'$ with $k'/k$ of degree $n$.
+Analyzing the argument given in the proof of
+Lemma \ref{lemma-scheme-after-purely-transcendental-base-change}
+we see that if $X$ is a quasi-separated algebraic space over $k$
+and $X_K$ is a scheme, then $X$ is a scheme. If we ever need this
+result we will precisely formulate it and prove it here.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-scheme-over-algebraic-closure-enough-affines}
+Let $k$ be a field with algebraic closure $\overline{k}$. Let $X$
+be an algebraic space over $k$ such that
+\begin{enumerate}
+\item $X$ is decent and locally of finite type over $k$,
+\item $X_{\overline{k}}$ is a scheme, and
+\item any finite set of $\overline{k}$-rational points of $X_{\overline{k}}$
+are contained in an affine.
+\end{enumerate}
+Then $X$ is a scheme.
+\end{lemma}
+
+\begin{proof}
+If $k \subset K$ is an extension, then the base change $X_K$ is
+decent (Decent Spaces, Lemma
+\ref{decent-spaces-lemma-representable-named-properties})
+and locally of finite type
+over $K$ (Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-base-change-finite-type}).
+By Lemma \ref{lemma-scheme-after-purely-inseparable-base-change}
+it suffices to prove that $X$ becomes a scheme after base change to
+the perfection of $k$, hence we may assume $k$ is a perfect field
+(this step isn't strictly necessary, but makes the other arguments
+easier to think about).
+By covering $X$ by quasi-compact opens we see that it suffices to prove
+the lemma in case $X$ is quasi-compact (small detail omitted).
+In this case $|X|$ is a sober topological space
+(Decent Spaces, Proposition
+\ref{decent-spaces-proposition-reasonable-sober}).
+Hence it suffices to show that every closed point in $|X|$
+is contained in the schematic locus of $X$
+(use Properties of Spaces, Lemma \ref{spaces-properties-lemma-subscheme} and
+Topology, Lemma \ref{topology-lemma-quasi-compact-closed-point}).
+
+\medskip\noindent
+Let $x \in |X|$ be a closed point. By Decent Spaces, Lemma
+\ref{decent-spaces-lemma-decent-space-closed-point}
+we can find a closed immersion $\Spec(l) \to X$ representing $x$.
+Then $\Spec(l) \to \Spec(k)$ is of finite type (Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-composition-finite-type}) and we
+conclude that $l$ is a finite extension of $k$
+by the Hilbert Nullstellensatz (Algebra, Theorem
+\ref{algebra-theorem-nullstellensatz}). It is separable because
+$k$ is perfect. Thus the scheme
+$$
+\Spec(l) \times_X X_{\overline{k}} =
+\Spec(l) \times_{\Spec(k)} \Spec(\overline{k}) =
+\Spec(l \otimes_k \overline{k})
+$$
+is the disjoint union of a finite number of $\overline{k}$-rational points.
+By assumption (3) we can find an affine open $W \subset X_{\overline{k}}$
+containing these points.
+
+\medskip\noindent
+By Lemma \ref{lemma-when-scheme-after-base-change} we see that $X_{k'}$
+is a scheme for some finite extension $k'/k$. After enlarging
+$k'$ we may assume that there exists an affine open $U' \subset X_{k'}$
+whose base change to $\overline{k}$ recovers $W$
+(use that $X_{\overline{k}}$ is the limit of the schemes $X_{k''}$
+for $k' \subset k'' \subset \overline{k}$ finite and use
+Limits, Lemmas \ref{limits-lemma-descend-opens} and
+\ref{limits-lemma-limit-affine}). We may assume
+that $k'/k$ is a Galois extension (take the normal closure
+Fields, Lemma \ref{fields-lemma-normal-closure} and use
+that $k$ is perfect). Set $G = \text{Gal}(k'/k)$.
+By construction the $G$-invariant closed subscheme
+$\Spec(l) \times_X X_{k'}$ is contained in $U'$.
+Thus $x$ is in the schematic locus by
+Lemmas \ref{lemma-base-change-by-Galois} and
+\ref{lemma-when-quotient-scheme-at-point}.
+\end{proof}
+
+\noindent
+The following two lemmas should go somewhere else.
+Please compare the next lemma to
+Decent Spaces, Lemma \ref{decent-spaces-lemma-conditions-on-space-over-field}.
+
+\begin{lemma}
+\label{lemma-locally-quasi-finite-over-field}
+Let $k$ be a field. Let $X$ be an algebraic space over $k$.
+The following are equivalent
+\begin{enumerate}
+\item $X$ is locally quasi-finite over $k$,
+\item $X$ is locally of finite type over $k$ and has dimension $0$,
+\item $X$ is a scheme and is locally quasi-finite over $k$,
+\item $X$ is a scheme and is locally of finite type over $k$ and has
+dimension $0$, and
+\item $X$ is a disjoint union of spectra of Artinian local $k$-algebras
+$A$ over $k$ with $\dim_k(A) < \infty$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Because we are over a field relative dimension of $X/k$ is the same as
+the dimension of $X$. Hence by
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-locally-quasi-finite-rel-dimension-0}
+we see that (1) and (2) are equivalent. Hence it follows from
+Lemma \ref{lemma-locally-finite-type-dim-zero}
+(and trivial implications) that (1) -- (4) are equivalent.
+Finally,
+Varieties, Lemma \ref{varieties-lemma-algebraic-scheme-dim-0}
+shows that (1) -- (4) are equivalent with (5).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-mono-towards-locally-quasi-finite-over-field}
+Let $k$ be a field. Let $f : X \to Y$ be a monomorphism of algebraic spaces
+over $k$. If $Y$ is locally quasi-finite over $k$ so is $X$.
+\end{lemma}
+
+\begin{proof}
+Assume $Y$ is locally quasi-finite over $k$. By
+Lemma \ref{lemma-locally-quasi-finite-over-field}
+we see that $Y = \coprod \Spec(A_i)$ where each $A_i$ is an
+Artinian local ring finite over $k$. By
+Decent Spaces, Lemma
+\ref{decent-spaces-lemma-monomorphism-toward-disjoint-union-dim-0-rings}
+we see that $X$ is a scheme. Consider $X_i = f^{-1}(\Spec(A_i))$.
+Then $X_i$ has either one or zero points. If $X_i$ has zero points there
+is nothing to prove. If $X_i$ has one point, then
+$X_i = \Spec(B_i)$ with $B_i$ a zero dimensional local ring
+and $A_i \to B_i$ is an epimorphism of rings. In particular
+$A_i/\mathfrak m_{A_i} = B_i/\mathfrak m_{A_i}B_i$ and we see that
+$A_i \to B_i$ is surjective by Nakayama's lemma,
+Algebra, Lemma \ref{algebra-lemma-NAK}
+(because $\mathfrak m_{A_i}$ is a nilpotent ideal!).
+Thus $B_i$ is a finite local $k$-algebra, and we conclude by
+Lemma \ref{lemma-locally-quasi-finite-over-field}
+that $X \to \Spec(k)$ is locally quasi-finite.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Geometrically reduced algebraic spaces}
+\label{section-geometrically-reduced}
+
+\noindent
+If $X$ is a reduced algebraic space over a field, then it can happen that $X$
+becomes nonreduced after extending the ground field. This does not happen
+for geometrically reduced algebraic spaces.
+
+\begin{definition}
+\label{definition-geometrically-reduced}
+Let $k$ be a field.
+Let $X$ be an algebraic space over $k$.
+\begin{enumerate}
+\item Let $x \in |X|$ be a point. We say $X$ is
+{\it geometrically reduced at $x$} if $\mathcal{O}_{X, \overline{x}}$
+is geometrically reduced over $k$.
+\item We say $X$ is {\it geometrically reduced} over $k$
+if $X$ is geometrically reduced at every point of $X$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Observe that if $X$ is geometrically reduced at $x$, then the local
+ring of $X$ at $x$ is reduced (Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-reduced-local-ring}).
+Similarly, if $X$ is geometrically reduced over $k$, then $X$ is reduced
+(by Properties of Spaces, Lemma \ref{spaces-properties-lemma-reduced-space}).
+The following lemma in particular implies this definition does not clash
+with the corresponding property for schemes over a field.
+
+\begin{lemma}
+\label{lemma-geometrically-reduced-at-point}
+Let $k$ be a field. Let $X$ be an algebraic space over $k$.
+Let $x \in |X|$. The following are equivalent
+\begin{enumerate}
+\item $X$ is geometrically reduced at $x$,
+\item for some \'etale neighbourhood $(U, u) \to (X, x)$
+where $U$ is a scheme, $U$ is geometrically reduced at $u$,
+\item for any \'etale neighbourhood $(U, u) \to (X, x)$
+where $U$ is a scheme, $U$ is geometrically reduced at $u$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Recall that the local ring $\mathcal{O}_{X, \overline{x}}$
+is the strict henselization of $\mathcal{O}_{U, u}$, see
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-describe-etale-local-ring}.
+By Varieties, Lemma \ref{varieties-lemma-geometrically-reduced-at-point}
+we find that $U$ is geometrically reduced at $u$ if and only
+if $\mathcal{O}_{U, u}$ is geometrically reduced over $k$.
+Thus we have to show: if $A$ is a local $k$-algebra, then
+$A$ is geometrically reduced over $k$ if and only if
+$A^{sh}$ is geometrically reduced over $k$.
+We check this using the definition of geometrically reduced
+algebras (Algebra, Definition \ref{algebra-definition-geometrically-reduced}).
+Let $K/k$ be a field extension.
+Since $A \to A^{sh}$ is faithfully flat
+(More on Algebra, Lemma \ref{more-algebra-lemma-dumb-properties-henselization})
+we see that
+$A \otimes_k K \to A^{sh} \otimes_k K$ is faithfully flat
+(Algebra, Lemma \ref{algebra-lemma-flat-base-change}).
+Hence if $A^{sh} \otimes_k K$ is reduced, so is
+$A \otimes_k K$ by Algebra, Lemma \ref{algebra-lemma-descent-reduced}.
+Conversely, recall that $A^{sh}$ is a colimit of
+\'etale $A$-algebra, see
+Algebra, Lemma \ref{algebra-lemma-strict-henselization}.
+Thus $A^{sh} \otimes_k K$ is a filtered
+colimit of \'etale $A \otimes_k K$-algebras.
+We conclude by Algebra, Lemma \ref{algebra-lemma-reduced-goes-up}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-geometrically-reduced}
+Let $k$ be a field. Let $X$ be an algebraic space over $k$.
+The following are equivalent
+\begin{enumerate}
+\item $X$ is geometrically reduced,
+\item for some surjective \'etale morphism $U \to X$ where $U$
+is a scheme, $U$ is geometrically reduced,
+\item for any \'etale morphism $U \to X$
+where $U$ is a scheme, $U$ is geometrically reduced.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Immediate from the definitions and
+Lemma \ref{lemma-geometrically-reduced-at-point}.
+\end{proof}
+
+\noindent
+The notion isn't interesting in characteristic zero.
+
+\begin{lemma}
+\label{lemma-perfect-reduced}
+Let $X$ be an algebraic space over a perfect field $k$ (for example
+$k$ has characteristic zero).
+\begin{enumerate}
+\item For $x \in |X|$, if $\mathcal{O}_{X, \overline{x}}$ is
+reduced, then $X$ is geometrically reduced at $x$.
+\item If $X$ is reduced, then $X$ is geometrically reduced over $k$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The first statement follows from
+Algebra, Lemma \ref{algebra-lemma-separable-extension-preserves-reducedness}
+and the definition of a perfect field
+(Algebra, Definition \ref{algebra-definition-perfect}).
+The second statement follows from the first.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-geometrically-reduced-positive-characteristic}
+Let $k$ be a field of characteristic $p > 0$. Let $X$ be an algebraic space
+over $k$. The following are equivalent
+\begin{enumerate}
+\item $X$ is geometrically reduced over $k$,
+\item $X_{k'}$ is reduced for every field extension $k'/k$,
+\item $X_{k'}$ is reduced for every
+finite purely inseparable field extension $k'/k$,
+\item $X_{k^{1/p}}$ is reduced,
+\item $X_{k^{perf}}$ is reduced, and
+\item $X_{\bar k}$ is reduced.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choose a surjective \'etale morphism $U \to X$ where $U$ is a scheme.
+Via Lemma \ref{lemma-geometrically-reduced} the lemma follows from
+the result for $U$ over $k$.
+See Varieties, Lemma \ref{varieties-lemma-geometrically-reduced}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-geometrically-reduced-upstairs}
+Let $k$ be a field. Let $X$ be an algebraic space over $k$.
+Let $k'/k$ be a field extension. Let $x \in |X|$ be a point and let
+$x' \in |X_{k'}|$ be a point lying over $x$.
+The following are equivalent
+\begin{enumerate}
+\item $X$ is geometrically reduced at $x$,
+\item $X_{k'}$ is geometrically reduced at $x'$.
+\end{enumerate}
+In particular, $X$ is geometrically reduced over $k$ if and only if
+$X_{k'}$ is geometrically reduced over $k'$.
+\end{lemma}
+
+\begin{proof}
+Choose an \'etale morphism $U \to X$ where $U$ is a scheme
+and a point $u \in U$ mapping to $x \in |X|$.
+By Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}
+we may choose a point $u' \in U_{k'} = U \times_X X_{k'}$ mapping
+to both $u$ and $x'$. By Lemma \ref{lemma-geometrically-reduced-at-point}
+the lemma follows from the lemma for $U, u, u'$ which is
+Varieties, Lemma \ref{varieties-lemma-geometrically-reduced-upstairs}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-geometrically-reduced-etale-local}
+Let $k$ be a field. Let $f : X \to Y$ be a morphism of
+algebraic spaces over $k$. Let $x \in |X|$ be a point
+with image $y \in |Y|$.
+\begin{enumerate}
+\item if $f$ is \'etale at $x$, then
+$X$ is geometrically reduced at $x$ $\Leftrightarrow$
+$Y$ is geometrically reduced at $y$,
+\item if $f$ is surjective \'etale, then
+$X$ is geometrically reduced $\Leftrightarrow$
+$Y$ is geometrically reduced.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) is clear because
+$\mathcal{O}_{X, \overline{x}} = \mathcal{O}_{Y, \overline{y}}$
+if $f$ is \'etale at $x$.
+Part (2) follows immediately from part (1).
+\end{proof}
+
+
+
+
+
+
+\section{Geometrically connected algebraic spaces}
+\label{section-geometrically-connected}
+
+\noindent
+If $X$ is a connected algebraic space over a field, then it can happen that
+$X$ becomes disconnected after extending the ground field. This does not
+happen for geometrically connected schemes.
+
+\begin{definition}
+\label{definition-geometrically-connected}
+Let $X$ be an algebraic space over the field $k$. We say $X$ is
+{\it geometrically connected} over $k$ if the base change $X_{k'}$
+is connected for every field extension $k'$ of $k$.
+\end{definition}
+
+\noindent
+By convention a connected topological space is nonempty; hence a fortiori
+geometrically connected algebraic spaces are nonempty.
+
+\begin{lemma}
+\label{lemma-geometrically-connected-check-after-extension}
+Let $X$ be an algebraic space over the field $k$.
+Let $k \subset k'$ be a field extension.
+Then $X$ is geometrically connected over $k$ if and only if
+$X_{k'}$ is geometrically connected over $k'$.
+\end{lemma}
+
+\begin{proof}
+If $X$ is geometrically connected over $k$, then it is clear that
+$X_{k'}$ is geometrically connected over $k'$. For the converse, note
+that for any field extension $k \subset k''$ there exists a common
+field extension $k' \subset k'''$ and $k'' \subset k'''$. As the
+morphism $X_{k'''} \to X_{k''}$ is surjective (as a base change of
+a surjective morphism between spectra of fields) we see that the
+connectedness of $X_{k'''}$ implies the connectedness of $X_{k''}$.
+Thus if $X_{k'}$ is geometrically connected over $k'$ then
+$X$ is geometrically connected over $k$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-bijection-connected-components}
+Let $k$ be a field. Let $X$, $Y$ be algebraic spaces over $k$.
+Assume $X$ is geometrically connected over $k$.
+Then the projection morphism
+$$
+p : X \times_k Y \longrightarrow Y
+$$
+induces a bijection between connected components.
+\end{lemma}
+
+\begin{proof}
+Let $y \in |Y|$ be represented by a morphism $\Spec(K) \to Y$ be a morphism
+where $K$ is a field. The fibre of $|X \times_k Y| \to |Y|$ over $y$
+is the image of $|Y_K| \to |X \times_k Y|$ by
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}.
+Thus these fibres are connected by our assumption that $Y$ is
+geometrically connected. By
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-space-over-field-universally-open}
+the map $|p|$ is open.
+Thus we may apply Topology,
+Lemma \ref{topology-lemma-connected-fibres-connected-components}
+to conclude.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-separably-closed-field-connected-components}
+Let $k \subset k'$ be an extension of fields. Let $X$ be an algebraic space
+over $k$. Assume $k$ separably algebraically closed. Then the morphism
+$X_{k'} \to X$ induces a bijection of connected components. In particular,
+$X$ is geometrically connected over $k$ if and only if $X$ is connected.
+\end{lemma}
+
+\begin{proof}
+Since $k$ is separably algebraically closed we see that
+$k'$ is geometrically connected over $k$, see
+Algebra,
+Lemma \ref{algebra-lemma-separably-closed-connected-implies-geometric}.
+Hence $Z = \Spec(k')$ is geometrically connected over $k$ by
+Varieties, Lemma \ref{varieties-lemma-affine-geometrically-connected}.
+Since $X_{k'} = Z \times_k X$ the result is a special case of
+Lemma \ref{lemma-bijection-connected-components}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-geometrically-connected}
+Let $k$ be a field. Let $X$ be an algebraic space over $k$.
+Let $\overline{k}$ be a separable algebraic closure of $k$.
+Then $X$ is geometrically connected if and only if the base change
+$X_{\overline{k}}$ is connected.
+\end{lemma}
+
+\begin{proof}
+Assume $X_{\overline{k}}$ is connected. Let $k \subset k'$ be a field
+extension. There exists a field extension $\overline{k} \subset \overline{k}'$
+such that $k'$ embeds into $\overline{k}'$ as an extension of $k$.
+By Lemma \ref{lemma-separably-closed-field-connected-components}
+we see that $X_{\overline{k}'}$ is connected.
+Since $X_{\overline{k}'} \to X_{k'}$ is surjective we conclude
+that $X_{k'}$ is connected as desired.
+\end{proof}
+
+\noindent
+Let $k$ be a field. Let $k \subset \overline{k}$ be a (possibly infinite)
+Galois extension. For example $\overline{k}$ could be the
+separable algebraic closure of $k$.
+For any $\sigma \in \text{Gal}(\overline{k}/k)$ we get a corresponding
+automorphism
+$
+\Spec(\sigma) :
+\Spec(\overline{k})
+\longrightarrow
+\Spec(\overline{k})
+$.
+Note that
+$\Spec(\sigma) \circ \Spec(\tau) = \Spec(\tau \circ \sigma)$.
+Hence we get an action
+$$
+\text{Gal}(\overline{k}/k)^{opp} \times \Spec(\overline{k})
+\longrightarrow
+\Spec(\overline{k})
+$$
+of the opposite group on the scheme $\Spec(\overline{k})$.
+Let $X$ be an algebraic space over $k$. Since
+$X_{\overline{k}} =
+\Spec(\overline{k}) \times_{\Spec(k)} X$
+by definition we see that the action above induces a canonical action
+\begin{equation}
+\label{equation-galois-action-base-change-kbar}
+\text{Gal}(\overline{k}/k)^{opp} \times X_{\overline{k}}
+\longrightarrow
+X_{\overline{k}}.
+\end{equation}
+
+\begin{lemma}
+\label{lemma-Galois-action-quasi-compact-open}
+Let $k$ be a field. Let $X$ be an algebraic space over $k$.
+Let $\overline{k}$ be a (possibly infinite) Galois extension of $k$.
+Let $V \subset X_{\overline{k}}$ be a quasi-compact open.
+Then
+\begin{enumerate}
+\item there exists a finite subextension $k \subset k' \subset \overline{k}$
+and a quasi-compact open $V' \subset X_{k'}$ such that
+$V = (V')_{\overline{k}}$,
+\item there exists an open subgroup $H \subset \text{Gal}(\overline{k}/k)$
+such that $\sigma(V) = V$ for all $\sigma \in H$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $U$ and a surjective \'etale morphism $U \to X$.
+Choose a quasi-compact open $W \subset U_{\overline{k}}$ whose
+image in $X_{\overline{k}}$ is $V$. This is possible because
+$|U_{\overline{k}}| \to |X_{\overline{k}}|$ is continuous and because
+$|U_{\overline{k}}|$ has a basis of quasi-compact opens. We can apply
+Varieties, Lemma
+\ref{varieties-lemma-Galois-action-quasi-compact-open}
+to $W \subset U_{\overline{k}}$ to obtain the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-closed-fixed-by-Galois}
+Let $k$ be a field. Let $k \subset \overline{k}$ be a (possibly infinite)
+Galois extension. Let $X$ be an algebraic space over $k$. Let
+$\overline{T} \subset |X_{\overline{k}}|$ have the following properties
+\begin{enumerate}
+\item $\overline{T}$ is a closed subset of $|X_{\overline{k}}|$,
+\item for every $\sigma \in \text{Gal}(\overline{k}/k)$
+we have $\sigma(\overline{T}) = \overline{T}$.
+\end{enumerate}
+Then there exists a closed subset $T \subset |X|$ whose inverse image
+in $|X_{k'}|$ is $\overline{T}$.
+\end{lemma}
+
+\begin{proof}
+Let $T \subset |X|$ be the image of $\overline{T}$.
+Since $|X_{\overline{k}}| \to |X|$ is surjective, the statement means
+that $T$ is closed and that its inverse image is $\overline{T}$.
+Choose a scheme $U$ and a surjective \'etale morphism $U \to X$.
+By the case of schemes
+(see Varieties, Lemma \ref{varieties-lemma-closed-fixed-by-Galois})
+there exists a closed subset $T' \subset |U|$ whose inverse image
+in $|U_{\overline{k}}|$ is the inverse image of $\overline{T}$.
+Since $|U_{\overline{k}}| \to |X_{\overline{k}}|$ is surjective,
+we see that $T'$ is the inverse image of $T$ via $|U| \to |X|$.
+By our construction of the topology on $|X|$ this means that $T$ is
+closed. In the same manner one sees that $\overline{T}$ is the inverse
+image of $T$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-geometrically-disconnected}
+Let $k$ be a field. Let $X$ be an algebraic space over $k$.
+The following are equivalent
+\begin{enumerate}
+\item $X$ is geometrically connected,
+\item for every finite separable field extension $k \subset k'$
+the scheme $X_{k'}$ is connected.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This proof is identical to the proof of
+Varieties, Lemma \ref{varieties-lemma-characterize-geometrically-disconnected}
+except that
+we replace
+Varieties, Lemma \ref{varieties-lemma-characterize-geometrically-connected}
+by Lemma \ref{lemma-characterize-geometrically-connected},
+we replace
+Varieties, Lemma \ref{varieties-lemma-Galois-action-quasi-compact-open}
+by Lemma \ref{lemma-Galois-action-quasi-compact-open}, and
+we replace
+Varieties, Lemma \ref{varieties-lemma-closed-fixed-by-Galois}
+by Lemma \ref{lemma-closed-fixed-by-Galois}.
+We urge the reader to read that proof in stead of this one.
+
+\medskip\noindent
+It follows immediately from the definition that (1) implies (2).
+Assume that $X$ is not geometrically connected.
+Let $k \subset \overline{k}$ be a separable algebraic
+closure of $k$. By
+Lemma \ref{lemma-characterize-geometrically-connected}
+it follows that $X_{\overline{k}}$ is disconnected.
+Say $X_{\overline{k}} = \overline{U} \amalg \overline{V}$
+with $\overline{U}$ and $\overline{V}$ open, closed, and nonempty
+algebraic subspaces of $X_{\overline{k}}$.
+
+\medskip\noindent
+Suppose that $W \subset X$ is any quasi-compact open subspace.
+Then $W_{\overline{k}} \cap \overline{U}$ and
+$W_{\overline{k}} \cap \overline{V}$ are open and closed subspaces of
+$W_{\overline{k}}$. In particular $W_{\overline{k}} \cap \overline{U}$ and
+$W_{\overline{k}} \cap \overline{V}$ are quasi-compact, and by
+Lemma \ref{lemma-Galois-action-quasi-compact-open}
+both $W_{\overline{k}} \cap \overline{U}$ and
+$W_{\overline{k}} \cap \overline{V}$
+are defined over a finite subextension and invariant under an
+open subgroup of $\text{Gal}(\overline{k}/k)$.
+We will use this without further mention in the following.
+
+\medskip\noindent
+Pick $W_0 \subset X$ quasi-compact open subspace such that both
+$W_{0, \overline{k}} \cap \overline{U}$ and
+$W_{0, \overline{k}} \cap \overline{V}$ are nonempty.
+Choose a finite subextension $k \subset k' \subset \overline{k}$
+and a decomposition $W_{0, k'} = U_0' \amalg V_0'$ into open and closed
+subsets such that
+$W_{0, \overline{k}} \cap \overline{U} = (U'_0)_{\overline{k}}$ and
+$W_{0, \overline{k}} \cap \overline{V} = (V'_0)_{\overline{k}}$.
+Let $H = \text{Gal}(\overline{k}/k') \subset \text{Gal}(\overline{k}/k)$.
+In particular
+$\sigma(W_{0, \overline{k}} \cap \overline{U}) =
+W_{0, \overline{k}} \cap \overline{U}$ and similarly for
+$\overline{V}$.
+
+\medskip\noindent
+Having chosen $W_0$, $k'$ as above, for every quasi-compact open subspace
+$W \subset X$ we set
+$$
+U_W =
+\bigcap\nolimits_{\sigma \in H} \sigma(W_{\overline{k}} \cap \overline{U}),
+\quad
+V_W =
+\bigcup\nolimits_{\sigma \in H} \sigma(W_{\overline{k}} \cap \overline{V}).
+$$
+Now, since $W_{\overline{k}} \cap \overline{U}$ and
+$W_{\overline{k}} \cap \overline{V}$ are fixed by an open subgroup of
+$\text{Gal}(\overline{k}/k)$ we see that the union and intersection
+above are finite. Hence $U_W$ and $V_W$ are both open and closed subspaces.
+Also, by construction $W_{\bar k} = U_W \amalg V_W$.
+
+\medskip\noindent
+We claim that if $W \subset W' \subset X$ are quasi-compact
+open subspaces, then $W_{\overline{k}} \cap U_{W'} = U_W$ and
+$W_{\overline{k}} \cap V_{W'} = V_W$. Verification omitted.
+Hence we see that upon defining $U = \bigcup_{W \subset X} U_W$
+and $V = \bigcup_{W \subset X} V_W$ we obtain
+$X_{\overline{k}} = U \amalg V$ is a disjoint union of open
+and closed subsets.
+It is clear that $V$ is nonempty as it is constructed by taking
+unions (locally). On the other hand, $U$ is nonempty since it contains
+$W_0 \cap \overline{U}$ by construction. Finally, $U, V \subset X_{\bar k}$
+are closed and $H$-invariant by construction. Hence by
+Lemma \ref{lemma-closed-fixed-by-Galois}
+we have $U = (U')_{\bar k}$, and $V = (V')_{\bar k}$ for some
+closed $U', V' \subset X_{k'}$. Clearly $X_{k'} = U' \amalg V'$
+and we see that $X_{k'}$ is disconnected as desired.
+\end{proof}
+
+
+
+
+
+
+\section{Geometrically irreducible algebraic spaces}
+\label{section-geometrically-irreducible}
+
+\noindent
+Spaces, Example \ref{spaces-example-infinite-product} shows that it
+is best not to think about irreducible algebraic spaces in complete
+generality\footnote{To be sure, if we say ``the algebraic space $X$
+is irreducible'', we probably mean to say ``the topological space $|X|$
+is irreducible''.}. For decent (for example quasi-separated) algebraic spaces
+this kind of disaster doesn't happen. Thus we make the following
+definition only under the assumption that our algebraic space is decent.
+
+\begin{definition}
+\label{definition-geometrically-irreducible}
+Let $k$ be a field. 
+Let $X$ be a decent algebraic space over $k$.
+We say $X$ is {\it geometrically irreducible} if the
+topological space $|X_{k'}|$ is
+irreducible\footnote{An irreducible space is nonempty.}
+for any field extension $k'$ of $k$.
+\end{definition}
+
+\noindent
+Observe that $X_{k'}$ is a decent algebraic space
+(Decent Spaces, Lemma
+\ref{decent-spaces-lemma-representable-named-properties}).
+Hence the topological space $|X_{k'}|$ is sober.
+Decent Spaces, Proposition \ref{decent-spaces-proposition-reasonable-sober}.
+
+
+
+
+
+\section{Geometrically integral algebraic spaces}
+\label{section-geometrically-integral}
+
+\noindent
+Recall that integral algebraic spaces are by definition decent, see
+Section \ref{section-integral-spaces}.
+
+\begin{definition}
+\label{definition-geometrically-integral}
+Let $X$ be an algebraic space over the field $k$. We say $X$ is
+{\it geometrically integral} over $k$ if the algebraic space
+$X_{k'}$ is integral (Definition \ref{definition-integral-algebraic-space})
+for every field extension $k'$ of $k$.
+\end{definition}
+
+\noindent
+In particular $X$ is a decent algebraic space.
+We can relate this to being geometrically reduced and
+geometrically irreducible as follows.
+
+\begin{lemma}
+\label{lemma-geometrically-integral}
+Let $k$ be a field. Let $X$ be a decent algebraic space over $k$.
+Then $X$ is geometrically integral over $k$ if and only if
+$X$ is both geometrically reduced and geometrically irreducible
+over $k$.
+\end{lemma}
+
+\begin{proof}
+This is an immediate consequence of the definitions because our
+notion of integral (in the presence of decency) is equivalent to
+reduced and irreducible.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-geometrically-reduced-global-sections}
+Let $k$ be a field. Let $X$ be a proper algebraic space over $k$.
+\begin{enumerate}
+\item $A = H^0(X, \mathcal{O}_X)$ is a finite dimensional $k$-algebra,
+\item $A = \prod_{i = 1, \ldots, n} A_i$ is a product of Artinian
+local $k$-algebras, one factor for each connected component of $|X|$,
+\item if $X$ is reduced, then $A = \prod_{i = 1, \ldots, n} k_i$
+is a product of fields, each a finite extension of $k$,
+\item if $X$ is geometrically reduced, then $k_i$ is finite separable
+over $k$,
+\item if $X$ is geometrically connected, then $A$ is geometrically
+irreducible over $k$,
+\item if $X$ is geometrically irreducible, then $A$ is geometrically
+irreducible over $k$,
+\item if $X$ is geometrically reduced and connected, then $A = k$, and
+\item if $X$ is geometrically integral, then $A = k$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-proper-over-affine-cohomology-finite}
+we see that $A = H^0(X, \mathcal{O}_X)$ is a finite dimensional
+$k$-algebra. This proves (1).
+
+\medskip\noindent
+Then $A$ is a product of local rings by
+Algebra, Lemma \ref{algebra-lemma-finite-dimensional-algebra} and
+Algebra, Proposition \ref{algebra-proposition-dimension-zero-ring}.
+If $X = Y \amalg Z$ with $Y$ and $Z$ open subspaces of $X$, then we obtain
+an idempotent $e \in A$ by taking the section of $\mathcal{O}_X$
+which is $1$ on $Y$ and $0$ on $Z$. Conversely, if $e \in A$
+is an idempotent, then we get a corresponding decomposition of $|X|$.
+Finally, as $|X|$ is a Noetherian topological space
+(by Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-finite-presentation-noetherian} and
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-Noetherian-topology})
+its connected components are open. Hence the connected components
+of $|X|$ correspond $1$-to-$1$ with primitive idempotents of $A$.
+This proves (2).
+
+\medskip\noindent
+If $X$ is reduced, then $A$ is reduced
+(Properties of Spaces, Lemma \ref{spaces-properties-lemma-reduced-space}).
+Hence the local rings $A_i = k_i$ are reduced and therefore fields
+(for example by Algebra, Lemma \ref{algebra-lemma-minimal-prime-reduced-ring}).
+This proves (3).
+
+\medskip\noindent
+If $X$ is geometrically reduced, then same thing is true for
+$A \otimes_k \overline{k} =
+H^0(X_{\overline{k}}, \mathcal{O}_{X_{\overline{k}}})$
+(see Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology} for equality).
+This implies that $k_i \otimes_k \overline{k}$ is a product
+of fields and hence $k_i/k$ is separable for example by
+Algebra,
+Lemmas \ref{algebra-lemma-characterize-separable-field-extensions} and
+\ref{algebra-lemma-geometrically-reduced-finite-purely-inseparable-extension}.
+This proves (4).
+
+\medskip\noindent
+If $X$ is geometrically connected, then $A \otimes_k \overline{k} =
+H^0(X_{\overline{k}}, \mathcal{O}_{X_{\overline{k}}})$
+is a zero dimensional local ring by part (2) and hence its
+spectrum has one point, in particular it is irreducible.
+Thus $A$ is geometrically irreducible. This proves (5).
+Of course (5) implies (6).
+
+\medskip\noindent
+If $X$ is geometrically reduced and connected, then
+$A = k_1$ is a field and the extension $k_1/k$ is finite separable and
+geometrically irreducible. However, then $k_1 \otimes_k \overline{k}$
+is a product of $[k_1 : k]$ copies of $\overline{k}$ and we conclude
+that $k_1 = k$. This proves (7). Of course (7) implies (8).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-trivial-pic-integral}
+Let $k$ be a field. Let $X$ be a proper integral algebraic space over $k$.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+If $H^0(X, \mathcal{L})$ and $H^0(X, \mathcal{L}^{\otimes - 1})$
+are both nonzero, then $\mathcal{L} \cong \mathcal{O}_X$.
+\end{lemma}
+
+\begin{proof}
+Let $s \in H^0(X, \mathcal{L})$ and $t \in H^0(X, \mathcal{L}^{\otimes - 1})$
+be nonzero sections. Let $x \in |X|$ be a point in the support of $s$.
+Choose an affine \'etale neighbourhood $(U, u) \to (X, x)$ such that
+$\mathcal{L}|_U \cong \mathcal{O}_U$. Then $s|_U$ corresponds to a nonzero
+regular function on the reduced (because $X$ is reduced) scheme $U$ and hence
+is nonvanishing in a generic point of an irreducible component of $U$. By
+Decent Spaces, Lemma \ref{decent-spaces-lemma-decent-generic-points}
+we conclude that the generic point $\eta$ of $|X|$ is in the support of $s$.
+The same is true for $t$. Then of course $st$ must be nonzero because
+the local ring of $X$ at $\eta$ is a field (by aforementioned lemma
+the local ring has dimension zero, as $X$ is reduced the local ring is
+reduced, and Algebra, Lemma \ref{algebra-lemma-minimal-prime-reduced-ring}).
+However, we have seen that $K = H^0(X, \mathcal{O}_X)$
+is a field in Lemma \ref{lemma-proper-geometrically-reduced-global-sections}.
+Thus $st$ is everywhere nonzero and we see that
+$s : \mathcal{O}_X \to \mathcal{L}$ is an isomorphism.
+\end{proof}
+
+
+
+
+
+
+
+\section{Spaces smooth over fields}
+\label{section-smooth}
+
+\noindent
+This section is the analogue of
+Varieties, Section \ref{varieties-section-smooth}.
+
+\begin{lemma}
+\label{lemma-smooth-regular}
+Let $k$ be a field.
+Let $X$ be an algebraic space smooth over $k$.
+Then $X$ is a regular algebraic space.
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $U$ and a surjective \'etale morphism $U \to X$.
+The morphism $U \to \Spec(k)$ is smooth as a composition of
+an \'etale (hence smooth) morphism and a smooth morphism (see
+Morphisms of Spaces, Lemmas \ref{spaces-morphisms-lemma-etale-smooth}
+and \ref{spaces-morphisms-lemma-composition-smooth}).
+Hence $U$ is regular by
+Varieties, Lemma \ref{varieties-lemma-smooth-regular}.
+By
+Properties of Spaces, Definition
+\ref{spaces-properties-definition-type-property}
+this means that $X$ is regular.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-separable-closed-points-dense}
+Let $k$ be a field. Let $X$ be an algebraic space smooth over $\Spec(k)$.
+The set of $x \in |X|$ which are image of morphisms $\Spec(k') \to X$
+with $k' \supset k$ finite separable is dense in $|X|$.
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $U$ and a surjective \'etale morphism $U \to X$.
+The morphism $U \to \Spec(k)$ is smooth as a composition of
+an \'etale (hence smooth) morphism and a smooth morphism (see
+Morphisms of Spaces, Lemmas \ref{spaces-morphisms-lemma-etale-smooth}
+and \ref{spaces-morphisms-lemma-composition-smooth}).
+Hence we can apply Varieties, Lemma
+\ref{varieties-lemma-smooth-separable-closed-points-dense} to see that
+the closed points of $U$ whose residue fields are finite separable over
+$k$ are dense. This implies the lemma by our definition of the
+topology on $|X|$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Euler characteristics}
+\label{section-euler}
+
+\noindent
+In this section we prove some elementary properties of Euler characteristics
+of coherent sheaves on algebraic spaces proper over fields.
+
+\begin{definition}
+\label{definition-euler-characteristic}
+Let $k$ be a field. Let $X$ be a proper algebraic over $k$. Let $\mathcal{F}$
+be a coherent $\mathcal{O}_X$-module. In this situation the
+{\it Euler characteristic of $\mathcal{F}$} is the integer
+$$
+\chi(X, \mathcal{F}) = \sum\nolimits_i (-1)^i \dim_k H^i(X, \mathcal{F}).
+$$
+For justification of the formula see below.
+\end{definition}
+
+\noindent
+In the situation of the definition only a finite number of the vector spaces
+$H^i(X, \mathcal{F})$ are nonzero (Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-vanishing-quasi-separated})
+and each of these spaces is finite dimensional
+(Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-proper-over-affine-cohomology-finite}). Thus
+$\chi(X, \mathcal{F}) \in \mathbf{Z}$ is well defined. Observe that
+this definition depends on the field $k$ and not just on the pair
+$(X, \mathcal{F})$.
+
+\begin{lemma}
+\label{lemma-euler-characteristic-additive}
+Let $k$ be a field. Let $X$ be a proper algebraic space over $k$.
+Let $0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+be a short exact sequence of coherent modules on $X$. Then
+$$
+\chi(X, \mathcal{F}_2) = \chi(X, \mathcal{F}_1) + \chi(X, \mathcal{F}_3)
+$$
+\end{lemma}
+
+\begin{proof}
+Consider the long exact sequence of cohomology
+$$
+0 \to H^0(X, \mathcal{F}_1) \to H^0(X, \mathcal{F}_2) \to
+H^0(X, \mathcal{F}_3) \to H^1(X, \mathcal{F}_1) \to \ldots
+$$
+associated to the short exact sequence of the lemma. The rank-nullity theorem
+in linear algebra shows that
+$$
+0 = \dim H^0(X, \mathcal{F}_1) - \dim H^0(X, \mathcal{F}_2)
++ \dim H^0(X, \mathcal{F}_3) - \dim H^1(X, \mathcal{F}_1) + \ldots
+$$
+This immediately implies the lemma.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Numerical intersections}
+\label{section-num}
+
+\noindent
+In this section we play around with the Euler characteristic of
+coherent sheaves on proper algebraic spaces to obtain numerical intersection
+numbers for invertible modules. Our main tool will be the following
+lemma.
+
+\begin{lemma}
+\label{lemma-numerical-polynomial-from-euler}
+Let $k$ be a field. Let $X$ be a proper algebraic space over $k$.
+Let $\mathcal{F}$ be a coherent $\mathcal{O}_X$-module. Let
+$\mathcal{L}_1, \ldots, \mathcal{L}_r$ be invertible $\mathcal{O}_X$-modules.
+The map
+$$
+(n_1, \ldots, n_r) \longmapsto
+\chi(X, \mathcal{F} \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})
+$$
+is a numerical polynomial in $n_1, \ldots, n_r$ of total degree at
+most the dimension of the scheme theoretic support of $\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+Let $Z \subset X$ be the scheme theoretic support of $\mathcal{F}$.
+Then $\mathcal{F} = i_*\mathcal{G}$ for some coherent
+$\mathcal{O}_Z$-module $\mathcal{G}$
+(Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-coherent-support-closed})
+and we have
+$$
+\chi(X, \mathcal{F} \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}) =
+\chi(Z, \mathcal{G} \otimes
+i^*\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+i^*\mathcal{L}_r^{\otimes n_r})
+$$
+by the projection formula
+(Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-projection-formula})
+and Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-relative-affine-cohomology}.
+Since $|Z| = \text{Supp}(\mathcal{F})$ we see that it suffices
+to show
+$$
+P_\mathcal{F}(n_1, \ldots, n_r) :
+(n_1, \ldots, n_r)
+\longmapsto
+\chi(X, \mathcal{F} \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})
+$$
+is a numerical polynomial in $n_1, \ldots, n_r$ of total degree at
+most $\dim(X)$. Let us say property $\mathcal{P}$ holds for the
+coherent $\mathcal{O}_X$-module $\mathcal{F}$ if the above is true.
+
+\medskip\noindent
+We will prove this statement by devissage, more precisely we will
+check conditions (1), (2), and (3) of
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-property-higher-rank-cohomological-variant}
+are satisfied.
+
+\medskip\noindent
+Verification of condition (1). Let
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+be a short exact sequence of coherent sheaves on $X$.
+By Lemma \ref{lemma-euler-characteristic-additive} we have
+$$
+P_{\mathcal{F}_2}(n_1, \ldots, n_r) =
+P_{\mathcal{F}_1}(n_1, \ldots, n_r) +
+P_{\mathcal{F}_3}(n_1, \ldots, n_r)
+$$
+Then it is clear that if 2-out-of-3 of the sheaves $\mathcal{F}_i$
+have property $\mathcal{P}$, then so does the third.
+
+\medskip\noindent
+Condition (2) follows because
+$P_{\mathcal{F}^{\oplus m}}(n_1, \ldots, n_r) =
+mP_\mathcal{F}(n_1, \ldots, n_r)$.
+
+\medskip\noindent
+Proof of (3). Let $Z \subset X$ be a reduced closed subspace with
+$|Z|$ irreducible. We apply
+Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-weak-chow}
+to the morphism $Z \to \Spec(k)$. Thus we get a
+surjective proper morphism $f : Y \to Z$ over $\Spec(k)$
+where $Y$ is a closed subscheme of $\mathbf{P}^m_k$ for some $m$.
+After replacing $Y$ by a closed subscheme we may assume that $Y$
+is integral and $f : Y \to Z$ is an alteration, see
+Lemma \ref{lemma-alteration-contained-in}.
+Denote $\mathcal{O}_Y(n)$ the pullback of $\mathcal{O}_{\mathbf{P}^m_k}(n)$.
+Pick $n > 0$ such that $R^pf_*\mathcal{O}_Y(n) = 0$
+for $p > 0$, see Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-kill-by-twisting}.
+We claim that $\mathcal{G} = i_*f_*\mathcal{O}_Y(n)$ satisfies $\mathcal{P}$.
+Namely, by the case of schemes
+(Varieties, Lemma \ref{varieties-lemma-numerical-polynomial-from-euler})
+we know that
+$$
+(n_1, \ldots, n_r)
+\longmapsto
+\chi(Y, \mathcal{O}_Y(n) \otimes
+f^*i^*(\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}))
+$$
+is a numerical polynomial in $n_1, \ldots, n_r$ of total degree at
+most $\dim(Y)$. On the other hand, by the projection formula
+(Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-projection-formula})
+\begin{align*}
+i_*Rf_*\left(
+\mathcal{O}_Y(n) \otimes
+f^*i^*(\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})\right)
+& =
+i_*Rf_*\mathcal{O}_Y(n) \otimes
+\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r} \\
+& =
+\mathcal{G} \otimes \mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r}
+\end{align*}
+the last equality by our choice of $n$. By
+Leray (Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-apply-Leray})
+we get
+$$
+\chi(Y, \mathcal{O}_Y(n) \otimes
+f^*i^*(\mathcal{L}_1^{\otimes n_1} \otimes \ldots \otimes
+\mathcal{L}_r^{\otimes n_r})) =
+P_\mathcal{G}(n_1, \ldots, n_r)
+$$
+and we conclude because $\dim(Y) \leq \dim(Z) \leq \dim(X)$.
+The first inequality hold by
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-alteration-dimension-general}
+and the fact that $Y \to Z$ is an alteration (and hence the
+induced extension of residue fields in generic points is finite).
+\end{proof}
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

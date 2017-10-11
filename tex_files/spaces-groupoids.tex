@@ -1,0 +1,3274 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Groupoids in Algebraic Spaces}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+This chapter is devoted to generalities concerning groupoids in algebraic
+spaces. We recommend reading the beautiful paper \cite{K-M} by Keel and Mori.
+
+\medskip\noindent
+A lot of what we say here is a repeat of what we said in the chapter
+on groupoid schemes, see
+Groupoids, Section \ref{groupoids-section-introduction}.
+The discussion of quotient stacks is new here.
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+The standing assumption is that all schemes are contained in
+a big fppf site $\Sch_{fppf}$. And all rings $A$ considered
+have the property that $\Spec(A)$ is (isomorphic) to an
+object of this big site.
+
+\medskip\noindent
+Let $S$ be a scheme and let $X$ be an algebraic space over $S$.
+In this chapter and the following we will write $X \times_S X$
+for the product of $X$ with itself (in the category of algebraic
+spaces over $S$), instead of $X \times X$.
+
+\medskip\noindent
+We continue our convention to label projection maps starting with
+index $0$, so we have $\text{pr}_0 : X \times_S Y \to X$ and
+$\text{pr}_1 : X \times_S Y \to Y$.
+
+
+
+
+\section{Notation}
+\label{section-notation}
+
+\noindent
+Let $S$ be a scheme; this will be our base scheme and all algebraic spaces
+will be over $S$. Let $B$ be an algebraic space over $S$; this will be our
+base algebraic space, and often other algebraic spaces, and schemes will
+be over $B$. If we say that $X$ is an algebraic space over $B$, then we
+mean that $X$ is an algebraic space over $S$ which comes equipped with
+structure morphism $X \to B$. Moreover, we try to reserve the letter $T$
+to denote a ``test'' scheme over $B$. In other words $T$ is a scheme
+which comes equipped with a structure morphism $T \to B$.
+In this situation we denote $X(T)$ for the set of $T$-valued points of
+$X$ {\it over} $B$. In a formula:
+$$
+X(T) = \Mor_B(T, X).
+$$
+Similarly, given a second algebraic space $Y$ over $B$ we set
+$$
+X(Y) = \Mor_B(Y, X).
+$$
+Suppose we are given algebraic spaces $X$, $Y$ over $B$ as above and a
+morphism $f : X \to Y$ over $B$. For any scheme $T$ over $B$ we get an
+induced map of sets
+$$
+f : X(T) \longrightarrow Y(T)
+$$
+which is functorial in the scheme $T$ over $B$.
+As $f$ is a map of sheaves on $(\Sch/S)_{fppf}$ over the
+sheaf $B$ it is clear that $f$ determines and is determined by this rule.
+More generally, we use the same notation for maps between fibre
+products. For example, if
+$X$, $Y$, $Z$ are algebraic spaces over $B$, and if
+$m : X \times_B Y \to Z \times_B Z$ is
+a morphism of algebraic spaces over $B$, then we think of $m$ as corresponding
+to a collection of maps between $T$-valued points
+$$
+X(T) \times Y(T) \longrightarrow Z(T) \times Z(T).
+$$
+And so on and so forth.
+
+\medskip\noindent
+Finally, given two maps
+$f, g : X \to Y$ of algebraic spaces over $B$, if the induced maps
+$f, g : X(T) \to Y(T)$ are equal for every scheme $T$ over $B$, then
+$f = g$, and hence also $f, g : X(Z) \to Y(Z)$ are equal for
+every third algebraic space $Z$ over $B$. Hence, for example,
+to check the axioms for an group algebraic space $G$ over $B$, it
+suffices to check commutativity of diagram on $T$-valued points
+where $T$ is a scheme over $B$ as we do in
+Definition \ref{definition-group-space}
+below.
+
+
+
+
+\section{Equivalence relations}
+\label{section-equivalence-relations}
+
+\noindent
+Please refer to
+Groupoids, Section \ref{groupoids-section-equivalence-relations}
+for notation.
+
+\begin{definition}
+\label{definition-equivalence-relation}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $U$ be an algebraic space over $B$.
+\begin{enumerate}
+\item A {\it pre-relation} on $U$ over $B$ is any morphism
+$j : R \to U \times_B U$ of algebraic spaces over $B$.
+In this case we set
+$t = \text{pr}_0 \circ j$ and $s = \text{pr}_1 \circ j$, so
+that $j = (t, s)$.
+\item A {\it relation} on $U$ over $B$ is a monomorphism
+$j : R \to U \times_B U$ of algebraic spaces over $B$.
+\item A {\it pre-equivalence relation} is a pre-relation
+$j : R \to U \times_B U$ such that the image of
+$j : R(T) \to U(T) \times U(T)$ is an equivalence relation for
+all schemes $T$ over $B$.
+\item We say a morphism $R \to U \times_B U$ of algebraic spaces over $B$
+is an {\it equivalence relation on $U$ over $B$}
+if and only if for every $T$ over $B$ the $T$-valued
+points of $R$ define an equivalence relation
+on the set of $T$-valued points of $U$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+In other words, an equivalence relation is a pre-equivalence relation
+such that $j$ is a relation.
+
+\begin{lemma}
+\label{lemma-restrict-relation}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $U$ be an algebraic space over $B$.
+Let $j : R \to U \times_B U$ be a pre-relation.
+Let $g : U' \to U$ be a morphism of algebraic spaces over $B$.
+Finally, set
+$$
+R' = (U' \times_B U')\times_{U \times_B U} R
+\xrightarrow{j'}
+U' \times_B U'
+$$
+Then $j'$ is a pre-relation on $U'$ over $B$.
+If $j$ is a relation, then $j'$ is a relation.
+If $j$ is a pre-equivalence relation, then $j'$ is a pre-equivalence relation.
+If $j$ is an equivalence relation, then $j'$ is an equivalence relation.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{definition}
+\label{definition-restrict-relation}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $U$ be an algebraic space over $B$.
+Let $j : R \to U \times_B U$ be a pre-relation.
+Let $g : U' \to U$ be a morphism of algebraic spaces over $B$.
+The pre-relation $j' : R' \to U' \times_B U'$ of
+Lemma \ref{lemma-restrict-relation} is called
+the {\it restriction}, or {\it pullback} of the pre-relation $j$ to $U'$.
+In this situation we sometimes write $R' = R|_{U'}$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-pre-equivalence-equivalence-relation-points}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $j : R \to U \times_B U$ be a pre-relation of algebraic spaces over $B$.
+Consider the relation on $|U|$ defined by the rule
+$$
+x \sim y
+\Leftrightarrow
+\exists\ r \in |R| :
+t(r) = x,
+s(r) = y.
+$$
+If $j$ is a pre-equivalence relation then this is an equivalence relation.
+\end{lemma}
+
+\begin{proof}
+Suppose that $x \sim y$ and $y \sim z$.
+Pick $r \in |R|$ with $t(r) = x$, $s(r) = y$ and
+pick $r' \in |R|$ with $t(r') = y$, $s(r') = z$.
+We may pick a field $K$ such that $r$ and $r'$ can be
+represented by morphisms $r, r' : \Spec(K) \to R$
+with $s \circ r = t \circ r'$.
+Denote $x = t \circ r$, $y = s \circ r = t \circ r'$,
+and $z = s \circ r'$, so $x, y, z : \Spec(K) \to U$.
+By construction $(x, y) \in j(R(K))$ and
+$(y, z) \in j(R(K))$. Since $j$ is a pre-equivalence relation
+we see that also $(x, z) \in j(R(K))$.
+This clearly implies that $x \sim z$.
+
+\medskip\noindent
+The proof that $\sim$ is reflexive and symmetric is omitted.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Group algebraic spaces}
+\label{section-group-spaces}
+
+\noindent
+Please refer to
+Groupoids, Section \ref{groupoids-section-group-schemes}
+for notation.
+
+\begin{definition}
+\label{definition-group-space}
+Let $B \to S$ as in Section \ref{section-notation}.
+\begin{enumerate}
+\item A {\it group algebraic space over $B$} is a pair $(G, m)$, where
+$G$ is an algebraic space over $B$ and $m : G \times_B G \to G$ is
+a morphism of algebraic spaces over $B$ with the following property:
+For every scheme $T$ over $B$ the pair $(G(T), m)$ is a group.
+\item A {\it morphism $\psi : (G, m) \to (G', m')$ of
+group algebraic spaces over $B$}
+is a morphism $\psi : G \to G'$ of algebraic spaces over $B$ such that for
+every $T/B$ the induced map $\psi : G(T) \to G'(T)$ is a homomorphism
+of groups.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Let $(G, m)$ be a group algebraic space over the algebraic space $B$.
+By the discussion in
+Groupoids, Section \ref{groupoids-section-group-schemes}
+we obtain morphisms of algebraic spaces over $B$
+(identity) $e : B \to G$ and (inverse) $i : G \to G$ such that
+for every $T$ the quadruple $(G(T), m, e, i)$ satisfies the
+axioms of a group.
+
+\medskip\noindent
+Let $(G, m)$, $(G', m')$ be group algebraic spaces over $B$.
+Let $f : G \to G'$ be a morphism of algebraic spaces over $B$.
+It follows from the definition that $f$ is a morphism
+of group algebraic spaces over $B$ if and only if the following diagram
+is commutative:
+$$
+\xymatrix{
+G \times_B G \ar[r]_-{f \times f} \ar[d]_m &
+G' \times_B G' \ar[d]^m \\
+G \ar[r]^f & G'
+}
+$$
+
+\begin{lemma}
+\label{lemma-base-change-group-space}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(G, m)$ be a group algebraic space over $B$.
+Let $B' \to B$ be a morphism of algebraic spaces.
+The pullback $(G_{B'}, m_{B'})$ is a group algebraic space over $B'$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Properties of group algebraic spaces}
+\label{section-properties-group-spaces}
+
+\noindent
+In this section we collect some simple properties of group algebraic spaces
+which hold over any base.
+
+\begin{lemma}
+\label{lemma-group-scheme-separated}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $G$ be a group algebraic space over $B$.
+Then $G \to B$ is separated (resp.\ quasi-separated, resp.\ locally separated)
+if and only if the identity morphism $e : B \to G$ is a closed immersion
+(resp.\ quasi-compact, resp.\ an immersion).
+\end{lemma}
+
+\begin{proof}
+We recall that by
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-section-immersion}
+we have that $e$ is a closed immersion (resp.\ quasi-compact, resp.\ an
+immersion) if $G \to B$ is separated (resp.\ quasi-separated, resp.\ locally
+separated).
+For the converse, consider the diagram
+$$
+\xymatrix{
+G \ar[r]_-{\Delta_{G/B}} \ar[d] &
+G \times_B G \ar[d]^{(g, g') \mapsto m(i(g), g')} \\
+B \ar[r]^e & G
+}
+$$
+It is an exercise in the functorial point of view in algebraic geometry
+to show that this diagram is cartesian. In other words, we see that
+$\Delta_{G/B}$ is a base change of $e$. Hence if $e$ is a
+closed immersion (resp.\ quasi-compact, resp.\ an immersion) so is
+$\Delta_{G/B}$, see
+Spaces, Lemma \ref{spaces-lemma-base-change-immersions}
+(resp.\ Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-base-change-quasi-compact},
+resp.\ Spaces, Lemma \ref{spaces-lemma-base-change-immersions}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-group-scheme-unramified-or-lqf}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $G$ be a group algebraic space over $B$. Assume $G \to B$
+is locally of finite type. Then
+$G \to B$ is unramified (resp.\ locally quasi-finite)
+if and only if $G \to B$ is unramified (resp.\ quasi-finite)
+at $e(b)$ for all $b \in |B|$.
+\end{lemma}
+
+\begin{proof}
+By Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-where-unramified}
+(resp.\ Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-base-change-quasi-finite-locus})
+there is a maximal open subspace $U \subset G$ such that $U \to B$ is
+unramified (resp.\ locally quasi-finite) and formation of $U$
+commutes with base change. Thus we reduce to the case where
+$B = \Spec(k)$ is the spectrum of a field.
+Let $g \in G(K)$ be a point with values in an extension $K/k$.
+Then to check whether or not $g$ is in $U$, we may base
+change to $K$. Hence it suffices to show
+$$
+G \to \Spec(k)\text{ is unramified at }e
+\Leftrightarrow
+G \to \Spec(k)\text{ is unramified at }g
+$$
+for a $k$-rational point $g$ (resp.\ similarly for
+quasi-finite at $g$ and $e$). Since translation by $g$
+is an automorphism of $G$ over $k$ this is clear.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-over-which-unramified-or-lqf}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $G$ be a group algebraic space over $B$. Assume $G \to B$
+is locally of finite type.
+\begin{enumerate}
+\item There exists a maximal open subspace $U \subset B$
+such that $G_U \to U$ is unramified and formation of $U$
+commutes with base change.
+\item There exists a maximal open subspace $U \subset B$
+such that $G_U \to U$ is locally quasi-finite and formation of $U$
+commutes with base change.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-where-unramified}
+(resp.\ Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-base-change-quasi-finite-locus})
+there is a maximal open subspace $W \subset G$ such that $W \to B$ is
+unramified (resp.\ locally quasi-finite). Moreover formation of $W$
+commutes with base change.
+By Lemma \ref{lemma-group-scheme-unramified-or-lqf}
+we see that $U = e^{-1}(W)$ in either case.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Examples of group algebraic spaces}
+\label{section-examples-group-spaces}
+
+\noindent
+If $G \to S$ is a group scheme over the base scheme $S$, then the base
+change $G_B$ to any algebraic space $B$ over $S$ is an group algebraic
+space over $B$ by
+Lemma \ref{lemma-base-change-group-space}.
+We will frequently use this in the examples below.
+
+\begin{example}[Multiplicative group algebraic space]
+\label{example-multiplicative-group}
+Let $B \to S$ as in Section \ref{section-notation}.
+Consider the functor which associates to any scheme $T$ over
+$B$ the group $\Gamma(T, \mathcal{O}_T^*)$
+of units in the global sections of the structure sheaf.
+This is representable by the group algebraic space
+$$
+\mathbf{G}_{m, B} = B \times_S \mathbf{G}_{m, S}
+$$
+over $B$. Here $\mathbf{G}_{m, S}$ is the multiplicative group scheme
+over $S$, see
+Groupoids, Example \ref{groupoids-example-multiplicative-group}.
+\end{example}
+
+\begin{example}[Roots of unity as a group algebraic space]
+\label{example-roots-of-unity}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $n \in \mathbf{N}$. Consider the functor which associates
+to any scheme $T$ over $B$ the subgroup of $\Gamma(T, \mathcal{O}_T^*)$
+consisting of $n$th roots of unity.
+This is representable by the group algebraic space
+$$
+\mu_{n, B} = B \times_S \mu_{n, S}
+$$
+over $B$. Here $\mu_{n, S}$ is the group scheme of $n$th roots of
+unity over $S$, see
+Groupoids, Example \ref{groupoids-example-roots-of-unity}.
+\end{example}
+
+\begin{example}[Additive group algebraic space]
+\label{example-additive-group}
+Let $B \to S$ as in Section \ref{section-notation}.
+Consider the functor which associates
+to any scheme $T$ over $B$ the group $\Gamma(T, \mathcal{O}_T)$
+of global sections of the structure sheaf.
+This is representable by the group algebraic space
+$$
+\mathbf{G}_{a, B} = B \times_S \mathbf{G}_{a, S}
+$$
+over $B$. Here $\mathbf{G}_{a, S}$ is the additive group scheme
+over $S$, see
+Groupoids, Example \ref{groupoids-example-additive-group}.
+\end{example}
+
+\begin{example}[General linear group algebraic space]
+\label{example-general-linear-group}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $n \geq 1$.
+Consider the functor which associates
+to any scheme $T$ over $B$ the group
+$$
+\text{GL}_n(\Gamma(T, \mathcal{O}_T))
+$$
+of invertible $n \times n$ matrices over
+the global sections of the structure sheaf.
+This is representable by the group algebraic space
+$$
+\text{GL}_{n, B} = B \times_S \text{GL}_{n, S}
+$$
+over $B$. Here $\mathbf{G}_{m, S}$ is the general linear group scheme
+over $S$, see
+Groupoids, Example \ref{groupoids-example-general-linear-group}.
+\end{example}
+
+\begin{example}
+\label{example-determinant}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $n \geq 1$.
+The determinant defines a morphism of group algebraic spaces
+$$
+\det : \text{GL}_{n, B} \longrightarrow \mathbf{G}_{m, B}
+$$
+over $B$. It is the base change of the determinant morphism
+over $S$ from
+Groupoids, Example \ref{groupoids-example-determinant}.
+\end{example}
+
+\begin{example}[Constant group algebraic space]
+\label{example-constant-group}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $G$ be an abstract group. Consider the functor
+which associates to any scheme $T$ over $B$ the group
+of locally constant maps $T \to G$ (where $T$ has the Zariski topology
+and $G$ the discrete topology). This is representable by the
+group algebraic space
+$$
+G_B = B \times_S G_S
+$$
+over $B$. Here $G_S$ is the constant group scheme introduced in
+Groupoids, Example \ref{groupoids-example-constant-group}.
+\end{example}
+
+
+
+
+
+\section{Actions of group algebraic spaces}
+\label{section-action-group-space}
+
+\noindent
+Please refer to
+Groupoids, Section \ref{groupoids-section-action-group-scheme}
+for notation.
+
+\begin{definition}
+\label{definition-action-group-space}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(G, m)$ be a group algebraic space over $B$.
+Let $X$ be an algebraic space over $B$.
+\begin{enumerate}
+\item An {\it action of $G$ on the algebraic space $X/B$} is
+a morphism $a : G \times_B X \to X$ over $B$ such that
+for every scheme $T$ over $B$ the map $a : G(T) \times X(T) \to X(T)$
+defines the structure of a $G(T)$-set on $X(T)$.
+\item Suppose that $X$, $Y$ are algebraic spaces over $B$ each endowed
+with an action of $G$. An {\it equivariant} or more precisely
+a {\it $G$-equivariant} morphism $\psi : X \to Y$
+is a morphism of algebraic spaces over $B$ such
+that for every $T$ over $B$ the map $\psi : X(T) \to Y(T)$ is
+a morphism of $G(T)$-sets.
+\end{enumerate}
+\end{definition}
+
+\noindent
+In situation (1) this means that the diagrams
+\begin{equation}
+\label{equation-action}
+\xymatrix{
+G \times_B G \times_B X \ar[r]_-{1_G \times a} \ar[d]_{m \times 1_X} &
+G \times_B X \ar[d]^a \\
+G \times_B X \ar[r]^a & X
+}
+\quad
+\xymatrix{
+G \times_B X \ar[r]_-a & X \\
+X\ar[u]^{e \times 1_X} \ar[ru]_{1_X}
+}
+\end{equation}
+are commutative. In situation (2) this just means that the diagram
+$$
+\xymatrix{
+G \times_B X \ar[r]_-{\text{id} \times f} \ar[d]_a &
+G \times_B Y \ar[d]^a \\
+X \ar[r]^f & Y
+}
+$$
+commutes.
+
+\begin{definition}
+\label{definition-free-action}
+Let $B \to S$, $G \to B$, and $X \to B$ as in
+Definition \ref{definition-action-group-space}.
+Let $a : G \times_B X \to X$ be an action of $G$ on $X/B$.
+We say the action is {\it free} if for every scheme $T$ over $B$
+the action $a : G(T) \times X(T) \to X(T)$ is a free action of
+the group $G(T)$ on the set $X(T)$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-free-action}
+Situation as in
+Definition \ref{definition-free-action},
+The action $a$ is free if and only if
+$$
+G \times_B X \to X \times_B X, \quad (g, x) \mapsto (a(g, x), x)
+$$
+is a monomorphism of algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+Immediate from the definitions.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Principal homogeneous spaces}
+\label{section-principal-homogeneous}
+
+\noindent
+This section is the analogue of
+Groupoids, Section \ref{groupoids-section-principal-homogeneous}.
+We suggest reading that section first.
+
+\begin{definition}
+\label{definition-pseudo-torsor}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $(G, m)$ be a group algebraic space over $B$.
+Let $X$ be an algebraic space over $B$, and let
+$a : G \times_B X \to X$ be an action of $G$ on $X$.
+\begin{enumerate}
+\item We say $X$ is a {\it pseudo $G$-torsor} or that $X$ is
+{\it formally principally homogeneous under $G$} if the induced
+morphism $G \times_B X \to X \times_B X$,
+$(g, x) \mapsto (a(g, x), x)$ is an isomorphism.
+\item A pseudo $G$-torsor $X$ is called {\it trivial} if there exists
+an $G$-equivariant isomorphism $G \to X$ over $B$ where $G$ acts on
+$G$ by left multiplication.
+\end{enumerate}
+\end{definition}
+
+\noindent
+It is clear that if $B' \to B$ is a morphism of algebraic spaces then
+the pullback $X_{B'}$ of a pseudo $G$-torsor over $B$ is a
+pseudo $G_{B'}$-torsor over $B'$.
+
+\begin{lemma}
+\label{lemma-characterize-trivial-pseudo-torsors}
+In the situation of
+Definition \ref{definition-pseudo-torsor}.
+\begin{enumerate}
+\item The algebraic space $X$ is a pseudo $G$-torsor if and only if for
+every scheme $T$ over $B$ the set $X(T)$ is either empty or the action
+of the group $G(T)$ on $X(T)$ is simply transitive.
+\item A pseudo $G$-torsor $X$ is trivial if and only if the morphism
+$X \to B$ has a section.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{definition}
+\label{definition-principal-homogeneous-space}
+Let $S$ be a scheme.
+Let $B$ be an algebraic space over $S$.
+Let $(G, m)$ be a group algebraic space over $B$.
+Let $X$ be a pseudo $G$-torsor over $B$.
+\begin{enumerate}
+\item We say $X$ is a
+{\it principal homogeneous space}, or more precisely a
+{\it principal homogeneous $G$-space over $B$}
+if there exists a fpqc covering\footnote{The default type of torsor in
+Groupoids, Definition \ref{groupoids-definition-principal-homogeneous-space}
+is a pseudo torsor which is trivial on an fpqc covering.
+Since $G$, as an algebraic space, can be seen a sheaf of groups
+there already is a notion of a $G$-torsor which corresponds
+to fppf-torsor, see
+Lemma \ref{lemma-torsor}.
+Hence we use ``principal homogeneous space'' for a pseudo torsor which
+is fpqc locally trivial, and we try to avoid using the word torsor in
+this situation.}
+$\{B_i \to B\}_{i \in I}$ such that each
+$X_{B_i} \to B_i$ has a section (i.e., is a trivial pseudo $G_{B_i}$-torsor).
+\item Let $\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$.
+We say $X$ is a {\it $G$-torsor in the $\tau$ topology}, or a
+{\it $\tau$ $G$-torsor}, or simply a {\it $\tau$ torsor}
+if there exists a $\tau$ covering $\{B_i \to B\}_{i \in I}$
+such that each $X_{B_i} \to B_i$ has a section.
+\item If $X$ is a principal homogeneous $G$-space over $B$,
+then we say that it is
+{\it quasi-isotrivial} if it is a torsor for the \'etale topology.
+\item If $X$ is a principal homogeneous $G$-space over $B$,
+then we say that it is
+{\it locally trivial} if it is a torsor for the Zariski topology.
+\end{enumerate}
+\end{definition}
+
+\noindent
+We sometimes say ``let $X$ be a $G$-principal homogeneous space over $B$''
+to indicate that $X$ is an algebraic space over $B$ equipped with an
+action of $G$ which turns it into a principal homogeneous space over $B$.
+Next we show that this agrees with the notation introduced earlier
+when both apply.
+
+\begin{lemma}
+\label{lemma-torsor}
+Let $S$ be a scheme.
+Let $(G, m)$ be a group algebraic space over $S$.
+Let $X$ be an algebraic space over $S$, and let
+$a : G \times_S X \to X$ be an action of $G$ on $X$.
+Then
+$X$ is a $G$-torsor in the $fppf$-topology in the sense of
+Definition \ref{definition-principal-homogeneous-space}
+if and only if
+$X$ is a $G$-torsor on $(\Sch/S)_{fppf}$
+in the sense of
+Cohomology on Sites, Definition \ref{sites-cohomology-definition-torsor}.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pseudo-torsor-implications}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $G$ be a group algebraic space over $B$.
+Let $X$ be a pseudo $G$-torsor over $B$.
+Assume $G$ and $X$ locally of finite type over $B$.
+\begin{enumerate}
+\item If $G \to B$ is unramified, then $X \to B$ is unramified.
+\item If $G \to B$ is locally quasi-finite, then $X \to B$ is
+locally quasi-finite.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of (1). By Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-where-unramified}
+we reduce to the case where $B$ is the spectrum of a field.
+If $X$ is empty, then the result holds. If $X$ is nonempty,
+then after increasing the field, we may assume $X$ has a point.
+Then $G \cong X$ and the result holds.
+
+\medskip\noindent
+The proof of (2) works in exactly the same way using
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-base-change-quasi-finite-locus}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Equivariant quasi-coherent sheaves}
+\label{section-equivariant}
+
+\noindent
+Please compare with
+Groupoids, Section \ref{groupoids-section-equivariant}.
+
+\begin{definition}
+\label{definition-equivariant-module}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(G, m)$ be a group algebraic space over $B$, and
+let $a : G \times_B X \to X$ be an action of $G$
+on the algebraic space $X$ over $B$.
+An {\it $G$-equivariant quasi-coherent $\mathcal{O}_X$-module},
+or simply a {\it equivariant quasi-coherent $\mathcal{O}_X$-module},
+is a pair $(\mathcal{F}, \alpha)$, where $\mathcal{F}$ is a quasi-coherent
+$\mathcal{O}_X$-module, and $\alpha$ is a $\mathcal{O}_{G \times_B X}$-module
+map
+$$
+\alpha : a^*\mathcal{F} \longrightarrow \text{pr}_1^*\mathcal{F}
+$$
+where $\text{pr}_1 : G \times_B X \to X$ is the projection
+such that
+\begin{enumerate}
+\item the diagram
+$$
+\xymatrix{
+(1_G \times a)^*\text{pr}_2^*\mathcal{F} \ar[r]_-{\text{pr}_{12}^*\alpha} &
+\text{pr}_2^*\mathcal{F} \\
+(1_G \times a)^*a^*\mathcal{F} \ar[u]^{(1_G \times a)^*\alpha} \ar@{=}[r] &
+(m \times 1_X)^*a^*\mathcal{F} \ar[u]_{(m \times 1_X)^*\alpha}
+}
+$$
+is a commutative in the category of
+$\mathcal{O}_{G \times_B G \times_B X}$-modules, and
+\item the pullback
+$$
+(e \times 1_X)^*\alpha : \mathcal{F} \longrightarrow \mathcal{F}
+$$
+is the identity map.
+\end{enumerate}
+For explanation compare with the relevant diagrams of
+Equation (\ref{equation-action}).
+\end{definition}
+
+\noindent
+Note that the commutativity of the first diagram guarantees that
+$(e \times 1_X)^*\alpha$ is an idempotent operator on $\mathcal{F}$,
+and hence condition (2) is just the condition that it is an isomorphism.
+
+\begin{lemma}
+\label{lemma-pullback-equivariant}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $G$ be a group algebraic space over $B$.
+Let $f : X \to Y$ be a $G$-equivariant morphism between
+algebraic spaces over $B$ endowed with $G$-actions.
+Then pullback $f^*$ given by
+$(\mathcal{F}, \alpha) \mapsto (f^*\mathcal{F}, (1_G \times f)^*\alpha)$
+defines a functor from the category of $G$-equivariant sheaves on
+$X$ to the category of quasi-coherent $G$-equivariant sheaves on $Y$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+
+
+
+
+\section{Groupoids in algebraic spaces}
+\label{section-groupoids}
+
+\noindent
+Please refer to
+Groupoids, Section \ref{groupoids-section-groupoids}
+for notation.
+
+\begin{definition}
+\label{definition-groupoid}
+Let $B \to S$ as in Section \ref{section-notation}.
+\begin{enumerate}
+\item A {\it groupoid in algebraic spaces over $B$} is a
+quintuple $(U, R, s, t, c)$ where
+$U$ and $R$ are algebraic spaces over $B$, and
+$s, t : R \to U$ and $c : R \times_{s, U, t} R \to R$
+are morphisms of algebraic spaces over $B$ with the
+following property: For any scheme $T$ over $B$ the quintuple
+$$
+(U(T), R(T), s, t, c)
+$$
+is a groupoid category.
+\item A {\it morphism
+$f : (U, R, s, t, c) \to (U', R', s', t', c')$
+of groupoids in algebraic spaces over $B$} is given by morphisms
+of algebraic spaces $f : U \to U'$ and $f : R \to R'$ over $B$
+with the following property:  For any scheme
+$T$ over $B$ the maps $f$ define a functor from the
+groupoid category $(U(T), R(T), s, t, c)$ to the
+groupoid category $(U'(T), R'(T), s', t', c')$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+Note that there are unique morphisms of algebraic spaces
+$e : U \to R$ and $i : R \to R$ over $B$ such that for every scheme $T$
+over $B$ the induced map $e : U(T) \to R(T)$ is the identity, and
+$i : R(T) \to R(T)$ is the inverse of the groupoid category.
+The septuple $(U, R, s, t, c, e, i)$ satisfies commutative diagrams
+corresponding to each of the axioms (1), (2)(a), (2)(b), (3)(a) and (3)(b) of
+Groupoids, Section \ref{groupoids-section-groupoids}.
+Conversely given a septuple with this property the quintuple $(U, R, s, t, c)$
+is a groupoid in algebraic spaces over $B$. Note that $i$ is an isomorphism,
+and $e$ is a section of both $s$ and $t$.
+Moreover, given a groupoid in algebraic spaces over $B$ we denote
+$$
+j = (t, s) : R \longrightarrow U \times_B U
+$$
+which is compatible with our conventions in
+Section \ref{section-equivalence-relations}
+above. We sometimes say ``let $(U, R, s, t, c, e, i)$ be a
+groupoid in algebraic spaces over $B$'' to stress the existence of identity and
+inverse.
+
+\begin{lemma}
+\label{lemma-groupoid-pre-equivalence}
+Let $B \to S$ as in Section \ref{section-notation}.
+Given a groupoid in algebraic spaces $(U, R, s, t, c)$ over $B$
+the morphism $j : R \to U \times_B U$ is a pre-equivalence
+relation.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+This is a nice exercise in the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-equivalence-groupoid}
+Let $B \to S$ as in Section \ref{section-notation}.
+Given an equivalence relation $j : R \to U \times_B U$ over $B$
+there is a unique way to extend it to a groupoid in algebraic spaces
+$(U, R, s, t, c)$ over $B$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+This is a nice exercise in the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagram}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+In the commutative diagram
+$$
+\xymatrix{
+& U & \\
+R \ar[d]_s \ar[ru]^t &
+R \times_{s, U, t} R
+\ar[l]^-{\text{pr}_0} \ar[d]^{\text{pr}_1} \ar[r]_-c &
+R \ar[d]^s \ar[lu]_t \\
+U & R \ar[l]_t \ar[r]^s & U
+}
+$$
+the two lower squares are fibre product squares.
+Moreover, the triangle on top (which is really a square)
+is also cartesian.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+Exercise in the definitions and the functorial point of
+view in algebraic geometry.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagram-pull}
+Let $B \to S$ be as in Section \ref{section-notation}.
+Let $(U, R, s, t, c, e, i)$ be a groupoid in algebraic spaces over $B$.
+The diagram
+\begin{equation}
+\label{equation-pull}
+\xymatrix{
+R \times_{t, U, t} R
+\ar@<1ex>[r]^-{\text{pr}_1} \ar@<-1ex>[r]_-{\text{pr}_0}
+\ar[d]_{\text{pr}_0 \times c \circ (i, 1)} &
+R \ar[r]^t \ar[d]^{\text{id}_R} &
+U \ar[d]^{\text{id}_U} \\
+R \times_{s, U, t} R
+\ar@<1ex>[r]^-c \ar@<-1ex>[r]_-{\text{pr}_0} \ar[d]_{\text{pr}_1} &
+R \ar[r]^t \ar[d]^s &
+U \\
+R \ar@<1ex>[r]^s \ar@<-1ex>[r]_t &
+U
+}
+\end{equation}
+is commutative. The two top rows are isomorphic via the vertical maps given.
+The two lower left squares are cartesian.
+\end{lemma}
+
+\begin{proof}
+The commutativity of the diagram follows from the axioms of a groupoid.
+Note that, in terms of groupoids, the top left vertical arrow assigns to
+a pair of morphisms $(\alpha, \beta)$ with the same target, the pair
+of morphisms $(\alpha, \alpha^{-1} \circ \beta)$. In any groupoid
+this defines a bijection between
+$\text{Arrows} \times_{t, \text{Ob}, t} \text{Arrows}$
+and
+$\text{Arrows} \times_{s, \text{Ob}, t} \text{Arrows}$. Hence the second
+assertion of the lemma.
+The last assertion follows from Lemma \ref{lemma-diagram}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-groupoid}
+Let $B \to S$ be as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+Let $B' \to B$ be a morphism of algebraic spaces.
+Then the base changes $U' = B' \times_B U$,
+$R' = B' \times_B R$ endowed with the base changes $s'$, $t'$, $c'$
+of the morphisms $s, t, c$ form a groupoid in algebraic spaces
+$(U', R', s', t', c')$ over $B'$ and the projections
+determine a morphism
+$(U', R', s', t', c') \to (U, R, s, t, c)$
+of groupoids in algebraic spaces over $B$.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint:
+$R' \times_{s', U', t'} R' = B' \times_B (R \times_{s, U, t} R)$.
+\end{proof}
+
+
+
+
+
+\section{Quasi-coherent sheaves on groupoids}
+\label{section-groupoids-quasi-coherent}
+
+\noindent
+Please compare with
+Groupoids, Section \ref{groupoids-section-groupoids-quasi-coherent}.
+
+\begin{definition}
+\label{definition-groupoid-module}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+A {\it quasi-coherent module on $(U, R, s, t, c)$}
+is a pair $(\mathcal{F}, \alpha)$, where $\mathcal{F}$ is a quasi-coherent
+$\mathcal{O}_U$-module, and $\alpha$ is a $\mathcal{O}_R$-module
+map
+$$
+\alpha : t^*\mathcal{F} \longrightarrow s^*\mathcal{F}
+$$
+such that
+\begin{enumerate}
+\item the diagram
+$$
+\xymatrix{
+& \text{pr}_1^*t^*\mathcal{F} \ar[r]_-{\text{pr}_1^*\alpha} &
+\text{pr}_1^*s^*\mathcal{F} \ar@{=}[rd] & \\
+\text{pr}_0^*s^*\mathcal{F} \ar@{=}[ru] & & & c^*s^*\mathcal{F} \\
+& \text{pr}_0^*t^*\mathcal{F} \ar[lu]^{\text{pr}_0^*\alpha} \ar@{=}[r] &
+c^*t^*\mathcal{F} \ar[ru]_{c^*\alpha}
+}
+$$
+is a commutative in the category of
+$\mathcal{O}_{R \times_{s, U, t} R}$-modules, and
+\item the pullback
+$$
+e^*\alpha : \mathcal{F} \longrightarrow \mathcal{F}
+$$
+is the identity map.
+\end{enumerate}
+Compare with the commutative diagrams of Lemma \ref{lemma-diagram}.
+\end{definition}
+
+\noindent
+The commutativity of the first diagram forces the operator $e^*\alpha$
+to be idempotent. Hence the second condition can be reformulated as saying
+that $e^*\alpha$ is an isomorphism. In fact, the condition implies that
+$\alpha$ is an isomorphism.
+
+\begin{lemma}
+\label{lemma-isomorphism}
+Let $S$ be a scheme, let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+If $(\mathcal{F}, \alpha)$ is a quasi-coherent module on $(U, R, s, t, c)$
+then $\alpha$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+Pull back the commutative diagram of
+Definition \ref{definition-groupoid-module}
+by the morphism $(i, 1) : R \to R \times_{s, U, t} R$.
+Then we see that $i^*\alpha \circ \alpha = s^*e^*\alpha$.
+Pulling back by the morphism $(1, i)$ we obtain the relation
+$\alpha \circ i^*\alpha = t^*e^*\alpha$. By the second assumption 
+these morphisms are the identity. Hence $i^*\alpha$ is an inverse of
+$\alpha$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullback}
+Let $B \to S$ as in Section \ref{section-notation}.
+Consider a morphism
+$f : (U, R, s, t, c) \to (U', R', s', t', c')$
+of groupoid in algebraic spaces over $B$. Then pullback $f^*$ given by
+$$
+(\mathcal{F}, \alpha) \mapsto (f^*\mathcal{F}, f^*\alpha)
+$$
+defines a functor from the category of quasi-coherent sheaves on
+$(U', R', s', t', c')$ to the category of quasi-coherent sheaves on
+$(U, R, s, t, c)$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-colimits}
+Let $B \to S$ be as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+The category of quasi-coherent modules on $(U, R, s, t, c)$ has colimits.
+\end{lemma}
+
+\begin{proof}
+Let $i \mapsto (\mathcal{F}_i, \alpha_i)$ be a diagram over the index
+category $\mathcal{I}$. We can form the colimit
+$\mathcal{F} = \colim \mathcal{F}_i$
+which is a quasi-coherent sheaf on $U$, see
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-properties-quasi-coherent}.
+Since colimits commute with pullback we see that
+$s^*\mathcal{F} = \colim s^*\mathcal{F}_i$ and similarly
+$t^*\mathcal{F} = \colim t^*\mathcal{F}_i$. Hence we can set
+$\alpha = \colim \alpha_i$. We omit the proof that $(\mathcal{F}, \alpha)$
+is the colimit of the diagram in the category of quasi-coherent modules
+on $(U, R, s, t, c)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-abelian}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+If $s$, $t$ are flat, then the category of quasi-coherent modules on
+$(U, R, s, t, c)$ is abelian.
+\end{lemma}
+
+\begin{proof}
+Let $\varphi : (\mathcal{F}, \alpha) \to (\mathcal{G}, \beta)$ be a
+homomorphism of quasi-coherent modules on $(U, R, s, t, c)$. Since $s$ is flat
+we see that
+$$
+0 \to s^*\Ker(\varphi)
+\to s^*\mathcal{F} \to s^*\mathcal{G} \to s^*\Coker(\varphi) \to 0
+$$
+is exact and similarly for pullback by $t$. Hence $\alpha$ and $\beta$
+induce isomorphisms
+$\kappa : t^*\Ker(\varphi) \to s^*\Ker(\varphi)$ and
+$\lambda : t^*\Coker(\varphi) \to s^*\Coker(\varphi)$
+which satisfy the cocycle condition. Then it is straightforward to
+verify that $(\Ker(\varphi), \kappa)$ and
+$(\Coker(\varphi), \lambda)$ are a kernel and cokernel in the
+category of quasi-coherent modules on $(U, R, s, t, c)$. Moreover,
+the condition $\Coim(\varphi) = \Im(\varphi)$ follows
+because it holds over $U$.
+\end{proof}
+
+
+
+
+
+\section{Crystals in quasi-coherent sheaves}
+\label{section-crystals}
+
+\noindent
+Let $(I, \Phi, j)$ be a pair consisting of a set $I$
+and a pre-relation $j : \Phi \to I \times I$. Assume given for every
+$i \in I$ a scheme $X_i$ and for every $\phi \in \Phi$
+a morphism of schemes $f_\phi : X_{i'} \to X_i$ where
+$j(\phi) = (i, i')$. Set
+$X = (\{X_i\}_{i \in I}, \{f_\phi\}_{\phi \in \Phi})$.
+Define a {\it crystal in quasi-coherent modules on $X$}
+as a rule which associates to every
+$i \in \Ob(\mathcal{I})$ a quasi-coherent sheaf $\mathcal{F}_i$ on $X_i$
+and for every $\phi \in \Phi$ with $j(\phi) = (i, i')$ an isomorphism
+$$
+\alpha_\phi : f_\phi^*\mathcal{F}_i \longrightarrow \mathcal{F}_{i'}
+$$
+of quasi-coherent sheaves on $X_{i'}$. These crystals in quasi-coherent
+modules form an additive category $\textit{CQC}(X)$\footnote{We could single
+out a set of triples $\phi, \phi', \phi'' \in \Phi$ with
+$j(\phi) = (i, i')$, $j(\phi') = (i', i'')$, and $j(\phi'') = (i, i'')$
+such that $f_{\phi''} = f_\phi \circ f_{\phi'}$ and require that
+$\alpha_{\phi'} \circ f_{\phi'}^*\alpha_\phi = \alpha_{\phi''}$
+for these triples. This would define an additive subcategory.
+For example the data $(I, \Phi)$ could be the set of objects and
+arrows of an index category and $X$ could be a diagram of schemes over
+this index category. The result of
+Lemma \ref{lemma-crystals-in-quasi-coherent-modules}
+immediately gives the corresponding result in the subcategory.}.
+This category has colimits
+(proof is the same as the proof of Lemma \ref{lemma-colimits}).
+If all the morphisms $f_\phi$ are flat, then $\textit{CQC}(X)$ is
+abelian (proof is the same as the proof of Lemma \ref{lemma-abelian}).
+Let $\kappa$ be a cardinal. We say that a crystal in quasi-coherent modules
+$\mathcal{F}$ on $X$ is {\it $\kappa$-generated} if each $\mathcal{F}_i$ is
+$\kappa$-generated (see
+Properties, Definition \ref{properties-definition-kappa-generated}).
+
+\begin{lemma}
+\label{lemma-crystals-in-quasi-coherent-modules}
+In the situation above, if all the morphisms $f_\phi$ are flat, then there
+exists a cardinal $\kappa$ such that every object
+$(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$
+of $\textit{CQC}(X)$ is the directed colimit of its
+$\kappa$-generated submodules.
+\end{lemma}
+
+\begin{proof}
+In the lemma and in this proof a {\it submodule} of
+$(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$
+means the data of a quasi-coherent submodule
+$\mathcal{G}_i \subset \mathcal{F}_i$ for all $i$ such that
+$\alpha_\phi(f_\phi^*\mathcal{G}_i) = \mathcal{G}_{i'}$
+as subsheaves of $\mathcal{F}_{i'}$ for all $\phi \in \Phi$.
+This makes sense because since $f_\phi$ is flat the
+pullback $f^*_\phi$ is exact, i.e., preserves subsheaves.
+The proof will be a variant to the proof of
+Properties, Lemma \ref{properties-lemma-colimit-kappa}.
+We urge the reader to read that proof first.
+
+\medskip\noindent
+We claim that it suffices to prove the lemma in case all the schemes
+$X_i$ are affine. To see this let
+$$
+J = \coprod\nolimits_{i \in I} \{U \subset X_i\text{ affine open}\}
+$$
+and let
+\begin{align*}
+\Psi = & \coprod\nolimits_{\phi \in \Phi}
+\{
+(U, V) \mid
+U \subset X_i, V \subset X_{i'}\text{ affine open with } f_\phi(U) \subset V
+\} \\
+&
+\amalg \coprod\nolimits_{i \in I}
+\{
+(U, U') \mid
+U, U' \subset X_i\text{ affine open with } U \subset U'
+\}
+\end{align*}
+endowed with the obvious map $\Psi \to J \times J$. Then our
+$(\mathcal{F}, \alpha)$ induces a crystal in quasi-coherent sheaves
+$(\{\mathcal{H}_j\}_{j \in J}, \{\beta_\psi\}_{\psi \in \Psi})$
+on $Y = (J, \Psi)$ by setting $\mathcal{H}_{(i, U)} = \mathcal{F}_i|_U$
+for $(i, U) \in J$ and setting $\beta_\psi$ for $\psi \in \Psi$
+equal to the restriction of $\alpha_\phi$ to $U$
+if $\psi = (\phi, U, V)$ and
+equal to $\text{id} : (\mathcal{F}_i|_{U'})|_U \to \mathcal{F}_i|_U$
+when $\psi = (i, U, U')$. Moreover, submodules of
+$(\{\mathcal{H}_j\}_{j \in J}, \{\beta_\psi\}_{\psi \in \Psi})$
+correspond $1$-to-$1$ with submodules of
+$(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$.
+We omit the proof (hint: use
+Sheaves, Section \ref{sheaves-section-bases}).
+Moreover, it is clear that if $\kappa$ works for $Y$, then
+the same $\kappa$ works for $X$ (by the definition of $\kappa$-generated
+modules). Hence it suffices to proof the lemma for crystals in
+quasi-coherent sheaves on $Y$.
+
+\medskip\noindent
+Assume that all the schemes $X_i$ are affine. Let $\kappa$ be an infinite
+cardinal larger than the cardinality of $I$ or $\Phi$. Let
+$(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$
+be an object of $\textit{CQC}(X)$. For each $i$ write
+$X_i = \Spec(A_i)$ and $M_i = \Gamma(X_i, \mathcal{F}_i)$.
+For every $\phi \in \Phi$ with $j(\phi) = (i, i')$ the map
+$\alpha_\phi$ translates into an $A_{i'}$-module isomorphism
+$$
+\alpha_\phi : M_i \otimes_{A_i} A_{i'} \longrightarrow M_{i'}
+$$
+Using the axiom of choice choose a rule
+$$
+(\phi, m) \longmapsto S(\phi, m')
+$$
+where the source is the collection of pairs $(\phi, m')$ such that
+$\phi \in \Phi$ with $j(\phi) = (i, i')$ and $m' \in M_{i'}$ and
+where the output is a finite subset $S(\phi, m') \subset M_i$ so that
+$$
+m' = \alpha_\phi\left(\sum\nolimits_{m \in S(\phi, m')} m \otimes a'_m\right)
+$$
+for some $a'_m \in A_{i'}$.
+
+\medskip\noindent
+Having made these choices we claim that any section of any $\mathcal{F}_i$
+over any $X_i$ is in a $\kappa$-generated submodule. To see this suppose
+that we are given a collection $\mathcal{S} = \{S_i\}_{i \in I}$ of subsets
+$S_i \subset M_i$ each with cardinality at most $\kappa$. Then we define
+a new collection $\mathcal{S}' = \{S'_i\}_{i \in I}$ with
+$$
+S'_i = S_i \cup
+\bigcup\nolimits_{(\phi, m'),\ j(\phi) = (i, i'),\ m' \in S_{i'}} S(\phi, m')
+$$
+Note that each $S'_i$ still has cardinality at most $\kappa$.
+Set $\mathcal{S}^{(0)} = \mathcal{S}$,
+$\mathcal{S}^{(1)} = \mathcal{S}'$ and by induction
+$\mathcal{S}^{(n + 1)} = (\mathcal{S}^{(n)})'$. Then set
+$S_i^{(\infty)} = \bigcup_{n \geq 0} S_i^{(n)}$ and
+$\mathcal{S}^{(\infty)} = \{S_i^{(\infty)}\}_{i \in I}$.
+By construction, for every $\phi \in \Phi$ with $j(\phi) = (i, i')$
+and every $m' \in S^{(\infty)}_{i'}$ we can write $m'$
+as a finite linear combination of images $\alpha_\phi(m \otimes 1)$
+with $m \in S_i^{(\infty)}$. Thus we see that setting $N_i$ equal
+to the $A_i$-submodule of $M_i$ generated by $S_i^{(\infty)}$
+the corresponding quasi-coherent submodules
+$\widetilde{N_i} \subset \mathcal{F}_i$ form a $\kappa$-generated submodule.
+This finishes the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-set-generators}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+If $s$, $t$ are flat, then there exists a set $T$ and a family of objects
+$(\mathcal{F}_t, \alpha_t)_{t \in T}$ of $\QCoh(U, R, s, t, c)$
+such that every object $(\mathcal{F}, \alpha)$ is the directed colimit
+of its submodules isomorphic to one of the objects $(\mathcal{F}_t, \alpha_t)$.
+\end{lemma}
+
+\begin{proof}
+This lemma is a generalization of
+Groupoids, Lemma \ref{groupoids-lemma-colimit-kappa}
+which deals with the case of a groupoid in schemes.
+We can't quite use the same argument, so we use the
+material on ``crystals of quasi-coherent sheaves'' we developed above.
+
+\medskip\noindent
+Choose a scheme $W$ and a surjective \'etale morphism $W \to U$.
+Choose a scheme $V$ and a surjective \'etale morphism
+$V \to W \times_{U, s} R$. Choose a scheme $V'$
+and a surjective \'etale morphism $V' \to R \times_{t, U} W$.
+Consider the collection of schemes
+$$
+I = \{W, W \times_U W, V, V', V \times_R V'\}
+$$
+and the set of morphisms of schemes
+$$
+\Phi = \{\text{pr}_i : W \times_U W \to W, V \to W, V' \to W,
+V \times_R V' \to V, V \times_R V' \to V'\}
+$$
+Set $X = (I, \Phi)$. Recall that we have defined a category $\textit{CQC}(X)$
+of crystals of quasi-coherent sheaves on $X$. There is a functor
+$$
+\QCoh(U, R, s, t, c) \longrightarrow \textit{CQC}(X)
+$$
+which assigns to $(\mathcal{F}, \alpha)$ the sheaf $\mathcal{F}|_W$ on $W$,
+the sheaf $\mathcal{F}|_{W \times_U W}$ on $W \times_U W$, the
+pullback of $\mathcal{F}$ via $V \to W \times_{U, s} R \to W \to U$
+on $V$, the pullback of $\mathcal{F}$ via
+$V' \to R \times_{t, U} W \to W \to U$ on $V'$, and finally the
+pullback of $\mathcal{F}$ via
+$V \times_R V' \to V \to W \times_{U, s} R \to W \to U$ on $V \times_R V'$.
+As comparison maps $\{\alpha_\phi\}_{\phi \in \Phi}$
+we use the obvious ones (coming from associativity of pullbacks)
+except for the map
+$\phi = \text{pr}_{V'} : V \times_R V' \to V'$ we use the pullback
+of $\alpha : t^*\mathcal{F} \to s^*\mathcal{F}$ to $V \times_R V'$.
+This makes sense because of the following commutative diagram
+$$
+\xymatrix{
+& V \times_R V' \ar[ld] \ar[rd] \\
+V \ar[rd] \ar[dd] & & V' \ar[ld] \ar[dd] \\
+& R \ar@<-1ex>[dd]_s \ar@<1ex>[dd]^t \\
+W \ar[rd] & & W \ar[ld] \\
+& U
+}
+$$
+The functor displayed above isn't an equivalence of categories.
+However, since $W \to U$ is surjective \'etale it is faithful\footnote{In
+fact the functor is fully faithful, but we won't need this.}.
+Since all the morphisms in the diagram above are flat we see that
+it is an exact functor of abelian categories. Moreover, we
+claim that given $(\mathcal{F}, \alpha)$ with image
+$(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$
+there is a $1$-to-$1$ correspondence between quasi-coherent submodules
+of $(\mathcal{F}, \alpha)$ and
+$(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$.
+Namely, given a submodule of
+$(\{\mathcal{F}_i\}_{i \in I}, \{\alpha_\phi\}_{\phi \in \Phi})$
+compatibility of the submodule over $W$ with the projection maps
+$W \times_U W \to W$ will guarantee the submodule comes from a
+quasi-coherent submodule of $\mathcal{F}$ (by
+Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-quasi-coherent})
+and compatibility with $\alpha_{\text{pr}_{V'}}$ will insure this
+subsheaf is compatible with $\alpha$ (details omitted).
+
+\medskip\noindent
+Choose a cardinal $\kappa$ as in
+Lemma \ref{lemma-crystals-in-quasi-coherent-modules}
+for the system $X = (I, \Phi)$. It is clear from
+Properties, Lemma \ref{properties-lemma-set-of-iso-classes}
+that there is a set of isomorphism classes of $\kappa$-generated
+crystals in quasi-coherent sheaves on $X$.
+Hence the result is clear.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Groupoids and group spaces}
+\label{section-groupoids-group-spaces}
+
+\noindent
+Please compare with
+Groupoids, Section \ref{groupoids-section-groupoids-group-schemes}.
+
+\begin{lemma}
+\label{lemma-groupoid-from-action}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(G, m)$ be a group algebraic space over $B$ with
+identity $e_G$ and inverse $i_G$.
+Let $X$ be an algebraic space over $B$ and let $a : G \times_B X \to X$
+be an action of $G$ on $X$ over $B$.
+Then we get a groupoid in algebraic spaces $(U, R, s, t, c, e, i)$ over $B$
+in the following manner:
+\begin{enumerate}
+\item We set $U = X$, and $R = G \times_B X$.
+\item We set $s : R \to U$ equal to $(g, x) \mapsto x$.
+\item We set $t : R \to U$ equal to $(g, x) \mapsto a(g, x)$.
+\item We set $c : R \times_{s, U, t} R \to R$ equal to
+$((g, x), (g', x')) \mapsto (m(g, g'), x')$.
+\item We set $e : U \to R$ equal to $x \mapsto (e_G(x), x)$.
+\item We set $i : R \to R$ equal to $(g, x) \mapsto (i_G(g), a(g, x))$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: It is enough to show that this works on the set
+level. For this use the description above the lemma describing
+$g$ as an arrow from $v$ to $a(g, v)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-action-groupoid-modules}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(G, m)$ be a group algebraic space over $B$.
+Let $X$ be an algebraic space over $B$ and let $a : G \times_B X \to X$
+be an action of $G$ on $X$ over $B$. Let $(U, R, s, t, c)$ be
+the groupoid in algebraic spaces constructed in
+Lemma \ref{lemma-groupoid-from-action}.
+The rule
+$(\mathcal{F}, \alpha) \mapsto (\mathcal{F}, \alpha)$ defines
+an equivalence of categories between $G$-equivariant
+$\mathcal{O}_X$-modules and the category of quasi-coherent
+modules on $(U, R, s, t, c)$.
+\end{lemma}
+
+\begin{proof}
+The assertion makes sense because $t = a$ and $s = \text{pr}_1$
+as morphisms $R = G \times_B X \to X$, see
+Definitions \ref{definition-equivariant-module} and
+\ref{definition-groupoid-module}.
+Using the translation in Lemma \ref{lemma-groupoid-from-action}
+the commutativity requirements
+of the two definitions match up exactly.
+\end{proof}
+
+
+
+
+
+\section{The stabilizer group algebraic space}
+\label{section-stabilizer}
+
+\noindent
+Please compare with
+Groupoids, Section \ref{groupoids-section-stabilizer}.
+Given a groupoid in algebraic spaces we get a group algebraic space as follows.
+
+\begin{lemma}
+\label{lemma-groupoid-stabilizer}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+The algebraic space $G$ defined by the cartesian square
+$$
+\xymatrix{
+G \ar[r] \ar[d] & R \ar[d]^{j = (t, s)} \\
+U \ar[r]^-{\Delta} & U \times_B U
+}
+$$
+is a group algebraic space over $U$ with composition law
+$m$ induced by the composition law $c$.
+\end{lemma}
+
+\begin{proof}
+This is true because in a groupoid category the
+set of self maps of any object forms a group.
+\end{proof}
+
+\noindent
+Since $\Delta$ is a monomorphism we see that $G = j^{-1}(\Delta_{U/B})$ is a
+subsheaf of $R$. Thinking of it in this way, the structure morphism
+$G = j^{-1}(\Delta_{U/B}) \to U$ is induced by either $s$ or $t$
+(it is the same), and $m$ is induced by $c$.
+
+\begin{definition}
+\label{definition-stabilizer-groupoid}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+The group algebraic space $j^{-1}(\Delta_{U/B}) \to U$ is called the
+{\it stabilizer of the groupoid in algebraic spaces $(U, R, s, t, c)$}.
+\end{definition}
+
+\noindent
+In the literature the stabilizer group algebraic space is often denoted $S$
+(because the word stabilizer starts with an ``s'' presumably);
+we cannot do this since we have already used $S$ for the base scheme.
+
+\begin{lemma}
+\label{lemma-groupoid-action-stabilizer}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$, and let
+$G/U$ be its stabilizer. Denote $R_t/U$ the algebraic space $R$ seen as an
+algebraic space over $U$ via the morphism $t : R \to U$. There is a
+canonical left action
+$$
+a : G \times_U R_t \longrightarrow R_t
+$$
+induced by the composition law $c$.
+\end{lemma}
+
+\begin{proof}
+In terms of points over $T/B$ we define $a(g, r) = c(g, r)$.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Restricting groupoids}
+\label{section-restrict-groupoid}
+
+\noindent
+Please refer to
+Groupoids, Section \ref{groupoids-section-restrict-groupoid}
+for notation.
+
+\begin{lemma}
+\label{lemma-restrict-groupoid}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+Let $g : U' \to U$ be a morphism of algebraic spaces.
+Consider the following diagram
+$$
+\xymatrix{
+R' \ar[d] \ar[r] \ar@/_3pc/[dd]_{t'} \ar@/^1pc/[rr]^{s'}&
+R \times_{s, U} U' \ar[r] \ar[d] &
+U' \ar[d]^g \\
+U' \times_{U, t} R \ar[d] \ar[r] &
+R \ar[r]^s \ar[d]_t &
+U \\
+U' \ar[r]^g &
+U
+}
+$$
+where all the squares are fibre product squares. Then there is a
+canonical composition law $c' : R' \times_{s', U', t'} R' \to R'$
+such that $(U', R', s', t', c')$ is a groupoid in algebraic spaces over
+$B$ and such that $U' \to U$, $R' \to R$ defines a morphism
+$(U', R', s', t', c') \to (U, R, s, t, c)$ of groupoids in algebraic spaces
+over $B$. Moreover, for any scheme $T$ over $B$ the functor of groupoids
+$$
+(U'(T), R'(T), s', t', c') \to (U(T), R(T), s, t, c)
+$$
+is the restriction (see
+Groupoids, Section \ref{groupoids-section-restrict-groupoid})
+of $(U(T), R(T), s, t, c)$ via the map $U'(T) \to U(T)$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{definition}
+\label{definition-restrict-groupoid}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+Let $g : U' \to U$ be a morphism of algebraic spaces over $B$.
+The morphism of groupoids in algebraic spaces
+$(U', R', s', t', c') \to (U, R, s, t, c)$
+constructed in Lemma \ref{lemma-restrict-groupoid} is called
+the {\it restriction of $(U, R, s, t, c)$ to $U'$}.
+We sometime use the notation $R' = R|_{U'}$ in this case.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-restrict-groupoid-relation}
+The notions of restricting groupoids and
+(pre-)equivalence relations defined in Definitions
+\ref{definition-restrict-groupoid} and \ref{definition-restrict-relation}
+agree via the constructions of
+Lemmas \ref{lemma-groupoid-pre-equivalence} and
+\ref{lemma-equivalence-groupoid}.
+\end{lemma}
+
+\begin{proof}
+What we are saying here is that $R'$ of
+Lemma \ref{lemma-restrict-groupoid} is also
+equal to
+$$
+R' = (U' \times_B U')\times_{U \times_B U} R
+\longrightarrow
+U' \times_B U'
+$$
+In fact this might have been a clearer way to state that lemma.
+\end{proof}
+
+
+
+
+
+\section{Invariant subspaces}
+\label{section-invariant}
+
+\noindent
+In this section we discuss briefly the notion of an invariant subspace.
+
+\begin{definition}
+\label{definition-invariant-open}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over the base $B$.
+\begin{enumerate}
+\item We say an open subspace $W \subset U$ is {\it $R$-invariant} if
+$t(s^{-1}(W)) \subset W$.
+\item A locally closed subspace $Z \subset U$ is called {\it $R$-invariant}
+if $t^{-1}(Z) = s^{-1}(Z)$ as locally closed subspaces of $R$.
+\item A monomorphism of algebraic spaces $T \to U$ is {\it $R$-invariant}
+if $T \times_{U, t} R = R \times_{s, U} T$ as algebraic spaces over $R$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+For an open subspace $W \subset U$ the $R$-invariance
+is also equivalent to requiring that $s^{-1}(W) = t^{-1}(W)$.
+If $W \subset U$ is $R$-invariant then the restriction of $R$ to
+$W$ is just $R_W = s^{-1}(W) = t^{-1}(W)$. Similarly, if $Z \subset U$
+is an $R$-invariant locally closed subspace, then the restriction of $R$
+to $Z$ is just $R_Z = s^{-1}(Z) = t^{-1}(Z)$.
+
+\begin{lemma}
+\label{lemma-constructing-invariant-opens}
+Let $B \to S$ as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+\begin{enumerate}
+\item If $s$ and $t$ are open, then for every open $W \subset U$
+the open $s(t^{-1}(W))$ is $R$-invariant.
+\item If $s$ and $t$ are open and quasi-compact, then $U$ has an open
+covering consisting of $R$-invariant quasi-compact open subspaces.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume $s$ and $t$ open and $W \subset U$ open.
+Since $s$ is open we see that $W' = s(t^{-1}(W))$ is an open subspace of $U$.
+Now it is quite easy to using the functorial point of view
+that this is an $R$-invariant open subset of $U$, but we are going to argue
+this directly by some diagrams, since we think it is instructive.
+Note that $t^{-1}(W')$ is the image of the morphism
+$$
+A := t^{-1}(W) \times_{s|_{t^{-1}(W)}, U, t} R
+\xrightarrow{\text{pr}_1} R
+$$
+and that $s^{-1}(W')$ is the image of the morphism
+$$
+B := R \times_{s, U, s|_{t^{-1}(W)}} t^{-1}(W)
+\xrightarrow{\text{pr}_0} R.
+$$
+The algebraic spaces $A$, $B$
+on the left of the arrows above are open subspaces of
+$R \times_{s, U, t} R$ and $R \times_{s, U, s} R$ respectively.
+By Lemma \ref{lemma-diagram} the diagram
+$$
+\xymatrix{
+R \times_{s, U, t} R \ar[rd]_{\text{pr}_1} \ar[rr]_{(\text{pr}_1, c)} & &
+R \times_{s, U, s} R \ar[ld]^{\text{pr}_0} \\
+& R &
+}
+$$
+is commutative, and the horizontal arrow is an isomorphism. Moreover, it is
+clear that $(\text{pr}_1, c)(A) = B$. Hence we conclude
+$s^{-1}(W') = t^{-1}(W')$, and $W'$ is $R$-invariant. This proves (1).
+
+\medskip\noindent
+Assume now that $s$, $t$ are both open and quasi-compact.
+Then, if $W \subset U$ is a quasi-compact open, then also
+$W' = s(t^{-1}(W))$ is a quasi-compact open, and invariant by the
+discussion above. Letting $W$ range over images of affines \'etale over $U$
+we see (2).
+\end{proof}
+
+
+
+
+
+\section{Quotient sheaves}
+\label{section-quotient-sheaves}
+
+\noindent
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation over $B$.
+For each scheme $S'$ over $S$ we can take the equivalence relation
+$\sim_{S'}$ generated by the image of $j(S') : R(S') \to U(S') \times U(S')$.
+Hence we get a presheaf
+\begin{equation}
+\label{equation-quotient-presheaf}
+\begin{matrix}
+(\Sch/S)^{opp}_{fppf} &
+\longrightarrow &
+\textit{Sets}, \\
+S' &
+\longmapsto  &
+U(S')/\sim_{S'}
+\end{matrix}
+\end{equation}
+Note that since $j$ is a morphism of algebraic spaces over $B$
+and into $U \times_B U$ there is a canonical transformation of
+presheaves from the presheaf (\ref{equation-quotient-presheaf}) to $B$.
+
+\begin{definition}
+\label{definition-quotient-sheaf}
+Let $B \to S$ and the pre-relation $j : R \to U \times_B U$ be as above.
+In this setting the {\it quotient sheaf $U/R$} associated
+to $j$ is the sheafification of the presheaf
+(\ref{equation-quotient-presheaf}) on $(\Sch/S)_{fppf}$.
+If $j : R \to U \times_B U$ comes from the action of a
+group algebraic space $G$ over $B$ on $U$ as in
+Lemma \ref{lemma-groupoid-from-action}
+then we denote the quotient sheaf $U/G$.
+\end{definition}
+
+\noindent
+This means exactly that the diagram
+$$
+\xymatrix{
+R \ar@<1ex>[r] \ar@<-1ex>[r] &
+U \ar[r] &
+U/R
+}
+$$
+is a coequalizer diagram in the category of sheaves of sets
+on $(\Sch/S)_{fppf}$. Again there is a canonical map
+of sheaves $U/R \to B$ as $j$ is a morphism of algebraic spaces over
+$B$ into $U \times_B U$.
+
+\begin{remark}
+\label{remark-quotient-variant}
+A variant of the construction above would have been to sheafify
+the functor
+$$
+\begin{matrix}
+(\textit{Spaces}/B)^{opp}_{fppf} &
+\longrightarrow &
+\textit{Sets}, \\
+X &
+\longmapsto  &
+U(X)/\sim_X
+\end{matrix}
+$$
+where now $\sim_X \subset U(X) \times U(X)$ is the equivalence relation
+generated by the image of $j : R(X) \to U(X) \times U(X)$.
+Here of course $U(X) = \Mor_B(X, U)$ and $R(X) = \Mor_B(X, R)$.
+In fact, the result would have been the same, via the identifications
+of (insert future reference in Topologies of Spaces here).
+\end{remark}
+
+\begin{definition}
+\label{definition-representable-quotient}
+In the situation of Definition \ref{definition-quotient-sheaf}.
+We say that the pre-relation $j$ has a
+{\it quotient representable by an algebraic space}
+if the sheaf $U/R$ is an algebraic space.
+We say that the pre-relation $j$ has a
+{\it representable quotient}
+if the sheaf $U/R$ is representable by a scheme.
+We will say a groupoid in algebraic spaces $(U, R, s, t, c)$ over $B$ has a
+{\it representable quotient}
+(resp.\ {\it quotient representable by an algebraic space}
+if the quotient $U/R$ with $j = (t, s)$ is representable (resp.\ an
+algebraic space).
+\end{definition}
+
+\noindent
+If the quotient $U/R$ is representable by $M$ (either a scheme or an algebraic
+space over $S$), then it comes equipped with a canonical structure morphism
+$M \to B$ as we've seen above.
+
+\medskip\noindent
+The following lemma characterizes $M$ representing the quotient.
+It applies for example if $U \to M$ is flat,
+of finite presentation and surjective, and $R \cong U \times_M U$.
+
+\begin{lemma}
+\label{lemma-criterion-quotient-representable}
+In the situation of Definition \ref{definition-quotient-sheaf}.
+Assume there is an algebraic space $M$ over $S$,
+and a morphism $U \to M$ such that
+\begin{enumerate}
+\item the morphism $U \to M$ equalizes $s, t$,
+\item the map $U \to M$ is a surjection of sheaves, and
+\item the induced map $(t, s) : R \to U \times_M U$ is a
+surjection of sheaves.
+\end{enumerate}
+In this case $M$ represents the quotient sheaf $U/R$.
+\end{lemma}
+
+\begin{proof}
+Condition (1) says that $U \to M$ factors through $U/R$.
+Condition (2) says that $U/R \to M$ is surjective as a map of sheaves.
+Condition (3) says that $U/R \to M$ is injective as a map of sheaves.
+Hence the lemma follows.
+\end{proof}
+
+\noindent
+The following lemma is wrong if we do not require $j$ to be a
+pre-equivalence relation (but just a pre-relation say).
+
+\begin{lemma}
+\label{lemma-quotient-pre-equivalence}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-equivalence relation over $B$.
+For a scheme $S'$ over $S$ and $a, b \in U(S')$ the following are equivalent:
+\begin{enumerate}
+\item $a$ and $b$ map to the same element of $(U/R)(S')$, and
+\item there exists an fppf covering $\{f_i : S_i \to S'\}$ of $S'$
+and morphisms $r_i : S_i \to R$ such that
+$a \circ f_i = s \circ r_i$ and $b \circ f_i = t \circ r_i$.
+\end{enumerate}
+In other words, in this case the map of sheaves
+$$
+R \longrightarrow U \times_{U/R} U
+$$
+is surjective.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: The reason this works is that the presheaf
+(\ref{equation-quotient-presheaf}) in this case is really given
+by $T \mapsto U(T)/j(R(T))$ as $j(R(T)) \subset U(T) \times U(T)$
+is an equivalence relation, see
+Definition \ref{definition-equivalence-relation}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-pre-equivalence-relation-restrict}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation over $B$
+and $g : U' \to U$ a morphism of algebraic spaces over $B$.
+Let $j' : R' \to U' \times_B U'$ be the restriction of $j$ to $U'$.
+The map of quotient sheaves
+$$
+U'/R' \longrightarrow U/R
+$$
+is injective. If $U' \to U$ is surjective as a map of sheaves, for
+example if $\{g : U' \to U\}$ is an fppf covering (see
+Topologies on Spaces,
+Definition \ref{spaces-topologies-definition-fppf-covering}),
+then $U'/R' \to U/R$ is an isomorphism of sheaves.
+\end{lemma}
+
+\begin{proof}
+Suppose $\xi, \xi' \in (U'/R')(S')$ are sections which
+map to the same section of $U/R$.
+Then we can find an fppf covering $\mathcal{S} = \{S_i \to S'\}$ of $S'$
+such that $\xi|_{S_i}, \xi'|_{S_i}$ are given by $a_i, a_i' \in U'(S_i)$. By
+Lemma \ref{lemma-quotient-pre-equivalence}
+and the axioms of a site we may after refining
+$\mathcal{T}$ assume there exist morphisms $r_i : S_i \to R$
+such that $g \circ a_i = s \circ r_i$, $g \circ a_i' = t \circ r_i$.
+Since by construction
+$R' = R \times_{U \times_S U} (U' \times_S U')$
+we see that $(r_i, (a_i, a_i')) \in R'(S_i)$ and this
+shows that $a_i$ and $a_i'$ define the same section
+of $U'/R'$ over $S_i$. By the sheaf condition this implies
+$\xi = \xi'$.
+
+\medskip\noindent
+If $U' \to U$ is a surjective map of sheaves, then $U'/R' \to U/R$ is
+surjective also. Finally, if $\{g : U' \to U\}$ is a fppf covering, then
+the map of sheaves $U' \to U$ is surjective, see
+Topologies on Spaces,
+Lemma \ref{spaces-topologies-lemma-fppf-covering-surjective}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-groupoid-restrict}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+Let $g : U' \to U$ a morphism of algebraic spaces over $B$.
+Let $(U', R', s', t', c')$ be the restriction of $(U, R, s, t, c)$ to $U'$.
+The map of quotient sheaves
+$$
+U'/R' \longrightarrow U/R
+$$
+is injective. If the composition
+$$
+\xymatrix{
+U' \times_{g, U, t} R \ar[r]_-{\text{pr}_1} \ar@/^3ex/[rr]^h
+& R \ar[r]_s & U
+}
+$$
+is a surjection of fppf sheaves then the map is bijective.
+This holds for example if $\{h : U' \times_{g, U, t} R \to U\}$ is an
+$fppf$-covering, or if $U' \to U$ is a surjection of sheaves, or if
+$\{g : U' \to U\}$ is a covering in the fppf topology.
+\end{lemma}
+
+\begin{proof}
+Injectivity follows on combining
+Lemmas \ref{lemma-groupoid-pre-equivalence} and
+\ref{lemma-quotient-pre-equivalence-relation-restrict}.
+To see surjectivity (see
+Sites, Section \ref{sites-section-sheaves-injective}
+for a characterization of surjective maps of sheaves) we argue as follows.
+Suppose that $T$ is a scheme and $\sigma \in U/R(T)$.
+There exists a covering $\{T_i \to T\}$ such that $\sigma|_{T_i}$
+is the image of some element $f_i \in U(T_i)$. Hence we
+may assume that $\sigma$ if the image of $f \in U(T)$.
+By the assumption that $h$ is a surjection of sheaves, we
+can find an fppf covering $\{\varphi_i : T_i \to T\}$ and morphisms
+$f_i : T_i \to U' \times_{g, U, t} R$ such that
+$f \circ \varphi_i = h \circ f_i$. Denote
+$f'_i = \text{pr}_0 \circ f_i : T_i \to U'$. Then we see that
+$f'_i \in U'(T_i)$ maps to $g \circ f'_i \in U(T_i)$ and
+that $g \circ f'_i \sim_{T_i} h \circ f_i = f \circ \varphi_i$
+notation as in (\ref{equation-quotient-presheaf}). Namely, the
+element of $R(T_i)$ giving the relation is $\text{pr}_1 \circ f_i$.
+This means that the restriction
+of $\sigma$ to $T_i$ is in the image of $U'/R'(T_i) \to U/R(T_i)$
+as desired.
+
+\medskip\noindent
+If $\{h\}$ is an fppf covering, then it induces a surjection of sheaves, see
+Topologies on Spaces,
+Lemma \ref{spaces-topologies-lemma-fppf-covering-surjective}.
+If $U' \to U$ is surjective, then also $h$ is surjective as $s$ has a section
+(namely the neutral element $e$ of the groupoid scheme).
+\end{proof}
+
+
+
+
+
+\section{Quotient stacks}
+\label{section-stacks}
+
+\noindent
+In this section and the next few sections we describe a kind of
+generalization of
+Section \ref{section-quotient-sheaves}
+above and
+Groupoids, Section \ref{groupoids-section-quotient-sheaves}.
+It is different in the following way:
+We are going to take quotient stacks instead of quotient sheaves.
+
+\medskip\noindent
+Let us assume we have a scheme $S$, and algebraic space $B$ over $S$
+and a groupoid in algebraic spaces $(U, R, s, t, c)$ over $B$. Given these data
+we consider the functor
+\begin{equation}
+\label{equation-quotient-stack}
+\begin{matrix}
+(\Sch/S)_{fppf}^{opp} &
+\longrightarrow &
+\textit{Groupoids} \\
+S' &
+\longmapsto &
+(U(S'), R(S'), s, t, c)
+\end{matrix}
+\end{equation}
+By
+Categories, Example \ref{categories-example-functor-groupoids}
+this ``presheaf in groupoids'' corresponds to a category fibred in groupoids
+over $(\Sch/S)_{fppf}$. In this chapter we will denote
+this
+$$
+[U/_{\!p}R] \to (\Sch/S)_{fppf}
+$$
+where the subscript ${}_p$ is there to distinguish from the quotient stack.
+
+\begin{definition}
+\label{definition-quotient-stack}
+Quotient stacks. Let $B \to S$ be as above.
+\begin{enumerate}
+\item Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+The {\it quotient stack}
+$$
+p : [U/R] \longrightarrow (\Sch/S)_{fppf}
+$$
+of $(U, R, s, t, c)$ is the stackification (see
+Stacks, Lemma \ref{stacks-lemma-stackify-groupoids})
+of the category fibred in groupoids $[U/_{\!p}R]$ over
+$(\Sch/S)_{fppf}$ associated to
+(\ref{equation-quotient-stack}).
+\item Let $(G, m)$ be a group algebraic space over $B$.
+Let $a : G \times_B X \to X$ be an action of $G$ on an algebraic space
+over $B$. The {\it quotient stack}
+$$
+p : [X/G] \longrightarrow (\Sch/S)_{fppf}
+$$
+is the quotient stack associated to the groupoid in algebraic spaces
+$(X, G \times_B X, s, t, c)$ over $B$ of
+Lemma \ref{lemma-groupoid-from-action}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Thus $[U/R]$ and $[X/G]$ are stacks in groupoids over
+$(\Sch/S)_{fppf}$. These stacks will be very important later
+on and hence it makes sense to give a detailed description.
+Recall that given an algebraic space $X$ over $S$ we use the
+notation $\mathcal{S}_X \to (\Sch/S)_{fppf}$ to denote
+the stack in sets associated to the sheaf $X$, see
+Categories, Lemma \ref{categories-lemma-2-category-fibred-sets}
+and
+Stacks, Lemma \ref{stacks-lemma-when-stack-in-sets}.
+
+\begin{lemma}
+\label{lemma-quotient-stack-arrows}
+Assume $B \to S$ and $(U, R, s, t, c)$ as in
+Definition \ref{definition-quotient-stack} (1).
+There are canonical $1$-morphisms
+$\pi : \mathcal{S}_U \to [U/R]$, and $[U/R] \to \mathcal{S}_B$
+of stacks in groupoids over $(\Sch/S)_{fppf}$.
+The composition $\mathcal{S}_U \to \mathcal{S}_B$ is the $1$-morphism
+associated to the structure morphism $U \to B$.
+\end{lemma}
+
+\begin{proof}
+During this proof let us denote $[U/_{\!p}R]$ the category fibred in
+groupoids associated to the presheaf in groupoids
+(\ref{equation-quotient-stack}). By construction of the stackification
+there is a $1$-morphism $[U/_{\!p}R] \to [U/R]$.
+The $1$-morphism $\mathcal{S}_U \to [U/R]$ is simply the composition
+$\mathcal{S}_U \to [U/_{\!p}R] \to [U/R]$, where the first arrow
+associates to the scheme $S'/S$ and morphism $x : S' \to U$ over $S$
+the object $x \in U(S')$ of the fibre category of $[U/_{\!p}R]$
+over $S'$.
+
+\medskip\noindent
+To construct the $1$-morphism $[U/R] \to \mathcal{S}_B$ it is enough to
+construct the $1$-morphism $[U/_{\!p}R] \to \mathcal{S}_B$, see
+Stacks, Lemma \ref{stacks-lemma-stackify-groupoids-universal-property}.
+On objects over $S'/S$ we just use the map
+$$
+U(S') \longrightarrow B(S')
+$$
+coming from the structure morphism $U \to B$.
+And clearly, if $a \in R(S')$ is an ``arrow'' with source
+$s(a) \in U(S')$ and target $t(a) \in U(S')$, then since
+$s$ and $t$ are morphisms {\it over} $B$ these both
+map to the same element $\overline{a}$ of $B(S')$. Hence we can map an arrow
+$a \in R(S')$ to the identity morphism of $\overline{a}$. (This is
+good because the fibre category $(\mathcal{S}_B)_{S'}$ only contains
+identities.) We omit the verification that this rule is compatible with
+pullback on these split fibred categories, and hence defines a
+$1$-morphism $[U/_{\!p}R] \to \mathcal{S}_B$ as desired.
+
+\medskip\noindent
+We omit the verification of the last statement.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-stack-2-arrow}
+Assumptions and notation as in Lemma \ref{lemma-quotient-stack-arrows}.
+There exists a canonical $2$-morphism
+$\alpha : \pi \circ s \to \pi \circ t$ making the diagram
+$$
+\xymatrix{
+\mathcal{S}_R \ar[r]_s \ar[d]_t & \mathcal{S}_U \ar[d]^\pi \\
+\mathcal{S}_U \ar[r]^-\pi & [U/R]
+}
+$$
+$2$-commutative.
+\end{lemma}
+
+\begin{proof}
+Let $S'$ be a scheme over $S$. Let $r : S' \to R$ be a morphism over $S$.
+Then $r \in R(S')$ is an isomorphism between the objects
+$s \circ r, t \circ r \in U(S')$. Moreover, this construction is
+compatible with pullbacks. This gives a canonical
+$2$-morphism $\alpha_p : \pi_p \circ s \to \pi_p \circ t$
+where $\pi_p : \mathcal{S}_U \to [U/_{\!p}R]$ is as in the
+proof of
+Lemma \ref{lemma-quotient-stack-arrows}. Thus even the diagram
+$$
+\xymatrix{
+\mathcal{S}_R \ar[r]_s \ar[d]^t & \mathcal{S}_U \ar[d]^{\pi_p} \\
+\mathcal{S}_U \ar[r]^-{\pi_p} & [U/_{\!p}R]
+}
+$$
+is $2$-commutative. Thus a fortiori the diagram
+of the lemma is $2$-commutative.
+\end{proof}
+
+\begin{remark}
+\label{remark-fundamental-square}
+In future chapters we will use the ambiguous notation where
+instead of writing $\mathcal{S}_X$ for the stack in sets associated
+to $X$ we simply write $X$. Using this notation the diagram of
+Lemma \ref{lemma-quotient-stack-2-arrow}
+becomes the familiar diagram
+$$
+\xymatrix{
+R \ar[r]_s \ar[d]_t & U \ar[d]^\pi \\
+U \ar[r]^-\pi & [U/R]
+}
+$$
+In the following sections we will show that this diagram has
+many good properties. In particular we will show that it is
+a $2$-fibre product
+(Section \ref{section-quotient-stack-2-cartesian})
+and that it is close to being a $2$-coequalizer of $s$ and $t$
+(Section \ref{section-quotient-stacks-2-coequalize}).
+\end{remark}
+
+
+
+
+\section{Functoriality of quotient stacks}
+\label{section-functoriality-quotient-stacks}
+
+\noindent
+A morphism of groupoids in algebraic spaces gives an associated morphism
+of quotient stacks.
+
+\begin{lemma}
+\label{lemma-quotient-stack-functorial}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $f : (U, R, s, t, c) \to (U', R', s', t', c')$ be a morphism of
+groupoids in algebraic spaces over $B$.
+Then $f$ induces a canonical $1$-morphism of quotient stacks
+$$
+[f] : [U/R] \longrightarrow [U'/R'].
+$$
+\end{lemma}
+
+\begin{proof}
+Denote $[U/_{\!p}R]$ and $[U'/_{\!p}R']$ the categories fibred
+in groupoids over the base site $(\Sch/S)_{fppf}$ associated to the
+functors (\ref{equation-quotient-stack}). It is clear that $f$ defines
+a $1$-morphism $[U/_{\!p}R] \to [U'/_{\!p}R']$ which we can compose
+with the stackyfication functor for $[U'/R']$ to get $[U/_{\!p}R] \to [U'/R']$.
+Then, by the universal property of the stackyfication functor
+$[U/_{\!p}R] \to [U/R]$, see
+Stacks, Lemma \ref{stacks-lemma-stackify-groupoids-universal-property}
+we get $[U/R] \to [U'/R']$.
+\end{proof}
+
+\noindent
+Let $B \to S$ and $f : (U, R, s, t, c) \to (U', R', s', t', c')$ be as in
+Lemma \ref{lemma-quotient-stack-functorial}.
+In this situation, we define a third groupoid in algebraic spaces over
+$B$ as follows, using the language of $T$-valued points where $T$
+is a (varying) scheme over $B$:
+\begin{enumerate}
+\item $U'' = U \times_{f, U', t'} R'$ so that a $T$-valued point is
+a pair $(u, r')$ with $f(u) = t'(r')$,
+\item $R'' = R \times_{f \circ s, U', t'} R'$ so that a $T$-valued point is
+a pair $(r, r')$ with $f(s(r)) = t'(r')$,
+\item $s'' : R'' \to U''$ is given by $s''(r, r') = (s(r), r')$,
+\item $t'' : R'' \to U''$ is given by $t''(r, r') = (t(r), c'(f(r), r'))$,
+\item $c'' : R'' \times_{s'', U'', t''} R'' \to R''$ is given by
+$c''((r_1, r'_1), (r_2, r'_2)) = (c(r_1, r_2), r'_2)$.
+\end{enumerate}
+The formula for $c''$ makes sense as $s''(r_1, r'_1) = t''(r_2, r'_2)$.
+It is clear that $c''$ is associative. The identity $e''$ is given by
+$e''(u, r) = (e(u), r)$. The inverse of $(r, r')$ is given by
+$(i(r), c'(f(r), r'))$. Thus we do indeed get a groupoid
+in algebraic spaces over $B$.
+
+\medskip\noindent
+Clearly the maps $U'' \to U$ and $R'' \to R$ define a morphism
+$g : (U'', R'', s'', t'', c'') \to (U, R, s, t, c)$
+of groupoids in algebraic spaces over $B$. Moreover, the maps
+$U'' \to U'$, $(u, r') \mapsto s'(r')$ and
+$R'' \to U'$, $(r, r') \mapsto s'(r')$ show that in fact
+$(U'', R'', s'', t'', c'')$ is a groupoid in algebraic spaces over $U'$.
+
+\begin{lemma}
+\label{lemma-cartesian-square-of-morphism}
+Notation and assumption as in
+Lemma \ref{lemma-quotient-stack-functorial}.
+Let $(U'', R'', s'', t'', c'')$ be the groupoid in algebraic spaces over $B$
+constructed above.
+There is a $2$-commutative square
+$$
+\xymatrix{
+[U''/R''] \ar[d] \ar[r]_{[g]} & [U/R] \ar[d]^{[f]} \\
+\mathcal{S}_{U'} \ar[r] & [U'/R']
+}
+$$
+which identifies $[U''/R'']$ with the $2$-fibre product.
+\end{lemma}
+
+\begin{proof}
+The maps $[f]$ and $[g]$ come from an application of
+Lemma \ref{lemma-quotient-stack-functorial}
+and the other two maps come from
+Lemma \ref{lemma-quotient-stack-arrows}
+(and the fact that $(U'', R'', s'', t'', c'')$ lives over $U'$).
+To show the $2$-fibre product property, it suffices to prove the lemma
+for the diagram
+$$
+\xymatrix{
+[U''/_{\!p}R''] \ar[d] \ar[r]_{[g]} & [U/_{\!p}R] \ar[d]^{[f]} \\
+\mathcal{S}_{U'} \ar[r] & [U'/_{\!p}R']
+}
+$$
+of categories fibred in groupoids, see
+Stacks, Lemma
+\ref{stacks-lemma-stackification-fibre-product-categories-fibred-in-groupoids}.
+In other words, it suffices to show that an object of the $2$-fibre product
+$\mathcal{S}_U \times_{[U'/_{\!p}R']} [U/_{\!p}R]$ over $T$ corresponds
+to a $T$-valued point of $U''$ and similarly for morphisms. And of course
+this is exactly how we constructed $U''$ and $R''$ in the first place.
+
+\medskip\noindent
+In detail, an object of $\mathcal{S}_U \times_{[U'/_{\!p}R']} [U/_{\!p}R]$
+over $T$ is a triple $(u', u, r')$ where $u'$ is a $T$-valued point of $U'$,
+$u$ is a $T$-valued point of $U$, and $r'$ is a morphism from $u'$ to
+$f(u)$ in $[U'/R']_T$, i.e., $r'$ is a $T$-valued point of $R$ with
+$s'(r') = u'$ and $t'(r') = f(u)$. Clearly we can forget about $u'$
+without losing information and we see that these objects are in one-to-one
+correspondence with $T$-valued points of $R''$.
+
+\medskip\noindent
+Similarly for morphisms: Let $(u'_1, u_1, r'_1)$ and $(u'_2, u_2, r'_2)$ be
+two objects of the fibre product over $T$. Then a morphism from
+$(u'_2, u_2, r'_2)$ to $(u'_1, u_1, r'_1)$
+is given by $(1, r)$ where $1 : u'_1 \to u'_2$ means simply $u'_1 = u'_2$
+(this is so because $\mathcal{S}_U$ is fibred in sets), and $r$ is a
+$T$-valued point of $R$ with $s(r) = u_2$, $t(r) = u_1$ and moreover
+$c'(f(r), r'_2) = r'_1$. Hence the arrow
+$$
+(1, r) : (u'_2, u_2, r'_2) \to (u'_1, u_1, r'_1)
+$$
+is completely determined by knowing the pair $(r, r'_2)$. Thus the functor
+of arrows is represented by $R''$, and moreover the morphisms $s''$, $t''$,
+and $c''$ clearly correspond to source, target and composition in
+the $2$-fibre product $\mathcal{S}_U \times_{[U'/_{\!p}R']} [U/_{\!p}R]$.
+\end{proof}
+
+
+
+
+
+
+
+\section{The 2-cartesian square of a quotient stack}
+\label{section-quotient-stack-2-cartesian}
+
+\noindent
+In this section we compute the $\mathit{Isom}$-sheaves for a quotient stack
+and we deduce that the defining diagram of a quotient stack is a
+$2$-fibre product.
+
+\begin{lemma}
+\label{lemma-quotient-stack-morphisms}
+Assume $B \to S$, $(U, R, s, t, c)$ and $\pi : \mathcal{S}_U \to [U/R]$
+are as in
+Lemma \ref{lemma-quotient-stack-arrows}.
+Let $S'$ be a scheme over $S$.
+Let $x, y \in \Ob([U/R]_{S'})$ be objects of the
+quotient stack over $S'$. If $x = \pi(x')$ and $y = \pi(y')$ for
+some morphisms $x', y' : S' \to U$, then
+$$
+\mathit{Isom}(x, y) = S' \times_{(y', x'), U \times_S U} R
+$$
+as sheaves over $S'$.
+\end{lemma}
+
+\begin{proof}
+Let $[U/_{\!p}R]$ be the category fibred in groupoids associated to
+the presheaf in groupoids (\ref{equation-quotient-stack}) as in the proof of
+Lemma \ref{lemma-quotient-stack-arrows}.
+By construction the sheaf $\mathit{Isom}(x, y)$ is the sheaf associated
+to the presheaf $\mathit{Isom}(x', y')$. On the other hand, by definition
+of morphisms in $[U/_{\!p}R]$ we have
+$$
+\mathit{Isom}(x', y') = S' \times_{(y', x'), U \times_S U} R
+$$
+and the right hand side is an algebraic space, therefore a sheaf.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-stack-2-cartesian}
+Assume $B \to S$, $(U, R, s, t, c)$, and $\pi : \mathcal{S}_U \to [U/R]$
+are as in
+Lemma \ref{lemma-quotient-stack-arrows}.
+The $2$-commutative square
+$$
+\xymatrix{
+\mathcal{S}_R \ar[r]_s \ar[d]_t & \mathcal{S}_U \ar[d]^\pi \\
+\mathcal{S}_U \ar[r]^-\pi & [U/R]
+}
+$$
+of
+Lemma \ref{lemma-quotient-stack-2-arrow}
+is a $2$-fibre product of stacks in groupoids of $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+According to
+Stacks, Lemma \ref{stacks-lemma-2-product-stacks-in-groupoids}
+the lemma makes sense. It also tells us that we have to show that
+the functor
+$$
+\mathcal{S}_R \longrightarrow \mathcal{S}_U \times_{[U/R]} \mathcal{S}_U
+$$
+which maps $r : T \to R$ to $(T, t(r), s(r), \alpha(r))$ is an equivalence,
+where the right hand side is the $2$-fibre product as described in
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C}.
+This is, after spelling out the definitions, exactly the content of
+Lemma \ref{lemma-quotient-stack-morphisms}. (Alternative proof: Work out
+the meaning of
+Lemma \ref{lemma-cartesian-square-of-morphism}
+in this situation will give you the result also.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-stack-isom}
+Assume $B \to S$ and $(U, R, s, t, c)$ are as in
+Definition \ref{definition-quotient-stack} (1).
+For any scheme $T$ over $S$ and objects $x, y$ of $[U/R]$ over $T$
+the sheaf $\mathit{Isom}(x, y)$ on $(\Sch/T)_{fppf}$ has
+the following property: There exists a fppf covering
+$\{T_i \to T\}_{i \in I}$ such that
+$\mathit{Isom}(x, y)|_{(\Sch/T_i)_{fppf}}$
+is representable by an algebraic space.
+\end{lemma}
+
+\begin{proof}
+Follows immediately from
+Lemma \ref{lemma-quotient-stack-morphisms}
+and the fact that both $x$ and $y$ locally in the fppf
+topology come from objects of $\mathcal{S}_U$ by construction
+of the quotient stack.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{The 2-coequalizer property of a quotient stack}
+\label{section-quotient-stacks-2-coequalize}
+
+\noindent
+On a groupoid we have the composition, which leads to a cocycle
+condition for the canonical $2$-morphism of the lemma above.
+To give the precise formulation we will use the notation introduced in
+Categories, Sections \ref{categories-section-formal-cat-cat} and
+\ref{categories-section-2-categories}.
+
+\begin{lemma}
+\label{lemma-quotient-stack-cocycle}
+Assumptions and notation as in
+Lemmas \ref{lemma-quotient-stack-arrows} and
+\ref{lemma-quotient-stack-2-arrow}.
+The vertical composition of
+$$
+\xymatrix@C=15pc{
+\mathcal{S}_{R \times_{s, U, t} R}
+\ruppertwocell^{\pi \circ s \circ \text{pr}_1 = \pi \circ s \circ c}{\ \ \ \ \ \ \alpha \star \text{id}_{\text{pr}_1}}
+\ar[r]_(.3){\pi \circ t \circ \text{pr}_1 = \pi \circ s \circ \text{pr}_0}
+\rlowertwocell_{\pi \circ t \circ \text{pr}_0 = \pi \circ t \circ c}{\ \ \ \ \ \ \alpha \star \text{id}_{\text{pr}_0}}
+&
+[U/R]
+}
+$$
+is the $2$-morphism $\alpha \star \text{id}_c$. In a formula
+$\alpha \star \text{id}_c =
+(\alpha \star \text{id}_{\text{pr}_0})
+\circ
+(\alpha \star \text{id}_{\text{pr}_1})
+$.
+\end{lemma}
+
+\begin{proof}
+We make two remarks:
+\begin{enumerate}
+\item The formula
+$\alpha \star \text{id}_c = (\alpha \star \text{id}_{\text{pr}_0}) \circ
+(\alpha \star \text{id}_{\text{pr}_1})$ only makes sense if you realize
+the {\it equalities} $\pi \circ s \circ \text{pr}_1 = \pi \circ s \circ c$,
+$\pi \circ t \circ \text{pr}_1 = \pi \circ s \circ \text{pr}_0$, and
+$\pi \circ t \circ \text{pr}_0 = \pi \circ t \circ c$. Namely, the second
+one implies the vertical composition $\circ$ makes sense, and the other
+two guarantee the two sides of the formula are $2$-morphisms with the
+same source and target.
+\item The reason the lemma holds is that composition in the
+category fibred in groupoids $[U/_{\!p}R]$ associated to the presheaf
+in groupoids (\ref{equation-quotient-stack}) comes from the composition
+law $c : R \times_{s, U, t} R \to R$.
+\end{enumerate}
+We omit the proof of the lemma.
+\end{proof}
+
+\noindent
+Note that, in the situation of the lemma, we actually have the equalities
+$s \circ \text{pr}_1 = s \circ c$,
+$t \circ \text{pr}_1 = s \circ \text{pr}_0$, and
+$t \circ \text{pr}_0 = t \circ c$ before composing with $\pi$.
+Hence the formula in the lemma below makes sense in exactly the same way
+that the formula in the lemma above makes sense.
+
+\begin{lemma}
+\label{lemma-quotient-stack-2-coequalizer}
+Assumptions and notation as in
+Lemmas \ref{lemma-quotient-stack-arrows} and
+\ref{lemma-quotient-stack-2-arrow}.
+The $2$-commutative diagram of Lemma \ref{lemma-quotient-stack-2-arrow}
+is a $2$-coequalizer in the following sense:
+Given
+\begin{enumerate}
+\item a stack in groupoids $\mathcal{X}$ over $(\Sch/S)_{fppf}$,
+\item a $1$-morphism $f : \mathcal{S}_U \to \mathcal{X}$, and
+\item a $2$-arrow $\beta : f \circ s \to f \circ t$
+\end{enumerate}
+such that
+$$
+\beta \star \text{id}_c
+=
+(\beta \star \text{id}_{\text{pr}_0})
+\circ
+(\beta \star \text{id}_{\text{pr}_1})
+$$
+then there exists a $1$-morphism $[U/R] \to \mathcal{X}$ which makes the
+diagram
+$$
+\xymatrix{
+\mathcal{S}_R \ar[r]_s \ar[d]^t & \mathcal{S}_U \ar[d] \ar[ddr]^f \\
+\mathcal{S}_U \ar[r] \ar[rrd]_f & [U/R] \ar[rd] \\
+& & \mathcal{X}
+}
+$$
+$2$-commute.
+\end{lemma}
+
+\begin{proof}
+Suppose given $\mathcal{X}$, $f$ and $\beta$ as in the lemma. By
+Stacks, Lemma \ref{stacks-lemma-stackify-groupoids-universal-property}
+it suffices to construct a $1$-morphism $g : [U/_{\!p}R] \to \mathcal{X}$.
+First we note that the $1$-morphism
+$\mathcal{S}_U \to [U/_{\!p}R]$ is bijective on objects.
+Hence on objects we can set $g(x) = f(x)$ for
+$x \in \Ob(\mathcal{S}_U) = \Ob([U/_{\!p}R])$.
+A morphism $\varphi : x \to y$ of $[U/_{\!p}R]$ arises from a
+commutative diagram
+$$
+\xymatrix{
+S_2 \ar[dd]_h \ar[r]_x \ar[dr]_\varphi & U \\
+& R \ar[u]_s \ar[d]^t \\
+S_1 \ar[r]^y & U.
+}
+$$
+Thus we can set $g(\varphi)$ equal to the composition
+$$
+\xymatrix{
+f(x) \ar@{=}[r] \ar[rrrrrd] &
+f(s \circ \varphi) \ar@{=}[r] &
+(f \circ s)(\varphi) \ar[r]^\beta &
+(f \circ t)(\varphi) \ar@{=}[r] &
+f(t \circ \varphi) \ar@{=}[r] &
+f(y \circ h) \ar[d] \\
+& & & & & f(y).
+}
+$$
+The vertical arrow is the result of applying the functor $f$ to the
+canonical morphism $y \circ h \to y$ in $\mathcal{S}_U$ (namely, the
+strongly cartesian morphism lifting $h$ with target $y$).
+Let us verify that $f$ so defined is compatible with composition, at least
+on fibre categories. So let $S'$ be a scheme over $S$, and let
+$a : S' \to R \times_{s, U, t} R$ be a morphism. In this situation
+we set $x = s \circ \text{pr}_1 \circ a = s \circ c \circ a$,
+$y = t \circ \text{pr}_1 \circ a = s \circ \text{pr}_0 \circ a$, and
+$z = t \circ \text{pr}_0 \circ a = t \circ \text{pr}_0 \circ c$ to
+get a commutative diagram
+$$
+\xymatrix{
+x \ar[rr]_{c \circ a} \ar[rd]_{\text{pr}_1 \circ a} & & z \\
+& y \ar[ru]_{\text{pr}_0 \circ a}
+}
+$$
+in the fibre category $[U/_{\!p}R]_{S'}$. Moreover, any commutative
+triangle in this fibre category has this form. Then we see by our definitions
+above that $f$ maps this to a commutative diagram if and only if
+the diagram
+$$
+\xymatrix{
+& (f \circ s)(c \circ a) \ar[r]_-{\beta} &
+(f \circ t)(c \circ a) \ar@{=}[rd] & \\
+(f \circ s)(\text{pr}_1 \circ a) \ar[rd]^\beta \ar@{=}[ru] & & &
+(f \circ t)(\text{pr}_0 \circ a) \\
+& (f \circ t)(\text{pr}_1 \circ a) \ar@{=}[r] &
+(f \circ s)(\text{pr}_0 \circ a) \ar[ru]^\beta
+}
+$$
+is commutative which is exactly the condition expressed by the formula
+in the lemma. We omit the
+verification that $f$ maps identities to identities and is compatible
+with composition for arbitrary morphisms.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Explicit description of quotient stacks}
+\label{section-explicit-quotient-stacks}
+
+\noindent
+In order to formulate the result we need to introduce some
+notation. Assume $B \to S$ and $(U, R, s, t, c)$ are as in
+Definition \ref{definition-quotient-stack} (1).
+Let $T$ be a scheme over $S$. Let $\mathcal{T} = \{T_i \to T\}_{i \in I}$
+be an fppf covering. A {\it $[U/R]$-descent datum} relative
+to $\mathcal{T}$ is given by a system $(u_i, r_{ij})$ where
+\begin{enumerate}
+\item for each $i$ a morphism $u_i : T_i \to U$, and
+\item for each $i, j$ a morphism $r_{ij} : T_i \times_T T_j \to R$
+\end{enumerate}
+such that
+\begin{enumerate}
+\item[(a)] as morphisms $T_i \times_T T_j \to U$ we have
+$$
+s \circ r_{ij} = u_i \circ \text{pr}_0
+\quad\text{and}\quad
+t \circ r_{ij} = u_j \circ \text{pr}_1,
+$$
+\item[(b)] as morphisms $T_i \times_T T_j \times_T T_k \to R$ we have
+$$
+c \circ (r_{jk} \circ \text{pr}_{12}, r_{ij} \circ \text{pr}_{01})
+= r_{ik} \circ \text{pr}_{02}.
+$$
+\end{enumerate}
+A {\it morphism $(u_i, r_{ij}) \to (u'_i, r'_{ij})$ between two
+$[U/R]$-descent data} over the same covering $\mathcal{T}$
+is a collection $(r_i : T_i \to R)$ such that
+\begin{enumerate}
+\item[$(\alpha)$] as morphisms $T_i \to U$ we have
+$$
+u_i = s \circ r_i
+\quad\text{and}\quad
+u'_i = t \circ r_i
+$$
+\item[$(\beta)$] as morphisms $T_i \times_T T_j \to R$ we have
+$$
+c \circ (r'_{ij}, r_i \circ \text{pr}_0)
+=
+c \circ (r_j \circ \text{pr}_1, r_{ij}).
+$$
+\end{enumerate}
+There is a natural composition law on morphisms of descent data relative
+to a fixed covering and we obtain a category of descent data.
+This category is a groupoid. Finally, if
+$\mathcal{T}' = \{T'_j \to T\}_{j \in J}$
+is a second fppf covering which refines $\mathcal{T}$ then there
+is a notion of pullback of descent data. This is particularly easy to
+describe explicitly in this case. Namely, if $\alpha : J \to I$ and
+$\varphi_j : T'_j \to T_{\alpha(i)}$ is the morphism of coverings, then
+the pullback of the descent datum $(u_i, r_{ii'})$ is simply
+$$
+(u_{\alpha(i)} \circ \varphi_j,
+r_{\alpha(j)\alpha(j')} \circ \varphi_j \times \varphi_{j'}).
+$$
+Pullback defined in this manner defines a functor from the category of
+descent data over $\mathcal{T}$ to the category of descend data over
+$\mathcal{T}'$.
+
+\begin{lemma}
+\label{lemma-quotient-stack-objects}
+Assume $B \to S$ and $(U, R, s, t, c)$ are as in
+Definition \ref{definition-quotient-stack} (1).
+Let $\pi : \mathcal{S}_U \to [U/R]$ be as in
+Lemma \ref{lemma-quotient-stack-arrows}.
+Let $T$ be a scheme over $S$.
+\begin{enumerate}
+\item for every object $x$ of the fibre category $[U/R]_T$
+there exists an fppf covering $\{f_i : T_i \to T\}_{i \in I}$ such that
+$f_i^*x \cong \pi(u_i)$ for some $u_i \in U(T_i)$,
+\item the composition of the isomorphisms
+$$
+\pi(u_i \circ \text{pr}_0)
+=
+\text{pr}_0^*\pi(u_i)
+\cong
+\text{pr}_0^*f_i^*x
+\cong
+\text{pr}_1^*f_j^*x
+\cong
+\text{pr}_1^*\pi(u_j)
+=
+\pi(u_j \circ \text{pr}_1)
+$$
+are of the form $\pi(r_{ij})$ for certain morphisms
+$r_{ij} : T_i \times_T T_j \to R$,
+\item the system $(u_i, r_{ij})$ forms
+a $[U/R]$-descent datum as defined above,
+\item any $[U/R]$-descent datum $(u_i, r_{ij})$ arises in this manner,
+\item if $x$ corresponds to $(u_i, r_{ij})$ as above, and
+$y \in \Ob([U/R]_T)$ corresponds to $(u'_i, r'_{ij})$
+then there is a canonical bijection
+$$
+\Mor_{[U/R]_T}(x, y)
+\longleftrightarrow
+\left\{
+\begin{matrix}
+\text{morphisms }(u_i, r_{ij}) \to (u'_i, r'_{ij})\\
+\text{of }[U/R]\text{-descent data}
+\end{matrix}
+\right\}
+$$
+\item this correspondence is compatible with refinements of fppf coverings.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Statement (1) is part of the construction of the stackyfication.
+Part (2) follows from
+Lemma \ref{lemma-quotient-stack-morphisms}.
+We omit the verification of (3).
+Part (4) is a translation of the fact that in a stack all descent data
+are effective.
+We omit the verifications of (5) and (6).
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Restriction and quotient stacks}
+\label{section-quotient-stack-restrict}
+
+\noindent
+In this section we study what happens to the quotient stack
+when taking a restriction.
+
+\begin{lemma}
+\label{lemma-quotient-stack-restrict}
+Notation and assumption as in
+Lemma \ref{lemma-quotient-stack-functorial}.
+The morphism of quotient stacks
+$$
+[f] : [U/R] \longrightarrow [U'/R']
+$$
+is fully faithful if and only if $R'$ is the restriction of
+$R$ via the morphism $f : U \to U'$.
+\end{lemma}
+
+\begin{proof}
+Let $x, y$ be objects of $[U/R]$ over a scheme $T/S$.
+Let $x', y'$ be the images of $x, y$ in the category $[U'/'R]_T$.
+The functor $[f]$ is fully faithful if and only if the map of sheaves
+$$
+\mathit{Isom}(x, y) \longrightarrow \mathit{Isom}(x', y')
+$$
+is an isomorphism for every $T, x, y$. We may test this locally on $T$
+(in the fppf topology). Hence, by
+Lemma \ref{lemma-quotient-stack-objects}
+we may assume that $x, y$ come from $a, b \in U(T)$.
+In that case we see that $x', y'$ correspond to $f \circ a, f \circ b$. By
+Lemma \ref{lemma-quotient-stack-morphisms}
+the displayed map of sheaves in this case becomes
+$$
+T \times_{(a, b), U \times_B U} R
+\longrightarrow
+T \times_{f \circ a, f \circ b, U' \times_B U'} R'.
+$$
+This is an isomorphism if $R$ is the restriction, because in that case
+$R = (U \times_B U) \times_{U' \times_B U'} R'$, see
+Lemma \ref{lemma-restrict-groupoid-relation}
+and its proof. Conversely, if the last displayed map is an isomorphism
+for all $T, a, b$, then it follows that
+$R = (U \times_B U) \times_{U' \times_B U'} R'$, i.e.,
+$R$ is the restriction of $R'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-stack-restrict-equivalence}
+Notation and assumption as in
+Lemma \ref{lemma-quotient-stack-functorial}.
+The morphism of quotient stacks
+$$
+[f] : [U/R] \longrightarrow [U'/R']
+$$
+is an equivalence if and only if
+\begin{enumerate}
+\item $(U, R, s, t, c)$ is the restriction of $(U', R', s', t', c')$
+via $f : U \to U'$, and
+\item the map
+$$
+\xymatrix{
+U \times_{f, U', t'} R' \ar[r]_-{\text{pr}_1} \ar@/^3ex/[rr]^h
+& R' \ar[r]_{s'} & U'
+}
+$$
+is a surjection of sheaves.
+\end{enumerate}
+Part (2) holds for example if $\{h : U \times_{f, U', t'} R' \to U'\}$
+is an fppf covering, or if $f : U \to U'$ is a surjection of sheaves, or if
+$\{f : U \to U'\}$ is an fppf covering.
+\end{lemma}
+
+\begin{proof}
+We already know that part (1) is equivalent to
+fully faithfulness by
+Lemma \ref{lemma-quotient-stack-restrict}.
+Hence we may assume that (1) holds and that $[f]$ is fully faithful.
+Our goal is to show, under these assumptions, that $[f]$ is an equivalence
+if and only if (2) holds. We may use
+Stacks, Lemma \ref{stacks-lemma-characterize-essentially-surjective-when-ff}
+which characterizes equivalences.
+
+\medskip\noindent
+Assume (2). We will use
+Stacks, Lemma \ref{stacks-lemma-characterize-essentially-surjective-when-ff}
+to prove $[f]$ is an equivalence.
+Suppose that $T$ is a scheme and $x' \in \Ob([U'/R']_T)$.
+There exists a covering $\{g_i : T_i \to T\}$ such that $g_i^*x'$
+is the image of some element $a'_i \in U'(T_i)$, see
+Lemma \ref{lemma-quotient-stack-objects}.
+Hence we may assume that $x'$ is the image of $a' \in U'(T)$.
+By the assumption that $h$ is a surjection of sheaves, we
+can find an fppf covering $\{\varphi_i : T_i \to T\}$ and morphisms
+$b_i : T_i \to U \times_{g, U', t'} R'$ such that
+$a' \circ \varphi_i = h \circ b_i$. Denote
+$a_i = \text{pr}_0 \circ b_i : T_i \to U$. Then we see that
+$a_i \in U(T_i)$ maps to $f \circ a_i \in U'(T_i)$ and
+that $f \circ a_i \cong_{T_i} h \circ b_i = a' \circ \varphi_i$,
+where $\cong_{T_i}$ denotes isomorphism in the fibre category
+$[U'/R']_{T_i}$. Namely, the element of $R'(T_i)$ giving the isomorphism
+is $\text{pr}_1 \circ b_i$. This means that the restriction
+of $x$ to $T_i$ is in the essential image of the functor
+$[U/R]_{T_i} \to [U'/R']_{T_i}$ as desired.
+
+\medskip\noindent
+Assume $[f]$ is an equivalence. Let $\xi' \in [U'/R']_{U'}$ denote the
+object corresponding to the identity morphism of $U'$. Applying
+Stacks, Lemma \ref{stacks-lemma-characterize-essentially-surjective-when-ff}
+we see there exists an fppf covering $\mathcal{U}' = \{g'_i : U'_i \to U'\}$
+such that $(g'_i)^*\xi' \cong [f](\xi_i)$ for some $\xi_i$ in $[U/R]_{U'_i}$.
+After refining the covering $\mathcal{U}'$ (using
+Lemma \ref{lemma-quotient-stack-objects})
+we may assume $\xi_i$ comes from a morphism $a_i : U'_i \to U$.
+The fact that $[f](\xi_i) \cong (g'_i)^*\xi'$ means that, after possibly
+refining the covering $\mathcal{U}'$ once more, there exist morphisms
+$r'_i : U'_i \to R'$ with $t' \circ r'_i = f \circ a_i$ and
+$s' \circ r'_i = \text{id}_{U'} \circ g'_i$. Picture
+$$
+\xymatrix{
+U \ar[d]^f & & U'_i \ar[ll]^{a_i} \ar[ld]_{r'_i} \ar[d]^{g'_i} \\
+U' & R' \ar[l]_{t'} \ar[r]^{s'} & U'
+}
+$$
+Thus $(a_i, r'_i) : U'_i \to U \times_{g, U', t'} R'$ are morphisms
+such that $h \circ (a_i, r'_i) = g'_i$ and we conclude that
+$\{h : U \times_{g, U', t'} R' \to U'\}$ can be refined by the
+fppf covering $\mathcal{U}'$ which means that $h$ induces a surjection
+of sheaves, see
+Topologies on Spaces, Lemma
+\ref{spaces-topologies-lemma-fppf-covering-surjective}.
+
+\medskip\noindent
+If $\{h\}$ is an fppf covering, then it induces a surjection of sheaves, see
+Topologies on Spaces,
+Lemma \ref{spaces-topologies-lemma-fppf-covering-surjective}.
+If $U' \to U$ is surjective, then also $h$ is surjective as $s$ has a section
+(namely the neutral element $e$ of the groupoid in algebraic spaces).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-criterion-fibre-product}
+Notation and assumption as in
+Lemma \ref{lemma-quotient-stack-functorial}.
+Assume that
+$$
+\xymatrix{
+R \ar[d]_s \ar[r]_f & R' \ar[d]^{s'} \\
+U \ar[r]^f & U'
+}
+$$
+is cartesian. Then
+$$
+\xymatrix{
+\mathcal{S}_U \ar[d] \ar[r] & [U/R] \ar[d]^{[f]} \\
+\mathcal{S}_{U'} \ar[r] & [U'/R']
+}
+$$
+is a $2$-fibre product square.
+\end{lemma}
+
+\begin{proof}
+Applying the inverse isomorphisms $i : R \to R$ and $i' : R' \to R'$
+to the (first) cartesian diagram of the statement of the lemma we see
+that
+$$
+\xymatrix{
+R \ar[d]_t \ar[r]_f & R' \ar[d]^{t'} \\
+U \ar[r]^f & U'
+}
+$$
+is cartesian as well. By
+Lemma \ref{lemma-cartesian-square-of-morphism}
+we have a $2$-fibre square
+$$
+\xymatrix{
+[U''/R''] \ar[d] \ar[r] & [U/R] \ar[d] \\
+\mathcal{S}_{U'} \ar[r] & [U'/R']
+}
+$$
+where $U'' = U \times_{f, U', t'} R'$ and
+$R'' = R \times_{f \circ s, U', t'} R'$. By the above
+we see that $(t, f) : R \to U''$ is an isomorphism, and that
+$$
+R'' =
+R \times_{f \circ s, U', t'} R' =
+R \times_{s, U} U \times_{f, U', t'} R' =
+R \times_{s, U, t} \times R.
+$$
+Explicitly the isomorphism $R \times_{s, U, t} R \to R''$ is given by
+the rule $(r_0, r_1) \mapsto (r_0, f(r_1))$.
+Moreover, $s'', t'', c''$ translate into the maps
+$$
+R \times_{s, U, t} R \to R,
+\quad
+s''(r_0, r_1) = r_1, \quad t''(r_0, r_1) = c(r_0, r_1)
+$$
+and
+$$
+\begin{matrix}
+c'' : &
+(R \times_{s, U, t} R) \times_{s'', R, t''} (R \times_{s, U, t} R)
+&
+\longrightarrow
+&
+R \times_{s, U, t} R, \\
+&
+((r_0, r_1), (r_2, r_3)) &
+\longmapsto & (c(r_0, r_2), r_3).
+\end{matrix}
+$$
+Precomposing with the isomorphism
+$$
+R \times_{s, U, s} R \longrightarrow R \times_{s, U, t} R,
+\quad
+(r_0, r_1) \longmapsto (c(r_0, i(r_1)), r_1)
+$$
+we see that $t''$ and $s''$ turn into
+$\text{pr}_0$ and $\text{pr}_1$ and that $c''$ turns into
+$\text{pr}_{02} :
+R \times_{s, U, s} R \times_{s, U, s} R \to R \times_{s, U, s} R$.
+Hence we see that there is an isomorphism
+$[U''/R''] \cong [R/R \times_{s, U, s} R]$ where as a groupoid
+in algebraic spaces $(R, R \times_{s, U, s} R, s'', t'', c'')$
+is the restriction of the trivial groupoid
+$(U, U, \text{id}, \text{id}, \text{id})$ via $s : R \to U$.
+Since $s : R \to U$ is a surjection of fppf sheaves (as it has a
+right inverse) the morphism
+$$
+[U''/R''] \cong [R/R \times_{s, U, s} R]
+\longrightarrow
+[U/U] = \mathcal{S}_U
+$$
+is an equivalence by
+Lemma \ref{lemma-quotient-stack-restrict-equivalence}.
+This proves the lemma.
+\end{proof}
+
+
+
+
+
+\section{Inertia and quotient stacks}
+\label{section-inertia}
+
+\noindent
+The (relative) inertia stack of a stack in groupoids is defined in
+Stacks, Section \ref{stacks-section-the-inertia-stack}.
+The actual construction, in the setting of fibred categories, and some
+of its properties is in
+Categories, Section \ref{categories-section-inertia}.
+
+\begin{lemma}
+\label{lemma-presentation-inertia}
+Assume $B \to S$ and $(U, R, s, t, c)$ as in
+Definition \ref{definition-quotient-stack} (1).
+Let $G/U$ be the stabilizer group algebraic space of the groupoid
+$(U, R, s, t, c, e, i)$, see
+Definition \ref{definition-stabilizer-groupoid}.
+Set $R' = R \times_{s, U} G$ and set
+\begin{enumerate}
+\item $s' : R' \to G$, $(r, g) \mapsto g$,
+\item $t' : R' \to G$, $(r, g) \mapsto c(r, c(g, i(r)))$,
+\item $c' : R' \times_{s', G, t'} R' \to R'$,
+$((r_1, g_1), (r_2, g_2) \mapsto (c(r_1, r_2), g_1)$.
+\end{enumerate}
+Then $(G, R', s', t', c')$ is a groupoid in algebraic spaces over $B$
+and
+$$
+\mathcal{I}_{[U/R]} = [G/ R'].
+$$
+i.e., the associated quotient stack is the inertia stack of $[U/R]$.
+\end{lemma}
+
+\begin{proof}
+By
+Stacks, Lemma \ref{stacks-lemma-stackification-inertia}
+it suffices to prove that $\mathcal{I}_{[U/_{\!p}R]} = [G/_{\!p} R']$.
+Let $T$ be a scheme over $S$. Recall that an object of the inertia fibred
+category of $[U/_{\!p}R]$ over $T$ is given by a pair
+$(x, g)$ where $x$ is an object of $[U/_{\!\!p}R]$ over $T$
+and $g$ is an automorphism of $x$ in its fibre category over $T$.
+In other words, $x : T \to U$ and $g : T \to R$ such that
+$x = s \circ g = t \circ g$. This means exactly that
+$g : T \to G$. A morphism in the inertia fibred category
+from $(x, g) \to (y, h)$ over $T$ is given by
+$r : T \to R$ such that $s(r) = x$, $t(r) = y$
+and $c(r, g) = c(h, r)$, see the commutative diagram in
+Categories, Lemma \ref{categories-lemma-inertia-fibred-category}.
+In a formula
+$$
+h = c(r, c(g, i(r))) = c(c(r, g), i(r)).
+$$
+The notation $s(r)$, etc is a short hand for $s \circ r$, etc.
+The composition of $r_1 : (x_2, g_2) \to (x_1, g_1)$
+and $r_2 : (x_1, g_1) \to (x_2, g_2)$ is
+$c(r_1, r_2) : (x_1, g_1) \to (x_3, g_3)$.
+
+\medskip\noindent
+Note that in the above we could have written $g$ in stead of $(x, g)$
+for an object of $\mathcal{I}_{[U/_{\!p}R]}$ over $T$ as $x$ is the
+image of $g$ under the structure morphism $G \to U$. Then the morphisms
+$g \to h$ in $\mathcal{I}_{[U/_{\!p}R]}$ over $T$ correspond exactly
+to morphisms $r' : T \to R'$ with $s'(r') = g$ and $t'(r') = h$.
+Moreover, the composition corresponds to the rule explained in (3).
+Thus the lemma is proved.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-2-cartesian-inertia}
+Assume $B \to S$ and $(U, R, s, t, c)$ as in
+Definition \ref{definition-quotient-stack} (1).
+Let $G/U$ be the stabilizer group algebraic space of the groupoid
+$(U, R, s, t, c, e, i)$, see
+Definition \ref{definition-stabilizer-groupoid}.
+There is a canonical $2$-cartesian diagram
+$$
+\xymatrix{
+\mathcal{S}_G \ar[r] \ar[d] & \mathcal{S}_U \ar[d] \\
+\mathcal{I}_{[U/R]} \ar[r] & [U/R]
+}
+$$
+of stacks in groupoids of $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+By
+Lemma \ref{lemma-criterion-fibre-product}
+it suffices to prove that the morphism
+$s' : R' \to G$ of
+Lemma \ref{lemma-presentation-inertia}
+isomorphic to the base change of $s$ by the structure
+morphism $G \to U$. This base change property is
+clear from the construction of $s'$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Gerbes and quotient stacks}
+\label{section-gerbes}
+
+\noindent
+In this section we relate quotient stacks to the discussion
+Stacks, Section \ref{stacks-section-gerbes}
+and especially gerbes as defined in
+Stacks, Definition \ref{stacks-definition-gerbe-over-stack-in-groupoids}.
+The stacks in groupoids occurring in this section
+are generally speaking not algebraic stacks!
+
+\begin{lemma}
+\label{lemma-when-gerbe}
+Notation and assumption as in
+Lemma \ref{lemma-quotient-stack-functorial}.
+The morphism of quotient stacks
+$$
+[f] : [U/R] \longrightarrow [U'/R']
+$$
+turns $[U/R]$ into a gerbe over $[U'/R']$ if $f : U \to U'$ and
+$R \to R'|_U$ are surjective maps of fppf sheaves. Here $R'|_U$ is
+the restriction of $R'$ to $U$ via $f : U \to U'$.
+\end{lemma}
+
+\begin{proof}
+We will verify that
+Stacks, Lemma \ref{stacks-lemma-when-gerbe}
+properties (2) (a) and (2) (b) hold. Property (2)(a) holds because $U \to U'$
+is a surjective map of sheaves (use
+Lemma \ref{lemma-quotient-stack-objects}
+to see that objects in $[U'/R']$ locally come from $U'$).
+To prove (2)(b) let $x, y$ be objects of $[U/R]$ over a scheme $T/S$.
+Let $x', y'$ be the images of $x, y$ in the category $[U'/'R]_T$.
+Condition (2)(b) requires us to check the map of sheaves
+$$
+\mathit{Isom}(x, y) \longrightarrow \mathit{Isom}(x', y')
+$$
+on $(\Sch/T)_{fppf}$ is surjective. To see this we may work
+fppf locally on $T$ and assume that come from $a, b \in U(T)$.
+In that case we see that $x', y'$ correspond to $f \circ a, f \circ b$. By
+Lemma \ref{lemma-quotient-stack-morphisms}
+the displayed map of sheaves in this case becomes
+$$
+T \times_{(a, b), U \times_B U} R
+\longrightarrow
+T \times_{f \circ a, f \circ b, U' \times_B U'} R' =
+T \times_{(a, b), U \times_B U} R'|_U.
+$$
+Hence the assumption that $R \to R'|_U$ is a surjective map of fppf sheaves
+on $(\Sch/S)_{fppf}$ implies the desired surjectivity.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-group-quotient-gerbe}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$. Let
+$G$ be a group algebraic space over $B$. Endow $B$ with the trivial
+action of $G$. The morphism
+$$
+[B/G] \longrightarrow \mathcal{S}_B
+$$
+(Lemma \ref{lemma-quotient-stack-arrows})
+turns $[B/G]$ into a gerbe over $B$.
+\end{lemma}
+
+\begin{proof}
+Immediate from
+Lemma \ref{lemma-when-gerbe}
+as the morphisms $B \to B$ and $B \times_B G \to B$ are surjective
+as morphisms of sheaves.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Quotient stacks and change of big site}
+\label{section-bigger-site}
+
+\noindent
+We suggest skipping this section on a first reading.
+Pullbacks of stacks are defined in
+Stacks, Section \ref{stacks-section-inverse-image}.
+
+\begin{lemma}
+\label{lemma-quotient-stack-change-big-site}
+Suppose given big sites $\Sch_{fppf}$ and $\Sch'_{fppf}$.
+Assume that $\Sch_{fppf}$ is contained in $\Sch'_{fppf}$,
+see Topologies, Section \ref{topologies-section-change-alpha}.
+Let $S \in \Ob(\Sch_{fppf})$.
+Let $B, U, R \in \Sh((\Sch/S)_{fppf})$ be algebraic spaces,
+and let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+Let $f : (\Sch'/S)_{fppf} \to (\Sch/S)_{fppf}$ the morphism
+of sites corresponding to the inclusion functor
+$u : \Sch_{fppf} \to \Sch'_{fppf}$.
+Then we have a canonical equivalence
+$$
+[f^{-1}U/f^{-1}R]
+\longrightarrow
+f^{-1}[U/R]
+$$
+of stacks in groupoids over $(\Sch'/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+Note that $f^{-1}B, f^{-1}U, f^{-1}R \in \Sh((\Sch'/S)_{fppf})$
+are algebraic spaces by
+Spaces, Lemma \ref{spaces-lemma-change-big-site}
+and hence $(f^{-1}U, f^{-1}R, f^{-1}s, f^{-1}t, f^{-1}c)$
+is a groupoid in algebraic spaces over $f^{-1}B$. Thus the statement makes
+sense.
+
+\medskip\noindent
+The category $u_p[U/_{\!p}R]$ is the localization of the category
+$u_{pp}[U/_{\!p}R]$ at right multiplicative system $I$ of morphisms.
+An object of $u_{pp}[U/_{\!p}R]$ is a triple
+$$
+(T', \phi : T' \to T, x)
+$$
+where
+$T' \in \Ob((\Sch'/S)_{fppf})$,
+$T \in \Ob((\Sch/S)_{fppf})$, $\phi$ is a morphism of schemes
+over $S$, and $x : T \to U$ is a morphism of sheaves on
+$(\Sch/S)_{fppf}$. Note that the morphism of
+schemes $\phi : T' \to T$ is the same thing as a morphism
+$\phi : T' \to u(T)$, and since $u(T)$ represents $f^{-1}T$ it is the
+same thing as a morphism $T' \to f^{-1}T$. Moreover, as $f^{-1}$ on
+algebraic spaces is fully faithful, see
+Spaces, Lemma \ref{spaces-lemma-fully-faithful},
+we may think of $x$ as a morphism $x : f^{-1}T \to f^{-1}U$ as well.
+From now on we will make such identifications without further mention.
+A morphism
+$$
+(a, a', \alpha) :
+(T'_1, \phi_1 : T'_1 \to T_1, x_1)
+\longrightarrow
+(T'_2, \phi_2 : T'_2 \to T_2, x_2)
+$$
+of $u_{pp}[U/_{\!p}R]$ is a commutative diagram
+$$
+\xymatrix{
+& & U \\
+T'_1 \ar[d]_{a'} \ar[r]_{\phi_1} &
+T_1 \ar[d]_a \ar[ru]^{x_1} \ar[r]_\alpha &
+R \ar[d]^t \ar[u]_s \\
+T'_2 \ar[r]^{\phi_2} &
+T_2 \ar[r]^{x_2} &
+U
+}
+$$
+and such a morphism is an element of $I$ if and only if
+$T'_1 = T'_2$ and $a' = \text{id}$.
+We define a functor
+$$
+u_{pp}[U/_{\!p}R] \longrightarrow [f^{-1}U/_{\!p}f^{-1}R]
+$$
+by the rules
+$$
+(T', \phi : T' \to T, x) \longmapsto (x \circ \phi : T' \to f^{-1}U)
+$$
+on objects and
+$$
+(a, a', \alpha) \longmapsto (\alpha \circ \phi_1 : T'_1 \to f^{-1}R)
+$$
+on morphisms as above. It is clear that elements of $I$ are transformed
+into isomorphisms as $(f^{-1}U, f^{-1}R, f^{-1}s, f^{-1}t, f^{-1}c)$
+is a groupoid in algebraic spaces over $f^{-1}B$. Hence this functor
+factors in a canonical way through a functor
+$$
+u_p[U/_{\!p}R] \longrightarrow [f^{-1}U/_{\!p}f^{-1}R]
+$$
+Applying stackification we obtain a functor of stacks
+$$
+f^{-1}[U/R] \longrightarrow [f^{-1}U/f^{-1}R]
+$$
+over $(\Sch'/S)_{fppf}$, as by
+Stacks, Lemma \ref{stacks-lemma-technical-up}
+the stack $f^{-1}[U/R]$ is the stackification of $u_p[U/_{\!p}R]$.
+
+\medskip\noindent
+At this point we have a morphism of stacks, and to verify that it is an
+equivalence it suffices to show that it is fully faithful and that
+objects are locally in the essential image, see
+Stacks, Lemmas \ref{stacks-lemma-characterize-ff} and
+\ref{stacks-lemma-characterize-essentially-surjective-when-ff}.
+The statement on objects holds as $f^{-1}R$ admits a surjective \'etale
+morphism $f^{-1}W \to f^{-1}R$ for some object $W$ of
+$(\Sch/S)_{fppf}$. To show that the functor is ``full'', it
+suffices to show that morphisms are locally in the image
+of the functor which holds as $f^{-1}U$ admits a surjective \'etale morphism
+$f^{-1}W \to f^{-1}U$ for some object $W$ of $(\Sch/S)_{fppf}$.
+We omit the proof that the functor is faithful.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Separation conditions}
+\label{section-separation}
+
+\noindent
+This really means conditions on the morphism $j : R \to U \times_B U$
+when given a groupoid in algebraic spaces $(U, R, s, t, c)$ over $B$.
+As in the previous section we first formulate the corresponding diagram.
+
+\begin{lemma}
+\label{lemma-diagram-diagonal}
+Let $B \to S$ be as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+Let $G \to U$ be the stabilizer group algebraic space.
+The commutative diagram
+$$
+\xymatrix{
+R \ar[d]^{\Delta_{R/U \times_B U}} \ar[rrr]_{f \mapsto (f, s(f))} & & &
+R \times_{s, U} U \ar[d] \ar[r] & U \ar[d] \\
+R \times_{(U \times_B U)} R \ar[rrr]^{(f, g) \mapsto (f, f^{-1} \circ g)} & & &
+R \times_{s, U} G \ar[r] & G
+}
+$$
+the two left horizontal arrows are isomorphisms
+and the right square is a fibre product square.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+Exercise in the definitions and the functorial point of
+view in algebraic geometry.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagonal}
+Let $B \to S$ be as in Section \ref{section-notation}.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+Let $G \to U$ be the stabilizer group algebraic space.
+\begin{enumerate}
+\item The following are equivalent
+\begin{enumerate}
+\item $j : R \to U \times_B U$ is separated,
+\item $G \to U$ is separated, and
+\item $e : U \to G$ is a closed immersion.
+\end{enumerate}
+\item The following are equivalent
+\begin{enumerate}
+\item $j : R \to U \times_B U$ is locally separated,
+\item $G \to U$ is locally separated, and
+\item $e : U \to G$ is an immersion.
+\end{enumerate}
+\item The following are equivalent
+\begin{enumerate}
+\item $j : R \to U \times_B U$ is quasi-separated,
+\item $G \to U$ is quasi-separated, and
+\item $e : U \to G$ is quasi-compact.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The group algebraic space $G \to U$ is the base change of $R \to U \times_B U$
+by the diagonal morphism $U \to U \times_B U$, see
+Lemma \ref{lemma-groupoid-stabilizer}. Hence if
+$j$ is separated (resp.\ locally separated, resp.\ quasi-separated),
+then $G \to U$ is separated (resp.\ locally separated, resp.\ quasi-separated).
+See
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-base-change-separated}.
+Thus (a) $\Rightarrow$ (b) in (1), (2), and (3).
+
+\medskip\noindent
+Conversely, if $G \to U$ is separated
+(resp.\ locally separated, resp.\ quasi-separated), then the morphism
+$e : U \to G$, as a section of the structure morphism $G \to U$ is a closed
+immersion (resp.\ an immersion, resp.\ quasi-compact), see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-section-immersion}.
+Thus (b) $\Rightarrow$ (c) in (1), (2), and (3).
+
+\medskip\noindent
+If $e$ is a closed immersion (resp.\ an immersion, resp.\ quasi-compact)
+then by the result of
+Lemma \ref{lemma-diagram-diagonal}
+(and
+Spaces, Lemma \ref{spaces-lemma-base-change-immersions}, and
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-quasi-compact})
+we see that $\Delta_{R/U \times_B U}$ is a closed
+immersion (resp.\ an immersion, resp.\ quasi-compact).
+Thus (c) $\Rightarrow$ (a) in (1), (2), and (3).
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

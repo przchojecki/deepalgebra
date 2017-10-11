@@ -1,0 +1,1168 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Set Theory}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+We need some set theory every now and then. We use Zermelo-Fraenkel set theory
+with the axiom of choice (ZFC) as described in \cite{Kunen} and \cite{Jech}.
+
+\section{Everything is a set}
+\label{section-sets-everything}
+
+\noindent
+Most mathematicians think of set theory as providing the basic
+foundations for mathematics. So how does this really work?
+For example, how do we translate the sentence
+``$X$ is a scheme'' into set theory? Well, we just unravel the
+definitions: A scheme is a locally ringed space such that every
+point has an open neighbourhood which is an affine scheme.
+A locally ringed space is a ringed space such that every stalk
+of the structure sheaf is a local ring. A ringed space is
+a pair $(X, \mathcal{O}_X)$ consisting of a topological space
+$X$ and a sheaf of rings $\mathcal{O}_X$ on it. A topological
+space is a pair $(X, \tau)$ consisting of a set
+$X$ and a set of subsets $\tau \subset \mathcal{P}(X)$
+satisfying the axioms of a topology. And so on and
+so forth.
+
+\medskip\noindent
+So how, given a set $S$ would we recognize whether it is a scheme?
+The first thing we look for is whether the set $S$ is an ordered pair.
+This is defined (see \cite{Jech}, page 7) as saying that $S$
+has the form $(a, b) := \{\{a\}, \{a, b\}\}$ for some sets $a, b$. If this is
+the case, then we would take a look to see whether $a$ is an
+ordered pair $(c, d)$. If so we would check whether
+$d \subset \mathcal{P}(c)$, and if so whether $d$ forms the collection
+of sets for a topology on the set $c$. And so on and so forth.
+
+\medskip\noindent
+So even though it would take a considerable amount of work to write
+a complete formula $\phi_{scheme}(x)$ with one free variable $x$ in set theory
+that expresses the notion ``$x$ is a scheme'', it is possible to do so.
+The same thing should be true for any mathematical object.
+
+\section{Classes}
+\label{section-classes}
+
+\noindent
+Informally we use the notion of a {\it class}. Given a formula
+$\phi(x, p_1, \ldots, p_n)$, we call
+$$
+C = \{x : \phi(x, p_1, \ldots, p_n)\}
+$$
+a {\it class}. A class is easier to manipulate than the formula
+that defines it, but it is not strictly speaking a mathematical
+object. For example, if $R$ is a ring, then we may
+consider the class of all $R$-modules (since after all we
+may translate the sentence ``$M$ is an $R$-module''
+into a formula in set theory, which then defines a class).
+A {\it proper class} is a class which is not a set.
+
+\medskip\noindent
+In this way we may consider the category of $R$-modules,
+which is a ``big'' category---in other words, it has a
+proper class of objects. Similarly, we may consider
+the ``big'' category of schemes, the ``big'' category
+of rings, etc.
+
+
+
+\section{Ordinals}
+\label{section-ordinals}
+
+\noindent
+A set $T$ is {\it transitive} if $x\in T$ implies $x\subset T$.
+A set $\alpha$ is an {\it ordinal} if it is transitive and well-ordered
+by $\in$. In this case, we define $\alpha + 1 = \alpha \cup \{\alpha\}$,
+which is another ordinal called the {\it successor} of $\alpha$.
+An ordinal $\alpha$ is called a {\it successor ordinal} if
+there exists an ordinal $\beta$ such that $\alpha = \beta + 1$.
+The smallest ordinal is $\emptyset$ which is also denoted $0$.
+If $\alpha$ is not $0$, and not a successor ordinal, then $\alpha$ is called
+a {\it limit ordinal} and we have
+$$
+\alpha
+=
+\bigcup\nolimits_{\gamma \in \alpha} \gamma.
+$$
+The first limit ordinal is $\omega$ and it is also the first
+infinite ordinal. The first uncountable ordinal $\omega_1$
+is the set of all countable ordinals.
+The collection of all ordinals is a proper class.
+It is well-ordered by $\in$ in the following sense: any nonempty set
+(or even class) of ordinals has a least element.
+Given a set $A$ of ordinals, we define the {\it supremum}
+of $A$ to be $\sup_{\alpha \in A} \alpha =
+\bigcup_{\alpha \in A} \alpha$. It is the least ordinal bigger
+or equal to all $\alpha \in A$.
+Given any well-ordered set $(S, \geq)$, there is a unique ordinal
+$\alpha$ such that $(S, \geq) \cong (\alpha, \in)$; this is
+called the {\it order type} of the well-ordered set.
+
+\section{The hierarchy of sets}
+\label{section-sets-hierarchy}
+
+\noindent
+We define, by transfinite induction, $V_0 = \emptyset$,
+$V_{\alpha + 1} = P(V_\alpha)$ (power set),
+and for a limit ordinal $\alpha$,
+$$
+V_\alpha = \bigcup\nolimits_{\beta < \alpha} V_\beta.
+$$
+Note that each $V_\alpha$ is a transitive set.
+
+\begin{lemma}
+\label{lemma-axiom-regularity}
+Every set is an element of $V_\alpha$ for some ordinal $\alpha$.
+\end{lemma}
+
+\begin{proof}
+See \cite[Lemma 6.3]{Jech}.
+\end{proof}
+
+\noindent
+In \cite[Chapter III]{Kunen} it is explained that this lemma is
+equivalent to the axiom of foundation. The {\it rank} of
+a set $S$ is the least ordinal $\alpha$ such that $S \in V_\alpha$.
+By a {\it partial universe} we shall mean a suitably large set of the form
+$V_\alpha$ which will be clear from the context.
+
+\section{Cardinality}
+\label{section-cardinals}
+
+\noindent
+The {\it cardinality} of a set $A$ is the least ordinal $\alpha$
+such that there exists a bijection between $A$ and $\alpha$.
+We sometimes use the notation $\alpha = |A|$ to indicate this.
+We say an ordinal $\alpha$ is a {\it cardinal} if and only
+if it occurs as the cardinality of some set $A$---in other words, if
+$\alpha = |A|$. We use the greek letters $\kappa$, $\lambda$
+for cardinals. The first infinite cardinal is $\omega$, and in this
+context it is denoted $\aleph_0$. A set is {\it countable} if its cardinality
+is $\leq \aleph_0$. If $\alpha$ is an ordinal, then we denote
+$\alpha^+$ the least cardinal $> \alpha$. You can use this to
+define $\aleph_1 = \aleph_0^+$, $\aleph_2 = \aleph_1^+$, etc, and
+in fact you can define $\aleph_\alpha$ for any ordinal $\alpha$ by
+transfinite induction. We note the equality $\aleph_1 = \omega_1$.
+
+\medskip\noindent
+The {\it addition} of cardinals $\kappa, \lambda$
+is denoted $\kappa \oplus \lambda$; it is the cardinality of
+$\kappa \amalg \lambda$. The {\it multiplication} of cardinals
+$\kappa, \lambda$ is denoted $\kappa \otimes \lambda$; it is the
+cardinality of $\kappa \times \lambda$. It is uninteresting since if
+$\kappa$ and $\lambda$ are infinite cardinals, then
+$\kappa \otimes \lambda = \max(\kappa, \lambda)$.
+The {\it exponentiation}
+of cardinals $\kappa, \lambda$ is denoted $\kappa^\lambda$; it is
+the cardinality of the set of (set) maps from $\lambda$ to $\kappa$.
+Given any set $K$ of cardinals, the {\it supremum} of $K$
+is $\sup_{\kappa \in K} \kappa = \bigcup_{\kappa \in K} \kappa$,
+which is also a cardinal.
+
+\section{Cofinality}
+\label{section-cofinality}
+
+\noindent
+A {\it cofinal subset} $S$ of a well-ordered set $T$ is a subset
+$S \subset T$ such that $\forall t \in T \exists s\in S (t \leq s)$.
+Note that a subset of a well-ordered set is a well-ordered set
+(with induced ordering). Given an ordinal $\alpha$, the {\it cofinality}
+$\text{cf}(\alpha)$ of $\alpha$ is the least ordinal $\beta$
+which occurs as the order type of some cofinal subset of $\alpha$.
+The cofinality of an ordinal is always a cardinal (this is clear from
+the definition). Hence alternatively we can define the cofinality of
+$\alpha$ as the least cardinality of a cofinal subset of $\alpha$.
+
+\begin{lemma}
+\label{lemma-map-from-set-lifts}
+Suppose that $T = \colim_{\alpha < \beta} T_\alpha$
+is a colimit of sets indexed by ordinals less than a given ordinal $\beta$.
+Suppose that $\varphi : S \to T$ is a map of sets.
+Then $\varphi$ lifts to a map into $T_\alpha$ for some $\alpha < \beta$
+provided that $\beta$ is not a limit of ordinals indexed by $S$,
+in other words, if $\beta$ is an ordinal with $\text{cf}(\beta) > |S|$.
+\end{lemma}
+
+\begin{proof}
+For each element $s \in S$ pick a $\alpha_s < \beta$ and an element
+$t_s \in T_{\alpha_s}$ which maps to $\varphi(s)$ in $T$.
+By assumption $\alpha = \sup_{s \in S} \alpha_s$ is strictly smaller
+than $\beta$. Hence the map $\varphi_\alpha : S \to T_\alpha$
+which assigns to $s$ the image of $t_s$ in $T_\alpha$ is a solution.
+\end{proof}
+
+\noindent
+The following is essentially Grothendieck's argument for the existence
+of ordinals with arbitrarily large cofinality which he used to prove
+the existence of enough injectives in certain abelian categories, see
+\cite{Tohoku}.
+
+\begin{proposition}
+\label{proposition-exist-ordinals-large-cofinality}
+Let $\kappa$ be a cardinal. Then there exists an ordinal
+whose cofinality is bigger than $\kappa$.
+\end{proposition}
+
+\begin{proof}
+If $\kappa$ is finite, then $\omega = \text{cf}(\omega)$ works.
+Let us thus assume that $\kappa$ is infinite.
+Consider the smallest ordinal $\alpha$ whose cardinality is strictly greater
+than $\kappa$. We claim that $\text{cf}(\alpha) > \kappa$.
+Note that $\alpha$ is a limit ordinal, since if $\alpha = \beta + 1$, then
+$|\alpha| = |\beta|$ (because $\alpha$ and $\beta$ are infinite) and
+this contradicts the minimality of $\alpha$. (Of course $\alpha$ is also
+a cardinal, but we do not need this.) To get a contradiction
+suppose $S \subset \alpha$ is a cofinal
+subset with $|S| \leq \kappa$. For $\beta \in S$, i.e., $\beta < \alpha$,
+we have $|\beta| \leq \kappa$ by minimality of $\alpha$. As $\alpha$ is
+a limit ordinal and $S$ cofinal in $\alpha$ we obtain
+$\alpha = \bigcup_{\beta \in S} \beta$. Hence
+$|\alpha| \leq |S| \otimes \kappa \leq \kappa \otimes \kappa \leq \kappa$
+which is a contradiction with our choice of $\alpha$.
+\end{proof}
+
+
+
+\section{Reflection principle}
+\label{section-reflection-principle}
+
+\noindent
+Some of this material is in the chapter of \cite{Kunen} called
+``Easy consistency proofs''.
+
+\medskip\noindent
+Let $\phi(x_1, \ldots, x_n)$ be a formula of set theory.
+Let us use the convention that this notation implies that
+all the free variables in $\phi$ occur among $x_1, \ldots, x_n$.
+Let $M$ be a set.
+The formula $\phi^M(x_1, \ldots, x_n)$ is the
+formula obtained from $\phi(x_1, \ldots, x_n)$ by replacing all the
+$\forall x$ and $\exists x$ by $\forall x\in M$ and $\exists x\in M$,
+respectively. So the formula
+$\phi(x_1, x_2) = \exists x (x\in x_1 \wedge x\in x_2)$
+is turned  into
+$\phi^M(x_1, x_2) = \exists x \in M (x\in x_1 \wedge x\in x_2)$.
+The formula $\phi^M$ is called the {\it relativization of $\phi$
+to $M$}.
+
+\begin{theorem}
+\label{theorem-reflection-principle}
+Suppose given $\phi_1(x_1, \ldots, x_n), \ldots, \phi_m(x_1, \ldots, x_n)$
+a {\bf finite} collection of
+formulas of set theory. Let $M_0$ be a set.
+There exists a set $M$ such that
+$M_0 \subset M$ and
+$\forall x_1, \ldots, x_n \in M$, we have
+$$
+\forall i = 1, \ldots, m, \ \phi_i^{M}(x_1, \ldots, x_n)
+\Leftrightarrow
+\forall i = 1, \ldots, m, \ \phi_i(x_1, \ldots, x_n).
+$$
+In fact we may take $M = V_\alpha$ for some limit ordinal $\alpha$.
+\end{theorem}
+
+\begin{proof}
+See \cite[Theorem 12.14]{Jech} or \cite[Theorem 7.4]{Kunen}.
+\end{proof}
+
+\noindent
+We view this theorem as saying the following: Given any
+$x_1, \ldots, x_n \in M$ the formulas hold with the bound variables ranging
+through all sets if and only if they hold for the bound variables ranging
+through elements of $V_\alpha$. This theorem is a meta-theorem because
+it deals with the formulas of set theory directly.
+It actually says that given the finite list of formulas
+$\phi_1, \ldots, \phi_m$ with at most free variables $x_1, \ldots, x_n$
+the sentence
+$$
+\begin{matrix}
+\forall M_0\ \exists M, \ M_0 \subset M\ \forall x_1, \ldots, x_n \in M \\
+\phi_1(x_1, \ldots, x_n) \wedge \ldots \wedge \phi_m(x_1, \ldots, x_n)
+\leftrightarrow
+\phi_1^M(x_1, \ldots, x_n) \wedge \ldots \wedge \phi_m^M(x_1, \ldots, x_n)
+\end{matrix}
+$$
+is provable in ZFC. In other words, whenever we actually write down
+a finite list of formulas $\phi_i$, we get a theorem.
+
+\medskip\noindent
+It is somewhat hard to use this theorem in ``ordinary mathematics''
+since the meaning of the formulas $\phi_i^M(x_1, \ldots, x_n)$
+is not so clear! Instead, we will use the idea of the proof of the
+reflection principle to prove the existence results we need directly.
+
+\section{Constructing categories of schemes}
+\label{section-categories-schemes}
+
+\noindent
+We will discuss how to apply this to produce, given an initial
+set of schemes, a ``small'' category of schemes closed under
+a list of natural operations. Before we do so, we introduce the
+size of a scheme. Given a scheme $S$ we define
+$$
+\text{size}(S) = \max(\aleph_0, \kappa_1, \kappa_2),
+$$
+where we define the cardinal numbers $\kappa_1$ and $\kappa_2$ as follows:
+\begin{enumerate}
+\item We let $\kappa_1$ be the cardinality of the set of affine opens of $S$.
+\item We let $\kappa_2$ be the supremum of all the cardinalities of
+all $\Gamma(U, \mathcal{O}_S)$ for all $U \subset S$ affine open.
+\end{enumerate}
+
+\begin{lemma}
+\label{lemma-bounded-size}
+For every cardinal $\kappa$, there exists a set $A$ such
+that every element of $A$ is a scheme and such that for every
+scheme $S$ with $\text{size}(S) \leq \kappa$, there is
+an element $X \in A$ such that $X \cong S$ (isomorphism
+of schemes).
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: think about how any scheme is isomorphic to a scheme
+obtained by glueing affines.
+\end{proof}
+
+\noindent
+We denote $Bound$ the function which to each
+cardinal $\kappa$ associates
+\begin{equation}
+\label{equation-bound}
+Bound(\kappa) = \max\{\kappa^{\aleph_0}, \kappa^+\}.
+\end{equation}
+We could make this function grow much more rapidly, e.g., we could
+set $Bound(\kappa) = \kappa^\kappa$, and the result below would still hold.
+For any ordinal $\alpha$, we denote $\Sch_\alpha$ the full
+subcategory of category of schemes whose objects are elements of
+$V_\alpha$. Here is the result we are going to prove.
+
+\begin{lemma}
+\label{lemma-construct-category}
+With notations $\text{size}$, $Bound$ and $\Sch_\alpha$ as above.
+Let $S_0$ be a set of schemes. There exists a limit ordinal
+$\alpha$ with the following properties:
+\begin{enumerate}
+\item
+\label{item-inclusion}
+We have $S_0 \subset V_\alpha$; in other words,
+$S_0 \subset \Ob(\Sch_\alpha)$.
+\item
+\label{item-bounded}
+For any $S \in \Ob(\Sch_\alpha)$ and any
+scheme $T$ with $\text{size}(T) \leq Bound(\text{size}(S))$,
+there exists a scheme $S' \in \Ob(\Sch_\alpha)$
+such that $T \cong S'$.
+\item
+\label{item-limit}
+For any countable\footnote{Both the set of objects and
+the morphism sets are countable. In fact you can prove the lemma with
+$\aleph_0$ replaced by any cardinal whatsoever in (3) and (4).} diagram
+category $\mathcal{I}$ and
+any functor $F : \mathcal{I} \to \Sch_\alpha$, the limit
+$\lim_\mathcal{I} F$ exists in $\Sch_\alpha$ if and
+only if it exists in $\Sch$ and moreover, in this case,
+the natural morphism between them is an isomorphism.
+\item
+\label{item-colimit}
+For any countable diagram category $\mathcal{I}$ and
+any functor $F : \mathcal{I} \to \Sch_\alpha$, the colimit
+$\colim_\mathcal{I} F$ exists in $\Sch_\alpha$ if and
+only if it exists in $\Sch$ and moreover, in this case,
+the natural morphism between them is an isomorphism.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We define, by transfinite induction, a function $f$ which associates
+to every ordinal an ordinal as follows. Let $f(0) = 0$.
+Given $f(\alpha)$, we define $f(\alpha + 1)$ to be the least
+ordinal $\beta$ such that the following hold:
+\begin{enumerate}
+\item We have $\alpha + 1 \leq \beta$ and $f(\alpha) \leq \beta$.
+\item For any $S \in \Ob(\Sch_{f(\alpha)})$ and any
+scheme $T$ with $\text{size}(T) \leq Bound(\text{size}(S))$,
+there exists a scheme $S' \in \Ob(\Sch_\beta)$
+such that $T \cong S'$.
+\item For any countable diagram category $\mathcal{I}$ and
+any functor $F : \mathcal{I} \to \Sch_{f(\alpha)}$, if
+the limit $\lim_\mathcal{I} F$ or the colimit
+$\colim_\mathcal{I} F$ exists in $\Sch$,
+then it is isomorphic to a scheme in $\Sch_\beta$.
+\end{enumerate}
+To see $\beta$ exists, we argue as follows. Since
+$\Ob(\Sch_{f(\alpha)})$ is a set, we see that
+$\kappa =
+\sup_{S \in \Ob(\Sch_{f(\alpha)})} Bound(\text{size}(S))$
+exists and is a cardinal.
+Let $A$ be a set of schemes obtained starting with $\kappa$
+as in Lemma \ref{lemma-bounded-size}.
+There is a set $CountCat$ of countable
+categories such that any countable category is isomorphic to
+an element of $CountCat$. Hence in (3) above we may assume
+that $\mathcal{I}$ is an element in $CountCat$. This means that
+the pairs $(\mathcal{I}, F)$ in (3) range over a set.
+Thus, there exists a set $B$ whose elements are schemes
+such that for every $(\mathcal{I}, F)$ as in (3), if the
+limit or colimit exists, then it is isomorphic to an element in $B$.
+Hence, if we pick any $\beta$ such that $A \cup B \subset V_\beta$
+and $\beta > \max\{\alpha + 1, f(\alpha)\}$, then (1)--(3) hold.
+Since every nonempty collection of ordinals has a least element,
+we see that $f(\alpha + 1)$ is well defined. Finally, if $\alpha$
+is a limit ordinal, then we set
+$f(\alpha) = \sup_{\alpha' < \alpha} f(\alpha')$.
+
+\medskip\noindent
+Pick $\beta_0$ such that $S_0 \subset V_{\beta_0}$.
+By construction $f(\beta) \geq \beta$ and we see that
+also $S_0 \subset V_{f(\beta_0)}$. Moreover, as $f$ is
+nondecreasing, we see $S_0 \subset V_{f(\beta)}$ is true for any
+$\beta \geq \beta_0$.
+Next, choose any ordinal $\beta_1 > \beta_0$ with cofinality
+$\text{cf}(\beta_1) > \omega = \aleph_0$. This is possible
+since the cofinality of ordinals gets arbitrarily large, see
+Proposition \ref{proposition-exist-ordinals-large-cofinality}.
+We claim that
+$\alpha = f(\beta_1)$ is a solution to the problem posed in the lemma.
+
+\medskip\noindent
+The first property of the lemma holds by our choice
+of $\beta_1 > \beta_0$ above.
+
+\medskip\noindent
+Since $\beta_1$ is a limit ordinal (as its cofinality is infinite),
+we get $f(\beta_1) = \sup_{\beta < \beta_1} f(\beta)$.
+Hence $\{f(\beta) \mid \beta < \beta_1\} \subset f(\beta_1)$ is a
+cofinal subset. Hence we see that
+$$
+V_\alpha = V_{f(\beta_1)} = \bigcup\nolimits_{\beta < \beta_1} V_{f(\beta)}.
+$$
+Now, let $S \in \Ob(\Sch_\alpha)$. We define
+$\beta(S)$ to be the least ordinal $\beta$ such that
+$S \in \Ob(\Sch_{f(\beta)})$. By the above we see
+that always $\beta(S) < \beta_1$. Since
+$\Ob(\Sch_{f(\beta + 1)}) \subset
+\Ob(\Sch_\alpha)$, we
+see by construction of $f$ above that the second property of the lemma
+is satisfied.
+
+\medskip\noindent
+Suppose that $\{S_1, S_2, \ldots\} \subset \Ob(\Sch_\alpha)$
+is a countable collection. Consider the function
+$\omega \to \beta_1$, $n \mapsto \beta(S_n)$. Since the cofinality
+of $\beta_1$ is $> \omega$, the image of this function cannot be a
+cofinal subset. Hence there exists a $\beta < \beta_1$ such
+that $\{S_1, S_2, \ldots\} \subset \Ob(\Sch_{f(\beta)})$.
+It follows that any functor $F : \mathcal{I} \to \Sch_\alpha$
+factors through one of the subcategories $\Sch_{f(\beta)}$.
+Thus, if there exists a scheme $X$ that is the colimit or limit
+of the diagram $F$, then, by construction of $f$, we see
+$X$ is isomorphic to an object
+of $\Sch_{f(\beta + 1)}$ which is a subcategory of
+$\Sch_\alpha$. This proves the last two assertions of
+the lemma.
+\end{proof}
+
+\begin{remark}
+\label{remark-how-to-use-reflection}
+The lemma above can also be proved using the reflection principle.
+However, one has to be careful. Namely, suppose the sentence
+$\phi_{scheme}(X)$ expresses the property ``$X$ is a scheme'', then
+what does the formula $\phi_{scheme}^{V_\alpha}(X)$ mean?
+It is true that the reflection principle says we can find $\alpha$ such that
+for all $X \in V_\alpha$ we have
+$\phi_{scheme}(X) \leftrightarrow \phi_{scheme}^{V_\alpha}(X)$
+but this is entirely useless. It is only by combining two such
+statements that something interesting happens. For example suppose
+$\phi_{red}(X, Y)$ expresses the property ``$X$, $Y$ are schemes,
+and $Y$ is the reduction of $X$'' (see
+Schemes, Definition \ref{schemes-definition-reduced-induced-scheme}).
+Suppose we apply the reflection principle to the pair of
+formulas $\phi_1(X, Y) = \phi_{red}(X, Y)$,
+$\phi_2(X) = \exists Y, \phi_1(X, Y)$. Then it is easy to see that
+any $\alpha$ produced by the reflection principle has the property that
+given $X \in \Ob(\Sch_\alpha)$ the reduction of
+$X$ is also an object of $\Sch_\alpha$ (left as an exercise).
+\end{remark}
+
+\begin{lemma}
+\label{lemma-bound-affine}
+Let $S$ be an affine scheme.
+Let $R = \Gamma(S, \mathcal{O}_S)$.
+Then the size of $S$ is equal to $\max\{ \aleph_0, |R|\}$.
+\end{lemma}
+
+\begin{proof}
+There are at most $\max\{|R|, \aleph_0\}$ affine opens of
+$\Spec(R)$. This is clear since any affine open
+$U \subset \Spec(R)$ is a finite union of principal
+opens $D(f_1) \cup \ldots \cup D(f_n)$ and hence the number
+of affine opens is at most $\sup_n |R|^n = \max\{|R|, \aleph_0\}$,
+see \cite[Ch. I, 10.13]{Kunen}. On the other hand, we see that
+$\Gamma(U, \mathcal{O}) \subset R_{f_1} \times \ldots \times R_{f_n}$
+and hence $|\Gamma(U, \mathcal{O})| \leq
+\max\{\aleph_0, |R_{f_1}|, \ldots, |R_{f_n}|\}$. Thus
+it suffices to prove that $|R_f| \leq \max\{\aleph_0, |R|\}$
+which is omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-bound-size}
+Let $S$ be a scheme. Let $S = \bigcup_{i \in I} S_i$ be
+an open covering. Then
+$\text{size}(S) \leq \max\{|I|, \sup_i\{\text{size}(S_i)\}\}$.
+\end{lemma}
+
+\begin{proof}
+Let $U \subset S$ be any affine open. Since $U$ is quasi-compact
+there exist finitely many elements $i_1, \ldots, i_n \in I$
+and affine opens $U_i \subset U \cap S_i$ such that
+$U = U_1 \cup U_2 \cup \ldots \cup U_n$. Thus
+$$
+|\Gamma(U, \mathcal{O}_U)|
+\leq
+|\Gamma(U_1, \mathcal{O})|
+\otimes
+\ldots
+\otimes
+|\Gamma(U_n, \mathcal{O})|
+\leq \sup\nolimits_i\{\text{size}(S_i)\}
+$$
+Moreover, it shows that the set of affine opens of $S$ has
+cardinality less than or equal to the cardinality of the set
+$$
+\coprod_{n \in \omega}
+\coprod_{i_1, \ldots, i_n \in I}
+\{\text{affine opens of }S_{i_1}\}
+\times
+\ldots
+\times
+\{\text{affine opens of }S_{i_n}\}.
+$$
+Each of the sets inside the disjoint union has cardinality at most
+$\sup_i\{\text{size}(S_i)\}$. The index set has cardinality at most
+$\max\{|I|, \aleph_0\}$, see \cite[Ch. I, 10.13]{Kunen}.
+Hence by \cite[Lemma 5.8]{Jech} the cardinality
+of the coproduct is at most $\max\{\aleph_0, |I|\}
+\otimes \sup_i\{\text{size}(S_i)\}$. The lemma follows.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-bound-size-fibre-product}
+Let $f : X \to S$, $g : Y \to S$ be morphisms of schemes.
+Then we have
+$\text{size}(X \times_S Y) \leq \max\{\text{size}(X), \text{size}(Y)\}$.
+\end{lemma}
+
+\begin{proof}
+Let $S = \bigcup_{k \in K} S_k$ be an affine open covering.
+Let $X = \bigcup_{i \in I} U_i$, $Y = \bigcup_{j \in J} V_j$
+be affine open coverings with $I$, $J$ of cardinality
+$\leq \text{size}(X), \text{size}(Y)$.
+For each $i \in I$ there exists a finite set $K_i$ of $k \in K$
+such that $f(U_i) \subset \bigcup_{k \in K_i} S_k$.
+For each $j \in J$ there exists a finite set $K_j$ of $k \in K$
+such that $g(V_j) \subset \bigcup_{k \in K_j} S_k$.
+Hence $f(X), g(Y)$ are contained in
+$S' = \bigcup_{k \in K'} S_k$ with
+$K' = \bigcup_{i \in I} K_i \cup \bigcup_{j \in J} K_j$.
+Note that the cardinality of $K'$
+is at most $\max\{\aleph_0, |I|, |J|\}$. Applying
+Lemma \ref{lemma-bound-size}
+we see that it suffices to prove that
+$\text{size}(f^{-1}(S_k) \times_{S_k} g^{-1}(S_k))
+\leq \max\{\text{size}(X), \text{size}(Y))\}$ for $k \in K'$.
+In other words, we may assume that $S$ is affine.
+
+\medskip\noindent
+Assume $S$ affine.
+Let $X = \bigcup_{i \in I} U_i$, $Y = \bigcup_{j \in J} V_j$
+be affine open coverings with $I$, $J$ of cardinality
+$\leq \text{size}(X), \text{size}(Y)$.
+Again by
+Lemma \ref{lemma-bound-size}
+it suffices to prove the lemma for the products
+$U_i \times_S V_j$. By
+Lemma \ref{lemma-bound-affine}
+we see that it suffices to show that
+$$
+|A \otimes_C B| \leq \max\{\aleph_0, |A|, |B|\}.
+$$
+We omit the proof of this inequality.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-bound-finite-type}
+Let $S$ be a scheme.
+Let $f : X \to S$ be locally of finite type with $X$ quasi-compact.
+Then $\text{size}(X) \leq \text{size}(S)$.
+\end{lemma}
+
+\begin{proof}
+We can find a finite affine open covering $X = \bigcup_{i = 1, \ldots n} U_i$
+such that each $U_i$ maps into an affine open $S_i$ of $S$. Thus by
+Lemma \ref{lemma-bound-size}
+we reduce to the case where both $S$ and $X$ are affine. In this case by
+Lemma \ref{lemma-bound-affine}
+we see that it suffices to show
+$$
+|A[x_1, \ldots, x_n]| \leq \max\{\aleph_0, |A|\}.
+$$
+We omit the proof of this inequality.
+\end{proof}
+
+\noindent
+In
+Algebra, Lemma \ref{algebra-lemma-epimorphism-cardinality}
+we will show that if $A \to B$ is an epimorphism of rings, then
+$|B| \leq \max(|A|, \aleph_0)$.
+The analogue for schemes is the following lemma.
+
+\begin{lemma}
+\label{lemma-bound-monomorphism}
+Let $f : X \to Y$ be a monomorphism of schemes.
+If at least one of the following properties
+holds, then $\text{size}(X) \leq \text{size}(Y)$:
+\begin{enumerate}
+\item $f$ is quasi-compact,
+\item $f$ is locally of finite presentation,
+\item add more here as needed.
+\end{enumerate}
+But the bound does not hold for monomorphisms
+which are locally of finite type.
+\end{lemma}
+
+\begin{proof}
+Let $Y = \bigcup_{j \in J} V_j$ be an affine open covering of $Y$
+with $|J| \leq \text{size}(Y)$. By Lemma \ref{lemma-bound-size}
+it suffices to bound the size of the inverse image of $V_j$ in $X$.
+Hence we reduce to the case that $Y$ is affine, say $Y = \Spec(B)$.
+For any affine open $\Spec(A) \subset X$ we have
+$|A| \leq \max(|B|, \aleph_0) = \text{size}(Y)$, see remark above
+and Lemma \ref{lemma-bound-affine}. Thus it suffices to show
+that $X$ has at most $\text{size}(Y)$ affine opens. This is clear
+if $X$ is quasi-compact, whence case (1) holds.
+In case (2) the number of isomorphism classes of $B$-algebras $A$
+that can occur is bounded by $\text{size}(B)$, because each
+$A$ is of finite type over $B$, hence isomorphic to an algebra
+$B[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$
+for some $n, m$, and $f_j \in B[x_1, \ldots, x_n]$. However, as
+$X \to Y$ is a monomorphism, there is a unique morphism
+$\Spec(A) \to X$ over $Y = \Spec(B)$ if there is one,
+hence the number of affine
+opens of $X$ is bounded by the number of these isomorphism classes.
+
+\medskip\noindent
+To prove the final statement of the lemma consider the ring
+$B = \prod_{n \in \mathbf{N}} \mathbf{F}_2$ and set $Y = \Spec(B)$.
+For every ultrafilter $\mathcal{U}$ on $\mathbf{N}$ we obtain a maximal
+ideal $\mathfrak m_\mathcal{U}$ with residue field $\mathbf{F}_2$;
+the map $B \to \mathbf{F}_2$ sends the element $(x_n)$ to
+$\lim_\mathcal{U} x_n$. Details omitted.
+The morphism of schemes $X = \coprod_\mathcal{U} \Spec(\mathbf{F}_2) \to Y$
+is a monomorphism as all the points are distinct. However the cardinality
+of the set of affine open subschemes of $X$ is equal to the cardinality
+of the set of ultrafilters on $\mathbf{N}$ which is
+$2^{2^{\aleph_0}}$. We conclude as $|B| = 2^{\aleph_0} < 2^{2^{\aleph_0}}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-what-is-in-it}
+Let $\alpha$ be an ordinal as in Lemma \ref{lemma-construct-category} above.
+The category $\Sch_\alpha$ satisfies the following
+properties:
+\begin{enumerate}
+\item If $X, Y, S \in \Ob(\Sch_\alpha)$, then
+for any morphisms $f : X \to S$, $g : Y \to S$ the fibre
+product $X \times_S Y$ in $\Sch_\alpha$ exists
+and is a fibre product in the category of schemes.
+\item Given any at most countable collection $S_1, S_2, \ldots$
+of elements of $\Ob(\Sch_\alpha)$, the coproduct
+$\coprod_i S_i$ exists in $\Ob(\Sch_\alpha)$ and
+is a coproduct in the category of schemes.
+\item For any $S \in \Ob(\Sch_\alpha)$ and
+any open immersion $U \to S$, there exists a
+$V \in \Ob(\Sch_\alpha)$ with $V \cong U$.
+\item For any $S \in \Ob(\Sch_\alpha)$ and
+any closed immersion $T \to S$, there exists a
+$S' \in \Ob(\Sch_\alpha)$ with $S' \cong T$.
+\item For any $S \in \Ob(\Sch_\alpha)$ and
+any finite type morphism $T \to S$, there exists a
+$S' \in \Ob(\Sch_\alpha)$ with $S' \cong T$.
+\item Suppose $S$ is a scheme which has an open covering
+$S = \bigcup_{i \in I} S_i$ such that there exists
+a $T \in \Ob(\Sch_\alpha)$ with
+(a) $\text{size}(S_i) \leq \text{size}(T)^{\aleph_0}$ for all
+$i \in I$, and (b) $|I| \leq \text{size}(T)^{\aleph_0}$.
+Then $S$ is isomorphic to an object of $\Sch_\alpha$.
+\item For any $S \in \Ob(\Sch_\alpha)$ and
+any morphism $f : T \to S$ locally of finite type such
+that $T$ can be covered by at most
+$\text{size}(S)^{\aleph_0}$ open affines, there exists a
+$S' \in \Ob(\Sch_\alpha)$ with $S' \cong T$.
+For example this holds if $T$ can be covered by at most
+$|\mathbf{R}| = 2^{\aleph_0} = \aleph_0^{\aleph_0}$ open affines.
+\item For any $S \in \Ob(\Sch_\alpha)$ and
+any monomorphism $T \to S$ which is either locally of finite presentation
+or quasi-compact, there exists a
+$S' \in \Ob(\Sch_\alpha)$ with $S' \cong T$.
+\item Suppose that $T \in \Ob(\Sch_\alpha)$ is
+affine. Write $R = \Gamma(T, \mathcal{O}_T)$.
+Then any of the following schemes is isomorphic to a scheme
+in $\Sch_\alpha$:
+\begin{enumerate}
+\item For any ideal $I \subset R$ with completion
+$R^* = \lim_n R/I^n$, the scheme $\Spec(R^*)$.
+\item For any finite type $R$-algebra $R'$, the
+scheme $\Spec(R')$.
+\item For any localization $S^{-1}R$, the scheme $\Spec(S^{-1}R)$.
+\item For any prime $\mathfrak p \subset R$, the scheme
+$\Spec(\overline{\kappa(\mathfrak p)})$.
+\item For any subring $R' \subset R$, the scheme
+$\Spec(R')$.
+\item Any scheme of finite type over a ring of cardinality at most
+$|R|^{\aleph_0}$.
+\item And so on.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Statements (1) and (2) follow directly from the definitions.
+Statement (3) follows as the size of an open subscheme $U$ of $S$ is
+clearly smaller than or equal to the size of $S$.
+Statement (4) follows from (5).
+Statement (5) follows from (7).
+Statement (6) follows as the size of $S$ is
+$\leq \max\{|I|, \sup_i \text{size}(S_i)\} \leq \text{size}(T)^{\aleph_0}$
+by Lemma \ref{lemma-bound-size}. Statement (7) follows from (6).
+Namely, for any affine open $V \subset T$ we have
+$\text{size}(V) \leq \text{size}(S)$ by
+Lemma \ref{lemma-bound-finite-type}.
+Thus, we see that (6) applies in the situation of (7).
+Part (8) follows from
+Lemma \ref{lemma-bound-monomorphism}.
+
+\medskip\noindent
+Statement (9) is translated, via Lemma \ref{lemma-bound-affine},
+into an upper bound on the cardinality of the rings
+$R^*$, $S^{-1}R$, $\overline{\kappa(\mathfrak p)}$, $R'$, etc.
+Perhaps the most interesting one is the ring $R^*$. As a
+set, it is the image of a surjective map $R^{\mathbf{N}} \to R^*$.
+Since $|R^{\mathbf{N}}| = |R|^{\aleph_0}$, we see that
+it works by our choice of $Bound(\kappa)$ being at least $\kappa^{\aleph_0}$.
+Phew! (The cardinality of the algebraic closure of a field
+is the same as the cardinality of the field, or it is $\aleph_0$.)
+\end{proof}
+
+\begin{remark}
+\label{remark-what-is-not-in-it}
+Let $R$ be a ring. Suppose we consider the ring
+$\prod_{\mathfrak p \in \Spec(R)} \kappa(\mathfrak p)$.
+The cardinality of this ring is bounded by $|R|^{2^{|R|}}$,
+but is not bounded by $|R|^{\aleph_0}$ in general.
+For example if $R = \mathbf{C}[x]$ it is not bounded by
+$|R|^{\aleph_0}$ and if $R = \prod_{n \in \mathbf{N}} \mathbf{F}_2$
+it is not bounded by $|R|^{|R|}$.
+Thus the ``And so on'' of Lemma \ref{lemma-what-is-in-it} above
+should be taken with a grain of salt. Of course, if it ever becomes
+necessary to consider these rings in arguments pertaining to
+fppf/\'etale cohomology, then we can change the function
+$Bound$ above into the function $\kappa \mapsto \kappa^{2^\kappa}$.
+\end{remark}
+
+\noindent
+In the following lemma we use the notion of an fpqc covering which
+is introduced in Topologies, Section \ref{topologies-section-fpqc}.
+
+\begin{lemma}
+\label{lemma-bound-by-covering}
+Let $f : X \to Y$ be a morphism of schemes. Assume there exists an
+fpqc covering $\{g_j : Y_j \to Y\}_{j \in J}$ such that $g_j$ factors
+through $f$. Then $\text{size}(Y) \leq \text{size}(X)$.
+\end{lemma}
+
+\begin{proof}
+Let $V \subset Y$ be an affine open. By definition there exist
+$n \geq 0$ and $a : \{1, \ldots, n\} \to J$ and affine opens
+$V_i \subset Y_{a(i)}$ such that
+$V = g_{a(1)}(V_1) \cup \ldots \cup g_{a(n)}(V_n)$.
+Denote $h_j : Y_j \to X$ a morphism such that $f \circ h_j = g_j$.
+Then $h_{a(1)}(V_1) \cup \ldots \cup h_{a(n)}(V_n)$ is
+a quasi-compact subset of $f^{-1}(V)$. Hence we can find a
+quasi-compact open $W \subset f^{-1}(V)$ which contains
+$h_{a(i)}(V_i)$ for $i = 1, \ldots, n$.
+In particular $V = f(W)$.
+
+\medskip\noindent
+On the one hand this shows that the cardinality of the set of
+affine opens of $Y$ is at most the cardinality of the set $S$ of
+quasi-compact opens of $X$. Since every quasi-compact open of
+$X$ is a finite union of affines, we see that the cardinality
+of this set is at most $\sup |S|^n = \max(\aleph_0, |S|)$.
+On the other hand, we have
+$\mathcal{O}_Y(V) \subset \prod_{i = 1, \ldots, n} \mathcal{O}_{Y_{a(i)}}(V_i)$
+because $\{V_i \to V\}$ is an fpqc covering. Hence
+$\mathcal{O}_Y(V) \subset \mathcal{O}_X(W)$ because $V_i \to V$
+factors through $W$. Again since $W$ has a finite covering by
+affine opens of $X$ we conclude that $|\mathcal{O}_Y(V)|$
+is bounded by the size of $X$. The lemma now follows
+from the definition of the size of a scheme.
+\end{proof}
+
+\noindent
+In the following lemma we use the notion of an fppf covering which
+is introduced in Topologies, Section \ref{topologies-section-fppf}.
+
+\begin{lemma}
+\label{lemma-bound-fppf-covering}
+Let $\{f_i : X_i \to X\}_{i \in I}$ be an fppf covering of a scheme.
+There exists an fppf covering $\{W_j \to X\}_{j \in J}$
+which is a refinement of $\{X_i \to X\}_{i \in I}$ such that
+$\text{size}(\coprod W_j) \leq \text{size}(X)$.
+\end{lemma}
+
+\begin{proof}
+Choose an affine open covering $X = \bigcup_{a \in A} U_a$ with
+$|A| \leq \text{size}(X)$. For each $a$ we can choose
+a finite subset $I_a \subset I$ and for $i \in I_a$ a quasi-compact open
+$W_{a, i} \subset X_i$ such that $U_a = \bigcup_{i \in I_a} f_i(W_{a, i})$.
+Then $\text{size}(W_{a, i}) \leq \text{size}(X)$ by
+Lemma \ref{lemma-bound-finite-type}.
+We conclude that
+$\text{size}(\coprod_a \coprod_{i \in I_a} W_{i, a}) \leq \text{size}(X)$
+by Lemma \ref{lemma-bound-size}.
+\end{proof}
+
+
+
+
+
+\section{Sets with group action}
+\label{section-sets-with-group-action}
+
+\noindent
+Let $G$ be a group. We denote $G\textit{-Sets}$ the ``big'' category
+of $G$-sets. For any ordinal $\alpha$, we denote
+$G\textit{-Sets}_\alpha$ the full subcategory of $G\textit{-Sets}$
+whose objects are in $V_\alpha$. As a notion for size of a $G$-set
+we take $\text{size}(S) = \max\{\aleph_0, |G|, |S|\}$ (where $|G|$ and
+$|S|$ are the cardinality of the underlying sets). As above we use the function
+$Bound(\kappa) = \kappa^{\aleph_0}$.
+
+\begin{lemma}
+\label{lemma-sets-with-group-action}
+With notations $G$, $G\textit{-Sets}_\alpha$, $\text{size}$,
+and $Bound$ as above. Let $S_0$ be a set of $G$-sets.
+There exists a limit ordinal $\alpha$ with the following properties:
+\begin{enumerate}
+\item We have $S_0 \cup \{{}_GG\} \subset \Ob(G\textit{-Sets}_\alpha)$.
+\item For any $S \in \Ob(G\textit{-Sets}_\alpha)$ and any
+$G$-set $T$ with $\text{size}(T) \leq Bound(\text{size}(S))$,
+there exists a $S' \in \Ob(G\textit{-Sets}_\alpha)$
+that is isomorphic to $T$.
+\item For any countable diagram category $\mathcal{I}$ and
+any functor $F : \mathcal{I} \to G\textit{-Sets}_\alpha$, the
+limit $\lim_\mathcal{I} F$ and colimit
+$\colim_\mathcal{I} F$ exist in $G\textit{-Sets}_\alpha$
+and are the same as in $G\textit{-Sets}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Similar to but easier than the proof of
+Lemma \ref{lemma-construct-category} above.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-what-is-in-it-G-sets}
+Let $\alpha$ be an ordinal as in Lemma \ref{lemma-sets-with-group-action}
+above. The category $G\textit{-Sets}_\alpha$ satisfies the following
+properties:
+\begin{enumerate}
+\item The $G$-set ${}_GG$ is an object of $G\textit{-Sets}_\alpha$.
+\item (Co)Products, fibre products, and pushouts
+exist in $G\textit{-Sets}_\alpha$
+and are the same as their counterparts in $G\textit{-Sets}$.
+\item Given an object $U$ of $G\textit{-Sets}_\alpha$,
+any $G$-stable subset $O \subset U$  is isomorphic to an object
+of $G\textit{-Sets}_\alpha$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\section{Coverings of a site}
+\label{section-coverings-site}
+
+\noindent
+Suppose that $\mathcal{C}$ is a category (as in
+Categories, Definition \ref{categories-definition-category}) and
+that $\text{Cov}(\mathcal{C})$ is a proper class of coverings
+satisfying properties (1), (2), and (3) of Sites,
+Definition \ref{sites-definition-site}. We list them here:
+\begin{enumerate}
+\item If $V \to U$ is an isomorphism, then $\{V \to U\} \in
+\text{Cov}(\mathcal{C})$.
+\item If $\{U_i \to U\}_{i\in I} \in \text{Cov}(\mathcal{C})$ and for each
+$i$ we have $\{V_{ij} \to U_i\}_{j\in J_i} \in \text{Cov}(\mathcal{C})$, then
+$\{V_{ij} \to U\}_{i \in I, j\in J_i} \in \text{Cov}(\mathcal{C})$.
+\item If $\{U_i \to U\}_{i\in I}\in \text{Cov}(\mathcal{C})$
+and $V \to U$ is a morphism of $\mathcal{C}$, then $U_i \times_U V$
+exists for all $i$ and
+$\{U_i \times_U V \to V \}_{i\in I} \in \text{Cov}(\mathcal{C})$.
+\end{enumerate}
+For an ordinal $\alpha$, we set
+$\text{Cov}(\mathcal{C})_\alpha = \text{Cov}(\mathcal{C}) \cap V_\alpha$.
+Given an ordinal $\alpha$ and a cardinal $\kappa$, we set
+$\text{Cov}(\mathcal{C})_{\kappa, \alpha}$ equal to the set
+of elements
+$\mathcal{U} =
+\{\varphi_i : U_i \to U\}_{i\in I} \in \text{Cov}(\mathcal{C})_\alpha$
+such that $|I| \leq \kappa$.
+
+\medskip\noindent
+We recall the following notion, see Sites, Definition
+\ref{sites-definition-combinatorial-tautological}.
+Two families of morphisms, $\{\varphi_i : U_i \to U\}_{i\in I}$ and
+$\{\psi_j : W_j \to U\}_{j\in J}$, with the same target of $\mathcal{C}$ are
+called {\it combinatorially equivalent} if there exist maps
+$\alpha : I \to J$ and $\beta : J\to I$ such that
+$\varphi_i = \psi_{\alpha(i)}$ and $\psi_j = \varphi_{\beta(j)}$.
+This defines an equivalence relation on families of morphisms
+having a fixed target.
+
+\begin{lemma}
+\label{lemma-coverings-site}
+With notations as above.
+Let $\text{Cov}_0 \subset \text{Cov}(\mathcal{C})$
+be a set contained in $\text{Cov}(\mathcal{C})$.
+There exist a cardinal $\kappa$ and a limit ordinal $\alpha$
+with the following properties:
+\begin{enumerate}
+\item We have $\text{Cov}_0 \subset \text{Cov}(\mathcal{C})_{\kappa, \alpha}$.
+\item The set of coverings
+$\text{Cov}(\mathcal{C})_{\kappa, \alpha}$ satisfies
+(1), (2), and (3) of Sites, Definition \ref{sites-definition-site} (see above).
+In other words $(\mathcal{C}, \text{Cov}(\mathcal{C})_{\kappa, \alpha})$
+is a site.
+\item Every covering in $\text{Cov}(\mathcal{C})$
+is combinatorially equivalent
+to a covering in $\text{Cov}(\mathcal{C})_{\kappa, \alpha}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+To prove this, we first consider the set $\mathcal{S}$ of all
+sets of morphisms of $\mathcal{C}$ with fixed target.
+In other words, an element of $\mathcal{S}$ is a subset $T$
+of $\text{Arrows}(\mathcal{C})$ such that all
+elements of $T$ have the same target. Given a family
+$\mathcal{U} = \{\varphi_i : U_i \to U\}_{i\in I}$ of morphisms with fixed
+target, we define
+$Supp(\mathcal{U}) = \{ \varphi \in \text{Arrows}(\mathcal{C})
+\mid \exists i\in I, \varphi = \varphi_i\}$.
+Note that two families $\mathcal{U} =  \{\varphi_i : U_i \to U\}_{i\in I}$
+and $\mathcal{V} = \{V_j \to V\}_{j \in J}$ are combinatorially
+equivalent if and only if $Supp(\mathcal{U}) = Supp(\mathcal{V})$.
+Next, we define
+$\mathcal{S}_\tau \subset \mathcal{S}$ to be the subset
+$\mathcal{S}_\tau = \{ T \in \mathcal{S} \mid
+\exists\ \mathcal{U} \in \text{Cov}(\mathcal{C}) \ T = Supp(\mathcal{U})\}$.
+For every element $T \in \mathcal{S}_\tau$, set
+$\beta(T)$ to equal the least ordinal $\beta$ such that
+there exists a $\mathcal{U} \in \text{Cov}(\mathcal{C})_\beta$
+such that $T = \text{Supp}(\mathcal{U})$. Finally, set
+$\beta_0 = \sup_{T \in S_\tau} \beta(T)$.
+At this point it follows that every $\mathcal{U} \in \text{Cov}(\mathcal{C})$
+is combinatorially equivalent to some element
+of $\text{Cov}(\mathcal{C})_{\beta_0}$.
+
+\medskip\noindent
+Let $\kappa$ be the maximum of $\aleph_0$,
+the cardinality $|\text{Arrows}(\mathcal{C})|$,
+$$
+\sup\nolimits_{\{U_i \to U\}_{i\in I} \in \text{Cov}(\mathcal{C})_{\beta_0}}
+|I|,
+\quad\text{and}\quad
+\sup\nolimits_{\{U_i \to U\}_{i\in I} \in \text{Cov}_0} |I|.
+$$
+Since $\kappa$ is an infinite cardinal, we have
+$\kappa \otimes \kappa = \kappa$. Note that obviously
+$\text{Cov}(\mathcal{C})_{\beta_0} =
+\text{Cov}(\mathcal{C})_{\kappa, \beta_0}$.
+
+\medskip\noindent
+We define, by transfinite induction, a function $f$ which associates
+to every ordinal an ordinal as follows. Let $f(0) = 0$.
+Given $f(\alpha)$, we define $f(\alpha + 1)$ to be the least
+ordinal $\beta$ such that the following hold:
+\begin{enumerate}
+\item We have $\alpha + 1 \leq \beta$ and $f(\alpha) \leq \beta$.
+\item If $\{U_i \to U\}_{i\in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, f(\alpha)}$
+and for each $i$ we have
+$\{W_{ij} \to U_i\}_{j\in J_i}
+\in \text{Cov}(\mathcal{C})_{\kappa, f(\alpha)}$,
+then
+$\{W_{ij} \to U\}_{i \in I, j\in J_i}
+\in \text{Cov}(\mathcal{C})_{\kappa, \beta}$.
+\item If $\{U_i \to U\}_{i\in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, \alpha}$
+and $W \to U$ is a morphism of $\mathcal{C}$, then
+$\{U_i \times_U W \to W \}_{i\in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, \beta}$.
+\end{enumerate}
+To see $\beta$ exists we note that clearly the collection of all
+coverings $\{W_{ij} \to U\}$ and $\{U_i \times_U W \to W \}$ that occur in
+(2) and (3) form a set. Hence there is some ordinal $\beta$ such that
+$V_\beta$ contains all of these coverings. Moreover, the index set
+of the covering $\{W_{ij} \to U\}$ has cardinality
+$\sum_{i \in I} |J_i| \leq \kappa \otimes \kappa = \kappa$, and
+hence these coverings are contained in
+$\text{Cov}(\mathcal{C})_{\kappa, \beta}$.
+Since every nonempty collection of ordinals has a least element
+we see that $f(\alpha + 1)$ is well defined. Finally, if $\alpha$
+is a limit ordinal, then we set
+$f(\alpha) = \sup_{\alpha' < \alpha} f(\alpha')$.
+
+\medskip\noindent
+Pick an ordinal $\beta_1$ such that
+$\text{Arrows}(\mathcal{C}) \subset V_{\beta_1}$,
+$\text{Cov}_0 \subset V_{\beta_0}$,
+and $\beta_1 \geq \beta_0$.
+By construction $f(\beta_1) \geq \beta_1$ and we see that
+the same properties hold for $V_{f(\beta_1)}$. Moreover, as $f$ is
+nondecreasing this remains true for any $\beta \geq \beta_1$.
+Next, choose any ordinal $\beta_2 > \beta_1$ with
+cofinality $\text{cf}(\beta_2) > \kappa$. This is possible
+since the cofinality of ordinals gets arbitrarily large, see
+Proposition \ref{proposition-exist-ordinals-large-cofinality}.
+We claim that the pair $\kappa$,
+$\alpha = f(\beta_2)$ is a solution to the problem posed in the lemma.
+
+\medskip\noindent
+The first and third property of the lemma holds by our choices
+of $\kappa$, $\beta_2 > \beta_1 > \beta_0$ above.
+
+\medskip\noindent
+Since $\beta_2$ is a limit ordinal (as its cofinality is infinite)
+we get $f(\beta_2) = \sup_{\beta < \beta_2} f(\beta)$.
+Hence $\{f(\beta) \mid \beta < \beta_2\} \subset f(\beta_2)$ is a
+cofinal subset. Hence we see that
+$$
+V_\alpha = V_{f(\beta_2)} = \bigcup\nolimits_{\beta < \beta_2} V_{f(\beta)}.
+$$
+Now, let $\mathcal{U} \in \text{Cov}_{\kappa, \alpha}$.
+We define $\beta(\mathcal{U})$ to be the least ordinal $\beta$ such that
+$\mathcal{U} \in \text{Cov}_{\kappa, f(\beta)}$. By the above we see
+that always $\beta(\mathcal{U}) < \beta_2$.
+
+\medskip\noindent
+We have to show properties (1), (2), and (3) defining a site
+hold for the pair $(\mathcal{C}, \text{Cov}_{\kappa, \alpha})$.
+The first holds because by our choice of $\beta_2$
+all arrows of $\mathcal{C}$ are contained in $V_{f(\beta_2)}$.
+For the third, we use that given a covering
+$\mathcal{U} = \{U_i \to U\}_{i \in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, \alpha}$
+we have $\beta(\mathcal{U}) < \beta_2$ and hence
+any base change of $\mathcal{U}$ is by construction of
+$f$ contained in $\text{Cov}(\mathcal{C})_{\kappa, f(\beta + 1)}$
+and hence in $\text{Cov}(\mathcal{C})_{\kappa, \alpha}$.
+
+\medskip\noindent
+Finally, for the second condition, suppose that $\{U_i \to U\}_{i\in I}
+\in \text{Cov}(\mathcal{C})_{\kappa, f(\alpha)}$
+and for each $i$ we have
+$\mathcal{W}_i = \{W_{ij} \to U_i\}_{j\in J_i}
+\in \text{Cov}(\mathcal{C})_{\kappa, f(\alpha)}$.
+Consider the function
+$I \to \beta_2$, $i \mapsto \beta(\mathcal{W}_i)$. Since the cofinality
+of $\beta_2$ is $> \kappa \geq |I|$ the image of this function cannot be a
+cofinal subset. Hence there exists a $\beta < \beta_1$ such
+that $\mathcal{W}_i \in \text{Cov}_{\kappa, f(\beta)}$ for all $i \in I$.
+It follows that the covering $\{W_{ij} \to U\}_{i\in I, j \in J_i}$
+is an element of $\text{Cov}(\mathcal{C})_{\kappa, f(\beta + 1)}
+\subset \text{Cov}(\mathcal{C})_{\kappa, \alpha}$ as desired.
+\end{proof}
+
+\begin{remark}
+\label{remark-better}
+It is likely the case that, for some limit ordinal $\alpha$,
+the set of coverings $\text{Cov}(\mathcal{C})_\alpha$ satisfies
+the conditions of the lemma. This is after all what an application
+of the reflection principle would appear to give (modulo caveats as
+described at the end of Section \ref{section-reflection-principle}
+and in Remark \ref{remark-how-to-use-reflection}).
+\end{remark}
+
+
+
+
+
+
+
+
+\section{Abelian categories and injectives}
+\label{section-abelian-categories-injectives}
+
+\noindent
+The following lemma applies to the category of modules over a sheaf
+of rings on a site.
+
+\begin{lemma}
+\label{lemma-abelian-injectives}
+Suppose given a big category $\mathcal{A}$ (see
+Categories, Remark \ref{categories-remark-big-categories}).
+Assume $\mathcal{A}$ is abelian and has enough injectives.
+See Homology, Definitions \ref{homology-definition-abelian-category}
+and \ref{homology-definition-enough-injectives}.
+Then for any given set of objects $\{A_s\}_{s\in S}$
+of $\mathcal{A}$, there is an abelian subcategory
+$\mathcal{A}' \subset \mathcal{A}$
+with the following properties:
+\begin{enumerate}
+\item $\Ob(\mathcal{A}')$ is a set,
+\item $\Ob(\mathcal{A}')$ contains $A_s$ for each $s \in S$,
+\item $\mathcal{A}'$ has enough injectives, and
+\item an object of $\mathcal{A}'$ is injective if and only if it
+is an injective object of $\mathcal{A}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

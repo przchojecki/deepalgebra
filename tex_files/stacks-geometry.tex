@@ -1,0 +1,2248 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{The Geometry of Algebraic Stacks}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+This chapter discusses a few geometric properties of algebraic stacks.
+The initial versions of Sections \ref{section-multiplicities} and
+\ref{section-dimension-of-algebraic-stacks}
+were written by Matthew Emerton and Toby Gee and can be found
+in their original form in \cite{Emerton-Gee-dim}.
+
+
+
+
+
+
+
+\section{Versal rings}
+\label{section-versal}
+
+\noindent
+In this section we elucidate the relationship between deformation rings
+and local rings on algebraic stacks of finite type over a locally
+Noetherian base.
+
+\begin{situation}
+\label{situation-versal}
+Here $\mathcal{X}$ is an algebraic stack locally of finite type
+over a locally Noetherian scheme $S$.
+\end{situation}
+
+\noindent
+Here is the definition.
+
+\begin{definition}
+\label{definition-versal-ring-at-x}
+In Situation \ref{situation-versal} let $x_0 : \Spec(k) \to \mathcal{X}$
+be a morphism, where $k$ is a finite type field over $S$.
+A {\it versal ring to $\mathcal{X}$ at $x_0$} is a complete
+Noetherian local $S$-algebra $A$ with residue field $k$
+such that there exists a versal formal object
+$(A, \xi_n, f_n)$ as in Artin's Axioms, Definition
+\ref{artin-definition-versal-formal-object}
+with $\xi_1 \cong x_0$ (a $2$-isomorphism).
+\end{definition}
+
+\noindent
+We want to prove that versal rings exist and are unique up to
+smooth factors. To do this, we will use the predeformation categories of
+Artin's Axioms, Section \ref{artin-section-predeformation-categories}.
+These are always deformation categories in our situation.
+
+\begin{lemma}
+\label{lemma-deformation-category}
+In Situation \ref{situation-versal} let $x_0 : \Spec(k) \to \mathcal{X}$
+be a morphism, where $k$ is a finite type field over $S$.
+Then $\mathcal{F}_{\mathcal{X}, k, x_0}$
+is a deformation category and $T\mathcal{F}_{\mathcal{X}, k, x_0}$
+and $\text{Inf}(\mathcal{F}_{\mathcal{X}, k, x_0})$
+are finite dimensional $k$-vector spaces.
+\end{lemma}
+
+\begin{proof}
+Choose an affine open $\Spec(\Lambda) \subset S$ such that
+$\Spec(k) \to S$ factors through it.
+By Artin's Axioms, Section \ref{artin-section-predeformation-categories}
+we obtain a predeformation category
+$\mathcal{F}_{\mathcal{X}, k, x_0}$
+over the category $\mathcal{C}_\Lambda$.
+(As pointed out in locus citatus this category only depends
+on the morphism $\Spec(k) \to S$ and not on the choice of
+$\Lambda$.) By Artin's Axioms, Lemmas
+\ref{artin-lemma-deformation-category} and
+\ref{artin-lemma-algebraic-stack-RS}
+$\mathcal{F}_{\mathcal{X}, k, x_0}$ is actually a deformation category.
+By Artin's Axioms, Lemma \ref{artin-lemma-finite-dimension}
+we find that $T\mathcal{F}_{\mathcal{X}, k, x_0}$
+and $\text{Inf}(\mathcal{F}_{\mathcal{X}, k, x_0})$
+are finite dimensional $k$-vector spaces.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-versal-ring}
+In Situation \ref{situation-versal} let $x_0 : \Spec(k) \to \mathcal{X}$
+be a morphism, where $k$ is a finite type field over $S$.
+Then a versal ring to $\mathcal{X}$ at $x_0$ exists. Given a pair
+$A$, $A'$ of these, then $A \cong A'[[t_1, \ldots, t_r]]$
+or $A' \cong A[[t_1, \ldots, t_r]]$ as $S$-algebras
+for some $r$.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-deformation-category} and
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-versal-object-existence}
+(note that the assumptions of this lemma hold by
+Formal Deformation Theory, Lemmas
+\ref{formal-defos-lemma-RS-implies-S1-S2} and
+Definition \ref{formal-defos-definition-deformation-category}).
+By the uniquness result of
+Formal Deformation Theory, Lemma \ref{formal-defos-lemma-minimal-versal}
+there exists a ``minimal'' versal ring $A$ of $\mathcal{X}$ at $x_0$
+such that any other versal ring of $\mathcal{X}$ at $x_0$ is
+isomorphic to $A[[t_1, \ldots, t_r]]$ for some $r$.
+This clearly implies the second statement.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-versal-ring-field-extension}
+In Situation \ref{situation-versal} let $x_0 : \Spec(k) \to \mathcal{X}$
+be a morphism, where $k$ is a finite type field over $S$.
+Let $l/k$ be a finite extension of fields and denote
+$x_{l, 0} : \Spec(l) \to \mathcal{X}$ the induced morphism.
+Given a versal ring $A$ to $\mathcal{X}$ at $x_0$ there exists
+a versal ring $A'$ to $\mathcal{X}$ at $x_{l, 0}$ such that
+there is a $S$-algebra map $A \to A'$ which induces the given
+field extension $l/k$ and is formally smooth in the $\mathfrak m_{A'}$-adic
+topology.
+\end{lemma}
+
+\begin{proof}
+Follows immediately from
+Artin's Axioms, Lemma \ref{artin-lemma-change-of-field}
+and
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-change-of-field-versal-ring}.
+(We also use that $\mathcal{X}$ satisfies (RS) by
+Artin's Axioms, Lemma \ref{artin-lemma-algebraic-stack-RS}.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-versal-ring-completion}
+In Situation \ref{situation-versal} let $x : U \to \mathcal{X}$ be a
+morphism where $U$ is a scheme locally of finite type over $S$.
+Let $u_0 \in U$ be a finite type point.
+Set $k = \kappa(u_0)$ and denote $x_0 : \Spec(k) \to \mathcal{X}$
+the induced map. The following are equivalent
+\begin{enumerate}
+\item $x$ is versal at $u_0$
+(Artin's Axioms, Definition \ref{artin-definition-versal}),
+\item $\hat x : \mathcal{F}_{U, k, u_0} \to \mathcal{F}_{\mathcal{X}, k, x_0}$
+is smooth,
+\item the formal object associated to
+$x|_{\Spec(\mathcal{O}_{U, u_0}^\wedge)}$ is versal, and
+\item there is an open neighbourhood $U' \subset U$ of $x$ such that
+$x|_{U'} : U' \to \mathcal{X}$ is smooth.
+\end{enumerate}
+Moreover, in this case the completion $\mathcal{O}_{U, u_0}^\wedge$
+is a versal ring to $\mathcal{X}$ at $x_0$.
+\end{lemma}
+
+\begin{proof}
+Since $U \to S$ is locally of finite type (as a composition of such morphisms),
+we see that $\Spec(k) \to S$ is of finite type (again as a composition).
+Thus the statement makes sense. The equivalence of (1) and (2)
+is the definition of $x$ being versal at $u_0$.
+The equivalence of (1) and (3) is
+Artin's Axioms, Lemma \ref{artin-lemma-versality-matches}.
+Thus (1), (2), and (3) are equivalent.
+
+\medskip\noindent
+If $x|_{U'}$ is smooth, then the functor
+$\hat x : \mathcal{F}_{U, k, u_0} \to \mathcal{F}_{\mathcal{X}, k, x_0}$
+is smooth by Artin's Axioms, Lemma
+\ref{artin-lemma-formally-smooth-on-deformation-categories}.
+Thus (4) implies (1), (2), and (3).
+For the converse, assume $x$ is versal at $u_0$.
+Choose a surjective smooth morphism $y : V \to \mathcal{X}$ where $V$
+is a scheme. Set $Z = V \times_\mathcal{X} U$ and pick a finite type
+point $z_0 \in |Z|$ lying over $u_0$ (this is possible by
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-finite-type-points-surjective-morphism}).
+By Artin's Axioms, Lemma \ref{artin-lemma-base-change-versal}
+the morphism $Z \to V$ is smooth at $z_0$.
+By definition we can find an open neighbourhood $W \subset Z$
+of $z_0$ such that $W \to V$ is smooth. Since $Z \to U$ is open,
+let $U' \subset U$ be the image of $W$. Then we see that
+$U' \to \mathcal{X}$ is smooth by our definition of smooth morphisms
+of stacks.
+
+\medskip\noindent
+The final statement follows from the definitions as
+$\mathcal{O}_{U, u_0}^\wedge$
+prorepresents $\mathcal{F}_{U, k, u_0}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-smoothness}
+In Situation \ref{situation-versal}. Let $x_0 : \Spec(k) \to \mathcal{X}$
+be a morphism such that $\Spec(k) \to S$ is of finite type with image $s$.
+Let $A$ be a versal ring to $\mathcal{X}$ at $x_0$. The following
+are equivalent
+\begin{enumerate}
+\item $x_0$ is in the smooth locus of $\mathcal{X} \to S$
+(Morphisms of Stacks, Lemma \ref{stacks-morphisms-lemma-where-smooth}),
+\item $\mathcal{O}_{S, s} \to A$ is formally smooth in the
+$\mathfrak m_A$-adic topology, and
+\item $\mathcal{F}_{\mathcal{X}, k, x_0}$ is unobstructed.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (2) and (3) follows immediately from
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-smooth-power-series-classical}.
+
+\medskip\noindent
+Note that $\mathcal{O}_{S, s} \to A$ is formally smooth in the
+$\mathfrak m_A$-adic topology if and only if
+$\mathcal{O}_{S, s} \to A' = A[[t_1, \ldots, t_r]]$
+is formally smooth in the $\mathfrak m_{A'}$-adic topology.
+Hence (2) does not depend on the choice
+of our versal ring by Lemma \ref{lemma-versal-ring}.
+Next, let $l/k$ be a finite extension and choose
+$A \to A'$ as in Lemma \ref{lemma-versal-ring-field-extension}.
+If $\mathcal{O}_{S, s} \to A$ is formally smooth in the
+$\mathfrak m_A$-adic topology, then $\mathcal{O}_{S, s} \to A'$
+is formally smooth in the $\mathfrak m_{A'}$-adic topology, see
+More on Algebra, Lemma \ref{more-algebra-lemma-compose-formally-smooth}.
+Conversely, if $\mathcal{O}_{S, s} \to A'$
+is formally smooth in the $\mathfrak m_{A'}$-adic topology,
+then $\mathcal{O}_{S, s}^\wedge \to A'$ and $A \to A'$ are regular
+(More on Algebra, Proposition \ref{more-algebra-proposition-fs-regular})
+and hence $\mathcal{O}_{S, s}^\wedge \to A$ is regular
+(More on Algebra, Lemma \ref{more-algebra-lemma-regular-permanence}),
+hence $\mathcal{O}_{S, s} \to A$ is formally smooth in the
+$\mathfrak m_A$-adic topology (same lemma as before).
+Thus the equivalence of (2) and (1) holds for
+$k$ and $x_0$ if and only if it holds for $l$ and $x_{0, l}$.
+
+\medskip\noindent
+Choose a scheme $U$ and a smooth morphism $U \to \mathcal{X}$ such
+that $\Spec(k) \times_\mathcal{X} U$ is nonempty. Choose a finite
+extension $l/k$ and a point $w_0 : \Spec(l) \to \Spec(k) \times_\mathcal{X} U$.
+Let $u_0 \in U$ be the image of $w_0$.
+We may apply the above to $l/k$ and to $l/\kappa(u_0)$
+to see that we can reduce to $u_0$. Thus we may assume
+$A = \mathcal{O}_{U, u_0}^\wedge$, see
+Lemma \ref{lemma-compare-versal-ring-completion}.
+Observe that $x_0$ is in the smooth locus of $\mathcal{X} \to S$
+if and only if $u_0$ is in the smooth locus of $U \to S$, see for example
+Morphisms of Stacks, Lemma \ref{stacks-morphisms-lemma-where-smooth}.
+Thus the equivalence of (1) and (2) follows from
+More on Algebra, Lemma \ref{more-algebra-lemma-formally-smooth-finite-type}.
+\end{proof}
+
+\noindent
+We recall a consequence of Artin approximation.
+
+\begin{lemma}
+\label{lemma-Artin-approximation-by-smooth-morphism}
+In Situation \ref{situation-versal}. Let $x_0 : \Spec(k) \to \mathcal{X}$
+be a morphism such that $\Spec(k) \to S$ is of finite type with image $s$.
+Let $A$ be a versal ring to $\mathcal{X}$ at $x_0$.
+If $\mathcal{O}_{S, s}$ is a G-ring, then we may find a smooth morphism
+$U \to \mathcal{X}$ whose source is a scheme and a point
+$u_0 \in U$ with residue field $k$, such that
+\begin{enumerate}
+\item $\Spec(k) \to U \to \mathcal{X}$ coincides with the given morphism $x_0$,
+\item there is an isomorphism $\mathcal{O}_{U, u_0}^\wedge \cong A$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $(\xi_n, f_n)$ be the versal formal object over $A$.
+By Artin's Axioms, Lemma \ref{artin-lemma-effective}
+we know that $\xi = (A, \xi_n, f_n)$ is effective.
+By assumption $\mathcal{X}$ is locally of finite presentation over $S$
+(use Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-noetherian-finite-type-finite-presentation}),
+and hence limit preserving by Limits of Stacks, Proposition
+\ref{stacks-limits-proposition-characterize-locally-finite-presentation}.
+Thus Artin approximation as in
+Artin's Axioms, Lemma \ref{artin-lemma-approximate-versal}
+shows that we may find a morphism $U \to \mathcal{X}$ with
+source a finite type $S$-scheme, containing a point $u_0 \in U$
+of residue field $k$ satisfying (1) and (2) such that $U \to \mathcal{X}$
+is versal at $u_0$. By Lemma \ref{lemma-compare-versal-ring-completion}
+after shrinking $U$ we may assume $U \to \mathcal{X}$ is smooth.
+\end{proof}
+
+\begin{remark}[Upgrading versal rings]
+\label{remark-upgrade}
+In Situation \ref{situation-versal} let $x_0 : \Spec(k) \to \mathcal{X}$
+be a morphism, where $k$ is a finite type field over $S$.
+Let $A$ be a versal ring to $\mathcal{X}$ at $x_0$. By Artin's Axioms,
+Lemma \ref{artin-lemma-effective} our versal formal object
+in fact comes from a morphism
+$$
+\Spec(A) \longrightarrow \mathcal{X}
+$$
+over $S$. Moreover, the results above each can be upgraded to be compatible
+with this morphism. Here is a list:
+\begin{enumerate}
+\item in Lemma \ref{lemma-versal-ring} the isomorphism
+$A \cong A'[[t_1, \ldots, t_r]]$ or $A' \cong A[[t_1, \ldots, t_r]]$
+may be chosen compatible with these morphisms,
+\item in Lemma \ref{lemma-versal-ring-field-extension} the
+homomorphism $A \to A'$ may be chosen compatible with these morphisms,
+\item in Lemma \ref{lemma-compare-versal-ring-completion}
+the morphism $\Spec(\mathcal{O}_{U, u_0}^\wedge) \to \mathcal{X}$
+is the composition of the canonical map
+$\Spec(\mathcal{O}_{U, u_0}^\wedge) \to U$ and the given map
+$U \to \mathcal{X}$,
+\item in Lemma \ref{lemma-Artin-approximation-by-smooth-morphism}
+the isomorphism $\mathcal{O}_{U, u_0}^\wedge \cong A$ may
+be chosen so $\Spec(A) \to \mathcal{X}$ corresponds to the canonical map
+in the item above.
+\end{enumerate}
+In each case the statement follows from the fact that our maps are
+compatible with versal formal elements; we note however that the
+implied diagrams are $2$-commutative only up to a (noncanonical)
+choice of a $2$-arrow. Still, this means that the implied map $A' \to A$
+or $A \to A'$ in (1) is well defined up to formal homotopy, see
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-versal-unique-up-to-homotopy}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-versal-ring-flat}
+In Situation \ref{situation-versal} let $x_0 : \Spec(k) \to \mathcal{X}$
+be a morphism, where $k$ is a finite type field over $S$.
+Let $A$ be a versal ring to $\mathcal{X}$ at $x_0$.
+Then the morphism $\Spec(A) \to \mathcal{X}$ of
+Remark \ref{remark-upgrade} is flat.
+\end{lemma}
+
+\begin{proof}
+If the local ring of $S$ at the image point is a G-ring, then this
+follows immediately from
+Lemma \ref{lemma-Artin-approximation-by-smooth-morphism}
+and the fact that the map from a Noetherian local ring to its
+completion is flat. In general we prove it as follows.
+
+\medskip\noindent
+Step I. If $A$ and $A'$ are two versal rings to $\mathcal{X}$ at $x_0$,
+then the result is true for $A$ if and only if it is true for $A'$.
+Namely, after possible swapping $A$ and $A'$, we may assume there is
+a formally smooth map $\varphi : A \to A'$ such that the composition
+$$
+\Spec(A') \to \Spec(A) \to \mathcal{X}
+$$
+is the morphism $\Spec(A') \to \mathcal{X}$, see
+Lemma \ref{lemma-versal-ring} and
+Remark \ref{remark-upgrade}.
+Since $A \to A'$ is faithfully flat we obtain the equivalence from
+Morphisms of Stacks, Lemmas \ref{stacks-morphisms-lemma-composition-flat} and
+\ref{stacks-morphisms-lemma-flat-permanence}.
+
+\medskip\noindent
+Step II. Let $l/k$ be a finite extension of fields. Let
+$x_{l, 0} : \Spec(l) \to \mathcal{X}$ be the induced morphism.
+Let $A$ be a versal ring to $\mathcal{X}$ at $x_0$ and
+let $A \to A'$ be as in Lemma \ref{lemma-versal-ring-field-extension}.
+Then again the composition
+$$
+\Spec(A') \to \Spec(A) \to \mathcal{X}
+$$
+is the morphism $\Spec(A') \to \mathcal{X}$, see Remark \ref{remark-upgrade}.
+Arguing as before and using step I to see choice of versal rings
+is irrelevant, we see that the lemma holds for $x_0$ if and only
+if it holds for $x_{l, 0}$.
+
+\medskip\noindent
+Step III. Choose a scheme $U$ and a surjective smooth morphism
+$U \to \mathcal{X}$. Then we can choose a finite type point
+$z_0$ on $Z = U \times_\mathcal{X} x_0$ (this is a nonempty
+algebraic space). Let $u_0 \in U$ be the image of $z_0$ in $U$.
+Choose a scheme and a surjective \'etale map $W \to Z$
+such that $z_0$ is the image of a closed point $w_0 \in W$
+(see Morphisms of Spaces, Section
+\ref{spaces-morphisms-section-points-finite-type}).
+Since $W \to \Spec(k)$ and $W \to U$ are of finite type,
+we see that $\kappa(w_0)/k$ and $\kappa(w_0)/\kappa(u_0)$
+are finite extensions of fields
+(see Morphisms, Section \ref{morphisms-section-points-finite-type}).
+Applying Step II twice we may replace $x_0$ by
+$u_0 \to U \to \mathcal{X}$. Then we see our morphism is the composition
+$$
+\Spec(\mathcal{O}_{U, u_0}^\wedge) \to U \to \mathcal{X}
+$$
+The first arrow is flat because completion of Noetherian local rings
+are flat (Algebra, Lemma \ref{algebra-lemma-completion-flat})
+and the second arrow is flat as
+a smooth morphism is flat. The composition is flat as composition
+preserves flatness.
+\end{proof}
+
+\begin{remark}
+\label{remark-groupoid-defo}
+In Situation \ref{situation-versal} let $x_0 : \Spec(k) \to \mathcal{X}$
+be a morphism, where $k$ is a finite type field over $S$.
+By Lemma \ref{lemma-deformation-category} and
+Formal Deformation Theory, Theorem
+\ref{formal-defos-theorem-presentation-deformation-groupoid}
+we know that $\mathcal{F}_{\mathcal{X}, k, x_0}$ has a
+presentation by a smooth prorepresentable groupoid in
+functors on $\mathcal{C}_\Lambda$.
+Unwinding the definitions, this means we can choose
+\begin{enumerate}
+\item a Noetherian complete local $\Lambda$-algebra $A$
+with residue field $k$ and a versal formal object $\xi$
+of $\mathcal{F}_{\mathcal{X}, k, x_0}$ over $A$,
+\item a Noetherian complete local $\Lambda$-algebra $B$
+with residue field $k$ and an isomorphism
+$$
+\underline{B}|_{\mathcal{C}_\Lambda}
+\longrightarrow
+\underline{A}|_{\mathcal{C}_\Lambda}
+\times_{\underline{\xi}, \mathcal{F}_{\mathcal{X}, k, x_0}, \underline{\xi}}
+\underline{A}|_{\mathcal{C}_\Lambda}
+$$
+\end{enumerate}
+The projections correspond to formally smooth maps
+$t : A \to B$ and $s : A \to B$ (because $\xi$ is versal).
+There is a map $c : B \to B \widehat{\otimes}_{s, A, t} B$
+which turns $(A, B, s, t, c)$ into a cogroupoid in the category
+of Noetherian complete local $\Lambda$-algebras with residue field $k$
+(on prorepresentable functors this map is constructed in
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-presentation-construction}).
+Finally, the cited theorem tells us that $\xi$ induces
+an equivalence
+$$
+[\underline{A}|_{\mathcal{C}_\Lambda} / \underline{B}|_{\mathcal{C}_\Lambda}]
+\longrightarrow
+\mathcal{F}_{\mathcal{X}, k, x_0}
+$$
+of groupoids cofibred over $\mathcal{C}_\Lambda$. In fact, we also
+get an equivalence
+$$
+[\underline{A}/\underline{B}]
+\longrightarrow
+\widehat{\mathcal{F}}_{\mathcal{X}, k, x_0}
+$$
+of groupoids cofibred over the completed category
+$\widehat{\mathcal{C}}_\Lambda$ (see discussion in
+Formal Deformation Theory, Section
+\ref{formal-defos-section-prorepresentable-groupoids-in-functors}
+as to why this works). Of course $A$ is a versal ring to
+$\mathcal{X}$ at $x_0$.
+\end{remark}
+
+
+
+
+
+
+
+
+\section{Multiplicities of components of algebraic stacks}
+\label{section-multiplicities}
+
+\noindent
+If $X$ is a locally Noetherian scheme, then we may write $X$ (thought
+of simply as a topological space) as a union of irreducible components,
+say $X = \bigcup T_i$.  Each irreducible component is the closure of a
+unique generic point $\xi_i$, and the local ring $\mathcal O_{X,\xi_i}$
+is a local Artin ring. We may define the {\it multiplicity of $X$ along $T_i$}
+or the {\it multiplicity of $T_i$ in $X$} by
+$$
+m_{T_i, X} = \text{length}_{\mathcal O_{X, \xi_i}} \mathcal O_{X, \xi_i}
+$$
+In other words, it is the length of the local Artinian ring. Please
+compare with
+Chow Homology, Section \ref{chow-section-cycle-of-closed-subscheme}.
+
+\medskip\noindent
+Our goal here is to generalise this definition to locally
+Noetherian algebraic stacks. If $\mathcal{X}$ is a stack,
+then its topological space $|\mathcal{X}|$
+(see Properties of Stacks, Definition
+\ref{stacks-properties-definition-topological-space})
+is locally Noetherian
+(Morphisms of Stacks, Lemma \ref{stacks-morphisms-lemma-Noetherian-topology}).
+The irreducible components of $|\mathcal{X}|$ are sometimes
+referred to as the irreducible components of $\mathcal{X}$.
+If $\mathcal{X}$ is quasi-separated, then $|\mathcal{X}|$
+is sober (Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-sober-qs}),
+but it need not be in the
+non-quasi-separated case. Consider for example the non-quasi-separated
+algebraic space $X = \mathbf{A}^1_\mathbf{C}/\mathbf{Z}$.
+Furthermore, there is no structure sheaf
+on $|\mathcal{X}|$ whose stalks can be used to define multiplicities.
+
+\begin{lemma}
+\label{lemma-map-of-components}
+Let $f : U \to \mathcal{X}$ be a smooth morphism from a scheme
+to a locally Noetherian algebraic stack. The closure of the image of any
+irreducible component of $|U|$ is an irreducible component of $|\mathcal{X}|$.
+If $U \to \mathcal{X}$ is surjective, then all irreducible components of
+$|\mathcal{X}|$ are obtained in this way.
+\end{lemma}
+
+\begin{proof}
+The map $|U| \to |\mathcal{X}|$ is continuous and open by
+Properties of Stacks, Lemma \ref{stacks-properties-lemma-topology-points}.
+Let $T \subset |U|$ be an irreducible component. Since $U$ is locally
+Noetherian, we can find a nonempty affine open $W \subset U$ contained in $T$.
+Then $f(T) \subset |\mathcal{X}|$ is irreducible and contains the
+nonempty open subset $f(W)$. Thus the closure of $f(T)$ is irreducible and
+contains a nonempty open. It follows that this closure is an irreducible
+component.
+
+\medskip\noindent
+Assume $U \to \mathcal{X}$ is surjective and let $Z \subset |\mathcal{X}|$
+be an irreducible component. Choose a Noetherian open subset $V$
+of $|\mathcal{X}|$ meeting $Z$. After removing the other irreducible
+components from $V$ we may assume that $V \subset Z$.
+Take an irreducible component of the nonempty
+open $f^{-1}(V) \subset |U|$ and let $T \subset |U|$ be its closure.
+This is an irreducible component of $|U|$ and the closure of $f(T)$
+must agree with $Z$ by our choice of $T$.
+\end{proof}
+
+\noindent
+The preceding lemma applies in particular in the case of smooth morphisms
+between locally Noetherian schemes. This particular case is
+implicitly invoked in the statement of the following lemma.
+
+\begin{lemma}
+\label{lemma-multiplicities}
+Let $U \to X$ be a smooth morphism of locally Noetherian schemes.
+Let $T'$ is an irreducible component of $U$. Let $T$ be the
+irreducible component of $X$ obtained as the closure of the
+image of $T'$. Then $m_{T', U} = m_{T, X}$.
+\end{lemma}
+
+\begin{proof}
+Write $\xi'$ for the generic point of $T'$, and $\xi$ for the
+generic point of $T$. Let $A = \mathcal{O}_{X, \xi}$ and
+$B = \mathcal{O}_{U, \xi'}$. We need to show that
+$\text{length}_A A = \text{length}_B B$. Since
+$A \to B$ is a flat local homomorphism of rings
+(since smooth morphisms are flat), we have
+$$
+\text{length}_A(A) \text{length}_B(B/\mathfrak m_A B) =
+\text{length}_B(B)
+$$
+by Algebra, Lemma \ref{algebra-lemma-pullback-module}. Thus it suffices
+to show $\mathfrak m_A B = \mathfrak m_B$, or equivalently, that
+$B/\mathfrak m_A B$ is reduced. Since $U \to X$ is smooth,
+so is its base change $U_{\xi} \to \Spec \kappa(\xi)$. As $U_{\xi}$ is a
+smooth scheme over a field, it is reduced, and thus so its local ring
+at any point
+(Varieties, Lemma \ref{varieties-lemma-smooth-geometrically-normal}).
+In particular,
+$$
+B/\mathfrak m_A B =
+\mathcal{O}_{U, \xi'}/\mathfrak m_{X, \xi}\mathcal{O}_{U, \xi'} =
+\mathcal{O}_{U_\xi, \xi'}
+$$
+is reduced, as required.
+\end{proof}
+
+\noindent
+Using this result, we may show that there exists a good notion
+of multiplicity by looking smooth locally.
+
+\begin{lemma}
+\label{lemma-multiplicity}
+Let $U_1 \to \mathcal{X}$ and $U_2 \to \mathcal{X}$ be two smooth
+morphisms from schemes to a locally Noetherian algebraic stack $\mathcal{X}$.
+Let $T_1'$ and $T_2'$ be irreducible components of $|U_1|$
+and $|U_2|$ respectively. Assume the closures of the images of
+$T_1'$ and $T_2'$ are the same irreducible component $T$ of $|\mathcal{X}|$.
+Then $m_{T_1', U_1} = m_{T_2', U_2}$.
+\end{lemma}
+
+\begin{proof}
+Let $V_1$ and $V_2$ be dense subsets of $T_1'$ and $T'_2$, respectively,
+that are open in $U_1$ and $U_2$ respectively (see proof of
+Lemma \ref{lemma-map-of-components}).
+The images of $|V_1|$ and $|V_2|$ in $|\mathcal{X}|$ are non-empty open
+subsets of the irreducible subset $T$, and therefore have non-empty
+intersection. By
+Properties of Stacks, Lemma \ref{stacks-properties-lemma-points-cartesian},
+the map $|V_1 \times_\mathcal{X} V_2| \to |V_1| \times_{|\mathcal{X}|} |V_2|$
+is surjective. Consequently $V_1 \times_\mathcal{X} V_2$
+is a non-empty algebraic space; we may therefore choose an
+\'etale surjection $V \to V_1 \times_\mathcal{X} V_2$
+whose source is a (non-empty) scheme.
+If we let $T'$ be any irreducible component of $V$,
+then Lemma \ref{lemma-map-of-components} shows that the closure of
+the image of $T'$ in $U_1$ (respectively $U_2$) is equal to $T'_1$
+(respectively $T'_2$).
+
+\medskip\noindent
+Applying Lemma \ref{lemma-multiplicities} twice we find
+that
+$$
+m_{T_1', U_1} = m_{T', V} = m_{T_2', U_2},
+$$
+as required.
+\end{proof}
+
+\noindent
+At this point we have done enough work to show the following
+definition makes sense.
+
+\begin{definition}
+\label{definition-multiplicity}
+Let $\mathcal{X}$ be a locally Noetherian algebraic stack. Let
+$T \subset |\mathcal{X}|$ be an irreducible component.
+The {\it multiplicity} of $T$ in $\mathcal{X}$ is defined as
+$m_{T, \mathcal{X}} = m_{T', U}$ where $f : U \to \mathcal{X}$
+is a smooth morphism from a scheme and $T' \subset |U|$
+is an irreducible component with $f(T') \subset T$.
+\end{definition}
+
+\noindent
+This is independent of the choice of $f : U \to \mathcal{X}$
+and the choice of the irreducible component $T'$ mapping to $T$
+by Lemmas \ref{lemma-map-of-components} and \ref{lemma-multiplicity}.
+
+\medskip\noindent
+As a closing remark, we note that it is sometimes convenient to think
+of an irreducible component of $\mathcal{X}$ as a closed substack.
+To this end, if $\mathcal{T}$ is an irreducible component of
+$\mathcal{X}$, i.e., an irreducible component of $|\mathcal{X}|$,
+then we endow $\mathcal{T}$ with its induced reduced substack structure, see
+Properties of Stacks, Definition
+\ref{stacks-properties-definition-reduced-induced-stack}.
+
+
+
+
+\section{Formal branches and multiplicities}
+\label{section-formal-branches}
+
+\noindent
+It will be convenient to have a comparison between the notion of multiplicity
+of an irreducible component given by Definition \ref{definition-multiplicity}
+and the related notion of multiplicities of irreducible components of
+(the spectra of) versal rings of $\mathcal{X}$ at finite type points.
+
+\medskip\noindent
+In Situation \ref{situation-versal} let $x_0 : \Spec(k) \to \mathcal{X}$
+be a morphism, where $k$ is a finite type field over $S$.
+Let $A$, $A'$ be versal rings to $\mathcal{X}$ at $x_0$.
+After possibly swapping $A$ and $A'$, we know there is a
+formally smooth\footnote{In the sense that
+$A'$ becomes isomorphic to a power series ring over $A$.}
+map $\varphi : A \to A'$ compatible with versal formal objects, see
+Lemma \ref{lemma-versal-ring} and
+Remark \ref{remark-upgrade}.
+Moreover, $\varphi$ is well defined up to formal homotopy, see
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-versal-unique-up-to-homotopy}.
+In particular, we find that $\varphi(\mathfrak p)A'$ is a well
+defined ideal of $A'$ by
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-homotopic-minimal-prime}.
+Since $A \to A'$ is formally smooth, in fact
+$\varphi(\mathfrak p)A'$ is a minimal prime of $A'$
+and every minimal prime of $A'$ is of this form for
+a unique minimal prime $\mathfrak p \subset A$ (all of this
+is easy to prove by writing $A'$ as a power series ring over $A$).
+Therefore, recalling that minimal primes correspond
+to irreducible components, the following definition makes sense.
+
+\begin{definition}
+\label{definition-formal-branches}
+Let $\mathcal{X}$ be an algebraic stack locally of finite type
+over a locally Noetherian scheme $S$. Let $x_0 : \Spec(k) \to \mathcal{X}$
+is a morphism where $k$ is a field of finite type over $S$.
+The {\it formal branches of $\mathcal{X}$ through $x_0$}
+is the set of irreducible components of $\Spec(A)$
+for any choice of versal ring to $\mathcal{X}$ at $x_0$
+identified for different choices of $A$ by the procedure described above.
+\end{definition}
+
+\noindent
+Suppose in the situation of Definition \ref{definition-formal-branches}
+we are given a finite extension $l/k$. Set
+$x_{l, 0} : \Spec(l) \to \mathcal{X}$ equal to the composition of
+$\Spec(l) \to \Spec(k)$ with $x_0$. Let
+$A \to A'$ be as in Lemma \ref{lemma-versal-ring-field-extension}.
+Since $A \to A'$ is faithfully flat, the morphism
+$$
+\Spec(A') \to \Spec(A)
+$$
+sends (generic points of) irreducible components to
+(generic points of) irreducible components.
+This will be a surjective map, but
+in general this map will not be a bijection.
+In other words, we obtain a surjective map
+$$
+\text{formal branches of }\mathcal{X}\text{ through }x_{l, 0}
+\longrightarrow
+\text{formal branches of }\mathcal{X}\text{ through }x_0
+$$
+It turns out that if $l/k$ is purely inseparable, then
+the map is injective as well (we'll add a precise statement
+and proof here if we ever need this).
+
+\begin{lemma}
+\label{lemma-branches}
+In the situation of Definition \ref{definition-formal-branches}
+there is a canonical surjection from the set of formal branches of
+$\mathcal{X}$ through $x_0$ to the set of irreducible components of
+$|\mathcal{X}|$ containing $x_0$ in $|\mathcal{X}|$.
+\end{lemma}
+
+\begin{proof}
+Let $A$ be as in Definition \ref{definition-formal-branches} and
+let $\Spec(A) \to \mathcal{X}$ be as in Remark \ref{remark-upgrade}.
+We claim that the generic point of an irreducible component of
+$\Spec(A)$ maps to a generic point of an irreducible component
+of $|\mathcal{X}|$. Choose a scheme $U$ and a surjective
+smooth morphism $U \to \mathcal{X}$. Consider the diagram
+$$
+\xymatrix{
+\Spec(A) \times_\mathcal{X} U \ar[d]_p \ar[r]_-q & U \ar[d]^f \\
+\Spec(A) \ar[r]^j & \mathcal{X}
+}
+$$
+By Lemma \ref{lemma-versal-ring-flat} we see that $j$ is flat.
+Hence $q$ is flat. On the other hand, $f$ is surjective smooth
+hence $p$ is surjective smooth. This implies that any generic point
+$\eta \in \Spec(A)$ of an irreducible component is the image of a
+codimension $0$ point $\eta'$ of the algebraic space
+$\Spec(A) \times_\mathcal{X} U$ (see
+Properties of Spaces, Section \ref{spaces-properties-section-generic-points}
+for notation and use going down on \'etale local rings).
+Since $q$ is flat, $q(\eta')$ is a codimension $0$ point of $U$
+(same argument).
+Since $U$ is a scheme, $q(\eta')$ is the generic point
+of an irreducible component of $U$. Thus the closure of the image
+of $q(\eta')$ in $|\mathcal{X}|$ is an irreducible component
+by Lemma \ref{lemma-map-of-components} as claimed.
+
+\medskip\noindent
+Clearly the claim provides a mechanism for defining the desired map.
+To see that it is surjective, we choose $u_0 \in U$ mapping to
+$x_0$ in $|\mathcal{X}|$. Choose an affine open $U' \subset U$
+neighbourhood of $u_0$. After shrinking $U'$ we may assume every
+irreducible component of $U'$ passes through $u_0$. Then we may
+replace $\mathcal{X}$ by the open substack corresponding to the
+image of $|U'| \to |\mathcal{X}|$. Thus we may assume $U$ is affine
+has a point $u_0$ mapping to $x_0 \in |\mathcal{X}|$
+and every irreducible component of $U$ passes through $u_0$.
+By Properties of Stacks, Lemma
+\ref{stacks-properties-lemma-points-cartesian}
+there is a point $t \in |\Spec(A) \times_\mathcal{X} U|$
+mapping to the closed point of $\Spec(A)$ and to $u_0$.
+Using going down for the flat local ring homomorphisms
+$$
+A \longrightarrow
+\mathcal{O}_{\Spec(A) \times_\mathcal{X} U, \overline{t}}
+\longleftarrow \mathcal{O}_{U, u_0}
+$$
+we see that every minimal prime of $\mathcal{O}_{U, u_0}$
+is the image of a minimal prime of the local ring in the middle
+and such a minimal prime maps to a minimal prime of $A$.
+This proves the surjectivity. Some details omitted.
+\end{proof}
+
+\noindent
+Let $A$ be a Noetherian complete local ring. Then the irreducible
+components of $\Spec(A)$ have multiplicities, see
+introduction to Section \ref{section-multiplicities}.
+If $A' = A[[t_1, \ldots, t_r]]$, then the morphism
+$\Spec(A') \to \Spec(A)$ induces a bijection on irreducible
+components preserving multiplicities (we omit the easy proof).
+This and the discussion preceding
+Definition \ref{definition-formal-branches}
+mean that the following definition makes sense.
+
+\begin{definition}
+\label{definition-multiplicity-formal-branches}
+Let $\mathcal{X}$ be an algebraic stack locally of finite type
+over a locally Noetherian scheme $S$. Let $x_0 : \Spec(k) \to \mathcal{X}$
+is a morphism where $k$ is a field of finite type over $S$.
+The {\it multiplicity of a formal branch of $\mathcal{X}$ through $x_0$}
+is the multiplicity of the corresponding irreducible component of
+$\Spec(A)$ for any choice of versal ring to $\mathcal{X}$ at $x_0$
+(see discussion above).
+\end{definition}
+
+\begin{lemma}
+\label{lemma-branches-multiplicity}
+Let $\mathcal{X}$ be an algebraic stack locally of finite type
+over a locally Noetherian scheme $S$. Let $x_0 : \Spec(k) \to \mathcal{X}$
+is a morphism where $k$ is a field of finite type over $S$ with
+image $s \in S$. If $\mathcal{O}_{S, s}$ is a G-ring, then
+the map of Lemma \ref{lemma-branches} preserves multiplicities.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-Artin-approximation-by-smooth-morphism} we
+may assume there is a smooth morphism $U \to \mathcal{X}$
+where $U$ is a scheme and a $k$-valued point $u_0$ of $U$
+such that $\mathcal{O}_{U, u_0}^\wedge$ is a versal ring to
+$\mathcal{X}$ at $x_0$. By construction of our map in
+the proof of Lemma \ref{lemma-branches} (which simplifies
+greatly because $A = \mathcal{O}_{U, u_0}^\wedge$) we find
+that it suffices to show: the multiplicity of an irreducible
+component of $U$ passing through $u_0$ is the same as the
+multiplicity of any irreducible component of
+$\Spec(\mathcal{O}_{U, u_0}^\wedge)$ mapping into it.
+
+\medskip\noindent
+Translated into commutative algebra we find the following:
+Let $C = \mathcal{O}_{U, u_0}$. This is essentially of finite type
+over $\mathcal{O}_{S, s}$ and hence is a G-ring (More on Algebra,
+Proposition \ref{more-algebra-proposition-finite-type-over-G-ring}).
+Then $A = C^\wedge$. Therefore $C \to A$ is a regular ring map.
+Let $\mathfrak q \subset C$ be a minimal prime and let $\mathfrak p \subset A$
+be a minimal prime lying over $\mathfrak q$. Then
+$$
+R = C_\mathfrak p \longrightarrow A_\mathfrak p = R'
+$$
+is a regular ring map of Artinian local rings. For such a ring map
+it is always the case that
+$$
+\text{length}_R R = \text{length}_{R'} R'
+$$
+This is what we have to show because the left hand side
+is the multiplicity of our component on $U$ and the right hand
+side is the multiplicity of our component on $\Spec(A)$.
+To see the equality, first we use that
+$$
+\text{length}_R(R) \text{length}_{R'}(R'/\mathfrak m_R R') =
+\text{length}_{R'}(R')
+$$
+by Algebra, Lemma \ref{algebra-lemma-pullback-module}. Thus it suffices
+to show $\mathfrak m_R R' = \mathfrak m_{R'}$, which is a consequence
+of being a regular homomorphism of zero dimensional local rings.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Dimension theory of algebraic stacks}
+\label{section-dimension-of-algebraic-stacks}
+
+\noindent
+The main results on the dimension theory of algebraic stacks in the
+literature that we are aware of are those of \cite{Osserman}, which
+makes a study of the notions of codimension and relative dimension. We
+make a more detailed examination of the notion of the dimension of an
+algebraic stack at a point, and prove various results
+relating the dimension of the fibres of a morphism at a point in the source
+to the dimension of its source and target.  We also prove a result
+(Lemma \ref{lemma-dimension-formula} below) which
+allow us (under suitable hypotheses) to compute the dimension of
+an algebraic stack at a point in terms of a versal ring.
+
+\medskip\noindent
+While we haven't always tried to optimise our results, we have
+largely tried to avoid making unnecessary hypotheses.  However, in some
+of our results, in which we compare certain properties of an algebraic
+stack to the properties of a versal ring to this
+stack at a point, we have restricted our attention
+to the case of algebraic stacks that are locally finitely presented
+over a locally Noetherian scheme base, all of whose local rings are
+$G$-rings. This gives us the convenience of having Artin approximation
+available to compare the geometry of the versal ring to the geometry
+of the stack itself.  However, this restrictive hypothesis
+may not be necessary for the truth
+of all of the various statements that we prove.
+Since it is satisfied in the applications that we have in mind,
+though, we have been content to make it when it helps.
+
+\medskip\noindent
+If $X$ is a scheme, then we define the dimension $\dim(X)$ of $X$
+to be the Krull dimension of the
+topological space underlying $X$,
+while if $x$ is a point of $X$,
+then we define the dimension $\dim_x (X)$ of $X$ at $x$ to be the
+minimum of the dimensions of the open subsets $U$ of $X$ containing
+$x$, see
+Properties, Definition \ref{properties-definition-dimension}.
+One has the relation $\dim(X) = \sup_{x \in X} \dim_x(X)$, see
+Properties, Lemma \ref{properties-lemma-dimension}.
+If $X$ is locally Noetherian, then $\dim_x(X)$ coincides with the supremum
+of the dimensions at $x$
+of the irreducible components of $X$ passing through $x$.
+
+\medskip\noindent
+If $X$ is an algebraic space and $x \in |X|$,
+then we define $\dim_x X = \dim_u U,$ where $U$ is any scheme
+admitting an \'etale surjection $U \to X$,
+and $u\in U$ is any point lying over $x$, see
+Properties of Spaces, Definition
+\ref{spaces-properties-definition-dimension-at-point}.
+We set $\dim(X) = \sup_{x \in |X|} \dim_x(X)$, see
+Properties of Spaces, Definition \ref{spaces-properties-definition-dimension}.
+
+\begin{remark}
+\label{remark-dimension-algebraic-space}
+In general, the dimension of the algebraic space $X$ at a point $x$
+may not coincide with the dimension of the underlying topological space
+$|X|$ at $x$.  E.g.\ if $k$ is a field of characteristic zero and
+$X =  \mathbf{A}^1_k / \mathbf{Z}$, then $X$ has dimension $1$ (the dimension
+of $\mathbf{A}^1_k$) at each of its points,
+while $|X|$ has the indiscrete topology, and hence is of Krull
+dimension zero. On the other hand, in
+Algebraic Spaces, Example \ref{spaces-example-infinite-product}
+there is given an example of an algebraic space
+which is of dimension $0$ at each of its points, while $|X|$ is
+irreducible of Krull dimension $1$, and admits a generic point (so that the
+dimension of $|X|$ at any of its points is $1$); see also the discussion
+of this example in
+Properties of Spaces, Section \ref{spaces-properties-section-dimension}.
+
+\medskip\noindent
+On the other hand, if $X$ is a {\it decent} algebraic space, in the sense of
+Decent Spaces, Definition \ref{decent-spaces-definition-very-reasonable}
+(in particular, if $X$ is quasi-separated; see
+Decent Spaces, Section \ref{decent-spaces-section-reasonable-decent})
+then in fact the dimension of $X$ at $x$ does coincide with the dimension
+of $|X|$ at $x$; see
+Decent Spaces, Lemma \ref{decent-spaces-lemma-dimension-decent-space}.
+\end{remark}
+
+\noindent
+In order to  define the dimension of an algebraic stack,
+it will be useful to first have the notion of the relative dimension,
+at a point in the source,
+of a morphism whose source is an algebraic space,
+and whose target is an algebraic stack.  The definition is slightly
+involved, just because (unlike in the case of schemes) the points of an
+algebraic stack, or an algebraic
+space, are not describable as morphisms from the spectrum of a field,
+but only as equivalence classes of such.
+
+\begin{definition}
+\label{definition-relative-dimension}
+If $f : T \to \mathcal{X}$ is a locally of finite type morphism from an
+algebraic space to an algebraic stack,
+and if $t \in |T|$ is a point with image $x \in | \mathcal{X}|$, then we define
+{\it the relative dimension} of $f$ at $t$, denoted
+$\dim_t(T_x),$
+as follows:
+choose a morphism $\Spec k \to \mathcal{X}$, with source the spectrum of
+a field, which represents $x$, and choose a point
+$t' \in |T \times_{\mathcal{X}} \Spec k|$
+mapping to $t$ under the projection to $|T|$
+(such a point $t'$ exists, by
+Properties of Stacks, Lemma \ref{stacks-properties-lemma-points-cartesian});
+then
+$$
+\dim_t(T_x) = \dim_{t'}(T \times_{\mathcal{X}} \Spec k ).
+$$
+\end{definition}
+
+\noindent
+Note that since $T$ is an algebraic space and $\mathcal{X}$ is an
+algebraic stack, the fibre product $T \times_{\mathcal{X}} \Spec k$
+is an algebraic space, and so the quantity on the right hand side of
+this proposed definition is in fact defined (see discussion above).
+
+\begin{remark}
+\label{remark-relative-dimension}
+(1)
+One easily verifies (for example, by using the invariance
+of the relative dimension of locally of finite type morphisms of schemes
+under base-change; see for example
+Morphisms, Lemma \ref{morphisms-lemma-dimension-fibre-after-base-change}
+that $\dim_t(T_x)$ is well-defined, independently of the choices
+used to compute it.
+
+\medskip\noindent
+(2)
+In the case that $\mathcal{X}$ is also an algebraic space,
+it is straightforward to confirm that this definition agrees with
+the definition of relative dimension given in
+Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-dimension-fibre}.
+\end{remark}
+
+\noindent
+We next recall the following lemma, on which our study of
+the dimension of a locally Noetherian algebraic stack is founded.
+
+\begin{lemma}
+\label{lemma-behaviour-of-dimensions-wrt-smooth-morphisms}
+If $f: U \to X$ is a smooth morphism of locally Noetherian algebraic
+spaces, and
+if $u \in |U|$ with image $x \in |X|$, then
+$$
+\dim_u (U) = \dim_x(X) + \dim_{u} (U_x)
+$$
+where $\dim_u (U_x)$ is defined via
+Definition \ref{definition-relative-dimension}.
+\end{lemma}
+
+\begin{proof}
+See Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-smoothness-dimension-spaces}
+noting that the definition of $\dim_u (U_x)$ used here coincides with
+the definition used there, by Remark \ref{remark-relative-dimension} (2).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dimension-for-stacks}
+If $\mathcal{X}$ is a locally Noetherian algebraic stack and
+$x \in |\mathcal{X}|$. Let $U \to \mathcal{X}$ be a smooth morphism
+from an algebraic space to $\mathcal{X}$, let $u$ be any point of $|U|$
+mapping to $x$. Then we have
+$$
+\dim_x(\mathcal{X}) =  \dim_u(U) - \dim_{u}(U_x)
+$$
+where the relative dimension $\dim_u(U_x)$ is defined
+by Definition \ref{definition-relative-dimension} and the
+dimension of $\mathcal{X}$ at $x$ is as in
+Properties of Stacks, Definition
+\ref{stacks-properties-definition-dimension-at-point}.
+\end{lemma}
+
+\begin{proof}
+Lemma \ref{lemma-behaviour-of-dimensions-wrt-smooth-morphisms}
+can be used to verify that the right hand side
+$\dim_u(U) + \dim_u(U_x)$ is independent of the choice
+of the smooth morphism $U \to \mathcal{X}$ and $u \in |U|$.
+We omit the details. In particular, we may assume $U$ is a scheme.
+In this case we can compute $\dim_u(U_x)$
+by choosing the representative of $x$
+to be the composite $\Spec \kappa(u) \to U \to \mathcal{X}$, where
+the first morphism is the canonical one with image $u \in U$.
+Then, if we write $R = U \times_{\mathcal{X}} U$, and let
+$e : U \to R$ denote the diagonal morphism, the invariance of
+relative dimension under base-change shows that
+$\dim_u(U_x) = \dim_{e(u)}(R_u)$. Thus we see that
+the right hand side is equal to
+$\dim_u (U) - \dim_{e(u)}(R_u) = \dim_x(\mathcal{X})$ as desired.
+\end{proof}
+
+\begin{remark}
+\label{remark-dimension-DM}
+For Deligne--Mumford stacks which are suitably decent
+(e.g.\ quasi-separated),
+it will again be the case that $\dim_x(\mathcal{X})$ coincides with the
+topologically
+defined quantity $\dim_x |\mathcal{X}|$.  However, for more general Artin
+stacks,
+this will typically not be the case.  For example, if
+$\mathcal{X} = [\mathbf{A}^1/\mathbf{G}_m]$
+(over some field, with the quotient being taken with
+respect to the usual multiplication action of $\mathbf{G}_m$ on $\mathbf{A}^1$),
+then  $|\mathcal{X}|$ has two points, one the specialisation of the other
+(corresponding
+to the two orbits of $\mathbf{G}_m$ on $\mathbf{A}^1$), and hence is of
+dimension $1$ as
+a topological space; but $\dim_x (\mathcal{X}) = 0$ for both points
+$x \in |\mathcal{X}|$.
+(An even more extreme example is given by the classifying space
+$[\Spec k/\mathbf{G}_m]$, whose dimension at its unique point
+is equal to $-1$.)
+\end{remark}
+
+\noindent
+We can now extend Definition \ref{definition-relative-dimension}
+to the context of (locally finite type)
+morphisms between (locally Noetherian) algebraic stacks.
+
+\begin{definition}
+\label{definition-relative-dimension-for-stacks}
+If $f : \mathcal{T} \to \mathcal{X}$
+is a locally of finite type morphism between
+locally Noetherian algebraic stacks, and if
+$t \in |\mathcal{T}|$ is a point with image $x \in |\mathcal{X}|$, then
+we define the {\it relative dimension} of $f$ at $t$, denoted
+$\dim_t(\mathcal{T}_x),$ as follows:
+choose a morphism $\Spec k \to \mathcal{X}$, with source the spectrum of
+a field, which represents $x$, and choose a point
+$t' \in |\mathcal{T} \times_{\mathcal{X}} \Spec k|$
+mapping to $t$ under the projection to $|\mathcal{T}|$
+(such a point $t'$ exists, by
+Properties of Stacks, Lemma
+\ref{stacks-properties-lemma-points-cartesian}; then
+$$
+\dim_t(\mathcal{T}_x) = \dim_{t'}(\mathcal{T} \times_{\mathcal{X}} \Spec k ).
+$$
+\end{definition}
+
+\noindent
+Note that since $\mathcal{T}$ is an algebraic stack and $\mathcal{X}$ is an
+algebraic stack, the fibre product $\mathcal{T}\times_{\mathcal{X}} \Spec k$
+is an algebraic stack, which is locally Noetherian by
+Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-locally-finite-type-locally-noetherian}.
+Thus the quantity on the right side of this proposed definition
+is defined by Properties of Stacks,
+Definition \ref{stacks-properties-definition-dimension-at-point}.
+
+\begin{remark}
+\label{remark-dimension-tangent-space-well-defined}
+Standard manipulations show that $\dim_t(\mathcal{T}_x)$ is well-defined,
+independently of the choices made to compute it.
+\end{remark}
+
+\noindent
+We now establish some basic properties of relative dimension, which
+are obvious generalisations of the corresponding statements in the
+case of morphisms of schemes.
+
+\begin{lemma}
+\label{lemma-base-change-invariance-of-relative-dimension}
+Suppose given
+a Cartesian square of morphisms of locally Noetherian stacks
+$$
+\xymatrix{
+\mathcal{T}' \ar[d]\ar[r] & \mathcal{T} \ar[d] \\
+\mathcal{X}' \ar[r] & \mathcal{X}
+}
+$$
+in which the vertical morphisms are locally of finite type.
+If $t' \in |\mathcal{T}'|$,
+with images $t$, $x'$, and $x$ in $|\mathcal{T}|$, $|\mathcal{X}'|$, and
+$|\mathcal{X}|$
+respectively, then $\dim_{t'}(\mathcal{T}'_{x'}) = \dim_{t}(\mathcal{T}_x).$
+\end{lemma}
+
+\begin{proof}
+Both sides can (by definition) be computed as the
+dimension of the same fibre product.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-behaviour-of-dimensions-wrt-smooth-morphisms-stacky}
+If $f: \mathcal{U} \to \mathcal{X}$ is a smooth morphism of locally Noetherian
+algebraic stacks, and
+if $u \in |\mathcal{U}|$ with image $x \in |\mathcal{X}|$,
+then
+$$
+\dim_u (\mathcal{U}) = \dim_x(\mathcal{X}) + \dim_{u} (\mathcal{U}_x).
+$$
+\end{lemma}
+
+\begin{proof}
+Choose a smooth surjective morphism $V \to \mathcal{U}$ whose source
+is a scheme, and let $v\in |V|$ be a point mapping to $u$.
+Then the composite $V \to \mathcal{U} \to \mathcal{X}$ is also smooth,
+and by Lemma \ref{lemma-behaviour-of-dimensions-wrt-smooth-morphisms}
+we have $\dim_x(\mathcal{X}) = \dim_v(V) - \dim_v(V_x),$
+while $\dim_u(\mathcal{U}) = \dim_v(V) - \dim_v(V_u).$
+Thus
+$$
+\dim_u(\mathcal{U}) - \dim_x(\mathcal{X}) = \dim_v (V_x) - \dim_v (V_u).
+$$
+
+\medskip\noindent
+Choose a representative $\Spec k \to \mathcal{X}$ of $x$
+and choose a point $v' \in | V \times_{\mathcal{X}} \Spec k|$ lying over
+$v$, with image $u'$ in $|\mathcal{U}\times_{\mathcal{X}} \Spec k|$;
+then by definition
+$\dim_u(\mathcal{U}_x) = \dim_{u'}(\mathcal{U}\times_{\mathcal{X}} \Spec k),$
+and
+$\dim_v(V_x) = \dim_{v'}(V\times_{\mathcal{X}} \Spec k).$
+
+\medskip\noindent
+Now $V\times_{\mathcal{X}} \Spec k \to \mathcal{U}\times_{\mathcal{X}}\Spec k$
+is a smooth surjective morphism (being the base-change
+of such a morphism) whose source is an algebraic space
+(since $V$ and $\Spec k$ are schemes, and $\mathcal{X}$
+is an algebraic stack).  Thus, again by definition,
+we have
+\begin{align*}
+\dim_{u'}(\mathcal{U}\times_{\mathcal{X}} \Spec k)
+& =
+\dim_{v'}(V\times_{\mathcal{X}} \Spec k) -
+\dim_{v'}(V \times_{\mathcal{X}} \Spec k)_{u'}) \\
+& = \dim_v(V_x) -
+\dim_{v'}( (V\times_{\mathcal{X}} \Spec k)_{u'}).
+\end{align*}
+Now $V\times_{\mathcal{X}} \Spec k \cong
+V\times_{\mathcal{U}} (\mathcal{U}\times_{\mathcal{X}} \Spec k),$
+and so
+Lemma \ref{lemma-base-change-invariance-of-relative-dimension}
+shows that
+$\dim_{v'}((V\times_{\mathcal{X}} \Spec k)_{u'})  = \dim_v(V_u).$
+Putting everything together, we find that
+$$
+\dim_u(\mathcal{U}) - \dim_x(\mathcal{X}) =
+\dim_u(\mathcal{U}_x),
+$$
+as required.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-dimension-is-semi-continuous}
+Let $f: \mathcal{T} \to \mathcal{X}$ be a locally of finite type morphism of
+algebraic stacks.
+\begin{enumerate}
+\item
+The function $t \mapsto \dim_t(\mathcal{T}_{f(t)})$ is upper semi-continuous
+on $|\mathcal{T}|$.
+\item If $f$ is smooth, then
+the function $t \mapsto \dim_t(\mathcal{T}_{f(t)})$ is locally constant
+on $|\mathcal{T}|$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Suppose to begin with that $\mathcal{T}$ is a scheme $T$,
+let $U \to \mathcal{X}$ be a smooth surjective morphism whose source
+is a scheme, and let $T' = T \times_{\mathcal{X}} U$.
+Let $f': T' \to U$ be the pull-back of $f$ over $U$,
+and let $g: T' \to T$ be the projection.
+
+\medskip\noindent
+Lemma \ref{lemma-base-change-invariance-of-relative-dimension}
+shows that $\dim_{t'}(T'_{f'(t')}) = \dim_{g(t')}(T_{f(g(t'))}),$
+for $t' \in T'$, while,
+since $g$ is smooth and surjective (being the base-change
+of a smooth surjective morphism) the map induced by $g$ on underlying
+topological spaces is continuous and open
+(by
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-topology-points}), and
+surjective. Thus it suffices to note that part (1) for the morphism $f'$
+follows from
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-openness-bounded-dimension-fibres}, and part (2)
+from either of Morphisms, Lemma
+\ref{morphisms-lemma-flat-finite-presentation-CM-fibres-relative-dimension}
+or
+Morphisms, Lemma \ref{morphisms-lemma-smooth-omega-finite-locally-free}
+(each of which gives the result for schemes, from which
+the analogous results for algebraic spaces can
+be deduced exactly as in
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-openness-bounded-dimension-fibres}.
+
+\medskip\noindent
+Now return to the general case,
+and choose a smooth surjective morphism
+$h:V \to \mathcal{T}$ whose source is a scheme.
+If $v \in V$, then, essentially by definition,
+we have
+$$
+\dim_{h(v)}(\mathcal{T}_{f(h(v))}) =
+\dim_{v}(V_{f(h(v))}) - \dim_{v}(V_{h(v)}).
+$$
+Since $V$ is a scheme, we have proved that the first
+of the terms on the right hand side of this equality
+is upper semi-continuous (and even locally
+constant if $f$ is smooth), while the second term is
+in fact locally constant.
+Thus their difference is upper semi-continuous
+(and locally constant if $f$ is smooth),
+and hence the function
+$\dim_{h(v)}(\mathcal{T}_{f(h(v))})$
+is upper semi-continuous on $|V|$ (and locally
+constant if $f$ is smooth).
+Since the morphism $|V| \to |\mathcal{T}|$ is open and surjective,
+the lemma follows.
+\end{proof}
+
+\noindent
+Before continuing with our development,
+we prove two lemmas related to the dimension theory of schemes.
+
+\medskip\noindent
+To put the first lemma in context,
+we note that if $X$ is a finite-dimensional scheme, then since $\dim X$
+is defined to equal the supremum of the dimensions $\dim_x X$,
+there exists a point $x \in X$ such that $\dim_x X = \dim X$.
+The following lemma shows that we may furthermore take the point
+$x$ to be of finite type.
+
+\begin{lemma}
+\label{lemma-dimension-achieved-by-finite-type-point}
+If $X$ is a finite-dimensional scheme,
+then there exists a closed (and hence finite type) point $x \in X$
+such that $\dim_x X = \dim X$.
+\end{lemma}
+
+\begin{proof}
+Let $d = \dim X$,
+and choose a maximal strictly decreasing
+chain of irreducible closed subsets of $X$,
+say
+\begin{equation}
+\label{equation-maximal-chain}
+Z_0 \supset Z_1 \supset \ldots \supset Z_d.
+\end{equation}
+The subset $Z_d$ is a minimal irreducible closed subset of $X$,
+and thus any point of $Z_d$ is a generic point of $Z_d$.
+Since the underlying topological space of the scheme $X$ is sober,
+we conclude that $Z_d$ is a singleton, consisting of a single
+closed point $x \in X$.
+If $U$ is
+any neighbourhood of $x$, then
+the chain
+$$
+U\cap Z_0 \supset U\cap Z_1 \supset \ldots \supset U\cap Z_d = Z_d =
+\{x\}
+$$
+is then a strictly descending chain of irreducible
+closed subsets of $U$, showing that $\dim U \geq d$.
+Thus we find that $\dim_x X \geq d$.  The other inequality
+being obvious, the lemma is proved.
+\end{proof}
+
+\noindent
+The next lemma shows that $\dim_x X$ is a {\it constant} function
+on an irreducible scheme satisfying some mild additional hypotheses.
+
+\begin{lemma}
+\label{lemma-constancy-of-dimension}
+If $X$ is an irreducible, Jacobson, catenary, and locally Noetherian
+scheme of finite dimension,
+then $\dim U = \dim X$ for every
+non-empty open subset $U$ of $X$.
+Equivalently, $\dim_x X$ is a constant function on $X$.
+\end{lemma}
+
+\begin{proof}
+The equivalence of the two claims follows directly from the
+definitions.   Suppose, then, that $U\subset X$ is a non-empty open
+subset.
+Certainly $\dim U \leq \dim X$, and we have to show
+that $\dim U \geq \dim X.$
+Write $d = \dim X$, and choose a maximal strictly
+decreasing chain of irreducible closed subsets
+of $X$, say
+$$
+X = Z_0 \supset Z_1 \supset \ldots \supset Z_d.
+$$
+Since $X$ is Jacobson, the minimal irreducible closed
+subset $Z_d$ is equal to $\{x\}$ for some closed
+point $x$.
+
+\medskip\noindent
+If $x \in U,$ then
+$$
+U = U \cap Z_0  \supset U\cap Z_1 \supset \ldots \supset
+U\cap Z_d = \{x\}
+$$
+is a strictly decreasing chain of irreducible closed
+subsets of $U$, and so we conclude that $\dim U \geq d$,
+as required.  Thus we may suppose that $x \not\in U.$
+
+\medskip\noindent
+Consider the flat morphism $\Spec \mathcal{O}_{X,x} \to X$.
+The non-empty (and hence dense) open subset $U$ of $X$
+pulls back to an open subset $V \subset \Spec \mathcal{O}_{X,x}$.
+Replacing $U$ by a non-empty quasi-compact, and hence
+Noetherian, open subset, we may assume that the inclusion
+$U \to X$ is a quasi-compact morphism.  Since the
+formation of scheme-theoretic images of quasi-compact
+morphisms commutes with flat base-change
+Morphisms, Lemma
+\ref{morphisms-lemma-flat-base-change-scheme-theoretic-image}
+we see that $V$ is dense in $\Spec \mathcal{O}_{X,x}$,
+and so in particular non-empty,
+and of course $x \not\in V.$  (Here we use $x$ also to denote
+the closed point of $\Spec \mathcal{O}_{X,x}$, since its image
+is equal to the given point $x \in X$.)
+Now $\Spec \mathcal{O}_{X,x} \setminus \{x\}$ is Jacobson
+Properties, Lemma
+\ref{properties-lemma-complement-closed-point-Jacobson}
+and hence $V$ contains a closed point $z$
+of $\Spec \mathcal{O}_{X,x} \setminus \{x\}$.  The closure
+in $X$ of the image of $z$ is then an irreducible
+closed subset $Z$ of $X$ containing $x$, whose intersection
+with $U$ is non-empty, and
+for which there is no irreducible closed
+subset properly contained in $Z$
+and properly containing $\{x\}$
+(because pull-back to $\Spec \mathcal{O}_{X,x}$ induces
+a bijection between irreducible closed subsets of $X$
+containing $x$ and irreducible closed subsets of $\Spec
+\mathcal{O}_{X,x}$).
+Since $U \cap Z$ is a non-empty closed subset of $U$,
+it contains a point $u$ that is closed in $X$ (since
+$X$ is Jacobson), and since $U\cap Z$
+is a non-empty (and hence dense) open subset of the irreducible set $Z$
+(which contains a point not lying in $U$, namely $x$),
+the inclusion $\{u\} \subset U\cap Z$ is proper.
+
+\medskip\noindent
+As $X$ is catenary, the chain
+$$
+X = Z_0 \supset Z \supset \{x\} = Z_d
+$$
+can be refined to a chain of length $d+1$, which must then
+be of the form
+$$
+X = Z_0 \supset W_1 \supset \ldots \supset W_{d-1} = Z \supset \{x\} = Z_d.
+$$
+Since $U\cap Z$ is non-empty, we then find that
+$$
+U = U \cap Z_0 \supset U \cap W_1\supset \ldots \supset U\cap W_{d-1}
+= U\cap Z \supset \{u\}
+$$
+is a strictly decreasing chain of irreducible closed subsets
+of $U$ of length $d+1$, showing that $\dim U \geq d$,
+as required.
+\end{proof}
+
+\noindent
+We will prove a stack-theoretic analogue
+of Lemma \ref{lemma-constancy-of-dimension}
+in Lemma \ref{lemma-irreducible-implies-equidimensional} below,
+but before doing so, we have to introduce an additional definition,
+necessitated by the fact that the notion of a scheme being catenary
+is not an \'etale local one
+(see the example of
+Algebra, Remark \ref{algebra-remark-universally-catenary-does-not-descend}
+which makes it difficult to define what it means for an algebraic
+space or algebraic stack to be catenary
+(see the discussion of \cite[page 3]{Osserman}).
+For certain aspects of dimension theory, the following
+definition seems to provide a good substitute for the missing
+notion of a catenary algebraic stack.
+
+\begin{definition}
+\label{definition-pseudo-catenary}
+We say that a locally Noetherian algebraic stack $\mathcal{X}$
+is {\it pseudo-catenary} if there exists a smooth
+and surjective morphism $U \to \mathcal{X}$ whose source is
+a universally catenary scheme.
+\end{definition}
+
+\begin{example}
+\label{example-pseudo-catenary}
+If $\mathcal{X}$ is locally of finite type over a universally
+catenary locally Noetherian scheme $S$,
+and $U\to \mathcal{X}$ is a smooth surjective morphism
+whose source is a scheme, then the composite
+$U \to \mathcal{X} \to S$ is locally of finite type,
+and so $U$ is universally catenary
+Morphisms, Lemma
+\ref{morphisms-lemma-universally-catenary-local}.
+Thus $\mathcal{X}$ is pseudo-catenary.
+\end{example}
+
+\noindent
+The following lemma shows that the property of being pseudo-catenary
+passes through finite-type morphisms.
+
+\begin{lemma}
+\label{lemma-catenary-covers}
+If $\mathcal{X}$ is a pseudo-catenary locally Noetherian algebraic
+stack, and if $\mathcal{Y} \to \mathcal{X}$ is a locally of finite type
+morphism,
+then there exists a smooth surjective morphism $V \to \mathcal{Y}$
+whose source is a universally catenary scheme; thus
+$\mathcal{Y}$ is again pseudo-catenary.
+\end{lemma}
+
+\begin{proof}
+By assumption we may find a smooth surjective morphism
+$U \to \mathcal{X}$ whose source is a universally catenary scheme.
+The base-change $U\times_{\mathcal{X}} \mathcal{Y}$ is then an algebraic
+stack; let $V \to U\times_{\mathcal{X}} \mathcal{Y}$ be a smooth
+surjective morphism whose source is a scheme.
+The composite $V \to U\times_{\mathcal{X}} \mathcal{Y} \to \mathcal{Y}$ is then
+smooth and surjective (being a composite of smooth and
+surjective morphisms), while the morphism $V \to U\times_{\mathcal{X}}
+\mathcal{Y} \to U$ is locally of finite type (being a composite
+of morphisms that are locally finite type).  Since $U$
+is universally catenary, we see that $V$ is universally catenary
+(by Morphisms, Lemma
+\ref{morphisms-lemma-universally-catenary-local}),
+as claimed.
+\end{proof}
+
+\noindent
+We now study the behaviour of the function $\dim_x(\mathcal{X})$ on
+$|\mathcal{X}|$
+(for some locally Noetherian stack $\mathcal{X}$) with respect to the
+irreducible
+components of $|\mathcal{X}|$, as well as various
+related topics.
+
+\begin{lemma}
+\label{lemma-irreducible-implies-equidimensional}
+If $\mathcal{X}$ is
+a Jacobson, pseudo-catenary, and locally Noetherian  algebraic stack
+for which $|\mathcal{X}|$ is irreducible,
+then $\dim_x(\mathcal{X})$ is a constant function on $|\mathcal{X}|$.
+\end{lemma}
+
+\begin{proof}
+It suffices to show that $\dim_x(\mathcal{X})$ is locally constant on
+$|\mathcal{X}|$,
+since it will then necessarily be constant (as $|\mathcal{X}|$ is connected,
+being irreducible).  Since $\mathcal{X}$ is pseudo-catenary,
+we may find a smooth surjective morphism $U \to \mathcal{X}$ with $U$
+being a univesally catenary scheme.  If $\{U_i\}$ is an
+cover of $U$ by quasi-compact open subschemes, we may replace
+$U$ by $\coprod U_i,$, and
+it suffices to show that
+the function $u \mapsto \dim_{f(u)}(\mathcal{X})$ is locally constant on $U_i$.
+Since we check this for one $U_i$ at a time, we now drop the subscript,
+and write simply $U$ rather than $U_i$.
+Since $U$ is quasi-compact, it
+is the union of a finite number of irreducible components,
+say $T_1 \cup \ldots \cup T_n$.  Note that each $T_i$ is Jacobson,
+catenary, and locally Noetherian,
+being a closed subscheme of the Jacobson, catenary, and locally Noetherian
+scheme $U$.
+
+\medskip\noindent
+By Lemma \ref{lemma-behaviour-of-dimensions-wrt-smooth-morphisms}, we have
+$\dim_{f(u)}(\mathcal{X}) = \dim_{u}(U) - \dim_{u}(U_{f(u)}).$
+Lemma \ref{lemma-relative-dimension-is-semi-continuous} (2)
+shows that the second term in the right hand expression is locally
+constant on $U$, as $f$ is smooth,
+and hence we must show that $\dim_u(U)$
+is locally constant on $U$.  Since $\dim_u(U)$ is the maximum
+of the dimensions $\dim_u T_i$, as $T_i$ ranges over the components
+of $U$ containing $u$, it suffices to show
+that if a point $u$ lies on two distinct components,
+say $T_i$ and $T_j$ (with $i \neq j$),
+then $\dim_u T_i = \dim_u T_j$,
+and then to note that $t\mapsto \dim_t T$ is a constant
+function on an irreducible Jacobson,
+catenary, and locally Noetherian scheme $T$
+(as follows from Lemma \ref{lemma-constancy-of-dimension}).
+
+\medskip\noindent
+Let $V = T_i \setminus (\bigcup_{i' \neq i} T_{i'})$
+and $W = T_j \setminus (\bigcup_{i' \neq j} T_{i'})$.
+Then each of $V$ and $W$ is a non-empty open subset of $U$,
+and so each has non-empty open image in $|\mathcal{X}|$.  As $|\mathcal{X}|$ is
+irreducible,
+these two non-empty open subsets of $|\mathcal{X}|$ have a non-empty
+intersection.
+Let $x$ be a point lying in this intersection, and let $v \in V$ and
+$w\in W$ be points mapping to $x$.
+We then find that
+$$
+\dim T_i = \dim V = \dim_v (U) = \dim_x (\mathcal{X}) + \dim_v (U_x)
+$$
+and similarly that
+$$
+\dim T_j = \dim W = \dim_w (U) = \dim_x (\mathcal{X}) + \dim_w (U_x).
+$$
+Since $u \mapsto \dim_u (U_{f(u)})$ is locally constant on $U$,
+and since $T_i \cup T_j$ is connected (being the union of two irreducible,
+hence connected, sets that have non-empty intersection),
+we see that $\dim_v (U_x) = \dim_w(U_x)$,
+and hence, comparing the preceding two equations,
+that $\dim T_i = \dim T_j$, as required.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-closed-immersions}
+If $\mathcal{Z} \hookrightarrow \mathcal{X}$ is a closed immersion
+of locally Noetherian schemes,
+and if $z \in |\mathcal{Z}|$ has image $x \in |\mathcal{X}|$,
+then $\dim_z (\mathcal{Z}) \leq \dim_x(\mathcal{X})$.
+\end{lemma}
+
+\begin{proof}
+Choose a smooth surjective morphism
+$U\to \mathcal{X}$ whose source is a scheme;
+the base-changed morphism
+$V = U\times_{\mathcal{X}} \mathcal{Z} \to \mathcal{Z}$
+is then also smooth and surjective, and the projection
+$V \to U$ is a closed immersion.
+If $v \in |V|$ maps to $z \in |\mathcal{Z}|$, and
+if we let $u$ denote the image of $v$ in $|U|$,
+then clearly
+$\dim_v(V) \leq \dim_u(U)$,
+while
+$\dim_v (V_z) = \dim_u(U_x)$,
+by Lemma \ref{lemma-base-change-invariance-of-relative-dimension}.
+Thus
+$$
+\dim_z(\mathcal{Z})  = \dim_v(V) - \dim_v(V_z)
+\leq \dim_u(U) - \dim_u(U_x) = \dim_x(\mathcal{X}),
+$$
+as claimed.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dimension-via-components}
+If $\mathcal{X}$ is a locally Noetherian algebraic stack, and if
+$x \in |\mathcal{X}|$,
+then $\dim_x(\mathcal{X}) = \sup_{\mathcal{T}} \{ \dim_x(\mathcal{T}) \} $,
+where $\mathcal{T}$ runs over all the irreducible components
+of $|\mathcal{X}|$ passing through $x$ (endowed with their
+induced reduced structure).
+\end{lemma}
+
+\begin{proof}
+Lemma \ref{lemma-closed-immersions}
+shows that
+$\dim_x (\mathcal{T}) \leq \dim_x(\mathcal{X})$ for each
+irreducible component $\mathcal{T}$ passing through
+the point $x$.   Thus to prove the lemma,
+it suffices to show that
+\begin{equation}
+\label{equation-desired-inequality}
+\dim_x(\mathcal{X}) \leq
+\sup_{\mathcal{T}} \{\dim_x(\mathcal{T})\}.
+\end{equation}
+Let $U\to\mathcal{X}$ be a smooth cover by a scheme. If $T$ is an irreducible
+component of $U$ then we let $\mathcal{T}$ denote the closure of its image
+in $\mathcal{X}$, which is an irreducible component of $\mathcal{X}$. Let
+$u \in U$ be
+a point mapping to $x$. Then we have
+$\dim_x(\mathcal{X})=\dim_uU-\dim_uU_x=\sup_T\dim_uT-\dim_uU_x$, where the
+supremum is over the irreducible components of $U$ passing
+through $u$. Choose a component $T$ for which the supremum
+is achieved, and note that
+$\dim_x(\mathcal{T})=\dim_uT-\dim_u T_x$.
+The desired inequality (\ref{equation-desired-inequality})
+now follows from the evident inequality $\dim_u T_x \leq \dim_u U_x.$
+(Note that if $\Spec k \to \mathcal{X}$ is a representative of $x$,
+then $T\times_{\mathcal{X}} \Spec k$ is a closed subspace of
+$U\times_{\mathcal{X}}
+\Spec k$.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dimension-at-finite-type-point}
+If $\mathcal{X}$ is a locally Noetherian algebraic stack, and if
+$x \in |\mathcal{X}|$, then
+for any open substack $\mathcal{V}$ of $\mathcal{X}$ containing $x$,
+there is a finite type point $x_0 \in |\mathcal{V}|$ such that
+$\dim_{x_0}(\mathcal{X}) = \dim_x(\mathcal{V})$.
+\end{lemma}
+
+\begin{proof}
+Choose a smooth surjective
+morphism  $f:U \to \mathcal{X}$ whose source is a scheme, and consider the
+function $u \mapsto \dim_{f(u)}(\mathcal{X});$
+since the morphism $|U| \to |\mathcal{X}|$ induced by $f$ is open (as $f$
+is smooth) as well as  surjective (by assumption),
+and takes finite type points to finite type points (by the very definition
+of the finite type points of $|\mathcal{X}|$),
+it suffices to show that for any $u \in U$, and any open neighbourhood of $u$,
+there is a finite type point $u_0$ in this neighbourhood such that
+$\dim_{f(u_0)}(\mathcal{X}) = \dim_{f(u)}(\mathcal{X}).$
+Since, with this reformulation
+of the problem,  the surjectivity of $f$ is no longer required,
+we may replace $U$ by the open neighbourhood of the point $u$ in question,
+and thus reduce to the problem of showing that for each $u \in U$,
+there is a finite type point $u_0 \in U$ such that
+$\dim_{f(u_0)}(\mathcal{X}) = \dim_{f(u)}(\mathcal{X}).$
+By Lemma \ref{lemma-behaviour-of-dimensions-wrt-smooth-morphisms}
+$\dim_{f(u)}(\mathcal{X}) = \dim_u(U) - \dim_u(U_{f(u)}),$
+while
+$\dim_{f(u_0)}(\mathcal{X}) = \dim_{u_0}(U) - \dim_{u_0}(U_{f(u_0)}).$
+Since $f$ is smooth, the expression $\dim_{u_0}(U_{f(u_0)})$ is locally
+constant as $u_0$ varies over $U$ (by
+Lemma \ref{lemma-relative-dimension-is-semi-continuous} (2)),
+and so shrinking $U$ further around
+$u$ if necessary, we may assume it is constant.  Thus the problem
+becomes to show that we may find a finite type point $u_0 \in U$
+for which $\dim_{u_0}(U) = \dim_u(U)$.
+Since by definition $\dim_u U$ is the minimum of the dimensions
+$\dim V$, as $V$ ranges over the open neighbourhoods $V$ of $u$
+in $U$, we may shrink $U$ down further around $u$ so that
+$\dim_u U = \dim U$.
+The existence of desired point $u_0$ then follows from
+Lemma \ref{lemma-dimension-achieved-by-finite-type-point}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-monomorphing-a-component-in-of-the-right-dimension}
+Let $\mathcal{T} \hookrightarrow \mathcal{X}$ be a locally
+of finite type monomorphism of algebraic stacks,
+with $\mathcal{X}$ (and thus also $\mathcal{T}$)
+being Jacobson, pseudo-catenary, and locally Noetherian.
+Suppose further that $\mathcal{T}$ is irreducible
+of some (finite) dimension $d$, and that $\mathcal{X}$ is reduced
+and of dimension less
+than or equal to $d$.
+Then there is a non-empty open substack $\mathcal{V}$ of $\mathcal{T}$ such
+that the induced
+monomorphism $\mathcal{V} \hookrightarrow \mathcal{X}$ is an open immersion
+which identifies
+$\mathcal{V}$ with an open subset of an irreducible component of $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Choose a smooth surjective morphism $f:U \to \mathcal{X}$ with source a scheme,
+necessarily reduced since $\mathcal{X}$ is,
+and write $U' = \mathcal{T}\times_{\mathcal{X}} U$.  The base-changed morphism
+$U' \to U$ is a monomorphism of algebraic spaces, locally of finite
+type, and thus representable
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable} and
+\ref{spaces-morphisms-lemma-monomorphism-loc-finite-type-loc-quasi-finite};
+since $U$ is a scheme, so is $U'$.
+The projection $f': U' \to \mathcal{T}$ is again a smooth surjection.
+Let $u' \in U'$, with image $u \in U$.
+Lemma \ref{lemma-base-change-invariance-of-relative-dimension}
+shows that $\dim_{u'}(U'_{f(u')}) = \dim_u(U_{f(u)}),$
+while $\dim_{f'(u')}(\mathcal{T}) =d
+\geq \dim_{f(u)}(\mathcal{X})$ by
+Lemma \ref{lemma-irreducible-implies-equidimensional}
+and our assumptions on $\mathcal{T}$ and $\mathcal{X}$.
+Thus we see that
+\begin{equation}
+\label{equation-dim-inequality}
+\dim_{u'} (U') = \dim_{u'} (U'_{f(u')}) + \dim_{f'(u')}(\mathcal{T})
+\\
+\geq \dim_u (U_{f(u)}) + \dim_{f(u)}(\mathcal{X}) = \dim_u (U).
+\end{equation}
+Since $U' \to U$ is a monomorphism, locally of finite type,
+it is in particular unramified,
+and so by the \'etale local structure of unramified morphisms
+\'Etale Morphisms, Lemma \ref{etale-lemma-finite-unramified-etale-local},
+we may find a commutative diagram
+$$
+\xymatrix{
+V' \ar[r]\ar[d] & V \ar[d] \\
+U' \ar[r] & U
+}
+$$
+in which the scheme $V'$ is non-empty,
+the vertical arrows are \'etale,
+and the upper horizontal arrow is a closed immersion.
+Replacing $V$ by a quasi-compact open subset
+whose image has non-empty intersection with the image of $U'$,
+and replacing $V'$ by the preimage of $V$, we may further
+assume that $V$ (and thus $V'$) is quasi-compact.
+Since $V$ is also locally Noetherian,
+it is thus Noetherian, and so is the union of finitely many irreducible
+components.
+
+\medskip\noindent
+Since \'etale morphisms preserve pointwise dimension
+Descent, Lemma \ref{descent-lemma-dimension-at-point-local}
+we deduce from (\ref{equation-dim-inequality})
+that for any point $v' \in V'$,
+with image $v \in V$, we have
+$\dim_{v'}( V') \geq \dim_v(V)$.
+In particular, the image of $V'$ can't be contained in the intersection
+of two distinct irreducible components of $V$, and so we may find
+at least one irreducible open subset of $V$ which has non-empty intersection
+with $V'$; replacing $V$ by this subset, we may assume that $V$ is integral
+(being both reduced and irreducible).  From the preceding inequality
+on dimensions, we conclude that the closed immersion $V' \hookrightarrow V$
+is in fact an isomorphism.
+If we let $W$ denote the image of $V'$
+in $U'$, then $W$ is a non-empty
+open subset of $U'$ (as \'etale morphisms are open),
+and the induced monomorphism $W \to U$ is \'etale
+(since it is so \'etale locally on the source, i.e.\ after pulling back
+to $V'$), and hence is an open immersion (being an \'etale monomorphism).
+Thus, if we let $\mathcal{V}$ denote the image of $W$ in $\mathcal{T}$,
+then $\mathcal{V}$ is a dense (equivalently, non-empty) open substack of
+$\mathcal{T}$,
+whose image is dense in an irreducible component of $\mathcal{X}$.
+Finally,
+we note that the morphism is $\mathcal{V} \to \mathcal{X}$ is smooth
+(since its composite
+with the smooth morphism $W\to \mathcal{V}$ is smooth),
+and also a monomorphism, and thus is an open immersion.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dims-of-images}
+Let $f: \mathcal{T} \to \mathcal{X}$ be a locally of finite type
+morphism of Jacobson, pseudo-catenary, and locally Noetherian
+algebraic stacks,
+whose source is irreducible and whose target is quasi-separated,
+and let $\mathcal{Z} \hookrightarrow \mathcal{X}$ denote the scheme-theoretic
+image of $\mathcal{T}$.
+Then for every finite type point $t \in |T|$,
+we have that
+$\dim_t( \mathcal{T}_{f(t)}) \geq \dim \mathcal{T}  - \dim \mathcal{Z}$,
+and there is a non-empty (equivalently, dense)
+open subset of $|\mathcal{T}|$ over which equality holds.
+\end{lemma}
+
+\begin{proof}
+Replacing $\mathcal{X}$ by $\mathcal{Z}$, we may and do assume that $f$ is
+scheme theoretically dominant,
+and also that $\mathcal{X}$ is irreducible.
+By the upper semi-continuity of fibre dimensions
+(Lemma \ref{lemma-relative-dimension-is-semi-continuous} (1)),
+it suffices to prove that the equality
+$\dim_t( \mathcal{T}_{f(t)}) =\dim \mathcal{T}  - \dim \mathcal{Z}$
+holds for $t$ lying in
+some non-empty open substack of $\mathcal{T}$.
+For this reason, in the argument we are always free
+to replace $\mathcal{T}$ by a non-empty open substack.
+
+\medskip\noindent
+Let $T' \to \mathcal{T}$ be a smooth surjective morphism whose source
+is a scheme, and let $T$ be a non-empty quasi-compact open subset
+of $T'$.  Since $\mathcal{Y}$ is quasi-separated, we find
+that $T \to  \mathcal{Y}$ is quasi-compact
+(by Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-quasi-compact-permanence}, applied to the morphisms
+$T \to \mathcal{Y} \to \Spec \mathbf{Z}$).
+Thus, if we replace $\mathcal{T}$ by the image of $T$ in $\mathcal{T}$,
+then we may assume (appealing to
+Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-surjection-from-quasi-compact}
+that the morphism $f:\mathcal{T} \to \mathcal{X}$ is quasi-compact.
+
+\medskip\noindent
+If we choose a smooth surjection $U \to \mathcal{X}$ with $U$ a scheme,
+then Lemma \ref{lemma-map-of-components} ensures that
+we may find an irreducible open subset $V$ of $U$ such
+that $V \to \mathcal{X}$ is smooth and scheme-theoretically dominant.
+Since scheme-theoretic dominance for quasi-compact morphisms
+is preserved by flat base-change,
+the base-change $\mathcal{T} \times_{\mathcal{X}} V \to V$
+of the scheme-theoretically
+dominant morphism $f$ is again
+scheme-theoretically dominant.   We let $Z$ denote a scheme
+admitting a smooth surjection onto this fibre product;
+then $Z \to \mathcal{T} \times_{\mathcal{X}} V \to V$
+is again scheme-theoretically dominant.
+Thus we may find an irreducible
+component $C$ of $Z$ which scheme-theoretically
+dominates $V$.
+Since the composite  $Z \to \mathcal{T}\times_{\mathcal{X}} V \to \mathcal{T}$
+is smooth,
+and since $\mathcal{T}$ is irreducible,
+Lemma \ref{lemma-map-of-components} shows that any irreducible
+component of the source has dense image in $|\mathcal{T}|$.
+We now replace
+$C$ by a non-empty open subset $W$ which is disjoint from every other
+irreducible component of $Z$, and
+then replace $\mathcal{T}$ and $\mathcal{X}$ by the images of $W$
+and $V$
+(and apply Lemma \ref{lemma-irreducible-implies-equidimensional}
+to see that this
+doesn't change the dimension of either $\mathcal{T}$ or $\mathcal{X}$).
+If we let $\mathcal{W}$ denote the image of the morphism
+$W \to \mathcal{T}\times_{\mathcal{X}} V$,
+then $\mathcal{W}$ is open in $\mathcal{T}\times_{\mathcal{X}} V$ (since the
+morphism $W \to \mathcal{T}\times_{\mathcal{X}} V$ is smooth),
+and is irreducible (being the image of an irreducible
+scheme).  Thus we end up with a commutative diagram
+$$
+\xymatrix{
+W \ar[dr] \ar[r]  & \mathcal{W} \ar[r] \ar[d] & V \ar[d] \\
+& \mathcal{T} \ar[r] & \mathcal{X}
+}
+$$
+in which $W$ and $V$ are schemes,
+the vertical arrows are smooth and surjective,
+the diagonal arrows and the left-hand
+upper horizontal arroware smooth,
+and the induced morphism $\mathcal{W} \to \mathcal{T}\times_{\mathcal{X}} V$ is
+an open immersion. Using this diagram, together with the definitions
+of the various dimensions involved in
+the statement of the lemma, we will reduce our verification
+of the lemma to the case of schemes, where it is known.
+
+\medskip\noindent
+Fix $w \in |W|$ with image $w' \in |\mathcal{W}|$,
+image $t \in |\mathcal{T}|$, image $v$ in $|V|$,
+and image $x$ in $|\mathcal{X}|$.
+Essentially by definition (using the
+fact that $\mathcal{W}$ is open in $\mathcal{T}\times_{\mathcal{X}} V$, and that
+the fibre of a base-change is the base-change of the fibre),
+we obtain the equalities
+$$
+\dim_v V_x = \dim_{w'} \mathcal{W}_t
+$$
+and
+$$
+\dim_t \mathcal{T}_x = \dim_{w'} \mathcal{W}_v.
+$$
+By Lemma \ref{lemma-behaviour-of-dimensions-wrt-smooth-morphisms}
+(the diagonal arrow and right-hand vertical
+arrow in our diagram realise $W$ and $V$ as smooth covers by
+schemes of the stacks $\mathcal{T}$ and $\mathcal{X}$), we find that
+$$
+\dim_t \mathcal{T} = \dim_w W - \dim_w W_t
+$$
+and
+$$
+\dim_x \mathcal{X} = \dim_v V - \dim_v V_x.
+$$
+Combining the equalities, we find that
+$$
+\dim_t \mathcal{T}_x - \dim_t \mathcal{T} + \dim_x \mathcal{X}
+= \dim_{w'} \mathcal{W}_v - \dim_w W + \dim_w W_t + \dim_v V -
+\dim_{w'} \mathcal{W}_t
+$$
+Since $W \to \mathcal{W}$ is a smooth surjection, the same is true
+if we base-change over the morphism $\Spec \kappa(v) \to V$
+(thinking of $W \to \mathcal{W}$ as a morphism over $V$),
+and from this smooth morphism we obtain the first of the following
+two equalities
+$$
+\dim_w W_v - \dim_{w'} \mathcal{W}_v = \dim_w (W_v)_{w'} = \dim_w W_{w'};
+$$
+the second equality follows via a direct comparison of the
+two fibres involved.
+Similarly, if we think of $W \to \mathcal{W}$ as a morphism of schemes
+over $\mathcal{T}$, and base-change over some representative of the point
+$t \in |\mathcal{T}|$, we obtain the equalities
+$$
+\dim_w W_t - \dim_{w'} \mathcal{W}_t = \dim_w (W_t)_{w'} = \dim_w W_{w'}.
+$$
+Putting everything together, we find that
+$$
+\dim_t \mathcal{T}_x - \dim_t \mathcal{T} + \dim_x \mathcal{X}
+=  \dim_w W_v - \dim_w W + \dim_v V.
+$$
+Our goal is to show that the left-hand side of this equality
+vanishes for a non-empty open subset
+of $t$.  As $w$ varies over a non-empty open subset of $W$,
+its image $t \in |\mathcal{T}|$ varies over a non-empty open
+subset of $|\mathcal{T}|$ (as $W \to \mathcal{T}$ is smooth).
+
+\medskip\noindent
+We are therefore reduced to showing that if $W\to V$ is a
+scheme-theoretically dominant morphism of irreducible locally
+Noetherian schemes that is locally of finite type,
+then there is a non-empty open subset of
+points $w\in W$ such that $\dim_w W_v =\dim_w W - \dim_v V$
+(where $v$ denotes the image of $w$ in $V$).
+This is a standard fact,
+whose proof we recall for the convenience of the reader.
+
+\medskip\noindent
+We may replace $W$ and $V$ by their underlying reduced subschemes
+without altering the validity (or not) of this equation,
+and thus we may assume that they are in fact integral schemes.
+Since $\dim_w W_v$ is locally constant on $W,$ replacing $W$
+by a non-empty open subset if necessary, we may assume that $\dim_w W_v$
+is constant, say equal to $d$.  Choosing this open subset to be affine,
+we may also assume that the morphism $W\to V$ is in fact of finite type.
+Replacing $V$ by a non-empty open subset if necessary
+(and then pulling back $W$ over this open subset; the resulting pull-back
+is non-empty, since the flat base-change of a quasi-compact
+and scheme-theoretically
+dominant morphism remains scheme-theoretically dominant),
+we may furthermore assume that $W$ is flat over $V$.
+The morphism $W\to V$ is thus of relative dimension $d$
+in the sense of
+Morphisms, Definition
+\ref{morphisms-definition-relative-dimension-d}
+and it follows from
+Morphisms, Lemma \ref{morphisms-lemma-rel-dimension-dimension}
+that $\dim_w(W) = \dim_v(V) + d,$ as required.
+\end{proof}
+
+\begin{remark}
+\label{remark-negative-dimension}
+We note that in the context of the preceding lemma,
+it need not be that $\dim \mathcal{T} \geq \dim \mathcal{Z}$; this does
+not contradict the inequality in the statement of the lemma, because
+the fibres of the morphism $f$ are again algebraic stacks, and
+so may have negative dimension.  This is illustrated by taking
+$k$ to be a field, and applying the lemma to the morphism
+$[\Spec k/\mathbf{G}_m] \to \Spec k$.
+
+\medskip\noindent
+If the morphism $f$ in the statement of the lemma is assumed
+to be quasi-DM (in the sense of
+Morphisms of Stacks, Definition
+\ref{stacks-morphisms-definition-separated}; e.g.\ morphisms that are
+representable by algebraic spaces are quasi-DM),
+then the fibres of the morphism over points of the target
+are quasi-DM algebraic stacks, and hence are of non-negative
+dimension.  In this case, the lemma implies
+that indeed $\dim \mathcal{T} \geq \dim \mathcal{Z}$.  In fact, we obtain
+the following more general result.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-dims-of-images-two}
+Let $f: \mathcal{T} \to \mathcal{X}$ be a locally of finite type
+morphism of Jacobson, pseudo-catenary, and locally Noetherian
+algebraic stacks
+which is quasi-DM,
+whose source is irreducible and whose target is quasi-separated,
+and let $\mathcal{Z} \hookrightarrow \mathcal{X}$ denote the scheme-theoretic
+image of $\mathcal{T}$.
+Then $\dim \mathcal{Z} \leq \dim \mathcal{T}$,
+and furthermore, exactly one of the following two conditions holds:
+\begin{enumerate}
+\item for every finite type point $t \in |T|,$
+we have
+$\dim_t(\mathcal{T}_{f(t)}) > 0,$ in which
+case $\dim \mathcal{Z} < \dim \mathcal{T}$; or
+\item   $\mathcal{T}$ and $\mathcal{Z}$
+are of the same dimension.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+As was observed in the preceding remark,
+the dimension of a quasi-DM stack is always non-negative,
+from which we conclude that $\dim_t \mathcal{T}_{f(t)} \geq 0$
+for all $t \in |\mathcal{T}|$, with the equality
+$$
+\dim_t \mathcal{T}_{f(t)} = \dim_t \mathcal{T} - \dim_{f(t)} \mathcal{Z}
+$$
+holding
+for a dense open subset of points $t\in |\mathcal{T}|$.
+\end{proof}
+
+
+
+
+
+\section{The dimension of the local ring}
+\label{section-dimension-local-ring}
+
+\noindent
+An algebraic stack doesn't really have local rings in the usual sense,
+but we can define the dimension of the local ring as follows.
+
+\begin{lemma}
+\label{lemma-dimension-local-ring-pre}
+Let $\mathcal{X}$ be a locally Noetherian algebraic stack.
+Let $U \to \mathcal{X}$ be a smooth morphism and let $u \in U$.
+Then
+$$
+\dim(\mathcal{O}_{U, \overline{u}}) -
+\dim(\mathcal{O}_{R_u, e(\overline{u})}) =
+2\dim(\mathcal{O}_{U, \overline{u}}) -
+\dim(\mathcal{O}_{R, e(\overline{u})})
+$$
+Here $R = U \times_\mathcal{X} U$ with projections $s, t : R \to U$ and
+diagonal $e : U \to R$ and $R_u$ is the fibre of $s : R \to U$ over $u$.
+\end{lemma}
+
+\begin{proof}
+This is true because
+$s : \mathcal{O}_{U, \overline{u}} \to \mathcal{O}_{R, e(\overline{u})}$
+is a flat local homomorphism of Noetherian local rings and hence
+$$
+\dim(\mathcal{O}_{R, e(\overline{u})}) =
+\dim(\mathcal{O}_{U, \overline{u}}) +
+\dim(\mathcal{O}_{R_u, e(\overline{u})})
+$$
+by
+Algebra, Lemma \ref{algebra-lemma-dimension-base-fibre-equals-total}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dimension-local-ring}
+Let $\mathcal{X}$ be a locally Noetherian algebraic stack.
+Let $x \in |\mathcal{X}|$ be a finite type point 
+Morphisms of Stacks, Definition
+\ref{stacks-morphisms-definition-finite-type-point}).
+Let $d \in \mathbf{Z}$.
+The following are equivalent
+\begin{enumerate}
+\item there exists a scheme $U$, a smooth morphism $U \to \mathcal{X}$,
+and a finite type point $u \in U$ mapping to $x$ such that
+$2\dim(\mathcal{O}_{U, \overline{u}}) -
+\dim(\mathcal{O}_{R, e(\overline{u})}) = d$, and
+\item for any scheme $U$, a smooth morphism $U \to \mathcal{X}$,
+and finite type point $u \in U$ mapping to $x$ we have
+$2\dim(\mathcal{O}_{U, \overline{u}}) -
+\dim(\mathcal{O}_{R, e(\overline{u})}) = d$.
+\end{enumerate}
+Here $R = U \times_\mathcal{X} U$ with projections $s, t : R \to U$ and
+diagonal $e : U \to R$ and $R_u$ is the fibre of $s : R \to U$ over $u$.
+\end{lemma}
+
+\begin{proof}
+Suppose we have two smooth neighbourhoods $(U, u)$ and $(U', u')$
+of $x$ with $u$ and $u'$ finite type points. After shrinking $U$
+and $U'$ we may assume that $u$ and $u'$ are closed points
+(by definition of finite type points). Then we choose
+a surjective \'etale morphism $W \to U \times_\mathcal{X} U'$.
+Let $W_u$ be the fibre of $W \to U$ over $u$ and
+let $W_{u'}$ be the fibre of $W \to U'$ over $u'$.
+Since $u$ and $u'$ map to the same point of $|\mathcal{X}|$
+we see that $W_u \cap W_{u'}$ is nonempty.
+Hence we may choose a closed point $w \in W$ mapping to
+both $u$ and $u'$. This reduces us to the discussion in the
+next paragraph.
+
+\medskip\noindent
+Assume $(U', u') \to (U, u)$ is a smooth morphism of smooth
+neightbourhoods of $x$ with $u$ and $u'$ closed points.
+Goal: prove the invariant defined for $(U, u)$ is the same
+as the invariant defined for $(U', u')$.
+To see this observe that $\mathcal{O}_{U, u} \to \mathcal{O}_{U', u'}$
+is a flat local homomorphism of Noetherian local rings and hence
+$$
+\dim(\mathcal{O}_{U', \overline{u}'}) =
+\dim(\mathcal{O}_{U, \overline{u}}) +
+\dim(\mathcal{O}_{U'_u, \overline{u}'})
+$$
+by Algebra, Lemma \ref{algebra-lemma-dimension-base-fibre-equals-total}.
+(We omit working through all the steps to relate properties of local
+rings and their strict henselizations, see
+More on Algebra, Section \ref{more-algebra-section-permanence-henselization}).
+On the other hand we have
+$$
+R' = U' \times_{U, t} R \times_{s, U} U'
+$$
+Thus we see that
+$$
+\dim(\mathcal{O}_{R', e(\overline{u}')}) =
+\dim(\mathcal{O}_{R, e(\overline{u})}) +
+\dim(\mathcal{O}_{U'_u \times_u U'_u, (\overline{u}', \overline{u}')})
+$$
+To prove the lemma it suffices to show that
+$$
+\dim(\mathcal{O}_{U'_u \times_u U'_u, (\overline{u}', \overline{u}')}) =
+2\dim(\mathcal{O}_{U'_u, \overline{u}'})
+$$
+Observe that this isn't always true (example: if $U'_u$ is a curve
+and $u'$ is the generic point of this curve). However, we know
+that $u'$ is a closed point of the algebraic space $U'_u$ locally
+of finite type over $u$. In this case the equality holds because, first
+$\dim_{(u', u')}(U'_u \times_u U'_u) = 2\dim_{u'}(U'_u)$ by
+Varieties, Lemma \ref{varieties-lemma-dimension-product-locally-algebraic}
+and second the agreement of dimension with dimension of local rings
+in closed points of locally algebraic schemes, see
+Varieties, Lemma \ref{varieties-lemma-dimension-locally-algebraic}.
+We omit the translation of these results for schemes into the
+language of algebraic spaces.
+\end{proof}
+
+\begin{definition}
+\label{definition-dimension-local-ring}
+Let $\mathcal{X}$ be a locally Noetherian algebraic stack.
+Let $x \in |\mathcal{X}|$ be a finite type point.
+The {\it dimension of the local ring of $\mathcal{X}$ at $x$}
+is $d \in \mathbf{Z}$ if the equivalent conditions of
+Lemma \ref{lemma-dimension-local-ring} are satisfied.
+\end{definition}
+
+\noindent
+To be sure, this is motivated by Lemma \ref{lemma-dimension-local-ring-pre}
+and Properties of Stacks, Definition
+\ref{stacks-properties-definition-dimension-at-point}.
+We close this section by establishing a formula allowing us to
+compute $\dim_x(\mathcal{X})$ in terms of properties of the versal ring
+to $\mathcal{X}$ at $x$.
+
+\begin{lemma}
+\label{lemma-dimension-formula}
+Suppose that $\mathcal{X}$ is an algebraic stack, locally of finite type
+over a locally Noetherian scheme $S$. Let $x_0 : \Spec(k) \to \mathcal{X}$
+be a morphism where $k$ is a field of finite type over $S$. Represent
+$\mathcal{F}_{\mathcal{X}, k, x_0}$ as in Remark \ref{remark-groupoid-defo}
+by a cogroupoid $(A, B, s, t, c)$ of Noetherian complete local $S$-algebras
+with residue field $k$. Then
+$$
+\text{the dimension of the local ring of }\mathcal{X}\text{ at }x_0 =
+2\dim A - \dim B
+$$
+\end{lemma}
+
+\begin{proof}
+Let $s \in S$ be the image of $x_0$. If $\mathcal{O}_{S, s}$
+is a G-ring (a condition that is almost always satisfied in practice),
+then we can prove the lemma as follows.
+By Lemma \ref{lemma-Artin-approximation-by-smooth-morphism},
+we may find a smooth morphism $U \to \mathcal{X}$, whose source is a scheme,
+containing a point $u_0 \in U$ of residue field $k$, such that induced
+morphism $\Spec(k) \to U \to \mathcal{X}$ coincides with $x_0$
+and such that $A = \mathcal{O}_{U, u_0}^\wedge$.
+Write $R = U \times_\mathcal{X} U$. Then we may identify
+$\mathcal{O}_{R, e(u_0)}^\wedge$ with $B$.
+Hence the equality follows from the definitions.
+
+\medskip\noindent
+In the rest of this proof we explain how to prove the lemma in
+general, but we urge the reader to skip this.
+
+\medskip\noindent
+First let us show that the right hand side is independent of the choice
+of $(A, B, s, t, c)$. Namely, suppose that $(A', B', s', t', c')$
+is a second choice. Since $A$ and $A'$ are versal rings to $\mathcal{X}$
+at $x_0$, we can choose, after possibly switching $A$ and $A'$,
+a formally smooth map $A \to A'$ compatible with the given versal
+formal objects $\xi$ and $\xi'$ over $A$ and $A'$.
+Recall that $\widehat{\mathcal{C}}_\Lambda$ has
+coproducts and that these are given by completed tensor product
+over $\Lambda$, see Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-CLambdahat-coproducts}.
+Then $B$ prorepresents the functor of isomorphisms between the
+two pushforwards of $\xi$ to $A \widehat{\otimes}_\Lambda A$.
+Similarly for $B'$. We conclude that
+$$
+B' =
+B \otimes_{(A \widehat{\otimes}_\Lambda A)}
+(A' \widehat{\otimes}_\Lambda A')
+$$
+It is straightforward to see that
+$$
+A \widehat{\otimes}_\Lambda A \longrightarrow
+A \widehat{\otimes}_\Lambda A' \longrightarrow
+A' \widehat{\otimes}_\Lambda A'
+$$
+is formally smooth of relative dimension equal to $2$ times the
+relative dimension of the formally smooth map $A \to A'$.
+(This follows from general principles, but also because
+in this particular case $A'$ is a power series ring over $A$
+in $r$ variables.) Hence $B \to B'$ is formally smooth of
+relative dimension $2(\dim(A') - \dim(A))$ as desired.
+
+\medskip\noindent
+Next, let $l/k$ be a finite extension. let
+$x_{l, 0} : \Spec(l) \to \mathcal{X}$ be the
+the induced point. We claim that the right hand side of the formula
+is the same for $x_0$ as it is for $x_{l, 0}$.
+This can be shown by choosing $A \to A'$ as in
+Lemma \ref{lemma-versal-ring-field-extension}
+and arguing exactly as in the preceding paragraph.
+We omit the details.
+
+\medskip\noindent
+Finally, arguing as in the proof of Lemma \ref{lemma-versal-ring-flat}
+we can use the compatibilities in the previous two paragraphs
+to reduce to the case (discussed in the first paragraph)
+where $A$ is the complete local ring of $U$ at $u_0$ for some
+scheme smooth over $\mathcal{X}$ and finite type point $u_0$.
+Details omitted.
+\end{proof}
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

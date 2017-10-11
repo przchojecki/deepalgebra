@@ -1,0 +1,2495 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Cohomology of Algebraic Stacks}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+In this chapter we write about cohomology of algebraic stacks.
+This means in particular cohomology of quasi-coherent sheaves, i.e.,
+we prove analogues of the results in the chapters entitled
+``Cohomology of Schemes'' and ``Cohomology of Algebraic Spaces''.
+The results in this chapter are different
+from those in \cite{LM-B} mainly because we consistently use the
+``big sites''. Before reading this chapter please take a quick look at
+the chapter ``Sheaves on Algebraic Stacks'' in order to become
+familiar with the terminology introduced there, see
+Sheaves on Stacks, Section \ref{stacks-sheaves-section-introduction}.
+
+
+
+\section{Conventions and abuse of language}
+\label{section-conventions}
+
+\noindent
+We continue to use the conventions and the abuse of language
+introduced in
+Properties of Stacks, Section \ref{stacks-properties-section-conventions}.
+
+
+
+
+
+
+
+
+
+
+
+\section{Notation}
+\label{section-notation}
+
+\noindent
+Different topologies. If we indicate an algebraic stack by a calligraphic
+letter, such as $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$, then the notation
+$\mathcal{X}_{Zar}, \mathcal{X}_\etale, \mathcal{X}_{smooth},
+\mathcal{X}_{syntomic}, \mathcal{X}_{fppf}$ indicates the site introduced
+in
+Sheaves on Stacks, Definition
+\ref{stacks-sheaves-definition-inherited-topologies}.
+(Think ``big site''.) Correspondingly the structure sheaf of
+$\mathcal{X}$ is a sheaf on $\mathcal{X}_{fppf}$.
+On the other hand, algebraic spaces and schemes
+are usually indicated by roman capitals, such as $X, Y, Z$, and in this case
+$X_\etale$ indicates the small \'etale site of $X$ (as
+defined in
+Topologies, Definition
+\ref{topologies-definition-big-small-etale}
+or
+Properties of Spaces, Definition
+\ref{spaces-properties-definition-etale-site}).
+It seems that the distinction should be clear enough.
+
+\medskip\noindent
+The default topology is the fppf topology. Hence we will sometimes
+say ``sheaf on $\mathcal{X}$'' or ``sheaf of $\mathcal{O}_\mathcal{X}$''
+modules when we mean sheaf on $\mathcal{X}_{fppf}$ or object of
+$\textit{Mod}(\mathcal{X}_{fppf}, \mathcal{O}_\mathcal{X})$.
+
+\medskip\noindent
+If $f : \mathcal{X} \to \mathcal{Y}$ is a morphism of algebraic
+stacks, then the functors $f_*$ and $f^{-1}$ defined on presheaves
+preserves sheaves for any of the topologies mentioned above. In particular
+when we discuss the pushforward or pullback of a sheaf we don't have to
+mention which topology we are working with. The same isn't true
+when we compute cohomology groups and/or higher direct images. In this
+case we will always mention which topology we are working with.
+
+\medskip\noindent
+Suppose that $f : X \to \mathcal{Y}$ is a morphism from an algebraic
+space $X$ to an algebraic stack $\mathcal{Y}$. Let $\mathcal{G}$ be
+a sheaf on $\mathcal{Y}_\tau$ for some topology $\tau$. In this case
+$f^{-1}\mathcal{G}$ is a sheaf for the $\tau$ topology on $\mathcal{S}_X$
+(the algebraic stack associated to $X$) because (by our conventions) $f$
+really is a $1$-morphism $f : \mathcal{S}_X \to \mathcal{Y}$.
+If $\tau = \etale$ or stronger, then we write
+$f^{-1}\mathcal{G}|_{X_\etale}$
+to denote the restriction to the \'etale site of $X$, see
+Sheaves on Stacks, Section \ref{stacks-sheaves-section-compare}.
+If $\mathcal{G}$ is an $\mathcal{O}_\mathcal{X}$-module we sometimes
+write $f^*\mathcal{G}$ and $f^*\mathcal{G}|_{X_\etale}$
+instead.
+
+
+
+
+\section{Pullback of quasi-coherent modules}
+\label{section-pullback}
+
+\noindent
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+It is a very general fact that quasi-coherent modules on ringed topoi
+are compatible with pullbacks. In particular the pullback $f^*$ preserves
+quasi-coherent modules and we obtain a functor
+$$
+f^* :
+\QCoh(\mathcal{O}_\mathcal{Y})
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{X}),
+$$
+see Sheaves on Stacks, Lemma
+\ref{stacks-sheaves-lemma-pullback-quasi-coherent}.
+In general this functor isn't exact, but if $f$ is flat then it is.
+
+\begin{lemma}
+\label{lemma-flat-pullback-quasi-coherent}
+If $f : \mathcal{X} \to \mathcal{Y}$ is a flat morphism of algebraic stacks
+then $f^* : \QCoh(\mathcal{O}_\mathcal{Y}) \to
+\QCoh(\mathcal{O}_\mathcal{X})$ is an exact functor.
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $V$ and a surjective smooth morphism $V \to \mathcal{Y}$.
+Choose a scheme $U$ and a surjective smooth morphism
+$U \to V \times_\mathcal{Y} \mathcal{X}$. Then $U \to \mathcal{X}$ is
+still smooth and surjective as a composition of two such morphisms.
+From the commutative diagram
+$$
+\xymatrix{
+U \ar[d] \ar[r]_{f'} & V \ar[d] \\
+\mathcal{X} \ar[r]^f & \mathcal{Y}
+}
+$$
+we obtain a commutative diagram
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_U) & \QCoh(\mathcal{O}_V) \ar[l] \\
+\QCoh(\mathcal{O}_\mathcal{X}) \ar[u] &
+\QCoh(\mathcal{O}_\mathcal{Y}) \ar[l] \ar[u]
+}
+$$
+of abelian categories. Our proof that the bottom two categories in this
+diagram are abelian showed that the vertical functors are faithful
+exact functors (see proof of
+Sheaves on Stacks, Lemma
+\ref{stacks-sheaves-lemma-quasi-coherent-algebraic-stack}).
+Since $f'$ is a flat morphism of schemes (by our definition of
+flat morphisms of algebraic stacks) we see that $(f')^*$ is an
+exact functor on quasi-coherent sheaves on $V$. Thus we win.
+\end{proof}
+
+
+
+
+
+
+\section{The key lemma}
+\label{section-key}
+
+\noindent
+The following lemma is the basis for our understanding of
+higher direct images of certain types of sheaves of modules.
+There are two versions: one for the \'etale topology and
+one for the fppf topology.
+
+\begin{lemma}
+\label{lemma-general-pushforward}
+Let $\mathcal{M}$ be a rule which associates to every algebraic stack
+$\mathcal{X}$ a subcategory $\mathcal{M}_\mathcal{X}$ of
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+such that
+\begin{enumerate}
+\item $\mathcal{M}_\mathcal{X}$ is a weak Serre subcategory
+of $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+(see Homology, Definition \ref{homology-definition-serre-subcategory})
+for all algebraic stacks $\mathcal{X}$,
+\item for a smooth morphism of algebraic stacks
+$f : \mathcal{Y} \to \mathcal{X}$ the functor $f^*$ maps
+$\mathcal{M}_\mathcal{X}$ into $\mathcal{M}_\mathcal{Y}$,
+\item if $f_i : \mathcal{X}_i \to \mathcal{X}$ is a family of smooth
+morphisms of algebraic stacks with
+$|\mathcal{X}| = \bigcup |f_i|(|\mathcal{X}_i|)$, then an object
+$\mathcal{F}$ of
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+is in $\mathcal{M}_\mathcal{X}$ if and only if
+$f_i^*\mathcal{F}$ is in $\mathcal{M}_{\mathcal{X}_i}$ for all $i$, and
+\item if $f : \mathcal{Y} \to \mathcal{X}$ is a morphism of algebraic
+stacks such that $\mathcal{X}$ and $\mathcal{Y}$ are representable
+by affine schemes, then $R^if_*$ maps $\mathcal{M}_\mathcal{Y}$
+into $\mathcal{M}_\mathcal{X}$.
+\end{enumerate}
+Then for any quasi-compact and quasi-separated morphism 
+$f : \mathcal{Y} \to \mathcal{X}$ of algebraic stacks
+$R^if_*$ maps $\mathcal{M}_\mathcal{Y}$
+into $\mathcal{M}_\mathcal{X}$. (Higher direct images computed in \'etale
+topology.)
+\end{lemma}
+
+\begin{proof}
+Let $f : \mathcal{Y} \to \mathcal{X}$ be a quasi-compact and quasi-separated
+morphism of algebraic stacks and let $\mathcal{F}$ be an object of
+$\mathcal{M}_\mathcal{Y}$. Choose a surjective smooth morphism
+$\mathcal{U} \to \mathcal{X}$ where $\mathcal{U}$ is representable by
+a scheme. By
+Sheaves on Stacks, Lemma
+\ref{stacks-sheaves-lemma-base-change-higher-direct-images}
+taking higher direct images commutes with base change.
+Assumption (2) shows that the pullback of $\mathcal{F}$
+to $\mathcal{U} \times_\mathcal{X} \mathcal{Y}$ is in
+$\mathcal{M}_{\mathcal{U} \times_\mathcal{X} \mathcal{Y}}$
+because the projection
+$\mathcal{U} \times_\mathcal{X} \mathcal{Y} \to \mathcal{Y}$
+is smooth as a base change of a smooth morphism. Hence (3) shows we may
+replace $\mathcal{Y} \to \mathcal{X}$ by the projection
+$\mathcal{U} \times_\mathcal{X} \mathcal{Y} \to \mathcal{U}$.
+In other words, we may assume that $\mathcal{X}$
+is representable by a scheme.
+Using (3) once more, we see that the question is Zariski local on
+$\mathcal{X}$, hence we may assume that $\mathcal{X}$ is representable by
+an affine scheme. Since $f$ is quasi-compact this implies that also
+$\mathcal{Y}$ is quasi-compact. Thus we may choose a surjective smooth
+morphism $g : \mathcal{V} \to \mathcal{Y}$ where $\mathcal{V}$ is representable
+by an affine scheme.
+
+\medskip\noindent
+In this situation we have the spectral sequence
+$$
+E_2^{p, q} = R^q(f \circ g_p)_*g_p^*\mathcal{F}
+\Rightarrow
+R^{p + q}f_*\mathcal{F}
+$$
+of
+Sheaves on Stacks, Proposition
+\ref{stacks-sheaves-proposition-smooth-covering-compute-direct-image}.
+Recall that this is a first quadrant spectral sequence hence we may
+use the last part of Homology, Lemma \ref{homology-lemma-first-quadrant-ss}.
+Note that the morphisms
+$$
+g_p : \mathcal{V}_p =
+\mathcal{V} \times_\mathcal{Y} \ldots \times_\mathcal{Y} \mathcal{V}
+\longrightarrow
+\mathcal{Y}
+$$
+are smooth as compositions of base changes of the smooth morphism $g$.
+Thus the sheaves $g_p^*\mathcal{F}$ are in
+$\mathcal{M}_{\mathcal{V}_p}$ by (2). Hence it suffices to prove that the
+higher direct images of objects of $\mathcal{M}_{\mathcal{V}_p}$ under
+the morphisms
+$$
+\mathcal{V}_p =
+\mathcal{V} \times_\mathcal{Y} \ldots \times_\mathcal{Y} \mathcal{V}
+\longrightarrow
+\mathcal{X}
+$$
+are in $\mathcal{M}_\mathcal{X}$. The algebraic stacks $\mathcal{V}_p$
+are quasi-compact and quasi-separated by
+Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-quasi-compact-quasi-separated-permanence}.
+Of course each $\mathcal{V}_p$ is representable by an algebraic space
+(the diagonal of the algebraic stack $\mathcal{Y}$ is representable
+by algebraic spaces). This reduces us to the case where
+$\mathcal{Y}$ is representable by an algebraic space and $\mathcal{X}$
+is representable by an affine scheme.
+
+\medskip\noindent
+In the situation where $\mathcal{Y}$ is representable by an algebraic
+space and $\mathcal{X}$ is representable by an affine scheme, we choose
+anew a surjective smooth morphism $\mathcal{V} \to \mathcal{Y}$ where
+$\mathcal{V}$ is representable by an affine scheme. Going through the
+argument above once again we once again reduce to the morphisms
+$\mathcal{V}_p \to \mathcal{X}$. But in the current situation the algebraic
+stacks $\mathcal{V}_p$ are representable by quasi-compact and quasi-separated
+schemes (because the diagonal of an algebraic space is representable by
+schemes).
+
+\medskip\noindent
+Thus we may assume $\mathcal{Y}$ is representable by a scheme and
+$\mathcal{X}$ is representable by an affine scheme. Choose (again)
+a surjective smooth morphism $\mathcal{V} \to \mathcal{Y}$ where
+$\mathcal{V}$ is representable by an affine scheme. In this case all
+the algebraic stacks $\mathcal{V}_p$ are representable by separated
+schemes (because the diagonal of a scheme is separated).
+
+\medskip\noindent
+Thus we may assume $\mathcal{Y}$ is representable by a separated scheme and
+$\mathcal{X}$ is representable by an affine scheme. Choose (yet again)
+a surjective smooth morphism $\mathcal{V} \to \mathcal{Y}$ where
+$\mathcal{V}$ is representable by an affine scheme. In this case all
+the algebraic stacks $\mathcal{V}_p$ are representable by affine schemes
+(because the diagonal of a separated scheme is a closed immersion hence affine)
+and this case is handled by assumption (4).
+This finishes the proof.
+\end{proof}
+
+\noindent
+Here is the version for the fppf topology.
+
+\begin{lemma}
+\label{lemma-general-pushforward-fppf}
+Let $\mathcal{M}$ be a rule which associates to every algebraic stack
+$\mathcal{X}$ a subcategory $\mathcal{M}_\mathcal{X}$ of
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$
+such that
+\begin{enumerate}
+\item $\mathcal{M}_\mathcal{X}$ is a weak Serre subcategory
+of $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+for all algebraic stacks $\mathcal{X}$,
+\item for a smooth morphism of algebraic stacks
+$f : \mathcal{Y} \to \mathcal{X}$ the functor $f^*$ maps
+$\mathcal{M}_\mathcal{X}$ into $\mathcal{M}_\mathcal{Y}$,
+\item if $f_i : \mathcal{X}_i \to \mathcal{X}$ is a family of smooth
+morphisms of algebraic stacks with
+$|\mathcal{X}| = \bigcup |f_i|(|\mathcal{X}_i|)$, then an object
+$\mathcal{F}$ of $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+is in $\mathcal{M}_\mathcal{X}$ if and only if
+$f_i^*\mathcal{F}$ is in $\mathcal{M}_{\mathcal{X}_i}$ for all $i$, and
+\item if $f : \mathcal{Y} \to \mathcal{X}$ is a morphism of algebraic
+stacks and $\mathcal{X}$ and $\mathcal{Y}$ are representable
+by affine schemes, then $R^if_*$ maps $\mathcal{M}_\mathcal{Y}$
+into $\mathcal{M}_\mathcal{X}$.
+\end{enumerate}
+Then for any quasi-compact and quasi-separated morphism 
+$f : \mathcal{Y} \to \mathcal{X}$ of algebraic stacks
+$R^if_*$ maps $\mathcal{M}_\mathcal{Y}$
+into $\mathcal{M}_\mathcal{X}$. (Higher direct images computed in fppf
+topology.)
+\end{lemma}
+
+\begin{proof}
+Identical to the proof of Lemma \ref{lemma-general-pushforward}.
+\end{proof}
+
+
+\section{Locally quasi-coherent modules}
+\label{section-locally-quasi-coherent}
+
+\noindent
+Let $\mathcal{X}$ be an algebraic stack. Let $\mathcal{F}$ be a presheaf
+of $\mathcal{O}_\mathcal{X}$-modules. We can ask whether $\mathcal{F}$
+is {\it locally quasi-coherent}, see
+Sheaves on Stacks, Definition
+\ref{stacks-sheaves-definition-locally-quasi-coherent}.
+Briefly, this means $\mathcal{F}$ is an $\mathcal{O}_\mathcal{X}$-module
+for the \'etale topology such that for any morphism $f : U \to \mathcal{X}$
+the restriction $f^*\mathcal{F}|_{U_\etale}$ is quasi-coherent
+on $U_\etale$. (The actual definition is slightly different, but
+equivalent.) A useful fact is that
+$$
+\textit{LQCoh}(\mathcal{O}_\mathcal{X}) \subset
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})
+$$
+is a weak Serre subcategory, see
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-lqc-colimits}.
+
+\begin{lemma}
+\label{lemma-check-lqc-on-etale-covering}
+Let $\mathcal{X}$ be an algebraic stack. Let
+$f_j : \mathcal{X}_j \to \mathcal{X}$ be a family of smooth
+morphisms of algebraic stacks with
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$.
+Let $\mathcal{F}$ be a sheaf of $\mathcal{O}_\mathcal{X}$-modules
+on $\mathcal{X}_\etale$. If each $f_j^{-1}\mathcal{F}$
+is locally quasi-coherent, then so is $\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+We may replace each of the algebraic stacks $\mathcal{X}_j$ by
+a scheme $U_j$ (using that any algebraic stack has a smooth covering by
+a scheme and that compositions of smooth morphisms are smooth, see
+Morphisms of Stacks, Lemma \ref{stacks-morphisms-lemma-composition-smooth}).
+The pullback of $\mathcal{F}$ to $(\Sch/U_j)_\etale$ is still
+locally quasi-coherent, see
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-pullback-lqc}.
+Then $f = \coprod f_j : U = \coprod U_j \to \mathcal{X}$ is a surjective
+smooth morphism. Let $x$ be an object of $\mathcal{X}$. By
+Sheaves on Stacks, Lemma
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}
+there exists an \'etale covering $\{x_i \to x\}_{i \in I}$
+such that each $x_i$ lifts to an object $u_i$ of $(\Sch/U)_\etale$.
+This just means that $x$, $x_i$ live over schemes $V$, $V_i$, that
+$\{V_i \to V\}$ is an \'etale covering, and that $x_i$ comes from
+a morphism $u_i : V_i \to U$. The restriction
+$x_i^*\mathcal{F}|_{V_{i, \etale}}$ is equal to the restriction
+of $f^*\mathcal{F}$ to $V_{i, \etale}$, see
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-comparison}.
+Hence $x^*\mathcal{F}|_{V_\etale}$
+is a sheaf on the small \'etale site of $V$ which is quasi-coherent
+when restricted to $V_{i, \etale}$ for each $i$.
+This implies that it is quasi-coherent (as desired), for example by
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-characterize-quasi-coherent}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pushforward-locally-quasi-coherent}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a quasi-compact and
+quasi-separated morphism of algebraic stacks. Let 
+$\mathcal{F}$ be a locally quasi-coherent
+$\mathcal{O}_\mathcal{X}$-module on $\mathcal{X}_\etale$.
+Then $R^if_*\mathcal{F}$ (computed in the \'etale topology) is
+locally quasi-coherent on $\mathcal{Y}_\etale$.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-general-pushforward}
+to prove this. We will check its assumptions (1) -- (4).
+Parts (1) and (2) follows from
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-lqc-colimits}.
+Part (3) follows from
+Lemma \ref{lemma-check-lqc-on-etale-covering}.
+Thus it suffices to show (4).
+
+\medskip\noindent
+Suppose $f : \mathcal{X} \to \mathcal{Y}$ is a morphism of algebraic stacks
+such that $\mathcal{X}$ and $\mathcal{Y}$ are representable by affine
+schemes $X$ and $Y$. Choose any object $y$ of $\mathcal{Y}$ lying over a
+scheme $V$. For clarity, denote $\mathcal{V} = (\Sch/V)_{fppf}$ the
+algebraic stack corresponding to $V$. Consider the cartesian diagram
+$$
+\xymatrix{
+\mathcal{Z} \ar[d] \ar[r]_g \ar[d]_{f'} & \mathcal{X} \ar[d]^f \\
+\mathcal{V} \ar[r]^y & \mathcal{Y}
+}
+$$
+Thus $\mathcal{Z}$ is representable by the scheme $Z = V \times_Y X$
+and $f'$ is quasi-compact and separated (even affine). By
+Sheaves on Stacks, Lemma
+\ref{stacks-sheaves-lemma-compare-representable-morphism-cohomology}
+we have
+$$
+R^if_*\mathcal{F}|_{V_\etale} =
+R^if'_{small, *}\big(g^*\mathcal{F}|_{Z_\etale}\big)
+$$
+The right hand side is a quasi-coherent sheaf on $V_\etale$ by
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-higher-direct-image}.
+This implies the left hand side is quasi-coherent which is what
+we had to prove.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-lqc-on-flat-covering}
+Let $\mathcal{X}$ be an algebraic stack. Let
+$f_j : \mathcal{X}_j \to \mathcal{X}$ be a family of flat
+and locally finitely presented morphisms of algebraic stacks with
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$.
+Let $\mathcal{F}$ be a sheaf of $\mathcal{O}_\mathcal{X}$-modules
+on $\mathcal{X}_{fppf}$. If each $f_j^{-1}\mathcal{F}$
+is locally quasi-coherent, then so is $\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+First, suppose there is a morphism $a : \mathcal{U} \to \mathcal{X}$
+which is surjective, flat, locally of finite presentation, quasi-compact,
+and quasi-separated such that $a^*\mathcal{F}$ is locally quasi-coherent.
+Then there is an exact sequence
+$$
+0 \to \mathcal{F} \to a_*a^*\mathcal{F} \to b_*b^*\mathcal{F}
+$$
+where $b$ is the morphism
+$b : \mathcal{U} \times_\mathcal{X} \mathcal{U} \to \mathcal{X}$, see
+Sheaves on Stacks, Proposition
+\ref{stacks-sheaves-proposition-exactness-cech-complex} and
+Lemma \ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}.
+Moreover, the pullback $b^*\mathcal{F}$ is the pullback of $a^*\mathcal{F}$
+via one of the projection morphisms, hence is locally quasi-coherent
+(Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-pullback-lqc}).
+The modules $a_*a^*\mathcal{F}$ and $b_*b^*\mathcal{F}$ are locally
+quasi-coherent by Lemma \ref{lemma-pushforward-locally-quasi-coherent}.
+(Note that $a_*$ and $b_*$ don't care about which topology is
+used to calculate them.)
+We conclude that $\mathcal{F}$ is locally quasi-coherent, see
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-lqc-colimits}.
+
+\medskip\noindent
+We are going to reduce the proof of the general case the the
+situation in the first paragraph. Let $x$ be an object of $\mathcal{X}$
+lying over the scheme $U$. We have to show that
+$\mathcal{F}|_{U_\etale}$ is a quasi-coherent $\mathcal{O}_U$-module.
+It suffices to do this (Zariski) locally on $U$, hence we may
+assume that $U$ is affine. By
+Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-surjective-family-flat-locally-finite-presentation}
+there exists an fppf covering $\{a_i : U_i \to U\}$ such that
+each $x \circ a_i$ factors through some $f_j$. Hence $a_i^*\mathcal{F}$
+is locally quasi-coherent on $(\Sch/U_i)_{fppf}$. After refining
+the covering we may assume $\{U_i \to U\}_{i = 1, \ldots, n}$
+is a standard fppf covering. Then $x^*\mathcal{F}$ is an fppf
+module on $(\Sch/U)_{fppf}$ whose pullback by the morphism
+$a : U_1 \amalg \ldots \amalg U_n \to U$ is locally quasi-coherent.
+Hence by the first paragraph we see that $x^*\mathcal{F}$ is locally
+quasi-coherent, which certainly implies that $\mathcal{F}|_{U_\etale}$
+is quasi-coherent.
+\end{proof}
+
+
+
+
+
+
+\section{Flat comparison maps}
+\label{section-flat-comparison}
+
+\noindent
+Let $\mathcal{X}$ be an algebraic stack and let $\mathcal{F}$ be an object
+of $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$.
+Given an object $x$ of $\mathcal{X}$ lying over the scheme $U$ the
+restriction $\mathcal{F}|_{U_\etale}$ is the restriction of
+$x^{-1}\mathcal{F}$ to the small \'etale site of $U$, see
+Sheaves on Stacks, Definition \ref{stacks-sheaves-definition-pullback}.
+Next, let $\varphi : x \to x'$ be a morphism of $\mathcal{X}$ lying
+over a morphism of schemes $f : U \to U'$. Thus a $2$-commutative diagram
+$$
+\xymatrix{
+U \ar[rd]_x \ar[rr]_f & & U' \ar[ld]^{x'} \\
+& \mathcal{X}
+}
+$$
+Associated to $\varphi$ we obtain a comparison map between restrictions
+\begin{equation}
+\label{equation-comparison-modules}
+c_\varphi :
+f_{small}^*(\mathcal{F}|_{U'_\etale})
+\longrightarrow
+\mathcal{F}|_{U_\etale}
+\end{equation}
+see Sheaves on Stacks, Equation
+(\ref{stacks-sheaves-equation-comparison-modules}).
+In this situation we can consider the following property
+of $\mathcal{F}$.
+
+\begin{definition}
+\label{definition-flat-base-change}
+Let $\mathcal{X}$ be an algebraic stack and let $\mathcal{F}$ in
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$.
+We say $\mathcal{F}$ has the {\it flat base change property}\footnote{This
+may be nonstandard notation.}
+if and only if $c_\varphi$ is an isomorphism whenever $f$ is flat.
+\end{definition}
+
+\noindent
+Here is a lemma with some properties of this notion.
+
+\begin{lemma}
+\label{lemma-check-flat-comparison-on-etale-covering}
+Let $\mathcal{X}$ be an algebraic stack. Let $\mathcal{F}$
+be an $\mathcal{O}_\mathcal{X}$-module on $\mathcal{X}_\etale$.
+\begin{enumerate}
+\item If $\mathcal{F}$ has the flat base change property then for any morphism
+$g : \mathcal{Y} \to \mathcal{X}$ of algebraic stacks, the
+pullback $g^*\mathcal{F}$ does too.
+\item The full subcategory of
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+consisting of modules with the flat base change property
+is a weak Serre subcategory.
+\item  Let $f_i : \mathcal{X}_i \to \mathcal{X}$ be a family of
+smooth morphisms of algebraic stacks such that
+$|\mathcal{X}| = \bigcup_i |f_i|(|\mathcal{X}_i|)$. If each
+$f_i^*\mathcal{F}$ has the flat base change property then so does
+$\mathcal{F}$.
+\item The category of $\mathcal{O}_\mathcal{X}$-modules
+on $\mathcal{X}_\etale$ with the flat base change property
+has colimits and they agree with colimits in
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $g : \mathcal{Y} \to \mathcal{X}$ be as in (1).
+Let $y$ be an object of $\mathcal{Y}$ lying over a scheme $V$. By
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-comparison}
+we have
+$(g^*\mathcal{F})|_{V_\etale} = \mathcal{F}|_{V_\etale}$.
+Moreover a comparison mapping for the sheaf $g^*\mathcal{F}$ on $\mathcal{Y}$
+is a special case of a comparison map for the sheaf $\mathcal{F}$ on
+$\mathcal{X}$, see
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-comparison}.
+In this way (1) is clear.
+
+\medskip\noindent
+Proof of (2). We use the characterization of weak Serre subcategories of
+Homology, Lemma \ref{homology-lemma-characterize-weak-serre-subcategory}.
+Kernels and cokernels of
+maps between sheaves having the flat base change property
+also have the flat base change property. This is clear because
+$f_{small}^*$ is exact for a flat morphism of schemes and since the
+restriction functors $(-)|_{U_\etale}$ are exact (because we
+are working in the \'etale topology). Finally, if
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+is a short exact sequence of
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+and the outer two sheaves have the flat base change property then
+the middle one does as well, again because of the exactness of
+$f_{small}^*$ and the restriction functors (and the 5 lemma).
+
+\medskip\noindent
+Proof of (3).
+Let $f_i : \mathcal{X}_i \to \mathcal{X}$ be a jointly surjective family of
+smooth morphisms of algebraic stacks and assume each $f_i^*\mathcal{F}$
+has the flat base change property. By part (1), the definition of
+an algebraic stack, and the fact that compositions of smooth morphisms
+are smooth (see
+Morphisms of Stacks, Lemma \ref{stacks-morphisms-lemma-composition-smooth})
+we may assume that each $\mathcal{X}_i$ is representable by a scheme.
+Let $\varphi : x \to x'$ be a morphism of $\mathcal{X}$ lying over
+a flat morphism $a : U \to U'$ of schemes. By
+Sheaves on Stacks, Lemma
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}
+there exists a jointly surjective family of \'etale morphisms
+$U'_i \to U'$ such that $U' \to U' \to \mathcal{X}$ factors through
+$\mathcal{X}_i$. Thus we obtain commutative diagrams
+$$
+\xymatrix{
+U_i = U \times_{U'} U_i' \ar[r]_-{a_i} \ar[d] &
+U_i' \ar[r]_{x_i'} \ar[d] & \mathcal{X}_i \ar[d]^{f_i} \\
+U \ar[r]^a & U' \ar[r]^{x'} & \mathcal{X}
+}
+$$
+Note that each $a_i$ is a flat morphism of schemes as a base change of $a$.
+Denote $\psi_i : x_i \to x'_i$ the morphism of $\mathcal{X}_i$ lying over
+$a_i$ with target $x_i'$. By assumption the comparison maps
+$c_{\psi_i} :
+(a_i)_{small}^*\big(f_i^*\mathcal{F}|_{(U'_i)_\etale}\big)
+\to f_i^*\mathcal{F}|_{(U_i)_\etale}$ is an isomorphism.
+Because the vertical arrows $U_i' \to U'$ and $U_i \to U$ are \'etale,
+the sheaves $f_i^*\mathcal{F}|_{(U_i')_\etale}$ and
+$f_i^*\mathcal{F}|_{(U_i)_\etale}$ are the restrictions of
+$\mathcal{F}|_{U'_\etale}$ and $\mathcal{F}|_{U_\etale}$
+and the map $c_{\psi_i}$ is the restriction of $c_\varphi$ to
+$(U_i)_\etale$, see
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-comparison}.
+Since $\{U_i \to U\}$ is an \'etale covering, this implies
+that the comparison map $c_\varphi$ is an isomorphism which is what
+we wanted to prove.
+
+\medskip\noindent
+Proof of (4). Let
+$\mathcal{I} \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$,
+$i \mapsto \mathcal{F}_i$ be a diagram and assume each $\mathcal{F}_i$
+has the flat base change property. Recall that $\colim_i \mathcal{F}_i$
+is the sheafification of the presheaf colimit. As we are using the
+\'etale topology, it is clear that
+$$
+(\colim_i \mathcal{F}_i)|_{U_\etale} =
+\colim_i {\mathcal{F}_i}|_{U_\etale}
+$$
+As $f_{small}^*$ commutes with colimits (as a left adjoint)
+we see that (4) holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-comparison}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a quasi-compact and
+quasi-separated morphism of algebraic stacks. Let 
+$\mathcal{F}$ be an object of
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+which is locally quasi-coherent and has the flat base change property.
+Then each $R^ig_*\mathcal{F}$ (computed in the \'etale topology)
+has the flat base change property.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-general-pushforward}
+to prove this. For every algebraic stack $\mathcal{X}$ let
+$\mathcal{M}_\mathcal{X}$ denote the full subcategory of
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+consisting of locally quasi-coherent sheaves with the flat base
+change property. Once we verify conditions (1) -- (4) of
+Lemma \ref{lemma-general-pushforward}
+the lemma will follow. Properties (1), (2), and (3) follow from
+Sheaves on Stacks, Lemmas \ref{stacks-sheaves-lemma-pullback-lqc} and
+\ref{stacks-sheaves-lemma-lqc-colimits}
+and
+Lemmas \ref{lemma-check-lqc-on-etale-covering} and
+\ref{lemma-check-flat-comparison-on-etale-covering}.
+Thus it suffices to show part (4).
+
+\medskip\noindent
+Suppose $f : \mathcal{X} \to \mathcal{Y}$ is a morphism of algebraic stacks
+such that $\mathcal{X}$ and $\mathcal{Y}$ are representable by affine
+schemes $X$ and $Y$. In this case, suppose that
+$\psi : y \to y'$ is a morphism of $\mathcal{Y}$ lying over
+a flat morphism $b : V \to V'$ of schemes. For clarity denote
+$\mathcal{V} = (\Sch/V)_{fppf}$ and $\mathcal{V}' = (\Sch/V')_{fppf}$
+the corresponding algebraic stacks. Consider the diagram
+of algebraic stacks
+$$
+\xymatrix{
+\mathcal{Z} \ar[d]_{f''} \ar[r]_a &
+\mathcal{Z}' \ar[r]_{x'} \ar[d]_{f'} & \mathcal{X} \ar[d]^f \\
+\mathcal{V} \ar[r]^b & \mathcal{V}' \ar[r]^{y'} & \mathcal{Y}
+}
+$$
+with both squares cartesian. As $f$ is representable by schemes
+(and quasi-compact and separated -- even affine) we see that $\mathcal{Z}$ and
+$\mathcal{Z}'$ are representable by schemes $Z$ and $Z'$ and in
+fact $Z = V \times_{V'} Z'$. Since $\mathcal{F}$ has the flat
+base change property we see that
+$$
+a_{small}^*\big(\mathcal{F}|_{Z'_\etale}\big)
+\longrightarrow
+\mathcal{F}|_{Z_\etale}
+$$
+is an isomorphism. Moreover,
+$$
+R^if_*\mathcal{F}|_{V'_\etale} =
+R^i(f')_{small, *}\big(\mathcal{F}|_{Z'_\etale}\big)
+$$
+and
+$$
+R^if_*\mathcal{F}|_{V_\etale} =
+R^i(f'')_{small, *}\big(\mathcal{F}|_{Z_\etale}\big)
+$$
+by
+Sheaves on Stacks, Lemma
+\ref{stacks-sheaves-lemma-compare-representable-morphism-cohomology}.
+Hence we see that the comparison map
+$$
+c_\psi :
+b_{small}^*(R^if_*\mathcal{F}|_{V'_\etale})
+\longrightarrow
+R^if_*\mathcal{F}|_{V_\etale}
+$$
+is an isomorphism by
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}.
+Thus $R^if_*\mathcal{F}$ has the flat base change property.
+Since $R^if_*\mathcal{F}$ is locally quasi-coherent by
+Lemma \ref{lemma-pushforward-locally-quasi-coherent}
+we win.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-lcq-flat-base-change}
+Summary of results on locally quasi-coherent modules having the flat
+base change property.
+\begin{enumerate}
+\item Let $\mathcal{X}$ be an algebraic stack.
+If $\mathcal{F}$ is an object of
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+which is locally quasi-coherent and has the flat base change property,
+then $\mathcal{F}$ is a sheaf for the fppf topology, i.e., it is
+an object of $\textit{Mod}(\mathcal{O}_\mathcal{X})$.
+\item The category of modules which are locally quasi-coherent
+and have the flat base change property is a weak Serre subcategory
+$\mathcal{M}_\mathcal{X}$ of both $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+and $\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$.
+\item Pullback $f^*$ along any morphism of algebraic stacks
+$f : \mathcal{X} \to \mathcal{Y}$ induces a functor
+$f^* : \mathcal{M}_\mathcal{Y} \to \mathcal{M}_\mathcal{X}$.
+\item If $f : \mathcal{X} \to \mathcal{Y}$ is a
+quasi-compact and quasi-separated morphism of algebraic stacks
+and $\mathcal{F}$ is an object of $\mathcal{M}_\mathcal{X}$, then
+\begin{enumerate}
+\item the derived direct image $Rf_*\mathcal{F}$ and the higher direct
+images $R^if_*\mathcal{F}$ can be computed in either the \'etale or the
+fppf topology with the same result, and
+\item each $R^if_*\mathcal{F}$ is an object of $\mathcal{M}_\mathcal{Y}$.
+\end{enumerate}
+\item The category $\mathcal{M}_\mathcal{X}$ has colimits and they agree
+with colimits in
+$\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+as well as in $\textit{Mod}(\mathcal{O}_\mathcal{X})$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Part (1) is
+Sheaves on Stacks, Lemma
+\ref{stacks-sheaves-lemma-lqc-flat-base-change-fppf-sheaf}.
+
+\medskip\noindent
+Part (2) for the embedding $\mathcal{M}_\mathcal{X} \subset
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+we have seen in the proof of
+Lemma \ref{lemma-flat-comparison}.
+Let us prove (2) for the embedding
+$\mathcal{M}_\mathcal{X} \subset \textit{Mod}(\mathcal{O}_\mathcal{X})$.
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be a morphism between
+objects of $\mathcal{M}_\mathcal{X}$. Since $\Ker(\varphi)$
+is the same whether computed in the \'etale or the fppf
+topology, we see that $\Ker(\varphi)$ is in
+$\mathcal{M}_\mathcal{X}$ by the \'etale case. On the other hand,
+the cokernel computed in the fppf topology is the fppf sheafification
+of the cokernel computed in the \'etale topology. However, this
+\'etale cokernel is in $\mathcal{M}_\mathcal{X}$ hence an fppf sheaf
+by (1) and we see that the cokernel is in $\mathcal{M}_\mathcal{X}$.
+Finally, suppose that
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+is an exact sequence in $\textit{Mod}(\mathcal{O}_\mathcal{X})$
+(i.e., using the fppf topology) with $\mathcal{F}_1$, $\mathcal{F}_2$
+in $\mathcal{M}_\mathcal{X}$. In order to show that $\mathcal{F}_2$
+is an object of $\mathcal{M}_\mathcal{X}$ it suffices to show that
+the sequence is also exact in the \'etale topology. To do this it
+suffices to show that any element of $H^1_{fppf}(x, \mathcal{F}_1)$
+becomes zero on the members of an \'etale covering of $x$ (for any
+object $x$ of $\mathcal{X}$). This is true because
+$H^1_{fppf}(x, \mathcal{F}_1) = H^1_\etale(x, \mathcal{F}_1)$ by
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-compare-fppf-etale}
+and because of locality of cohomology, see
+Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-kill-cohomology-class-on-covering}.
+This proves (2).
+
+\medskip\noindent
+Part (3) follows from
+Lemma \ref{lemma-check-flat-comparison-on-etale-covering}
+and
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-pullback-lqc}.
+
+\medskip\noindent
+Part (4)(b) for $R^if_*\mathcal{F}$ computed in the \'etale cohomology
+follows from Lemma \ref{lemma-flat-comparison}.
+Whereupon part (4)(a) follows from
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-compare-fppf-etale}
+combined with (1) above.
+
+\medskip\noindent
+Part (5) for the \'etale topology follows from
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-lqc-colimits} and
+Lemma \ref{lemma-check-flat-comparison-on-etale-covering}.
+The fppf version then follows as the colimit in the \'etale
+topology is already an fppf sheaf by part (1).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-lqc-fbc-on-covering}
+Let $\mathcal{X}$ be an algebraic stack. With $\mathcal{M}_\mathcal{X}$
+the category of locally quasi-coherent modules with the flat base change
+property.
+\begin{enumerate}
+\item Let $f_j : \mathcal{X}_j \to \mathcal{X}$ be a family of smooth
+morphisms of algebraic stacks with
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$.
+Let $\mathcal{F}$ be a sheaf of $\mathcal{O}_\mathcal{X}$-modules
+on $\mathcal{X}_\etale$. If each $f_j^{-1}\mathcal{F}$
+is in $\mathcal{M}_{\mathcal{X}_i}$, then $\mathcal{F}$ is in
+$\mathcal{M}_\mathcal{X}$.
+\item  Let $f_j : \mathcal{X}_j \to \mathcal{X}$ be a family of flat
+and locally finitely presented morphisms of algebraic stacks with
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$.
+Let $\mathcal{F}$ be a sheaf of $\mathcal{O}_\mathcal{X}$-modules
+on $\mathcal{X}_{fppf}$. If each $f_j^{-1}\mathcal{F}$
+is in $\mathcal{M}_{\mathcal{X}_i}$, then $\mathcal{F}$ is in
+$\mathcal{M}_\mathcal{X}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) follows from a combination of
+Lemmas \ref{lemma-check-lqc-on-etale-covering} and
+\ref{lemma-check-flat-comparison-on-etale-covering}.
+The proof of (2) is analogous to the proof of
+Lemma \ref{lemma-check-lqc-on-flat-covering}.
+Let $\mathcal{F}$ of a sheaf of $\mathcal{O}_\mathcal{X}$-modules
+on $\mathcal{X}_{fppf}$.
+
+\medskip\noindent
+First, suppose there is a morphism $a : \mathcal{U} \to \mathcal{X}$
+which is surjective, flat, locally of finite presentation, quasi-compact,
+and quasi-separated such that $a^*\mathcal{F}$ is locally quasi-coherent
+and has the flat base change property.
+Then there is an exact sequence
+$$
+0 \to \mathcal{F} \to a_*a^*\mathcal{F} \to b_*b^*\mathcal{F}
+$$
+where $b$ is the morphism
+$b : \mathcal{U} \times_\mathcal{X} \mathcal{U} \to \mathcal{X}$, see
+Sheaves on Stacks, Proposition
+\ref{stacks-sheaves-proposition-exactness-cech-complex} and
+Lemma \ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}.
+Moreover, the pullback $b^*\mathcal{F}$ is the pullback of $a^*\mathcal{F}$
+via one of the projection morphisms, hence is locally quasi-coherent
+and has the flat base change property, see
+Proposition \ref{proposition-lcq-flat-base-change}.
+The modules $a_*a^*\mathcal{F}$ and $b_*b^*\mathcal{F}$ are locally
+quasi-coherent and have the flat base change property by
+Proposition \ref{proposition-lcq-flat-base-change}.
+We conclude that $\mathcal{F}$ is locally quasi-coherent and
+has the flat base change property by
+Proposition \ref{proposition-lcq-flat-base-change}.
+
+\medskip\noindent
+Choose a scheme $U$ and a surjective smooth morphism $x : U \to \mathcal{X}$.
+By part (1) it suffices to show that $x^*\mathcal{F}$ is locally
+quasi-coherent and has the flat base change property.
+Again by part (1) it suffices to do this (Zariski) locally on $U$,
+hence we may assume that $U$ is affine. By
+Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-surjective-family-flat-locally-finite-presentation}
+there exists an fppf covering $\{a_i : U_i \to U\}$ such that
+each $x \circ a_i$ factors through some $f_j$. Hence the module
+$a_i^*\mathcal{F}$ on $(\Sch/U_i)_{fppf}$
+is locally quasi-coherent and has the flat base change property.
+After refining the covering we may assume $\{U_i \to U\}_{i = 1, \ldots, n}$
+is a standard fppf covering. Then $x^*\mathcal{F}$ is an fppf
+module on $(\Sch/U)_{fppf}$ whose pullback by the morphism
+$a : U_1 \amalg \ldots \amalg U_n \to U$ is locally quasi-coherent
+and has the flat base change property.
+Hence by the previous paragraph we see that $x^*\mathcal{F}$ is locally
+quasi-coherent and has the flat base change property as desired.
+\end{proof}
+
+
+
+
+
+
+\section{Parasitic modules}
+\label{section-parasitic}
+
+\noindent
+The following definition is compatible with
+Descent, Definition \ref{descent-definition-parasitic}.
+
+\begin{definition}
+\label{definition-parasitic}
+Let $\mathcal{X}$ be an algebraic stack.
+A presheaf of $\mathcal{O}_\mathcal{X}$-modules $\mathcal{F}$ is
+{\it parasitic} if we have $\mathcal{F}(x) = 0$ for any object $x$
+of $\mathcal{X}$ which lies over a scheme $U$ such that the corresponding
+morphism $x : U \to \mathcal{X}$ is flat.
+\end{definition}
+
+\noindent
+Here is a lemma with some properties of this notion.
+
+\begin{lemma}
+\label{lemma-parasitic}
+Let $\mathcal{X}$ be an algebraic stack. Let $\mathcal{F}$
+be a presheaf of $\mathcal{O}_\mathcal{X}$-modules.
+\begin{enumerate}
+\item If $\mathcal{F}$ is parasitic and
+$g : \mathcal{Y} \to \mathcal{X}$ is a flat morphism of algebraic stacks,
+then $g^*\mathcal{F}$ is parasitic.
+\item For $\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$
+we have
+\begin{enumerate}
+\item the $\tau$ sheafification of a parasitic presheaf of modules is
+parasitic, and
+\item the full subcategory of
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$
+consisting of parasitic modules is a Serre subcategory.
+\end{enumerate}
+\item Suppose $\mathcal{F}$ is a sheaf for the \'etale topology.
+Let $f_i : \mathcal{X}_i \to \mathcal{X}$ be a family of
+smooth morphisms of algebraic stacks such that
+$|\mathcal{X}| = \bigcup_i |f_i|(|\mathcal{X}_i|)$. If each
+$f_i^*\mathcal{F}$ is parasitic then so is $\mathcal{F}$.
+\item Suppose $\mathcal{F}$ is a sheaf for the fppf topology.
+Let $f_i : \mathcal{X}_i \to \mathcal{X}$ be a family of
+flat and locally finitely presented morphisms of algebraic stacks such that
+$|\mathcal{X}| = \bigcup_i |f_i|(|\mathcal{X}_i|)$. If each
+$f_i^*\mathcal{F}$ is parasitic then so is $\mathcal{F}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+To see part (1) let $y$ be an object of $\mathcal{Y}$ which lies
+over a scheme $V$ such that the corresponding morphism $y : V \to \mathcal{Y}$
+is flat. Then $g(y) : V \to \mathcal{Y} \to \mathcal{X}$ is flat
+as a composition of flat morphisms (see
+Morphisms of Stacks, Lemma \ref{stacks-morphisms-lemma-composition-flat})
+hence $\mathcal{F}(g(y))$ is zero by assumption. Since
+$g^*\mathcal{F} = g^{-1}\mathcal{F}(y) = \mathcal{F}(g(y))$ we conclude
+$g^*\mathcal{F}$ is parasitic.
+
+\medskip\noindent
+To see part (2)(a) note that if $\{x_i \to x\}$ is a $\tau$-covering
+of $\mathcal{X}$, then each of the morphisms $x_i \to x$ lies
+over a flat morphism of schemes. Hence if $x$ lies over a scheme
+$U$ such that $x : U \to \mathcal{X}$ is flat, so do all of the
+objects $x_i$. Hence the presheaf $\mathcal{F}^+$ (see
+Sites, Section \ref{sites-section-sheafification})
+is parasitic if the presheaf $\mathcal{F}$ is
+parasitic. This proves (2)(a) as the sheafification of $\mathcal{F}$
+is $(\mathcal{F}^+)^+$.
+
+\medskip\noindent
+Let $\mathcal{F}$ be a parasitic $\tau$-module. It is immediate from the
+definitions that any submodule of $\mathcal{F}$ is parasitic. On the other
+hand, if $\mathcal{F}' \subset \mathcal{F}$ is a submodule, then it is
+equally clear that the presheaf
+$x \mapsto \mathcal{F}(x)/\mathcal{F}'(x)$
+is parasitic. Hence the quotient $\mathcal{F}/\mathcal{F}'$ is a parasitic
+module by (2)(a). Finally, we have to show that given a short exact sequence
+$0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+with $\mathcal{F}_1$ and $\mathcal{F}_3$ parasitic, then $\mathcal{F}_2$
+is parasitic. This follows immediately on evaluating on $x$ lying
+over a scheme flat over $\mathcal{X}$. This proves (2)(b), see
+Homology, Lemma \ref{homology-lemma-characterize-serre-subcategory}.
+
+\medskip\noindent
+Let $f_i : \mathcal{X}_i \to \mathcal{X}$ be a jointly surjective family of
+smooth morphisms of algebraic stacks and assume each $f_i^*\mathcal{F}$
+is parasitic. Let $x$ be an object of $\mathcal{X}$ which lies over a
+scheme $U$ such that $x : U \to \mathcal{X}$ is flat. Consider a surjective
+smooth covering $W_i \to U \times_{x, \mathcal{X}} \mathcal{X}_i$.
+Denote $y_i : W_i \to \mathcal{X}_i$ the projection. It follows
+that $\{f_i(y_i) \to x\}$ is a covering for the smooth topology
+on $\mathcal{X}$. Since a composition of flat morphisms is flat we see that
+$f_i^*\mathcal{F}(y_i) = 0$. On the other hand, as we saw in the proof
+of (1), we have $f_i^*\mathcal{F}(y_i) = \mathcal{F}(f_i(y_i))$.
+Hence we see that for some smooth covering $\{x_i \to x\}_{i \in I}$
+in $\mathcal{X}$ we have $\mathcal{F}(x_i) = 0$. This implies
+$\mathcal{F}(x) = 0$ because the smooth topology is the same as
+as the \'etale topology, see
+More on Morphisms, Lemma \ref{more-morphisms-lemma-etale-dominates-smooth}.
+Namely, $\{x_i \to x\}_{i \in I}$ lies over a smooth covering
+$\{U_i \to U\}_{i \in I}$ of schemes. By the lemma just referenced
+there exists an \'etale covering $\{V_j \to U\}_{j \in J}$ which
+refines $\{U_i \to U\}_{i \in I}$. Denote $x'_j = x|_{V_j}$.
+Then $\{x'_j \to x\}$ is an \'etale covering in $\mathcal{X}$
+refining $\{x_i \to x\}_{i \in I}$. This means the map
+$\mathcal{F}(x) \to \prod_{j \in J} \mathcal{F}(x'_j)$, which is
+injective as $\mathcal{F}$ is a sheaf in the \'etale topology,
+factors through $\mathcal{F}(x) \to \prod_{i \in I} \mathcal{F}(x_i)$
+which is zero. Hence $\mathcal{F}(x) = 0$ as desired.
+
+\medskip\noindent
+Proof of (4): omitted. Hint: similar, but simpler, than the proof of (3).
+\end{proof}
+
+\noindent
+Parasitic modules are preserved under absolutely any pushforward.
+
+\begin{lemma}
+\label{lemma-pushforward-parasitic}
+Let $\tau \in \{\etale, fppf\}$.
+Let $\mathcal{X}$ be an algebraic stack.
+Let $\mathcal{F}$ be a parasitic object of
+$\textit{Mod}(\mathcal{X}_\tau, \mathcal{O}_\mathcal{X})$.
+\begin{enumerate}
+\item $H^i_\tau(\mathcal{X}, \mathcal{F}) = 0$ for all $i$.
+\item Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+Then $R^if_*\mathcal{F}$ (computed in $\tau$-topology) is a
+parasitic object of $\textit{Mod}(\mathcal{Y}_\tau, \mathcal{O}_\mathcal{Y})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We first reduce (2) to (1).
+By Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-pushforward-restriction}
+we see that $R^if_*\mathcal{F}$ is the sheaf associated to the presheaf
+$$
+y \longmapsto
+H^i_\tau\Big(V \times_{y, \mathcal{Y}} \mathcal{X},
+\ \text{pr}^{-1}\mathcal{F}\Big)
+$$
+Here $y$ is a typical object of $\mathcal{Y}$ lying over the scheme $V$.
+By Lemma \ref{lemma-parasitic} it suffices to show that
+these cohomology groups are zero when $y : V \to \mathcal{Y}$ is flat.
+Note that $\text{pr} : V \times_{y, \mathcal{Y}} \mathcal{X} \to \mathcal{X}$
+is flat as a base change of $y$. Hence by
+Lemma \ref{lemma-parasitic} we see that $\text{pr}^{-1}\mathcal{F}$
+is parasitic. Thus it suffices to prove (1).
+
+\medskip\noindent
+To see (1) we can use the spectral sequence of
+Sheaves on Stacks, Proposition
+\ref{stacks-sheaves-proposition-smooth-covering-compute-cohomology}
+to reduce this to the case where $\mathcal{X}$
+is an algebraic stack representable by an algebraic space.
+Note that in the spectral sequence each
+$f_p^{-1}\mathcal{F} = f_p^*\mathcal{F}$ is a parasitic module by
+Lemma \ref{lemma-parasitic} because the morphisms
+$f_p : \mathcal{U}_p =
+\mathcal{U} \times_\mathcal{X} \ldots
+\times_\mathcal{X} \mathcal{U} \to \mathcal{X}$ are flat.
+Reusing this spectral sequence one more time (as in the
+proof of the key Lemma \ref{lemma-general-pushforward})
+we reduce to the case where the
+algebraic stack $\mathcal{X}$ is representable by a scheme $X$.
+Then $H^i_\tau(\mathcal{X}, \mathcal{F}) = H^i((\Sch/X)_\tau, \mathcal{F})$.
+In this case the vanishing follows easily from an argument
+with {\v C}ech coverings, see
+Descent, Lemma \ref{descent-lemma-cohomology-parasitic}.
+\end{proof}
+
+\noindent
+The following lemma is one of the major reasons we care about
+parasitic modules. To understand the statement, recall that
+the functors
+$\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+and
+$\QCoh(\mathcal{O}_\mathcal{X}) \to
+\textit{Mod}(\mathcal{O}_\mathcal{X})$
+aren't exact in general.
+
+\begin{lemma}
+\label{lemma-exact-sequence-quasi-coherent-parasitic-cohomology}
+Let $\mathcal{X}$ be an algebraic stack. Let
+$\mathcal{F}^\bullet$ be an
+exact complex in $\QCoh(\mathcal{O}_\mathcal{X})$.
+Then the cohomology sheaves of $\mathcal{F}^\bullet$
+in either the \'etale or the fppf topology
+are parasitic $\mathcal{O}_\mathcal{X}$-modules.
+\end{lemma}
+
+\begin{proof}
+Let $x : U \to \mathcal{X}$ be a flat morphism where $U$ is a scheme.
+Then $x^*\mathcal{F}^\bullet$ is exact by
+Lemma \ref{lemma-flat-pullback-quasi-coherent}.
+Hence the restriction $x^*\mathcal{F}^\bullet|_{U_\etale}$
+is exact which is what we had to prove.
+\end{proof}
+
+
+
+
+
+\section{Quasi-coherent modules, I}
+\label{section-quasi-coherent}
+
+\noindent
+We have seen that the category of quasi-coherent modules on an algebraic
+stack is equivalent to the category of quasi-coherent modules on a
+presentation, see
+Sheaves on Stacks, Section
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks}.
+This fact is the basis for the following.
+
+\begin{lemma}
+\label{lemma-adjoint}
+Let $\mathcal{X}$ be an algebraic stack. Let $\mathcal{M}_\mathcal{X}$
+be the category of locally quasi-coherent modules with the
+flat base change property, see
+Proposition \ref{proposition-lcq-flat-base-change}.
+The inclusion functor
+$i : \QCoh(\mathcal{O}_\mathcal{X}) \to \mathcal{M}_\mathcal{X}$
+has a right adjoint
+$$
+Q : \mathcal{M}_\mathcal{X} \to \QCoh(\mathcal{O}_\mathcal{X})
+$$
+such that $Q \circ i$ is the identity functor.
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $U$ and a surjective smooth morphism $f : U \to \mathcal{X}$.
+Set $R = U \times_\mathcal{X} U$ so that we obtain a smooth groupoid
+$(U, R, s, t, c)$ in algebraic spaces with the property that
+$\mathcal{X} = [U/R]$, see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-stack-presentation}.
+We may and do replace $\mathcal{X}$ by $[U/R]$.
+In the proof of
+Sheaves on Stacks, Proposition \ref{stacks-sheaves-proposition-quasi-coherent}
+we constructed a functor
+$$
+q_1 :
+\QCoh(U, R, s, t, c)
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{X}).
+$$
+The construction of the inverse functor in the proof of
+Sheaves on Stacks, Proposition \ref{stacks-sheaves-proposition-quasi-coherent}
+works for objects of $\mathcal{M}_\mathcal{X}$ and induces a functor
+$$
+q_2 :
+\mathcal{M}_\mathcal{X}
+\longrightarrow
+\QCoh(U, R, s, t, c).
+$$
+Namely, if $\mathcal{F}$ is an object of $\mathcal{M}_\mathcal{X}$
+the we set
+$$
+q_2(\mathcal{F}) = (f^*\mathcal{F}|_{U_\etale}, \alpha)
+$$
+where $\alpha$ is the isomorphism
+$$
+t_{small}^*(f^*\mathcal{F}|_{U_\etale})
+\to
+t^*f^*\mathcal{F}|_{R_\etale} \to
+s^*f^*\mathcal{F}|_{R_\etale} \to
+s_{small}^*(f^*\mathcal{F}|_{U_\etale})
+$$
+where the outer two morphisms are the comparison maps. Note that
+$q_2(\mathcal{F})$ is quasi-coherent precisely because $\mathcal{F}$ is
+locally quasi-coherent (and we used the flat base change property
+in the construction of the descent datum $\alpha$). We omit the
+verification that the cocycle condition (see
+Groupoids in Spaces, Definition
+\ref{spaces-groupoids-definition-groupoid-module})
+holds. We define $Q = q_1 \circ q_2$.
+Let $\mathcal{F}$ be an object of $\mathcal{M}_\mathcal{X}$ and
+let $\mathcal{G}$ be an object of $\QCoh(\mathcal{O}_\mathcal{X})$.
+We have
+\begin{align*}
+\Mor_{\mathcal{M}_\mathcal{X}}(i(\mathcal{G}), \mathcal{F})
+& =
+\Mor_{\QCoh(U, R, s, t, c)}(q_2(\mathcal{G}), q_2(\mathcal{F})) \\
+& =
+\Mor_{\QCoh(\mathcal{O}_\mathcal{X})}(\mathcal{G}, Q(\mathcal{F}))
+\end{align*}
+where the first equality is
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-map-from-quasi-coherent}
+and the second equality holds because $q_1$ and $q_2$ are inverse
+equivalences of categories. The assertion $Q \circ i \cong \text{id}$
+is a formal consequence of the fact that $i$ is fully faithful.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-adjoint-kernel-parasitic}
+Let $\mathcal{X}$ be an algebraic stack.
+Let $Q : \mathcal{M}_\mathcal{X} \to \QCoh(\mathcal{O}_\mathcal{X})$
+be the functor constructed in Lemma \ref{lemma-adjoint}.
+\begin{enumerate}
+\item The kernel of $Q$ is exactly the collection of parasitic objects
+of $\mathcal{M}_\mathcal{X}$.
+\item For any object $\mathcal{F}$
+of $\mathcal{M}_\mathcal{X}$ both the kernel and the cokernel of the
+adjunction map $Q(\mathcal{F}) \to \mathcal{F}$ are parasitic.
+\item The functor $Q$ is exact.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Write $\mathcal{X} = [U/R]$ as in the proof of Lemma \ref{lemma-adjoint}.
+Let $\mathcal{F}$ be an object of $\mathcal{M}_\mathcal{X}$.
+It is clear from the proof of Lemma \ref{lemma-adjoint}
+that $\mathcal{F}$ is in the kernel of $Q$ if and only if
+$\mathcal{F}|_{U_\etale} = 0$.
+In particular, if $\mathcal{F}$ is parasitic then $\mathcal{F}$ is in
+the kernel. Next, let $x : V \to \mathcal{X}$ be a flat morphism, where
+$V$ is a scheme. Set $W = V \times_\mathcal{X} U$ and consider the diagram
+$$
+\xymatrix{
+W \ar[d]_p \ar[r]_q & V \ar[d] \\
+U \ar[r] & \mathcal{X}
+}
+$$
+Note that the projection $p : W \to U$ is flat and the projection
+$q : W \to V$ is smooth and surjective. This implies that $q_{small}^*$
+is a faithful functor on quasi-coherent modules. By assumption $\mathcal{F}$
+has the flat base change property so that we obtain
+$p_{small}^*\mathcal{F}|_{U_\etale} \cong
+q_{small}^*\mathcal{F}|_{V_\etale}$. Thus if $\mathcal{F}$
+is in the kernel of $Q$, then $\mathcal{F}|_{V_\etale} = 0$
+which completes the proof of (1).
+
+\medskip\noindent
+Part (2) follows from the discussion above and the fact
+that the map $Q(\mathcal{F}) \to \mathcal{F}$ becomes an isomorphism after
+restricting to $U_\etale$.
+
+\medskip\noindent
+To see part (3) note that $Q$
+is left exact as a right adjoint. Suppose that
+$0 \to \mathcal{F} \to \mathcal{G} \to \mathcal{H} \to 0$
+is a short exact sequence in $\mathcal{M}_\mathcal{X}$. Let
+$\mathcal{E} = \Coker(Q(\mathcal{G}) \to Q(\mathcal{H}))$ in
+$\QCoh(\mathcal{O}_\mathcal{X})$. Since
+$\QCoh(\mathcal{O}_\mathcal{X}) \to \mathcal{M}_\mathcal{X}$
+is a left adjoint it is right exact. Hence we see that
+$Q(\mathcal{G}) \to Q(\mathcal{H}) \to \mathcal{E} \to 0$
+is exact in $\mathcal{M}_\mathcal{X}$. Using
+Lemma \ref{lemma-exact-sequence-quasi-coherent-parasitic-cohomology}
+we find that the top row of the following commutative diagram
+has parasitic cohomology sheaves at $Q(\mathcal{F})$ and $Q(\mathcal{G})$:
+$$
+\xymatrix{
+0 \ar[r] &
+Q(\mathcal{F}) \ar[r] \ar[d]_a &
+Q(\mathcal{G}) \ar[r] \ar[d]_b &
+Q(\mathcal{H}) \ar[r] \ar[d]_c &
+\mathcal{E} \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+\mathcal{F} \ar[r] &
+\mathcal{G} \ar[r] &
+\mathcal{H} \ar[r] & 0
+}
+$$
+The bottom row is exact and the vertical arrows $a, b, c$
+have parasitic kernel and cokernels by part (2). It follows that
+$\mathcal{E}$ is parasitic: in the quotient category of
+$\textit{Mod}(\mathcal{O}_\mathcal{X})/\text{Parasitic}$
+(see Homology, Lemma \ref{homology-lemma-serre-subcategory-is-kernel} and 
+Lemma \ref{lemma-parasitic})
+we see that $a, b, c$ are isomorphisms and that the top row becomes
+exact. As it is also quasi-coherent, we conclude
+that $\mathcal{E}$ is zero because $\mathcal{E} = Q(\mathcal{E}) = 0$ by
+part (1).
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Pushforward of quasi-coherent modules}
+\label{section-pushforward-quasi-coherent}
+
+\noindent
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+Consider the pushforward
+$$
+f_* :
+\textit{Mod}(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\textit{Mod}(\mathcal{O}_\mathcal{Y})
+$$
+It turns out that this functor almost never preserves the subcategories
+of quasi-coherent sheaves. For example, consider the morphism of schemes
+$$
+j : X = \mathbf{A}^2_k \setminus \{0\} \longrightarrow \mathbf{A}^2_k = Y.
+$$
+Associated to this we have the corresponding morphism of algebraic stacks
+$$
+f = j_{big} : \mathcal{X} = (\Sch/X)_{fppf} \to
+(\Sch/Y)_{fppf} = \mathcal{Y}
+$$
+The pushforward $f_*\mathcal{O}_\mathcal{X}$ of the structure sheaf has
+global sections $k[x, y]$. Hence if $f_*\mathcal{O}_\mathcal{X}$ is
+quasi-coherent on $\mathcal{Y}$ then we would have
+$f_*\mathcal{O}_\mathcal{X} = \mathcal{O}_\mathcal{Y}$. However,
+consider $T = \Spec(k) \to \mathbf{A}^2_k = Y$ mapping to $0$.
+Then $\Gamma(T, f_*\mathcal{O}_\mathcal{X}) = 0$ because
+$X \times_Y T = \emptyset$ whereas $\Gamma(T, \mathcal{O}_\mathcal{Y}) = k$.
+On the positive side, we know from
+Cohomology of Schemes, Lemma \ref{coherent-lemma-flat-base-change-cohomology}
+that for any flat morphism $T \to Y$ we have the equality
+$\Gamma(T, f_*\mathcal{O}_\mathcal{X}) = \Gamma(T, \mathcal{O}_\mathcal{Y})$
+(this uses that $j$ is quasi-compact and quasi-separated).
+
+\medskip\noindent
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a quasi-compact and
+quasi-separated morphism of algebraic stacks. We work around the problem
+mentioned above using the following three observations:
+\begin{enumerate}
+\item $f_*$ does preserve locally quasi-coherent
+modules (Lemma \ref{lemma-pushforward-locally-quasi-coherent}),
+\item $f_*$ transforms a quasi-coherent sheaf into a locally quasi-coherent
+sheaf whose flat comparison maps are isomorphisms
+(Lemma \ref{lemma-flat-comparison}), and
+\item locally quasi-coherent $\mathcal{O}_\mathcal{Y}$-modules
+with the flat base change property give rise to quasi-coherent
+modules on a presentation of $\mathcal{Y}$ and hence quasi-coherent
+modules on $\mathcal{Y}$, see
+Sheaves on Stacks, Section
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks}.
+\end{enumerate}
+Thus we obtain a functor
+$$
+f_{\QCoh, *} :
+\QCoh(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{Y})
+$$
+which is a right adjoint to
+$f^* : \QCoh(\mathcal{O}_\mathcal{Y}) \to
+\QCoh(\mathcal{O}_\mathcal{X})$
+such that moreover
+$$
+\Gamma(y, f_*\mathcal{F}) = \Gamma(y, f_{\QCoh, *}\mathcal{F})
+$$
+for any $y \in \Ob(\mathcal{Y})$ such that the associated
+$1$-morphism $y : V \to \mathcal{Y}$ is flat, see (insert future
+reference here).
+Moreover, a similar construction will produce functors
+$R^if_{\QCoh, *}$.
+However, these results will not be sufficient to produce a
+total direct image functor (of complexes with quasi-coherent
+cohomology sheaves).
+
+\begin{proposition}
+\label{proposition-direct-image-quasi-coherent}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a quasi-compact and quasi-separated
+morphism of algebraic stacks. The functor
+$f^* : \QCoh(\mathcal{O}_\mathcal{Y}) \to
+\QCoh(\mathcal{O}_\mathcal{X})$
+has a right adjoint
+$$
+f_{\QCoh, *} :
+\QCoh(\mathcal{O}_\mathcal{X})
+\longrightarrow
+\QCoh(\mathcal{O}_\mathcal{Y})
+$$
+which can be defined as the composition
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) \to \mathcal{M}_\mathcal{X}
+\xrightarrow{f_*} \mathcal{M}_\mathcal{Y}
+\xrightarrow{Q} \QCoh(\mathcal{O}_\mathcal{Y})
+$$
+where the functors $f_*$ and $Q$ are as in
+Proposition \ref{proposition-lcq-flat-base-change}
+and
+Lemma \ref{lemma-adjoint}.
+Moreover, if we define $R^if_{\QCoh, *}$ as the composition
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) \to \mathcal{M}_\mathcal{X}
+\xrightarrow{R^if_*} \mathcal{M}_\mathcal{Y}
+\xrightarrow{Q} \QCoh(\mathcal{O}_\mathcal{Y})
+$$
+then the sequence of functors $\{R^if_{\QCoh, *}\}_{i \geq 0}$
+forms a cohomological $\delta$-functor.
+\end{proposition}
+
+\begin{proof}
+This is a combination of the results mentioned in the statement.
+The adjointness can be shown as follows: Let $\mathcal{F}$
+be a quasi-coherent $\mathcal{O}_\mathcal{X}$-module and let
+$\mathcal{G}$ be a quasi-coherent $\mathcal{O}_\mathcal{Y}$-module.
+Then we have
+\begin{align*}
+\Mor_{\QCoh(\mathcal{O}_\mathcal{X})}(f^*\mathcal{G}, \mathcal{F})
+& =
+\Mor_{\mathcal{M}_\mathcal{Y}}(\mathcal{G}, f_*\mathcal{F}) \\
+& =
+\Mor_{\QCoh(\mathcal{O}_\mathcal{Y})}(\mathcal{G}, Q(f_*\mathcal{F}))
+\\
+& =
+\Mor_{\QCoh(\mathcal{O}_\mathcal{Y})}(\mathcal{G},
+f_{\QCoh, *}\mathcal{F})
+\end{align*}
+the first equality by adjointness of $f_*$ and $f^*$ (for arbitrary sheaves
+of modules). By
+Proposition \ref{proposition-lcq-flat-base-change}
+we see that $f_*\mathcal{F}$ is an object of $\mathcal{M}_\mathcal{Y}$
+(and can be computed in either the fppf or \'etale topology) and we
+obtain the second equality by Lemma \ref{lemma-adjoint}. The third
+equality is the definition of $f_{\QCoh, *}$.
+
+\medskip\noindent
+To see that $\{R^if_{\QCoh, *}\}_{i \geq 0}$ is a cohomological
+$\delta$-functor as defined in
+Homology, Definition \ref{homology-definition-cohomological-delta-functor}
+let
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+be a short exact sequence of $\QCoh(\mathcal{O}_\mathcal{X})$.
+This sequence may not be an exact sequence in
+$\textit{Mod}(\mathcal{O}_\mathcal{X})$ but we know that it is
+up to parasitic modules, see
+Lemma \ref{lemma-exact-sequence-quasi-coherent-parasitic-cohomology}.
+Thus we may break up the sequence into short exact sequences
+$$
+\begin{matrix}
+0 \to \mathcal{P}_1 \to \mathcal{F}_1 \to \mathcal{I}_2 \to 0 \\
+0 \to \mathcal{I}_2 \to \mathcal{F}_2 \to \mathcal{Q}_2 \to 0 \\
+0 \to \mathcal{P}_2 \to \mathcal{Q}_2 \to \mathcal{I}_3 \to 0 \\
+0 \to \mathcal{I}_3 \to \mathcal{F}_3 \to \mathcal{P}_3 \to 0
+\end{matrix}
+$$
+of $\textit{Mod}(\mathcal{O}_\mathcal{X})$ with $\mathcal{P}_i$ parasitic.
+Note that each of the sheaves
+$\mathcal{P}_j$, $\mathcal{I}_j$, $\mathcal{Q}_j$ is an object of
+$\mathcal{M}_\mathcal{X}$, see
+Proposition \ref{proposition-lcq-flat-base-change}.
+Applying $R^if_*$ we obtain long exact sequences 
+$$
+\begin{matrix}
+0 \to f_*\mathcal{P}_1 \to f_*\mathcal{F}_1 \to f_*\mathcal{I}_2 \to
+R^1f_*\mathcal{P}_1 \to \ldots \\
+0 \to f_*\mathcal{I}_2 \to f_*\mathcal{F}_2 \to f_*\mathcal{Q}_2 \to
+R^1f_*\mathcal{I}_2 \to \ldots \\
+0 \to f_*\mathcal{P}_2 \to f_*\mathcal{Q}_2 \to f_*\mathcal{I}_3 \to
+R^1f_*\mathcal{P}_2 \to \ldots \\
+0 \to f_*\mathcal{I}_3 \to f_*\mathcal{F}_3 \to f_*\mathcal{P}_3 \to
+R^1f_*\mathcal{I}_3 \to \ldots
+\end{matrix}
+$$
+where are the terms are objects of $\mathcal{M}_\mathcal{Y}$ by
+Proposition \ref{proposition-lcq-flat-base-change}.
+By
+Lemma \ref{lemma-pushforward-parasitic}
+the sheaves $R^if_*\mathcal{P}_j$ are parasitic, hence vanish on applying
+the functor $Q$, see
+Lemma \ref{lemma-adjoint-kernel-parasitic}.
+Since $Q$ is exact the maps
+$$
+Q(R^if_*\mathcal{F}_3)
+\cong
+Q(R^if_*\mathcal{I}_3)
+\cong
+Q(R^if_*\mathcal{Q}_2)
+\rightarrow
+Q(R^{i + 1}f_*\mathcal{I}_2)
+\cong
+Q(R^{i + 1}f_*\mathcal{F}_1)
+$$
+can serve as the connecting map which turns the family of functors
+$\{R^if_{\QCoh, *}\}_{i \geq 0}$
+into a cohomological $\delta$-functor.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-leray}
+Let $f : \mathcal{X} \to \mathcal{Y}$
+be a quasi-compact and quasi-separated morphism of algebraic stacks.
+Let $\mathcal{F}$ be a quasi-coherent sheaf on $\mathcal{X}$. Then
+there exists a spectral sequence with $E_2$-page
+$$
+E_2^{p, q} = H^p(\mathcal{Y}, R^qf_{\QCoh, *}\mathcal{F})
+$$
+converging to $H^{p + q}(\mathcal{X}, \mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+By Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-Leray}
+the Leray spectral sequence with
+$$
+E_2^{p, q} = H^p(\mathcal{Y}, R^qf_*\mathcal{F})
+$$
+converges to $H^{p + q}(\mathcal{X}, \mathcal{F})$. The kernel and cokernel
+of the adjunction map
+$$
+R^qf_{\QCoh, *}\mathcal{F} \longrightarrow R^qf_*\mathcal{F}
+$$
+are parasitic modules on $\mathcal{Y}$
+(Lemma \ref{lemma-adjoint-kernel-parasitic})
+hence have vanishing cohomology
+(Lemma \ref{lemma-pushforward-parasitic}).
+It follows formally that
+$H^p(\mathcal{Y}, R^qf_{\QCoh, *}\mathcal{F}) =
+H^p(\mathcal{Y}, R^qf_*\mathcal{F})$ and we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-leray}
+Let $f : \mathcal{X} \to \mathcal{Y}$ and $g : \mathcal{Y} \to \mathcal{Z}$
+be quasi-compact and quasi-separated morphisms of algebraic stacks.
+Let $\mathcal{F}$ be a quasi-coherent sheaf on $\mathcal{X}$. Then
+there exists a spectral sequence with $E_2$-page
+$$
+E_2^{p, q} = R^pg_{\QCoh, *}(R^qf_{\QCoh, *}\mathcal{F})
+$$
+converging to $R^{p + q}(g \circ f)_{\QCoh, *}\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+By Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-relative-Leray}
+the Leray spectral sequence with
+$$
+E_2^{p, q} = R^pg_*(R^qf_*\mathcal{F})
+$$
+converges to $R^{p + q}(g \circ f)_*\mathcal{F}$. By the results of
+Proposition \ref{proposition-lcq-flat-base-change}
+all the terms of this spectral sequence are objects of
+$\mathcal{M}_\mathcal{Z}$. Applying the exact functor
+$Q_\mathcal{Z} : \mathcal{M}_\mathcal{Z} \to
+\QCoh(\mathcal{O}_\mathcal{Z})$ we obtain a spectral sequence in
+$\QCoh(\mathcal{O}_\mathcal{Z})$ covering to
+$R^{p + q}(g \circ f)_{\QCoh, *}\mathcal{F}$. Hence
+the result follows if we can show that
+$$
+Q_\mathcal{Z}(R^pg_*(R^qf_*\mathcal{F})) =
+Q_\mathcal{Z}(R^pg_*(Q_\mathcal{X}(R^qf_*\mathcal{F}))
+$$
+This follows from the fact that the kernel and cokernel of the map
+$$
+Q_\mathcal{X}(R^qf_*\mathcal{F}) \longrightarrow R^qf_*\mathcal{F}
+$$
+are parasitic (Lemma \ref{lemma-adjoint-kernel-parasitic}) and that
+$R^pg_*$ transforms parasitic modules into parasitic modules
+(Lemma \ref{lemma-pushforward-parasitic}).
+\end{proof}
+
+\noindent
+To end this section we make explicit the spectral sequences
+associated to a smooth covering by a scheme. Please compare with
+Sheaves on Stacks, Sections \ref{stacks-sheaves-section-cohomology} and
+\ref{stacks-sheaves-section-higher-direct-images}.
+
+\begin{proposition}
+\label{proposition-smooth-covering-compute-cohomology}
+Let $f : \mathcal{U} \to \mathcal{X}$ be a morphism of algebraic stacks.
+Assume $f$ is representable by algebraic spaces, surjective, flat, and
+locally of finite presentation. Let $\mathcal{F}$ be a quasi-coherent
+$\mathcal{O}_\mathcal{X}$-module. Then there is a spectral sequence
+$$
+E_2^{p, q} = H^q(\mathcal{U}_p, f_p^*\mathcal{F})
+\Rightarrow
+H^{p + q}(\mathcal{X}, \mathcal{F})
+$$
+where $f_p$ is the morphism
+$\mathcal{U} \times_\mathcal{X} \ldots \times_\mathcal{X} \mathcal{U} \to
+\mathcal{X}$ ($p + 1$ factors).
+\end{proposition}
+
+\begin{proof}
+This is a special case of
+Sheaves on Stacks, Proposition
+\ref{stacks-sheaves-proposition-smooth-covering-compute-cohomology}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-smooth-covering-compute-direct-image}
+Let $f : \mathcal{U} \to \mathcal{X}$ and $g : \mathcal{X} \to \mathcal{Y}$
+be composable morphisms of algebraic stacks.
+Assume that
+\begin{enumerate}
+\item $f$ is representable by algebraic spaces, surjective,
+flat, locally of finite presentation, quasi-compact, and quasi-separated, and
+\item $g$ is quasi-compact and quasi-separated.
+\end{enumerate}
+If $\mathcal{F}$ is in $\QCoh(\mathcal{O}_\mathcal{X})$ then
+there is a spectral sequence
+$$
+E_2^{p, q} = R^q(g \circ f_p)_{\QCoh, *}f_p^*\mathcal{F}
+\Rightarrow
+R^{p + q}g_{\QCoh, *}\mathcal{F}
+$$
+in $\QCoh(\mathcal{O}_\mathcal{Y})$.
+\end{proposition}
+
+\begin{proof}
+Note that each of the morphisms
+$f_p : \mathcal{U} \times_\mathcal{X} \ldots \times_\mathcal{X} \mathcal{U} \to
+\mathcal{X}$ is quasi-compact and quasi-separated, hence $g \circ f_p$
+is quasi-compact and quasi-separated, hence the assertion makes sense
+(i.e., the functors $R^q(g \circ f_p)_{\QCoh, *}$ are defined).
+There is a spectral sequence
+$$
+E_2^{p, q} = R^q(g \circ f_p)_*f_p^{-1}\mathcal{F}
+\Rightarrow
+R^{p + q}g_*\mathcal{F}
+$$
+by Sheaves on Stacks, Proposition
+\ref{stacks-sheaves-proposition-smooth-covering-compute-direct-image}.
+Applying the exact functor
+$Q_\mathcal{Y} : \mathcal{M}_\mathcal{Y} \to
+\QCoh(\mathcal{O}_\mathcal{Y})$ gives the desired spectral sequence in
+$\QCoh(\mathcal{O}_\mathcal{Y})$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{The lisse-\'etale and the flat-fppf sites}
+\label{section-lisse-etale}
+
+\noindent
+In the book \cite{LM-B} many of the results above are proved using the
+lisse-\'etale site of an algebraic stack. We define this site here.
+In Examples, Section \ref{examples-section-lisse-etale-not-functorial}
+we show that the lisse-\'etale site isn't functorial.
+We also define its analogue, the flat-fppf site, which is better suited
+to the development of algebraic stacks as given in the Stacks project
+(because we use the fppf topology as our base topology). Of course the
+flat-fppf site isn't functorial either.
+
+\begin{definition}
+\label{definition-lisse-etale}
+Let $\mathcal{X}$ be an algebraic stack.
+\begin{enumerate}
+\item The {\it lisse-\'etale site} of $\mathcal{X}$ is the full subcategory
+$\mathcal{X}_{lisse,\etale}$\footnote{In the literature the
+site is denoted $\text{Lis-\'et}(\mathcal{X})$ or
+$\text{Lis-Et}(\mathcal{X})$ and the associated topos is denoted
+$\mathcal{X}_{\text{lis-\'e}t}$ or $\mathcal{X}_{\text{lis-et}}$.
+In the Stacks project our convention is to name the site and
+denote the corresponding topos by $\Sh(\mathcal{C})$.} of $\mathcal{X}$
+whose objects are those $x \in \Ob(\mathcal{X})$ lying over a scheme $U$
+such that $x : U \to \mathcal{X}$ is smooth. A covering of
+$\mathcal{X}_{lisse,\etale}$ is a family of morphisms
+$\{x_i \to x\}_{i \in I}$ of $\mathcal{X}_{lisse,\etale}$
+which forms a covering of $\mathcal{X}_\etale$.
+\item The {\it flat-fppf site} of $\mathcal{X}$ is the full subcategory
+$\mathcal{X}_{flat,fppf}$ of $\mathcal{X}$
+whose objects are those $x \in \Ob(\mathcal{X})$ lying over a scheme $U$
+such that $x : U \to \mathcal{X}$ is flat. A covering of
+$\mathcal{X}_{flat,fppf}$ is a family of morphisms
+$\{x_i \to x\}_{i \in I}$ of $\mathcal{X}_{flat,fppf}$
+which forms a covering of $\mathcal{X}_{fppf}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+We denote $\mathcal{O}_{\mathcal{X}_{lisse,\etale}}$
+the restriction of $\mathcal{O}_\mathcal{X}$ to the lisse-\'etale site
+and similarly for $\mathcal{O}_{\mathcal{X}_{flat,fppf}}$.
+The relationship between the lisse-\'etale site and the \'etale site is
+as follows (we mainly stick to ``topological'' properties in this lemma).
+
+\begin{lemma}
+\label{lemma-lisse-etale}
+Let $\mathcal{X}$ be an algebraic stack.
+\begin{enumerate}
+\item The inclusion functor
+$\mathcal{X}_{lisse,\etale} \to \mathcal{X}_\etale$
+is fully faithful, continuous and cocontinuous. It follows that
+\begin{enumerate}
+\item there is a morphism of topoi
+$$
+g :
+\Sh(\mathcal{X}_{lisse,\etale})
+\longrightarrow
+\Sh(\mathcal{X}_\etale)
+$$
+with $g^{-1}$ given by restriction,
+\item the functor $g^{-1}$ has a left adjoint $g_!^{Sh}$ on sheaves of sets,
+\item the adjunction maps $g^{-1}g_* \to \text{id}$ and
+$\text{id} \to g^{-1}g_!^{Sh}$ are isomorphisms,
+\item the functor $g^{-1}$ has a left adjoint $g_!$ on abelian sheaves,
+\item the adjunction map $\text{id} \to g^{-1}g_!$ is an isomorphism, and
+\item we have $g^{-1}\mathcal{O}_\mathcal{X} =
+\mathcal{O}_{\mathcal{X}_{lisse,\etale}}$ hence $g$ induces a flat
+morphism of ringed topoi such that $g^{-1} = g^*$.
+\end{enumerate}
+\item The inclusion functor
+$\mathcal{X}_{flat,fppf} \to \mathcal{X}_{fppf}$
+is fully faithful, continuous and cocontinuous. It follows that
+\begin{enumerate}
+\item there is a morphism of topoi
+$$
+g :
+\Sh(\mathcal{X}_{flat,fppf})
+\longrightarrow
+\Sh(\mathcal{X}_{fppf})
+$$
+with $g^{-1}$ given by restriction,
+\item the functor $g^{-1}$ has a left adjoint $g_!^{Sh}$ on sheaves of sets,
+\item the adjunction maps $g^{-1}g_* \to \text{id}$ and
+$\text{id} \to g^{-1}g_!^{Sh}$ are isomorphisms,
+\item the functor $g^{-1}$ has a left adjoint $g_!$ on abelian sheaves,
+\item the adjunction map $\text{id} \to g^{-1}g_!$ is an isomorphism, and
+\item we have $g^{-1}\mathcal{O}_\mathcal{X} =
+\mathcal{O}_{\mathcal{X}_{flat,fppf}}$ hence $g$ induces a flat
+morphism of ringed topoi such that $g^{-1} = g^*$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+In both cases it is immediate that the functor is fully faithful,
+continuous, and cocontinuous (see
+Sites, Definitions \ref{sites-definition-continuous} and
+\ref{sites-definition-cocontinuous}).
+Hence properties (a), (b), (c) follow from
+Sites, Lemmas \ref{sites-lemma-when-shriek} and
+\ref{sites-lemma-back-and-forth}.
+Parts (d), (e) follow from
+Modules on Sites, Lemmas \ref{sites-modules-lemma-g-shriek-adjoint} and
+\ref{sites-modules-lemma-back-and-forth}.
+Part (f) is immediate.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lisse-etale-modules}
+Let $\mathcal{X}$ be an algebraic stack. Notation as in
+Lemma \ref{lemma-lisse-etale}.
+\begin{enumerate}
+\item There exists a functor
+$$
+g_! :
+\textit{Mod}(\mathcal{X}_{lisse,\etale},
+\mathcal{O}_{\mathcal{X}_{lisse,\etale}})
+\longrightarrow
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_{\mathcal{X}})
+$$
+which is left adjoint to $g^*$. Moreover it agrees with the functor $g_!$
+on abelian sheaves and $g^*g_! = \text{id}$.
+\item There exists a functor
+$$
+g_! :
+\textit{Mod}(\mathcal{X}_{flat,fppf},
+\mathcal{O}_{\mathcal{X}_{flat,fppf}})
+\longrightarrow
+\textit{Mod}(\mathcal{X}_{fppf}, \mathcal{O}_{\mathcal{X}})
+$$
+which is left adjoint to $g^*$. Moreover it agrees with the functor $g_!$
+on abelian sheaves and $g^*g_! = \text{id}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+In both cases, the existence of the functor $g_!$ follows from
+Modules on Sites, Lemma \ref{sites-modules-lemma-lower-shriek-modules}.
+To see that $g_!$ agrees with the functor on abelian sheaves we will
+show the maps Modules on Sites, Equation
+(\ref{sites-modules-equation-compare-on-localizations})
+are isomorphisms.
+
+\medskip\noindent
+Lisse-\'etale case. Let $x \in \Ob(\mathcal{X}_{lisse,\etale})$
+lying over a scheme $U$ with $x : U \to \mathcal{X}$ smooth.
+Consider the induced fully faithful functor
+$$
+g' :
+\mathcal{X}_{lisse,\etale}/x
+\longrightarrow
+\mathcal{X}_\etale/x
+$$
+The right hand side is identified with $(\Sch/U)_\etale$ and the
+left hand side with the full subcategory of schemes $U'/U$ such that
+the composition $U' \to U \to \mathcal{X}$ is smooth. Thus
+\'Etale Cohomology, Lemma
+\ref{etale-cohomology-lemma-compare-structure-sheaves}
+applies.
+
+\medskip\noindent
+Flat-fppf case. Let $x \in \Ob(\mathcal{X}_{flat,fppf})$
+lying over a scheme $U$ with $x : U \to \mathcal{X}$ flat.
+Consider the induced fully faithful functor
+$$
+g' :
+\mathcal{X}_{flat,fppf}/x
+\longrightarrow
+\mathcal{X}_{fppf}/x
+$$
+The right hand side is identified with $(\Sch/U)_{fppf}$ and the
+left hand side with the full subcategory of schemes $U'/U$ such that
+the composition $U' \to U \to \mathcal{X}$ is flat. Thus
+\'Etale Cohomology, Lemma
+\ref{etale-cohomology-lemma-compare-structure-sheaves}
+applies.
+
+\medskip\noindent
+In both cases the equality $g^*g_! = \text{id}$ follows from
+$g^* = g^{-1}$ and the
+equality for abelian sheaves in Lemma \ref{lemma-lisse-etale}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lisse-etale-structure-sheaf}
+Let $\mathcal{X}$ be an algebraic stack. Notation as in
+Lemmas \ref{lemma-lisse-etale} and \ref{lemma-lisse-etale-modules}.
+\begin{enumerate}
+\item We have $g_!\mathcal{O}_{\mathcal{X}_{lisse,\etale}} =
+\mathcal{O}_\mathcal{X}$.
+\item We have $g_!\mathcal{O}_{\mathcal{X}_{flat, fppf}} =
+\mathcal{O}_\mathcal{X}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+In this proof we write
+$\mathcal{C} = \mathcal{X}_\etale$
+(resp.\ $\mathcal{C} = \mathcal{X}_{fppf}$)
+and we denote
+$\mathcal{C}' = \mathcal{X}_{lisse,\etale}$
+(resp.\ $\mathcal{C}' = \mathcal{X}_{flat, fppf}$).
+Then $\mathcal{C}'$ is a full subcategory of $\mathcal{C}$.
+In this proof we will think of objects $V$ of $\mathcal{C}$
+as schemes over $\mathcal{X}$ and objects $U$ of $\mathcal{C}'$
+as schemes smooth (resp.\ flat) over $\mathcal{X}$.
+Finally, we write $\mathcal{O} = \mathcal{O}_\mathcal{X}$
+and $\mathcal{O}' = \mathcal{O}_{\mathcal{X}_{lisse,\etale}}$
+(resp.\ $\mathcal{O}' = \mathcal{O}_{\mathcal{X}_{flat,fppf}}$).
+In the notation above we have $\mathcal{O}(V) = \Gamma(V, \mathcal{O}_V)$
+and $\mathcal{O}'(U) = \Gamma(U, \mathcal{O}_U)$.
+Consider the $\mathcal{O}$-module homomorphism
+$g_!\mathcal{O}' \to \mathcal{O}$
+adjoint to the identification $\mathcal{O}' = g^{-1}\mathcal{O}$.
+
+\medskip\noindent
+Recall that $g_!\mathcal{O}'$ is the sheaf associated to the presheaf
+$g_{p!}\mathcal{O}'$ given by the rule
+$$
+V \longmapsto \colim_{V \to U} \mathcal{O}'(U)
+$$
+where the colimit is taken in the category of abelian groups
+(Modules on Sites, Definition \ref{sites-modules-definition-g-shriek}).
+Below we will use frequently that if
+$$
+V \to U \to U'
+$$
+are morphisms and if $f' \in \mathcal{O}'(U')$ restricts to
+$f \in \mathcal{O}'(U)$, then $(V \to U, f)$ and $(V \to U', f')$
+define the same element of the colimit. Also,
+$g_!\mathcal{O}' \to \mathcal{O}$ maps the element
+$(V \to U, f)$ simply to the pullback of $f$ to $V$.
+
+\medskip\noindent
+To see that $g_!\mathcal{O}' \to \mathcal{O}$ is surjective it
+suffices to show that $1 \in \Gamma(\mathcal{C}, \mathcal{O})$ is
+locally in the image. Choose an object $U$ of $\mathcal{C}'$
+corresponding to a surjective smooth morphism $U \to \mathcal{X}$.
+Then viewing $U$ both as an object of $\mathcal{C}'$ and $\mathcal{C}$
+we see that $(U \to U, 1)$ is an element of the colimit above which
+maps to $1 \in \mathcal{O}(U)$. Since $U$ surjects onto the final
+object of $\Sh(\mathcal{C})$ we conclude $g_!\mathcal{O}' \to \mathcal{O}$
+is surjective.
+
+\medskip\noindent
+Suppose that $s \in g_!\mathcal{O}'(V)$ is a section
+mapping to zero in $\mathcal{O}(V)$. To finish the proof we have to show
+that $s$ is zero. After replacing $V$ by the members
+of a covering we may assume $s$ is an element of the colimit
+$$
+\colim_{V \to U} \mathcal{O}'(U)
+$$
+Say $s = \sum (\varphi_i, s_i)$ is a finite sum with
+$\varphi_i : V \to U_i$, $U_i$ smooth (resp.\ flat) over $\mathcal{X}$, and
+$s_i \in \Gamma(U_i, \mathcal{O}_{U_i})$. Choose a scheme $W$ surjective
+\'etale over the algebraic space
+$U = U_1 \times_\mathcal{X} \ldots \times_\mathcal{X} U_n$.
+Note that $W$ is still smooth (resp.\ flat) over $\mathcal{X}$, i.e.,
+defines an object of $\mathcal{C}'$. The fibre product
+$$
+V' = V \times_{(\varphi_1, \ldots, \varphi_n), U} W
+$$
+is surjective \'etale over $V$, hence it suffices to show that $s$ maps
+to zero in $g_!\mathcal{O}'(V')$. Note that the restriction
+$\sum (\varphi_i, s_i)|_{V'}$ corresponds to the sum of the pullbacks
+of the functions $s_i$ to $W$. In other words, we have reduced to the case
+of $(\varphi, s)$ where $\varphi : V \to U$ is a morphism with $U$ in
+$\mathcal{C}'$ and $s \in \mathcal{O}'(U)$ restricts to zero in
+$\mathcal{O}(V)$. By the commutative diagram
+$$
+\xymatrix{
+V \ar[rr]_-{(\varphi, 0)} \ar[rrd]_\varphi & & U \times \mathbf{A}^1 \\
+& & U \ar[u]_{(\text{id}, 0)}
+}
+$$
+we see that
+$((\varphi, 0) : V \to U \times \mathbf{A}^1, \text{pr}_2^*x)$
+represents zero in the colimit above. Hence we may
+replace $U$ by $U \times \mathbf{A}^1$, $\varphi$ by $(\varphi, 0)$
+and $s$ by $\text{pr}_1^*s + \text{pr}_2^*x$. Thus we may assume that
+the vanishing locus $Z : s = 0$ in $U$ of $s$ is smooth (resp.\ flat)
+over $\mathcal{X}$. Then we see that $(V \to Z, 0)$ and $(\varphi, s)$
+have the same value in the colimit, i.e., we see that the element $s$
+is zero as desired.
+\end{proof}
+
+\noindent
+The lisse-\'etale and the flat-fppf sites can be used to characterize
+parasitic modules as follows.
+
+\begin{lemma}
+\label{lemma-parasitic-in-terms-flat-fppf}
+Let $\mathcal{X}$ be an algebraic stack.
+\begin{enumerate}
+\item Let $\mathcal{F}$ be an $\mathcal{O}_\mathcal{X}$-module
+with the flat base change property on $\mathcal{X}_\etale$.
+The following are equivalent
+\begin{enumerate}
+\item $\mathcal{F}$ is parasitic, and
+\item $g^*\mathcal{F} = 0$ where
+$g : \Sh(\mathcal{X}_{lisse,\etale}) \to
+\Sh(\mathcal{X}_\etale)$ is as in Lemma \ref{lemma-lisse-etale}.
+\end{enumerate}
+\item Let $\mathcal{F}$ be an $\mathcal{O}_\mathcal{X}$-module on
+$\mathcal{X}_{fppf}$. The following are equivalent
+\begin{enumerate}
+\item $\mathcal{F}$ is parasitic, and
+\item $g^*\mathcal{F} = 0$ where
+$g :  \Sh(\mathcal{X}_{flat,fppf}) \to \Sh(\mathcal{X}_{fppf})$
+is as in Lemma \ref{lemma-lisse-etale}.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (2) is immediate from the definitions (this is one of the advantages
+of the flat-fppf site over the lisse-\'etale site). The implication
+(1)(a) $\Rightarrow$ (1)(b) is immediate as well. To see (1)(b)
+$\Rightarrow$ (1)(a) let $U$ be a scheme and let $x : U \to \mathcal{X}$
+be a surjective smooth morphism. Then $x$ is an object of the
+lisse-\'etale site of $\mathcal{X}$. Hence we see that (1)(b)
+implies that $\mathcal{F}|_{U_\etale} = 0$. Let $V \to \mathcal{X}$
+be an flat morphism where $V$ is a scheme. Set $W = U \times_\mathcal{X} V$
+and consider the diagram
+$$
+\xymatrix{
+W \ar[d]_p \ar[r]_q & V \ar[d] \\
+U \ar[r] & \mathcal{X}
+}
+$$
+Note that the projection $p : W \to U$ is flat and the projection
+$q : W \to V$ is smooth and surjective. This implies that $q_{small}^*$
+is a faithful functor on quasi-coherent modules. By assumption $\mathcal{F}$
+has the flat base change property so that we obtain
+$p_{small}^*\mathcal{F}|_{U_\etale} \cong
+q_{small}^*\mathcal{F}|_{V_\etale}$. Thus if $\mathcal{F}$
+is in the kernel of $g^*$, then $\mathcal{F}|_{V_\etale} = 0$
+as desired.
+\end{proof}
+
+\noindent
+The lisse-\'etale site is functorial for smooth morphisms of algebraic stacks
+and the flat-fppf site is functorial for flat morphisms of algebraic stacks.
+
+\begin{lemma}
+\label{lemma-lisse-etale-functorial}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+\begin{enumerate}
+\item If $f$ is smooth, then $f$ restricts to a continuous and cocontinuous
+functor
+$\mathcal{X}_{lisse,\etale} \to \mathcal{Y}_{lisse,\etale}$
+which gives a morphism of ringed topoi fitting into the following
+commutative diagram
+$$
+\xymatrix{
+\Sh(\mathcal{X}_{lisse,\etale}) \ar[r]_{g'} \ar[d]_{f'} &
+\Sh(\mathcal{X}_\etale) \ar[d]^f \\
+\Sh(\mathcal{Y}_{lisse,\etale}) \ar[r]^g &
+\Sh(\mathcal{Y}_\etale)
+}
+$$
+We have $f'_*(g')^{-1} = g^{-1}f_*$ and $g'_!(f')^{-1} = f^{-1}g_!$.
+\item If $f$ is flat, then $f$ restricts to a continuous and cocontinuous
+functor
+$\mathcal{X}_{flat,fppf} \to \mathcal{Y}_{flat,fppf}$
+which gives a morphism of ringed topoi fitting into the following
+commutative diagram
+$$
+\xymatrix{
+\Sh(\mathcal{X}_{flat,fppf}) \ar[r]_{g'} \ar[d]_{f'} &
+\Sh(\mathcal{X}_{fppf}) \ar[d]^f \\
+\Sh(\mathcal{Y}_{flat,fppf}) \ar[r]^g &
+\Sh(\mathcal{Y}_{fppf})
+}
+$$
+We have $f'_*(g')^{-1} = g^{-1}f_*$ and $g'_!(f')^{-1} = f^{-1}g_!$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The initial statement comes from the fact that if $x \in \Ob(\mathcal{X})$
+lies over a scheme $U$ such that $x : U \to \mathcal{X}$ is smooth
+(resp.\ flat) and if $f$ is smooth (resp.\ flat) then
+$f(x) : U \to \mathcal{Y}$ is smooth (resp.\ flat), see
+Morphisms of Stacks, Lemmas \ref{stacks-morphisms-lemma-composition-smooth} and
+\ref{stacks-morphisms-lemma-composition-flat}. The induced functor
+$\mathcal{X}_{lisse,\etale} \to \mathcal{Y}_{lisse,\etale}$
+(resp.\ $\mathcal{X}_{flat,fppf} \to \mathcal{Y}_{flat,fppf}$) is
+continuous and cocontinuous by our definition of coverings in these
+categories. Finally, the commutativity of the diagram is a consequence of the
+fact that the horizontal morphisms are given by the inclusion functors (see
+Lemma \ref{lemma-lisse-etale}) and
+Sites, Lemma \ref{sites-lemma-composition-cocontinuous}.
+
+\medskip\noindent
+To show that $f'_*(g')^{-1} = g^{-1}f_*$ let $\mathcal{F}$ be a sheaf
+on $\mathcal{X}_\etale$ (resp.\ $\mathcal{X}_{fppf}$).
+There is a canonical pullback map
+$$
+g^{-1}f_*\mathcal{F} \longrightarrow f'_*(g')^{-1}\mathcal{F}
+$$
+see Sites, Section \ref{sites-section-pullback}.
+We claim this map is an isomorphism.
+To prove this pick an object $y$ of $\mathcal{Y}_{lisse,\etale}$
+(resp.\ $\mathcal{Y}_{flat,fppf}$). Say $y$ lies over the scheme $V$
+such that $y : V \to \mathcal{Y}$ is smooth (resp.\ flat). Since
+$g^{-1}$ is the restriction we find that
+$$
+\left(g^{-1}f_*\mathcal{F}\right)(y) =
+\Gamma(V \times_{y, \mathcal{Y}} \mathcal{X},\ \text{pr}^{-1}\mathcal{F})
+$$
+by Sheaves on Stacks, Equation (\ref{stacks-sheaves-equation-pushforward}).
+Let
+$(V \times_{y, \mathcal{Y}} \mathcal{X})' \subset
+V \times_{y, \mathcal{Y}} \mathcal{X}$
+be the full subcategory consisting of objects
+$z : W \to V \times_{y, \mathcal{Y}} \mathcal{X}$ such that the induced
+morphism $W \to \mathcal{X}$ is smooth (resp.\ flat). Denote
+$$
+\text{pr}' :
+(V \times_{y, \mathcal{Y}} \mathcal{X})'
+\longrightarrow
+\mathcal{X}_{lisse,\etale}
+\ (\text{resp. }\mathcal{X}_{flat,fppf})
+$$
+the restriction of the functor $\text{pr}$ used in the formula above.
+Exactly the same argument that proves
+Sheaves on Stacks, Equation (\ref{stacks-sheaves-equation-pushforward})
+shows that for any sheaf $\mathcal{H}$ on $\mathcal{X}_{lisse,\etale}$
+(resp.\ $\mathcal{X}_{flat,fppf}$) we have
+\begin{equation}
+\label{equation-pushforward-lisse-etale}
+f'_*\mathcal{H}(y) =
+\Gamma((V \times_{y, \mathcal{Y}} \mathcal{X})',
+\ (\text{pr}')^{-1}\mathcal{H})
+\end{equation}
+Since $(g')^{-1}$ is restriction we see that
+$$
+\left(f'_*(g')^{-1}\mathcal{F}\right)(y) =
+\Gamma((V \times_{y, \mathcal{Y}} \mathcal{X})',
+\ \text{pr}^{-1}\mathcal{F}|_{(V \times_{y, \mathcal{Y}} \mathcal{X})'})
+$$
+By
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-cohomology-on-subcategory}
+we see that
+$$
+\Gamma((V \times_{y, \mathcal{Y}} \mathcal{X})',
+\ \text{pr}^{-1}\mathcal{F}|_{(V \times_{y, \mathcal{Y}} \mathcal{X})'})
+=
+\Gamma(V \times_{y, \mathcal{Y}} \mathcal{X},\ \text{pr}^{-1}\mathcal{F})
+$$
+are equal as desired; although we omit the verification of the assumptions
+of the lemma we note that the fact that $V \to \mathcal{Y}$ is smooth
+(resp.\ flat) is used to verify the second condition.
+
+\medskip\noindent
+Finally, the equality $g'_!(f')^{-1} = f^{-1}g_!$ follows formally from
+the equality $f'_*(g')^{-1} = g^{-1}f_*$ by the adjointness of
+$f^{-1}$ and $f_*$, the adjointness of $g_!$ and $g^{-1}$, and their
+``primed'' versions.
+\end{proof}
+
+
+
+
+
+
+\section{Quasi-coherent modules, II}
+\label{section-quasi-coherent-modules-II}
+
+\noindent
+In this section we explain how to think of quasi-coherent modules
+on an algebraic stack in terms of its lisse-\'etale or flat-fppf site.
+
+\begin{lemma}
+\label{lemma-check-qc-on-etale-covering}
+Let $\mathcal{X}$ be an algebraic stack.
+\begin{enumerate}
+\item Let $f_j : \mathcal{X}_j \to \mathcal{X}$ be a family of smooth
+morphisms of algebraic stacks with
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$.
+Let $\mathcal{F}$ be a sheaf of $\mathcal{O}_\mathcal{X}$-modules
+on $\mathcal{X}_\etale$. If each $f_j^{-1}\mathcal{F}$
+is quasi-coherent, then so is $\mathcal{F}$.
+\item Let $f_j : \mathcal{X}_j \to \mathcal{X}$ be a family of flat and
+locally finitely presented morphisms of algebraic stacks with
+$|\mathcal{X}| =\bigcup |f_j|(|\mathcal{X}_j|)$.
+Let $\mathcal{F}$ be a sheaf of $\mathcal{O}_\mathcal{X}$-modules
+on $\mathcal{X}_{fppf}$. If each $f_j^{-1}\mathcal{F}$
+is quasi-coherent, then so is $\mathcal{F}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of (1). We may replace each of the algebraic stacks $\mathcal{X}_j$
+by a scheme $U_j$ (using that any algebraic stack has a smooth covering by
+a scheme and that compositions of smooth morphisms are smooth, see
+Morphisms of Stacks, Lemma \ref{stacks-morphisms-lemma-composition-smooth}).
+The pullback of $\mathcal{F}$ to $(\Sch/U_j)_\etale$ is still
+locally quasi-coherent, see
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-pullback-quasi-coherent}.
+Then $f = \coprod f_j : U = \coprod U_j \to \mathcal{X}$ is a smooth surjective
+morphism. Let $x : V \to \mathcal{X}$ be an object of $\mathcal{X}$. By
+Sheaves on Stacks, Lemma
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}
+there exists an \'etale covering $\{x_i \to x\}_{i \in I}$
+such that each $x_i$ lifts to an object $u_i$ of $(\Sch/U)_\etale$.
+This just means that $x_i$ lives over a scheme $V_i$, that
+$\{V_i \to V\}$ is an \'etale covering, and that $x_i$ comes from
+a morphism $u_i : V_i \to U$. Then
+$x_i^*\mathcal{F} = u_i^*f^*\mathcal{F}$ is quasi-coherent.
+This implies that $x^*\mathcal{F}$ on $(\Sch/V)_\etale$
+is quasi-coherent, for example by
+Modules on Sites, Lemma \ref{sites-modules-lemma-local-final-object}.
+By Sheaves on Stacks, Lemma
+\ref{stacks-sheaves-lemma-characterize-quasi-coherent}
+we see that $\mathcal{F}$ is quasi-coherent.
+
+\medskip\noindent
+Proof of (2). This is proved using exactly the same argument, which we fully
+write out here. We may replace each of the algebraic stacks $\mathcal{X}_j$
+by a scheme $U_j$ (using that any algebraic stack has a smooth covering by
+a scheme and that flat and locally finite presented morphisms are preserved
+by composition, see Morphisms of Stacks, Lemmas
+\ref{stacks-morphisms-lemma-composition-flat} and
+\ref{stacks-morphisms-lemma-composition-finite-presentation}).
+The pullback of $\mathcal{F}$ to $(\Sch/U_j)_\etale$ is still
+locally quasi-coherent, see
+Sheaves on Stacks, Lemma \ref{stacks-sheaves-lemma-pullback-quasi-coherent}.
+Then $f = \coprod f_j : U = \coprod U_j \to \mathcal{X}$ is a surjective,
+flat, and locally finitely presented morphism. Let
+$x : V \to \mathcal{X}$ be an object of $\mathcal{X}$. By
+Sheaves on Stacks, Lemma
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}
+there exists an fppf covering $\{x_i \to x\}_{i \in I}$
+such that each $x_i$ lifts to an object $u_i$ of $(\Sch/U)_\etale$.
+This just means that $x_i$ lives over a scheme $V_i$, that
+$\{V_i \to V\}$ is an fppf covering, and that $x_i$ comes from
+a morphism $u_i : V_i \to U$. Then
+$x_i^*\mathcal{F} = u_i^*f^*\mathcal{F}$ is quasi-coherent.
+This implies that $x^*\mathcal{F}$ on $(\Sch/V)_\etale$
+is quasi-coherent, for example by
+Modules on Sites, Lemma \ref{sites-modules-lemma-local-final-object}.
+By Sheaves on Stacks, Lemma
+\ref{stacks-sheaves-lemma-characterize-quasi-coherent}
+we see that $\mathcal{F}$ is quasi-coherent.
+\end{proof}
+
+\noindent
+We recall that we have defined the notion of a quasi-coherent module on
+any ringed topos in
+Modules on Sites, Section \ref{sites-modules-section-local}.
+
+\begin{lemma}
+\label{lemma-shriek-quasi-coherent}
+Let $\mathcal{X}$ be an algebraic stack. Notation as in
+Lemma \ref{lemma-lisse-etale}.
+\begin{enumerate}
+\item Let $\mathcal{H}$ be a quasi-coherent
+$\mathcal{O}_{\mathcal{X}_{lisse,\etale}}$-module 
+on the lisse-\'etale site of $\mathcal{X}$. Then $g_!\mathcal{H}$ is a
+quasi-coherent module on $\mathcal{X}$.
+\item Let $\mathcal{H}$ be a quasi-coherent
+$\mathcal{O}_{\mathcal{X}_{flat,fppf}}$-module 
+on the flat-fppf site of $\mathcal{X}$. Then $g_!\mathcal{H}$ is a
+quasi-coherent module on $\mathcal{X}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pick a scheme $U$ and a surjective smooth morphism $x : U \to \mathcal{X}$.
+By
+Modules on Sites, Definition \ref{sites-modules-definition-site-local}
+there exists an \'etale (resp.\ fppf) covering
+$\{U_i \to U\}_{i \in I}$ such that each pullback $f_i^{-1}\mathcal{H}$
+has a global presentation (see
+Modules on Sites, Definition \ref{sites-modules-definition-global}).
+Here $f_i : U_i \to \mathcal{X}$ is the composition
+$U_i \to U \to \mathcal{X}$ which is a morphism of algebraic stacks.
+(Recall that the pullback ``is'' the restriction to $\mathcal{X}/f_i$, see
+Sheaves on Stacks, Definition \ref{stacks-sheaves-definition-pullback}
+and the discussion following.) Since each $f_i$ is smooth (resp.\ flat) by
+Lemma \ref{lemma-lisse-etale-functorial}
+we see that $f_i^{-1}g_!\mathcal{H} = g_{i, !}(f'_i)^{-1}\mathcal{H}$.
+Using Lemma \ref{lemma-check-qc-on-etale-covering}
+we reduce the statement of the lemma to the case where $\mathcal{H}$
+has a global presentation. Say we have
+$$
+\bigoplus\nolimits_{j \in J} \mathcal{O} \longrightarrow
+\bigoplus\nolimits_{i \in I} \mathcal{O} \longrightarrow
+\mathcal{H} \longrightarrow 0
+$$
+of $\mathcal{O}$-modules where
+$\mathcal{O} = \mathcal{O}_{\mathcal{X}_{lisse,\etale}}$
+(resp.\ $\mathcal{O} = \mathcal{O}_{\mathcal{X}_{flat,fppf}}$).
+Since $g_!$ commutes with arbitrary colimits (as a left adjoint functor, see
+Lemma \ref{lemma-lisse-etale-modules} and
+Categories, Lemma \ref{categories-lemma-adjoint-exact})
+we conclude that there exists an exact sequence
+$$
+\bigoplus\nolimits_{j \in J} g_!\mathcal{O} \longrightarrow
+\bigoplus\nolimits_{i \in I} g_!\mathcal{O} \longrightarrow
+g_!\mathcal{H} \longrightarrow 0
+$$
+Finally, Lemma \ref{lemma-lisse-etale-structure-sheaf}
+shows that $g_!\mathcal{O} = \mathcal{O}_\mathcal{X}$
+and we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-coherent}
+Let $\mathcal{X}$ be an algebraic stack. Let $\mathcal{M}_\mathcal{X}$
+be the category of locally quasi-coherent $\mathcal{O}_\mathcal{X}$-modules
+with the flat base change property.
+\begin{enumerate}
+\item With $g$ as in Lemma \ref{lemma-lisse-etale}
+for the lisse-\'etale site we have
+\begin{enumerate}
+\item the functors $g^{-1}$ and $g_!$ define mutually inverse functors
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_\mathcal{X}) \ar@<1ex>[r]^-{g^{-1}} &
+\QCoh(\mathcal{X}_{lisse,\etale},
+\mathcal{O}_{\mathcal{X}_{lisse,\etale}}) \ar@<1ex>[l]^-{g_!}
+}
+$$
+\item if $\mathcal{F}$ is in $\mathcal{M}_\mathcal{X}$
+then $g^{-1}\mathcal{F}$ is in
+$\QCoh(\mathcal{X}_{lisse,\etale},
+\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$ and
+\item $Q(\mathcal{F}) = g_!g^{-1}\mathcal{F}$ where $Q$ is as in
+Lemma \ref{lemma-adjoint}.
+\end{enumerate}
+\item With $g$ as in Lemma \ref{lemma-lisse-etale}
+for the flat-fppf site we have
+\begin{enumerate}
+\item the functors $g^{-1}$ and $g_!$ define mutually inverse functors
+$$
+\xymatrix{
+\QCoh(\mathcal{O}_\mathcal{X}) \ar@<1ex>[r]^-{g^{-1}} &
+\QCoh(\mathcal{X}_{flat,fppf},
+\mathcal{O}_{\mathcal{X}_{flat,fppf}}) \ar@<1ex>[l]^-{g_!}
+}
+$$
+\item if $\mathcal{F}$ is in $\mathcal{M}_\mathcal{X}$
+then $g^{-1}\mathcal{F}$ is in
+$\QCoh(\mathcal{X}_{flat,fppf}, \mathcal{O}_{\mathcal{X}_{flat,fppf}})$
+and
+\item $Q(\mathcal{F}) = g_!g^{-1}\mathcal{F}$ where $Q$ is as in
+Lemma \ref{lemma-adjoint}.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Pullback by any morphism of ringed topoi preserves categories of quasi-coherent
+modules, see
+Modules on Sites, Lemma \ref{sites-modules-lemma-local-pullback}.
+Hence $g^{-1}$ preserves the categories of quasi-coherent modules.
+The same is true for $g_!$ by
+Lemma \ref{lemma-shriek-quasi-coherent}.
+We know that $\mathcal{H} \to g^{-1}g_!\mathcal{H}$ is an isomorphism by
+Lemma \ref{lemma-lisse-etale}.
+Conversely, if $\mathcal{F}$ is in $\QCoh(\mathcal{O}_\mathcal{X})$
+then the map $g_!g^{-1}\mathcal{F} \to \mathcal{F}$ is a map of quasi-coherent
+modules on $\mathcal{X}$ whose restriction to any scheme smooth over
+$\mathcal{X}$ is an isomorphism. Then the discussion in
+Sheaves on Stacks, Sections
+\ref{stacks-sheaves-section-quasi-coherent-presentation} and
+\ref{stacks-sheaves-section-quasi-coherent-algebraic-stacks}
+(comparing with quasi-coherent modules on presentations)
+shows it is an isomorphism. This proves (1)(a) and (2)(a).
+
+\medskip\noindent
+Let $\mathcal{F}$ be an object of $\mathcal{M}_\mathcal{X}$. By
+Lemma \ref{lemma-adjoint-kernel-parasitic}
+the kernel and cokernel of the map
+$Q(\mathcal{F}) \to \mathcal{F}$ are parasitic. Hence by
+Lemma \ref{lemma-parasitic-in-terms-flat-fppf}
+and since $g^* = g^{-1}$ is exact, we conclude
+$g^*Q(\mathcal{F}) \to g^*\mathcal{F}$ is an isomorphism. Thus
+$g^*\mathcal{F}$ is quasi-coherent. This proves (1)(b) and (2)(b).
+Finally, (1)(c) and (2)(c) follow because
+$g_!g^*Q(\mathcal{F}) \to Q(\mathcal{F})$ is an isomorphism by
+our arguments above.
+\end{proof}
+
+\begin{remark}
+\label{remark-bousfield-colocalization}
+Let $\mathcal{X}$ be an algebraic stack. The results of
+Lemmas \ref{lemma-adjoint} and \ref{lemma-adjoint-kernel-parasitic}
+imply that
+$$
+\QCoh(\mathcal{O}_\mathcal{X}) =
+\mathcal{M}_\mathcal{X} / \text{Parasitic} \cap \mathcal{M}_\mathcal{X}
+$$
+in words: the category of quasi-coherent modules is the category
+of locally quasi-coherent modules with the flat base change property
+divided out by the Serre subcategory consisting of parasitic objects.
+See Homology, Lemma \ref{homology-lemma-serre-subcategory-is-kernel}.
+The existence of the inclusion functor
+$i : \QCoh(\mathcal{O}_\mathcal{X}) \to \mathcal{M}_\mathcal{X}$
+which is left adjoint to the quotient functor means that
+$\mathcal{M}_\mathcal{X} \to \QCoh(\mathcal{O}_\mathcal{X})$
+is a {\it Bousfield colocalization} or a {\it right Bousfield localization}
+(insert future reference here). Our next goal is to show a similar result
+holds on the level of derived categories.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-quasi-coherent-weak-serre}
+Let $\mathcal{X}$ be an algebraic stack.
+\begin{enumerate}
+\item $\QCoh(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$
+is a weak Serre subcategory of
+$\textit{Mod}(\mathcal{O}_{\mathcal{X}_{lisse,\etale}})$.
+\item $\QCoh(\mathcal{O}_{\mathcal{X}_{flat,fppf}})$
+is a weak Serre subcategory of
+$\textit{Mod}(\mathcal{O}_{\mathcal{X}_{flat,fppf}})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We will verify conditions (1), (2), (3), (4) of
+Homology, Lemma \ref{homology-lemma-characterize-weak-serre-subcategory}.
+Since $0$ is a quasi-coherent module on any ringed site we see that (1)
+holds. By definition $\QCoh(\mathcal{O})$
+is a strictly full subcategory $\textit{Mod}(\mathcal{O})$, so (2) holds.
+Let $\varphi : \mathcal{G} \to \mathcal{F}$ be a morphism of quasi-coherent
+modules on $\mathcal{X}_{lisse,\etale}$ or $\mathcal{X}_{flat,fppf}$.
+We have $g^*g_!\mathcal{F} = \mathcal{F}$ and similarly for
+$\mathcal{G}$ and $\varphi$, see Lemma \ref{lemma-lisse-etale-modules}.
+By Lemma \ref{lemma-shriek-quasi-coherent}
+we see that $g_!\mathcal{F}$ and $g_!\mathcal{G}$ are quasi-coherent
+$\mathcal{O}_\mathcal{X}$-modules. Hence we see that
+$\Ker(g_!\varphi)$ and $\Coker(g_!\varphi)$ are quasi-coherent
+modules on $\mathcal{X}$. Since $g^*$ is exact (see
+Lemma \ref{lemma-lisse-etale}) we see that
+$g^*\Ker(g_!\varphi) = \Ker(g^*g_!\varphi) = \Ker(\varphi)$
+and
+$g^*\Coker(g_!\varphi) = \Coker(g^*g_!\varphi) =
+\Coker(\varphi)$
+are quasi-coherent too (see Lemma \ref{lemma-quasi-coherent}).
+This proves (3).
+
+\medskip\noindent
+Finally, suppose that
+$$
+0 \to \mathcal{F} \to \mathcal{E} \to \mathcal{G} \to 0
+$$
+is an extension of $\mathcal{O}_{\mathcal{X}_{lisse,\etale}}$-modules
+(resp.\ $\mathcal{O}_{\mathcal{X}_{flat,fppf}}$-modules) with $\mathcal{F}$
+and $\mathcal{G}$ quasi-coherent. We have to show that $\mathcal{E}$
+is quasi-coherent on $\mathcal{X}_{lisse,\etale}$
+(resp.\ $\mathcal{X}_{flat,fppf}$). We strongly urge the reader to write
+out what this means on a napkin and prove it him/herself rather than
+reading the somewhat labyrinthine proof that follows.
+By Lemma \ref{lemma-quasi-coherent}
+this is true if and only if $g_!\mathcal{E}$ is quasi-coherent.
+By Lemmas \ref{lemma-check-qc-on-etale-covering} and
+Lemma \ref{lemma-lisse-etale-functorial}
+we may check this after replacing $\mathcal{X}$ by a smooth
+(resp.\ fppf) cover. Choose a scheme $U$ and a smooth surjective
+morphism $U \to \mathcal{X}$. By definition there exists an \'etale
+(resp.\ fppf) covering $\{U_i \to U\}_i$ such that $\mathcal{G}$
+has a global presentation over each $U_i$. Replacing $\mathcal{X}$
+by $U_i$ (which is permissible by the discussion above)
+we may assume that the site $\mathcal{X}_{lisse,\etale}$
+(resp.\ $\mathcal{X}_{flat,fppf}$) has a final object $U$
+(in other words $\mathcal{X}$ is representable by the scheme $U$)
+and that $\mathcal{G}$ has a global presentation
+$$
+\bigoplus\nolimits_{j \in J} \mathcal{O} \longrightarrow
+\bigoplus\nolimits_{i \in I} \mathcal{O} \longrightarrow
+\mathcal{G} \longrightarrow 0
+$$
+of $\mathcal{O}$-modules where
+$\mathcal{O} = \mathcal{O}_{\mathcal{X}_{lisse,\etale}}$
+(resp.\ $\mathcal{O} = \mathcal{O}_{\mathcal{X}_{flat,fppf}}$).
+Let $\mathcal{E}'$ be the pullback of $\mathcal{E}$ via the map
+$\bigoplus\nolimits_{i \in I} \mathcal{O} \to \mathcal{G}$.
+Then we see that $\mathcal{E}$ is the cokernel of a map
+$\bigoplus\nolimits_{j \in J} \mathcal{O} \to \mathcal{E}'$
+hence by property (3) which we proved above, it suffices to prove
+that $\mathcal{E}'$ is quasi-coherent. Consider the exact sequence
+$$
+L_1g_!\left(\bigoplus\nolimits_{i \in I}\mathcal{O}\right) \to
+g_!\mathcal{F} \to
+g_!\mathcal{E}' \to
+g_!\left(\bigoplus\nolimits_{i \in I}\mathcal{O}\right) \to 0
+$$
+where $L_1g_!$ is the first left derived functor of
+$g_! : \textit{Mod}(\mathcal{O}_{\mathcal{X}_{lisse,\etale}}) \to
+\textit{Mod}(\mathcal{X}_\etale, \mathcal{O}_\mathcal{X})$
+(resp.\ $g_! :
+\textit{Mod}(\mathcal{X}_{flat,fppf}, \mathcal{O}_{\mathcal{X}_{flat,fppf}})
+\to \textit{Mod}(\mathcal{X}_{fppf}, \mathcal{O}_{\mathcal{X}})$).
+This derived functor exists by Cohomology on Sites,
+Lemma \ref{sites-cohomology-lemma-existence-derived-lower-shriek}.
+Moreover, since $\mathcal{O} = j_{U!}\mathcal{O}_U$ we have
+$Lg_!\mathcal{O} = g_!\mathcal{O} = \mathcal{O}_\mathcal{X}$
+also by Cohomology on Sites,
+Lemma \ref{sites-cohomology-lemma-existence-derived-lower-shriek}.
+Thus the left hand term vanishes and we obtain a short exact sequence
+$$
+0 \to
+g_!\mathcal{F} \to
+g_!\mathcal{E}' \to
+\bigoplus\nolimits_{i \in I}\mathcal{O}_\mathcal{X} \to 0
+$$
+By Proposition \ref{proposition-lcq-flat-base-change}
+it follows that $g_!\mathcal{E}'$ is locally quasi-coherent with the
+flat base change property. Finally, Lemma \ref{lemma-quasi-coherent}
+implies that $\mathcal{E}' = g^{-1}g_!\mathcal{E}'$ is quasi-coherent
+as desired.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

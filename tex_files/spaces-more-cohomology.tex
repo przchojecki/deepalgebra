@@ -1,0 +1,1952 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{More on Cohomology of Spaces}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+In this chapter continues the discussion started in
+Cohomology of Spaces, Section \ref{spaces-cohomology-section-introduction}.
+One can also view this chapter as the analogue for algebraic spaces
+of the chapter on \'etale cohomology for schemes, see
+\'Etale Cohomology, Section \ref{etale-cohomology-section-introduction}.
+
+\medskip\noindent
+In fact, we intend this chapter to be mainly a translation of the
+results already proved for schemes into the language of algebraic
+spaces. Some of our results can be found in \cite{Kn}.
+
+
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+The standing assumption is that all schemes are contained in
+a big fppf site $\Sch_{fppf}$. And all rings $A$ considered
+have the property that $\Spec(A)$ is (isomorphic) to an
+object of this big site.
+
+\medskip\noindent
+Let $S$ be a scheme and let $X$ be an algebraic space over $S$.
+In this chapter and the following we will write $X \times_S X$
+for the product of $X$ with itself (in the category of algebraic
+spaces over $S$), instead of $X \times X$.
+
+
+
+
+
+
+
+\section{Transporting results from schemes}
+\label{section-api}
+
+\noindent
+In this section we explain briefly how results for schemes
+imply results for (representable) algebraic spaces and
+(representable) morphisms of algebraic spaces.
+For quasi-coherent modules more is true
+(because \'etale cohomology of a quasi-coherent module
+over a scheme agrees with Zariski cohomology) and this
+has already been discussed in Cohomology of Spaces, Section
+\ref{spaces-cohomology-section-higher-direct-image}.
+
+\medskip\noindent
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Now suppose that $X$ is representable by the scheme $X_0$
+(awkward but temporary notation; we usually just say ``$X$
+is a scheme''). In this case $X$ and $X_0$ have the same small
+\'etale sites:
+$$
+X_\etale = (X_0)_\etale
+$$
+This is pointed out in
+Properties of Spaces, Section \ref{spaces-properties-section-etale-site}.
+Moreover, if $f : X \to Y$ is a morphism of representable algebraic spaces
+over $S$ and if $f_0 : X_0 \to Y_0$ is a morphism of
+schemes representing $f$, then the induced morphisms of small
+\'etale topoi agree:
+$$
+\xymatrix{
+\Sh(X_\etale) \ar[rr]_{f_{small}} \ar@{=}[d] & &
+\Sh(Y_\etale) \ar@{=}[d] \\
+\Sh((X_0)_\etale) \ar[rr]^{(f_0)_{small}} & &
+\Sh((Y_0)_\etale)
+}
+$$
+See Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-functoriality-etale-site} and
+Topologies, Lemma \ref{topologies-lemma-morphism-big-small-etale}.
+
+\medskip\noindent
+Thus there is absolutely no difference between \'etale cohomology
+of a scheme and the \'etale cohomology of the corresponding algebraic space.
+Similarly for higher direct images along morphisms of schemes.
+In fact, if $f : X \to Y$ is a morphism of algebraic spaces over $S$
+which is representable (by schemes), then the higher direct images
+$R^if_*\mathcal{F}$ of a sheaf $\mathcal{F}$ on $X_\etale$
+can be computed \'etale locally on $Y$ (Cohomology on Sites,
+Lemma \ref{sites-cohomology-lemma-higher-direct-images})
+hence this often reduces computations and proofs to the case
+where $Y$ and $X$ are schemes.
+
+\medskip\noindent
+We will use the above without further mention in this chapter.
+For other topologies the same thing is true; we state it
+explicitly as a lemma for cohomology here.
+
+\begin{lemma}
+\label{lemma-compare-cohomology-other-topologies}
+Let $S$ be a scheme. Let $\tau \in \{\etale, fppf, ph\}$ (add more here).
+The inclusion functor
+$$
+(\Sch/S)_\tau \longrightarrow (\textit{Spaces}/S)_\tau
+$$
+is a special cocontinuous functor
+(Sites, Definition \ref{sites-definition-special-cocontinuous-functor})
+and hence identifies topoi.
+\end{lemma}
+
+\begin{proof}
+The conditions of Sites, Lemma \ref{sites-lemma-equivalence}
+are immediately verified as our functor is fully faithful
+and as every algebraic space has an \'etale covering by schemes.
+\end{proof}
+
+
+
+
+
+
+
+\section{Proper base change}
+\label{section-proper-base-change}
+
+\noindent
+The proper base change theorem for algebraic spaces follows from
+the proper base change theorem for schemes and Chow's lemma
+with a little bit of work.
+
+\begin{lemma}
+\label{lemma-surjective-proper}
+Let $S$ be a scheme. Let $f : Y \to X$ be a surjective proper morphism
+of algebraic spaces over $S$. Let $\mathcal{F}$ be a sheaf on $X_\etale$.
+Then $\mathcal{F} \to f_*f^{-1}\mathcal{F}$ is injective with
+image the equalizer of the two maps
+$f_*f^{-1}\mathcal{F} \to g_*g^{-1}\mathcal{F}$ where
+$g$ is the structure morphism $g : Y \times_X Y \to X$.
+\end{lemma}
+
+\begin{proof}
+For any surjective morphism $f : Y \to X$ of algebraic spaces over $S$,
+the map $\mathcal{F} \to f_*f^{-1}\mathcal{F}$ is injective.
+Namely, if $\overline{x}$ is a geometric point of $X$, then we
+choose a geometric point $\overline{y}$ of $Y$ lying over $\overline{x}$
+and we consider
+$$
+\mathcal{F}_{\overline{x}} \to
+(f_*f^{-1}\mathcal{F})_{\overline{x}} \to
+(f^{-1}\mathcal{F})_{\overline{y}} = \mathcal{F}_{\overline{x}}
+$$
+See Properties of Spaces, Lemma \ref{spaces-properties-lemma-stalk-pullback}
+for the last equality.
+
+\medskip\noindent
+The second statement is local on $X$ in the \'etale topology, hence we may
+and do assume $Y$ is an affine scheme.
+
+\medskip\noindent
+Choose a surjective proper morphism $Z \to Y$ where $Z$ is a scheme, see
+Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-weak-chow}.
+The result for $Z \to X$ implies the result for $Y \to X$.
+Since $Z \to X$ is a surjective proper morphism of schemes
+and hence a ph covering
+(Topologies, Lemma \ref{topologies-lemma-surjective-proper-ph})
+the result for $Z \to X$ follows from
+\'Etale Cohomology, Lemma \ref{etale-cohomology-lemma-describe-pullback-pi-ph}
+(in fact it is in some sense equivalent to this lemma).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-h0-proper-over-henselian-pair}
+Let $(A, I)$ be a henselian pair. Let $X$ be an algebraic space over $A$
+such that the structure morphism $f : X \to \Spec(A)$ is proper.
+Let $i : X_0 \to X$ be the inclusion of $X \times_{\Spec(A)} \Spec(A/I)$.
+For any sheaf $\mathcal{F}$ on $X_\etale$ we
+have $\Gamma(X, \mathcal{F}) = \Gamma(Z, i^{-1}\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+Choose a surjective proper morphism $Y \to X$ where $Y$ is a scheme, see
+Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-weak-chow}.
+Consider the diagram
+$$
+\xymatrix{
+\Gamma(X_0, \mathcal{F}_0) \ar[r] \ar[d] &
+\Gamma(Y_0, \mathcal{G}_0) \ar@<1ex>[r] \ar@<-1ex>[r] \ar[d] &
+\Gamma((Y \times_X Y)_0, \mathcal{H}_0) \ar[d] \\
+\Gamma(X, \mathcal{F}) \ar[r] &
+\Gamma(Y, \mathcal{G}) \ar@<1ex>[r] \ar@<-1ex>[r] &
+\Gamma(Y \times_X Y, \mathcal{H})
+}
+$$
+Here $\mathcal{G}$, resp.\ $\mathcal{H}$ is the pullbackf or
+$\mathcal{F}$ to $Y$, resp.\ $Y \times_X Y$ and the index $0$
+indicates base change to $\Spec(A/I)$. By the case of schemes
+(\'Etale Cohomology, Lemma
+\ref{etale-cohomology-lemma-h0-proper-over-henselian-pair})
+we see that the middle and right vertical arrows are bijective.
+By Lemma \ref{lemma-surjective-proper} it follows that the left one is too.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-h0-proper-over-henselian-local}
+Let $A$ be a henselian local ring. Let $X$ be an algebraic space
+over $A$ such that $f : X \to \Spec(A)$
+be a proper morphism. Let $X_0 \subset X$ be the fibre of
+$f$ over the closed point. For any sheaf $\mathcal{F}$ on $X_\etale$ we
+have $\Gamma(X, \mathcal{F}) = \Gamma(X_0, \mathcal{F}|_{X_0})$.
+\end{lemma}
+
+\begin{proof}
+This is a special case of Lemma \ref{lemma-h0-proper-over-henselian-pair}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-base-change-f-star}
+Let $S$ be a scheme. Let $f : X \to Y$ and $g : Y' \to Y$
+be a morphisms of algebraic spaces over $S$. Assume $f$ is proper.
+Set $X' = Y' \times_Y X$ with projections $f' : X' \to Y'$ and $g' : X' \to X$.
+Let $\mathcal{F}$ be any sheaf on $X_\etale$. Then
+$g^{-1}f_*\mathcal{F} = f'_*(g')^{-1}\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+The question is \'etale local on $Y'$. Choose a scheme $V$ and a surjective
+\'etale morphism $V \to Y$. Choose a scheme $V'$ and a surjective \'etale
+morphism $V' \to V \times_Y Y'$. Then we may replace $Y'$ by $V'$ and
+$Y$ by $V$. Hence we may assume $Y$ and $Y'$ are schemes.
+Then we may work Zariski locally on $Y$ and $Y'$ and hence we may
+assume $Y$ and $Y'$ are affine schemes.
+
+\medskip\noindent
+Assume $Y$ and $Y'$ are affine schemes. Choose a surjective proper morphism
+$h_1 : X_1 \to X$ where $X_1$ is a scheme, see
+Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-weak-chow}.
+Set $X_2 = X_1 \times_X X_1$ and denote
+$h_2 : X_2 \to X$ the structure morphism. Observe this is a scheme.
+By the case of schemes
+(\'Etale Cohomology, Lemma
+\ref{etale-cohomology-lemma-proper-base-change-f-star})
+we know the lemma is true for the cartesian diagrams
+$$
+\vcenter{
+\xymatrix{
+X'_1 \ar[r] \ar[d] & X_1 \ar[d] \\
+Y' \ar[r] & Y
+}
+}
+\quad\text{and}\quad
+\vcenter{
+\xymatrix{
+X'_2 \ar[r] \ar[d] & X_2 \ar[d] \\
+Y' \ar[r] & Y
+}
+}
+$$
+and the sheaves $\mathcal{F}_i = (X_i \to X)^{-1}\mathcal{F}$.
+By Lemma \ref{lemma-surjective-proper} we have an exact sequence
+$0 \to \mathcal{F} \to h_{1, *}\mathcal{F}_1 \to h_{2, *}\mathcal{F}_2$
+and similarly for $(g')^{-1}\mathcal{F}$ because
+$X'_2 = X'_1 \times_{X'} X'_1$. Hence we conlude that the
+lemma is true (some details omitted).
+\end{proof}
+
+\noindent
+Let $S$ be a scheme.
+Let $f : Y \to X$ be a morphism of algebraic spaces over $S$. Let
+$\overline{x} : \Spec(k) \to S$ be a geometric point. The fibre
+of $f$ at $\overline{x}$ is the algebraic space
+$Y_{\overline{x}} = \Spec(k) \times_{\overline{x}, X} Y$ over $\Spec(k)$.
+If $\mathcal{F}$ is a sheaf on $Y_\etale$, then denote
+$\mathcal{F}_{\overline{x}} = p^{-1}\mathcal{F}$
+the pullback of $\mathcal{F}$ to $(Y_{\overline{x}})_\etale$.
+Here $p : Y_{\overline{x}} \to Y$ is the projection.
+In the following we will consider the set
+$\Gamma(Y_{\overline{x}}, \mathcal{F}_{\overline{x}})$.
+
+\begin{lemma}
+\label{lemma-proper-pushforward-stalk}
+Let $S$ be a scheme.
+Let $f : Y \to X$ be a proper morphism of algebraic spaces over $S$. Let
+$\overline{x} \to X$ be a geometric point.
+For any sheaf $\mathcal{F}$ on $Y_\etale$
+the canonical map
+$$
+(f_*\mathcal{F})_{\overline{x}} \longrightarrow
+\Gamma(Y_{\overline{x}}, \mathcal{F}_{\overline{x}})
+$$
+is bijective.
+\end{lemma}
+
+\begin{proof}
+This is a special case of Lemma \ref{lemma-proper-base-change-f-star}.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-proper-base-change}
+Let $S$ be a scheme. Let
+$$
+\xymatrix{
+X' \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+be a cartesian square of algebraic spaces over $S$.
+Assume $f$ is proper.
+Let $\mathcal{F}$ be an abelian torsion sheaf on $X_\etale$.
+Then the base change map
+$$
+g^{-1}Rf_*\mathcal{F} \longrightarrow Rf'_*(g')^{-1}\mathcal{F}
+$$
+is an isomorphism.
+\end{theorem}
+
+\begin{proof}
+This proof repeats a few of the arguments given in the proof of the
+proper base change theorem for schemes. See
+\'Etale Cohomology, Section \ref{etale-cohomology-section-proper-base-change}
+for more details.
+
+\medskip\noindent
+The statement is \'etale local on $Y'$ and $Y$, hence we may assume
+both $Y$ and $Y'$ are affine schemes. Observe that this in particular
+proves the theorem in case $f$ is representable (we will use this
+below).
+
+\medskip\noindent
+For every $n \geq 1$ let $\mathcal{F}[n]$ be the subsheaf of sections
+of $\mathcal{F}$ annihilated by $n$. Then
+$\mathcal{F} = \colim \mathcal{F}[n]$. By 
+Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-colimit-cohomology}
+the functors $g^{-1}R^pf_*$ and $R^pf'_*(g')^{-1}$ commute
+with filtered colimits. Hence it suffices to prove the theorem
+if $\mathcal{F}$ is killed by $n$.
+
+\medskip\noindent
+Let $\mathcal{F} \to \mathcal{I}^\bullet$ be a resolution by
+injective sheaves of $\mathbf{Z}/n\mathbf{Z}$-modules.
+Observe that
+$g^{-1}f_*\mathcal{I}^\bullet = f'_*(g')^{-1}\mathcal{I}^\bullet$
+by Lemma \ref{lemma-proper-base-change-f-star}.
+Applying Leray's acyclicity lemma
+(Derived Categories, Lemma \ref{derived-lemma-leray-acyclicity})
+we conclude it suffices to prove
+$R^pf'_*(g')^{-1}\mathcal{I}^m = 0$ for $p > 0$ and $m \in \mathbf{Z}$.
+
+\medskip\noindent
+Choose a surjective proper morphism
+$h : Z \to X$ where $Z$ is a scheme, see
+Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-weak-chow}.
+Choose an injective map $h^{-1}\mathcal{I}^m \to \mathcal{J}$
+where $\mathcal{J}$ is an injective sheaf of
+$\mathbf{Z}/n\mathbf{Z}$-modules on $Z_\etale$.
+Since $h$ is surjective the map $\mathcal{I}^m \to h_*\mathcal{J}$
+is injective (see Lemma \ref{lemma-surjective-proper}).
+Since $\mathcal{I}^m$ is injective we see that $\mathcal{I}^m$
+is a direct summand of $h_*\mathcal{J}$. Thus it suffices
+to prove the desired vanishing for $h_*\mathcal{J}$.
+
+\medskip\noindent
+Denote $h'$ the base change by $g$ and denote $g'' : Z' \to Z$
+the projection. There is a spectral sequence
+$$
+E_2^{p, q} = R^pf'_* R^qh'_* (g'')^{-1}\mathcal{J}
+$$
+converging to $R^{p + q}(f' \circ h')_*(g'')^{-1}\mathcal{J}$.
+Since $h$ and $f \circ h$ are representable (by schemes)
+we know the result we want holds for them. Thus in the
+spectral sequence we see that $E_2^{p, q} = 0$ for $q > 0$
+and $R^{p + q}(f' \circ h')_*(g'')^{-1}\mathcal{J} = 0$
+for $p + q > 0$. It follows that $E_2^{p, 0} = 0$ for $p > 0$.
+Now
+$$
+E_2^{p, 0} = R^pf'_* h'_* (g'')^{-1}\mathcal{J} =
+R^pf'_* (g')^{-1}h_*\mathcal{J}
+$$
+by Lemma \ref{lemma-proper-base-change-f-star}. This finishes the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-base-change}
+Let $S$ be a scheme. Let
+$$
+\xymatrix{
+X' \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+be a cartesian square of algebraic spaces over $S$. Assume $f$ is proper.
+Let $E \in D^+(X_\etale)$ have torsion cohomology sheaves.
+Then the base change map $g^{-1}Rf_*E \to Rf'_*(g')^{-1}E$
+is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+This is a simple consequence of the proper base change theorem
+(Theorem \ref{theorem-proper-base-change}) using the spectral
+sequences
+$$
+E_2^{p, q} = R^pf_*H^q(E)
+\quad\text{and}\quad
+{E'}_2^{p, q} = R^pf'_*(g')^{-1}H^q(E)
+$$
+converging to $R^nf_*E$ and $R^nf'_*(g')^{-1}E$.
+The spectral sequences are constructed in
+Derived Categories, Lemma \ref{derived-lemma-two-ss-complex-functor}.
+Some details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-base-change-stalk}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a proper morphism of algebraic spaces.
+Let $\overline{y} \to Y$ be a geometric point.
+\begin{enumerate}
+\item For a torsion abelian sheaf $\mathcal{F}$ on $X_\etale$ we have
+$(R^nf_*\mathcal{F})_{\overline{y}} =
+H^n_\etale(X_{\overline{y}}, \mathcal{F}_{\overline{y}})$.
+\item For $E \in D^+(X_\etale)$ with torsion cohomology sheaves we have
+$(R^nf_*E)_{\overline{y}} = H^n_\etale(X_{\overline{y}}, E_{\overline{y}})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+In the statement, $\mathcal{F}_{\overline{y}}$ denotes the pullback
+of $\mathcal{F}$ to $X_{\overline{y}} = \overline{y} \times_Y X$.
+Since pulling back by $\overline{y} \to Y$ produces the
+stalk of $\mathcal{F}$, the first statement of the lemma
+is a special case of Theorem \ref{theorem-proper-base-change}.
+The second one is a special case of Lemma \ref{lemma-proper-base-change}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-separably-closed}
+Let $k \subset k'$ be an extension of separably closed fields.
+Let $X$ be a proper algebraic space over $k$.
+Let $\mathcal{F}$ be a torsion abelian sheaf on $X$.
+Then the map $H^q_\etale(X, \mathcal{F}) \to
+H^q_\etale(X_{k'}, \mathcal{F}|_{X_{k'}})$ is an isomorphism
+for $q \geq 0$.
+\end{lemma}
+
+\begin{proof}
+This is a special case of Theorem \ref{theorem-proper-base-change}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Comparing big and small topoi}
+\label{section-compare}
+
+\noindent
+Let $S$ be a scheme and let $X$ be an algebraic space over $S$.
+In Topologies on Spaces, Lemma
+\ref{spaces-topologies-lemma-at-the-bottom-etale}
+we have introduced comparison morphisms
+$\pi_X : (\textit{Spaces}/X)_\etale \to X_{spaces, \etale}$ and
+$i_X : \Sh(X_\etale) \to \Sh((\textit{Spaces}/X)_\etale)$
+with $\pi_X \circ i_X = \text{id}$ as morphisms of topoi and
+$\pi_{X, *} = i_X^{-1}$.
+More generally, if $f : Y \to X$ is an object of $(\textit{Spaces}/X)_\etale$,
+then there is a morphism
+$i_f : \Sh(Y_\etale) \to \Sh((\textit{Spaces}/X)_\etale)$
+such that $f_{small} = \pi_X \circ i_f$, see
+Topologies on Spaces, Lemmas \ref{spaces-topologies-lemma-put-in-T-etale} and
+\ref{spaces-topologies-lemma-morphism-big-small-etale}. In
+Topologies on Spaces, Remark
+\ref{spaces-topologies-remark-change-topologies-ringed}
+we have extended these to a morphism of ringed sites
+$$
+\pi_X :
+((\textit{Spaces}/X)_\etale, \mathcal{O})
+\to
+(X_{spaces, \etale}, \mathcal{O}_X)
+$$
+and morphisms of ringed topoi
+$$
+i_X :
+(\Sh(X_\etale), \mathcal{O}_X)
+\to
+(\Sh((\textit{Spaces}/X)_\etale), \mathcal{O})
+$$
+and
+$$
+i_f :
+(\Sh(Y_\etale), \mathcal{O}_Y)
+\to
+(\Sh((\textit{Spaces}/X)_\etale, \mathcal{O}))
+$$
+Note that the restriction $i_X^{-1} = \pi_{X, *}$ (see
+Topologies, Definition \ref{topologies-definition-restriction-small-etale})
+transforms $\mathcal{O}$ into $\mathcal{O}_X$.
+Similarly, $i_f^{-1}$ transforms $\mathcal{O}$ into $\mathcal{O}_Y$.
+See Topologies on Spaces, Remark
+\ref{spaces-topologies-remark-change-topologies-ringed}.
+Hence $i_X^*\mathcal{F} = i_X^{-1}\mathcal{F}$ and
+$i_f^*\mathcal{F} = i_f^{-1}\mathcal{F}$ for any $\mathcal{O}$-module
+$\mathcal{F}$ on $(\textit{Spaces}/X)_\etale$. In particular $i_X^*$ and $i_f^*$
+are exact functors. The functor $i_X^*$ is often denoted
+$\mathcal{F} \mapsto \mathcal{F}|_{X_\etale}$ (and this does not
+conflict with the notation in
+Topologies on Spaces, Definition
+\ref{spaces-topologies-definition-restriction-small-etale}).
+
+\begin{lemma}
+\label{lemma-describe-pullback}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a sheaf on $X_\etale$. Then
+$\pi_X^{-1}\mathcal{F}$ is given by the rule
+$$
+(\pi_X^{-1}\mathcal{F})(Y) = \Gamma(Y_\etale, f_{small}^{-1}\mathcal{F})
+$$
+for $f : Y \to X$ in $(\textit{Spaces}/X)_\etale$.
+Moreover, $\pi_Y^{-1}\mathcal{F}$ satisfies the
+sheaf condition with respect to smooth, syntomic, fppf, fpqc, and ph coverings.
+\end{lemma}
+
+\begin{proof}
+Since pullback is transitive and $f_{small} = \pi_X \circ i_f$
+(see above) we see that
+$i_f^{-1} \pi_X^{-1}\mathcal{F} = f_{small}^{-1}\mathcal{F}$.
+This shows that $\pi_X^{-1}$ has the description given in the lemma.
+
+\medskip\noindent
+To prove that $\pi_X^{-1}\mathcal{F}$ is a sheaf for the ph topology
+it suffices by Topologies on Spaces, Lemma
+\ref{spaces-topologies-lemma-characterize-sheaf}
+to show that for a surjective proper morphism
+$V \to U$ of algebraic spaces over $X$ we have
+$(\pi_X^{-1}\mathcal{F})(U)$ is the equalizer of the two maps
+$(\pi_X^{-1}\mathcal{F})(V) \to (\pi_X^{-1}\mathcal{F})(V \times_U V)$.
+This we have seen in Lemma \ref{lemma-surjective-proper}.
+
+\medskip\noindent
+The case of smooth, syntomic, fppf coverings follows from the case
+of ph coverings by Topologies on Spaces, Lemma
+\ref{spaces-topologies-lemma-zariski-etale-smooth-syntomic-fppf-ph}.
+
+\medskip\noindent
+Let $\mathcal{U} = \{U_i \to U\}_{i \in I}$ be an fpqc covering of algebraic
+spaces over $X$. Let $s_i \in (\pi_X^{-1}\mathcal{F})(U_i)$ be sections
+which agree over $U_i \times_U U_j$. We have to prove there exists a unique
+$s \in (\pi_X^{-1}\mathcal{F})(U)$ restricting to $s_i$ over $U_i$.
+Case I: $U$ and $U_i$ are schemes. This case follows from
+\'Etale Cohomology, Lemma \ref{etale-cohomology-lemma-describe-pullback}.
+Case II: $U$ is a scheme. Here we choose surjective \'etale morphisms
+$T_i \to U_i$ where $T_i$ is a scheme. Then $\mathcal{T} = \{T_i \to U\}$ is an
+fpqc covering by schemes and by case I the result holds for $\mathcal{T}$.
+We omit the verification that this implies the result for $\mathcal{U}$.
+Case III: general case. Let $W \to U$ be a surjective \'etale
+morphism, where $W$ is a scheme. Then $\mathcal{W} = \{U_i \times_U W \to W\}$
+is an fpqc covering (by algebraic spaces) of the scheme $W$.
+By case II the result hold for $\mathcal{W}$.
+We omit the verification that this implies the result for $\mathcal{U}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-injectives}
+Let $S$ be a scheme.
+Let $Y \to X$ be a morphism of $(\textit{Spaces}/S)_\etale$.
+\begin{enumerate}
+\item If $\mathcal{I}$ is injective in
+$\textit{Ab}((\textit{Spaces}/X)_\etale)$, then
+\begin{enumerate}
+\item $i_f^{-1}\mathcal{I}$ is injective in $\textit{Ab}(Y_\etale)$,
+\item $\mathcal{I}|_{X_\etale}$ is injective in $\textit{Ab}(X_\etale)$,
+\end{enumerate}
+\item If $\mathcal{I}^\bullet$ is a K-injective complex
+in $\textit{Ab}((\textit{Spaces}/X)_\etale)$, then
+\begin{enumerate}
+\item $i_f^{-1}\mathcal{I}^\bullet$ is a K-injective complex in
+$\textit{Ab}(Y_\etale)$,
+\item $\mathcal{I}^\bullet|_{X_\etale}$ is a K-injective complex in
+$\textit{Ab}(X_\etale)$,
+\end{enumerate}
+\end{enumerate}
+The corresponding statements for modules do not hold.
+\end{lemma}
+
+\begin{proof}
+Parts (1)(b) and (2)(b)
+follow formally from the fact that the restriction functor
+$\pi_{X, *} = i_X^{-1}$ is a right adjoint of the exact functor
+$\pi_X^{-1}$, see
+Homology, Lemma \ref{homology-lemma-adjoint-preserve-injectives} and
+Derived Categories, Lemma \ref{derived-lemma-adjoint-preserve-K-injectives}.
+
+\medskip\noindent
+Parts (1)(a) and (2)(a) can be seen in two ways. First proof: We can use
+that $i_f^{-1}$ is a right adjoint of the exact functor $i_{f, !}$.
+This functor is constructed in
+Topologies, Lemma \ref{topologies-lemma-put-in-T-etale}
+for sheaves of sets and for abelian sheaves in
+Modules on Sites, Lemma \ref{sites-modules-lemma-g-shriek-adjoint}.
+It is shown in Modules on Sites, Lemma
+\ref{sites-modules-lemma-exactness-lower-shriek} that it is exact.
+Second proof. We can use that $i_f = i_Y \circ f_{big}$ as is shown
+in Topologies, Lemma \ref{topologies-lemma-morphism-big-small-etale}.
+Since $f_{big}$ is a localization, we see that pullback by it
+preserves injectives and K-injectives, see
+Cohomology on Sites, Lemmas \ref{sites-cohomology-lemma-cohomology-of-open} and
+\ref{sites-cohomology-lemma-restrict-K-injective-to-open}.
+Then we apply the already proved parts (1)(b) and (2)(b)
+to the functor $i_Y^{-1}$ to conclude.
+
+\medskip\noindent
+To see a counter example for the case of modules we refer to
+\'Etale Cohomology, Lemma \ref{etale-cohomology-lemma-compare-injectives}.
+\end{proof}
+
+\noindent
+Let $S$ be a scheme.
+Let $f : Y \to X$ be a morphism of algebraic spaces over $S$.
+The commutative diagram of
+Topologies on Spaces, Lemma
+\ref{spaces-topologies-lemma-morphism-big-small-etale} (3)
+leads to a commutative diagram of ringed sites
+$$
+\xymatrix{
+(Y_{spaces, \etale}, \mathcal{O}_Y) \ar[d]_{f_{spaces, \etale}} &
+((\textit{Spaces}/Y)_\etale, \mathcal{O}) \ar[d]^{f_{big}} \ar[l]^{\pi_Y} \\
+(X_{spaces, \etale}, \mathcal{O}_X) &
+((\textit{Spaces}/X)_\etale, \mathcal{O}) \ar[l]_{\pi_X}
+}
+$$
+as one easily sees by writing out the definitions of
+$f_{small}^\sharp$, $f_{big}^\sharp$, $\pi_X^\sharp$, and $\pi_Y^\sharp$.
+In particular this means that
+\begin{equation}
+\label{equation-compare-big-small}
+(f_{big, *}\mathcal{F})|_{X_\etale} =
+f_{small, *}(\mathcal{F}|_{Y_\etale})
+\end{equation}
+for any sheaf $\mathcal{F}$ on $(\textit{Spaces}/Y)_\etale$ and if
+$\mathcal{F}$ is a sheaf of $\mathcal{O}$-modules, then
+(\ref{equation-compare-big-small})
+is an isomorphism of $\mathcal{O}_X$-modules on $X_\etale$.
+
+\begin{lemma}
+\label{lemma-compare-higher-direct-image}
+Let $S$ be a scheme.
+Let $f : Y \to X$ be a morphism of algebraic spaces over $S$.
+\begin{enumerate}
+\item For $K$ in $D((\textit{Spaces}/Y)_\etale)$ we have
+$
+(Rf_{big, *}K)|_{X_\etale} = Rf_{small, *}(K|_{Y_\etale})
+$
+in $D(X_\etale)$.
+\item For $K$ in $D((\textit{Spaces}/Y)_\etale, \mathcal{O})$ we have
+$
+(Rf_{big, *}K)|_{X_\etale} = Rf_{small, *}(K|_{Y_\etale})
+$
+in $D(\textit{Mod}(X_\etale, \mathcal{O}_X))$.
+\end{enumerate}
+More generally, let $g : X' \to X$ be an object of
+$(\textit{Spaces}/X)_\etale$. Consider the fibre product
+$$
+\xymatrix{
+Y' \ar[r]_{g'} \ar[d]_{f'} & Y \ar[d]^f \\
+X' \ar[r]^g & X
+}
+$$
+Then
+\begin{enumerate}
+\item[(3)] For $K$ in $D((\textit{Spaces}/Y)_\etale)$ we have
+$i_g^{-1}(Rf_{big, *}K) = Rf'_{small, *}(i_{g'}^{-1}K)$
+in $D(X'_\etale)$.
+\item[(4)] For $K$ in $D((\textit{Spaces}/Y)_\etale, \mathcal{O})$ we have
+$i_g^*(Rf_{big, *}K) = Rf'_{small, *}(i_{g'}^*K)$
+in $D(\textit{Mod}(X'_\etale, \mathcal{O}_{X'}))$.
+\item[(5)] For $K$ in $D((\textit{Spaces}/Y)_\etale)$ we have
+$g_{big}^{-1}(Rf_{big, *}K) = Rf'_{small, *}((g'_{big})^{-1}K)$
+in $D((\textit{Spaces}/X')_\etale)$.
+\item[(6)] For $K$ in $D((\textit{Spaces}/Y)_\etale, \mathcal{O})$ we have
+$g_{big}^*(Rf_{big, *}K) = Rf'_{small, *}((g'_{big})^*K)$
+in $D(\textit{Mod}(X'_\etale, \mathcal{O}_{X'}))$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) follows from
+Lemma \ref{lemma-compare-injectives}
+and (\ref{equation-compare-big-small})
+on choosing a K-injective complex of abelian sheaves representing $K$.
+
+\medskip\noindent
+Part (3) follows from Lemma \ref{lemma-compare-injectives}
+and Topologies, Lemma
+\ref{topologies-lemma-morphism-big-small-cartesian-diagram-etale}
+on choosing a K-injective complex of abelian sheaves representing $K$.
+
+\medskip\noindent
+Part (5) follows from
+Cohomology on Sites, Lemmas \ref{sites-cohomology-lemma-cohomology-of-open} and
+\ref{sites-cohomology-lemma-restrict-K-injective-to-open}
+and Topologies, Lemma
+\ref{topologies-lemma-morphism-big-small-cartesian-diagram-etale}
+on choosing a K-injective complex of abelian sheaves representing $K$.
+
+\medskip\noindent
+Part (6): Observe that $g_{big}$ and $g'_{big}$ are localizations
+and hence $g_{big}^{-1} = g_{big}^*$ and $(g'_{big})^{-1} = (g'_{big})^*$
+are the restriction functors. Hence (6) follows from
+Cohomology on Sites, Lemmas \ref{sites-cohomology-lemma-cohomology-of-open} and
+\ref{sites-cohomology-lemma-restrict-K-injective-to-open}
+and Topologies, Lemma
+\ref{topologies-lemma-morphism-big-small-cartesian-diagram-etale}
+on choosing a K-injective complex of modules representing $K$.
+
+\medskip\noindent
+Part (2) can be proved as follows. Above we have seen
+that $\pi_X \circ f_{big} = f_{small} \circ \pi_Y$ as morphisms
+of ringed sites. Hence we obtain
+$R\pi_{X, *} \circ Rf_{big, *} = Rf_{small, *} \circ R\pi_{Y, *}$
+by Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-derived-pushforward-composition}.
+Since the restriction functors $\pi_{X, *}$ and $\pi_{Y, *}$
+are exact, we conclude.
+
+\medskip\noindent
+Part (4) follows from part (6) and part (2) applied to $f' : Y' \to X'$.
+\end{proof}
+
+\noindent
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{H}$ be an abelian sheaf on
+$(\textit{Spaces}/X)_\etale$. Recall that $H^n_\etale(U, \mathcal{H})$
+denotes the cohomology of $\mathcal{H}$ over an object
+$U$ of $(\textit{Spaces}/X)_\etale$.
+
+\begin{lemma}
+\label{lemma-compare-cohommology}
+Let $S$ be a scheme.
+Let $f : Y \to X$ be a morphism of algebraic spaces over $S$. Then
+\begin{enumerate}
+\item For $K$ in $D(X_\etale)$ we have
+$H^n_\etale(X, \pi_X^{-1}K) = H^n(X_\etale, K)$.
+\item For $K$ in $D(X_\etale, \mathcal{O}_X)$ we have
+$H^n_\etale(X, L\pi_X^*K) = H^n(X_\etale, K)$.
+\item For $K$ in $D(X_\etale)$ we have
+$H^n_\etale(Y, \pi_X^{-1}K) = H^n(Y_\etale, f_{small}^{-1}K)$.
+\item For $K$ in $D(X_\etale, \mathcal{O}_X)$ we have
+$H^n_\etale(Y, L\pi_X^*K) = H^n(Y_\etale, Lf_{small}^*K)$.
+\item For $M$ in $D((\textit{Spaces}/X)_\etale)$ we have
+$H^n_\etale(Y, M) = H^n(Y_\etale, i_f^{-1}M)$.
+\item For $M$ in $D((\textit{Spaces}/X)_\etale, \mathcal{O})$ we have
+$H^n_\etale(Y, M) = H^n(Y_\etale, i_f^*M)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+To prove (5) represent $M$ by a K-injective complex of abelian sheaves
+and apply Lemma \ref{lemma-compare-injectives}
+and work out the definitions. Part (3) follows from
+this as $i_f^{-1}\pi_X^{-1} = f_{small}^{-1}$. Part (1) is a special
+case of (3).
+
+\medskip\noindent
+Part (6) follows from the very general Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-pullback-same-cohomology}. Then part
+(4) follows because $Lf_{small}^* = i_f^* \circ L\pi_X^*$.
+Part (2) is a special case of (4).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cohomological-descent-etale}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+For $K \in D(X_\etale)$ the map
+$$
+K \longrightarrow R\pi_{X, *}\pi_X^{-1}K
+$$
+is an isomorphism where
+$\pi_X : \Sh((\textit{Spaces}/X)_\etale) \to \Sh(X_\etale)$ is as above.
+\end{lemma}
+
+\begin{proof}
+This is true because both $\pi_X^{-1}$ and $\pi_{X, *} = i_X^{-1}$
+are exact functors and the composition $\pi_{X, *} \circ \pi_X^{-1}$
+is the identity functor.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-higher-direct-image-proper}
+Let $S$ be a scheme.
+Let $f : Y \to X$ be a proper morphism of algebraic spaces over $S$.
+Then we have
+\begin{enumerate}
+\item $\pi_X^{-1} \circ f_{small, *} = f_{big, *} \circ \pi_Y^{-1}$
+as functors $\Sh(Y_\etale) \to \Sh((\textit{Spaces}/X)_\etale)$,
+\item $\pi_X^{-1}Rf_{small, *}K = Rf_{big, *}\pi_Y^{-1}K$
+for $K$ in $D^+(Y_\etale)$ whose cohomology sheaves are torsion, and
+\item $\pi_X^{-1}Rf_{small, *}K = Rf_{big, *}\pi_Y^{-1}K$
+for all $K$ in $D(Y_\etale)$ if $f$ is finite.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of (1). Let $\mathcal{F}$ be a sheaf on $Y_\etale$.
+Let $g : X' \to X$ be an object of $(\textit{Spaces}/X)_\etale$.
+Consider the fibre product
+$$
+\xymatrix{
+Y' \ar[r]_{f'} \ar[d]_{g'} & X' \ar[d]^g \\
+Y \ar[r]^f & X
+}
+$$
+Then we have
+$$
+(f_{big, *}\pi_Y^{-1}\mathcal{F})(X') =
+(\pi_Y^{-1}\mathcal{F})(Y') =
+((g'_{small})^{-1}\mathcal{F})(Y')  =
+(f'_{small, *}(g'_{small})^{-1}\mathcal{F})(X')
+$$
+the second equality by Lemma \ref{lemma-describe-pullback}.
+On the other hand
+$$
+(\pi_X^{-1}f_{small, *}\mathcal{F})(X') =
+(g_{small}^{-1}f_{small, *}\mathcal{F})(X')
+$$
+again by Lemma \ref{lemma-describe-pullback}.
+Hence by proper base change for sheaves of sets
+(Lemma \ref{lemma-proper-base-change-f-star})
+we conclude the two sets are canonically isomorphic.
+The isomorphism is compatible with restriction mappings
+and defines an isomorphism
+$\pi_X^{-1}f_{small, *}\mathcal{F} = f_{big, *}\pi_Y^{-1}\mathcal{F}$.
+Thus an isomorphism of functors
+$\pi_X^{-1} \circ f_{small, *} = f_{big, *} \circ \pi_Y^{-1}$.
+
+\medskip\noindent
+Proof of (2). There is a canonical base change map
+$\pi_X^{-1}Rf_{small, *}K \to Rf_{big, *}\pi_Y^{-1}K$
+for any $K$ in $D(Y_\etale)$, see
+Cohomology on Sites, Remark \ref{sites-cohomology-remark-base-change}.
+To prove it is an isomorphism, it suffices to prove the pull back of
+the base change map by $i_g : \Sh(X'_\etale) \to \Sh((\Sch/X)_\etale)$
+is an isomorphism for any object $g : X' \to X$ of $(\Sch/X)_\etale$.
+Let $T', g', f'$ be as in the previous paragraph.
+The pullback of the base change map is
+\begin{align*}
+g_{small}^{-1}Rf_{small, *}K
+& =
+i_g^{-1}\pi_X^{-1}Rf_{small, *}K \\
+& \to
+i_g^{-1}Rf_{big, *}\pi_Y^{-1}K \\
+& =
+Rf'_{small, *}(i_{g'}^{-1}\pi_Y^{-1}K) \\
+& =
+Rf'_{small, *}((g'_{small})^{-1}K)
+\end{align*}
+where we have used $\pi_X \circ i_g = g_{small}$,
+$\pi_Y \circ i_{g'} = g'_{small}$, and
+Lemma \ref{lemma-compare-higher-direct-image}.
+This map is an isomorphism by the proper base change theorem
+(Lemma \ref{lemma-proper-base-change}) provided $K$ is bounded
+below and the cohomology sheaves of $K$ are torsion.
+
+\medskip\noindent
+Proof of (3). If $f$ is finite, then the functors
+$f_{small, *}$ and $f_{big, *}$ are exact. This follows
+from Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-finite-higher-direct-image-zero}
+for $f_{small}$. Since any base change $f'$ of $f$ is finite too,
+we conclude from Lemma \ref{lemma-compare-higher-direct-image} part (3)
+that $f_{big, *}$ is exact too (as the higher derived functors are zero).
+Thus this case follows from part (1).
+\end{proof}
+
+
+
+
+
+
+
+\section{Comparing fppf and \'etale topologies}
+\label{section-fppf-etale}
+
+\noindent
+This section is the analogue of
+\'Etale Cohomology, Section \ref{etale-cohomology-section-fppf-etale}.
+
+\medskip\noindent
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+On the category $\textit{Spaces}/X$ we consider the fppf
+and \'etale topologies. The identity functor
+$(\textit{Spaces}/X)_\etale \to (\textit{Spaces}/X)_{fppf}$
+is continuous and defines a morphism of sites
+$$
+\epsilon_X :
+(\textit{Spaces}/X)_{fppf} \longrightarrow (\textit{Spaces}/X)_\etale
+$$
+by an application of Sites, Proposition \ref{sites-proposition-get-morphism}.
+Please note that $\epsilon_{X, *}$ is the identity functor on underlying
+presheaves and that $\epsilon_X^{-1}$ associates to an \'etale sheaf the
+fppf sheafification.
+Consider the morphism of sites
+$$
+\pi_X : (\textit{Spaces}/X)_\etale \longrightarrow X_{spaces, \etale}
+$$
+comparing big and small \'etale sites, see Section \ref{section-compare}.
+The composition determines a morphism of sites
+$$
+a_X = \pi_X \circ \epsilon_X :
+(\textit{Spaces}/X)_{fppf}
+\longrightarrow
+X_{spaces, \etale}
+$$
+If $\mathcal{H}$ is an abelian sheaf on $(\textit{Spaces}/X)_{fppf}$,
+then we will write $H^n_{fppf}(U, \mathcal{H})$ for the cohomology
+of $\mathcal{H}$ over an object $U$ of $(\textit{Spaces}/X)_{fppf}$.
+
+\begin{lemma}
+\label{lemma-comparison-fppf-etale}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+\begin{enumerate}
+\item For $\mathcal{F} \in \Sh(X_\etale)$ we have
+$\epsilon_{X, *}a_X^{-1}\mathcal{F} = \pi_X^{-1}\mathcal{F}$
+and $a_{X, *}a_X^{-1}\mathcal{F} = \mathcal{F}$.
+\item For $\mathcal{F} \in \textit{Ab}(X_\etale)$ we have
+$R^i\epsilon_{X, *}(a_X^{-1}\mathcal{F}) = 0$ for $i > 0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We have $a_X^{-1}\mathcal{F} = \epsilon_X^{-1} \pi_X^{-1}\mathcal{F}$.
+By Lemma \ref{lemma-describe-pullback} the \'etale sheaf
+$\pi_X^{-1}\mathcal{F}$ is a sheaf for the fppf topology
+and therefore is equal to $a_X^{-1}\mathcal{F}$ (as pulling
+back by $\epsilon_X$ is given by fppf sheafification).
+Recall moreover that $\epsilon_{X, *}$ is the identity
+on underlying presheaves.
+Now part (1) is immediate from the explicit description of $\pi_X^{-1}$
+in Lemma \ref{lemma-describe-pullback}.
+
+\medskip\noindent
+We will prove part (2) by reducing it to the case of schemes --
+see part (1) of
+\'Etale Cohomology, Lemma \ref{etale-cohomology-lemma-V-C-all-n-etale-fppf}.
+This will ``clearly work'' as every algebraic space is
+\'etale locally a scheme. The details are given below but we urge
+the reader to skip the proof.
+
+\medskip\noindent
+For an abelian sheaf $\mathcal{H}$ on $(\textit{Spaces}/X)_{fppf}$ the
+higher direct image $R^p\epsilon_{X, *}\mathcal{H}$ is the sheaf
+associated to the presheaf $U \mapsto H^p_{fppf}(U, \mathcal{H})$
+on $(\textit{Spaces}/X)_\etale$. See
+Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-higher-direct-images}.
+Since every object of $(\textit{Spaces}/X)_\etale$ has a covering
+by schemes, it suffices to prove that given $U/X$ a scheme and
+$\xi \in H^p_{fppf}(U, a_X^{-1}\mathcal{F})$ we can find
+an \'etale covering $\{U_i \to U\}$ such that $\xi$
+restricts to zero on $U_i$. We have
+\begin{align*}
+H^p_{fppf}(U, a_X^{-1}\mathcal{F})
+& =
+H^p((\textit{Spaces}/U)_{fppf}, (a_X^{-1}\mathcal{F})|_{\textit{Spaces}/U}) \\
+& =
+H^p((\Sch/U)_{fppf}, (a_X^{-1}\mathcal{F})|_{\Sch/U})
+\end{align*}
+where the second identification is
+Lemma \ref{lemma-compare-cohomology-other-topologies}
+and the first is a general fact about restriction
+(Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-cohomology-of-open}).
+Looking at the first paragraph and the corresponding result in the
+case of schemes (\'Etale Cohomology, Lemma
+\ref{etale-cohomology-lemma-describe-pullback-pi-fppf})
+we conclude that the sheaf $(a_X^{-1}\mathcal{F})|_{\Sch/U}$
+matches the pullback by the ``schemes version of $a_U$''.
+Therefore we can find an \'etale covering
+$\{U_i \to U\}$ such that our class dies in
+$H^p((\Sch/U_i)_{fppf}, (a_X^{-1}\mathcal{F})|_{\Sch/U_i})$
+for each $i$, see
+\'Etale Cohomology, Lemma \ref{etale-cohomology-lemma-V-C-all-n-etale-fppf}
+(the precise statement one should use here is that $V_n$ holds for all $n$
+which is the statement of part (2) for the case of schemes).
+Transporting back (using the same formulas as above but now for
+$U_i$) we conclude $\xi$ restricts to zero over $U_i$ as desired.
+\end{proof}
+
+\noindent
+The hard work done in the case of schemes now tells us that
+\'etale and fppf cohomology agree for sheaves coming from the
+small \'etale site.
+
+\begin{lemma}
+\label{lemma-cohomological-descent-etale-fppf}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+For $K \in D^+(X_\etale)$ the maps
+$$
+\pi_X^{-1}K \longrightarrow R\epsilon_{X, *}a_X^{-1}K
+\quad\text{and}\quad
+K \longrightarrow Ra_{X, *}a_X^{-1}K
+$$
+are isomorphisms with
+$a_X : \Sh((\textit{Spaces}/X)_{fppf}) \to \Sh(X_\etale)$ as above.
+\end{lemma}
+
+\begin{proof}
+We only prove the second statement; the first is easier and proved in exactly
+the same manner.
+There is an immediate reduction to the case where
+$K$ is given by a single abelian sheaf. Namely, represent $K$
+by a bounded below complex $\mathcal{F}^\bullet$. By the case of a
+sheaf we see that
+$\mathcal{F}^n = a_{X, *} a_X^{-1} \mathcal{F}^n$
+and that the sheaves $R^qa_{X, *}a_X^{-1}\mathcal{F}^n$
+are zero for $q > 0$. By Leray's acyclicity lemma
+(Derived Categories, Lemma \ref{derived-lemma-leray-acyclicity})
+applied to $a_X^{-1}\mathcal{F}^\bullet$
+and the functor $a_{X, *}$ we conclude. From now on assume $K = \mathcal{F}$.
+
+\medskip\noindent
+By Lemma \ref{lemma-comparison-fppf-etale} we have
+$a_{X, *}a_X^{-1}\mathcal{F} = \mathcal{F}$. Thus it suffices to show that
+$R^qa_{X, *}a_X^{-1}\mathcal{F} = 0$ for $q > 0$.
+For this we can use $a_X = \epsilon_X \circ \pi_X$ and
+the Leray spectral sequence
+(Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-relative-Leray}).
+By Lemma \ref{lemma-comparison-fppf-etale}
+we have $R^i\epsilon_{X, *}(a_X^{-1}\mathcal{F}) = 0$ for $i > 0$.
+We have
+$\epsilon_{X, *}a_X^{-1}\mathcal{F} = \pi_X^{-1}\mathcal{F}$
+and by Lemma \ref{lemma-cohomological-descent-etale} we have
+$R^j\pi_{X, *}(\pi_X^{-1}\mathcal{F}) = 0$ for $j > 0$.
+This concludes the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-cohomology-etale-fppf}
+Let $S$ be a scheme and let $X$ be an algebraic space over $S$.
+With $a_X : \Sh((\textit{Spaces}/X)_{fppf}) \to \Sh(X_\etale)$
+as above:
+\begin{enumerate}
+\item $H^q(X_\etale, \mathcal{F}) = H^q_{fppf}(X, a_X^{-1}\mathcal{F})$
+for an abelian sheaf $\mathcal{F}$ on $X_\etale$,
+\item $H^q(X_\etale, K) = H^q_{fppf}(X, a_X^{-1}K)$ for $K \in D^+(X_\etale)$.
+\end{enumerate}
+Example: if $A$ is an abelian group, then
+$H^q_\etale(X, \underline{A}) = H^q_{fppf}(X, \underline{A})$.
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-cohomological-descent-etale-fppf}
+by Cohomology on Sites, Remark \ref{sites-cohomology-remark-before-Leray}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-push-pull-fppf-etale}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Then there are commutative diagrams of topoi
+$$
+\xymatrix{
+\Sh((\textit{Spaces}/X)_{fppf}) \ar[rr]_{f_{big, fppf}} \ar[d]_{\epsilon_X} & &
+\Sh((\textit{Spaces}/Y)_{fppf}) \ar[d]^{\epsilon_Y} \\
+\Sh((\textit{Spaces}/X)_\etale) \ar[rr]^{f_{big, \etale}} & &
+\Sh((\textit{Spaces}/Y)_\etale)
+}
+$$
+and
+$$
+\xymatrix{
+\Sh((\textit{Spaces}/X)_{fppf}) \ar[rr]_{f_{big, fppf}} \ar[d]_{a_X} & &
+\Sh((\textit{Spaces}/Y)_{fppf}) \ar[d]^{a_Y} \\
+\Sh(X_\etale) \ar[rr]^{f_{small}} & &
+\Sh(Y_\etale)
+}
+$$
+with $a_X = \pi_X \circ \epsilon_X$ and $a_Y = \pi_X \circ \epsilon_X$.
+\end{lemma}
+
+\begin{proof}
+This follows immediately from working out the definitions of the
+morphisms involved, see
+Topologies on Spaces, Section \ref{spaces-topologies-section-fppf}
+and Section \ref{section-compare}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-push-pull-fppf-etale}
+In Lemma \ref{lemma-push-pull-fppf-etale} if $f$ is proper, then we have
+\begin{enumerate}
+\item $a_Y^{-1} \circ f_{small, *} = f_{big, fppf, *} \circ a_X^{-1}$, and
+\item
+$a_Y^{-1}(Rf_{small, *}K) = Rf_{big, fppf, *}(a_X^{-1}K)$
+for $K$ in $D^+(X_\etale)$ with torsion cohomology sheaves.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of (1). You can prove this by repeating the proof of
+Lemma \ref{lemma-compare-higher-direct-image-proper} part (1);
+we will instead deduce the result from this.
+As $\epsilon_{Y, *}$ is the identity functor on underlying presheaves,
+it reflects isomorphisms. Lemma \ref{lemma-comparison-fppf-etale}
+shows that $\epsilon_{Y, *} \circ a_Y^{-1} = \pi_Y^{-1}$
+and similarly for $X$. To show that the canonical map
+$a_Y^{-1}f_{small, *}\mathcal{F} \to f_{big, fppf, *}a_X^{-1}\mathcal{F}$
+is an isomorphism, it suffices to show that
+\begin{align*}
+\pi_Y^{-1}f_{small, *}\mathcal{F}
+& =
+\epsilon_{Y, *}a_Y^{-1}f_{small, *}\mathcal{F} \\
+& \to 
+\epsilon_{Y, *}f_{big, fppf, *}a_X^{-1}\mathcal{F} \\
+& =
+f_{big, \etale, *} \epsilon_{X, *}a_X^{-1}\mathcal{F} \\
+& =
+f_{big, \etale, *}\pi_X^{-1}\mathcal{F}
+\end{align*}
+is an isomorphism. This is part
+(1) of Lemma \ref{lemma-compare-higher-direct-image-proper}.
+
+\medskip\noindent
+To see (2) we use that
+\begin{align*}
+R\epsilon_{Y, *}Rf_{big, fppf, *}a_X^{-1}K
+& =
+Rf_{big, \etale, *}R\epsilon_{X, *}a_X^{-1}K \\
+& =
+Rf_{big, \etale, *}\pi_X^{-1}K \\
+& =
+\pi_Y^{-1}Rf_{small, *}K \\
+& =
+R\epsilon_{Y, *} a_Y^{-1}Rf_{small, *}K
+\end{align*}
+The first equality by the commutative diagram in
+Lemma \ref{lemma-push-pull-fppf-etale}
+and Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-derived-pushforward-composition}.
+Then second equality is Lemma \ref{lemma-cohomological-descent-etale-fppf}.
+The third is
+Lemma \ref{lemma-compare-higher-direct-image-proper} part (2).
+The fourth is Lemma \ref{lemma-cohomological-descent-etale-fppf} again.
+Thus the base change map
+$a_Y^{-1}(Rf_{small, *}K) \to Rf_{big, fppf, *}(a_X^{-1}K)$
+induces an isomorphism
+$$
+R\epsilon_{Y, *}a_Y^{-1}Rf_{small, *}K \to
+R\epsilon_{Y, *}Rf_{big, fppf, *}a_X^{-1}K
+$$
+The proof is finished by the following remark: a map
+$\alpha : a_Y^{-1}L \to M$ with $L$ in $D^+(Y_\etale)$
+and $M$ in $D^+((\textit{Spaces}/Y)_{fppf})$ such that
+$R\epsilon_{Y, *}\alpha$ is an isomorphism, is an isomorphism. Namely, 
+we show by induction on $i$ that $H^i(\alpha)$ is an isomorphism.
+This is true for all sufficiently small $i$.
+If it holds for $i \leq i_0$, then we see that
+$R^j\epsilon_{Y, *}H^i(M) = 0$ for $j > 0$ and $i \leq i_0$
+by Lemma \ref{lemma-comparison-fppf-etale}
+because $H^i(M) = a_Y^{-1}H^i(L)$ in this range.
+Hence $\epsilon_{Y, *}H^{i_0 + 1}(M) = H^{i_0 + 1}(R\epsilon_{Y, *}M)$
+by a spectral sequence argument.
+Thus $\epsilon_{Y, *}H^{i_0 + 1}(M) = \pi_Y^{-1}H^{i_0 + 1}(L) =
+\epsilon_{Y, *}a_Y^{-1}H^{i_0 + 1}(L)$.
+This implies $H^{i_0 + 1}(\alpha)$ is an isomorphism
+(because $\epsilon_{Y, *}$ reflects isomorphisms as it is the
+identity on underlying presheaves) as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-push-pull-fppf-etale}
+In Lemma \ref{lemma-push-pull-fppf-etale} if $f$ is finite, then
+$a_Y^{-1}(Rf_{small, *}K) = Rf_{big, fppf, *}(a_X^{-1}K)$
+for $K$ in $D^+(X_\etale)$.
+\end{lemma}
+
+\begin{proof}
+Let $V \to Y$ be a surjective \'etale morphism where $V$ is a scheme.
+It suffices to prove the base change map is an isomorphism after
+restricting to $V$. Hence we may assume that $Y$ is a scheme.
+As the morphism is finite, hence representable, we conclude
+that we may assume both $X$ and $Y$ are schemes. In this case
+the result follows from the case of schemes
+(\'Etale Cohomology, Lemma \ref{etale-cohomology-lemma-V-C-all-n-etale-fppf}
+part (2)) using the comparison of topoi discussed in
+Section \ref{section-api}
+and in particular given in
+Lemma \ref{lemma-compare-cohomology-other-topologies}.
+Some details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descent-sheaf-fppf-etale}
+In Lemma \ref{lemma-push-pull-fppf-etale} assume
+$f$ is flat, locally of finite presentation, and surjective.
+Then the functor
+$$
+\Sh(Y_\etale) \longrightarrow
+\left\{
+(\mathcal{G}, \mathcal{H}, \alpha)
+\middle|
+\begin{matrix}
+\mathcal{G} \in \Sh(X_\etale),\ \mathcal{H} \in \Sh((\Sch/Y)_{fppf}), \\
+\alpha : a_X^{-1}\mathcal{G} \to f_{big, fppf}^{-1}\mathcal{H}
+\text{ an isomorphism}
+\end{matrix}
+\right\}
+$$
+sending $\mathcal{F}$ to
+$(f_{small}^{-1}\mathcal{F}, a_Y^{-1}\mathcal{F}, can)$ is an equivalence.
+\end{lemma}
+
+\begin{proof}
+The functor $a_X^{-1}$ is fully faithful (as $a_{X, *}a_X^{-1} = \text{id}$ by
+Lemma \ref{lemma-comparison-fppf-etale}). Hence the forgetful functor
+$(\mathcal{G}, \mathcal{H}, \alpha) \mapsto \mathcal{H}$ identifies the
+category of triples with a full subcategory of $\Sh((\Sch/Y)_{fppf})$.
+Moreover, the functor $a_Y^{-1}$ is fully faithful, hence the functor
+in the lemma is fully faithful as well.
+
+\medskip\noindent
+Suppose that we have an \'etale covering $\{Y_i \to Y\}$.
+Let $f_i : X_i \to Y_i$ be the base change of $f$.
+Denote $f_{ij} = f_i \times f_j : X_i \times_X X_j  \to Y_i \times_Y Y_j$.
+Claim: if the lemma is true for $f_i$ and $f_{ij}$ for all $i, j$, then
+the lemma is true for $f$. To see this, note that the given \'etale covering
+determines an \'etale covering of the final object in each of
+the four sites $Y_\etale, X_\etale, (\Sch/Y)_{fppf}, (\Sch/X)_{fppf}$.
+Thus the category of sheaves is equivalent to the category of
+glueing data for this covering
+(Sites, Lemma \ref{sites-lemma-mapping-property-glue})
+in each of the four cases. A huge commutative diagram of
+categories then finishes the proof of the claim. We omit the details.
+The claim shows that we may work \'etale locally on $Y$.
+In particular, we may assume $Y$ is a scheme.
+
+\medskip\noindent
+Assume $Y$ is a scheme. Choose a scheme $X'$ and a surjective \'etale
+morphism $s : X' \to X$. Set $f' = f \circ s : X' \to Y$ and observe
+that $f'$ is surjective, locally of finite presentation, and flat.
+Claim: if the lemma is true for $f'$, then it is true for $f$.
+Namely, given a triple $(\mathcal{G}, \mathcal{H}, \alpha)$
+for $f$, we can pullback by $s$ to get a triple
+$(s_{small}^{-1}\mathcal{G}, \mathcal{H}, s_{big, fppf}^{-1}\alpha)$
+for $f'$. A solution for this triple gives a sheaf
+$\mathcal{F}$ on $Y_\etale$ with $a_Y^{-1}\mathcal{F} = \mathcal{H}$.
+By the first paragraph of the proof this means the triple is
+in the essential image. This reduces us to the case
+where both $X$ and $Y$ are schemes. This case follows from
+\'Etale Cohomology, Lemma
+\ref{etale-cohomology-lemma-descent-sheaf-fppf-etale}
+via the discussion in Section \ref{section-api}
+and in particular Lemma \ref{lemma-compare-cohomology-other-topologies}.
+\end{proof}
+
+
+
+\section{Comparing fppf and \'etale topologies: modules}
+\label{section-fppf-etale-modules}
+
+\noindent
+We continue the discussion in Section \ref{section-fppf-etale} but in this
+section we briefly discuss what happens for sheaves of modules.
+
+\medskip\noindent
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+The morphisms of sites $\epsilon_X$, $\pi_X$, and
+their composition $a_X$ introduced in Section \ref{section-fppf-etale}
+have natural enhancements to morphisms of ringed sites. The first
+is written as
+$$
+\epsilon_X :
+((\textit{Spaces}/X)_{fppf}, \mathcal{O})
+\longrightarrow
+((\textit{Spaces}/X)_\etale, \mathcal{O})
+$$
+Note that we can use the same symbol for the structure sheaf as indeed
+the sheaves have the same underlying presheaf. The second is
+$$
+\pi_X :
+((\textit{Spaces}/X)_\etale, \mathcal{O})
+\longrightarrow
+(X_\etale, \mathcal{O}_X)
+$$
+The third is the morphism
+$$
+a_X :
+((\textit{Spaces}/X)_{fppf}, \mathcal{O})
+\longrightarrow
+(X_\etale, \mathcal{O}_X)
+$$
+Let us review what we already know about quasi-coherent
+modules on these sites.
+
+\begin{lemma}
+\label{lemma-review-quasi-coherent}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+\begin{enumerate}
+\item The rule
+$$
+\mathcal{F}^a : (\textit{Spaces}/X)_\etale \longrightarrow \textit{Ab},\quad
+(f : Y \to X) \longmapsto \Gamma(Y, f^*\mathcal{F})
+$$
+satisfies the sheaf condition for fpqc and a fortiori
+fppf and \'etale coverings,
+\item $\mathcal{F}^a = \pi_X^*\mathcal{F}$ on $(\textit{Spaces}/X)_\etale$,
+\item $\mathcal{F}^a = a_X^*\mathcal{F}$ on $(\textit{Spaces}/X)_{fppf}$,
+\item the rule $\mathcal{F} \mapsto \mathcal{F}^a$ defines
+an equivalence between quasi-coherent $\mathcal{O}_X$-modules
+and quasi-coherent modules on
+$((\textit{Spaces}/X)_\etale, \mathcal{O})$,
+\item the rule $\mathcal{F} \mapsto \mathcal{F}^a$ defines
+an equivalence between quasi-coherent $\mathcal{O}_X$-modules
+and quasi-coherent modules on
+$((\textit{Spaces}/X)_{fppf}, \mathcal{O})$,
+\item we have $\epsilon_{X, *}a_X^*\mathcal{F} = \pi_X^*\mathcal{F}$
+and $a_{X, *}a_X^*\mathcal{F} = \mathcal{F}$,
+\item we have $R^i\epsilon_{X, *}(a_X^*\mathcal{F}) = 0$
+and $R^ia_{X, *}(a_X^*\mathcal{F}) = 0$ for $i > 0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) is a consequence of fppf descent of quasi-coherent modules.
+Namely, suppose that $\{f_i : U_i \to U\}$ is an fpqc covering
+in $(\textit{Spaces}/X)_\etale$. Denote $g : U \to X$ the structure
+morphism. Suppose that
+we have a family of sections $s_i \in \Gamma(U_i , f_i^*g^*\mathcal{F})$
+such that $s_i|_{U_i \times_U U_j} = s_j|_{U_i \times_U U_j}$.
+We have to find the correspond section $s \in \Gamma(U, g^*\mathcal{F})$.
+We can reinterpret the $s_i$ as a family of maps
+$\varphi_i : f_i^*\mathcal{O}_U = \mathcal{O}_{U_i} \to f_i^*g^*\mathcal{F}$
+compatible with the canonical descent data associated to the
+quasi-coherent sheaves $\mathcal{O}_U$ and $g^*\mathcal{F}$ on $U$.
+Hence by Descent on Spaces, Proposition
+\ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}
+we see that we may (uniquely) descend
+these to a map $\mathcal{O}_U \to g^*\mathcal{F}$ which gives
+us our section $s$.
+
+\medskip\noindent
+We will deduce (2) -- (7) from the corresponding statement for schemes.
+Choose an \'etale covering $\{X_i \to X\}_{i \in I}$
+where each $X_i$ is a scheme. Observe that $X_i \times_X X_j$
+is a scheme too. This covering induces a covering of
+the final object in each of the three sites
+$(\textit{Spaces}/X)_{fppf}$, $(\textit{Spaces}/X)_\etale$, and $X_\etale$.
+Hence we see that the category of sheaves on these sites
+are equivalent to descent data for these coverings, see
+Sites, Lemma \ref{sites-lemma-mapping-property-glue}.
+Parts (2), (3) are local (because we have the glueing statement).
+Being quasi-coherent is a local property, hence parts
+(4), (5) are local. Clearly (6) and (7) are local.
+It follows that it suffices to prove parts (2) -- (7)
+of the lemma when $X$ is a scheme.
+
+\medskip\noindent
+Assume $X$ is a scheme. The embeddings
+$(\Sch/X)_\etale \subset (\textit{Spaces}/X)_\etale$ and
+$(\Sch/X)_{fppf} \subset (\textit{Spaces}/X)_{fppf}$
+determine equivalences of ringed topoi by
+Lemma \ref{lemma-compare-cohomology-other-topologies}.
+We conclude that (2) -- (7) follows from the case of schemes.
+\'Etale Cohomology, Lemma
+\ref{etale-cohomology-lemma-review-quasi-coherent}.
+To transport the property of being quasi-coherent via
+this equivalence use that being quasi-coherent is an
+intrinsic property of modules as explained in
+Modules on Sites, Section \ref{sites-modules-section-local}.
+Some minor details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cohomological-descent-etale-fppf-modules}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+For $\mathcal{F}$ a quasi-coherent $\mathcal{O}_X$-module the maps
+$$
+\pi_X^*\mathcal{F} \longrightarrow R\epsilon_{X, *}(a_X^*\mathcal{F})
+\quad\text{and}\quad
+\mathcal{F} \longrightarrow Ra_{X, *}(a_X^*\mathcal{F})
+$$
+are isomorphisms.
+\end{lemma}
+
+\begin{proof}
+This is an immediate consequence of parts (6) and (7) of
+Lemma \ref{lemma-review-quasi-coherent}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-vanishing-adequate}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3$
+be a complex of quasi-coherent $\mathcal{O}_X$-modules.
+Set
+$$
+\mathcal{H}_\etale =
+\Ker(\pi_X^*\mathcal{F}_2 \to \pi_X^*\mathcal{F}_3)/
+\Im(\pi_X^*\mathcal{F}_1 \to \pi_X^*\mathcal{F}_2)
+$$
+on $(\textit{Spaces}/X)_\etale$ and set
+$$
+\mathcal{H}_{fppf} =
+\Ker(a_X^*\mathcal{F}_2 \to a_X^*\mathcal{F}_3)/
+\Im(a_X^*\mathcal{F}_1 \to a_X^*\mathcal{F}_2)
+$$
+on $(\textit{Spaces}/X)_{fppf}$.
+Then $\mathcal{H}_\etale = \epsilon_{X, *}\mathcal{H}_{fppf}$
+and
+$$
+H^p_\etale(U, \mathcal{H}_\etale) = H^p_{fppf}(U, \mathcal{H}_{fppf}) = 0
+$$
+for $p > 0$ and any affine object $U$ of $(\textit{Spaces}/X)_\etale$.
+\end{lemma}
+
+\noindent
+More is true, namely the collection of modules on
+$(\textit{Spaces}/X)_{fppf}$ which fppf locally look like those
+in the lemma are called adquate modules. They form a
+weak Serre subcategory of the category of all $\mathcal{O}$-modules
+and their cohomology is studied in
+Adequate Modules, Section \ref{adequate-section-adequate}.
+
+\begin{proof}
+For any object $f : U \to X$ of $(\textit{Spaces}/X)_\etale$
+consider the restriction
+$\mathcal{H}_\etale|_{U_\etale}$ of $\mathcal{H}_\etale$ to $U_\etale$ via
+the functor $i_f^* = i_f^{-1}$ discussed in Section \ref{section-compare}.
+The sheaf $\mathcal{H}_\etale|_{U_\etale}$
+is equal to the homology of complex $f^*\mathcal{F}_\bullet$ in degree $1$.
+This is true because $i_f \circ \pi_X = f$ as morphisms of ringed sites
+$U_\etale \to X_\etale$. In particular we see that
+$\mathcal{H}_\etale|_{U_\etale}$ is a quasi-coherent $\mathcal{O}_U$-module.
+Next, let $g : V \to U$ be a flat
+morphism in $(\textit{Spaces}/X)_\etale$. Since
+$$
+i_{f \circ g}^* \circ \pi_X^* = (f \circ g)^* = g^* \circ f^*
+$$
+as morphisms of sites $V_\etale \to X_\etale$ and since $g$ is flat
+hence $g^*$ is exact, we obtain
+$$
+\mathcal{H}_\etale|_{V_\etale} =
+g^*\left(\mathcal{H}_\etale|_{U_\etale}\right)
+$$
+With these preparations we are ready to prove the lemma.
+
+\medskip\noindent
+Let $\mathcal{U} = \{g_i : U_i \to U\}_{i \in I}$ be an fppf covering
+with $f : U \to X$ as above. The sheaf propery holds for
+$\mathcal{H}_\etale$ and the covering $\mathcal{U}$
+by (1) of Lemma \ref{lemma-review-quasi-coherent}
+applied to $\mathcal{H}_\etale|_{U_\etale}$ and the above.
+Therefore we see that $\mathcal{H}_\etale$ is already an fppf
+sheaf and this means that $\mathcal{H}_{fppf}$ is
+equal to $\mathcal{H}_\etale$
+as a presheaf. In particular
+$\mathcal{H}_\etale = \epsilon_{X, *}\mathcal{H}_{fppf}$.
+
+\medskip\noindent
+Finally, to prove the vanishing, we use
+Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-cech-vanish-collection}.
+We let $\mathcal{B}$ be the affine objects of
+$(\textit{Spaces}/X)_{fppf}$ and we let
+$\text{Cov}$ be the set of finite fppf coverings
+$\mathcal{U} = \{U_i \to U\}_{i = 1, \ldots, n}$ with $U$, $U_i$ affine.
+We have
+$$
+{\check H}^p(\mathcal{U}, \mathcal{H}_\etale) =
+{\check H}^p(\mathcal{U}, \left(\mathcal{H}_\etale|_{U_\etale}\right)^a)
+$$
+because the values of $\mathcal{H}_\etale$ on the
+affine schemes $U_{i_0} \times_U \ldots \times_U U_{i_p}$
+flat over $U$ agree with the values of the pullback
+of the quasi-coherent module $\mathcal{H}_\etale|_{U_\etale}$ by
+the first paragraph. Hence we obtain vanishing by
+Descent, Lemma \ref{descent-lemma-standard-covering-Cech-quasi-coherent}.
+This finishes the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cohomological-descent-etale-fppf-modules-unbounded}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+For $K \in D_\QCoh(\mathcal{O}_X)$ the maps
+$$
+L\pi_X^*K \longrightarrow R\epsilon_{X, *}(La_X^*\mathcal{F})
+\quad\text{and}\quad
+K \longrightarrow Ra_{X, *}(La_X^*K)
+$$
+are isomorphisms. Here
+$a_X : \Sh((\textit{Spaces}/X)_{fppf}) \to \Sh(X_\etale)$ is as above.
+\end{lemma}
+
+\begin{proof}
+The question is \'etale local on $X$ hence we may assume $X$ is affine.
+Say $X = \Spec(A)$. Then we have $D_\QCoh(\mathcal{O}_X) = D(A)$ by
+Derived Categories of Spaces, Lemma
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site}
+and
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-affine-compare-bounded}.
+Hence we can choose an K-flat complex of $A$-modules
+$K^\bullet$ whose corresponding complex
+$\mathcal{K}^\bullet$ of quasi-coherent $\mathcal{O}_X$-modules
+represents $K$.
+We claim that $\mathcal{K}^\bullet$ is a K-flat complex
+of $\mathcal{O}_X$-modules.
+
+\medskip\noindent
+Proof of the claim. By
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-affine-K-flat}
+we see that $\widetilde{K}^\bullet$ is K-flat on the scheme
+$(\Spec(A), \mathcal{O}_{\Spec(A)})$.
+Next, note that $\mathcal{K}^\bullet = \epsilon^*\widetilde{K}^\bullet$
+where $\epsilon$ is as in Derived Categories of Spaces, Lemma
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site}
+whence $\mathcal{K}^\bullet$ is K-flat by
+Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-pullback-K-flat-points}
+and the fact that the \'etale site of a scheme has enough points
+(\'Etale Cohomology, Remarks \ref{etale-cohomology-remarks-enough-points}).
+
+\medskip\noindent
+By the claim we see that
+$La_X^*K = a_X^*\mathcal{K}^\bullet$ and
+$L\pi_X^*K = \pi_X^*\mathcal{K}^\bullet$.
+Since the first part of the proof shows that the pullback
+$a_X^*\mathcal{K}^n$ of the quasi-coherent module
+is acyclic for $\epsilon_{X, *}$, resp.\ $a_{X, *}$, surely the proof is done
+by Leray's acyclicity lemma? Actually..., no because Leray's
+acyclicity lemma only applies to bounded below complexes.
+However, in the next paragraph we will show the result does follow
+from the bounded below case because our complex is the derived limit
+of bounded below complexes of quasi-coherent modules.
+
+\medskip\noindent
+The cohomology sheaves of
+$\pi_X^*\mathcal{K}^\bullet$ and $a_X^*\mathcal{K}^\bullet$
+have vanishing higher cohomology
+groups over affine objects of $(\textit{Spaces}/X)_\etale$ by
+Lemma \ref{lemma-vanishing-adequate}.
+Therefore we have
+$$
+L\pi_X^*K = R\lim \tau_{\geq -n}(L\pi_X^*K)
+\quad\text{and}\quad
+La_X^*K = R\lim \tau_{\geq -n}(La_X^*K)
+$$
+by Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-is-limit-dimension}.
+
+\medskip\noindent
+Proof of $L\pi_X^*K = R\epsilon_{X, *}(La_X^*\mathcal{F})$.
+By the above we have
+$$
+R\epsilon_{X, *}La_X^*K =
+R\lim R\epsilon_{X, *}(\tau_{\geq -n}(La_X^*K))
+$$
+by Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-Rf-commutes-with-Rlim}.
+Note that $\tau_{\geq -n}(La_X^*K)$ is represented by
+$\tau_{\geq -n}(a_X^*\mathcal{K}^\bullet)$ which may not be the
+same as $a_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)$.
+But clearly the systems
+$$
+\{\tau_{\geq -n}(a_X^*\mathcal{K}^\bullet)\}_{n \geq 1}
+\quad\text{and}\quad
+\{a_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)\}_{n \geq 1}
+$$
+are isomorphic as pro-systems.
+By Leray's acyclicity lemma
+(Derived Categories, Lemma \ref{derived-lemma-leray-acyclicity})
+and the first part of the lemma we see that
+$$
+R\epsilon_{X, *}(a_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)) =
+\pi_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)
+$$
+Then we can use that the systems
+$$
+\{\tau_{\geq -n}(\pi_X^*\mathcal{K}^\bullet)\}_{n \geq 1}
+\quad\text{and}\quad
+\{\pi_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)\}_{n \geq 1}
+$$
+are isomorphic as pro-systems. Finally, we put everything together as follows
+\begin{align*}
+R\epsilon_{X, *}La_X^*K
+& =
+R\epsilon_{X, *} (R\lim \tau_{\geq -n}(La_X^*K)) \\
+& =
+R\lim R\epsilon_{X, *}(\tau_{\geq -n}(La_X^*K)) \\
+& =
+R\lim R\epsilon_{X, *}(\tau_{\geq -n}(a_X^*\mathcal{K}^\bullet)) \\
+& =
+R\lim R\epsilon_{X, *}(a_X^*(\tau_{\geq -n}\mathcal{K}^\bullet)) \\
+& =
+R\lim \pi_X^*(\tau_{\geq -n}\mathcal{K}^\bullet) \\
+& =
+R\lim \tau_{\geq -n}(\pi_X^*\mathcal{K}^\bullet) \\
+& =
+R\lim \tau_{\geq -n}(L\pi_X^*K) \\
+& =
+L\pi_X^*K
+\end{align*}
+Here in equalities four and six we have used that isomorphic
+pro-systems have the same $R\lim$ (small detail omitted).
+You can avoid this step by using more about cohomology of the terms
+of the complex $\tau_{\geq -n}a_X^*\mathcal{K}^\bullet$ proved
+in Lemma \ref{lemma-vanishing-adequate} as this will prove
+directly that $R\epsilon_{X, *}(\tau_{\geq -n}(a_X^*\mathcal{K}^\bullet)) =
+\tau_{\geq -n}(\pi_X^*\mathcal{K}^\bullet)$.
+
+\medskip\noindent
+The equality $K = Ra_{X, *}(La_X^*\mathcal{F})$ is
+proved in exactly the same way using in the final step that
+$K = R\lim \tau_{\geq -n}K$ by
+Derived Categories of Spaces, Lemma \ref{spaces-perfect-lemma-nice-K-injective}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Comparing ph and \'etale topologies}
+\label{section-ph-etale}
+
+\noindent
+This section is the analogue of
+\'Etale Cohomology, Section \ref{etale-cohomology-section-ph-etale}.
+
+\medskip\noindent
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+On the category $\textit{Spaces}/X$ we consider the ph
+and \'etale topologies. The identity functor
+$(\textit{Spaces}/X)_\etale \to (\textit{Spaces}/X)_{ph}$
+is continuous as every \'etale covering is a ph covering by
+Topologies on Spaces, Lemma
+\ref{spaces-topologies-lemma-zariski-etale-smooth-syntomic-fppf-ph}.
+Hence it defines a morphism of sites
+$$
+\epsilon_X :
+(\textit{Spaces}/X)_{ph} \longrightarrow (\textit{Spaces}/X)_\etale
+$$
+by an application of Sites, Proposition \ref{sites-proposition-get-morphism}.
+Please note that $\epsilon_{X, *}$ is the identity functor on underlying
+presheaves and that $\epsilon_X^{-1}$ associates to an \'etale sheaf the
+ph sheafification.
+Consider the morphism of sites
+$$
+\pi_X : (\textit{Spaces}/X)_\etale \longrightarrow X_{spaces, \etale}
+$$
+comparing big and small \'etale sites, see Section \ref{section-compare}.
+The composition determines a morphism of sites
+$$
+a_X = \pi_X \circ \epsilon_X :
+(\textit{Spaces}/X)_{ph}
+\longrightarrow
+X_{spaces, \etale}
+$$
+If $\mathcal{H}$ is an abelian sheaf on $(\textit{Spaces}/X)_{ph}$,
+then we will write $H^n_{ph}(U, \mathcal{H})$ for the cohomology
+of $\mathcal{H}$ over an object $U$ of $(\textit{Spaces}/X)_{ph}$.
+
+\begin{lemma}
+\label{lemma-comparison-ph-etale}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+\begin{enumerate}
+\item For $\mathcal{F} \in \Sh(X_\etale)$ we have
+$\epsilon_{X, *}a_X^{-1}\mathcal{F} = \pi_X^{-1}\mathcal{F}$
+and $a_{X, *}a_X^{-1}\mathcal{F} = \mathcal{F}$.
+\item For $\mathcal{F} \in \textit{Ab}(X_\etale)$ torsion we have
+$R^i\epsilon_{X, *}(a_X^{-1}\mathcal{F}) = 0$ for $i > 0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We have $a_X^{-1}\mathcal{F} = \epsilon_X^{-1} \pi_X^{-1}\mathcal{F}$.
+By Lemma \ref{lemma-describe-pullback} the \'etale sheaf
+$\pi_X^{-1}\mathcal{F}$ is a sheaf for the ph topology
+and therefore is equal to $a_X^{-1}\mathcal{F}$ (as pulling
+back by $\epsilon_X$ is given by ph sheafification).
+Recall moreover that $\epsilon_{X, *}$ is the identity
+on underlying presheaves.
+Now part (1) is immediate from the explicit description of $\pi_X^{-1}$
+in Lemma \ref{lemma-describe-pullback}.
+
+\medskip\noindent
+We will prove part (2) by reducing it to the case of schemes --
+see part (1) of
+\'Etale Cohomology, Lemma \ref{etale-cohomology-lemma-V-C-all-n-etale-ph}.
+This will ``clearly work'' as every algebraic space is
+\'etale locally a scheme. The details are given below but we urge
+the reader to skip the proof.
+
+\medskip\noindent
+For an abelian sheaf $\mathcal{H}$ on $(\textit{Spaces}/X)_{ph}$ the
+higher direct image $R^p\epsilon_{X, *}\mathcal{H}$ is the sheaf
+associated to the presheaf $U \mapsto H^p_{ph}(U, \mathcal{H})$
+on $(\textit{Spaces}/X)_\etale$. See
+Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-higher-direct-images}.
+Since every object of $(\textit{Spaces}/X)_\etale$ has a covering
+by schemes, it suffices to prove that given $U/X$ a scheme and
+$\xi \in H^p_{ph}(U, a_X^{-1}\mathcal{F})$ we can find
+an \'etale covering $\{U_i \to U\}$ such that $\xi$
+restricts to zero on $U_i$. We have
+\begin{align*}
+H^p_{ph}(U, a_X^{-1}\mathcal{F})
+& =
+H^p((\textit{Spaces}/U)_{ph}, (a_X^{-1}\mathcal{F})|_{\textit{Spaces}/U}) \\
+& =
+H^p((\Sch/U)_{ph}, (a_X^{-1}\mathcal{F})|_{\Sch/U})
+\end{align*}
+where the second identification is
+Lemma \ref{lemma-compare-cohomology-other-topologies}
+and the first is a general fact about restriction
+(Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-cohomology-of-open}).
+Looking at the first paragraph and the corresponding result in the
+case of schemes (\'Etale Cohomology, Lemma
+\ref{etale-cohomology-lemma-describe-pullback-pi-ph})
+we conclude that the sheaf $(a_X^{-1}\mathcal{F})|_{\Sch/U}$
+matches the pullback by the ``schemes version of $a_U$''.
+Therefore we can find an \'etale covering
+$\{U_i \to U\}$ such that our class dies in
+$H^p((\Sch/U_i)_{ph}, (a_X^{-1}\mathcal{F})|_{\Sch/U_i})$
+for each $i$, see
+\'Etale Cohomology, Lemma \ref{etale-cohomology-lemma-V-C-all-n-etale-ph}
+(the precise statement one should use here is that $V_n$ holds for all $n$
+which is the statement of part (2) for the case of schemes).
+Transporting back (using the same formulas as above but now for
+$U_i$) we conclude $\xi$ restricts to zero over $U_i$ as desired.
+\end{proof}
+
+\noindent
+The hard work done in the case of schemes now tells us that
+\'etale and ph cohomology agree for torsion abelian sheaves coming from the
+small \'etale site.
+
+\begin{lemma}
+\label{lemma-cohomological-descent-etale-ph}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+For $K \in D^+(X_\etale)$ with torsion cohomology sheaves the maps
+$$
+\pi_X^{-1}K \longrightarrow R\epsilon_{X, *}a_X^{-1}K
+\quad\text{and}\quad
+K \longrightarrow Ra_{X, *}a_X^{-1}K
+$$
+are isomorphisms with
+$a_X : \Sh((\textit{Spaces}/X)_{ph}) \to \Sh(X_\etale)$ as above.
+\end{lemma}
+
+\begin{proof}
+We only prove the second statement; the first is easier and proved in exactly
+the same manner. There is a reduction to the case where
+$K$ is given by a single torsion abelian sheaf. Namely, represent $K$
+by a bounded below complex $\mathcal{F}^\bullet$ of torsion
+abelian sheaves. This is possible by Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-torsion}.
+By the case of a sheaf we see that
+$\mathcal{F}^n = a_{X, *} a_X^{-1} \mathcal{F}^n$
+and that the sheaves $R^qa_{X, *}a_X^{-1}\mathcal{F}^n$
+are zero for $q > 0$. By Leray's acyclicity lemma
+(Derived Categories, Lemma \ref{derived-lemma-leray-acyclicity})
+applied to $a_X^{-1}\mathcal{F}^\bullet$
+and the functor $a_{X, *}$ we conclude. From now on assume
+$K = \mathcal{F}$ where $\mathcal{F}$ is a torsion abelian sheaf.
+
+\medskip\noindent
+By Lemma \ref{lemma-comparison-ph-etale} we have
+$a_{X, *}a_X^{-1}\mathcal{F} = \mathcal{F}$. Thus it suffices to show that
+$R^qa_{X, *}a_X^{-1}\mathcal{F} = 0$ for $q > 0$.
+For this we can use $a_X = \epsilon_X \circ \pi_X$ and
+the Leray spectral sequence
+(Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-relative-Leray}).
+By Lemma \ref{lemma-comparison-ph-etale}
+we have $R^i\epsilon_{X, *}(a_X^{-1}\mathcal{F}) = 0$ for $i > 0$.
+We have
+$\epsilon_{X, *}a_X^{-1}\mathcal{F} = \pi_X^{-1}\mathcal{F}$
+and by Lemma \ref{lemma-cohomological-descent-etale} we have
+$R^j\pi_{X, *}(\pi_X^{-1}\mathcal{F}) = 0$ for $j > 0$.
+This concludes the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-cohomology-etale-ph}
+Let $S$ be a scheme and let $X$ be an algebraic space over $S$.
+With $a_X : \Sh((\textit{Spaces}/X)_{ph}) \to \Sh(X_\etale)$
+as above:
+\begin{enumerate}
+\item $H^q(X_\etale, \mathcal{F}) = H^q_{ph}(X, a_X^{-1}\mathcal{F})$
+for a torsion abelian sheaf $\mathcal{F}$ on $X_\etale$,
+\item $H^q(X_\etale, K) = H^q_{ph}(X, a_X^{-1}K)$ for $K \in D^+(X_\etale)$
+with torsion cohomology sheaves
+\end{enumerate}
+Example: if $A$ is a torsion abelian group, then
+$H^q_\etale(X, \underline{A}) = H^q_{ph}(X, \underline{A})$.
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-cohomological-descent-etale-ph}
+by Cohomology on Sites, Remark \ref{sites-cohomology-remark-before-Leray}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-push-pull-ph-etale}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Then there are commutative diagrams of topoi
+$$
+\xymatrix{
+\Sh((\textit{Spaces}/X)_{ph}) \ar[rr]_{f_{big, ph}} \ar[d]_{\epsilon_X} & &
+\Sh((\textit{Spaces}/Y)_{ph}) \ar[d]^{\epsilon_Y} \\
+\Sh((\textit{Spaces}/X)_\etale) \ar[rr]^{f_{big, \etale}} & &
+\Sh((\textit{Spaces}/Y)_\etale)
+}
+$$
+and
+$$
+\xymatrix{
+\Sh((\textit{Spaces}/X)_{ph}) \ar[rr]_{f_{big, ph}} \ar[d]_{a_X} & &
+\Sh((\textit{Spaces}/Y)_{ph}) \ar[d]^{a_Y} \\
+\Sh(X_\etale) \ar[rr]^{f_{small}} & &
+\Sh(Y_\etale)
+}
+$$
+with $a_X = \pi_X \circ \epsilon_X$ and $a_Y = \pi_X \circ \epsilon_X$.
+\end{lemma}
+
+\begin{proof}
+This follows immediately from working out the definitions of the
+morphisms involved, see
+Topologies on Spaces, Section \ref{spaces-topologies-section-ph}
+and Section \ref{section-compare}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-push-pull-ph-etale}
+In Lemma \ref{lemma-push-pull-ph-etale} if $f$ is proper, then we have
+\begin{enumerate}
+\item $a_Y^{-1} \circ f_{small, *} = f_{big, ph, *} \circ a_X^{-1}$, and
+\item
+$a_Y^{-1}(Rf_{small, *}K) = Rf_{big, ph, *}(a_X^{-1}K)$
+for $K$ in $D^+(X_\etale)$ with torsion cohomology sheaves.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of (1). You can prove this by repeating the proof of
+Lemma \ref{lemma-compare-higher-direct-image-proper} part (1);
+we will instead deduce the result from this.
+As $\epsilon_{Y, *}$ is the identity functor on underlying presheaves,
+it reflects isomorphisms. Lemma \ref{lemma-comparison-ph-etale}
+shows that $\epsilon_{Y, *} \circ a_Y^{-1} = \pi_Y^{-1}$
+and similarly for $X$. To show that the canonical map
+$a_Y^{-1}f_{small, *}\mathcal{F} \to f_{big, ph, *}a_X^{-1}\mathcal{F}$
+is an isomorphism, it suffices to show that
+\begin{align*}
+\pi_Y^{-1}f_{small, *}\mathcal{F}
+& =
+\epsilon_{Y, *}a_Y^{-1}f_{small, *}\mathcal{F} \\
+& \to 
+\epsilon_{Y, *}f_{big, ph, *}a_X^{-1}\mathcal{F} \\
+& =
+f_{big, \etale, *} \epsilon_{X, *}a_X^{-1}\mathcal{F} \\
+& =
+f_{big, \etale, *}\pi_X^{-1}\mathcal{F}
+\end{align*}
+is an isomorphism. This is part
+(1) of Lemma \ref{lemma-compare-higher-direct-image-proper}.
+
+\medskip\noindent
+To see (2) we use that
+\begin{align*}
+R\epsilon_{Y, *}Rf_{big, ph, *}a_X^{-1}K
+& =
+Rf_{big, \etale, *}R\epsilon_{X, *}a_X^{-1}K \\
+& =
+Rf_{big, \etale, *}\pi_X^{-1}K \\
+& =
+\pi_Y^{-1}Rf_{small, *}K \\
+& =
+R\epsilon_{Y, *} a_Y^{-1}Rf_{small, *}K
+\end{align*}
+The first equality by the commutative diagram in
+Lemma \ref{lemma-push-pull-ph-etale}
+and Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-derived-pushforward-composition}.
+Then second equality is Lemma \ref{lemma-cohomological-descent-etale-ph}.
+The third is
+Lemma \ref{lemma-compare-higher-direct-image-proper} part (2).
+The fourth is Lemma \ref{lemma-cohomological-descent-etale-ph} again.
+Thus the base change map
+$a_Y^{-1}(Rf_{small, *}K) \to Rf_{big, ph, *}(a_X^{-1}K)$
+induces an isomorphism
+$$
+R\epsilon_{Y, *}a_Y^{-1}Rf_{small, *}K \to
+R\epsilon_{Y, *}Rf_{big, ph, *}a_X^{-1}K
+$$
+The proof is finished by the following remark: consider a map
+$\alpha : a_Y^{-1}L \to M$ with $L$ in $D^+(Y_\etale)$
+having torsion cohomology sheaves
+and $M$ in $D^+((\textit{Spaces}/Y)_{ph})$. If
+$R\epsilon_{Y, *}\alpha$ is an isomorphism, then $\alpha$ is an isomorphism.
+Namely, we show by induction on $i$ that $H^i(\alpha)$ is an isomorphism.
+This is true for all sufficiently small $i$.
+If it holds for $i \leq i_0$, then we see that
+$R^j\epsilon_{Y, *}H^i(M) = 0$ for $j > 0$ and $i \leq i_0$
+by Lemma \ref{lemma-comparison-ph-etale}
+because $H^i(M) = a_Y^{-1}H^i(L)$ in this range.
+Hence $\epsilon_{Y, *}H^{i_0 + 1}(M) = H^{i_0 + 1}(R\epsilon_{Y, *}M)$
+by a spectral sequence argument.
+Thus $\epsilon_{Y, *}H^{i_0 + 1}(M) = \pi_Y^{-1}H^{i_0 + 1}(L) =
+\epsilon_{Y, *}a_Y^{-1}H^{i_0 + 1}(L)$.
+This implies $H^{i_0 + 1}(\alpha)$ is an isomorphism
+(because $\epsilon_{Y, *}$ reflects isomorphisms as it is the
+identity on underlying presheaves) as desired.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

@@ -1,0 +1,3521 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Descent and Algebraic Spaces}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+In the chapter on topologies on algebraic spaces (see
+Topologies on Spaces, Section \ref{spaces-topologies-section-introduction})
+we introduced \'etale, fppf, smooth, syntomic and fpqc coverings of
+algebraic spaces.
+In this chapter we discuss what kind of structures over algebraic spaces
+can be descended through such coverings.
+See for example \cite{Gr-I}, \cite{Gr-II}, \cite{Gr-III},
+\cite{Gr-IV}, \cite{Gr-V}, and \cite{Gr-VI}.
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+The standing assumption is that all schemes are contained in
+a big fppf site $\Sch_{fppf}$. And all rings $A$ considered
+have the property that $\Spec(A)$ is (isomorphic) to an
+object of this big site.
+
+\medskip\noindent
+Let $S$ be a scheme and let $X$ be an algebraic space over $S$.
+In this chapter and the following we will write $X \times_S X$
+for the product of $X$ with itself (in the category of algebraic
+spaces over $S$), instead of $X \times X$.
+
+
+
+
+
+
+\section{Descent data for quasi-coherent sheaves}
+\label{section-equivalence}
+
+\noindent
+This section is the analogue of
+Descent, Section \ref{descent-section-equivalence}
+for algebraic spaces.
+It makes sense to read that section first.
+
+\begin{definition}
+\label{definition-descent-datum-quasi-coherent}
+Let $S$ be a scheme. Let $\{f_i : X_i \to X\}_{i \in I}$ be a family
+of morphisms of algebraic spaces over $S$ with fixed target $X$.
+\begin{enumerate}
+\item A {\it descent datum $(\mathcal{F}_i, \varphi_{ij})$
+for quasi-coherent sheaves} with respect to the given family
+is given by a quasi-coherent sheaf $\mathcal{F}_i$ on $X_i$ for
+each $i \in I$, an isomorphism of quasi-coherent
+$\mathcal{O}_{X_i \times_X X_j}$-modules
+$\varphi_{ij} : \text{pr}_0^*\mathcal{F}_i \to \text{pr}_1^*\mathcal{F}_j$
+for each pair $(i, j) \in I^2$
+such that for every triple of indices $(i, j, k) \in I^3$ the
+diagram
+$$
+\xymatrix{
+\text{pr}_0^*\mathcal{F}_i \ar[rd]_{\text{pr}_{01}^*\varphi_{ij}}
+\ar[rr]_{\text{pr}_{02}^*\varphi_{ik}} & &
+\text{pr}_2^*\mathcal{F}_k \\
+& \text{pr}_1^*\mathcal{F}_j \ar[ru]_{\text{pr}_{12}^*\varphi_{jk}} &
+}
+$$
+of $\mathcal{O}_{X_i \times_X X_j \times_X X_k}$-modules
+commutes. This is called the {\it cocycle condition}.
+\item A {\it morphism $\psi : (\mathcal{F}_i, \varphi_{ij}) \to
+(\mathcal{F}'_i, \varphi'_{ij})$ of descent data} is given
+by a family $\psi = (\psi_i)_{i\in I}$ of morphisms of
+$\mathcal{O}_{X_i}$-modules $\psi_i : \mathcal{F}_i \to \mathcal{F}'_i$
+such that all the diagrams
+$$
+\xymatrix{
+\text{pr}_0^*\mathcal{F}_i \ar[r]_{\varphi_{ij}} \ar[d]_{\text{pr}_0^*\psi_i}
+& \text{pr}_1^*\mathcal{F}_j \ar[d]^{\text{pr}_1^*\psi_j} \\
+\text{pr}_0^*\mathcal{F}'_i \ar[r]^{\varphi'_{ij}} &
+\text{pr}_1^*\mathcal{F}'_j \\
+}
+$$
+commute.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-map-families}
+Let $S$ be a scheme.
+Let $\mathcal{U} = \{U_i \to U\}_{i \in I}$ and
+$\mathcal{V} = \{V_j \to V\}_{j \in J}$
+be families of morphisms of algebraic spaces over $S$ with fixed targets.
+Let $(g, \alpha : I \to J, (g_i)) : \mathcal{U} \to \mathcal{V}$
+be a morphism of families of maps with fixed target, see
+Sites, Definition \ref{sites-definition-morphism-coverings}.
+Let $(\mathcal{F}_j, \varphi_{jj'})$ be a descent
+datum for quasi-coherent sheaves with respect to the
+family $\{V_j \to V\}_{j \in J}$. Then
+\begin{enumerate}
+\item The system
+$$
+\left(g_i^*\mathcal{F}_{\alpha(i)},
+(g_i \times g_{i'})^*\varphi_{\alpha(i)\alpha(i')}\right)
+$$
+is a descent datum with respect to the family $\{U_i \to U\}_{i \in I}$.
+\item This construction is functorial in the descent datum
+$(\mathcal{F}_j, \varphi_{jj'})$.
+\item Given a second morphism
+$(g', \alpha' : I \to J, (g'_i))$
+of families of maps with fixed target
+with $g = g'$ there exists a functorial isomorphism of descent data
+$$
+(g_i^*\mathcal{F}_{\alpha(i)},
+(g_i \times g_{i'})^*\varphi_{\alpha(i)\alpha(i')})
+\cong
+((g'_i)^*\mathcal{F}_{\alpha'(i)},
+(g'_i \times g'_{i'})^*\varphi_{\alpha'(i)\alpha'(i')}).
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: The maps
+$g_i^*\mathcal{F}_{\alpha(i)} \to (g'_i)^*\mathcal{F}_{\alpha'(i)}$
+which give the isomorphism of descent data in part (3)
+are the pullbacks of the maps $\varphi_{\alpha(i)\alpha'(i)}$ by the
+morphisms $(g_i, g'_i) : U_i \to V_{\alpha(i)} \times_V V_{\alpha'(i)}$.
+\end{proof}
+
+\noindent
+Let $g : U \to V$ be a morphism of algebraic spaces.
+The lemma above tells us that there is a well defined pullback functor
+between the categories of descent data relative to families of
+maps with target $V$ and $U$ provided there is a morphism between those
+families of maps which ``lives over $g$''.
+
+\begin{definition}
+\label{definition-descent-datum-effective-quasi-coherent}
+Let $S$ be a scheme.
+Let $\{U_i \to U\}_{i \in I}$ be a family of morphisms of algebraic
+spaces over $S$ with fixed target.
+\begin{enumerate}
+\item Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_U$-module.
+We call the unique descent on $\mathcal{F}$ datum with respect to the covering
+$\{U \to U\}$ the {\it trivial descent datum}.
+\item The pullback of the trivial descent datum to
+$\{U_i \to U\}$ is called the {\it canonical descent datum}.
+Notation: $(\mathcal{F}|_{U_i}, can)$.
+\item A descent datum $(\mathcal{F}_i, \varphi_{ij})$
+for quasi-coherent sheaves with respect to the given family
+is said to be {\it effective} if there exists a quasi-coherent
+sheaf $\mathcal{F}$ on $U$ such that $(\mathcal{F}_i, \varphi_{ij})$
+is isomorphic to $(\mathcal{F}|_{U_i}, can)$.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-zariski-descent-effective}
+Let $S$ be a scheme. Let $U$ be an algebraic space over $S$.
+Let $\{U_i \to U\}$ be a Zariski covering of $U$, see
+Topologies on Spaces,
+Definition \ref{spaces-topologies-definition-zariski-covering}.
+Any descent datum on quasi-coherent sheaves
+for the family $\mathcal{U} = \{U_i \to U\}$ is
+effective. Moreover, the functor from the category of
+quasi-coherent $\mathcal{O}_U$-modules to the category
+of descent data with respect to $\{U_i \to U\}$ is fully faithful.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Fpqc descent of quasi-coherent sheaves}
+\label{section-fpqc-descent-quasi-coherent}
+
+\noindent
+The main application of flat descent for modules is
+the corresponding descent statement for quasi-coherent
+sheaves with respect to fpqc-coverings.
+
+\begin{proposition}
+\label{proposition-fpqc-descent-quasi-coherent}
+Let $S$ be a scheme.
+Let $\{X_i \to X\}$ be an fpqc covering of algebraic spaces over $S$, see
+Topologies on Spaces,
+Definition \ref{spaces-topologies-definition-fpqc-covering}.
+Any descent datum on quasi-coherent sheaves
+for $\{X_i \to X\}$ is effective.
+Moreover, the functor from the category of
+quasi-coherent $\mathcal{O}_X$-modules to the category
+of descent data with respect to $\{X_i \to X\}$ is fully faithful.
+\end{proposition}
+
+\begin{proof}
+This is more or less a formal consequence of
+the corresponding result for schemes, see
+Descent, Proposition \ref{descent-proposition-fpqc-descent-quasi-coherent}.
+Here is a strategy for a proof:
+\begin{enumerate}
+\item The fact that $\{X_i \to X\}$ is a refinement of the trivial
+covering $\{X \to X\}$ gives, via
+Lemma \ref{lemma-map-families},
+a functor $\QCoh(\mathcal{O}_X) \to DD(\{X_i \to X\})$ from the
+category of quasi-coherent $\mathcal{O}_X$-modules to the category of
+descent data for the given family.
+\item In order to prove the proposition we will construct a
+quasi-inverse functor
+$back : DD(\{X_i \to X\}) \to \QCoh(\mathcal{O}_X)$.
+\item Applying again
+Lemma \ref{lemma-map-families}
+we see that there is a functor
+$DD(\{X_i \to X\}) \to DD(\{T_j \to X\})$
+if $\{T_j \to X\}$ is a refinement of the given family.
+Hence in order to construct the functor $back$ we may assume that
+each $X_i$ is a scheme, see
+Topologies on Spaces,
+Lemma \ref{spaces-topologies-lemma-refine-fpqc-schemes}.
+This reduces us to the case where all the $X_i$ are schemes.
+\item A quasi-coherent sheaf on $X$ is by definition a quasi-coherent
+$\mathcal{O}_X$-module on $X_\etale$. Now for any
+$U \in \Ob(X_\etale)$ we get an fppf covering
+$\{U_i \times_X X_i \to U\}$ by schemes and a morphism
+$g : \{U_i \times_X X_i \to U\} \to \{X_i \to X\}$ of coverings
+lying over $U \to X$. Given a descent datum
+$\xi = (\mathcal{F}_i, \varphi_{ij})$ we obtain a quasi-coherent
+$\mathcal{O}_U$-module $\mathcal{F}_{\xi, U}$ corresponding
+to the pullback $g^*\xi$ of
+Lemma \ref{lemma-map-families}
+to the covering of $U$ and using effectivity for fppf covering of schemes, see
+Descent, Proposition \ref{descent-proposition-fpqc-descent-quasi-coherent}.
+\item Check that $\xi \mapsto \mathcal{F}_{\xi, U}$ is functorial in $\xi$.
+Omitted.
+\item Check that $\xi \mapsto \mathcal{F}_{\xi, U}$ is compatible
+with morphisms $U \to U'$ of the site $X_\etale$, so that
+the system of sheaves $\mathcal{F}_{\xi, U}$ corresponds to a quasi-coherent
+$\mathcal{F}_\xi$ on $X_\etale$, see
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-characterize-quasi-coherent-small-etale}.
+Details omitted.
+\item Check that $back : \xi \mapsto \mathcal{F}_\xi$ is quasi-inverse
+to the functor constructed in (1). Omitted.
+\end{enumerate}
+This finishes the proof.
+\end{proof}
+
+
+
+
+
+\section{Descent of finiteness properties of modules}
+\label{section-descent-finiteness}
+
+\noindent
+This section is the analogue for the case of algebraic spaces of
+Descent, Section \ref{descent-section-descent-finiteness}.
+The goal is to show that one can check a quasi-coherent module
+has a certain finiteness conditions by checking on the members of
+a covering. We will repeatedly use the following proof scheme.
+Suppose that $X$ is an algebraic space, and that $\{X_i \to X\}$
+is a fppf (resp.\ fpqc) covering. Let $U \to X$ be a surjective
+\'etale morphism such that $U$ is a scheme. Then there exists an
+fppf (resp.\ fpqc) covering $\{Y_j \to X\}$ such that
+\begin{enumerate}
+\item $\{Y_j \to X\}$ is a refinement of $\{X_i \to X\}$,
+\item each $Y_j$ is a scheme, and
+\item each morphism $Y_j \to X$ factors though $U$, and
+\item $\{Y_j \to U\}$ is an fppf (resp.\ fpqc) covering of $U$.
+\end{enumerate}
+Namely, first refine $\{X_i \to X\}$ by an fppf (resp.\ fpqc)
+covering such that each $X_i$ is a scheme, see
+Topologies on Spaces, Lemma \ref{spaces-topologies-lemma-refine-fppf-schemes},
+resp.\ Lemma \ref{spaces-topologies-lemma-refine-fpqc-schemes}.
+Then set $Y_i = U \times_X X_i$. A quasi-coherent
+$\mathcal{O}_X$-module $\mathcal{F}$ is of finite type, of
+finite presentation, etc if and only if the quasi-coherent
+$\mathcal{O}_U$-module $\mathcal{F}|_U$ is of finite type, of
+finite presentation, etc. Hence we can use the existence of the
+refinement $\{Y_j \to X\}$ to reduce the proof of the following
+lemmas to the case of schemes. We will indicate this by saying
+that ``{\it the result follows from the case of schemes by
+\'etale localization}''.
+
+\begin{lemma}
+\label{lemma-finite-type-descends}
+Let $X$ be an algebraic space over a scheme $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Let $\{f_i : X_i \to X\}_{i \in I}$ be an fpqc covering such that
+each $f_i^*\mathcal{F}$ is a finite type $\mathcal{O}_{X_i}$-module.
+Then $\mathcal{F}$ is a finite type $\mathcal{O}_X$-module.
+\end{lemma}
+
+\begin{proof}
+This follows from the case of schemes, see
+Descent, Lemma \ref{descent-lemma-finite-type-descends},
+by \'etale localization.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-presentation-descends}
+Let $X$ be an algebraic space over a scheme $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Let $\{f_i : X_i \to X\}_{i \in I}$ be an fpqc covering such that
+each $f_i^*\mathcal{F}$ is an $\mathcal{O}_{X_i}$-module of finite
+presentation. Then $\mathcal{F}$ is an $\mathcal{O}_X$-module
+of finite presentation.
+\end{lemma}
+
+\begin{proof}
+This follows from the case of schemes, see
+Descent, Lemma \ref{descent-lemma-finite-presentation-descends},
+by \'etale localization.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-descends}
+Let $X$ be an algebraic space over a scheme $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Let $\{f_i : X_i \to X\}_{i \in I}$ be an fpqc covering such that
+each $f_i^*\mathcal{F}$ is a flat $\mathcal{O}_{X_i}$-module.
+Then $\mathcal{F}$ is a flat $\mathcal{O}_X$-module.
+\end{lemma}
+
+\begin{proof}
+This follows from the case of schemes, see
+Descent, Lemma \ref{descent-lemma-flat-descends},
+by \'etale localization.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-locally-free-descends}
+Let $X$ be an algebraic space over a scheme $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Let $\{f_i : X_i \to X\}_{i \in I}$ be an fpqc covering such that
+each $f_i^*\mathcal{F}$ is a finite locally free $\mathcal{O}_{X_i}$-module.
+Then $\mathcal{F}$ is a finite locally free $\mathcal{O}_X$-module.
+\end{lemma}
+
+\begin{proof}
+This follows from the case of schemes, see
+Descent, Lemma \ref{descent-lemma-finite-locally-free-descends},
+by \'etale localization.
+\end{proof}
+
+\noindent
+The definition of a locally projective quasi-coherent sheaf can be found in
+Properties of Spaces, Section
+\ref{spaces-properties-section-locally-projective}.
+It is also proved there that this notion is preserved under pullback.
+
+\begin{lemma}
+\label{lemma-locally-projective-descends}
+Let $X$ be an algebraic space over a scheme $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Let $\{f_i : X_i \to X\}_{i \in I}$ be an fpqc covering such that
+each $f_i^*\mathcal{F}$ is a locally projective $\mathcal{O}_{X_i}$-module.
+Then $\mathcal{F}$ is a locally projective $\mathcal{O}_X$-module.
+\end{lemma}
+
+\begin{proof}
+This follows from the case of schemes, see
+Descent, Lemma \ref{descent-lemma-locally-projective-descends},
+by \'etale localization.
+\end{proof}
+
+\noindent
+We also add here two results which are related to the results above, but
+are of a slightly different nature.
+
+\begin{lemma}
+\label{lemma-finite-over-finite-module}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Assume $f$ is a finite morphism.
+Then $\mathcal{F}$ is an $\mathcal{O}_X$-module of finite type
+if and only if $f_*\mathcal{F}$ is an $\mathcal{O}_Y$-module of finite
+type.
+\end{lemma}
+
+\begin{proof}
+As $f$ is finite it is representable. Choose a scheme $V$ and a surjective
+\'etale morphism $V \to Y$. Then $U = V \times_Y X$ is a scheme with
+a surjective \'etale morphism towards $X$ and a finite morphism
+$\psi : U \to V$ (the base change of $f$). Since
+$\psi_*(\mathcal{F}|_U) = f_*\mathcal{F}|_V$
+the result of the lemma follows immediately from the schemes version which
+is
+Descent, Lemma \ref{descent-lemma-finite-over-finite-module}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-finitely-presented-module}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Assume $f$ is finite and of finite presentation.
+Then $\mathcal{F}$ is an $\mathcal{O}_X$-module of finite presentation
+if and only if $f_*\mathcal{F}$ is an $\mathcal{O}_Y$-module of finite
+presentation.
+\end{lemma}
+
+\begin{proof}
+As $f$ is finite it is representable. Choose a scheme $V$ and a surjective
+\'etale morphism $V \to Y$. Then $U = V \times_Y X$ is a scheme with
+a surjective \'etale morphism towards $X$ and a finite morphism
+$\psi : U \to V$ (the base change of $f$). Since
+$\psi_*(\mathcal{F}|_U) = f_*\mathcal{F}|_V$
+the result of the lemma follows immediately from the schemes version which
+is
+Descent, Lemma \ref{descent-lemma-finite-finitely-presented-module}.
+\end{proof}
+
+
+
+
+
+
+\section{Fpqc coverings}
+\label{section-fpqc}
+
+\noindent
+This section is the analogue of
+Descent, Section \ref{descent-section-fpqc-universal-effective-epimorphisms}.
+At the moment we do not know if all of the material for
+fpqc coverings of schemes holds also for algebraic spaces.
+
+\begin{lemma}
+\label{lemma-open-fpqc-covering}
+Let $S$ be a scheme.
+Let $\{f_i : T_i \to T\}_{i \in I}$ be an fpqc covering
+of algebraic spaces over $S$.
+Suppose that for each $i$ we have an open subspace $W_i \subset T_i$
+such that for all $i, j \in I$ we have
+$\text{pr}_0^{-1}(W_i) = \text{pr}_1^{-1}(W_j)$ as open
+subspaces of $T_i \times_T T_j$. Then there exists a unique open subspace
+$W \subset T$ such that $W_i = f_i^{-1}(W)$ for each $i$.
+\end{lemma}
+
+\begin{proof}
+By
+Topologies on Spaces, Lemma \ref{spaces-topologies-lemma-refine-fpqc-schemes}
+we may assume each $T_i$ is a scheme.
+Choose a scheme $U$ and a surjective \'etale morphism $U \to T$.
+Then $\{T_i \times_T U \to U\}$ is an fpqc covering of $U$
+and $T_i \times_T U$ is a scheme for each $i$. Hence we
+see that the collection of opens $W_i \times_T U$ comes from a unique
+open subscheme $W' \subset U$ by
+Descent, Lemma \ref{descent-lemma-open-fpqc-covering}.
+As $U \to X$ is open we can define $W \subset X$ the Zariski
+open which is the image of $W'$, see
+Properties of Spaces, Section \ref{spaces-properties-section-points}.
+We omit the verification that this works, i.e., that
+$W_i$ is the inverse image of $W$ for each $i$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fpqc-universal-effective-epimorphisms}
+Let $S$ be a scheme. Let $\{T_i \to T\}$ be an fpqc covering of algebraic
+spaces over $S$, see Topologies on Spaces, Definition
+\ref{spaces-topologies-definition-fpqc-covering}.
+Then given an algebraic space $B$ over $S$ the sequence
+$$
+\xymatrix{
+\Mor_S(T, B) \ar[r] &
+\prod\nolimits_i \Mor_S(T_i, B) \ar@<1ex>[r] \ar@<-1ex>[r] &
+\prod\nolimits_{i, j} \Mor_S(T_i \times_T T_j, B)
+}
+$$
+is an equalizer diagram.
+In other words, every representable functor on the category of
+algebraic spaces over $S$ satisfies the sheaf condition for
+fpqc coverings.
+\end{lemma}
+
+\begin{proof}
+We know this is true if $\{T_i \to T\}$ is an fpqc covering of
+schemes, see Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-sheaf-fpqc}.
+This is the key fact and we encourage the reader to skip the rest
+of the proof which is formal. Choose a scheme $U$ and a surjective
+\'etale morphism
+$U \to T$. Let $U_i$ be a scheme and let $U_i \to T_i \times_T U$
+be a surjective \'etale morphism. Then $\{U_i \to U\}$ is an
+fpqc covering. This follows from
+Topologies on Spaces, Lemmas \ref{spaces-topologies-lemma-fpqc} and
+\ref{spaces-topologies-lemma-recognize-fpqc-covering}.
+By the above we have the result for $\{U_i \to U\}$.
+
+\medskip\noindent
+What this means is the following: Suppose that $b_i : T_i \to B$
+is a family of morphisms with
+$b_i \circ \text{pr}_0 = b_j \circ \text{pr}_1$ as morphisms
+$T_i \times_T T_j \to B$. Then we let $a_i : U_i \to B$ be the
+composition of $U_i \to T_i$ with $b_i$. By what was said above
+we find a unique morphism $a : U \to B$ such that
+$a_i$ is the composition of $a$ with $U_i \to U$.
+The uniqueness guarantees that $a \circ \text{pr}_0 = a \circ \text{pr}_1$
+as morphisms $U \times_T U \to B$. Then since $T = U/(U \times_T U)$
+as a sheaf, we find that $a$ comes from a unique morphism $b : T \to B$.
+Chasing diagrams we find that $b$ is the morphism we are looking for.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Descent of finiteness and smoothness properties of morphisms}
+\label{section-descent-finiteness-morphisms}
+
+\noindent
+The following type of lemma is occasionally useful.
+
+\begin{lemma}
+\label{lemma-curiosity}
+Let $S$ be a scheme. Let $X \to Y \to Z$ be morphism of algebraic spaces.
+Let $P$ be one of the following properties of morphisms of algebraic spaces
+over $S$:
+flat, locally finite type, locally finite presentation.
+Assume that $X \to Z$ has $P$ and that
+$X \to Y$ is a surjection of sheaves on $(\Sch/S)_{fppf}$.
+Then $Y \to Z$ is $P$.
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $W$ and a surjective \'etale morphism $W \to Z$.
+Choose a scheme $V$ and a surjective \'etale morphism $V \to W \times_Z Y$.
+Choose a scheme $U$ and a surjective \'etale morphism $U \to V \times_Y X$.
+By assumption we can find an fppf covering $\{V_i \to V\}$ and
+lifts $V_i \to X$ of the morphism $V_i \to Y$. Since $U \to X$ is surjective
+\'etale we see that over the members of the fppf covering
+$\{V_i \times_X U \to V\}$ we have lifts into $U$. Hence $U \to V$ induces
+a surjection of sheaves on $(\Sch/S)_{fppf}$.
+By our definition of what it means to have property $P$ for a
+morphism of algebraic spaces (see
+Morphisms of Spaces,
+Definition \ref{spaces-morphisms-definition-flat},
+Definition \ref{spaces-morphisms-definition-locally-finite-type}, and
+Definition \ref{spaces-morphisms-definition-locally-finite-presentation})
+we see that $U \to W$ has $P$ and we have to show $V \to W$ has $P$.
+Thus we reduce the question to the case of morphisms of schemes
+which is treated in
+Descent, Lemma \ref{descent-lemma-curiosity}.
+\end{proof}
+
+\noindent
+A more standard case of the above lemma is the following.
+(The version with ``flat'' follows from
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-flat-permanence}.)
+
+\begin{lemma}
+\label{lemma-flat-finitely-presented-permanence}
+Let $S$ be a scheme. Let
+$$
+\xymatrix{
+X \ar[rr]_f \ar[rd]_p & &
+Y \ar[dl]^q \\
+& B
+}
+$$
+be a commutative diagram of morphisms of algebraic spaces over $S$.
+Assume that $f$ is surjective, flat, and locally of finite presentation
+and assume that $p$ is locally of finite presentation (resp.\ locally
+of finite type). Then $q$ is locally of finite presentation
+(resp.\ locally of finite type).
+\end{lemma}
+
+\begin{proof}
+Since $\{X \to Y\}$ is an fppf covering, it induces a surjection of
+fppf sheaves (Topologies on Spaces, Lemma
+\ref{spaces-topologies-lemma-fppf-covering-surjective}) and the
+lemma is a special case of Lemma \ref{lemma-curiosity}.
+On the other hand, an easier argument is to deduce it from
+the analogue for schemes. Namely, the problem is \'etale local
+on $B$ and $Y$ (Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-finite-type-local} and
+\ref{spaces-morphisms-lemma-finite-presentation-local}).
+Hence we may assume that $B$ and $Y$ are affine
+schemes. Since $|X| \to |Y|$ is open
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-fppf-open}),
+we can choose an affine
+scheme $U$ and an \'etale morphism $U \to X$ such that the
+composition $U \to Y$ is surjective. In this case the result
+follows from Descent, Lemma
+\ref{descent-lemma-flat-finitely-presented-permanence}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-syntomic-smooth-etale-permanence}
+Let $S$ be a scheme. Let
+$$
+\xymatrix{
+X \ar[rr]_f \ar[rd]_p & &
+Y \ar[dl]^q \\
+& B
+}
+$$
+be a commutative diagram of morphisms of algebraic spaces over $S$.
+Assume that
+\begin{enumerate}
+\item $f$ is surjective, and syntomic (resp.\ smooth, resp.\ \'etale),
+\item $p$ is syntomic (resp.\ smooth, resp.\ \'etale).
+\end{enumerate}
+Then $q$ is syntomic (resp.\ smooth, resp.\ \'etale).
+\end{lemma}
+
+\begin{proof}
+We deduce this from the analogue for schemes.
+Namely, the problem is \'etale local on $B$ and $Y$
+(Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-syntomic-local},
+\ref{spaces-morphisms-lemma-smooth-local}, and
+\ref{spaces-morphisms-lemma-etale-local}).
+Hence we may assume that $B$ and $Y$ are affine
+schemes. Since $|X| \to |Y|$ is open
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-fppf-open}),
+we can choose an affine
+scheme $U$ and an \'etale morphism $U \to X$ such that the
+composition $U \to Y$ is surjective. In this case the result
+follows from Descent, Lemma
+\ref{descent-lemma-syntomic-smooth-etale-permanence}.
+\end{proof}
+
+\noindent
+Actually we can strengthen this result as follows.
+
+\begin{lemma}
+\label{lemma-smooth-permanence}
+Let $S$ be a scheme. Let
+$$
+\xymatrix{
+X \ar[rr]_f \ar[rd]_p & &
+Y \ar[dl]^q \\
+& B
+}
+$$
+be a commutative diagram of morphisms of algebraic spaces over $S$. Assume that
+\begin{enumerate}
+\item $f$ is surjective, flat, and locally of finite presentation,
+\item $p$ is smooth (resp.\ \'etale).
+\end{enumerate}
+Then $q$ is smooth (resp.\ \'etale).
+\end{lemma}
+
+\begin{proof}
+We deduce this from the analogue for schemes.
+Namely, the problem is \'etale local on $B$ and $Y$
+(Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-smooth-local} and
+\ref{spaces-morphisms-lemma-etale-local}).
+Hence we may assume that $B$ and $Y$ are affine
+schemes. Since $|X| \to |Y|$ is open
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-fppf-open}),
+we can choose an affine
+scheme $U$ and an \'etale morphism $U \to X$ such that the
+composition $U \to Y$ is surjective. In this case the result
+follows from Descent, Lemma
+\ref{descent-lemma-smooth-permanence}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-syntomic-permanence}
+Let $S$ be a scheme. Let
+$$
+\xymatrix{
+X \ar[rr]_f \ar[rd]_p & &
+Y \ar[dl]^q \\
+& B
+}
+$$
+be a commutative diagram of morphisms of algebraic spaces over $S$. Assume that
+\begin{enumerate}
+\item $f$ is surjective, flat, and locally of finite presentation,
+\item $p$ is syntomic.
+\end{enumerate}
+Then both $q$ and $f$ are syntomic.
+\end{lemma}
+
+\begin{proof}
+We deduce this from the analogue for schemes.
+Namely, the problem is \'etale local on $B$ and $Y$
+(Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-syntomic-local}).
+Hence we may assume that $B$ and $Y$ are affine
+schemes. Since $|X| \to |Y|$ is open
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-fppf-open}),
+we can choose an affine
+scheme $U$ and an \'etale morphism $U \to X$ such that the
+composition $U \to Y$ is surjective. In this case the result
+follows from Descent, Lemma
+\ref{descent-lemma-syntomic-permanence}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Descending properties of spaces}
+\label{section-descending-properties-spaces}
+
+\noindent
+In this section we put some results of the following kind.
+
+\begin{lemma}
+\label{lemma-descend-unibranch}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $x \in |X|$.
+If $f$ is flat at $x$ and $X$ is geometrically unibranch at $x$, then $Y$ is
+geometrically unibranch at $f(x)$.
+\end{lemma}
+
+\begin{proof}
+Consider the map of \'etale local rings
+$\mathcal{O}_{Y, f(\overline{x})} \to \mathcal{O}_{X, \overline{x}}$.
+By
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-flat-at-point-etale-local-rings}
+this is flat. Hence if $\mathcal{O}_{X, \overline{x}}$ has a unique minimal
+prime, so does $\mathcal{O}_{Y, f(\overline{x})}$ (by going down, see
+Algebra, Lemma \ref{algebra-lemma-flat-going-down}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descend-reduced}
+\begin{slogan}
+A flat and surjective morphism of algebraic spaces with a reduced source
+has a reduced target.
+\end{slogan}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+If $f$ is flat and surjective and $X$ is reduced, then $Y$ is reduced.
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $V$ and a surjective \'etale morphism $V \to Y$.
+Choose a scheme $U$ and a surjective \'etale morphism
+$U \to X \times_Y V$. As $f$ is surjective and flat, the morphism of
+schemes $U \to V$ is surjective and flat. In this way we reduce the
+problem to the case of schemes (as reducedness of $X$ and $Y$ is defined
+in terms of reducedness of $U$ and $V$, see
+Properties of Spaces,
+Section \ref{spaces-properties-section-types-properties}).
+The case of schemes is
+Descent, Lemma \ref{descent-lemma-descend-reduced}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descend-locally-Noetherian}
+Let $f : X \to Y$ be a morphism of algebraic spaces.
+If $f$ is locally of finite presentation, flat, and surjective and
+$X$ is locally Noetherian, then $Y$ is locally Noetherian.
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $V$ and a surjective \'etale morphism $V \to Y$.
+Choose a scheme $U$ and a surjective \'etale morphism
+$U \to X \times_Y V$. As $f$ is surjective, flat, and locally of
+finite presentation the morphism of schemes $U \to V$ is surjective, flat, and
+locally of finite presentation. In this way we reduce the
+problem to the case of schemes (as being locally Noetherian for $X$ and $Y$
+is defined in terms of being locally Noetherian of $U$ and $V$, see
+Properties of Spaces,
+Section \ref{spaces-properties-section-types-properties}).
+In the case of schemes the result follows from
+Descent, Lemma \ref{descent-lemma-Noetherian-local-fppf}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descend-regular}
+Let $f : X \to Y$ be a morphism of algebraic spaces.
+If $f$ is locally of finite presentation, flat, and surjective and
+$X$ is regular, then $Y$ is regular.
+\end{lemma}
+
+\begin{proof}
+By
+Lemma \ref{lemma-descend-locally-Noetherian}
+we know that $Y$ is locally Noetherian.
+Choose a scheme $V$ and a surjective \'etale morphism $V \to Y$.
+It suffices to prove that the local rings of $V$ are all regular local
+rings, see
+Properties, Lemma \ref{properties-lemma-characterize-regular}.
+Choose a scheme $U$ and a surjective \'etale morphism
+$U \to X \times_Y V$. As $f$ is surjective and flat the morphism of schemes
+$U \to V$ is surjective and flat. By assumption $U$ is a regular scheme
+in particular all of its local rings are regular (by the lemma above).
+Hence the lemma follows from
+Algebra, Lemma \ref{algebra-lemma-flat-under-regular}.
+\end{proof}
+
+
+
+\section{Descending properties of morphisms}
+\label{section-descending-properties-morphisms}
+
+\noindent
+In this section we introduce the notion of when a property of morphisms of
+algebraic spaces is local on the target in a topology. Please compare with
+Descent, Section \ref{descent-section-descending-properties-morphisms}.
+
+\begin{definition}
+\label{definition-property-morphisms-local}
+Let $S$ be a scheme.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces over $S$.
+Let $\tau \in \{fpqc, fppf, syntomic, smooth, \etale\}$.
+We say $\mathcal{P}$ is {\it $\tau$ local on the base}, or
+{\it $\tau$ local on the target}, or
+{\it local on the base for the $\tau$-topology} if for any
+$\tau$-covering $\{Y_i \to Y\}_{i \in I}$ of algebraic spaces
+and any morphism of algebraic spaces $f : X \to Y$ we
+have
+$$
+f \text{ has }\mathcal{P}
+\Leftrightarrow
+\text{each }Y_i \times_Y X \to Y_i\text{ has }\mathcal{P}.
+$$
+\end{definition}
+
+\noindent
+To be sure, since isomorphisms are always coverings
+we see (or require) that property $\mathcal{P}$ holds for $X \to Y$
+if and only if it holds for any arrow $X' \to Y'$ isomorphic to $X \to Y$.
+If a property is $\tau$-local on the target then it is preserved
+by base changes by morphisms which occur in $\tau$-coverings. Here
+is a formal statement.
+
+\begin{lemma}
+\label{lemma-pullback-property-local-target}
+Let $S$ be a scheme.
+Let $\tau \in \{fpqc, fppf, syntomic, smooth, \etale\}$.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces over $S$
+which is $\tau$ local on the target. Let $f : X \to Y$ have property
+$\mathcal{P}$. For any morphism $Y' \to Y$ which is
+flat, resp.\ flat and locally of finite presentation, resp.\ syntomic,
+resp.\ \'etale, the base change
+$f' : Y' \times_Y X \to Y'$ of $f$ has property $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+This is true because we can fit $Y' \to Y$ into a family of
+morphisms which forms a $\tau$-covering.
+\end{proof}
+
+\noindent
+A simple often used consequence of the above is that if
+$f : X \to Y$ has property $\mathcal{P}$ which is $\tau$-local
+on the target and $f(X) \subset V$
+for some open subspace $V \subset Y$, then also the induced
+morphism $X \to V$ has $\mathcal{P}$. Proof: The base change
+$f$ by $V \to Y$ gives $X \to V$.
+
+\begin{lemma}
+\label{lemma-largest-open-of-the-base}
+Let $S$ be a scheme.
+Let $\tau \in \{fppf, syntomic, smooth, \etale\}$.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces over $S$
+which is $\tau$ local on the target. For any morphism of algebraic spaces
+$f : X \to Y$ over $S$ there exists a largest open subspace
+$W(f) \subset Y$ such that the restriction $X_{W(f)} \to W(f)$ has
+$\mathcal{P}$. Moreover,
+\begin{enumerate}
+\item if $g : Y' \to Y$ is a morphism of algebraic spaces which is
+flat and locally of finite presentation, syntomic, smooth, or \'etale
+and the base change $f' : X_{Y'} \to Y'$ has $\mathcal{P}$, then
+$g$ factors through $W(f)$,
+\item if $g : Y' \to Y$ is flat and locally of finite presentation,
+syntomic, smooth, or \'etale, then $W(f') = g^{-1}(W(f))$, and
+\item if $\{g_i : Y_i \to Y\}$ is a $\tau$-covering, then
+$g_i^{-1}(W(f)) = W(f_i)$, where $f_i$ is the base change of $f$
+by $Y_i \to Y$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Consider the union $W_{set} \subset |Y|$ of the images
+$g(|Y'|) \subset |Y|$ of morphisms $g : Y' \to Y$ with the properties:
+\begin{enumerate}
+\item $g$ is flat and locally of finite presentation, syntomic,
+smooth, or \'etale, and
+\item the base change $Y' \times_{g, Y} X \to Y'$ has property
+$\mathcal{P}$.
+\end{enumerate}
+Since such a morphism $g$ is open (see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-fppf-open})
+we see that $W_{set}$ is an open subset of $|Y|$. Denote $W \subset Y$
+the open subspace whose underlying set of points is $W_{set}$, see
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-open-subspaces}.
+Since $\mathcal{P}$ is local in the $\tau$ topology the restriction
+$X_W \to W$ has property $\mathcal{P}$ because we are given a covering
+$\{Y' \to W\}$ of $W$ such that the pullbacks have $\mathcal{P}$.
+This proves the existence and proves that $W(f)$ has property (1).
+To see property (2) note that $W(f') \supset g^{-1}(W(f))$ because
+$\mathcal{P}$ is stable under base change by flat and locally of finite
+presentation, syntomic, smooth, or \'etale morphisms, see
+Lemma \ref{lemma-pullback-property-local-target}.
+On the other hand, if $Y'' \subset Y'$ is an open such that
+$X_{Y''} \to Y''$ has property $\mathcal{P}$, then $Y'' \to Y$ factors
+through $W$ by construction, i.e., $Y'' \subset g^{-1}(W(f))$. This
+proves (2). Assertion (3) follows from (2) because each morphism
+$Y_i \to Y$ is flat and locally of finite presentation, syntomic,
+smooth, or \'etale by our definition of a $\tau$-covering.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-properties-morphisms}
+Let $S$ be a scheme. Let $\mathcal{P}$ be a property of morphisms of
+algebraic spaces over $S$. Assume
+\begin{enumerate}
+\item if $X_i \to Y_i$, $i = 1, 2$ have property $\mathcal{P}$ so
+does $X_1 \amalg X_2 \to Y_1 \amalg Y_2$,
+\item a morphism of algebraic spaces $f : X \to Y$ has property
+$\mathcal{P}$ if and only if for every affine scheme $Z$ and
+morphism $Z \to Y$ the base change $Z \times_Y X \to Z$ of $f$
+has property $\mathcal{P}$, and
+\item for any surjective flat morphism of affine schemes
+$Z' \to Z$ over $S$ and a morphism $f : X \to Z$ from an algebraic space
+to $Z$ we have
+$$
+f' : Z' \times_Z X \to Z'\text{ has }\mathcal{P}
+\Rightarrow
+f\text{ has }\mathcal{P}.
+$$
+\end{enumerate}
+Then $\mathcal{P}$ is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+If $\mathcal{P}$ has property (2), then it is automatically
+stable under any base change. Hence the direct implication in
+Definition \ref{definition-property-morphisms-local}.
+
+\medskip\noindent
+Let $\{Y_i \to Y\}_{i \in I}$ be an fpqc covering of algebraic spaces over $S$.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Assume each base change $f_i : Y_i \times_Y X \to Y_i$ has property
+$\mathcal{P}$. Our goal is to show that $f$ has $\mathcal{P}$.
+Let $Z$ be an affine scheme, and let $Z \to Y$ be a morphism.
+By (2) it suffices to show that the morphism of algebraic spaces
+$Z \times_Y X \to Z$ has $\mathcal{P}$.
+Since $\{Y_i \to Y\}_{i \in I}$ is an fpqc covering we know there
+exists a standard fpqc covering $\{Z_j \to Z\}_{j = 1, \ldots , n}$
+and morphisms $Z_j \to Y_{i_j}$ over $Y$ for suitable indices $i_j \in I$.
+Since $f_{i_j}$ has $\mathcal{P}$ we see that
+$$
+Z_j \times_Y X
+=
+Z_j \times_{Y_{i_j}} (Y_{i_j} \times_Y X)
+\longrightarrow
+Z_j
+$$
+has $\mathcal{P}$ as a base change of $f_{i_j}$ (see first remark of the
+proof). Set $Z' = \coprod_{j = 1, \ldots, n} Z_j$, so that $Z' \to Z$ is
+a flat and surjective morphism of affine schemes over $S$. By (1)
+we conclude that $Z' \times_Y X \to Z'$ has property $\mathcal{P}$.
+Since this is the base change of the morphism $Z \times_Y X \to Z$
+by the morphism $Z' \to Z$ we conclude that
+$Z \times_Y X \to Z$ has property $\mathcal{P}$ as desired.
+\end{proof}
+
+
+\section{Descending properties of morphisms in the fpqc topology}
+\label{section-descending-properties-morphisms-fpqc}
+
+
+\noindent
+In this section we find a large number of properties
+of morphisms of algebraic spaces which are local on the base
+in the fpqc topology. Please compare with
+Descent, Section \ref{descent-section-descending-properties-morphisms-fpqc}
+for the case of morphisms of schemes.
+
+\begin{lemma}
+\label{lemma-descending-property-quasi-compact}
+Let $S$ be a scheme.
+The property $\mathcal{P}(f) =$``$f$ is quasi-compact''
+is fpqc local on the base on algebraic spaces over $S$.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-quasi-compact-local}.
+Let $Z' \to Z$ be a surjective flat morphism of affine schemes over $S$.
+Let $f : X \to Z$ be a morphism of algebraic spaces, and assume
+that the base change $f' : Z' \times_Z X \to Z'$ is quasi-compact. We have
+to show that $f$ is quasi-compact. To see this, using
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-quasi-compact-local}
+again, it is enough to show that for every affine scheme $Y$ and
+morphism $Y \to Z$ the fibre product $Y \times_Z X$ is quasi-compact.
+Here is a picture:
+\begin{equation}
+\label{equation-cube}
+\vcenter{
+\xymatrix{
+Y \times_Z Z' \times_Z X \ar[dd] \ar[rr] \ar[rd] & &
+Z' \times_Z X \ar'[d][dd]^{f'} \ar[rd] \\
+& Y \times_Z X \ar[dd] \ar[rr] & & X \ar[dd]^f \\
+Y \times_Z Z' \ar'[r][rr] \ar[rd] & & Z' \ar[rd] \\
+& Y \ar[rr] & & Z
+}
+}
+\end{equation}
+Note that all squares are cartesian and the bottom square consists
+of affine schemes. The assumption that $f'$ is quasi-compact combined with
+the fact that $Y \times_Z Z'$ is affine implies that
+$Y \times_Z Z' \times_Z X$ is quasi-compact. Since
+$$
+Y \times_Z Z' \times_Z X \longrightarrow Y \times_Z X
+$$
+is surjective as a base change of $Z' \to Z$
+we conclude that $Y \times_Z X$ is quasi-compact, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-surjection-from-quasi-compact}.
+This finishes the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-quasi-separated}
+Let $S$ be a scheme.
+The property $\mathcal{P}(f) =$``$f$ is quasi-separated''
+is fpqc local on the base on algebraic spaces over $S$.
+\end{lemma}
+
+\begin{proof}
+A base change of a quasi-separated morphism is quasi-separated, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-separated}.
+Hence the direct implication in
+Definition \ref{definition-property-morphisms-local}.
+
+\medskip\noindent
+Let $\{Y_i \to Y\}_{i \in I}$ be an fpqc covering of algebraic spaces over $S$.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Assume each base change $X_i := Y_i \times_Y X \to Y_i$ is quasi-separated.
+This means that each of the morphisms
+$$
+\Delta_i :
+X_i
+\longrightarrow
+X_i \times_{Y_i} X_i = Y_i \times_Y (X \times_Y X)
+$$
+is quasi-compact. The base change of a fpqc covering is an fpqc covering, see
+Topologies on Spaces, Lemma \ref{spaces-topologies-lemma-fpqc}
+hence $\{Y_i \times_Y (X \times_Y X) \to X \times_Y X\}$
+is an fpqc covering of algebraic spaces. Moreover, each
+$\Delta_i$ is the base change of the morphism
+$\Delta : X \to X \times_Y X$. Hence it follows from
+Lemma \ref{lemma-descending-property-quasi-compact}
+that $\Delta$ is quasi-compact, i.e., $f$ is quasi-separated.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-universally-closed}
+Let $S$ be a scheme.
+The property $\mathcal{P}(f) =$``$f$ is universally closed''
+is fpqc local on the base on algebraic spaces over $S$.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-universally-closed-local}.
+Let $Z' \to Z$ be a surjective flat morphism of affine schemes over $S$.
+Let $f : X \to Z$ be a morphism of algebraic spaces, and assume
+that the base change $f' : Z' \times_Z X \to Z'$ is universally closed.
+We have to show that $f$ is universally closed. To see this, using
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-universally-closed-local}
+again, it is enough to show that for every affine scheme $Y$ and
+morphism $Y \to Z$ the map $|Y \times_Z X| \to |Y|$ is closed.
+Consider the cube (\ref{equation-cube}).
+The assumption that $f'$ is universally closed implies that
+$|Y \times_Z Z' \times_Z X| \to |Y \times_Z Z'|$ is closed.
+As $Y \times_Z Z' \to Y$ is quasi-compact, surjective, and flat
+as a base change of $Z' \to Z$
+we see the map $|Y \times_Z Z'| \to |Y|$ is submersive, see
+Morphisms, Lemma \ref{morphisms-lemma-fpqc-quotient-topology}.
+Moreover the map
+$$
+|Y \times_Z Z' \times_Z X|
+\longrightarrow
+|Y \times_Z Z'| \times_{|Y|} |Y \times_Z X|
+$$
+is surjective, see
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}.
+It follows by elementary topology that $|Y \times_Z X| \to |Y|$ is closed.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-universally-open}
+Let $S$ be a scheme.
+The property $\mathcal{P}(f) =$``$f$ is universally open''
+is fpqc local on the base on algebraic spaces over $S$.
+\end{lemma}
+
+\begin{proof}
+The proof is the same as the proof of
+Lemma \ref{lemma-descending-property-universally-closed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-universally-submersive}
+The property $\mathcal{P}(f) =$``$f$ is universally submersive''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+The proof is the same as the proof of
+Lemma \ref{lemma-descending-property-universally-closed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-surjective}
+The property $\mathcal{P}(f) =$``$f$ is surjective''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+Omitted. (Hint: Use
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-universally-injective}
+The property $\mathcal{P}(f) =$``$f$ is universally injective''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-universally-closed-local}.
+Let $Z' \to Z$ be a flat surjective morphism of affine schemes
+over $S$ and let $f : X \to Z$ be a morphism from an algebraic space to $Z$.
+Assume that the base change $f' : X' \to Z'$ is universally injective.
+Let $K$ be a field, and let $a, b : \Spec(K) \to X$
+be two morphisms such that $f \circ a = f \circ b$.
+As $Z' \to Z$ is surjective there exists a field
+extension $K \subset K'$ and a morphism
+$\Spec(K') \to Z'$
+such that the following solid diagram commutes
+$$
+\xymatrix{
+\Spec(K') \ar[rrd] \ar@{-->}[rd]_{a', b'} \ar[dd] \\
+ &
+X' \ar[r] \ar[d] &
+Z' \ar[d] \\
+\Spec(K) \ar[r]^{a, b} &
+X \ar[r] &
+Z
+}
+$$
+As the square is cartesian we get the two dotted arrows $a'$, $b'$ making the
+diagram commute. Since $X' \to Z'$ is universally injective we get $a' = b'$.
+This forces $a = b$ as $\{\Spec(K') \to \Spec(K)\}$
+is an fpqc covering, see
+Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-sheaf-fpqc}.
+Hence $f$ is universally injective as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-universal-homeomorphism}
+The property $\mathcal{P}(f) =$``$f$ is a universal homeomorphism''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+This can be proved in exactly the same manner as
+Lemma \ref{lemma-descending-property-universally-closed}.
+Alternatively, one can use that a map of topological spaces is a
+homeomorphism if and only if it is injective, surjective, and open.
+Thus a universal homeomorphism is the same thing as a
+surjective, universally injective, and universally open morphism.
+See Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-base-change-surjective} and
+Morphisms of Spaces, Definitions
+\ref{spaces-morphisms-definition-universally-injective},
+\ref{spaces-morphisms-definition-surjective},
+\ref{spaces-morphisms-definition-open},
+\ref{spaces-morphisms-definition-universal-homeomorphism}.
+Thus the lemma follows from
+Lemmas \ref{lemma-descending-property-surjective},
+\ref{lemma-descending-property-universally-injective}, and
+\ref{lemma-descending-property-universally-open}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-locally-finite-type}
+The property $\mathcal{P}(f) =$``$f$ is locally of finite type''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-finite-type-local}.
+Let $Z' \to Z$ be a surjective flat morphism of affine schemes over $S$.
+Let $f : X \to Z$ be a morphism of algebraic spaces, and assume
+that the base change $f' : Z' \times_Z X \to Z'$ is locally of finite type.
+We have to show that $f$ is locally of finite type. Let $U$ be a scheme
+and let $U \to X$ be surjective and \'etale. By
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-finite-type-local}
+again, it is enough to show that $U \to Z$ is locally of finite type.
+Since $f'$ is locally of finite type, and since $Z' \times_Z U$ is a
+scheme \'etale over $Z' \times_Z X$ we conclude (by the same lemma again) that
+$Z' \times_Z U \to Z'$ is locally of finite type.
+As $\{Z' \to Z\}$ is an fpqc covering we conclude that
+$U \to Z$ is locally of finite type by
+Descent, Lemma \ref{descent-lemma-descending-property-locally-finite-type}
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-locally-finite-presentation}
+The property $\mathcal{P}(f) =$``$f$ is locally of finite presentation''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-finite-presentation-local}.
+Let $Z' \to Z$ be a surjective flat morphism of affine schemes over $S$.
+Let $f : X \to Z$ be a morphism of algebraic spaces, and assume
+that the base change $f' : Z' \times_Z X \to Z'$ is locally of
+finite presentation.
+We have to show that $f$ is locally of finite presentation. Let $U$ be a scheme
+and let $U \to X$ be surjective and \'etale. By
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-finite-presentation-local}
+again, it is enough to show that $U \to Z$ is locally of finite presentation.
+Since $f'$ is locally of finite presentation, and since $Z' \times_Z U$ is a
+scheme \'etale over $Z' \times_Z X$ we conclude (by the same lemma again) that
+$Z' \times_Z U \to Z'$ is locally of finite presentation.
+As $\{Z' \to Z\}$ is an fpqc covering we conclude that
+$U \to Z$ is locally of finite presentation by
+Descent,
+Lemma \ref{descent-lemma-descending-property-locally-finite-presentation}
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-finite-type}
+The property $\mathcal{P}(f) =$``$f$ is of finite type''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+Combine Lemmas \ref{lemma-descending-property-quasi-compact}
+and \ref{lemma-descending-property-locally-finite-type}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-finite-presentation}
+The property $\mathcal{P}(f) =$``$f$ is of finite presentation''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+Combine Lemmas \ref{lemma-descending-property-quasi-compact},
+\ref{lemma-descending-property-quasi-separated} and
+\ref{lemma-descending-property-locally-finite-presentation}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-flat}
+The property $\mathcal{P}(f) =$``$f$ is flat''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-flat-local}.
+Let $Z' \to Z$ be a surjective flat morphism of affine schemes over $S$.
+Let $f : X \to Z$ be a morphism of algebraic spaces, and assume
+that the base change $f' : Z' \times_Z X \to Z'$ is flat.
+We have to show that $f$ is flat. Let $U$ be a scheme
+and let $U \to X$ be surjective and \'etale. By
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-flat-local}
+again, it is enough to show that $U \to Z$ is flat.
+Since $f'$ is flat, and since $Z' \times_Z U$ is a
+scheme \'etale over $Z' \times_Z X$ we conclude (by the same lemma again) that
+$Z' \times_Z U \to Z'$ is flat.
+As $\{Z' \to Z\}$ is an fpqc covering we conclude that
+$U \to Z$ is flat by
+Descent, Lemma \ref{descent-lemma-descending-property-flat}
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-open-immersion}
+The property $\mathcal{P}(f) =$``$f$ is an open immersion''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-closed-immersion-local}.
+Consider a cartesian diagram
+$$
+\xymatrix{
+X' \ar[r] \ar[d] & X \ar[d] \\
+Z' \ar[r] & Z
+}
+$$
+of algebraic spaces over $S$
+where $Z' \to Z$ is a surjective flat morphism of affine schemes,
+and $X' \to Z'$ is an open immersion. We have to show that $X \to Z$
+is an open immersion. Note that $|X'| \subset |Z'|$ corresponds to an
+open subscheme $U' \subset Z'$ (isomorphic to $X'$)
+with the property that $\text{pr}_0^{-1}(U') = \text{pr}_1^{-1}(U')$
+as open subschemes of $Z' \times_Z Z'$. Hence there exists an open
+subscheme $U \subset Z$ such that $X' = (Z' \to Z)^{-1}(U)$, see
+Descent, Lemma \ref{descent-lemma-open-fpqc-covering}.
+By Properties of Spaces,
+Proposition \ref{spaces-properties-proposition-sheaf-fpqc}
+we see that $X$ satisfies the sheaf condition for the fpqc topology.
+Now we have the fpqc covering $\mathcal{U} = \{U' \to U\}$
+and the element $U' \to X' \to X \in \check{H}^0(\mathcal{U}, X)$.
+By the sheaf condition we obtain a morphism $U \to X$ such that
+$$
+\xymatrix{
+U' \ar[r] \ar[d]^{\cong} \ar@/_3ex/[dd] & U \ar[d] \ar@/^3ex/[dd] \\
+X' \ar[r] \ar[d] & X \ar[d] \\
+Z' \ar[r] & Z
+}
+$$
+is commutative. On the other hand, we know that for any scheme $T$ over $S$
+and $T$-valued point $T \to X$ the composition $T \to X \to Z$ is a
+morphism such that $Z' \times_Z T \to Z'$ factors through $U'$. Clearly
+this means that $T \to Z$ factors through $U$. In other words the map
+of sheaves $U \to X$ is bijective and we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-isomorphism}
+The property $\mathcal{P}(f) =$``$f$ is an isomorphism''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+Combine Lemmas \ref{lemma-descending-property-surjective}
+and \ref{lemma-descending-property-open-immersion}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-affine}
+The property $\mathcal{P}(f) =$``$f$ is affine''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-affine-local}.
+Let $Z' \to Z$ be a surjective flat morphism of affine schemes over $S$.
+Let $f : X \to Z$ be a morphism of algebraic spaces, and assume
+that the base change $f' : Z' \times_Z X \to Z'$ is affine.
+Let $X'$ be a scheme representing $Z' \times_Z X$.
+We obtain a canonical isomorphism
+$$
+\varphi : X' \times_Z Z' \longrightarrow Z' \times_Z X'
+$$
+since both schemes represent the algebraic space $Z' \times_Z Z' \times_Z X$.
+This is a descent datum for $X'/Z'/Z$, see
+Descent, Definition \ref{descent-definition-descent-datum}
+(verification omitted, compare with
+Descent, Lemma \ref{descent-lemma-descent-data-sheaves}).
+Since $X' \to Z'$ is affine this descent datum is effective, see
+Descent, Lemma \ref{descent-lemma-affine}.
+Thus there exists a scheme $Y \to Z$ over $Z$ and an
+isomorphism $\psi : Z' \times_Z Y \to X'$ compatible with descent data.
+Of course $Y \to Z$ is affine (by construction or by
+Descent, Lemma \ref{descent-lemma-descending-property-affine}).
+Note that $\mathcal{Y} = \{Z' \times_Z Y \to Y\}$ is a
+fpqc covering, and interpreting $\psi$ as an element of
+$X(Z' \times_Z Y)$ we see that $\psi \in \check{H}^0(\mathcal{Y}, X)$.
+By the sheaf condition for $X$ with respect to this covering (see
+Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-sheaf-fpqc})
+we obtain a morphism $Y \to X$.
+By construction the base change of this to $Z'$ is an isomorphism, hence
+an isomorphism by
+Lemma \ref{lemma-descending-property-isomorphism}.
+This proves that $X$ is representable by an affine scheme and we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-closed-immersion}
+The property $\mathcal{P}(f) =$``$f$ is a closed immersion''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-closed-immersion-local}.
+Consider a cartesian diagram
+$$
+\xymatrix{
+X' \ar[r] \ar[d] & X \ar[d] \\
+Z' \ar[r] & Z
+}
+$$
+of algebraic spaces over $S$
+where $Z' \to Z$ is a surjective flat morphism of affine schemes,
+and $X' \to Z'$ is a closed immersion. We have to show that $X \to Z$
+is a closed immersion. The morphism $X' \to Z'$ is affine. Hence by
+Lemma \ref{lemma-descending-property-affine}
+we see that $X$ is a scheme and $X \to Z$ is affine.
+It follows from
+Descent, Lemma \ref{descent-lemma-descending-property-closed-immersion}
+that $X \to Z$ is a closed immersion as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-separated}
+The property $\mathcal{P}(f) =$``$f$ is separated''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+A base change of a separated morphism is separated, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-separated}.
+Hence the direct implication in
+Definition \ref{definition-property-morphisms-local}.
+
+\medskip\noindent
+Let $\{Y_i \to Y\}_{i \in I}$ be an fpqc covering of algebraic spaces over $S$.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Assume each base change $X_i := Y_i \times_Y X \to Y_i$ is separated.
+This means that each of the morphisms
+$$
+\Delta_i :
+X_i
+\longrightarrow
+X_i \times_{Y_i} X_i = Y_i \times_Y (X \times_Y X)
+$$
+is a closed immersion. The base change of a fpqc covering is an
+fpqc covering, see
+Topologies on Spaces, Lemma \ref{spaces-topologies-lemma-fpqc}
+hence $\{Y_i \times_Y (X \times_Y X) \to X \times_Y X\}$
+is an fpqc covering of algebraic spaces. Moreover, each
+$\Delta_i$ is the base change of the morphism
+$\Delta : X \to X \times_Y X$. Hence it follows from
+Lemma \ref{lemma-descending-property-closed-immersion}
+that $\Delta$ is a closed immersion, i.e., $f$ is separated.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-proper}
+The property $\mathcal{P}(f) =$``$f$ is proper''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+The lemma follows by combining
+Lemmas \ref{lemma-descending-property-universally-closed},
+\ref{lemma-descending-property-separated}
+and \ref{lemma-descending-property-finite-type}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-quasi-affine}
+The property $\mathcal{P}(f) =$``$f$ is quasi-affine''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-quasi-affine-local}.
+Let $Z' \to Z$ be a surjective flat morphism of affine schemes over $S$.
+Let $f : X \to Z$ be a morphism of algebraic spaces, and assume
+that the base change $f' : Z' \times_Z X \to Z'$ is quasi-affine.
+Let $X'$ be a scheme representing $Z' \times_Z X$.
+We obtain a canonical isomorphism
+$$
+\varphi : X' \times_Z Z' \longrightarrow Z' \times_Z X'
+$$
+since both schemes represent the algebraic space $Z' \times_Z Z' \times_Z X$.
+This is a descent datum for $X'/Z'/Z$, see
+Descent, Definition \ref{descent-definition-descent-datum}
+(verification omitted, compare with
+Descent, Lemma \ref{descent-lemma-descent-data-sheaves}).
+Since $X' \to Z'$ is quasi-affine this descent datum is effective, see
+Descent, Lemma \ref{descent-lemma-quasi-affine}.
+Thus there exists a scheme $Y \to Z$ over $Z$ and an
+isomorphism $\psi : Z' \times_Z Y \to X'$ compatible with descent data.
+Of course $Y \to Z$ is quasi-affine (by construction or by
+Descent, Lemma \ref{descent-lemma-descending-property-quasi-affine}).
+Note that $\mathcal{Y} = \{Z' \times_Z Y \to Y\}$ is a
+fpqc covering, and interpreting $\psi$ as an element of
+$X(Z' \times_Z Y)$ we see that $\psi \in \check{H}^0(\mathcal{Y}, X)$.
+By the sheaf condition for $X$ (see
+Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-sheaf-fpqc})
+we obtain a morphism $Y \to X$.
+By construction the base change of this to $Z'$ is an isomorphism, hence
+an isomorphism by
+Lemma \ref{lemma-descending-property-isomorphism}.
+This proves that $X$ is representable by a quasi-affine scheme and we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-quasi-compact-immersion}
+The property $\mathcal{P}(f) =$``$f$ is a quasi-compact immersion''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemmas \ref{spaces-morphisms-lemma-closed-immersion-local} and
+\ref{spaces-morphisms-lemma-quasi-compact-local}.
+Consider a cartesian diagram
+$$
+\xymatrix{
+X' \ar[r] \ar[d] & X \ar[d] \\
+Z' \ar[r] & Z
+}
+$$
+of algebraic spaces over $S$
+where $Z' \to Z$ is a surjective flat morphism of affine schemes,
+and $X' \to Z'$ is a quasi-compact immersion. We have to show that $X \to Z$
+is a closed immersion. The morphism $X' \to Z'$ is quasi-affine. Hence by
+Lemma \ref{lemma-descending-property-quasi-affine}
+we see that $X$ is a scheme and $X \to Z$ is quasi-affine.
+It follows from
+Descent, Lemma \ref{descent-lemma-descending-property-quasi-compact-immersion}
+that $X \to Z$ is a quasi-compact immersion as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-integral}
+The property $\mathcal{P}(f) =$``$f$ is integral''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+An integral morphism is the same thing as an affine,
+universally closed morphism. See
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-integral-universally-closed}.
+Hence the lemma follows on combining
+Lemmas \ref{lemma-descending-property-universally-closed}
+and \ref{lemma-descending-property-affine}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-finite}
+The property $\mathcal{P}(f) =$``$f$ is finite''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+An finite morphism is the same thing as an integral,
+morphism which is locally of finite type. See
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-finite-integral}.
+Hence the lemma follows on combining
+Lemmas \ref{lemma-descending-property-locally-finite-type}
+and \ref{lemma-descending-property-integral}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-quasi-finite}
+The properties
+$\mathcal{P}(f) =$``$f$ is locally quasi-finite''
+and
+$\mathcal{P}(f) =$``$f$ is quasi-finite''
+are fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We have already seen that ``quasi-compact'' is fpqc local on the base, see
+Lemma \ref{lemma-descending-property-quasi-compact}. Hence it is enough
+to prove the lemma for ``locally quasi-finite''. We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-quasi-finite-local}.
+Let $Z' \to Z$ be a surjective flat morphism of affine schemes over $S$.
+Let $f : X \to Z$ be a morphism of algebraic spaces, and assume
+that the base change $f' : Z' \times_Z X \to Z'$ is locally quasi-finite.
+We have to show that $f$ is locally quasi-finite. Let $U$ be a scheme
+and let $U \to X$ be surjective and \'etale. By
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-quasi-finite-local}
+again, it is enough to show that $U \to Z$ is locally quasi-finite.
+Since $f'$ is locally quasi-finite, and since $Z' \times_Z U$ is a
+scheme \'etale over $Z' \times_Z X$ we conclude (by the same lemma again) that
+$Z' \times_Z U \to Z'$ is locally quasi-finite.
+As $\{Z' \to Z\}$ is an fpqc covering we conclude that
+$U \to Z$ is locally quasi-finite by
+Descent, Lemma \ref{descent-lemma-descending-property-quasi-finite}
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-syntomic}
+The property $\mathcal{P}(f) =$``$f$ is syntomic''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-syntomic-local}.
+Let $Z' \to Z$ be a surjective flat morphism of affine schemes over $S$.
+Let $f : X \to Z$ be a morphism of algebraic spaces, and assume
+that the base change $f' : Z' \times_Z X \to Z'$ is syntomic.
+We have to show that $f$ is syntomic. Let $U$ be a scheme
+and let $U \to X$ be surjective and \'etale. By
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-syntomic-local}
+again, it is enough to show that $U \to Z$ is syntomic.
+Since $f'$ is syntomic, and since $Z' \times_Z U$ is a
+scheme \'etale over $Z' \times_Z X$ we conclude (by the same lemma again) that
+$Z' \times_Z U \to Z'$ is syntomic.
+As $\{Z' \to Z\}$ is an fpqc covering we conclude that
+$U \to Z$ is syntomic by
+Descent, Lemma \ref{descent-lemma-descending-property-syntomic}
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-smooth}
+The property $\mathcal{P}(f) =$``$f$ is smooth''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-smooth-local}.
+Let $Z' \to Z$ be a surjective flat morphism of affine schemes over $S$.
+Let $f : X \to Z$ be a morphism of algebraic spaces, and assume
+that the base change $f' : Z' \times_Z X \to Z'$ is smooth.
+We have to show that $f$ is smooth. Let $U$ be a scheme
+and let $U \to X$ be surjective and \'etale. By
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-smooth-local}
+again, it is enough to show that $U \to Z$ is smooth.
+Since $f'$ is smooth, and since $Z' \times_Z U$ is a
+scheme \'etale over $Z' \times_Z X$ we conclude (by the same lemma again) that
+$Z' \times_Z U \to Z'$ is smooth.
+As $\{Z' \to Z\}$ is an fpqc covering we conclude that
+$U \to Z$ is smooth by
+Descent, Lemma \ref{descent-lemma-descending-property-smooth}
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-unramified}
+The property $\mathcal{P}(f) =$``$f$ is unramified''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-unramified-local}.
+Let $Z' \to Z$ be a surjective flat morphism of affine schemes over $S$.
+Let $f : X \to Z$ be a morphism of algebraic spaces, and assume
+that the base change $f' : Z' \times_Z X \to Z'$ is unramified.
+We have to show that $f$ is unramified. Let $U$ be a scheme
+and let $U \to X$ be surjective and \'etale. By
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-unramified-local}
+again, it is enough to show that $U \to Z$ is unramified.
+Since $f'$ is unramified, and since $Z' \times_Z U$ is a
+scheme \'etale over $Z' \times_Z X$ we conclude (by the same lemma again) that
+$Z' \times_Z U \to Z'$ is unramified.
+As $\{Z' \to Z\}$ is an fpqc covering we conclude that
+$U \to Z$ is unramified by
+Descent, Lemma \ref{descent-lemma-descending-property-unramified}
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-etale}
+The property $\mathcal{P}(f) =$``$f$ is \'etale''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-descending-properties-morphisms}
+to prove this. Assumptions (1) and (2) of that lemma follow from
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-etale-local}.
+Let $Z' \to Z$ be a surjective flat morphism of affine schemes over $S$.
+Let $f : X \to Z$ be a morphism of algebraic spaces, and assume
+that the base change $f' : Z' \times_Z X \to Z'$ is \'etale.
+We have to show that $f$ is \'etale. Let $U$ be a scheme
+and let $U \to X$ be surjective and \'etale. By
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-etale-local}
+again, it is enough to show that $U \to Z$ is \'etale.
+Since $f'$ is \'etale, and since $Z' \times_Z U$ is a
+scheme \'etale over $Z' \times_Z X$ we conclude (by the same lemma again) that
+$Z' \times_Z U \to Z'$ is \'etale.
+As $\{Z' \to Z\}$ is an fpqc covering we conclude that
+$U \to Z$ is \'etale by
+Descent, Lemma \ref{descent-lemma-descending-property-etale}
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-finite-locally-free}
+The property $\mathcal{P}(f) =$``$f$ is finite locally free''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+Being finite locally free is equivalent to being
+finite, flat and locally of finite presentation
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-finite-flat}).
+Hence this follows from Lemmas
+\ref{lemma-descending-property-finite},
+\ref{lemma-descending-property-flat}, and
+\ref{lemma-descending-property-locally-finite-presentation}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-property-monomorphism}
+The property $\mathcal{P}(f) =$``$f$ is a monomorphism''
+is fpqc local on the base.
+\end{lemma}
+
+\begin{proof}
+Let $f : X \to Y$ be a morphism of algebraic spaces.
+Let $\{Y_i \to Y\}$ be an fpqc covering, and assume
+each of the base changes $f_i : X_i \to Y_i$ of $f$ is
+a monomorphism. We have to show that $f$ is a monomorphism.
+
+\medskip\noindent
+First proof. Note that $f$ is a monomorphism if and only if
+$\Delta : X \to X \times_Y X$ is an isomorphism. By applying this to
+$f_i$ we see that each of the morphisms
+$$
+\Delta_i :
+X_i
+\longrightarrow
+X_i \times_{Y_i} X_i = Y_i \times_Y (X \times_Y X)
+$$
+is an isomorphism. The base change of an fpqc covering is an fpqc covering, see
+Topologies on Spaces, Lemma \ref{spaces-topologies-lemma-fpqc}
+hence $\{Y_i \times_Y (X \times_Y X) \to X \times_Y X\}$
+is an fpqc covering of algebraic spaces. Moreover, each
+$\Delta_i$ is the base change of the morphism
+$\Delta : X \to X \times_Y X$. Hence it follows from
+Lemma \ref{lemma-descending-property-isomorphism}
+that $\Delta$ is an isomorphism, i.e., $f$ is a monomorphism.
+
+\medskip\noindent
+Second proof.
+Let $V$ be a scheme, and let $V \to Y$ be a surjective \'etale morphism.
+If we can show that $V \times_Y X \to V$ is a monomorphism, then it
+follows that $X \to Y$ is a monomorphism. Namely, given any
+cartesian diagram of sheaves
+$$
+\vcenter{
+\xymatrix{
+\mathcal{F} \ar[r]_a \ar[d]_b & \mathcal{G} \ar[d]^c \\
+\mathcal{H} \ar[r]^d & \mathcal{I}
+}
+}
+\quad
+\quad
+\mathcal{F} = \mathcal{H} \times_\mathcal{I} \mathcal{G}
+$$
+if $c$ is a surjection of sheaves, and $a$ is injective, then also
+$d$ is injective. This reduces the problem to the case where $Y$ is
+a scheme. Moreover, in this case we may assume that the algebraic spaces
+$Y_i$ are schemes also, since we can always refine the covering to place
+ourselves in this situation, see
+Topologies on Spaces, Lemma \ref{spaces-topologies-lemma-refine-fpqc-schemes}.
+
+\medskip\noindent
+Assume $\{Y_i \to Y\}$ is an fpqc covering of schemes.
+Let $a, b : T \to X$ be two morphisms
+such that $f \circ a = f \circ b$. We have to show that $a = b$.
+Since $f_i$ is a monomorphism we see that $a_i = b_i$, where
+$a_i, b_i : Y_i \times_Y T \to X_i$ are
+the base changes. In particular the compositions
+$Y_i \times_Y T \to T \to X$ are equal.
+Since $\{Y_i \times_Y T \to T\}$ is an fpqc covering we
+deduce that $a = b$ from Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-sheaf-fpqc}.
+\end{proof}
+
+
+
+
+\section{Descending properties of morphisms in the fppf topology}
+\label{section-descending-properties-morphisms-fppf}
+
+\noindent
+In this section we find some properties of morphisms of algebraic spaces
+for which we could not (yet) show they are local on the base in
+the fpqc topology which, however, are local on the base
+in the fppf topology.
+
+\begin{lemma}
+\label{lemma-descending-fppf-property-immersion}
+The property $\mathcal{P}(f) =$``$f$ is an immersion''
+is fppf local on the base.
+\end{lemma}
+
+\begin{proof}
+Let $f : X \to Y$ be a morphism of algebraic spaces.
+Let $\{Y_i \to Y\}_{i \in I}$ be an fppf covering of $Y$.
+Let $f_i : X_i \to Y_i$ be the base change of $f$.
+
+\medskip\noindent
+If $f$ is an immersion, then each $f_i$ is an immersion by
+Spaces, Lemma \ref{spaces-lemma-base-change-immersions}.
+This proves the direct implication in
+Definition \ref{definition-property-morphisms-local}.
+
+\medskip\noindent
+Conversely, assume each $f_i$ is an immersion. By
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-immersions-monomorphisms}
+this implies each $f_i$ is separated. By
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-immersion-quasi-finite}
+this implies each $f_i$ is locally quasi-finite.
+Hence we see that $f$ is locally quasi-finite and separated, by applying
+Lemmas \ref{lemma-descending-property-separated}
+and \ref{lemma-descending-property-quasi-finite}.
+By
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-quasi-finite-separated-representable}
+this implies that $f$ is representable!
+
+\medskip\noindent
+By
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-closed-immersion-local}
+it suffices to show that for every scheme $Z$ and morphism $Z \to Y$
+the base change $Z \times_Y X \to Z$ is an immersion. By
+Topologies on Spaces, Lemma \ref{spaces-topologies-lemma-refine-fppf-schemes}
+we can find an fppf covering $\{Z_i \to Z\}$ by schemes which refines
+the pullback of the covering $\{Y_i \to Y\}$ to $Z$.
+Hence we see that $Z \times_Y X \to Z$ (which is a morphism of schemes
+according to the result of the preceding paragraph) becomes an immersion
+after pulling back to the members of an fppf (by schemes) of $Z$.
+Hence $Z \times_Y X \to Z$ is an immersion by the result for schemes, see
+Descent, Lemma \ref{descent-lemma-descending-fppf-property-immersion}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descending-fppf-property-locally-separated}
+The property $\mathcal{P}(f) =$``$f$ is locally separated''
+is fppf local on the base.
+\end{lemma}
+
+\begin{proof}
+A base change of a locally separated morphism is locally separated, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-separated}.
+Hence the direct implication in
+Definition \ref{definition-property-morphisms-local}.
+
+\medskip\noindent
+Let $\{Y_i \to Y\}_{i \in I}$ be an fppf covering of algebraic spaces over $S$.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Assume each base change $X_i := Y_i \times_Y X \to Y_i$ is locally separated.
+This means that each of the morphisms
+$$
+\Delta_i :
+X_i
+\longrightarrow
+X_i \times_{Y_i} X_i = Y_i \times_Y (X \times_Y X)
+$$
+is an immersion. The base change of a fppf covering is an
+fppf covering, see
+Topologies on Spaces, Lemma \ref{spaces-topologies-lemma-fppf}
+hence $\{Y_i \times_Y (X \times_Y X) \to X \times_Y X\}$
+is an fppf covering of algebraic spaces. Moreover, each
+$\Delta_i$ is the base change of the morphism
+$\Delta : X \to X \times_Y X$. Hence it follows from
+Lemma \ref{lemma-descending-fppf-property-immersion}
+that $\Delta$ is a immersion, i.e., $f$ is locally separated.
+\end{proof}
+
+
+
+
+
+\section{Application of descent of properties of morphisms}
+\label{section-application-descending-properties-morphisms}
+
+\noindent
+This section is the analogue of Descent, Section
+\ref{descent-section-application-descending-properties-morphisms}.
+
+\begin{lemma}
+\label{lemma-descending-property-ample}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Let $\{g_i : Y_i \to Y\}_{i \in I}$ be an fpqc covering.
+Let $f_i : X_i \to Y_i$ be the base change of $f$ and let $\mathcal{L}_i$
+be the pullback of $\mathcal{L}$ to $X_i$.
+The following are equivalent
+\begin{enumerate}
+\item $\mathcal{L}$ is ample on $X/Y$, and
+\item $\mathcal{L}_i$ is ample on $X_i/Y_i$
+for every $i \in I$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implication (1) $\Rightarrow$ (2) follows from
+Divisors on Spaces, Lemma \ref{spaces-divisors-lemma-ample-base-change}.
+Assume (2). To check $\mathcal{L}$ is ample on $X/Y$ we may
+work \'etale localy on $Y$, see
+Divisors on Spaces, Lemma \ref{spaces-divisors-lemma-relatively-ample-local}.
+Thus we may assume that $Y$ is a scheme and then we may
+in turn assume each $Y_i$ is a scheme too, see
+Topologies on Spaces, Lemma \ref{spaces-topologies-lemma-refine-fpqc-schemes}.
+In other words, we may assume that
+$\{Y_i \to Y\}$ is an fpqc covering of schemes.
+
+\medskip\noindent
+By Divisors on Spaces, Lemma
+\ref{spaces-divisors-lemma-relatively-ample-properties}
+we see that $X_i \to Y_i$ is representable (i.e., $X_i$ is a scheme),
+quasi-compact, and separated. Hence $f$ is quasi-compact and separated by
+Lemmas \ref{lemma-descending-property-quasi-compact} and
+\ref{lemma-descending-property-separated}.
+This means that
+$\mathcal{A} = \bigoplus_{d \geq 0} f_*\mathcal{L}^{\otimes d}$
+is a quasi-coherent graded $\mathcal{O}_Y$-algebra
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-pushforward}).
+Moreover, the formation of $\mathcal{A}$ commutes with flat
+base change by
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}.
+In particular, if we set
+$\mathcal{A}_i = \bigoplus_{d \geq 0} f_{i, *}\mathcal{L}_i^{\otimes d}$
+then we have $\mathcal{A}_i = g_i^*\mathcal{A}$.
+It follows that the natural maps
+$\psi_d : f^*\mathcal{A}_d \to \mathcal{L}^{\otimes d}$
+of $\mathcal{O}_X$
+pullback to give the natural maps
+$\psi_{i, d} : f_i^*(\mathcal{A}_i)_d \to \mathcal{L}_i^{\otimes d}$
+of $\mathcal{O}_{X_i}$-modules. Since $\mathcal{L}_i$ is ample on $X_i/Y_i$
+we see that for any point $x_i \in X_i$, there exists a $d \geq 1$
+such that $f_i^*(\mathcal{A}_i)_d \to \mathcal{L}_i^{\otimes d}$
+is surjective on stalks at $x_i$. This follows either directly
+from the definition of a relatively ample module or from
+Morphisms, Lemma \ref{morphisms-lemma-characterize-relatively-ample}.
+If $x \in |X|$, then we can choose an $i$ and an $x_i \in X_i$
+mapping to $x$. Since
+$\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{X_i, \overline{x}_i}$
+is flat hence faithfully flat, we conclude that for every $x \in |X|$
+there exists a $d \geq 1$ such that
+$f^*\mathcal{A}_d \to \mathcal{L}^{\otimes d}$
+is surjective on stalks at $x$.
+This implies that the open subset $U(\psi) \subset X$ of
+Divisors on Spaces, Lemma
+\ref{spaces-divisors-lemma-invertible-map-into-relative-proj}
+corresponding to the map
+$\psi : f^*\mathcal{A} \to \bigoplus_{d \geq 0} \mathcal{L}^{\otimes d}$
+of graded $\mathcal{O}_X$-algebras
+is equal to $X$. Consider the corresponding morphism
+$$
+r_{\mathcal{L}, \psi} : X \longrightarrow \underline{\text{Proj}}_Y(\mathcal{A})
+$$
+It is clear from the above that the base change of
+$r_{\mathcal{L}, \psi}$ to $Y_i$ is the morphism
+$r_{\mathcal{L}_i, \psi_i}$ which is an open immersion by
+Morphisms, Lemma \ref{morphisms-lemma-characterize-relatively-ample}.
+Hence $r_{\mathcal{L}, \psi}$ is an open immersion
+by Lemma \ref{lemma-descending-property-open-immersion}.
+Hence $X$ is a scheme
+and we conclude $\mathcal{L}$ is ample on $X/Y$ by
+Morphisms, Lemma \ref{morphisms-lemma-characterize-relatively-ample}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-in-neighbourhood}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a proper morphism of algebraic spaces over $S$.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+There exists an open subspace $V \subset Y$ characterized by
+the following property:
+A morphism $Y' \to Y$ of algebraic spaces factors
+through $V$ if and only if the pullback $\mathcal{L}'$
+of $\mathcal{L}$ to $X' = Y' \times_Y X$ is ample on $X'/Y'$
+(as in Divisors on Spaces, Definition
+\ref{spaces-divisors-definition-relatively-ample}).
+\end{lemma}
+
+\begin{proof}
+Suppose that the lemma holds whenever $Y$ is a scheme.
+Let $U$ be a scheme and let $U \to Y$ be a surjective \'etale morphism.
+Let $R = U \times_Y U$ with projections $t, s : R \to U$.
+Denote $X_U = U \times_Y X$ and $\mathcal{L}_U$ the pullback.
+Then we get an open subscheme $V' \subset U$ as in the lemma
+for $(X_U \to U, \mathcal{L}_U)$. By the functorial characterization
+we see that $s^{-1}(V') = t^{-1}(V')$.
+Thus there is an open subspace $V \subset Y$ such that
+$V'$ is the inverse image of $V$ in $U$.
+In particular $V' \to V$ is surjective \'etale and we
+conclude that $\mathcal{L}_V$ is ample on $X_V/V$
+(Divisors on Spaces, Lemma \ref{spaces-divisors-lemma-relatively-ample-local}).
+Now, if $Y' \to Y$ is a morphism such that
+$\mathcal{L}'$ is ample on $X'/Y'$, then
+$U \times_Y Y' \to Y'$ must factor through $V'$
+and we conclude that $Y' \to Y$ factors through $V$.
+Hence $V \subset Y$ is as in the statement of the lemma.
+In this way we reduce to the case dealt with in the next
+paragraph.
+
+\medskip\noindent
+Assume $Y$ is a scheme. Since the question is local on $Y$
+we may assume $Y$ is an affine scheme. We will show the
+following:
+\begin{enumerate}
+\item[(A)] If $\Spec(k) \to Y$ is a morphism such that
+$\mathcal{L}_k$ is ample on $X_k/k$, then there is an
+open neighbourhood $V \subset Y$ of the image of $\Spec(k) \to Y$
+such that $\mathcal{L}_V$ is ample on $X_V/V$.
+\end{enumerate}
+It is clear that (A) implies the truth of the lemma.
+
+\medskip\noindent
+Let $X \to Y$, $\mathcal{L}$, $\Spec(k) \to Y$ be as in (A).
+By Lemma \ref{lemma-descending-property-ample}
+we may assume that $k = \kappa(y)$ is the residue field of a point $y$
+of $Y$.
+
+\medskip\noindent
+As $Y$ is affine we can find a directed set $I$ and an
+inverse system of morphisms $X_i \to Y_i$ of algebraic spaces
+with $Y_i$ of finite presentation over $\mathbf{Z}$, with affine
+transition morphisms $X_i \to X_{i'}$ and $Y_i \to Y_{i'}$,
+with $X_i \to Y_i$ proper and of finite presentation, and such that
+$X \to Y = \lim (X_i \to Y_i)$. See Limits of Spaces, Lemma
+\ref{spaces-limits-lemma-proper-limit-of-proper-finite-presentation-noetherian}.
+After shrinking $I$ we may assume $Y_i$ is an (affine) scheme for all $i$,
+see Limits of Spaces, Lemma \ref{spaces-limits-lemma-limit-is-affine}.
+After shrinking $I$ we can assume we have a compatible system of
+invertible $\mathcal{O}_{X_i}$-modules $\mathcal{L}_i$
+pulling back to $\mathcal{L}$, see
+Limits of Spaces, Lemma \ref{spaces-limits-lemma-descend-invertible-modules}.
+Let $y_i \in Y_i$ be the image of $y$.
+Then $\kappa(y) = \colim \kappa(y_i)$.
+Hence $X_y = \lim X_{i, y_i}$ and after shrinking $I$ we
+may assume $X_{i, y_i}$ is a scheme for all $i$, see
+Limits of Spaces, Lemma \ref{spaces-limits-lemma-limit-is-scheme}.
+Hence for some $i$ we have $\mathcal{L}_{i, y_i}$
+is ample on $X_{i, y_i}$ by
+Limits, Lemma \ref{limits-lemma-limit-ample}.
+By Divisors on Spaces, Lemma \ref{spaces-divisors-lemma-ample-in-neighbourhood}
+we find an open neigbourhood
+$V_i \subset Y_i$ of $y_i$ such that
+$\mathcal{L}_i$ restricted to $f_i^{-1}(V_i)$
+is ample relative to $V_i$.
+Letting $V \subset Y$ be the inverse image of
+$V_i$ finishes the proof (hints: use
+Morphisms, Lemma \ref{morphisms-lemma-ample-base-change} and
+the fact that $X \to Y \times_{Y_i} X_i$ is affine
+and the fact that the pullback of an
+ample invertible sheaf by an affine morphism is ample by
+Morphisms, Lemma \ref{morphisms-lemma-pullback-ample-tensor-relatively-ample}).
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Properties of morphisms local on the source}
+\label{section-properties-morphisms-local-source}
+
+\noindent
+In this section we define what it means for a property of morphisms of
+algebraic spaces to be local on the source. Please compare with
+Descent, Section \ref{descent-section-properties-morphisms-local-source}.
+
+\begin{definition}
+\label{definition-property-morphisms-local-source}
+Let $S$ be a scheme.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces over $S$.
+Let $\tau \in \{fpqc, \linebreak[0] fppf, \linebreak[0] syntomic, \linebreak[0]
+smooth, \linebreak[0] \etale\}$. We say $\mathcal{P}$ is
+{\it $\tau$ local on the source}, or
+{\it local on the source for the $\tau$-topology} if for
+any morphism $f : X \to Y$ of algebraic spaces over $S$, and any
+$\tau$-covering $\{X_i \to X\}_{i \in I}$ of algebraic spaces we have
+$$
+f \text{ has }\mathcal{P}
+\Leftrightarrow
+\text{each }X_i \to Y\text{ has }\mathcal{P}.
+$$
+\end{definition}
+
+\noindent
+To be sure, since isomorphisms are always coverings
+we see (or require) that property $\mathcal{P}$ holds for $X \to Y$
+if and only if it holds for any arrow $X' \to Y'$ isomorphic to $X \to Y$.
+If a property is $\tau$-local on the source then it is preserved by
+precomposing with morphisms which occur in $\tau$-coverings. Here
+is a formal statement.
+
+\begin{lemma}
+\label{lemma-precompose-property-local-source}
+Let $S$ be a scheme.
+Let $\tau \in \{fpqc, \linebreak[0] fppf, \linebreak[0] syntomic, \linebreak[0]
+smooth, \linebreak[0] \etale\}$.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces over $S$
+which is $\tau$ local on the source. Let $f : X \to Y$ have property
+$\mathcal{P}$. For any morphism $a : X' \to X$ which is
+flat, resp.\ flat and locally of finite presentation, resp.\ syntomic,
+resp.\ smooth, resp.\ \'etale, the composition $f \circ a : X' \to Y$ has
+property $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+This is true because we can fit $X' \to X$ into a family of
+morphisms which forms a $\tau$-covering.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-transfer-from-schemes}
+Let $S$ be a scheme.
+Let $\tau \in \{fpqc, \linebreak[0] fppf, \linebreak[0] syntomic, \linebreak[0]
+smooth, \linebreak[0] \etale\}$.
+Suppose that $\mathcal{P}$ is a property of morphisms of schemes over $S$
+which is \'etale local on the source-and-target. Denote $\mathcal{P}_{spaces}$
+the corresponding property of morphisms of algebraic spaces over $S$, see
+Morphisms of Spaces, Definition \ref{spaces-morphisms-definition-P}.
+If $\mathcal{P}$ is local on the source for the $\tau$-topology, then
+$\mathcal{P}_{spaces}$ is local on the source for the $\tau$-topology.
+\end{lemma}
+
+\begin{proof}
+Let $f : X \to Y$ be a morphism of of algebraic spaces over $S$.
+Let $\{X_i \to X\}_{i \in I}$ be a $\tau$-covering of algebraic spaces.
+Choose a scheme $V$ and a surjective \'etale morphism $V \to Y$.
+Choose a scheme $U$ and a surjective \'etale morphism $U \to X \times_Y V$.
+For each $i$ choose a scheme $U_i$ and a surjective \'etale morphism
+$U_i \to X_i \times_X U$.
+
+\medskip\noindent
+Note that $\{X_i \times_X U \to U\}_{i \in I}$ is a $\tau$-covering.
+Note that each $\{U_i \to X_i \times_X U\}$ is an \'etale covering,
+hence a $\tau$-covering. Hence $\{U_i \to U\}_{i \in I}$ is a
+$\tau$-covering of algebraic spaces over $S$. But since $U$ and each $U_i$
+is a scheme we see that $\{U_i \to U\}_{i \in I}$ is a
+$\tau$-covering of schemes over $S$.
+
+\medskip\noindent
+Now we have
+\begin{align*}
+f \text{ has }\mathcal{P}_{spaces}
+& \Leftrightarrow
+U \to V \text{ has }\mathcal{P} \\
+& \Leftrightarrow
+\text{each }U_i \to V \text{ has }\mathcal{P} \\
+& \Leftrightarrow
+\text{each }X_i \to Y\text{ has }\mathcal{P}_{spaces}.
+\end{align*}
+the first and last equivalence by the definition of
+$\mathcal{P}_{spaces}$ the middle equivalence because we assumed
+$\mathcal{P}$ is local on the source in the $\tau$-topology.
+\end{proof}
+
+
+
+
+
+
+\section{Properties of morphisms local in the fpqc topology on the source}
+\label{section-fpqc-local-source}
+
+\noindent
+Here are some properties of morphisms that are fpqc local on the source.
+
+\begin{lemma}
+\label{lemma-flat-fpqc-local-source}
+The property $\mathcal{P}(f)=$``$f$ is flat'' is fpqc local on the source.
+\end{lemma}
+
+\begin{proof}
+Follows from
+Lemma \ref{lemma-transfer-from-schemes}
+using
+Morphisms of Spaces, Definition \ref{spaces-morphisms-definition-flat}
+and
+Descent, Lemma \ref{descent-lemma-flat-fpqc-local-source}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Properties of morphisms local in the fppf topology on the source}
+\label{section-fppf-local-source}
+
+\noindent
+Here are some properties of morphisms that are fppf local on the source.
+
+\begin{lemma}
+\label{lemma-locally-finite-presentation-fppf-local-source}
+The property $\mathcal{P}(f)=$``$f$ is locally of finite presentation''
+is fppf local on the source.
+\end{lemma}
+
+\begin{proof}
+Follows from
+Lemma \ref{lemma-transfer-from-schemes}
+using
+Morphisms of Spaces,
+Definition \ref{spaces-morphisms-definition-locally-finite-presentation}
+and
+Descent,
+Lemma \ref{descent-lemma-locally-finite-presentation-fppf-local-source}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-finite-type-fppf-local-source}
+The property $\mathcal{P}(f)=$``$f$ is locally of finite type''
+is fppf local on the source.
+\end{lemma}
+
+\begin{proof}
+Follows from
+Lemma \ref{lemma-transfer-from-schemes}
+using
+Morphisms of Spaces,
+Definition \ref{spaces-morphisms-definition-locally-finite-type}
+and
+Descent, Lemma \ref{descent-lemma-locally-finite-type-fppf-local-source}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-fppf-local-source}
+The property $\mathcal{P}(f)=$``$f$ is open''
+is fppf local on the source.
+\end{lemma}
+
+\begin{proof}
+Follows from
+Lemma \ref{lemma-transfer-from-schemes}
+using
+Morphisms of Spaces, Definition \ref{spaces-morphisms-definition-open}
+and
+Descent, Lemma \ref{descent-lemma-open-fppf-local-source}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-universally-open-fppf-local-source}
+The property $\mathcal{P}(f)=$``$f$ is universally open''
+is fppf local on the source.
+\end{lemma}
+
+\begin{proof}
+Follows from
+Lemma \ref{lemma-transfer-from-schemes}
+using
+Morphisms of Spaces, Definition \ref{spaces-morphisms-definition-open}
+and
+Descent, Lemma \ref{descent-lemma-universally-open-fppf-local-source}.
+\end{proof}
+
+
+
+\section{Properties of morphisms local in the syntomic topology on the source}
+\label{section-syntomic-local-source}
+
+\noindent
+Here are some properties of morphisms that are syntomic local on the source.
+
+\begin{lemma}
+\label{lemma-syntomic-syntomic-local-source}
+The property $\mathcal{P}(f)=$``$f$ is syntomic''
+is syntomic local on the source.
+\end{lemma}
+
+\begin{proof}
+Follows from
+Lemma \ref{lemma-transfer-from-schemes}
+using
+Morphisms of Spaces, Definition \ref{spaces-morphisms-definition-syntomic}
+and
+Descent, Lemma \ref{descent-lemma-syntomic-syntomic-local-source}.
+\end{proof}
+
+
+
+
+\section{Properties of morphisms local in the smooth topology on the source}
+\label{section-smooth-local-source}
+
+\noindent
+Here are some properties of morphisms that are smooth local on the source.
+
+\begin{lemma}
+\label{lemma-smooth-smooth-local-source}
+The property $\mathcal{P}(f)=$``$f$ is smooth''
+is smooth local on the source.
+\end{lemma}
+
+\begin{proof}
+Follows from
+Lemma \ref{lemma-transfer-from-schemes}
+using
+Morphisms of Spaces, Definition \ref{spaces-morphisms-definition-smooth}
+and
+Descent, Lemma \ref{descent-lemma-smooth-smooth-local-source}.
+\end{proof}
+
+
+
+\section{Properties of morphisms local in the \'etale topology on the source}
+\label{section-etale-local-source}
+
+\noindent
+Here are some properties of morphisms that are \'etale local on the source.
+
+\begin{lemma}
+\label{lemma-etale-etale-local-source}
+The property $\mathcal{P}(f)=$``$f$ is \'etale''
+is \'etale local on the source.
+\end{lemma}
+
+\begin{proof}
+Follows from
+Lemma \ref{lemma-transfer-from-schemes}
+using
+Morphisms of Spaces,
+Definition \ref{spaces-morphisms-definition-etale}
+and
+Descent, Lemma \ref{descent-lemma-etale-etale-local-source}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-quasi-finite-etale-local-source}
+The property $\mathcal{P}(f)=$``$f$ is locally quasi-finite''
+is \'etale local on the source.
+\end{lemma}
+
+\begin{proof}
+Follows from
+Lemma \ref{lemma-transfer-from-schemes}
+using
+Morphisms of Spaces,
+Definition \ref{spaces-morphisms-definition-locally-quasi-finite}
+and
+Descent, Lemma \ref{descent-lemma-locally-quasi-finite-etale-local-source}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-unramified-etale-local-source}
+The property $\mathcal{P}(f)=$``$f$ is unramified''
+is \'etale local on the source.
+\end{lemma}
+
+\begin{proof}
+Follows from
+Lemma \ref{lemma-transfer-from-schemes}
+using
+Morphisms of Spaces, Definition \ref{spaces-morphisms-definition-unramified}
+and
+Descent, Lemma \ref{descent-lemma-unramified-etale-local-source}.
+\end{proof}
+
+
+
+
+\section{Properties of morphisms smooth local on source-and-target}
+\label{section-properties-local-source-target}
+
+\noindent
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces. There is an
+intuitive meaning to the phrase ``$\mathcal{P}$ is smooth local on the
+source and target''. However, it turns out that this notion is not
+the same as asking $\mathcal{P}$ to be both smooth
+local on the source and smooth local on the target.
+We have discussed a similar phenomenon (for the \'etale topology and
+the category of schemes) in great detail in
+Descent, Section \ref{descent-section-properties-etale-local-source-target}
+(for a quick overview take a look at
+Descent, Remark \ref{descent-remark-compare-definitions}).
+However, there is an important difference between the case of the smooth
+and the \'etale topology. To see this difference we encourage the reader
+to ponder the difference between
+Descent, Lemma \ref{descent-lemma-local-source-target-implies}
+and
+Lemma \ref{lemma-local-source-target-implies}
+as well as the difference between
+Descent, Lemma \ref{descent-lemma-local-source-target-characterize}
+and
+Lemma \ref{lemma-local-source-target-characterize}.
+Namely, in the \'etale setting the choice of the \'etale ``covering'' of the
+target is immaterial, whereas in the smooth setting it is not.
+
+\begin{definition}
+\label{definition-local-source-target}
+Let $S$ be a scheme.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces over $S$.
+We say $\mathcal{P}$ is {\it smooth local on source-and-target} if
+\begin{enumerate}
+\item (stable under precomposing with smooth maps)
+if $f : X \to Y$ is smooth and $g : Y \to Z$ has $\mathcal{P}$,
+then $g \circ f$ has $\mathcal{P}$,
+\item (stable under smooth base change)
+if $f : X \to Y$ has $\mathcal{P}$ and $Y' \to Y$ is smooth, then
+the base change $f' : Y' \times_Y X \to Y'$ has $\mathcal{P}$, and
+\item (locality) given a morphism $f : X \to Y$ the following are
+equivalent
+\begin{enumerate}
+\item $f$ has $\mathcal{P}$,
+\item for every $x \in |X|$ there exists a commutative diagram
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+with smooth vertical arrows and $u \in |U|$ with $a(u) = x$ such that
+$h$ has $\mathcal{P}$.
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+
+\noindent
+The above serves as our definition. In the lemmas below we will show that
+this is equivalent to $\mathcal{P}$ being smooth local on the target,
+smooth local on the source, and stable under post-composing by smooth morphisms.
+
+\begin{lemma}
+\label{lemma-local-source-target-implies}
+Let $S$ be a scheme.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces over $S$
+which is smooth local on source-and-target. Then
+\begin{enumerate}
+\item $\mathcal{P}$ is smooth local on the source,
+\item $\mathcal{P}$ is smooth local on the target,
+\item $\mathcal{P}$ is stable under postcomposing with smooth morphisms:
+if $f : X \to Y$ has $\mathcal{P}$ and $g : Y \to Z$ is smooth, then
+$g \circ f$ has $\mathcal{P}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We write everything out completely.
+
+\medskip\noindent
+Proof of (1). Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\{X_i \to X\}_{i \in I}$ be a smooth covering of $X$. If each composition
+$h_i : X_i \to Y$ has $\mathcal{P}$, then for each $|x| \in X$ we can find
+an $i \in I$ and a point $x_i \in |X_i|$ mapping to $x$. Then
+$(X_i, x_i) \to (X, x)$ is a smooth morphism of pairs, and
+$\text{id}_Y : Y \to Y$ is a smooth morphism, and $h_i$ is as in part (3) of
+Definition \ref{definition-local-source-target}.
+Thus we see that $f$ has $\mathcal{P}$.
+Conversely, if $f$ has $\mathcal{P}$ then each $X_i \to Y$ has
+$\mathcal{P}$ by
+Definition \ref{definition-local-source-target} part (1).
+
+\medskip\noindent
+Proof of (2). Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\{Y_i \to Y\}_{i \in I}$ be a smooth covering of $Y$.
+Write $X_i = Y_i \times_Y X$ and $h_i : X_i \to Y_i$ for the base change
+of $f$.  If each  $h_i : X_i \to Y_i$ has $\mathcal{P}$, then for each
+$x \in |X|$ we pick an $i \in I$ and a point $x_i \in |X_i|$ mapping to $x$.
+Then $(X_i, x_i) \to (X, x)$ is a smooth morphism of pairs, $Y_i \to Y$ is
+smooth, and $h_i$ is as in part (3) of
+Definition \ref{definition-local-source-target}.
+Thus we see that $f$ has $\mathcal{P}$.
+Conversely, if $f$ has $\mathcal{P}$, then each $X_i \to Y_i$ has
+$\mathcal{P}$ by
+Definition \ref{definition-local-source-target} part (2).
+
+\medskip\noindent
+Proof of (3). Assume $f : X \to Y$ has $\mathcal{P}$ and $g : Y \to Z$ is
+smooth. For every $x \in |X|$ we can think of $(X, x) \to (X, x)$ as a
+smooth morphism of pairs, $Y \to Z$ is a smooth morphism, and $h = f$ is as
+in part (3) of
+Definition \ref{definition-local-source-target}.
+Thus we see that $g \circ f$ has $\mathcal{P}$.
+\end{proof}
+
+\noindent
+The following lemma is the analogue of
+Morphisms, Lemma \ref{morphisms-lemma-locally-P-characterize}.
+
+\begin{lemma}
+\label{lemma-local-source-target-characterize}
+Let $S$ be a scheme.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces over $S$
+which is smooth local on source-and-target. Let $f : X \to Y$ be a morphism
+of algebraic spaces over $S$. The following are equivalent:
+\begin{enumerate}
+\item[(a)] $f$ has property $\mathcal{P}$,
+\item[(b)] for every $x \in |X|$ there exists a smooth morphism of pairs
+$a : (U, u) \to (X, x)$, a smooth morphism $b : V \to Y$, and
+a morphism $h : U \to V$ such that $f \circ a = b \circ h$ and
+$h$ has $\mathcal{P}$,
+\item[(c)] for some commutative diagram
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+with $a$, $b$ smooth and $a$ surjective the morphism $h$ has $\mathcal{P}$,
+\item[(d)] for any commutative diagram
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+with $b$ smooth and $U \to X \times_Y V$ smooth
+the morphism $h$ has $\mathcal{P}$,
+\item[(e)] there exists a smooth covering $\{Y_i \to Y\}_{i \in I}$ such
+that each base change $Y_i \times_Y X \to Y_i$ has $\mathcal{P}$,
+\item[(f)] there exists a smooth covering $\{X_i \to X\}_{i \in I}$ such
+that each composition $X_i \to Y$ has $\mathcal{P}$,
+\item[(g)] there exists a smooth covering $\{Y_i \to Y\}_{i \in I}$ and
+for each $i \in I$ a smooth covering
+$\{X_{ij} \to Y_i \times_Y X\}_{j \in J_i}$ such that each morphism
+$X_{ij} \to Y_i$ has $\mathcal{P}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (a) and (b) is part of
+Definition \ref{definition-local-source-target}.
+The equivalence of (a) and (e) is
+Lemma \ref{lemma-local-source-target-implies} part (2).
+The equivalence of (a) and (f) is
+Lemma \ref{lemma-local-source-target-implies} part (1).
+As (a) is now equivalent to (e) and (f) it follows that
+(a) equivalent to (g).
+
+\medskip\noindent
+It is clear that (c) implies (b). If (b) holds, then for any
+$x \in |X|$ we can choose a smooth morphism of pairs
+$a_x : (U_x, u_x) \to (X, x)$, a smooth morphism $b_x : V_x \to Y$, and
+a morphism $h_x : U_x \to V_x$ such that $f \circ a_x = b_x \circ h_x$ and
+$h_x$ has $\mathcal{P}$. Then $h = \coprod h_x : \coprod U_x \to \coprod V_x$
+with $a = \coprod a_x$ and $b = \coprod b_x$ is a diagram as in (c).
+(Note that $h$ has property $\mathcal{P}$ as $\{V_x \to \coprod V_x\}$
+is a smooth covering and $\mathcal{P}$ is smooth local on the target.)
+Thus (b) is equivalent to (c).
+
+\medskip\noindent
+Now we know that (a), (b), (c), (e), (f), and (g) are equivalent.
+Suppose (a) holds. Let $U, V, a, b, h$ be as in (d). Then
+$X \times_Y V \to V$ has $\mathcal{P}$ as $\mathcal{P}$ is stable under
+smooth base change, whence $U \to V$ has $\mathcal{P}$ as $\mathcal{P}$
+is stable under precomposing with smooth morphisms. Conversely, if (d)
+holds, then setting $U = X$ and $V = Y$ we see that $f$ has $\mathcal{P}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-local-source-target}
+Let $S$ be a scheme.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces over $S$.
+Assume
+\begin{enumerate}
+\item $\mathcal{P}$ is smooth local on the source,
+\item $\mathcal{P}$ is smooth local on the target, and
+\item $\mathcal{P}$ is stable under postcomposing with smooth morphisms:
+if $f : X \to Y$ has $\mathcal{P}$ and $Y \to Z$ is a smooth morphism
+then $X \to Z$ has $\mathcal{P}$.
+\end{enumerate}
+Then $\mathcal{P}$ is smooth local on the source-and-target.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces which
+satisfies conditions (1), (2) and (3) of the lemma. By
+Lemma \ref{lemma-precompose-property-local-source}
+we see that $\mathcal{P}$ is stable under precomposing with
+smooth morphisms. By
+Lemma \ref{lemma-pullback-property-local-target}
+we see that $\mathcal{P}$ is stable under smooth base change.
+Hence it suffices to prove part (3) of
+Definition \ref{definition-local-source-target}
+holds.
+
+\medskip\noindent
+More precisely, suppose that $f : X \to Y$ is a morphism
+of algebraic spaces over $S$ which satisfies
+Definition \ref{definition-local-source-target} part (3)(b).
+In other words, for every $x \in X$ there exists a smooth
+morphism $a_x : U_x \to X$, a point $u_x \in |U_x|$ mapping to $x$,
+a smooth morphism $b_x : V_x \to Y$, and a morphism $h_x : U_x \to V_x$
+such that $f \circ a_x = b_x \circ h_x$ and $h_x$ has $\mathcal{P}$.
+The proof of the lemma is complete once we show that $f$ has $\mathcal{P}$.
+Set $U = \coprod U_x$, $a = \coprod a_x$, $V = \coprod V_x$,
+$b = \coprod b_x$, and $h = \coprod h_x$. We obtain a
+commutative diagram
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+with $a$, $b$ smooth, $a$ surjective. Note that $h$ has $\mathcal{P}$
+as each $h_x$ does and $\mathcal{P}$ is smooth local on the target.
+Because $a$ is surjective and $\mathcal{P}$ is smooth local on the source,
+it suffices to prove that $b \circ h$ has $\mathcal{P}$.
+This follows as we assumed that $\mathcal{P}$ is stable under
+postcomposing with a smooth morphism and as $b$ is smooth.
+\end{proof}
+
+\begin{remark}
+\label{remark-list-local-source-target}
+Using
+Lemma \ref{lemma-smooth-local-source-target}
+and the work done in the earlier sections of this chapter it is easy
+to make a list of types of morphisms which are smooth local on the
+source-and-target. In each case we list the lemma which implies
+the property is smooth local on the source and the lemma which implies
+the property is smooth local on the target. In each case the third assumption
+of
+Lemma \ref{lemma-smooth-local-source-target}
+is trivial to check, and we omit it. Here is the list:
+\begin{enumerate}
+\item flat, see
+Lemmas \ref{lemma-flat-fpqc-local-source} and
+\ref{lemma-descending-property-flat},
+\item locally of finite presentation, see
+Lemmas \ref{lemma-locally-finite-presentation-fppf-local-source} and
+\ref{lemma-descending-property-locally-finite-presentation},
+\item locally finite type, see
+Lemmas \ref{lemma-locally-finite-type-fppf-local-source} and
+\ref{lemma-descending-property-locally-finite-type},
+\item universally open, see
+Lemmas \ref{lemma-universally-open-fppf-local-source} and
+\ref{lemma-descending-property-universally-open},
+\item syntomic, see
+Lemmas \ref{lemma-syntomic-syntomic-local-source} and
+\ref{lemma-descending-property-syntomic},
+\item smooth, see
+Lemmas \ref{lemma-smooth-smooth-local-source} and
+\ref{lemma-descending-property-smooth},
+\item add more here as needed.
+\end{enumerate}
+\end{remark}
+
+
+
+
+
+
+
+\section{Properties of morphisms \'etale-smooth local on source-and-target}
+\label{section-properties-etale-smooth-local-source-target}
+
+\noindent
+This section is the analogue of
+Section \ref{section-properties-local-source-target}
+for properties of morphisms which are \'etale local
+on the source and smooth local on the target.
+We give this property a ridiculously long name
+in order to avoid using it too much.
+
+\begin{definition}
+\label{definition-etale-smooth-local-source-target}
+Let $S$ be a scheme.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces over $S$.
+We say $\mathcal{P}$ is {\it \'etale-smooth local on source-and-target} if
+\begin{enumerate}
+\item (stable under precomposing with \'etale maps)
+if $f : X \to Y$ is \'etale and $g : Y \to Z$ has $\mathcal{P}$,
+then $g \circ f$ has $\mathcal{P}$,
+\item (stable under smooth base change)
+if $f : X \to Y$ has $\mathcal{P}$ and $Y' \to Y$ is smooth, then
+the base change $f' : Y' \times_Y X \to Y'$ has $\mathcal{P}$, and
+\item (locality) given a morphism $f : X \to Y$ the following are
+equivalent
+\begin{enumerate}
+\item $f$ has $\mathcal{P}$,
+\item for every $x \in |X|$ there exists a commutative diagram
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+with $b$ smooth and $U \to X \times_Y V$ \'etale
+and $u \in |U|$ with $a(u) = x$ such that
+$h$ has $\mathcal{P}$.
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+
+\noindent
+The above serves as our definition. In the lemmas below we will show that
+this is equivalent to $\mathcal{P}$ being \'etale local on the target,
+smooth local on the source, and stable under post-composing by
+\'etale morphisms.
+
+\begin{lemma}
+\label{lemma-etale-smooth-local-source-target-implies}
+Let $S$ be a scheme.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces over $S$
+which is \'etale-smooth local on source-and-target. Then
+\begin{enumerate}
+\item $\mathcal{P}$ is \'etale local on the source,
+\item $\mathcal{P}$ is smooth local on the target,
+\item $\mathcal{P}$ is stable under postcomposing with \'etale morphisms:
+if $f : X \to Y$ has $\mathcal{P}$ and $g : Y \to Z$ is \'etale, then
+$g \circ f$ has $\mathcal{P}$, and
+\item $\mathcal{P}$ has a permanence property: given $f : X \to Y$ and
+$g : Y \to Z$ \'etale such that $g \circ f$ has $\mathcal{P}$, then
+$f$ has $\mathcal{P}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We write everything out completely.
+
+\medskip\noindent
+Proof of (1). Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\{X_i \to X\}_{i \in I}$ be an \'etale covering of $X$. If each composition
+$h_i : X_i \to Y$ has $\mathcal{P}$, then for each $|x| \in X$ we can find
+an $i \in I$ and a point $x_i \in |X_i|$ mapping to $x$. Then
+$(X_i, x_i) \to (X, x)$ is an \'etale morphism of pairs, and
+$\text{id}_Y : Y \to Y$ is a smooth morphism, and $h_i$ is as in part (3) of
+Definition \ref{definition-etale-smooth-local-source-target}.
+Thus we see that $f$ has $\mathcal{P}$.
+Conversely, if $f$ has $\mathcal{P}$ then each $X_i \to Y$ has
+$\mathcal{P}$ by
+Definition \ref{definition-etale-smooth-local-source-target} part (1).
+
+\medskip\noindent
+Proof of (2). Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\{Y_i \to Y\}_{i \in I}$ be a smooth covering of $Y$.
+Write $X_i = Y_i \times_Y X$ and $h_i : X_i \to Y_i$ for the base change
+of $f$. If each  $h_i : X_i \to Y_i$ has $\mathcal{P}$, then for each
+$x \in |X|$ we pick an $i \in I$ and a point $x_i \in |X_i|$ mapping to $x$.
+Then $X_i \to X \times_Y Y_i$ is an \'etale morphism
+(because it is an isomorphism), $Y_i \to Y$ is
+smooth, and $h_i$ is as in part (3) of
+Definition \ref{definition-local-source-target}.
+Thus we see that $f$ has $\mathcal{P}$.
+Conversely, if $f$ has $\mathcal{P}$, then each $X_i \to Y_i$ has
+$\mathcal{P}$ by
+Definition \ref{definition-local-source-target} part (2).
+
+\medskip\noindent
+Proof of (3). Assume $f : X \to Y$ has $\mathcal{P}$ and $g : Y \to Z$ is
+\'etale. The morphism $X \to Y \times_Z X$ is \'etale as as a morphism
+between algebraic spaces \'etale over $X$ (
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-etale-permanence}).
+Also $Y \to Z$ is \'etale hence a smooth morphism.
+Thus the diagram
+$$
+\xymatrix{
+X \ar[d] \ar[r]_f & Y \ar[d] \\
+X \ar[r]^{g \circ f} & Z
+}
+$$
+works for every $x \in |X|$ in part (3) of
+Definition \ref{definition-local-source-target}
+and we conclude that $g \circ f$ has $\mathcal{P}$.
+
+\medskip\noindent
+Proof of (4). Let $f : X \to Y$ be a morphism and $g : Y \to Z$ \'etale
+such that $g \circ f$ has $\mathcal{P}$. Then by
+Definition \ref{definition-etale-smooth-local-source-target} part (2)
+we see that $\text{pr}_Y : Y \times_Z X \to Y$ has $\mathcal{P}$. But
+the morphism $(f, 1) : X \to Y \times_Z X$ is \'etale as a section to the
+\'etale projection $\text{pr}_X : Y \times_Z X \to X$, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-etale-permanence}.
+Hence $f = \text{pr}_Y \circ (f, 1)$ has $\mathcal{P}$ by
+Definition \ref{definition-etale-smooth-local-source-target} part (1).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-smooth-local-source-target-characterize}
+Let $S$ be a scheme.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces over $S$
+which is etale-smooth local on source-and-target.
+Let $f : X \to Y$ be a morphism
+of algebraic spaces over $S$. The following are equivalent:
+\begin{enumerate}
+\item[(a)] $f$ has property $\mathcal{P}$,
+\item[(b)] for every $x \in |X|$ there exists a smooth morphism $b : V \to Y$,
+an \'etale morphism $a : U \to V \times_Y X$, and a point $u \in |U|$
+mapping to $x$ such that $U \to V$ has $\mathcal{P}$,
+\item[(c)] for some commutative diagram
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+with $b$ smooth, $U \to V \times_Y X$ \'etale, and $a$ surjective
+the morphism $h$ has $\mathcal{P}$,
+\item[(d)] for any commutative diagram
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+with $b$ smooth and $U \to X \times_Y V$ \'etale, the morphism $h$
+has $\mathcal{P}$,
+\item[(e)] there exists a smooth covering $\{Y_i \to Y\}_{i \in I}$ such
+that each base change $Y_i \times_Y X \to Y_i$ has $\mathcal{P}$,
+\item[(f)] there exists an \'etale covering $\{X_i \to X\}_{i \in I}$ such
+that each composition $X_i \to Y$ has $\mathcal{P}$,
+\item[(g)] there exists a smooth covering $\{Y_i \to Y\}_{i \in I}$ and
+for each $i \in I$ an \'etale covering
+$\{X_{ij} \to Y_i \times_Y X\}_{j \in J_i}$ such that each morphism
+$X_{ij} \to Y_i$ has $\mathcal{P}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (a) and (b) is part of
+Definition \ref{definition-etale-smooth-local-source-target}.
+The equivalence of (a) and (e) is
+Lemma \ref{lemma-etale-smooth-local-source-target-implies} part (2).
+The equivalence of (a) and (f) is
+Lemma \ref{lemma-etale-smooth-local-source-target-implies} part (1).
+As (a) is now equivalent to (e) and (f) it follows that
+(a) equivalent to (g).
+
+\medskip\noindent
+It is clear that (c) implies (b). If (b) holds, then for any
+$x \in |X|$ we can choose a smooth morphism a smooth morphism
+$b_x : V_x \to Y$, an \'etale morphism $U_x \to V_x \times_Y X$,
+and $u_x \in |U_x|$ mapping to $x$
+such that $U_x \to V_x$ has $\mathcal{P}$.
+Then $h = \coprod h_x : \coprod U_x \to \coprod V_x$
+with $a = \coprod a_x$ and $b = \coprod b_x$ is a diagram as in (c).
+(Note that $h$ has property $\mathcal{P}$ as $\{V_x \to \coprod V_x\}$
+is a smooth covering and $\mathcal{P}$ is smooth local on the target.)
+Thus (b) is equivalent to (c).
+
+\medskip\noindent
+Now we know that (a), (b), (c), (e), (f), and (g) are equivalent.
+Suppose (a) holds. Let $U, V, a, b, h$ be as in (d). Then
+$X \times_Y V \to V$ has $\mathcal{P}$ as $\mathcal{P}$ is stable under
+smooth base change, whence $U \to V$ has $\mathcal{P}$ as $\mathcal{P}$
+is stable under precomposing with \'etale morphisms. Conversely, if (d)
+holds, then setting $U = X$ and $V = Y$ we see that $f$ has $\mathcal{P}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-smooth-local-source-target}
+Let $S$ be a scheme.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces over $S$.
+Assume
+\begin{enumerate}
+\item $\mathcal{P}$ is \'etale local on the source,
+\item $\mathcal{P}$ is smooth local on the target, and
+\item $\mathcal{P}$ is stable under postcomposing with open immersions:
+if $f : X \to Y$ has $\mathcal{P}$ and $Y \subset Z$ is an open embedding
+then $X \to Z$ has $\mathcal{P}$.
+\end{enumerate}
+Then $\mathcal{P}$ is \'etale-smooth local on the source-and-target.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces which
+satisfies conditions (1), (2) and (3) of the lemma. By
+Lemma \ref{lemma-precompose-property-local-source}
+we see that $\mathcal{P}$ is stable under precomposing with
+\'etale morphisms. By
+Lemma \ref{lemma-pullback-property-local-target}
+we see that $\mathcal{P}$ is stable under smooth base change.
+Hence it suffices to prove part (3) of
+Definition \ref{definition-local-source-target}
+holds.
+
+\medskip\noindent
+More precisely, suppose that $f : X \to Y$ is a morphism
+of algebraic spaces over $S$ which satisfies
+Definition \ref{definition-local-source-target} part (3)(b).
+In other words, for every $x \in X$ there exists
+a smooth morphism $b_x : V_x \to Y$,
+an \'etale morphism $U_x \to V_x \times_Y X$, and
+a point $u_x \in |U_x|$ mapping to $x$
+such that $h_x : U_x \to V_x$ has $\mathcal{P}$.
+The proof of the lemma is complete once we show that $f$ has $\mathcal{P}$.
+
+\medskip\noindent
+Let $a_x : U_x \to X$ be the composition $U_x \to V_x \times_Y X \to X$.
+Set $U = \coprod U_x$, $a = \coprod a_x$, $V = \coprod V_x$,
+$b = \coprod b_x$, and $h = \coprod h_x$. We obtain a
+commutative diagram
+$$
+\xymatrix{
+U \ar[d]_a \ar[r]_h & V \ar[d]^b \\
+X \ar[r]^f & Y
+}
+$$
+with $b$ smooth, $U \to V \times_Y X$ \'etale, $a$ surjective.
+Note that $h$ has $\mathcal{P}$ as each $h_x$ does and $\mathcal{P}$
+is smooth local on the target. In the next paragraph we prove
+that we may assume $U, V, X, Y$ are schemes; we encourage the reader
+to skip it.
+
+\medskip\noindent
+Let $X, Y, U, V, a, b, f, h$ be as in the previous paragraph. We have
+to show $f$ has $\mathcal{P}$. Let $X' \to X$ be a surjective \'etale
+morphism with $X_i$ a scheme. Set $U' = X' \times_X U$. Then
+$U' \to X'$ is surjective and $U' \to X' \times_Y V$ is \'etale.
+Since $\mathcal{P}$ is \'etale local on the source, we see that
+$U' \to V$ has $\mathcal{P}$ and that it suffices to show that
+$X' \to Y$ has $\mathcal{P}$. In other words, we may assume
+that $X$ is a scheme. Next, choose a surjective \'etale morphism
+$Y' \to Y$ with $Y'$ a scheme. Set $V' = V \times_Y Y'$,
+$X' = X \times_Y Y'$, and $U' = U \times_Y Y'$. Then
+$U' \to X'$ is surjective and $U' \to X' \times_{Y'} V'$ is \'etale.
+Since $\mathcal{P}$ is smooth local on the target, we see that $U' \to V'$ has
+$\mathcal{P}$ and that it suffices to prove $X' \to Y'$ has $\mathcal{P}$.
+Thus we may assume both $X$ and $Y$ are schemes.
+Choose a surjective \'etale morphism $V' \to V$
+with $V'$ a scheme. Set $U' = U \times_V V'$.
+Then $U' \to X$ is surjective and $U' \to X \times_Y V'$ is \'etale.
+Since $\mathcal{P}$ is smooth local on the source, we see that
+$U' \to V'$ has $\mathcal{P}$. Thus we may replace $U, V$ by
+$U', V'$ and assume $X, Y, V$ are schemes.
+Finally, we replace $U$ by a scheme surjective \'etale over $U$
+and we see that we may assume $U, V, X, Y$ are all schemes.
+
+\medskip\noindent
+If $U, V, X, Y$ are schemes, then $f$ has $\mathcal{P}$
+by Descent, Lemma \ref{descent-lemma-etale-tau-local-source-target}.
+\end{proof}
+
+\begin{remark}
+\label{remark-list-etale-smooth-local-source-target}
+Using Lemma \ref{lemma-etale-smooth-local-source-target}
+and the work done in the earlier sections of this chapter it is easy
+to make a list of types of morphisms which are smooth local on the
+source-and-target. In each case we list the lemma which implies
+the property is etale local on the source and the lemma which implies
+the property is smooth local on the target. In each case the third assumption
+of Lemma \ref{lemma-etale-smooth-local-source-target}
+is trivial to check, and we omit it. Here is the list:
+\begin{enumerate}
+\item \'etale, see
+Lemmas \ref{lemma-etale-etale-local-source} and
+\ref{lemma-descending-property-etale},
+\item locally quasi-finite, see
+Lemmas \ref{lemma-locally-quasi-finite-etale-local-source} and
+\ref{lemma-descending-property-quasi-finite},
+\item unramified, see
+Lemmas \ref{lemma-unramified-etale-local-source} and
+\ref{lemma-descending-property-unramified}, and
+\item add more here as needed.
+\end{enumerate}
+Of course any property listed in
+Remark \ref{remark-list-local-source-target}
+is a fortiori an example that could be listed here.
+\end{remark}
+
+
+
+
+
+
+
+\section{Descent data for spaces over spaces}
+\label{section-descent-datum}
+
+\noindent
+This section is the analogue of Descent, Section
+\ref{descent-section-descent-datum} for algebraic spaces.
+Most of the arguments in this section are formal relying only
+on the definition of a descent datum.
+
+\begin{definition}
+\label{definition-descent-datum}
+Let $S$ be a scheme. Let $f : Y \to X$ be a morphism of algebraic spaces
+over $S$.
+\begin{enumerate}
+\item Let $V \to Y$ be a morphism of algebraic spaces.
+A {\it descent datum for $V/Y/X$} is an isomorphism
+$\varphi : V \times_X Y \to Y \times_X V$ of algebraic spaces over
+$Y \times_X Y$ satisfying the {\it cocycle condition} that the diagram
+$$
+\xymatrix{
+V \times_X Y \times_X Y \ar[rd]^{\varphi_{01}} \ar[rr]_{\varphi_{02}} &
+&
+Y \times_X Y \times_X V\\
+&
+Y \times_X Y \times_X Y \ar[ru]^{\varphi_{12}}
+}
+$$
+commutes (with obvious notation).
+\item We also say that the pair $(V/Y, \varphi)$ is
+a {\it descent datum relative to $Y \to X$}.
+\item A {\it morphism $f : (V/Y, \varphi) \to (V'/Y, \varphi')$ of
+descent data relative to $Y \to X$} is a morphism
+$f : V \to V'$ of algebraic spaces over $Y$ such that
+the diagram
+$$
+\xymatrix{
+V \times_X Y \ar[r]_{\varphi} \ar[d]_{f \times \text{id}_Y} &
+Y \times_X V \ar[d]^{\text{id}_Y \times f} \\
+V' \times_X Y \ar[r]^{\varphi'} & Y \times_X V'
+}
+$$
+commutes.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\label{remark-easier}
+Let $S$ be a scheme.
+Let $Y \to X$ be a morphism of algebraic spaces over $S$.
+Let $(V/Y, \varphi)$ be a descent datum relative to $Y \to X$.
+We may think of the isomorphism $\varphi$ as an isomorphism
+$$
+(Y \times_X Y) \times_{\text{pr}_0, Y} V
+\longrightarrow
+(Y \times_X Y) \times_{\text{pr}_1, Y} V
+$$
+of algebraic spaces over $Y \times_X Y$. So loosely speaking one may
+think of $\varphi$ as a map
+$\varphi : \text{pr}_0^*V \to \text{pr}_1^*V$\footnote{Unfortunately,
+we have chosen the ``wrong'' direction for our arrow here. In
+Definitions \ref{definition-descent-datum} and
+\ref{definition-descent-datum-for-family-of-morphisms}
+we should have the opposite direction to what was done in
+Definition \ref{definition-descent-datum-quasi-coherent}
+by the general principle that ``functions'' and ``spaces'' are dual.}.
+The cocycle condition then says that
+$\text{pr}_{02}^*\varphi =
+\text{pr}_{12}^*\varphi \circ \text{pr}_{01}^*\varphi$.
+In this way it is very similar to the case of a descent datum on
+quasi-coherent sheaves.
+\end{remark}
+
+\noindent
+Here is the definition in case you have a family of morphisms
+with fixed target.
+
+\begin{definition}
+\label{definition-descent-datum-for-family-of-morphisms}
+Let $S$ be a scheme.
+Let $\{X_i \to X\}_{i \in I}$ be a family of morphisms
+of algebraic spaces over $S$ with fixed target $X$.
+\begin{enumerate}
+\item A {\it descent datum $(V_i, \varphi_{ij})$ relative to the
+family $\{X_i \to X\}$} is given by an algebraic space $V_i$ over $X_i$
+for each $i \in I$, an isomorphism
+$\varphi_{ij} : V_i \times_X X_j \to X_i \times_X V_j$
+of algebraic spaces over $X_i \times_X X_j$ for each pair $(i, j) \in I^2$
+such that for every triple of indices $(i, j, k) \in I^3$
+the diagram
+$$
+\xymatrix{
+V_i \times_X X_j \times_X X_k
+\ar[rd]^{\text{pr}_{01}^*\varphi_{ij}}
+\ar[rr]_{\text{pr}_{02}^*\varphi_{ik}} &
+&
+X_i \times_X X_j \times_X V_k\\
+&
+X_i \times_X V_j \times_X X_k
+\ar[ru]^{\text{pr}_{12}^*\varphi_{jk}}
+}
+$$
+of algebraic spaces over $X_i \times_X X_j \times_X X_k$ commutes
+(with obvious notation).
+\item A {\it morphism
+$\psi : (V_i, \varphi_{ij}) \to (V'_i, \varphi'_{ij})$
+of descent data} is given by a family $\psi = (\psi_i)_{i \in I}$
+of morphisms $\psi_i : V_i \to V'_i$ of algebraic spaces over $X_i$
+such that all the diagrams
+$$
+\xymatrix{
+V_i \times_X X_j \ar[r]_{\varphi_{ij}} \ar[d]_{\psi_i \times \text{id}} &
+X_i \times_X V_j \ar[d]^{\text{id} \times \psi_j} \\
+V'_i \times_X X_j \ar[r]^{\varphi'_{ij}} & X_i \times_X V'_j
+}
+$$
+commute.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+\label{remark-easier-family}
+Let $S$ be a scheme.
+Let $\{X_i \to X\}_{i \in I}$ be a family of morphisms
+of algebraic spaces over $S$ with fixed target $X$.
+Let $(V_i, \varphi_{ij})$ be a descent datum relative to
+$\{X_i \to X\}$. We may think of the isomorphisms $\varphi_{ij}$
+as isomorphisms
+$$
+(X_i \times_X X_j) \times_{\text{pr}_0, X_i} V_i
+\longrightarrow
+(X_i \times_X X_j) \times_{\text{pr}_1, X_j} V_j
+$$
+of algebraic spaces over $X_i \times_X X_j$. So loosely speaking one may
+think of $\varphi_{ij}$ as an isomorphism
+$\text{pr}_0^*V_i \to \text{pr}_1^*V_j$ over $X_i \times_X X_j$.
+The cocycle condition then says that
+$\text{pr}_{02}^*\varphi_{ik} =
+\text{pr}_{12}^*\varphi_{jk} \circ \text{pr}_{01}^*\varphi_{ij}$.
+In this way it is very similar to the case of a descent datum on
+quasi-coherent sheaves.
+\end{remark}
+
+\noindent
+The reason we will usually work with the version of a family consisting
+of a single morphism is the following lemma.
+
+\begin{lemma}
+\label{lemma-family-is-one}
+Let $S$ be a scheme.
+Let $\{X_i \to X\}_{i \in I}$ be a family of morphisms
+of algebraic spaces over $S$ with fixed target $X$.
+Set $Y = \coprod_{i \in I} X_i$.
+There is a canonical equivalence of categories
+$$
+\begin{matrix}
+\text{category of descent data } \\
+\text{relative to the family } \{X_i \to X\}_{i \in I}
+\end{matrix}
+\longrightarrow
+\begin{matrix}
+\text{ category of descent data} \\
+\text{ relative to } Y/X
+\end{matrix}
+$$
+which maps $(V_i, \varphi_{ij})$ to $(V, \varphi)$ with
+$V = \coprod_{i\in I} V_i$ and $\varphi = \coprod \varphi_{ij}$.
+\end{lemma}
+
+\begin{proof}
+Observe that $Y \times_X Y = \coprod_{ij} X_i \times_X X_j$
+and similarly for higher fibre products.
+Giving a morphism $V \to Y$ is exactly the same as
+giving a family $V_i \to X_i$. And giving a descent datum
+$\varphi$ is exactly the same as giving a family $\varphi_{ij}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullback}
+Pullback of descent data. Let $S$ be a scheme.
+\begin{enumerate}
+\item Let
+$$
+\xymatrix{
+Y' \ar[r]_f \ar[d]_{a'} & Y \ar[d]^a \\
+X' \ar[r]^h & X
+}
+$$
+be a commutative diagram of algebraic spaces over $S$.
+The construction
+$$
+(V \to Y, \varphi) \longmapsto f^*(V \to Y, \varphi) = (V' \to Y', \varphi')
+$$
+where $V' = Y' \times_Y V$ and where
+$\varphi'$ is defined as the composition
+$$
+\xymatrix{
+V' \times_{X'} Y' \ar@{=}[r] &
+(Y' \times_Y V) \times_{X'} Y' \ar@{=}[r] &
+(Y' \times_{X'} Y') \times_{Y \times_X Y} (V \times_X Y)
+\ar[d]^{\text{id} \times \varphi} \\
+Y' \times_{X'} V' \ar@{=}[r] &
+Y' \times_{X'} (Y' \times_Y V) &
+(Y' \times_X Y') \times_{Y \times_X Y} (Y \times_X V) \ar@{=}[l]
+}
+$$
+defines a functor from the category of descent data
+relative to $Y \to X$ to the category of descent data
+relative to $Y' \to X'$.
+\item Given two morphisms $f_i : Y' \to Y$, $i = 0, 1$ making the
+diagram commute the functors $f_0^*$ and $f_1^*$ are
+canonically isomorphic.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We omit the proof of (1), but we remark that the morphism
+$\varphi'$ is the morphism $(f \times f)^*\varphi$ in the
+notation introduced in Remark \ref{remark-easier}.
+For (2) we indicate which morphism
+$f_0^*V \to f_1^*V$ gives the functorial isomorphism. Namely,
+since $f_0$ and $f_1$ both fit into the commutative diagram
+we see there is a unique morphism $r : Y' \to Y \times_X Y$
+with $f_i = \text{pr}_i \circ r$. Then we take
+\begin{eqnarray*}
+f_0^*V & = &
+Y' \times_{f_0, Y} V \\
+& = &
+Y' \times_{\text{pr}_0 \circ r, Y} V \\
+& = &
+Y' \times_{r, Y \times_X Y} (Y \times_X Y) \times_{\text{pr}_0, Y} V \\
+& \xrightarrow{\varphi} &
+Y' \times_{r, Y \times_X Y} (Y \times_X Y) \times_{\text{pr}_1, Y} V \\
+& = &
+Y' \times_{\text{pr}_1 \circ r, Y} V \\
+& = &
+Y' \times_{f_1, Y} V \\
+& = & f_1^*V
+\end{eqnarray*}
+We omit the verification that this works.
+\end{proof}
+
+\begin{definition}
+\label{definition-pullback-functor}
+With $S, X, X', Y, Y', f, a, a', h$ as in Lemma \ref{lemma-pullback}
+the functor
+$$
+(V, \varphi) \longmapsto f^*(V, \varphi)
+$$
+constructed in that lemma is called the {\it pullback functor} on descent data.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-pullback-family}
+Let $S$ be a scheme. Let $\mathcal{U}' = \{X'_i \to X'\}_{i \in I'}$ and
+$\mathcal{U} = \{X_j \to X\}_{i \in I}$ be families of morphisms with
+fixed target. Let $\alpha : I' \to I$, $g : X' \to X$ and
+$g_i : X'_i \to X_{\alpha(i)}$ be a morphism of families
+of maps with fixed target, see
+Sites, Definition \ref{sites-definition-morphism-coverings}.
+\begin{enumerate}
+\item Let $(V_i, \varphi_{ij})$ be a descent datum relative to the
+family $\mathcal{U}$. The system
+$$
+\left(
+g_i^*V_{\alpha(i)}, (g_i \times g_j)^*\varphi_{\alpha(i) \alpha(j)}
+\right)
+$$
+(with notation as in Remark \ref{remark-easier-family})
+is a descent datum relative to $\mathcal{U}'$.
+\item This construction defines a functor between the category of
+descent data relative to $\mathcal{U}$ and the category of
+descent data relative to $\mathcal{U}'$.
+\item Given a second $\beta : I' \to I$, $h : X' \to X$ and
+$h'_i : X'_i \to X_{\beta(i)}$ morphism of families
+of maps with fixed target, then if $g = h$ the two resulting functors
+between descent data are canonically isomorphic.
+\item These functors agree, via Lemma \ref{lemma-family-is-one},
+with the pullback functors constructed in Lemma \ref{lemma-pullback}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-pullback} via the
+correspondence of Lemma \ref{lemma-family-is-one}.
+\end{proof}
+
+\begin{definition}
+\label{definition-pullback-functor-family}
+With $\mathcal{U}' = \{X'_i \to X'\}_{i \in I'}$,
+$\mathcal{U} = \{X_i \to X\}_{i \in I}$, $\alpha : I' \to I$,
+$g : X' \to X$, and $g_i : X'_i \to X_{\alpha(i)}$ as in
+Lemma \ref{lemma-pullback-family} the functor
+$$
+(V_i, \varphi_{ij}) \longmapsto
+(g_i^*V_{\alpha(i)}, (g_i \times g_j)^*\varphi_{\alpha(i) \alpha(j)})
+$$
+constructed in that lemma
+is called the {\it pullback functor} on descent data.
+\end{definition}
+
+\noindent
+If $\mathcal{U}$ and $\mathcal{U}'$ have the same target $X$,
+and if $\mathcal{U}'$ refines $\mathcal{U}$ (see
+Sites, Definition \ref{sites-definition-morphism-coverings})
+but no explicit pair $(\alpha, g_i)$ is given, then we can still
+talk about the pullback functor since we have seen in
+Lemma \ref{lemma-pullback-family} that the choice of the pair does not matter
+(up to a canonical isomorphism).
+
+\begin{definition}
+\label{definition-effective}
+Let $S$ be a scheme. Let $f : Y \to X$ be a morphism of algebraic spaces over
+$S$.
+\begin{enumerate}
+\item Given an algebraic space $U$ over $X$ we have the
+{\it trivial descent datum} of $U$ relative to $\text{id} : X \to X$, namely
+the identity morphism on $U$.
+\item By Lemma \ref{lemma-pullback} we get a
+{\it canonical descent datum} on $Y \times_X U$
+relative to $Y \to X$ by pulling back the trivial
+descent datum via $f$. We often
+denote $(Y \times_X U, can)$ this descent datum.
+\item A descent datum $(V, \varphi)$ relative to $Y/X$ is
+is called {\it effective} if $(V, \varphi)$
+is isomorphic to the canonical descent datum
+$(Y \times_X U, can)$ for some algebraic space $U$ over $X$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Thus being effective means there exists an algebraic space $U$
+over $X$ and an isomorphism $\psi : V \to Y \times_X U$
+over $Y$ such that $\varphi$ is equal to the composition
+$$
+V \times_X Y \xrightarrow{\psi \times \text{id}_Y}
+Y \times_X U \times_S Y =
+Y \times_X Y \times_X U
+\xrightarrow{\text{id}_Y \times \psi^{-1}}
+Y \times_X V
+$$
+There is a slight problem here which is that this definition
+(in spirit) conflicts with the definition given in
+Descent, Definition \ref{descent-definition-effective}
+in case $Y$ and $X$ are schemes. However, it will always be clear from
+context which version we mean.
+
+\begin{definition}
+\label{definition-effective-family}
+Let $S$ be a scheme.
+Let $\{X_i \to X\}$ be a family of morphisms of algebraic spaces over $S$
+with fixed target $X$.
+\begin{enumerate}
+\item  Given an algebraic space $U$ over $X$
+we have a {\it canonical descent datum} on the family of
+algebraic spaces $X_i \times_X U$ by pulling back the trivial
+descent datum for $U$ relative to $\{\text{id} : S \to S\}$.
+We denote this descent datum $(X_i \times_X U, can)$.
+\item A descent datum $(V_i, \varphi_{ij})$
+relative to $\{X_i \to S\}$ is called {\it effective}
+if there exists an algebraic space $U$ over $X$ such that
+$(V_i, \varphi_{ij})$ is isomorphic to $(X_i \times_X U, can)$.
+\end{enumerate}
+\end{definition}
+
+
+
+
+
+
+\section{Descent data in terms of sheaves}
+\label{section-descent-data-sheaves}
+
+\noindent
+This section is the analogue of Descent, Section
+\ref{descent-section-descent-data-sheaves}.
+It is slightly different as algebraic spaces are already sheaves.
+
+\begin{lemma}
+\label{lemma-descent-data-sheaves}
+Let $S$ be a scheme. Let $\{X_i \to X\}_{i \in I}$ be an fppf
+covering of algebraic spaces over $S$ (Topologies on Spaces,
+Definition \ref{spaces-topologies-definition-fppf-covering}).
+There is an equivalence of categories
+$$
+\left\{
+\begin{matrix}
+\text{descent data }(V_i, \varphi_{ij})\\
+\text{relative to }\{X_i \to X\}
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{sheaves }F\text{ on }(\Sch/S)_{fppf}\text{ endowed}\\
+\text{with a map }F \to X\text{ such that each}\\
+X_i \times_X F\text{ is an algebraic space}
+\end{matrix}
+\right\}.
+$$
+Moreover,
+\begin{enumerate}
+\item the algebraic space $X_i \times_X F$ on the right hand side
+corresponds to $V_i$ on the left hand side, and
+\item the sheaf $F$ is an algebraic space\footnote{We will see
+later that this is always the case if $I$ is not too large, see
+Bootstrap, Lemma \ref{bootstrap-lemma-descend-algebraic-space}.}
+if and only if the
+corresponding descent datum $(X_i, \varphi_{ij})$ is effective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let us construct the functor from right to left.
+Let $F \to X$ be a map of sheaves on $(\Sch/S)_{fppf}$ such that each
+$V_i = X_i \times_X F$ is an algebraic space. We have the
+projection $V_i \to X_i$.
+Then both $V_i \times_X X_j$ and $X_i \times_X V_j$
+represent the sheaf $X_i \times_X F \times_X X_j$
+and hence we obtain an isomorphism
+$$
+\varphi_{ii'} : V_i \times_X X_j \to X_i \times_X V_j
+$$
+It is straightforward to see that the maps $\varphi_{ij}$
+are morphisms over $X_i \times_X X_j$ and satisfy the
+cocycle condition. The functor from right to left is given
+by this construction $F \mapsto (V_i, \varphi_{ij})$.
+
+\medskip\noindent
+Let us construct a functor from left to right.
+The isomorphisms $\varphi_{ij}$ give isomorphisms
+$$
+\varphi_{ij} : V_i \times_X X_j \longrightarrow X_i \times_X V_j
+$$
+over $X_i \times X_j$. Set $F$ equal to the coequalizer in the
+following diagram
+$$
+\xymatrix{
+\coprod_{i, i'} V_i \times_X X_j
+\ar@<1ex>[rr]^-{\text{pr}_0}
+\ar@<-1ex>[rr]_-{\text{pr}_1 \circ \varphi_{ij}}
+& &
+\coprod_i V_i \ar[r]
+&
+F
+}
+$$
+The cocycle condition guarantees that $F$ comes with a map
+$F \to X$ and that $X_i \times_X F$ is isomorphic to $V_i$.
+The functor from left to right is given
+by this construction $(V_i, \varphi_{ij}) \mapsto F$.
+
+\medskip\noindent
+We omit the verification that these constructions
+are mutually quasi-inverse functors. The final statements
+(1) and (2) follow from the constructions.
+\end{proof}
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+
+\end{document}

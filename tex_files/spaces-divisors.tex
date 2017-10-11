@@ -1,0 +1,3850 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Divisors on Algebraic Spaces}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+In this chapter we study divisors on algebraic spaces and related topics.
+A basic reference for algebraic spaces is \cite{Kn}.
+
+
+
+
+
+
+
+
+
+\section{Associated and weakly associated points}
+\label{section-associated}
+
+\noindent
+In the case of schemes we have introduced two competing notions
+of associated points. Namely, the usual associated points
+(Divisors, Section \ref{divisors-section-associated})
+and the weakly associated points
+(Divisors, Section \ref{divisors-section-weakly-associated}).
+For a general algebraic space the notion of an associated point
+is basically useless and we don't even bother to introduce it.
+If the algebraic space is locally Noetherian, then we allow ourselves
+to use the phrase ``associated point'' instead of
+``weakly associated point'' as the notions are the same for
+Noetherian schemes (Divisors, Lemma \ref{divisors-lemma-ass-weakly-ass}).
+Before we make our definition, we need a lemma.
+
+\begin{lemma}
+\label{lemma-associated}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Let $x \in |X|$. The following are equivalent
+\begin{enumerate}
+\item for some \'etale morphism $f : U \to X$ with $U$ a scheme
+and $u \in U$ mapping to $x$, the point $u$ is weakly associated
+to $f^*\mathcal{F}$,
+\item for every \'etale morphism $f : U \to X$ with $U$ a scheme
+and $u \in U$ mapping to $x$, the point $u$ is weakly associated
+to $f^*\mathcal{F}$,
+\item the maximal ideal of $\mathcal{O}_{X, \overline{x}}$
+is a weakly associated prime of the stalk $\mathcal{F}_{\overline{x}}$.
+\end{enumerate}
+If $X$ is locally Noetherian, then these are also equivalent to
+\begin{enumerate}
+\item[(4)] for some \'etale morphism $f : U \to X$ with $U$ a scheme
+and $u \in U$ mapping to $x$, the point $u$ is associated
+to $f^*\mathcal{F}$,
+\item[(5)] for every \'etale morphism $f : U \to X$ with $U$ a scheme
+and $u \in U$ mapping to $x$, the point $u$ is associated
+to $f^*\mathcal{F}$,
+\item[(6)] the maximal ideal of $\mathcal{O}_{X, \overline{x}}$
+is an associated prime of the stalk $\mathcal{F}_{\overline{x}}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $U$ with a point $u$ and an \'etale morphism
+$f : U \to X$ mapping $u$ to $x$. Lift $\overline{x}$ to a geometric
+point of $U$ over $u$. Recall that
+$\mathcal{O}_{X, \overline{x}} = \mathcal{O}_{U, u}^{sh}$
+where the strict henselization is with respect to our chosen
+lift of $\overline{x}$, see
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-describe-etale-local-ring}.
+Finally, we have
+$$
+\mathcal{F}_{\overline{x}} =
+(f^*\mathcal{F})_u \otimes_{\mathcal{O}_{U, u}}
+\mathcal{O}_{X, \overline{x}} =
+(f^*\mathcal{F})_u \otimes_{\mathcal{O}_{U, u}}
+\mathcal{O}_{U, u}^{sh}
+$$
+by
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-stalk-quasi-coherent}.
+Hence the equivalence of (1), (2), and (3) follows from
+More on Flatness, Lemma \ref{flat-lemma-weakly-associated-henselization}.
+If $X$ is locally Noetherian, then
+any $U$ as above is locally Noetherian,
+hence we see that (1), resp.\ (2) are equivalent to (4), resp.\ (5) by
+Divisors, Lemma \ref{divisors-lemma-ass-weakly-ass}.
+On the other hand, in the locally Noetherian case the
+local ring $\mathcal{O}_{X, \overline{x}}$ is Noetherian too
+(Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-Noetherian-local-ring-Noetherian}).
+Hence the equivalence of (3) and (6) by the same lemma
+(or by Algebra, Lemma \ref{algebra-lemma-ass-weakly-ass}).
+\end{proof}
+
+\begin{definition}
+\label{definition-weakly-associated}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a quasi-coherent sheaf on $X$.
+Let $x \in |X|$.
+\begin{enumerate}
+\item We say $x$ is {\it weakly associated} to $\mathcal{F}$
+if the equivalent conditions (1), (2), and (3) of
+Lemma \ref{lemma-associated} are satisfied.
+\item We denote $\text{WeakAss}(\mathcal{F})$ the set of weakly associated
+points of $\mathcal{F}$.
+\item The {\it weakly associated points of $X$} are the weakly associated
+points of $\mathcal{O}_X$.
+\end{enumerate}
+If $X$ is locally Noetherian we will say
+{\it $x$ is associated to $\mathcal{F}$}
+if and only if $x$ is weakly associated to $\mathcal{F}$ and we set
+$\text{Ass}(\mathcal{F}) = \text{WeakAss}(\mathcal{F})$.
+Finally (still assuming $X$ is locally Noetherian),
+we will say {\it $x$ is an associated point of $X$} if and only if
+$x$ is a weakly associated point of $X$.
+\end{definition}
+
+\noindent
+At this point we can prove the obligatory lemmas.
+
+\begin{lemma}
+\label{lemma-weakly-ass-support}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Then $\text{WeakAss}(\mathcal{F}) \subset \text{Supp}(\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+This is immediate from the definitions. The support of an abelian sheaf
+on $X$ is defined in Properties of Spaces, Definition
+\ref{spaces-properties-definition-support}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ses-weakly-ass}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+be a short exact sequence of quasi-coherent sheaves on $X$.
+Then
+$\text{WeakAss}(\mathcal{F}_2) \subset
+\text{WeakAss}(\mathcal{F}_1) \cup \text{WeakAss}(\mathcal{F}_3)$
+and
+$\text{WeakAss}(\mathcal{F}_1) \subset \text{WeakAss}(\mathcal{F}_2)$.
+\end{lemma}
+
+\begin{proof}
+For every geometric point $\overline{x} \in X$
+the sequence of stalks
+$0 \to \mathcal{F}_{1, \overline{x}} \to
+\mathcal{F}_{2, \overline{x}} \to
+\mathcal{F}_{3, \overline{x}} \to 0$
+is a short exact sequence of $\mathcal{O}_{X, \overline{x}}$-modules.
+Hence the lemma follows from
+Algebra, Lemma \ref{algebra-lemma-weakly-ass}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weakly-ass-zero}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Then
+$$
+\mathcal{F} = (0) \Leftrightarrow \text{WeakAss}(\mathcal{F}) = \emptyset
+$$
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $U$ and a surjective \'etale morphism $f : U \to X$.
+Then $\mathcal{F}$ is zero if and only if $f^*\mathcal{F}$ is zero.
+Hence the lemma follows from the definition and the lemma in the
+case of schemes, see
+Divisors, Lemma \ref{divisors-lemma-weakly-ass-zero}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-minimal-support-in-weakly-ass}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Let $x \in |X|$. If
+\begin{enumerate}
+\item $x \in \text{Supp}(\mathcal{F})$
+\item $x$ is a codimension $0$ point of $X$
+(Properties of Spaces, Definition
+\ref{spaces-properties-definition-dimension-local-ring}).
+\end{enumerate}
+Then $x \in \text{WeakAss}(\mathcal{F})$. If $\mathcal{F}$
+is a finite type $\mathcal{O}_X$-module with scheme theoretic support $Z$
+(Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-scheme-theoretic-support})
+and $x$ is a codimension $0$ point of $Z$, then
+$x \in \text{WeakAss}(\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+Since $x \in \text{Supp}(\mathcal{F})$ the stalk
+$\mathcal{F}_{\overline{x}}$ is not zero. Hence
+$\text{WeakAss}(\mathcal{F}_{\overline{x}})$
+is nonempty by
+Algebra, Lemma \ref{algebra-lemma-weakly-ass-zero}.
+On the other hand, the spectrum of $\mathcal{O}_{X, \overline{x}}$
+is a singleton. Hence $x$ is a weakly associated point of
+$\mathcal{F}$ by definition. The final statement follows
+as $\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{Z, \overline{z}}$
+is a surjection, the spectrum of $\mathcal{O}_{Z, \overline{z}}$
+is a singleton, and $\mathcal{F}_{\overline{x}}$ is a nonzero
+module over $\mathcal{O}_{Z, \overline{z}}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-minimal-support-in-weakly-ass-decent}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Let $x \in |X|$. If
+\begin{enumerate}
+\item $X$ is decent (for example quasi-separated or locally separated),
+\item $x \in \text{Supp}(\mathcal{F})$
+\item $x$ is not a specialization of another point in
+$\text{Supp}(\mathcal{F})$.
+\end{enumerate}
+Then $x \in \text{WeakAss}(\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+(A quasi-separated algebraic space is decent, see
+Decent Spaces, Section \ref{decent-spaces-section-reasonable-decent}.
+A locally separated algebraic space is decent, see
+Decent Spaces, Lemma \ref{decent-spaces-lemma-locally-separated-decent}.)
+Choose a scheme $U$, a point $u \in U$, and an \'etale morphism
+$f : U \to X$ mapping $u$ to $x$. By
+Decent Spaces, Lemma
+\ref{decent-spaces-lemma-decent-no-specializations-map-to-same-point}
+if $u' \leadsto u$ is a nontrivial specialization, then
+$f(u') \not = x$. Hence we see that $u \in \text{Supp}(f^*\mathcal{F})$
+is not a specialization of another point of
+$\text{Supp}(f^*\mathcal{F})$.
+Hence $u \in \text{WeakAss}(f^*\mathcal{F})$ by
+Divisors, Lemma \ref{lemma-minimal-support-in-weakly-ass}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-ass}
+Let $S$ be a scheme. Let $X$ be a locally Noetherian algebraic space over $S$.
+Let $\mathcal{F}$ be a coherent $\mathcal{O}_X$-module.
+Then $\text{Ass}(\mathcal{F}) \cap W$ is finite for
+every quasi-compact open $W \subset |X|$.
+\end{lemma}
+
+\begin{proof}
+Choose a quasi-compact scheme $U$ and an \'etale morphism $U \to X$
+such that $W$ is the image of $|U| \to |X|$. Then $U$ is a
+Noetherian scheme and we may apply
+Divisors, Lemma \ref{divisors-lemma-finite-ass} to conclude.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-restriction-injective-open-contains-weakly-ass}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+If $U \to X$ is an \'etale morphism such that
+$\text{WeakAss}(\mathcal{F}) \subset \Im(|U| \to |X|)$, then
+$\Gamma(X, \mathcal{F}) \to \Gamma(U, \mathcal{F})$ is injective.
+\end{lemma}
+
+\begin{proof}
+Let $s \in \Gamma(X, \mathcal{F})$ be a section which restricts to zero on $U$.
+Let $\mathcal{F}' \subset \mathcal{F}$ be the image of the map
+$\mathcal{O}_X \to \mathcal{F}$ defined by $s$. Then $\mathcal{F}'|_U = 0$.
+This implies that
+$\text{WeakAss}(\mathcal{F}') \cap \Im(|U| \to |X|) = \emptyset$
+(by the definition of weakly associated points).
+On the other hand,
+$\text{WeakAss}(\mathcal{F}') \subset \text{WeakAss}(\mathcal{F})$
+by Lemma \ref{lemma-ses-weakly-ass}. We conclude
+$\text{Ass}(\mathcal{F}') = \emptyset$.
+Hence $\mathcal{F}' = 0$ by Lemma \ref{lemma-weakly-ass-zero}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weakass-pushforward}
+Let $S$ be a scheme. Let $f : X \to Y$ be a quasi-compact and quasi-separated
+morphism of algebraic spaces over $S$. Let $\mathcal{F}$ be a quasi-coherent
+$\mathcal{O}_X$-module. Let $y \in |Y|$ be a point which is not in the
+image of $|f|$. Then $y$ is not weakly associated to $f_*\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+By Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-pushforward}
+the $\mathcal{O}_Y$-module $f_*\mathcal{F}$ is quasi-coherent hence
+the lemma makes sense.
+Choose an affine scheme $V$, a point $v \in V$, and an \'etale morphism
+$V \to Y$ mapping $v$ to $y$. We may replace
+$f : X \to Y$, $\mathcal{F}$, $y$ by
+$X \times_Y V \to V$, $\mathcal{F}|_{X \times_Y V}$, $v$.
+Thus we may assume $Y$ is an affine scheme.
+In this case $X$ is quasi-compact, hence we can choose
+an affine scheme $U$ and a surjective \'etale morphism $U \to X$.
+Denote $g : U \to Y$ the composition.
+Then $f_*\mathcal{F} \subset g_*(\mathcal{F}|_U)$.
+By Lemma \ref{lemma-ses-weakly-ass}
+we reduce to the case of schemes which is
+Divisors, Lemma \ref{divisors-lemma-weakass-pushforward}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-injective-on-weakass}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be a map of
+quasi-coherent $\mathcal{O}_X$-modules. Assume that for every
+$x \in |X|$ at least one of the following happens
+\begin{enumerate}
+\item $\mathcal{F}_{\overline{x}} \to \mathcal{G}_{\overline{x}}$
+is injective, or
+\item $x \not \in \text{WeakAss}(\mathcal{F})$.
+\end{enumerate}
+Then $\varphi$ is injective.
+\end{lemma}
+
+\begin{proof}
+The assumptions imply that $\text{WeakAss}(\Ker(\varphi)) = \emptyset$
+and hence $\Ker(\varphi) = 0$ by Lemma \ref{lemma-weakly-ass-zero}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Morphisms and weakly associated points}
+\label{section-morphisms-weakly-associated}
+
+\begin{lemma}
+\label{lemma-weakly-ass-reverse-functorial}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be an affine morphism of algebraic spaces over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Then we have
+$$
+\text{WeakAss}_S(f_*\mathcal{F}) \subset f(\text{WeakAss}_X(\mathcal{F}))
+$$
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $V$ and a surjective \'etale morphism $V \to Y$.
+Set $U = X \times_Y V$. Then $U \to V$ is an affine morphism
+of schemes. By our definition of weakly associated points
+the problem is reduced to the morphism of schemes $U \to V$. This case is
+treated in Divisors, Lemma \ref{divisors-lemma-weakly-ass-reverse-functorial}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ass-functorial-equal}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be an affine morphism of algebraic spaces over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+If $X$ is locally Noetherian, then we have
+$$
+\text{WeakAss}_Y(f_*\mathcal{F}) =
+f(\text{WeakAss}_X(\mathcal{F}))
+$$
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $V$ and a surjective \'etale morphism $V \to Y$.
+Set $U = X \times_Y V$. Then $U \to V$ is an affine morphism
+of schemes and $U$ is locally Noetherian.
+By our definition of weakly associated points
+the problem is reduced to the morphism of schemes $U \to V$. This case is
+treated in Divisors, Lemma \ref{divisors-lemma-ass-functorial-equal}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weakly-associated-finite}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a finite morphism of algebraic spaces over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Then $\text{WeakAss}(f_*\mathcal{F}) = f(\text{WeakAss}(\mathcal{F}))$.
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $V$ and a surjective \'etale morphism $V \to Y$.
+Set $U = X \times_Y V$. Then $U \to V$ is a finite morphism
+of schemes. By our definition of weakly associated points
+the problem is reduced to the morphism of schemes $U \to V$. This case is
+treated in Divisors, Lemma \ref{divisors-lemma-weakly-associated-finite}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weakly-ass-pullback}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Let $\mathcal{G}$ be a quasi-coherent $\mathcal{O}_Y$-module.
+Let $x \in |X|$ and $y = f(x) \in |Y|$. If
+\begin{enumerate}
+\item $y \in \text{WeakAss}_S(\mathcal{G})$,
+\item $f$ is flat at $x$, and
+\item the dimension of the local ring of the fibre of $f$ at $x$
+is zero (Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-dimension-fibre}),
+\end{enumerate}
+then $x \in \text{WeakAss}(f^*\mathcal{G})$.
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $V$, a point $v \in V$, and an \'etale morphism $V \to Y$
+mapping $v$ to $y$. Choose a scheme $U$, a point $u \in U$, and an
+\'etale morphism $U \to V \times_Y X$ mapping $v$ to a point lying over
+$v$ and $x$. This is possible because there is a $t \in |V \times_Y X|$
+mapping to $(v, y)$ by Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-points-cartesian}.
+By definition we see that the dimension of $\mathcal{O}_{U_v, u}$ is zero.
+Hence $u$ is a generic point of the fiber $U_v$.
+By our definition of weakly associated points
+the problem is reduced to the morphism of schemes $U \to V$.
+This case is treated in
+Divisors, Lemma \ref{divisors-lemma-weakly-ass-pullback}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weakly-ass-change-fields}
+Let $K/k$ be a field extension. Let $X$ be an algebraic space over $k$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Let $y \in X_K$ with image $x \in X$. If $y$ is a weakly
+associated point of the pullback $\mathcal{F}_K$, then $x$
+is a weakly associated point of $\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+This is the translation of
+Divisors, Lemma \ref{divisors-lemma-weakly-ass-change-fields}
+into the language of algebraic spaces. We omit the details of the
+translation.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-flat-weak-assassin-up-down}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a finite flat morphism of algebraic spaces.
+Let $\mathcal{G}$ be a quasi-coherent $\mathcal{O}_Y$-module.
+Let $x \in |X|$ be a point with image $y \in |Y|$. Then
+$$
+x \in \text{WeakAss}(g^*\mathcal{G})
+\Leftrightarrow
+y \in \text{WeakAss}(\mathcal{G})
+$$
+\end{lemma}
+
+\begin{proof}
+Follows immediately from the case of schemes
+(More on Flatness, Lemma \ref{flat-lemma-finite-flat-weak-assassin-up-down})
+by \'etale localization.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-weak-assassin-up-down}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be an \'etale morphism of algebraic spaces.
+Let $\mathcal{G}$ be a quasi-coherent $\mathcal{O}_Y$-module.
+Let $x \in |X|$ be a point with image $y \in |Y|$. Then
+$$
+x \in \text{WeakAss}(f^*\mathcal{G})
+\Leftrightarrow
+y \in \text{WeakAss}(\mathcal{G})
+$$
+\end{lemma}
+
+\begin{proof}
+This is immediate from the definition of weakly associated points
+and in fact the corresponding lemma for the case of schemes
+(More on Flatness, Lemma \ref{flat-lemma-etale-weak-assassin-up-down})
+is the basis for our definition.
+\end{proof}
+
+
+
+
+
+
+
+\section{Relative weak assassin}
+\label{section-relative-weak-assassin}
+
+\noindent
+We need a couple of lemmas to define this gadget.
+
+\begin{lemma}
+\label{lemma-locally-noetherian-fibre}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Let $y \in |Y|$. The following are equivalent
+\begin{enumerate}
+\item for some scheme $V$, point $v \in V$, and \'etale morphism $V \to Y$
+mapping $v$ to $y$, the algebraic space $X_v$ is locally Noetherian,
+\item for every scheme $V$, point $v \in V$, and \'etale morphism $V \to Y$
+mapping $v$ to $y$, the algebraic space $X_v$ is locally Noetherian, and
+\item there exists a field $k$ and a morphism $\Spec(k) \to Y$ representing
+$y$ such that $X_k$ is locally Noetherian.
+\end{enumerate}
+If there exists a field $k_0$ and a monomorphism $\Spec(k_0) \to Y$
+representing $y$, then these are also equivalent to
+\begin{enumerate}
+\item[(4)] the algebraic space $X_{k_0}$ is locally Noetherian.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Observe that $X_v = v \times_Y X = \Spec(\kappa(v)) \times_Y X$.
+Hence the implications (2) $\Rightarrow$ (1) $\Rightarrow$ (3) are clear.
+Assume that $\Spec(k) \to Y$ is a morphism from the spectrum of a field
+such that $X_k$ is locally Noetherian. Let $V \to Y$ be an \'etale morphism
+from a scheme $V$ and let $v \in V$ a point mapping to $y$.
+Then the scheme $v \times_Y \Spec(k)$ is nonempty. Choose a
+point $w \in v \times_Y \Spec(k)$. Consider the morphisms
+$$
+X_v \longleftarrow X_w \longrightarrow X_k
+$$
+Since $V \to Y$ is \'etale and since $w$ may be viewed as a point of
+$V \times_Y \Spec(k)$, we see that $\kappa(w) \supset k$
+is a finite separable extension of fields
+(Morphisms, Lemma \ref{morphisms-lemma-etale-over-field}).
+Thus $X_w \to X_k$ is a finite \'etale morphism as a base change of
+$w \to \Spec(k)$. Hence $X_w$ is locally Noetherian
+(Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}).
+The morphism $X_w \to X_v$ is a surjective, affine, flat morphism
+as a base change of the surjective, affine, flat morphism $w \to v$.
+Then the fact that $X_w$ is locally Noetherian implies that
+$X_v$ is locally Noetherian. This can be seen by picking a
+surjective \'etale morphism $U \to X$ and then using that
+$U_w \to U_v$ is surjective, affine, and flat. Working
+affine locally on the scheme $U_v$ we conclude
+that $U_w$ is locally Noetherian by
+Algebra, Lemma \ref{algebra-lemma-descent-Noetherian}.
+
+\medskip\noindent
+Finally, it suffices to prove that (3) implies (4)
+in case we have a monomorphism $\Spec(k_0) \to Y$ in the class of $y$.
+Then $\Spec(k) \to Y$ factors as $\Spec(k) \to \Spec(k_0) \to Y$.
+The argument given above then shows that $X_k$ being
+locally Noetherian impies that $X_{k_0}$ is locally Noetherian.
+\end{proof}
+
+\begin{definition}
+\label{definition-locally-Noetherian-fibre}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Let $y \in |Y|$. We say {\it the fibre of $f$ over $y$ is
+locally Noetherian} if the equivalent conditions (1), (2), and (3)
+of Lemma \ref{lemma-locally-noetherian-fibre} are satisfied.
+We say {\it the fibres of $f$ are locally Noetherian} if this
+holds for every $y \in |Y|$.
+\end{definition}
+
+\noindent
+Of course, the usual way to guarantee locally Noetherian fibres is
+to assume the morphism is locally of finite type.
+
+\begin{lemma}
+\label{lemma-locally-finite-type-locally-Noetherian-fibres}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. If $f$ is locally of finite type, then 
+the fibres of $f$ are locally Noetherian.
+\end{lemma}
+
+\begin{proof}
+This follows from Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}
+and the fact that the spectrum of a field is Noetherian.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-assassin}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Let $x \in |X|$ and $y = f(x) \in |Y|$.
+Let $\mathcal{F}$ be a quasi-coherent
+$\mathcal{O}_X$-module. Consider commutative diagrams
+$$
+\xymatrix{
+X \ar[d] & X \times_Y V \ar[d] \ar[l] & X_v \ar[d] \ar[l] \\
+Y & V \ar[l] & v \ar[l]
+}
+\quad
+\xymatrix{
+X \ar[d] & U \ar[d] \ar[l] & U_v \ar[d] \ar[l] \\
+Y & V \ar[l] & \ar[l] v
+}
+\quad
+\xymatrix{
+x \ar@{|->}[d] &
+x' \ar@{|->}[d] \ar@{|->}[l] &
+u \ar@{|->}[ld] \ar@{|->}[l] \\
+y &
+v \ar@{|->}[l]
+}
+$$
+where $V$ and $U$ are schemes, $V \to Y$ and $U \to X \times_Y V$
+are \'etale, $v \in V$, $x' \in |X_v|$, $u \in U$ are points
+related as in the last diagram.
+Denote $\mathcal{F}|_{X_v}$ and $\mathcal{F}|_{U_v}$
+the pullbacks of $\mathcal{F}$.
+The following are equivalent
+\begin{enumerate}
+\item for some $V, v, x'$ as above $x'$ is a weakly associated
+point of $\mathcal{F}|_{X_v}$,
+\item for every $V \to Y, v, x'$ as above $x'$ is a weakly associated
+point of $\mathcal{F}|_{X_v}$,
+\item for some $U, V, u, v$ as above $u$ is a weakly associated
+point of $\mathcal{F}|_{U_v}$,
+\item for every $U, V, u, v$ as above $u$ is a weakly associated
+point of $\mathcal{F}|_{U_v}$,
+\item for some field $k$ and morphism $\Spec(k) \to Y$ representing $y$
+and some $t \in |X_k|$ mapping to $x$, the point $t$ is a weakly
+associated point of $\mathcal{F}|_{X_k}$.
+\end{enumerate}
+If there exists a field $k_0$ and a monomorphism $\Spec(k_0) \to Y$
+representing $y$, then these are also equivalent to
+\begin{enumerate}
+\item[(6)] $x_0$ is a weakly associated point of $\mathcal{F}|_{X_{k_0}}$
+where $x_0 \in |X_{k_0}|$ is the unique point mapping to $x$.
+\end{enumerate}
+If the fibre of $f$ over $y$ is locally Noetherian, then in
+conditions (1), (2), (3), (4), and (6) we may replace
+``weakly associated'' with ``associated''.
+\end{lemma}
+
+\begin{proof}
+Observe that given $V, v, x'$ as in the lemma we can find
+$U \to X \times_Y V$ and $u \in U$ mapping to $x'$
+and then the morphism $U_v \to X_v$ is \'etale.
+Thus it is clear that (1) and (3) are equivalent
+as well as (2) and (4). Each of these implies (5).
+We will show that (5) implies (2).
+Suppose given $V, v, x'$ as well as $\Spec(k) \to X$ and $t \in |X_k|$
+such that the point $t$ is a weakly
+associated point of $\mathcal{F}|_{X_k}$.
+We can choose a point $w \in v \times_Y \Spec(k)$.
+Then we obtain the morphisms
+$$
+X_v \longleftarrow X_w \longrightarrow X_k
+$$
+Since $V \to Y$ is \'etale and since $w$ may be viewed as a point of
+$V \times_Y \Spec(k)$, we see that $\kappa(w) \supset k$
+is a finite separable extension of fields
+(Morphisms, Lemma \ref{morphisms-lemma-etale-over-field}).
+Thus $X_w \to X_k$ is a finite \'etale morphism as a base change of
+$w \to \Spec(k)$. Thus any point $x''$ of $X_w$ lying over $t$
+is a weakly associated point of $\mathcal{F}|_{X_w}$ by
+Lemma \ref{lemma-etale-weak-assassin-up-down}.
+We may pick $x''$ mapping to $x'$
+(Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}).
+Then Lemma \ref{lemma-weakly-ass-change-fields}
+implies that $x'$ is a weakly associated
+point of $\mathcal{F}|_{X_v}$.
+
+\medskip\noindent
+To finish the proof it suffices to show that the equivalent
+conditions (1) -- (5) imply (6) if we are given
+$\Spec(k_0) \to Y$ as in (6). In this case the morphism
+$\Spec(k) \to Y$ of (5) factors uniquely as $\Spec(k) \to \Spec(k_0) \to Y$.
+Then $x_0$ is the image of $t$ under the morphism $X_k \to X_{k_0}$.
+Hence the same lemma as above shows that (6) is true.
+\end{proof}
+
+\begin{definition}
+\label{definition-relative-weak-assassin}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+The {\it relative weak assassin of $\mathcal{F}$ in $X$ over $Y$}
+is the set $\text{WeakAss}_{X/Y}(\mathcal{F}) \subset |X|$
+consisting of those $x \in |X|$ such that the equivalent conditions of
+Lemma \ref{lemma-relative-assassin} are satisfied.
+If the fibres of $f$ are locally Noetherian
+(Definition \ref{definition-locally-Noetherian-fibre})
+then we use the notation $\text{Ass}_{X/Y}(\mathcal{F})$.
+\end{definition}
+
+\noindent
+With this notation we can formulate some of the results
+already proven for schemes.
+
+\begin{lemma}
+\label{lemma-bourbaki}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Let $\mathcal{G}$ be a quasi-coherent $\mathcal{O}_Y$-module.
+Assume
+\begin{enumerate}
+\item $\mathcal{F}$ is flat over $Y$,
+\item $X$ and $Y$ are locally Noetherian, and
+\item the fibres of $f$ are locally Noetherian.
+\end{enumerate}
+Then
+$$
+\text{Ass}_X(\mathcal{F} \otimes_{\mathcal{O}_X} f^*\mathcal{G}) =
+\{x \in \text{Ass}_{X/Y}(\mathcal{F})\text{ such that }
+f(x) \in \text{Ass}_Y(\mathcal{G}) \}
+$$
+\end{lemma}
+
+\begin{proof}
+Via \'etale localization, this is an immediate consequence of the result
+for schemes, see
+Divisors, Lemma \ref{divisors-lemma-bourbaki}.
+The result for schemes is more general only because
+we haven't defined associated points for
+non-Noetherian algebraic spaces (hence we need to assume $X$
+and the fibres of $X \to Y$ are locally Noetherian to even
+be able to formulate this result).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-relative-assassin}
+Let $S$ be a scheme. Let
+$$
+\xymatrix{
+X' \ar[d]_{f'} \ar[r]_{g'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+be a cartesian diagram of algebraic spaces over $S$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module
+and set $\mathcal{F}' = (g')^*\mathcal{F}$.
+If $f$ is locally of finite type, then
+\begin{enumerate}
+\item $x' \in \text{Ass}_{X'/Y'}(\mathcal{F}')
+\Rightarrow g'(x') \in \text{Ass}_{X/Y}(\mathcal{F})$
+\item if $x \in \text{Ass}_{X/Y}(\mathcal{F})$, then given
+$y' \in |Y'|$ with $f(x) = g(y')$, there exists an
+$x' \in \text{Ass}_{X'/Y'}(\mathcal{F}')$
+with $g'(x') = x$ and $f'(x') = y'$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This follows from the case of schemes by \'etale localization.
+We write out the details completely. Choose a scheme
+$V$ and a surjective \'etale morphism $V \to Y$.
+Choose a scheme $U$ and a surjective
+\'etale morphism $U \to V \times_Y X$. Choose a scheme $V'$
+and a surjective \'etale morphism $V' \to V \times_Y Y'$.
+Then $U' = V' \times_V U$ is a scheme and the morphism
+$U' \to X'$ is surjective and \'etale.
+
+\medskip\noindent
+Proof of (1). Choose $u' \in U'$ mapping to $x'$.
+Denote $v' \in V'$ the image of $u'$.
+Then $x' \in \text{Ass}_{X'/Y'}(\mathcal{F}')$ is
+equivalent to $u' \in \text{Ass}(\mathcal{F}|_{U'_{v'}})$
+by definition (writing $\text{Ass}$ instead of $\text{WeakAss}$
+makes sense as $U'_{v'}$ is locally Noetherian).
+Applying Divisors, Lemma \ref{divisors-lemma-base-change-relative-assassin}
+we see that the image $u \in U$ of $u'$ is in
+$\text{Ass}(\mathcal{F}|_{U_v})$ where $v \in V$ is the image of $u$.
+This in turn means $g'(x') \in \text{Ass}_{X/Y}(\mathcal{F})$.
+
+\medskip\noindent
+Proof of (2). Choose $u \in U$ mapping to $x$.
+Denote $v \in V$ the image of $u$.
+Then $x \in \text{Ass}_{X/Y}(\mathcal{F})$ is
+equivalent to $u \in \text{Ass}(\mathcal{F}|_{U_v})$
+by definition. Choose a point $v' \in V'$ mapping
+to $y' \in |Y'|$ and to $v \in V$ (possible by
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}).
+Let $t \in \Spec(\kappa(v') \otimes_{\kappa(v)} \kappa(u))$
+be a generic point of an irreducible component.
+Let $u' \in U'$ be the image of $t$.
+Applying Divisors, Lemma \ref{divisors-lemma-base-change-relative-assassin}
+we see that $u' \in \text{Ass}(\mathcal{F}'|_{U'_{v'}})$.
+This in turn means $x' \in \text{Ass}_{X'/Y'}(\mathcal{F}')$
+where $x' \in |X'|$ is the image of $u'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-relative-assassin-quasi-finite}
+With notation and assumptions as in
+Lemma \ref{lemma-base-change-relative-assassin}.
+Assume $g$ is locally quasi-finite, or more generally that
+for every $y' \in |Y'|$ the transcendence degree of $y'/g(y')$ is $0$.
+Then $\text{Ass}_{X'/Y'}(\mathcal{F}')$ is the inverse image of
+$\text{Ass}_{X/Y}(\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+The transcendence degree of a point over its image is defined in
+Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-dimension-fibre}.
+Let $x' \in |X'|$ with image $x \in |X|$.
+Choose a scheme $V$ and a surjective \'etale morphism $V \to Y$.
+Choose a scheme $U$ and a surjective
+\'etale morphism $U \to V \times_Y X$. Choose a scheme $V'$
+and a surjective \'etale morphism $V' \to V \times_Y Y'$.
+Then $U' = V' \times_V U$ is a scheme and the morphism
+$U' \to X'$ is surjective and \'etale.
+Choose $u \in U$ mapping to $x$.
+Denote $v \in V$ the image of $u$.
+Then $x \in \text{Ass}_{X/Y}(\mathcal{F})$ is
+equivalent to $u \in \text{Ass}(\mathcal{F}|_{U_v})$
+by definition. Choose a point $u' \in U'$ mapping
+to $x' \in |X'|$ and to $u \in U$ (possible by
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}).
+Let $v' \in V'$ be the image of $u'$.
+Then $x' \in \text{Ass}_{X'/Y'}(\mathcal{F}')$ is
+equivalent to $u' \in \text{Ass}(\mathcal{F}'|_{U'_{v'}})$
+by definition.
+Now the lemma follows from the discussion in
+Divisors, Remark \ref{divisors-remark-base-change-relative-assassin}
+applied to $u' \in \Spec(\kappa(v') \otimes_{\kappa(v)} \kappa(u))$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-weak-assassin-finite}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $i : Z \to X$ be a finite morphism.
+Let $\mathcal{G}$ be a quasi-coherent $\mathcal{O}_Z$-module.
+Then $\text{WeakAss}_{X/Y}(i_*\mathcal{G}) =
+i(\text{WeakAss}_{Z/Y}(\mathcal{G}))$.
+\end{lemma}
+
+\begin{proof}
+Follows from the case of schemes
+(Divisors, Lemma \ref{divisors-lemma-relative-weak-assassin-finite})
+by \'etale localization. Details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-assassin-constructible}
+Let $Y$ be a scheme. Let $X$ be an algebraic space of finite presentation
+over $Y$. Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module
+of finite presentation. Let $U \subset X$ be an open subspace
+such that $U \to Y$ is quasi-compact. Then the set
+$$
+E = \{y \in Y \mid \text{Ass}_{X_y}(\mathcal{F}_y) \subset |U_y|\}
+$$
+is locally constructible in $Y$.
+\end{lemma}
+
+\begin{proof}
+Note that since $Y$ is a scheme, it makes sense to take the fibres
+$X_y = \Spec(\kappa(y)) \times_Y X$. (Also, by our definitions, the
+set $\text{Ass}_{X_y}(\mathcal{F}_y)$ is exactly the fibre of
+$\text{Ass}_{X/Y}(\mathcal{F}) \to Y$ over $y$, but we won't need this.)
+The question is local on $Y$, indeed, we have to show that
+$E$ is constructible if $Y$ is affine.
+In this case $X$ is quasi-compact. Choose an affine scheme $W$
+and a surjective \'etale morphism $\varphi : W \to X$.
+Then $\text{Ass}_{X_y}(\mathcal{F}_y)$ is the image of
+$\text{Ass}_{W_y}(\varphi^*\mathcal{F}_y)$ for all $y \in Y$.
+Hence the lemma follows from the case of schemes for
+the open $\varphi^{-1}(U) \subset W$ and the morphism $W \to Y$.
+The case of schemes is
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-relative-assassin-constructible}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Fitting ideals}
+\label{section-fitting-ideals}
+
+\noindent
+This section is the continuation of the discussion in
+Divisors, Section \ref{divisors-section-fitting-ideals}.
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a finite type, quasi-coherent $\mathcal{O}_X$-module.
+In this situation we can construct the Fitting ideals
+$$
+0 = \text{Fit}_{-1}(\mathcal{F}) \subset \text{Fit}_0(\mathcal{F}) \subset
+\text{Fit}_1(\mathcal{F}) \subset \ldots \subset \mathcal{O}_X
+$$
+as the sequence of quasi-coherent sheaves ideals characterized by the
+following property: for every affine $U = \Spec(A)$ \'etale over $X$
+if $\mathcal{F}|_U$ corresponds to the $A$-module $M$, then
+$\text{Fit}_i(\mathcal{F})|_U$
+corresponds to the ideal $\text{Fit}_i(M) \subset A$.
+This is well defined and a quasi-coherent sheaf of ideals because
+if $A \to B$ is an \'etale ring map, then the $i$th Fitting ideal
+of $M \otimes_A B$ over $B$ is equal to $\text{Fit}_i(M) B$ by
+More on Algebra, Lemma \ref{more-algebra-lemma-fitting-ideal-basics} part (3).
+More precisely (perhaps), the existence of the quasi-coherent sheaves of ideals
+$\text{Fit}_0(\mathcal{O}_X)$ follows (for example) from
+the description of quasi-coherent sheaves in
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-characterize-quasi-coherent-small-etale}
+and the pullback property given in
+Divisors, Lemma \ref{divisors-lemma-base-change-fitting-ideal}.
+
+\medskip\noindent
+The advantage of constructing the Fitting ideals in this way
+is that we see immediately that formation of Fitting ideals
+commutes with \'etale localization hence many properties of
+the Fitting ideals immediately reduce to the corresponding
+properties in the case of schemes. Often we will use the
+discussion in Properties of Spaces, Section
+\ref{spaces-properties-section-properties-modules}
+to do the translation between properties of quasi-coherent sheaves
+on schemes and on algebraic spaces.
+
+\begin{lemma}
+\label{lemma-base-change-fitting-ideal}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\mathcal{F}$ be a finite type, quasi-coherent $\mathcal{O}_Y$-module.
+Then
+$f^{-1}\text{Fit}_i(\mathcal{F}) \cdot \mathcal{O}_X =
+\text{Fit}_i(f^*\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+Reduces to
+Divisors, Lemma \ref{divisors-lemma-base-change-fitting-ideal}
+by \'etale localization.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fitting-ideal-of-finitely-presented}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a finitely presented $\mathcal{O}_X$-module.
+Then $\text{Fit}_r(\mathcal{F})$ is a quasi-coherent ideal of finite type.
+\end{lemma}
+
+\begin{proof}
+Reduces to
+Divisors, Lemma \ref{divisors-lemma-fitting-ideal-of-finitely-presented}
+by \'etale localization.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-on-subscheme-cut-out-by-Fit-0}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a finite type, quasi-coherent $\mathcal{O}_X$-module.
+Let $Z_0 \subset X$ be the closed subspace cut out by
+$\text{Fit}_0(\mathcal{F})$.
+Let $Z \subset X$ be the scheme theoretic support of $\mathcal{F}$.
+Then
+\begin{enumerate}
+\item $Z \subset Z_0 \subset X$ as closed subspaces,
+\item $|Z| = |Z_0| = \text{Supp}(\mathcal{F})$ as closed subsets of $|X|$,
+\item there exists a finite type, quasi-coherent $\mathcal{O}_{Z_0}$-module
+$\mathcal{G}_0$ with
+$$
+(Z_0 \to X)_*\mathcal{G}_0 = \mathcal{F}.
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Recall that formation of $Z$ commutes with \'etale localization, see
+Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-scheme-theoretic-support}
+(which uses Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-scheme-theoretic-support}
+to define $Z$). Hence (1) and (2) follow from the case of schemes, see
+Divisors, Lemma \ref{divisors-lemma-on-subscheme-cut-out-by-Fit-0}.
+To get $\mathcal{G}_0$ as in part (3) we can use
+that we have $\mathcal{G}$ on $Z$ as in Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-scheme-theoretic-support}
+and set $\mathcal{G}_0 = (Z \to Z_0)_*\mathcal{G}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fitting-ideal-generate-locally}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a finite type, quasi-coherent
+$\mathcal{O}_X$-module. Let $x \in |X|$. Then $\mathcal{F}$ can be
+generated by $r$ elements in an \'etale neighbourhood of $x$ if and only
+if $\text{Fit}_r(\mathcal{F})_{\overline{x}} = \mathcal{O}_{X, \overline{x}}$.
+\end{lemma}
+
+\begin{proof}
+Reduces to
+Divisors, Lemma \ref{divisors-lemma-fitting-ideal-generate-locally}
+by \'etale localization (as well as the description of the local
+ring in Properties of Spaces, Section
+\ref{spaces-properties-section-stalks-structure-sheaf}
+and the fact that the strict henselization of a local ring
+is faithfully flat to see that the equality over the strict
+henselization is equivalent to the equality over the local ring).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fitting-ideal-finite-locally-free}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a finite type, quasi-coherent
+$\mathcal{O}_X$-module. Let $r \geq 0$. The following are equivalent
+\begin{enumerate}
+\item $\mathcal{F}$ is finite locally free of rank $r$
+\item $\text{Fit}_{r - 1}(\mathcal{F}) = 0$ and
+$\text{Fit}_r(\mathcal{F}) = \mathcal{O}_X$, and
+\item $\text{Fit}_k(\mathcal{F}) = 0$ for $k < r$ and
+$\text{Fit}_k(\mathcal{F}) = \mathcal{O}_X$ for $k \geq r$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Reduces to
+Divisors, Lemma \ref{divisors-lemma-fitting-ideal-finite-locally-free}
+by \'etale localization.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-free-rank-r-pullback}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a finite type, quasi-coherent
+$\mathcal{O}_X$-module. The closed subspaces
+$$
+X = Z_{-1} \supset Z_0 \supset Z_1 \supset Z_2 \ldots
+$$
+defined by the Fitting ideals of $\mathcal{F}$ have the following
+properties
+\begin{enumerate}
+\item The intersection $\bigcap Z_r$ is empty.
+\item The functor $(\Sch/X)^{opp} \to \textit{Sets}$ defined by the rule
+$$
+T \longmapsto
+\left\{
+\begin{matrix}
+\{*\} & \text{if }\mathcal{F}_T\text{ is locally generated by }
+\leq r\text{ sections} \\
+\emptyset & \text{otherwise}
+\end{matrix}
+\right.
+$$
+is representable by the open subspace $X \setminus Z_r$.
+\item The functor $F_r : (\Sch/X)^{opp} \to \textit{Sets}$ defined by the rule
+$$
+T \longmapsto
+\left\{
+\begin{matrix}
+\{*\} & \text{if }\mathcal{F}_T\text{ locally free rank }r\\
+\emptyset & \text{otherwise}
+\end{matrix}
+\right.
+$$
+is representable by the locally closed subspace $Z_{r - 1} \setminus Z_r$
+of $X$.
+\end{enumerate}
+If $\mathcal{F}$ is of finite presentation, then
+$Z_r \to X$, $X \setminus Z_r \to X$, and $Z_{r - 1} \setminus Z_r \to X$
+are of finite presentation.
+\end{lemma}
+
+\begin{proof}
+Reduces to
+Divisors, Lemma \ref{divisors-lemma-locally-free-rank-r-pullback}
+by \'etale localization.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-presentation-module}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be an $\mathcal{O}_X$-module
+of finite presentation. Let $X = Z_{-1} \subset Z_0 \subset Z_1 \subset \ldots$
+be as in Lemma \ref{lemma-locally-free-rank-r-pullback}.
+Set $X_r = Z_{r - 1} \setminus Z_r$.
+Then $X' = \coprod_{r \geq 0} X_r$ represents the functor
+$$
+F_{flat} : \Sch/X \longrightarrow \textit{Sets},\quad\quad
+T \longmapsto
+\left\{
+\begin{matrix}
+\{*\} & \text{if }\mathcal{F}_T\text{ flat over }T\\
+\emptyset & \text{otherwise}
+\end{matrix}
+\right.
+$$
+Moreover, $\mathcal{F}|_{X_r}$ is locally free of rank $r$ and the
+morphisms $X_r \to X$ and $X' \to X$ are of finite presentation.
+\end{lemma}
+
+\begin{proof}
+Reduces to
+Divisors, Lemma \ref{divisors-lemma-finite-presentation-module}
+by \'etale localization.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Effective Cartier divisors}
+\label{section-effective-Cartier-divisors}
+
+\noindent
+For some reason it seem convenient to define the notion of an effective
+Cartier divisor before anything else. Note that in
+Morphisms of Spaces, Section \ref{spaces-morphisms-section-closed-immersions}
+we discussed the correspondence between closed subspaces and quasi-coherent
+sheaves of ideals. Moreover, in
+Properties of Spaces, Section
+\ref{spaces-properties-section-properties-modules}, we discussed properties
+of quasi-coherent modules, in particular ``locally generated by $1$ element''.
+These references show that the following definition is
+compatible with the definition for schemes.
+
+\begin{definition}
+\label{definition-effective-Cartier-divisor}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+\begin{enumerate}
+\item A {\it locally principal closed subspace} of $X$ is a closed subspace
+whose sheaf of ideals is locally generated by $1$ element.
+\item An {\it effective Cartier divisor} on $X$ is a closed subspace
+$D \subset X$ such that the ideal sheaf $\mathcal{I}_D \subset \mathcal{O}_X$
+is an invertible $\mathcal{O}_X$-module.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Thus an effective Cartier divisor is a locally principal closed subspace,
+but the converse is not always true. Effective Cartier divisors are closed
+subspaces of pure codimension $1$ in the strongest possible sense. Namely
+they are locally cut out by a single element which is not a zerodivisor.
+In particular they are nowhere dense.
+
+\begin{lemma}
+\label{lemma-characterize-effective-Cartier-divisor}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $D \subset X$ be a closed subspace.
+The following are equivalent:
+\begin{enumerate}
+\item The subspace $D$ is an effective Cartier divisor on $X$.
+\item For some scheme $U$ and surjective \'etale morphism $U \to X$
+the inverse image $D \times_X U$ is an effective Cartier divisor on $U$.
+\item For every scheme $U$ and every \'etale morphism $U \to X$
+the inverse image $D \times_X U$ is an effective Cartier divisor on $U$.
+\item For every $x \in |D|$ there exists an \'etale morphism
+$(U, u) \to (X, x)$ of pointed algebraic spaces such that $U = \Spec(A)$
+and $D \times_X U = \Spec(A/(f))$ with $f \in A$ not a zerodivisor.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (1) -- (3) follows from
+Definition \ref{definition-effective-Cartier-divisor}
+and the references preceding it.
+Assume (1) and let $x \in |D|$. Choose a scheme $W$ and a
+surjective \'etale morphism
+$W \to X$. Choose $w \in D \times_X W$ mapping to $x$.
+By (3) $D \times_X W$ is an effective Cartier
+divisor on $W$. Hence we can find affine \'etale neighbourhood $U$
+by choosing an affine open neighbourhood of $w$ in $W$ as in
+Divisors, Lemma \ref{divisors-lemma-characterize-effective-Cartier-divisor}.
+
+\medskip\noindent
+Assume (4). Then we see that $\mathcal{I}_D|_U$ is invertible by
+Divisors, Lemma \ref{divisors-lemma-characterize-effective-Cartier-divisor}.
+Since we can find an \'etale covering of $X$ by the collection of
+all such $U$ and $X \setminus D$, we conclude that
+$\mathcal{I}_D$ is an invertible $\mathcal{O}_X$-module.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-complement-locally-principal-closed-subscheme}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $Z \subset X$ be a locally principal closed
+subspace. Let $U = X \setminus Z$. Then $U \to X$ is an affine morphism.
+\end{lemma}
+
+\begin{proof}
+The question is \'etale local on $X$, see
+Morphisms of Spaces, Lemmas \ref{spaces-morphisms-lemma-affine-local}
+and
+Lemma \ref{lemma-characterize-effective-Cartier-divisor}.
+Thus this follows from the case of schemes which is
+Divisors, Lemma
+\ref{divisors-lemma-complement-locally-principal-closed-subscheme}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-complement-effective-Cartier-divisor}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $D \subset X$ be an effective Cartier divisor.
+Let $U = X \setminus D$. Then $U \to X$ is an affine morphism and $U$
+is scheme theoretically dense in $X$.
+\end{lemma}
+
+\begin{proof}
+Affineness is Lemma \ref{lemma-complement-locally-principal-closed-subscheme}.
+The density question is \'etale local on $X$ by
+Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-scheme-theoretically-dense}.
+Thus this follows from the case of schemes which is
+Divisors, Lemma
+\ref{divisors-lemma-complement-effective-Cartier-divisor}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-effective-Cartier-makes-dimension-drop}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $D \subset X$ be an effective Cartier divisor.
+Let $x \in |D|$.
+If $\dim_x(X) < \infty$, then $\dim_x(D) < \dim_x(X)$.
+\end{lemma}
+
+\begin{proof}
+Both the definition of an effective Cartier divisor and of the
+dimension of an an algebraic space at a point
+(Properties of Spaces, Definition
+\ref{spaces-properties-definition-dimension-at-point})
+are \'etale local. Hence this lemma follows from the case of schemes
+which is
+Divisors, Lemma \ref{divisors-lemma-effective-Cartier-makes-dimension-drop}.
+\end{proof}
+
+\begin{definition}
+\label{definition-sum-effective-Cartier-divisors}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Given effective Cartier divisors
+$D_1$, $D_2$ on $X$ we set $D = D_1 + D_2$ equal to the
+closed subspace of $X$ corresponding to the quasi-coherent
+sheaf of ideals
+$\mathcal{I}_{D_1}\mathcal{I}_{D_2} \subset \mathcal{O}_S$.
+We call this the {\it sum of the effective Cartier divisors
+$D_1$ and $D_2$}.
+\end{definition}
+
+\noindent
+It is clear that we may define the sum $\sum n_iD_i$ given
+finitely many effective Cartier divisors $D_i$ on $X$
+and nonnegative integers $n_i$.
+
+\begin{lemma}
+\label{lemma-sum-effective-Cartier-divisors}
+The sum of two effective Cartier divisors is an effective
+Cartier divisor.
+\end{lemma}
+
+\begin{proof}
+Omitted. \'Etale locally this reduces to the following simple
+algebra fact: if $f_1, f_2 \in A$ are nonzerodivisors of a ring $A$, then
+$f_1f_2 \in A$ is a nonzerodivisor.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-sum-closed-subschemes-effective-Cartier}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $Z, Y$ be two closed subspaces of $X$
+with ideal sheaves $\mathcal{I}$ and $\mathcal{J}$. If $\mathcal{I}\mathcal{J}$
+defines an effective Cartier divisor $D \subset X$, then $Z$ and $Y$
+are effective Cartier divisors and $D = Z + Y$.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-characterize-effective-Cartier-divisor}
+this reduces to the case of schemes which is
+Divisors, Lemma \ref{divisors-lemma-sum-closed-subschemes-effective-Cartier}.
+\end{proof}
+
+\noindent
+Recall that we have defined the inverse image of a closed subspace
+under any morphism of algebraic spaces in
+Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-inverse-image-closed-subspace}.
+
+\begin{lemma}
+\label{lemma-pullback-locally-principal}
+Let $S$ be a scheme.
+Let $f : X' \to X$ be a morphism of algebraic spaces over $S$.
+Let $Z \subset X$ be a locally principal closed subspace.
+Then the inverse image $f^{-1}(Z)$ is a locally principal closed
+subspace of $X'$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{definition}
+\label{definition-pullback-effective-Cartier-divisor}
+Let $S$ be a scheme.
+Let $f : X' \to X$ be a morphism of algebraic spaces over $S$.
+Let $D \subset X$
+be an effective Cartier divisor. We say the {\it pullback of
+$D$ by $f$ is defined} if the closed subspace $f^{-1}(D) \subset X'$
+is an effective Cartier divisor. In this case we denote it either
+$f^*D$ or $f^{-1}(D)$ and we call it the
+{\it pullback of the effective Cartier divisor}.
+\end{definition}
+
+\noindent
+The condition that $f^{-1}(D)$ is an effective Cartier divisor
+is often satisfied in practice.
+
+\begin{lemma}
+\label{lemma-pullback-effective-Cartier-defined}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $D \subset Y$ be an effective Cartier divisor.
+The pullback of $D$ by $f$ is defined in each of the following cases:
+\begin{enumerate}
+\item $f$ is flat, and
+\item add more here as needed.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullback-effective-Cartier-divisors-additive}
+Let $S$ be a scheme.
+Let $f : X' \to X$ be a morphism of algebraic spaces over $S$.
+Let $D_1$, $D_2$ be effective Cartier divisors on $X$.
+If the pullbacks of $D_1$ and $D_2$ are defined then the
+pullback of $D = D_1 + D_2$ is defined and
+$f^*D = f^*D_1 + f^*D_2$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+
+
+
+\section{Effective Cartier divisors and invertible sheaves}
+\label{section-effective-Cartier-invertible}
+
+\noindent
+Since an effective Cartier divisor has an invertible ideal sheaf
+(Definition \ref{definition-effective-Cartier-divisor}) the
+following definition makes sense.
+
+\begin{definition}
+\label{definition-invertible-sheaf-effective-Cartier-divisor}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$
+and let $D \subset X$ be an effective Cartier divisor with ideal
+sheaf $\mathcal{I}_D$.
+\begin{enumerate}
+\item The {\it invertible sheaf $\mathcal{O}_X(D)$ associated to $D$}
+is defined by
+$$
+\mathcal{O}_X(D) =
+\SheafHom_{\mathcal{O}_X}(\mathcal{I}_D, \mathcal{O}_X) =
+\mathcal{I}_D^{\otimes -1}.
+$$
+\item The canonical section, usually denoted $1$ or $1_D$, is the
+global section of $\mathcal{O}_X(D)$ corresponding to
+the inclusion mapping $\mathcal{I}_D \to \mathcal{O}_X$.
+\item We write
+$\mathcal{O}_X(-D) = \mathcal{O}_X(D)^{\otimes -1} = \mathcal{I}_D$.
+\item Given a second effective Cartier divisor $D' \subset X$ we define
+$\mathcal{O}_X(D - D') =
+\mathcal{O}_X(D) \otimes_{\mathcal{O}_X} \mathcal{O}_X(-D')$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Some comments. We will see below that the assignment
+$D \mapsto \mathcal{O}_X(D)$ turns addition of effective Cartier
+divisors (Definition \ref{definition-sum-effective-Cartier-divisors})
+into addition in the Picard group of $X$
+(Lemma \ref{lemma-invertible-sheaf-sum-effective-Cartier-divisors}).
+However, the expression $D - D'$ in the definition above does not
+have any geometric meaning. More precisely, we can think of the
+set of effective Cartier divisors on $X$ as a commutative monoid
+$\text{EffCart}(X)$ whose zero element is the empty effective Cartier divisor.
+Then the assignment $(D, D') \mapsto \mathcal{O}_X(D - D')$ defines
+a group homomorphism
+$$
+\text{EffCart}(X)^{gp} \longrightarrow \Pic(X)
+$$
+where the left hand side is the group completion of
+$\text{EffCart}(X)$. In other words, when we write $\mathcal{O}_X(D - D')$
+we may think of $D - D'$ as an element of $\text{EffCart}(X)^{gp}$.
+
+\begin{lemma}
+\label{lemma-conormal-effective-Cartier-divisor}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $D \subset X$ be an effective Cartier divisor.
+Then for the conormal sheaf we have $\mathcal{C}_{D/X} = \mathcal{I}_D|D =
+\mathcal{O}_X(D)^{\otimes -1}|_D$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-invertible-sheaf-sum-effective-Cartier-divisors}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $D_1$, $D_2$ be effective Cartier divisors on $X$.
+Let $D = D_1 + D_2$.
+Then there is a unique isomorphism
+$$
+\mathcal{O}_X(D_1) \otimes_{\mathcal{O}_X} \mathcal{O}_X(D_2)
+\longrightarrow
+\mathcal{O}_X(D)
+$$
+which maps $1_{D_1} \otimes 1_{D_2}$ to $1_D$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{definition}
+\label{definition-regular-section}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{L}$ be an invertible sheaf on $X$.
+A global section $s \in \Gamma(X, \mathcal{L})$ is called a
+{\it regular section} if the map $\mathcal{O}_X \to \mathcal{L}$,
+$f \mapsto fs$ is injective.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-regular-section-structure-sheaf}
+Let $S$ be a scheme.
+Let $X$ be an algebraic space over $S$.
+Let $f \in \Gamma(X, \mathcal{O}_X)$.
+The following are equivalent:
+\begin{enumerate}
+\item $f$ is a regular section, and
+\item for any $x \in X$ the image $f \in \mathcal{O}_{X, \overline{x}}$
+is not a zerodivisor.
+\item for any affine $U = \Spec(A)$ \'etale over $X$
+the restriction $f|_U$ is a nonzerodivisor of $A$, and
+\item there exists a scheme $U$ and a surjective \'etale morphism
+$U \to X$ such that $f|_U$ is a regular section of $\mathcal{O}_U$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\noindent
+Note that a global section $s$ of an invertible $\mathcal{O}_X$-module
+$\mathcal{L}$ may be seen as an $\mathcal{O}_X$-module map
+$s : \mathcal{O}_X \to \mathcal{L}$. Its dual is therefore a
+map $s : \mathcal{L}^{\otimes -1} \to \mathcal{O}_X$.
+(See Modules on Sites, Lemma \ref{sites-modules-lemma-constructions-invertible}
+for the dual invertible sheaf.)
+
+\begin{definition}
+\label{definition-zero-scheme-s}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{L}$ be an invertible sheaf.
+Let $s \in \Gamma(X, \mathcal{L})$.
+The {\it zero scheme} of $s$ is the closed subspace $Z(s) \subset X$
+defined by the quasi-coherent sheaf of ideals
+$\mathcal{I} \subset \mathcal{O}_X$ which is the image of the
+map $s : \mathcal{L}^{\otimes -1} \to \mathcal{O}_X$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-zero-scheme}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Let $s \in \Gamma(X, \mathcal{L})$.
+\begin{enumerate}
+\item Consider closed immersions $i : Z \to X$ such that
+$i^*s \in \Gamma(Z, i^*\mathcal{L}))$ is zero
+ordered by inclusion. The zero scheme $Z(s)$ is the
+maximal element of this ordered set.
+\item For any morphism of algebraic spaces $f : Y \to X$ over $S$
+we have $f^*s = 0$ in $\Gamma(Y, f^*\mathcal{L})$ if and only if
+$f$ factors through $Z(s)$.
+\item The zero scheme $Z(s)$ is a locally principal closed subspace of $X$.
+\item The zero scheme $Z(s)$ is an effective Cartier divisor on $X$
+if and only if $s$ is a regular section of $\mathcal{L}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-OD}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+\begin{enumerate}
+\item If $D \subset X$ is an effective Cartier divisor, then
+the canonical section $1_D$ of $\mathcal{O}_X(D)$ is regular.
+\item Conversely, if $s$ is a regular section of the invertible
+sheaf $\mathcal{L}$, then there exists a unique effective
+Cartier divisor $D = Z(s) \subset X$ and a unique isomorphism
+$\mathcal{O}_X(D) \to \mathcal{L}$ which maps $1_D$ to $s$.
+\end{enumerate}
+The constructions
+$D \mapsto (\mathcal{O}_X(D), 1_D)$ and $(\mathcal{L}, s) \mapsto Z(s)$
+give mutually inverse maps
+$$
+\left\{
+\begin{matrix}
+\text{effective Cartier divisors on }X
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{pairs }(\mathcal{L}, s)\text{ consisting of an invertible}\\
+\mathcal{O}_X\text{-module and a regular global section}
+\end{matrix}
+\right\}
+$$
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+
+
+
+
+\section{Effective Cartier divisors on Noetherian spaces}
+\label{section-Noetherian-effective-Cartier}
+
+\noindent
+In the locally Noetherian setting most of the discussion of
+effective Cartier divisors and regular sections simplifies somewhat.
+
+\begin{lemma}
+\label{lemma-effective-Cartier-divisor-Sk}
+Let $S$ be a scheme and let $X$ be a locally Noetherian algebraic space
+over $S$. Let $D \subset X$ be an effective Cartier divisor. If $X$ is
+$(S_k)$, then $D$ is $(S_{k - 1})$.
+\end{lemma}
+
+\begin{proof}
+By our definition of the property $(S_k)$ for algebraic spaces
+(Properties of Spaces, Section
+\ref{spaces-properties-section-types-properties})
+and
+Lemma \ref{lemma-characterize-effective-Cartier-divisor}
+this follows from the case of schemes
+(Divisors, Lemma \ref{divisors-lemma-effective-Cartier-divisor-Sk}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normal-effective-Cartier-divisor-S1}
+Let $S$ be a scheme and let $X$ be a locally Noetherian normal
+algebraic space over $S$. Let $D \subset X$ be an
+effective Cartier divisor. Then $D$ is $(S_1)$.
+\end{lemma}
+
+\begin{proof}
+By our definition of normality for algebraic spaces
+(Properties of Spaces, Section
+\ref{spaces-properties-section-types-properties})
+and
+Lemma \ref{lemma-characterize-effective-Cartier-divisor}
+this follows from the case of schemes
+(Divisors, Lemma \ref{divisors-lemma-normal-effective-Cartier-divisor-S1}).
+\end{proof}
+
+\noindent
+The following lemma can sometimes be used to produce effective
+Cartier divisors.
+
+\begin{lemma}
+\label{lemma-complement-open-affine-effective-cartier-divisor}
+Let $S$ be a scheme. Let $X$ be a regular Noetherian separated algebraic space
+over $S$. Let $U \subset X$ be a dense affine open. Then there exists an
+effective Cartier divisor $D \subset X$ with $U = X \setminus D$.
+\end{lemma}
+
+\begin{proof}
+We claim that the reduced induced algebraic space structure $D$
+on $X \setminus U$ (Properties of Spaces, Definition
+\ref{spaces-properties-definition-reduced-induced-space})
+is the desired effective Cartier divisor. The construction
+of $D$ commutes with \'etale localization, see proof of
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-reduced-closed-subspace}.
+Let $X' \to X$ be a surjective \'etale morphism with $X'$ affine.
+Since $X$ is separated, we see that $U' = X' \times_X U$ is
+affine. Since $|X'| \to |X|$ is open, we see that $U'$
+is dense in $X'$. Since $D' = X' \times_X D$ is the reduced induced
+scheme structure on $X' \setminus U'$, we conclude that
+$D'$ is an effective Cartier divisor by
+Divisors, Lemma
+\ref{divisors-lemma-complement-open-affine-effective-cartier-divisor}
+and its proof. This is what we had to show.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-Noetherian-regular-separated-pic-effective-Cartier}
+Let $S$ be a scheme. Let $X$ be a regular Noetherian separated algebraic space
+over $S$. Then every invertible $\mathcal{O}_X$-module is isomorphic to
+$$
+\mathcal{O}_X(D - D') =
+\mathcal{O}_X(D) \otimes_{\mathcal{O}_X} \mathcal{O}_X(D')^{\otimes -1}
+$$
+for some effective Cartier divisors $D, D'$ in $X$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Choose a dense affine open $U \subset X$ such that
+$\mathcal{L}|_U$ is trivial. This is possible because
+$X$ has a dense open subspace which is a scheme, see
+Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}.
+Denote $s : \mathcal{O}_U \to \mathcal{L}|_U$ the trivialization.
+The complement of $U$ is an effective Cartier divisor
+$D$. We claim that for some $n > 0$ the map $s$ extends uniquely to a map
+$$
+s : \mathcal{O}_X(-nD) \longrightarrow \mathcal{L}
+$$
+The claim implies the lemma because it shows that
+$\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{O}_X(nD)$
+has a regular global section hence is isomorphic to
+$\mathcal{O}_X(D')$ for some effective Cartier divisor $D'$
+by Lemma \ref{lemma-characterize-OD}.
+To prove the claim we may work \'etale locally. Thus we may assume
+$X$ is an affine Noetherian scheme. Since
+$\mathcal{O}_X(-nD) = \mathcal{I}^n$ where $\mathcal{I} = \mathcal{O}_X(-D)$
+is the ideal sheaf of $D$ in $X$, this case follows from
+Cohomology of Schemes, Lemma \ref{coherent-lemma-homs-over-open}.
+\end{proof}
+
+\noindent
+The following lemma really belongs to a different section.
+
+\begin{lemma}
+\label{lemma-smooth-over-valuation-ring-effective-Cartier}
+Let $R$ be a valuation ring with fraction field $K$.
+Let $X$ be an algebraic space over $R$ such that $X \to \Spec(R)$
+is smooth. For every effective Cartier divisor $D \subset X_K$
+there exists an effective Cartier divisor $D' \subset X$
+with $D'_K = D$.
+\end{lemma}
+
+\begin{proof}
+Let $D' \subset X$ be the scheme theoretic image of $D \to X_K \to X$.
+Since this morphism is quasi-compact, formation of $D'$
+commutes with flat base change, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-flat-base-change-scheme-theoretic-image}.
+In particular we find that $D'_K = D$. Hence,
+we may assume $X$ is affine. Say $X = \Spec(A)$.
+Then $X_K = \Spec(A \otimes_R K)$ and $D$ corresponds to
+an ideal $I \subset A \otimes_R K$. We have to show that
+$J = I \cap A$ cuts out an effective Cartier divisor in $X$.
+First, observe that $A/J$ is flat over $R$ (as a torsion
+free $R$-module, see More on Algebra, Lemma
+\ref{more-algebra-lemma-valuation-ring-torsion-free-flat}),
+hence $J$ is finitely generated by
+More on Algebra, Lemma
+\ref{more-algebra-lemma-flat-finite-type-valuation-ring-finite-presentation}
+and
+Algebra, Lemma \ref{algebra-lemma-extension}.
+Thus it suffices to show that $J_\mathfrak q \subset A_\mathfrak q$
+is generated by a single element for each prime $\mathfrak q \subset A$.
+Let $\mathfrak p = R \cap \mathfrak q$. Then
+$R_\mathfrak p$ is a valuation ring
+(Algebra, Lemma \ref{algebra-lemma-make-valuation-rings}).
+Observe further that $A_\mathfrak q/\mathfrak p A_\mathfrak q$
+is a regular ring by Algebra, Lemma
+\ref{algebra-lemma-characterize-smooth-over-field}.
+Thus we may apply More on Algebra, Lemma
+\ref{more-algebra-lemma-picard-group-generic-fibre-regular}
+to see that $I(A_\mathfrak q \otimes_R K)$ is generated by
+a single element $f \in A_\mathfrak p \otimes_R K$.
+After clearing denominators we may assume $f \in A_\mathfrak q$.
+Let $\mathfrak c \subset R_\mathfrak p$ be the content ideal of $f$
+(see More on Algebra, Definition \ref{more-algebra-definition-content-ideal}
+and More on Flatness, Lemma
+\ref{flat-lemma-flat-finite-type-local-valuation-ring-has-content}).
+Since $R_\mathfrak p$ is a valuation ring and
+since $\mathfrak c$ is finitely generated
+(More on Algebra, Lemma \ref{more-algebra-lemma-content-finitely-generated})
+we see $\mathfrak c = (\pi)$ for some $\pi \in R_\mathfrak p$
+(Algebra, Lemma \ref{algebra-lemma-characterize-valuation-ring}).
+After relacing $f$ by $\pi^{-1}f$ we see that $f \in A_\mathfrak q$
+and $f \not \in \mathfrak pA_\mathfrak q$.
+Claim: $I_\mathfrak q = (f)$ which finishes the proof.
+To see the claim, observe that $f \in I_\mathfrak q$.
+Hence we have a surjection $A_\mathfrak q/(f) \to A_\mathfrak q/I_\mathfrak q$
+which is an isomorphism after tensoring over $R$ with $K$.
+Thus we are done if
+$A_\mathfrak q/(f)$ is $R_\mathfrak p$-flat.
+This follows from
+Algebra, Lemma \ref{algebra-lemma-grothendieck-general}
+and our choice of $f$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Relative Proj}
+\label{section-relative-proj}
+
+\noindent
+This section revisits the construction of the relative proj
+in the setting of algebraic spaces. The material in this section
+corresponds to the material in Constructions, Section
+\ref{constructions-section-relative-proj}
+and Divisors, Section \ref{divisors-section-relative-proj}
+in the case of schemes.
+
+\begin{situation}
+\label{situation-relative-proj}
+Here $S$ is a scheme, $X$ is an algebraic space over $S$, and
+$\mathcal{A}$ is a quasi-coherent graded $\mathcal{O}_X$-algebra.
+\end{situation}
+
+\noindent
+In Situation \ref{situation-relative-proj} we are going to define
+a functor $F : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$ which will
+turn out to be an algebraic space. We will follow (mutatis mutandis)
+the procedure of
+Constructions, Section \ref{constructions-section-relative-proj}.
+First, given a scheme $T$ over $S$ we define a
+{\it quadruple over $T$} to be a system
+$(d, f : T \to X, \mathcal{L}, \psi)$
+\begin{enumerate}
+\item $d \geq 1$ is an integer,
+\item $f : T \to X$ is a morphism over $S$,
+\item $\mathcal{L}$ is an invertible $\mathcal{O}_T$-module, and
+\item
+$\psi : f^*\mathcal{A}^{(d)} \to \bigoplus_{n \geq 0}\mathcal{L}^{\otimes n}$
+is a homomorphism of graded $\mathcal{O}_T$-algebras
+such that $f^*\mathcal{A}_d \to \mathcal{L}$ is surjective.
+\end{enumerate}
+We say two quadruples $(d, f, \mathcal{L}, \psi)$ and
+$(d', f', \mathcal{L}', \psi')$ are {\it equivalent}\footnote{This
+definition is motivated by
+Constructions, Lemma \ref{constructions-lemma-equivalent-relative}.
+The advantage of choosing this one is that it clearly defines
+an equivalence relation.}
+if and only if
+we have $f = f'$ and for some positive integer $m = ad = a'd'$
+there exists an isomorphism
+$\beta : \mathcal{L}^{\otimes a} \to (\mathcal{L}')^{\otimes a'}$
+with the property that $\beta \circ \psi|_{f^*\mathcal{A}^{(m)}}$
+and $\psi'|_{f^*\mathcal{A}^{(m)}}$ agree
+as graded ring maps
+$f^*\mathcal{A}^{(m)} \to \bigoplus_{n \geq 0} (\mathcal{L}')^{\otimes mn}$.
+Given a quadruple $(d, f, \mathcal{L}, \psi)$
+and a morphism $h : T' \to T$ we have the pullback
+$(d, f \circ h, h^*\mathcal{L}, h^*\psi)$. Pullback preserves 
+the equivalence relation. Finally, for a {\it quasi-compact} scheme $T$
+over $S$ we set
+$$
+F(T) = \text{the set of equivalence classes of quadruples over }T
+$$
+and for an arbitrary scheme $T$ over $S$ we set
+$$
+F(T)
+=
+\lim_{V \subset T\text{ quasi-compact open}} F(V).
+$$
+In other words, an element $\xi$ of $F(T)$ corresponds to a compatible
+system of choices of elements $\xi_V \in F(V)$ where $V$ ranges over the
+quasi-compact opens of $T$. Thus we have defined our functor
+\begin{equation}
+\label{equation-proj}
+F : \Sch^{opp} \longrightarrow \textit{Sets}
+\end{equation}
+There is a morphism $F \to X$ of functors sending the quadruple
+$(d, f, \mathcal{L}, \psi)$ to $f$.
+
+\begin{lemma}
+\label{lemma-relative-proj}
+In Situation \ref{situation-relative-proj}. The functor $F$ above is an
+algebraic space. For any morphism $g : Z \to X$ where $Z$ is a scheme
+there is a canonical isomorphism
+$\underline{\text{Proj}}_Z(g^*\mathcal{A}) = Z \times_X F$
+compatible with further base change.
+\end{lemma}
+
+\begin{proof}
+It suffices to prove the second assertion, see
+Spaces, Lemma \ref{spaces-lemma-representable-over-space}.
+Let $g : Z \to X$ be a morphism where $Z$ is a scheme.
+Let $F'$ be the functor of quadruples associated
+to the graded quasi-coherent $\mathcal{O}_Z$-algebra $g^*\mathcal{A}$.
+Then there is a canonical isomorphism $F' = Z \times_X F$, sending
+a quadruple $(d, f : T \to Z, \mathcal{L}, \psi)$ for $F'$
+to $(d, g \circ f, \mathcal{L}, \psi)$ (details omitted, see proof of
+Constructions, Lemma \ref{constructions-lemma-proj-base-change}).
+By Constructions, Lemmas
+\ref{constructions-lemma-equivalent-relative},
+\ref{constructions-lemma-relative-proj}, and
+\ref{constructions-lemma-glueing-gives-functor-proj} and
+Definition \ref{constructions-definition-relative-proj}
+we see that $F'$ is representable by
+$\underline{\text{Proj}}_Z(g^*\mathcal{A})$.
+\end{proof}
+
+\noindent
+The lemma above tells us the following definition makes sense.
+
+\begin{definition}
+\label{definition-relative-proj}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{A}$ be a quasi-coherent sheaf of
+graded $\mathcal{O}_X$-algebras. The
+{\it relative homogeneous spectrum of $\mathcal{A}$ over $X$},
+or the {\it homogeneous spectrum of $\mathcal{A}$ over $X$}, or the
+{\it relative Proj of $\mathcal{A}$ over $X$} is the algebraic space
+$F$ over $X$ of Lemma \ref{lemma-relative-proj}.
+We denote it $\pi : \underline{\text{Proj}}_X(\mathcal{A}) \to X$.
+\end{definition}
+
+\noindent
+In particular the structure morphism of the relative Proj is representable
+by construction. We can also think about the relative Proj via glueing. Let
+$\varphi : U \to X$ be a surjective \'etale morphism, where $U$ is a scheme.
+Set $R = U \times_X U$ with projection morphisms $s, t : R  \to U$.
+By Lemma \ref{lemma-relative-proj} there exists a canonical isomorphism
+$$
+\gamma : 
+\underline{\text{Proj}}_U(\varphi^*\mathcal{A})
+\longrightarrow
+\underline{\text{Proj}}_X(\mathcal{A}) \times_X U
+$$
+over $U$. Let $\alpha : t^*\varphi^*\mathcal{A} \to s^*\varphi^*\mathcal{A}$
+be the canonical isomorphism of
+Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-quasi-coherent}.
+Then the diagram
+$$
+\xymatrix{
+&
+\underline{\text{Proj}}_U(\varphi^*\mathcal{A}) \times_{U, s} R
+\ar@{=}[r] &
+\underline{\text{Proj}}_R(s^*\varphi^*\mathcal{A})
+\ar[dd]_{\text{induced by }\alpha} \\
+\underline{\text{Proj}}_X(\mathcal{A}) \times_X R
+\ar[ru]_{s^*\gamma} \ar[rd]^{t^*\gamma} \\
+&
+\underline{\text{Proj}}_U(\varphi^*\mathcal{A}) \times_{U, t} R
+\ar@{=}[r] &
+\underline{\text{Proj}}_R(t^*\varphi^*\mathcal{A})
+}
+$$
+is commutative (the equal signs come from
+Constructions, Lemma \ref{constructions-lemma-relative-proj-base-change}).
+Thus, if we denote $\mathcal{A}_U$, $\mathcal{A}_R$
+the pullback of $\mathcal{A}$ to $U$, $R$, then
+$P = \underline{\text{Proj}}_X(\mathcal{A})$ has an \'etale covering
+by the scheme $P_U = \underline{\text{Proj}}_U(\mathcal{A}_U)$ and
+$P_U \times_P P_U$ is equal to
+$P_R = \underline{\text{Proj}}_R(\mathcal{A}_R)$.
+Using these remarks we can argue in the usual fashion using \'etale
+localization to transfer results on the relative proj from the case
+of schemes to the case of algebraic spaces.
+
+\begin{lemma}
+\label{lemma-twists-of-structure-sheaf}
+In Situation \ref{situation-relative-proj}. The relative Proj comes
+equipped with a quasi-coherent sheaf of $\mathbf{Z}$-graded algebras
+$\bigoplus_{n \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_X(\mathcal{A})}(n)$
+and a canonical homomorphism of graded algebras
+$$
+\psi :
+\pi^*\mathcal{A}
+\longrightarrow
+\bigoplus\nolimits_{n \geq 0}
+\mathcal{O}_{\underline{\text{Proj}}_X(\mathcal{A})}(n)
+$$
+whose base change to any scheme over $X$ agrees with
+Constructions, Lemma \ref{constructions-lemma-glue-relative-proj-twists}.
+\end{lemma}
+
+\begin{proof}
+As in the discussion following Definition \ref{definition-relative-proj}
+choose a scheme $U$ and a surjective \'etale morphism
+$U \to X$, set $R = U \times_X U$ with projections $s, t : R \to U$,
+$\mathcal{A}_U = \mathcal{A}|_U$, $\mathcal{A}_R = \mathcal{A}|_R$,
+and $\pi : P = \underline{\text{Proj}}_X(\mathcal{A}) \to X$,
+$\pi_U : P_U = \underline{\text{Proj}}_U(\mathcal{A}_U)$ and
+$\pi_R : P_R = \underline{\text{Proj}}_U(\mathcal{A}_R)$.
+By the
+Constructions, Lemma \ref{constructions-lemma-glue-relative-proj-twists}
+we have a quasi-coherent sheaf of $\mathbf{Z}$-graded
+$\mathcal{O}_{P_U}$-algebras
+$\bigoplus_{n \in \mathbf{Z}} \mathcal{O}_{P_U}(n)$
+and a canonical map
+$\psi_U : \pi_U^*\mathcal{A}_U \to \bigoplus_{n \geq 0} \mathcal{O}_{P_U}(n)$
+and similarly for $P_R$. By
+Constructions, Lemma \ref{constructions-lemma-relative-proj-base-change}
+the pullback of $\mathcal{O}_{P_U}(n)$ and $\psi_U$ by either projection
+$P_R \to P_U$ is equal to $\mathcal{O}_{P_R}(n)$ and $\psi_R$.
+By Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-quasi-coherent}
+we obtain $\mathcal{O}_{P}(n)$ and $\psi$.
+We omit the verification of compatibility with pullback to
+arbitrary schemes over $X$.
+\end{proof}
+
+\noindent
+Having constructed the relative Proj we turn to some basic
+properties.
+
+\begin{lemma}
+\label{lemma-relative-proj-base-change}
+Let $S$ be a scheme. Let $g : X' \to X$ be a morphism of algebraic spaces
+over $S$ and let $\mathcal{A}$ be a quasi-coherent sheaf
+of graded $\mathcal{O}_X$-algebras. Then there is a canonical isomorphism
+$$
+r :
+\underline{\text{Proj}}_{X'}(g^*\mathcal{A})
+\longrightarrow
+X' \times_X \underline{\text{Proj}}_X(\mathcal{A})
+$$
+as well as a corresponding isomorphism
+$$
+\theta :
+r^*\text{pr}_2^*\left(\bigoplus\nolimits_{d \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_X(\mathcal{A})}(d)\right)
+\longrightarrow
+\bigoplus\nolimits_{d \in \mathbf{Z}}
+\mathcal{O}_{\underline{\text{Proj}}_{X'}(g^*\mathcal{A})}(d)
+$$
+of $\mathbf{Z}$-graded
+$\mathcal{O}_{\underline{\text{Proj}}_{X'}(g^*\mathcal{A})}$-algebras.
+\end{lemma}
+
+\begin{proof}
+Let $F$ be the functor (\ref{equation-proj}) and let $F'$ be the
+corresponding functor defined using $g^*\mathcal{A}$ on $X'$.
+We claim there is a canonical isomorphism $r : F' \to X' \times_X F$
+of functors (and of course $r$ is the isomorphism of the lemma).
+It suffices to construct the bijection
+$r : F'(T) \to X'(T) \times_{X(T)} F(T)$ for quasi-compact schemes $T$
+over $S$. First, if $\xi = (d', f', \mathcal{L}', \psi')$ is a
+quadruple over $T$ for $F'$, then we can set
+$r(\xi) = (f', (d', g \circ f', \mathcal{L}', \psi'))$. This makes sense
+as $(g \circ f')^*\mathcal{A}^{(d)} = (f')^*(g^*\mathcal{A})^{(d)}$.
+The inverse map sends the pair $(f', (d, f, \mathcal{L}, \psi))$
+to the quadruple $(d, f', \mathcal{L}, \psi)$. We omit the proof
+of the final assertion (hint: reduce to the case of schemes by \'etale
+localization and apply Constructions, Lemma
+\ref{constructions-lemma-relative-proj-base-change}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-separated}
+In Situation \ref{situation-relative-proj} the morphism
+$\pi : \underline{\text{Proj}}_X(\mathcal{A}) \to X$
+is separated.
+\end{lemma}
+
+\begin{proof}
+By Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-separated-local}
+and the construction of the relative Proj this follows from the
+case of schemes which is
+Constructions, Lemma \ref{constructions-lemma-relative-proj-separated}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-quasi-compact}
+In Situation \ref{situation-relative-proj}. If one of the following holds
+\begin{enumerate}
+\item $\mathcal{A}$ is of finite type as a sheaf of
+$\mathcal{A}_0$-algebras,
+\item $\mathcal{A}$ is generated by $\mathcal{A}_1$ as an
+$\mathcal{A}_0$-algebra and $\mathcal{A}_1$ is a finite type
+$\mathcal{A}_0$-module,
+\item there exists a finite type quasi-coherent $\mathcal{A}_0$-submodule
+$\mathcal{F} \subset \mathcal{A}_{+}$ such that
+$\mathcal{A}_{+}/\mathcal{F}\mathcal{A}$ is a locally nilpotent
+sheaf of ideals of $\mathcal{A}/\mathcal{F}\mathcal{A}$,
+\end{enumerate}
+then $\pi : \underline{\text{Proj}}_X(\mathcal{A}) \to X$ is quasi-compact.
+\end{lemma}
+
+\begin{proof}
+By Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-quasi-compact-local}
+and the construction of the relative Proj this follows from the
+case of schemes which is
+Divisors, Lemma \ref{divisors-lemma-relative-proj-quasi-compact}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-finite-type}
+In Situation \ref{situation-relative-proj}.
+If $\mathcal{A}$ is of finite type as a sheaf of
+$\mathcal{O}_X$-algebras, then
+$\pi : \underline{\text{Proj}}_X(\mathcal{A}) \to X$ is of finite type.
+\end{lemma}
+
+\begin{proof}
+By Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-finite-type-local}
+and the construction of the relative Proj this follows from the
+case of schemes which is
+Divisors, Lemma \ref{divisors-lemma-relative-proj-finite-type}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-universally-closed}
+In Situation \ref{situation-relative-proj}. If
+$\mathcal{O}_X \to \mathcal{A}_0$
+is an integral algebra map\footnote{In other words, the integral
+closure of $\mathcal{O}_X$ in $\mathcal{A}_0$, see
+Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-integral-closure}, equals
+$\mathcal{A}_0$.} and $\mathcal{A}$ is of finite type as an
+$\mathcal{A}_0$-algebra, then
+$\pi : \underline{\text{Proj}}_X(\mathcal{A}) \to X$ is universally closed.
+\end{lemma}
+
+\begin{proof}
+By Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-universally-closed-local}
+and the construction of the relative Proj this follows from the
+case of schemes which is
+Divisors, Lemma \ref{divisors-lemma-relative-proj-universally-closed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-proper}
+In Situation \ref{situation-relative-proj}.
+The following conditions are equivalent
+\begin{enumerate}
+\item $\mathcal{A}_0$ is a finite type $\mathcal{O}_X$-module
+and $\mathcal{A}$ is of finite type as an $\mathcal{A}_0$-algebra,
+\item $\mathcal{A}_0$ is a finite type $\mathcal{O}_X$-module 
+and $\mathcal{A}$ is of finite type as an $\mathcal{O}_X$-algebra.
+\end{enumerate}
+If these conditions hold, then
+$\pi : \underline{\text{Proj}}_X(\mathcal{A}) \to X$
+is proper.
+\end{lemma}
+
+\begin{proof}
+By Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-proper-local}
+and the construction of the relative Proj this follows from the
+case of schemes which is
+Divisors, Lemma \ref{divisors-lemma-relative-proj-universally-closed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-proj-generated-in-degree-1}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{A}$ be a quasi-coherent sheaf of graded $\mathcal{O}_X$-modules
+generated as an $\mathcal{A}_0$-algebra by $\mathcal{A}_1$.
+With $P = \underline{\text{Proj}}_X(\mathcal{A})$ we have
+\begin{enumerate}
+\item $P$ represents the functor $F_1$ which associates to
+$T$ over $S$ the set of isomorphism classes of
+triples $(f, \mathcal{L}, \psi)$, where $f : T \to X$ is a morphism
+over $S$, $\mathcal{L}$ is an invertible $\mathcal{O}_T$-module, and
+$\psi : f^*\mathcal{A} \to \bigoplus_{n \geq 0} \mathcal{L}^{\otimes n}$
+is a map of graded $\mathcal{O}_T$-algebras inducing a surjection
+$f^*\mathcal{A}_1 \to \mathcal{L}$,
+\item the canonical map $\pi^*\mathcal{A}_1 \to \mathcal{O}_P(1)$ is
+surjective, and
+\item each $\mathcal{O}_P(n)$ is invertible
+and the multiplication maps induce isomorphisms
+$\mathcal{O}_P(n) \otimes_{\mathcal{O}_P} \mathcal{O}_P(m) =
+\mathcal{O}_P(n + m)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+See Constructions, Lemma \ref{constructions-lemma-apply-relative}
+for the case of schemes.
+\end{proof}
+
+
+
+
+
+
+
+\section{Functoriality of relative proj}
+\label{section-functoriality-relative-proj}
+
+\noindent
+This section is the analogue of
+Constructions, Section \ref{constructions-section-functoriality-relative-proj}.
+
+\begin{lemma}
+\label{lemma-morphism-relative-proj}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\psi : \mathcal{A} \to \mathcal{B}$ be a map of
+quasi-coherent graded $\mathcal{O}_X$-algebras. Set
+$P = \underline{\text{Proj}}_X(\mathcal{A}) \to X$ and
+$Q = \underline{\text{Proj}}_X(\mathcal{B}) \to X$.
+There is a canonical open subspace
+$U(\psi) \subset Q$ and a canonical morphism of
+algebraic spaces
+$$
+r_\psi :
+U(\psi)
+\longrightarrow
+P
+$$
+over $X$ and a map of $\mathbf{Z}$-graded $\mathcal{O}_{U(\psi)}$-algebras
+$$
+\theta = \theta_\psi :
+r_\psi^*\left(
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_P(d)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{d \in \mathbf{Z}} \mathcal{O}_{U(\psi)}(d).
+$$
+The triple $(U(\psi), r_\psi, \theta)$ is characterized by the property
+that for any scheme $W$ \'etale over $X$ the triple
+$$
+(U(\psi) \times_X W,\quad
+r_\psi|_{U(\psi) \times_X W} : U(\psi) \times_X W \to  P \times_X W,\quad
+\theta|_{U(\psi) \times_X W})
+$$
+is equal to the triple associated to $\psi : \mathcal{A}|_W \to \mathcal{B}|_W$
+of Constructions, Lemma \ref{constructions-lemma-morphism-relative-proj}.
+\end{lemma}
+
+\begin{proof}
+This lemma follows from \'etale localization and the case of schemes, see
+discussion following
+Definition \ref{definition-relative-proj}. Details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-relative-proj-transitive}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{A}$, $\mathcal{B}$, and $\mathcal{C}$ be
+quasi-coherent graded $\mathcal{O}_X$-algebras.
+Set $P = \underline{\text{Proj}}_X(\mathcal{A})$,
+$Q = \underline{\text{Proj}}_X(\mathcal{B})$ and
+$R = \underline{\text{Proj}}_X(\mathcal{C})$.
+Let $\varphi : \mathcal{A} \to \mathcal{B}$,
+$\psi : \mathcal{B} \to \mathcal{C}$ be graded $\mathcal{O}_X$-algebra maps.
+Then we have
+$$
+U(\psi \circ \varphi) = r_\varphi^{-1}(U(\psi))
+\quad
+\text{and}
+\quad
+r_{\psi \circ \varphi}
+=
+r_\varphi \circ r_\psi|_{U(\psi \circ \varphi)}.
+$$
+In addition we have
+$$
+\theta_\psi \circ r_\psi^*\theta_\varphi
+=
+\theta_{\psi \circ \varphi}
+$$
+with obvious notation.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-graded-rings-map-relative-proj}
+With hypotheses and notation as in Lemma \ref{lemma-morphism-relative-proj}
+above. Assume $\mathcal{A}_d \to \mathcal{B}_d$ is surjective for
+$d \gg 0$. Then
+\begin{enumerate}
+\item $U(\psi) = Q$,
+\item $r_\psi : Q \to R$ is a closed immersion, and
+\item the maps $\theta : r_\psi^*\mathcal{O}_P(n) \to \mathcal{O}_Q(n)$
+are surjective but not isomorphisms in general (even if
+$\mathcal{A} \to \mathcal{B}$ is surjective).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Follows from the case of schemes
+(Constructions, Lemma
+\ref{constructions-lemma-surjective-graded-rings-map-relative-proj})
+by \'etale localization.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-eventual-iso-graded-rings-map-relative-proj}
+With hypotheses and notation as in Lemma \ref{lemma-morphism-relative-proj}
+above. Assume $\mathcal{A}_d \to \mathcal{B}_d$ is an isomorphism for all
+$d \gg 0$. Then
+\begin{enumerate}
+\item $U(\psi) = Q$,
+\item $r_\psi : Q \to P$ is an isomorphism, and
+\item the maps $\theta : r_\psi^*\mathcal{O}_P(n) \to \mathcal{O}_Q(n)$
+are isomorphisms.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Follows from the case of schemes
+(Constructions, Lemma
+\ref{constructions-lemma-eventual-iso-graded-rings-map-relative-proj})
+by \'etale localization.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-generated-degree-1-map-relative-proj}
+With hypotheses and notation as in Lemma \ref{lemma-morphism-relative-proj}
+above. Assume $\mathcal{A}_d \to \mathcal{B}_d$ is surjective for $d \gg 0$
+and that $\mathcal{A}$ is generated by $\mathcal{A}_1$ over $\mathcal{A}_0$.
+Then
+\begin{enumerate}
+\item $U(\psi) = Q$,
+\item $r_\psi : Q \to P$ is a closed immersion, and
+\item the maps $\theta : r_\psi^*\mathcal{O}_P(n) \to \mathcal{O}_Q(n)$
+are isomorphisms.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Follows from the case of schemes
+(Constructions, Lemma
+\ref{constructions-lemma-surjective-generated-degree-1-map-relative-proj})
+by \'etale localization.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Invertible sheaves and morphisms into relative Proj}
+\label{section-invertible-relative-proj}
+
+\noindent
+It seems that we may need the following lemma somewhere.
+The situation is the following:
+\begin{enumerate}
+\item Let $S$ be a scheme and $Y$ an algebraic space over $S$.
+\item Let $\mathcal{A}$ be a quasi-coherent graded $\mathcal{O}_Y$-algebra.
+\item Denote $\pi : \underline{\text{Proj}}_Y(\mathcal{A}) \to Y$ the relative
+Proj of $\mathcal{A}$ over $Y$.
+\item Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+\item Let $\mathcal{L}$ be an invertible $\mathcal{O}_Y$-module.
+\item Let
+$\psi : f^*\mathcal{A} \to \bigoplus_{d \geq 0} \mathcal{L}^{\otimes d}$
+be a homomorphism of graded $\mathcal{O}_X$-algebras.
+\end{enumerate}
+Given this data let $U(\psi) \subset X$ be the open subspace with
+$$
+|U(\psi)| = \bigcup\nolimits_{d \geq 1}
+\{\text{locus where }f^*\mathcal{A}_d \to \mathcal{L}^{\otimes d}
+\text{ is surjective}\}
+$$
+Formation of $U(\psi) \subset X$ commutes with
+pullback by any morphism $X' \to X$.
+
+\begin{lemma}
+\label{lemma-invertible-map-into-relative-proj}
+With assumptions and notation as above. The morphism
+$\psi$ induces a canonical morphism of algebraic spaces over $Y$
+$$
+r_{\mathcal{L}, \psi} :
+U(\psi) \longrightarrow \underline{\text{Proj}}_Y(\mathcal{A})
+$$
+together with a map of graded $\mathcal{O}_{U(\psi)}$-algebras
+$$
+\theta :
+r_{\mathcal{L}, \psi}^*\left(
+\bigoplus\nolimits_{d \geq 0}
+\mathcal{O}_{\underline{\text{Proj}}_Y(\mathcal{A})}(d)
+\right)
+\longrightarrow
+\bigoplus\nolimits_{d \geq 0} \mathcal{L}^{\otimes d}|_{U(\psi)}
+$$
+characterized by the following properties:
+\begin{enumerate}
+\item For $V \to Y$ \'etale and $d \geq 0$ the diagram
+$$
+\xymatrix{
+\mathcal{A}_d(V) \ar[d]_{\psi} \ar[r]_{\psi} &
+\Gamma(V \times_Y X, \mathcal{L}^{\otimes d}) \ar[d]^{restrict} \\
+\Gamma(V \times_Y \underline{\text{Proj}}_Y(\mathcal{A}),
+\mathcal{O}_{\underline{\text{Proj}}_Y(\mathcal{A})}(d)) \ar[r]^-\theta &
+\Gamma(V \times_Y U(\psi), \mathcal{L}^{\otimes d})
+}
+$$
+is commutative.
+\item For any $d \geq 1$ and any morphism $W \to X$ where $W$ is a scheme
+such that $\psi|_W : f^*\mathcal{A}_d|_W \to \mathcal{L}^{\otimes d}|_W$
+is surjective we have (a) $W \to X$ factors through $U(\psi)$ and
+(b) composition of $W \to U(\psi)$ with $r_{\mathcal{L}, \psi}$
+agrees with the morphism $W \to \underline{\text{Proj}}_Y(\mathcal{A})$
+which exists by the construction of $\underline{\text{Proj}}_Y(\mathcal{A})$,
+see Definition \ref{definition-relative-proj}.
+\item Consider a commutative diagram
+$$
+\xymatrix{
+X' \ar[r]_{g'} \ar[d]_{f'} & X \ar[d]^f \\
+Y' \ar[r]^g & Y
+}
+$$
+where $X'$ and $Y'$ are schemes, set $\mathcal{A}' = g^*\mathcal{A}$
+and $\mathcal{L}' = (g')^*\mathcal{L}$ and denote
+$\psi' : (f')^*\mathcal{A} \to \bigoplus_{d \geq 0} (\mathcal{L}')^{\otimes d}$
+the pullback of $\psi$. Let $U(\psi')$, $r_{\psi', \mathcal{L}'}$,
+and $\theta'$ be the open, morphism, and homomorphism constructed
+in Constructions, Lemma \ref{lemma-invertible-map-into-relative-proj}.
+Then $U(\psi') = (g')^{-1}(U(\psi))$
+and $r_{\psi', \mathcal{L}'}$ agrees with the base change
+of $r_{\psi, \mathcal{L}}$ via the isomorphism
+$\underline{\text{Proj}}_{Y'}(\mathcal{A}') =
+Y' \times_Y \underline{\text{Proj}}_Y(\mathcal{A})$
+of Lemma \ref{lemma-relative-proj-base-change}.
+Moreover, $\theta'$ is the pullback of $\theta$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Hints:
+First we observe that for a quasi-compact scheme
+$W$ over $X$ the following are equivalent
+\begin{enumerate}
+\item $W \to X$ factors through $U(\psi)$, and
+\item there exists a $d$ such that
+$\psi|_W : f^*\mathcal{A}_d|_W \to \mathcal{L}^{\otimes d}|_W$
+is surjective.
+\end{enumerate}
+This gives a description of $U(\psi)$ as a subfunctor of $X$
+on our base category $(\Sch/S)_{fppf}$. For such a $W$ and $d$
+we consider the quadruple
+$(d, W \to Y, \mathcal{L}|_W, \psi^{(d)}|_W)$.
+By definition of $\underline{\text{Proj}}_Y(\mathcal{A})$
+we obtain a morphism $W \to \underline{\text{Proj}}_Y(\mathcal{A})$.
+By our notion of equivalence of quadruples one sees that
+this morphism is independent of the choice of $d$.
+This clearly defines a transformation of functors
+$r_{\psi, \mathcal{L}} : U(\psi) \to \underline{\text{Proj}}_Y(\mathcal{A})$,
+i.e., a morphism of algebraic spaces.
+By construction this morphism satisfies (2).
+Since the morphism constructed in
+Constructions, Lemma \ref{constructions-lemma-invertible-map-into-relative-proj}
+satisfies the same property, we see that (3) is true.
+
+\medskip\noindent
+To construct $\theta$ and check the compatibility (1) of the
+lemma, work \'etale locally on $Y$ and $X$, arguing as
+in the discussion following
+Definition \ref{definition-relative-proj}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Relatively ample sheaves}
+\label{section-relatively-ample}
+
+\noindent
+This section is the analogue of
+Morphisms, Section \ref{morphisms-section-relatively-ample}
+for algebraic spaces.
+Our definition of a relatively ample invertible sheaf is as
+follows.
+
+\begin{definition}
+\label{definition-relatively-ample}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+We say $\mathcal{L}$ is {\it relatively ample}, or {\it $f$-relatively ample},
+or {\it ample on $X/Y$}, or {\it $f$-ample} if $f : X \to Y$
+is representable and for every morphism $Z \to Y$
+where $Z$ is a scheme, the pullback $\mathcal{L}_T$ of $\mathcal{L}$
+to $X_Z = Z \times_Y X$ is ample on $X_Z/Z$ as in
+Morphisms, Definition \ref{morphisms-definition-relatively-ample}.
+\end{definition}
+
+\noindent
+We will almost always reduce questions about relatively ample invertible
+sheaves to the case of schemes. Thus in this section we have
+mainly sanity checks.
+
+\begin{lemma}
+\label{lemma-relatively-ample-sanity-check}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Assume $Y$ is a scheme. The following are equivalent
+\begin{enumerate}
+\item $\mathcal{L}$ is ample on $X/Y$ in the sense of
+Definition \ref{definition-relatively-ample}, and
+\item $X$ is a scheme and $\mathcal{L}$ is ample on $X/Y$
+in the sense of
+Morphisms, Definition \ref{morphisms-definition-relatively-ample}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This follows from the definitions and
+Morphisms, Lemma \ref{morphisms-lemma-ample-base-change}
+(which says that being relatively ample for schemes
+is preserved under base change).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-base-change}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Let $Y' \to Y$ be a morphism of algebraic spaces over $S$.
+Let $f' : X' \to Y'$ be the base change of $f$ and denote
+$\mathcal{L}'$ the pullback of $\mathcal{L}$ to $X'$.
+If $\mathcal{L}$ is $f$-ample, then $\mathcal{L}'$ is $f'$-ample.
+\end{lemma}
+
+\begin{proof}
+This follows immediately from the definition!
+(Hint: transitivity of base change.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relatively-ample-properties}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+If there exists an $f$-ample invertible sheaf, then
+$f$ is representable, quasi-compact, and separated.
+\end{lemma}
+
+\begin{proof}
+This is clear from the definitions and
+Morphisms, Lemma \ref{morphisms-lemma-relatively-ample-separated}.
+(If in doubt, take a look at the principle of
+Algebraic Spaces, Lemma
+\ref{spaces-lemma-representable-transformations-property-implication}.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descend-relatively-ample}
+Let $V \to U$ be a surjective \'etale morphism of affine schemes.
+Let $X$ be an algebraic space over $U$.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Let $Y = V \times_U X$ and let $\mathcal{N}$
+be the pullback of $\mathcal{L}$ to $Y$.
+The following are equivalent
+\begin{enumerate}
+\item $\mathcal{L}$ is ample on $X/U$, and
+\item $\mathcal{N}$ is ample on $Y/V$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implication (1) $\Rightarrow$ (2) follows from
+Lemma \ref{lemma-ample-base-change}.
+Assume (2). This implies that $Y \to V$ is
+quasi-compact and separated (Lemma \ref{lemma-relatively-ample-properties})
+and $Y$ is a scheme. Then we conclude that $X \to U$ is
+quasi-compact and separated
+(Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-quasi-compact-local} and
+\ref{spaces-morphisms-lemma-separated-local}).
+Set $\mathcal{A} = \bigoplus_{d \geq 0} f_*\mathcal{L}^{\otimes d}$.
+Thus is a quasi-coherent sheaf of graded $\mathcal{O}_U$-algebras
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-pushforward}).
+By adjunction we have a map
+$\psi : f^*\mathcal{A} \to \bigoplus_{d \geq 0} \mathcal{L}^{\otimes d}$.
+Applying Lemma \ref{lemma-invertible-map-into-relative-proj}
+we obtain an open subspace $U(\psi) \subset X$ and a morphism
+$$
+r_{\mathcal{L}, \psi} : U(\psi) \to \underline{\text{Proj}}_U(\mathcal{A})
+$$
+Since $h : V \to U$ is \'etale we have
+$\mathcal{A}|_V = (Y \to V)_*(\bigoplus_{d \geq 0} \mathcal{N}^{\otimes d})$,
+see Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-pushforward-etale-base-change-modules}.
+It follows that the pullback $\psi'$ of $\psi$ to
+$Y$ is the adjunction map for the situation $(Y \to V, \mathcal{N})$ as in
+Morphisms, Lemma \ref{morphisms-lemma-characterize-relatively-ample} part (5).
+Since $\mathcal{N}$ is ample on $Y/V$ we conclude from the lemma just
+cited that $U(\psi') = Y$ and that $r_{\mathcal{N}, \psi'}$
+is an open immersion.
+Since Lemma \ref{lemma-invertible-map-into-relative-proj}
+tells us that the formation of $r_{\mathcal{L}, \psi}$
+commutes with base change, we conclude that
+$U(\psi) = X$ and that we have a commutative diagram
+$$
+\xymatrix{
+Y \ar[r]_-{r'} \ar[d] &
+\underline{\text{Proj}}_V(\mathcal{A}|_V) \ar[d] \ar[r] &
+V \ar[d] \\
+X \ar[r]^-r &
+\underline{\text{Proj}}_U(\mathcal{A}) \ar[r] &
+U
+}
+$$
+whose squares are fibre products. We conclude that $r$ is an
+open immersion by
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-closed-immersion-local}.
+Thus $X$ is a scheme. Then we can apply
+Morphisms, Lemma \ref{morphisms-lemma-characterize-relatively-ample} part (5)
+to conclude that $\mathcal{L}$ is ample on $X/U$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relatively-ample-local}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+The following are equivalent
+\begin{enumerate}
+\item $\mathcal{L}$ is ample on $X/Y$,
+\item for every scheme $Z$ and every morphism $Z \to Y$
+the algebraic space $X_Z = Z \times_Y X$ is a scheme
+and the pullback $\mathcal{L}_Z$ is ample on $X_Z/Z$,
+\item for every affine scheme $Z$ and every morphism $Z \to Y$
+the algebraic space $X_Z = Z \times_Y X$ is a scheme
+and the pullback $\mathcal{L}_Z$ is ample on $X_Z/Z$,
+\item there exists a scheme $V$ and a surjective \'etale morphism
+$V \to Y$ such that the algebraic space $X_V = V \times_Y X$ is a scheme
+and the pullback $\mathcal{L}_V$ is ample on $X_V/V$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Parts (1) and (2) are equivalent by definition.
+The implication (2) $\Rightarrow$ (3) is immediate.
+If (3) holds and $Z \to Y$ is as in (2), then we see
+that $X_Z \to Z$ is affine locally on $Z$ representable.
+Hence $X_Z$ is a scheme for example by
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-subscheme}.
+Then it follows that $\mathcal{L}_Z$ is ample on $X_Z/Z$ because
+it holds locally on $Z$ and we can use
+Morphisms, Lemma \ref{morphisms-lemma-characterize-relatively-ample}.
+Thus (1), (2), and (3) are equivalent. Clearly these conditions
+imply (4).
+
+\medskip\noindent
+Assume (4). Let $Z \to Y$ be a morphism with $Z$ affine.
+Then $U = V \times_Y Z \to Z$ is a surjective \'etale morphism
+such that the pullback of $\mathcal{L}_Z$ by $X_U \to X_Z$
+is relatively ample on $X_U/U$.
+Of course we may replace $U$ by an affine open.
+It follows that $\mathcal{L}_Z$ is ample on $X_Z/Z$ by
+Lemma \ref{lemma-descend-relatively-ample}.
+Thus (4) $\Rightarrow$ (3) and the proof is complete.
+\end{proof}
+
+
+
+
+
+\section{Relative ampleness and cohomology}
+\label{section-ample-and-proper}
+
+\noindent
+This section contains some results related to the results
+in Cohomology of Schemes, Sections
+\ref{coherent-section-applications-formal-functions} and
+\ref{coherent-section-ample-cohomology}.
+
+\medskip\noindent
+The following lemma is just an example of what we can do.
+
+\begin{lemma}
+\label{lemma-vanshing-gives-ample}
+Let $R$ be a Noetherian ring. Let $X$ be an algebraic space over $R$
+such that the structure morphism $f : X \to \Spec(R)$ is proper.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+The following are equivalent
+\begin{enumerate}
+\item $\mathcal{L}$ is ample on $X/R$
+(Definition \ref{definition-relatively-ample}),
+\item for every coherent $\mathcal{O}_X$-module $\mathcal{F}$
+there exists an $n_0 \geq 0$ such that
+$H^p(X, \mathcal{F} \otimes \mathcal{L}^{\otimes n}) = 0$
+for all $n \geq n_0$ and $p > 0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implication (1) $\Rightarrow$ (2) follows from
+Cohomology of Schemes, Lemma \ref{coherent-lemma-coherent-proper-ample}
+because assumption (1) implies that $X$ is a scheme.
+The implication (2) $\Rightarrow$ (1) is
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-Noetherian-h1-zero-invertible}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-on-fibre}
+Let $Y$ be a Noetherian scheme. Let $X$ be an algebraic space over $Y$
+such that the structure morphism $f : X \to Y$ is proper.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Let $\mathcal{F}$ be a coherent $\mathcal{O}_X$-module.
+Let $y \in Y$ be a point such that $X_y$ is a scheme and
+$\mathcal{L}_y$ is ample on $X_y$.
+Then there exists a $d_0$ such that for all $d \geq d_0$ we have
+$$
+R^pf_*(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})_y = 0
+\text{ for }p > 0
+$$
+and the map
+$$
+f_*(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})_y
+\longrightarrow
+H^0(X_y, \mathcal{F}_y \otimes_{\mathcal{O}_{X_y}} \mathcal{L}_y^{\otimes d})
+$$
+is surjective.
+\end{lemma}
+
+\begin{proof}
+Note that $\mathcal{O}_{Y, y}$ is a Noetherian local ring.
+Consider the canonical morphism
+$c : \Spec(\mathcal{O}_{Y, y}) \to Y$, see
+Schemes, Equation (\ref{schemes-equation-canonical-morphism}).
+This is a flat morphism as it identifies local rings.
+Denote momentarily $f' : X' \to \Spec(\mathcal{O}_{Y, y})$
+the base change of $f$ to this local ring. We see that
+$c^*R^pf_*\mathcal{F} = R^pf'_*\mathcal{F}'$ by
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}.
+Moreover, the fibres $X_y$ and $X'_y$ are identified.
+Hence we may assume that $Y = \Spec(A)$ is the spectrum of
+a Noetherian local ring $(A, \mathfrak m, \kappa)$ and $y \in Y$
+corresponds to $\mathfrak m$. In this case
+$R^pf_*(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})_y =
+H^p(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})$
+for all $p \geq 0$. Denote $f_y : X_y \to \Spec(\kappa)$ the projection.
+
+\medskip\noindent
+Let $B = \text{Gr}_\mathfrak m(A) =
+\bigoplus_{n \geq 0} \mathfrak m^n/\mathfrak m^{n + 1}$.
+Consider the sheaf $\mathcal{B} = f_y^*\widetilde{B}$
+of quasi-coherent graded $\mathcal{O}_{X_y}$-algebras.
+We will use notation as in Cohomology of Spaces, Section
+\ref{spaces-cohomology-section-theorem-formal-functions}
+with $I$ replaced by $\mathfrak m$.
+Since $X_y$ is the closed subspace of $X$ cut out by
+$\mathfrak m\mathcal{O}_X$ we may think of
+$\mathfrak m^n\mathcal{F}/\mathfrak m^{n + 1}\mathcal{F}$
+as a coherent $\mathcal{O}_{X_y}$-module, see
+Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-i-star-equivalence}.
+Then
+$\bigoplus_{n \geq 0} \mathfrak m^n\mathcal{F}/\mathfrak m^{n + 1}\mathcal{F}$
+is a quasi-coherent graded $\mathcal{B}$-module of finite type
+because it is generated in degree zero over $\mathcal{B}$
+abd because the degree zero part is
+$\mathcal{F}_y = \mathcal{F}/\mathfrak m \mathcal{F}$
+which is a coherent $\mathcal{O}_{X_y}$-module.
+Hence by Cohomology of Schemes, Lemma
+\ref{coherent-lemma-graded-finiteness} part (2)
+there exists a $d_0$ such that
+$$
+H^p(X_y, \mathfrak m^n \mathcal{F}/ \mathfrak m^{n + 1}\mathcal{F}
+\otimes_{\mathcal{O}_{X_y}} \mathcal{L}_y^{\otimes d}) = 0
+$$
+for all $p > 0$, $d \geq d_0$, and $n \geq 0$. By
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-relative-affine-cohomology}
+this is the same as the statement that
+$
+H^p(X, \mathfrak m^n \mathcal{F}/ \mathfrak m^{n + 1}\mathcal{F}
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) = 0
+$
+for all $p > 0$, $d \geq d_0$, and $n \geq 0$.
+
+\medskip\noindent
+Consider the short exact sequences
+$$
+0 \to \mathfrak m^n\mathcal{F}/\mathfrak m^{n + 1} \mathcal{F}
+\to \mathcal{F}/\mathfrak m^{n + 1} \mathcal{F}
+\to \mathcal{F}/\mathfrak m^n \mathcal{F} \to 0
+$$
+of coherent $\mathcal{O}_X$-modules. Tensoring with $\mathcal{L}^{\otimes d}$
+is an exact functor and we obtain short exact sequences
+$$
+0 \to
+\mathfrak m^n\mathcal{F}/\mathfrak m^{n + 1} \mathcal{F}
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}
+\to \mathcal{F}/\mathfrak m^{n + 1} \mathcal{F}
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}
+\to \mathcal{F}/\mathfrak m^n \mathcal{F}
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d} \to 0
+$$
+Using the long exact cohomology sequence and the vanishing above
+we conclude (using induction) that
+\begin{enumerate}
+\item $H^p(X, \mathcal{F}/\mathfrak m^n \mathcal{F}
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) = 0$
+for all $p > 0$, $d \geq d_0$, and $n \geq 0$, and
+\item $H^0(X, \mathcal{F}/\mathfrak m^n \mathcal{F}
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) \to
+H^0(X_y, \mathcal{F}_y \otimes_{\mathcal{O}_{X_y}} \mathcal{L}_y^{\otimes d})$
+is surjective for all $d \geq d_0$ and $n \geq 1$.
+\end{enumerate}
+By the theorem on formal functions
+(Cohomology of Spaces, Theorem
+\ref{spaces-cohomology-theorem-formal-functions})
+we find that the $\mathfrak m$-adic completion of
+$H^p(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})$
+is zero for all $d \geq d_0$ and $p > 0$.
+Since $H^p(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})$
+is a finite $A$-module by
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-proper-over-affine-cohomology-finite}
+it follows from Nakayama's lemma (Algebra, Lemma \ref{algebra-lemma-NAK})
+that $H^p(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d})$
+is zero for all $d \geq d_0$ and $p > 0$.
+For $p = 0$ we deduce from
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-ML-cohomology-powers-ideal} part (3)
+that $H^0(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes d}) \to
+H^0(X_y, \mathcal{F}_y \otimes_{\mathcal{O}_{X_y}} \mathcal{L}_y^{\otimes d})$
+is surjective, which gives the final statement of the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-in-neighbourhood}
+(For a more general version see
+Descent on Spaces, Lemma \ref{spaces-descent-lemma-ample-in-neighbourhood}).
+Let $Y$ be a Noetherian scheme. Let $X$ be an algebraic space over $Y$
+such that the structure morphism $f : X \to Y$ is proper.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Let $y \in Y$ be a point such that $X_y$ is a scheme and
+$\mathcal{L}_y$ is ample on $X_y$.
+Then there is an open neighbourhood $V \subset Y$
+of $y$ such that $\mathcal{L}|_{f^{-1}(V)}$ is ample on $f^{-1}(V)/V$
+(as in Definition \ref{definition-relatively-ample}).
+\end{lemma}
+
+\begin{proof}
+Pick $d_0$ as in Lemma \ref{lemma-ample-on-fibre} for
+$\mathcal{F} = \mathcal{O}_X$. Pick $d \geq d_0$
+so that we can find $r \geq 0$ and sections
+$s_{y, 0}, \ldots, s_{y, r} \in H^0(X_y, \mathcal{L}_y^{\otimes d})$
+which define a closed immersion
+$$
+\varphi_y =
+\varphi_{\mathcal{L}_y^{\otimes d}, (s_{y, 0}, \ldots, s_{y, r})} :
+X_y \to \mathbf{P}^r_{\kappa(y)}.
+$$
+This is possible by Morphisms, Lemma
+\ref{morphisms-lemma-finite-type-over-affine-ample-very-ample}
+but we also use
+Morphisms, Lemma \ref{morphisms-lemma-image-proper-scheme-closed}
+to see that $\varphi_y$ is a closed immersion and
+Constructions, Section \ref{constructions-section-projective-space}
+for the description of morphisms into projective
+space in terms of invertible sheaves and sections.
+By our choice of $d_0$, after replacing $Y$ by an open neighbourhood
+of $y$, we can choose
+$s_0, \ldots, s_r \in H^0(X, \mathcal{L}^{\otimes d})$
+mapping to $s_{y, 0}, \ldots, s_{y, r}$.
+Let $X_{s_i} \subset X$ be the open subspace where $s_i$
+is a generator of $\mathcal{L}^{\otimes d}$. Since
+the $s_{y, i}$ generate $\mathcal{L}_y^{\otimes d}$ we see that
+$|X_y| \subset U = \bigcup |X_{s_i}|$. Since $X \to Y$ is closed,
+we see that there is an open neighbourhood $y \in V \subset Y$
+such that $|f|^{-1}(V) \subset U$. After replacing $Y$ by $V$ we may
+assume that the $s_i$ generate $\mathcal{L}^{\otimes d}$. Thus we
+obtain a morphism
+$$
+\varphi = \varphi_{\mathcal{L}^{\otimes d}, (s_0, \ldots, s_r)} :
+X \longrightarrow \mathbf{P}^r_Y
+$$
+with $\mathcal{L}^{\otimes d} \cong \varphi^*\mathcal{O}_{\mathbf{P}^r_Y}(1)$
+whose base change to $y$ gives $\varphi_y$ (strictly speaking we need
+to write out a proof that the construction of morphisms into projective
+space given in
+Constructions, Section \ref{constructions-section-projective-space}
+also works to describe morphisms of algebraic spaces into projective
+space; we omit the details).
+
+\medskip\noindent
+We will finish the proof by a sleight of hand; the ``correct'' proof
+proceeds by directly showing that $\varphi$ is a closed
+immersion after base changing to an open neighbourhood of $y$.
+Namely, by
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-proper-finite-fibre-finite-in-neighbourhood}
+we see that $\varphi$ is a finite over an open neighbourhood
+of the fibre $\mathbf{P}^r_{\kappa(y)}$ of $\mathbf{P}^r_Y \to Y$
+above $y$. Using that $\mathbf{P}^r_Y \to Y$ is closed, after
+shrinking $Y$ we may assume that $\varphi$ is finite.
+In particular $X$ is a scheme.
+Then $\mathcal{L}^{\otimes d} \cong \varphi^*\mathcal{O}_{\mathbf{P}^r_Y}(1)$
+is ample by the very general
+Morphisms, Lemma \ref{morphisms-lemma-pullback-ample-tensor-relatively-ample}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Closed subspaces of relative proj}
+\label{section-closed-in-relative-proj}
+
+\noindent
+Some auxiliary lemmas about closed subspaces of relative proj.
+This section is the analogue of
+Divisors, Section \ref{divisors-section-closed-in-relative-proj}.
+
+\begin{lemma}
+\label{lemma-closed-subscheme-proj}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{A}$ be a quasi-coherent graded $\mathcal{O}_X$-algebra. Let
+$\pi : P = \underline{\text{Proj}}_X(\mathcal{A}) \to X$ be the relative
+Proj of $\mathcal{A}$. Let $i : Z \to P$ be a closed subspace. Denote
+$\mathcal{I} \subset \mathcal{A}$ the kernel of the canonical map
+$$
+\mathcal{A}
+\longrightarrow
+\bigoplus\nolimits_{d \geq 0} \pi_*\left((i_*\mathcal{O}_Z)(d)\right)
+$$
+If $\pi$ is quasi-compact, then there is an isomorphism
+$Z = \underline{\text{Proj}}_X(\mathcal{A}/\mathcal{I})$.
+\end{lemma}
+
+\begin{proof}
+The morphism $\pi$ is separated by
+Lemma \ref{lemma-relative-proj-separated}.
+As $\pi$ is quasi-compact, $\pi_*$ transforms quasi-coherent modules
+into quasi-coherent modules, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-pushforward}.
+Hence $\mathcal{I}$ is a quasi-coherent $\mathcal{O}_X$-module.
+In particular, $\mathcal{B} = \mathcal{A}/\mathcal{I}$ is a
+quasi-coherent graded $\mathcal{O}_X$-algebra. The functoriality
+morphism $Z' = \underline{\text{Proj}}_X(\mathcal{B}) \to
+\underline{\text{Proj}}_X(\mathcal{A})$ is everywhere defined and
+a closed immersion, see Lemma
+\ref{lemma-surjective-graded-rings-map-relative-proj}.
+Hence it suffices to prove $Z = Z'$ as closed subspaces of $P$.
+
+\medskip\noindent
+Having said this, the question is \'etale local on the base and we
+reduce to the case of schemes
+(Divisors, Lemma \ref{divisors-lemma-closed-subscheme-proj})
+by \'etale localization.
+\end{proof}
+
+\noindent
+In case the closed subspace is locally cut out by finitely many
+equations we can define it by a finite type ideal sheaf of
+$\mathcal{A}$.
+
+\begin{lemma}
+\label{lemma-closed-subscheme-proj-finite}
+Let $S$ be a scheme. Let $X$ be a quasi-compact and quasi-separated
+algebraic space over $S$.
+Let $\mathcal{A}$ be a quasi-coherent graded $\mathcal{O}_X$-algebra. Let
+$\pi : P = \underline{\text{Proj}}_X(\mathcal{A}) \to X$ be the relative
+Proj of $\mathcal{A}$. Let $i : Z \to P$ be a closed subscheme.
+If $\pi$ is quasi-compact and $i$ of finite presentation, then there exists
+a $d > 0$ and a quasi-coherent finite type $\mathcal{O}_X$-submodule
+$\mathcal{F} \subset \mathcal{A}_d$ such that
+$Z = \underline{\text{Proj}}_X(\mathcal{A}/\mathcal{F}\mathcal{A})$.
+\end{lemma}
+
+\begin{proof}
+The reader can redo the arguments used in the case of schemes. However, we
+will show the lemma follows from the case of schemes by a trick.
+Let $\mathcal{I} \subset \mathcal{A}$ be the quasi-coherent graded
+ideal cutting out $Z$ of Lemma \ref{lemma-closed-subscheme-proj}.
+Choose an affine scheme $U$ and a surjective \'etale morphism
+$U \to X$, see Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}.
+By the case of schemes
+(Divisors, Lemma \ref{divisors-lemma-closed-subscheme-proj-finite})
+there exists a $d > 0$ and a quasi-coherent finite type
+$\mathcal{O}_U$-submodule
+$\mathcal{F}' \subset \mathcal{I}_d|_U \subset \mathcal{A}_d|_U$
+such that $Z \times_X U$ is equal to
+$\underline{\text{Proj}}_U(\mathcal{A}|_U/\mathcal{F}'\mathcal{A}|_U)$.
+By Limits of Spaces, Lemma
+\ref{spaces-limits-lemma-directed-colimit-finite-type}
+we can find a finite type quasi-coherent submodule
+$\mathcal{F} \subset \mathcal{I}_d$ such that
+$\mathcal{F}' \subset \mathcal{F}|_U$. Let
+$Z' = \underline{\text{Proj}}_X(\mathcal{A}/\mathcal{F}\mathcal{A})$.
+Then $Z' \to P$ is a closed immersion
+(Lemma \ref{lemma-surjective-generated-degree-1-map-relative-proj})
+and $Z \subset Z'$ as $\mathcal{F}\mathcal{A} \subset \mathcal{I}$.
+On the other hand, $Z' \times_X U \subset Z \times_X U$ by our
+choice of $\mathcal{F}$. Thus $Z = Z'$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-closed-subscheme-proj-finite-type}
+Let $S$ be a scheme. Let $X$ be a quasi-compact and quasi-separated
+algebraic space over $S$.
+Let $\mathcal{A}$ be a quasi-coherent graded $\mathcal{O}_X$-algebra.
+Let $\pi : P = \underline{\text{Proj}}_X(\mathcal{A}) \to X$ be the relative
+Proj of $\mathcal{A}$. Let $i : Z \to X$ be a closed subspace.
+Let $U \subset X$ be an open. Assume that
+\begin{enumerate}
+\item $\pi$ is quasi-compact,
+\item $i$ of finite presentation,
+\item $|U| \cap |\pi|(|i|(|Z|)) = \emptyset$,
+\item $U$ is quasi-compact,
+\item $\mathcal{A}_n$ is a finite type $\mathcal{O}_X$-module for all $n$.
+\end{enumerate}
+Then there exists a $d > 0$ and a quasi-coherent finite type
+$\mathcal{O}_X$-submodule $\mathcal{F} \subset \mathcal{A}_d$ with (a)
+$Z = \underline{\text{Proj}}_X(\mathcal{A}/\mathcal{F}\mathcal{A})$
+and (b) the support of $\mathcal{A}_d/\mathcal{F}$ is disjoint from $U$.
+\end{lemma}
+
+\begin{proof}
+We use the same trick as in the proof of
+Lemma \ref{lemma-closed-subscheme-proj-finite}
+to reduce to the case of schemes.
+Let $\mathcal{I} \subset \mathcal{A}$ be the quasi-coherent graded
+ideal cutting out $Z$ of Lemma \ref{lemma-closed-subscheme-proj}.
+Choose an affine scheme $W$ and a surjective \'etale morphism
+$W \to X$, see Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}.
+By the case of schemes
+(Divisors, Lemma \ref{divisors-lemma-closed-subscheme-proj-finite-type})
+there exists a $d > 0$ and a quasi-coherent finite type
+$\mathcal{O}_W$-submodule
+$\mathcal{F}' \subset \mathcal{I}_d|_W \subset \mathcal{A}_d|_W$
+such that (a) $Z \times_X W$ is equal to
+$\underline{\text{Proj}}_W(\mathcal{A}|_W/\mathcal{F}'\mathcal{A}|_W)$
+and (b) the support of $\mathcal{A}_d|_W/\mathcal{F}'$ is disjoint from
+$U \times_X W$. By Limits of Spaces, Lemma
+\ref{spaces-limits-lemma-directed-colimit-finite-type}
+we can find a finite type quasi-coherent submodule
+$\mathcal{F} \subset \mathcal{I}_d$ such that
+$\mathcal{F}' \subset \mathcal{F}|_W$. Let
+$Z' = \underline{\text{Proj}}_X(\mathcal{A}/\mathcal{F}\mathcal{A})$.
+Then $Z' \to P$ is a closed immersion
+(Lemma \ref{lemma-surjective-generated-degree-1-map-relative-proj})
+and $Z \subset Z'$ as $\mathcal{F}\mathcal{A} \subset \mathcal{I}$.
+On the other hand, $Z' \times_X W \subset Z \times_X W$ by our
+choice of $\mathcal{F}$. Thus $Z = Z'$.
+Finally, we see that $\mathcal{A}_d/\mathcal{F}$ is supported on
+$X \setminus U$ as $\mathcal{A}_d|_W/\mathcal{F}|_W$ is a quotient
+of $\mathcal{A}_d|_W/\mathcal{F}'$ which is supported on
+$W \setminus U \times_X W$. Thus the lemma follows.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-conormal-sheaf-section-projective-bundle}
+Let $S$ be a scheme and let $X$ be an algebraic space over $S$.
+Let $\mathcal{E}$ be a quasi-coherent $\mathcal{O}_X$-module.
+There is a bijection
+$$
+\left\{
+\begin{matrix}
+\text{sections }\sigma\text{ of the } \\
+\text{morphism } \mathbf{P}(\mathcal{E}) \to X
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{surjections }\mathcal{E} \to \mathcal{L}\text{ where} \\
+\mathcal{L}\text{ is an invertible }\mathcal{O}_X\text{-module}
+\end{matrix}
+\right\}
+$$
+In this case $\sigma$ is a closed immersion and there is a canonical
+isomorphism
+$$
+\Ker(\mathcal{E} \to \mathcal{L})
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes -1}
+\longrightarrow
+\mathcal{C}_{\sigma(X)/\mathbf{P}(\mathcal{E})}
+$$
+Both the bijection and isomorphism are compatible with base change.
+\end{lemma}
+
+\begin{proof}
+Because the constructions are compatible with base change, it suffices to
+check the statement \'etale locally on $X$. Thus we may assume $X$ is
+a scheme and the result is
+Divisors, Lemma \ref{divisors-lemma-conormal-sheaf-section-projective-bundle}.
+\end{proof}
+
+
+
+
+
+
+\section{Blowing up}
+\label{section-blowing-up}
+
+\noindent
+Blowing up is an important tool in algebraic geometry.
+
+\begin{definition}
+\label{definition-blow-up}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{I} \subset \mathcal{O}_X$ be a quasi-coherent sheaf
+of ideals, and let $Z \subset X$ be the closed subspace corresponding
+to $\mathcal{I}$
+(Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-closed-immersion-ideals}).
+The {\it blowing up of $X$ along $Z$}, or the
+{\it blowing up of $X$ in the ideal sheaf $\mathcal{I}$} is
+the morphism
+$$
+b :
+\underline{\text{Proj}}_X
+\left(\bigoplus\nolimits_{n \geq 0} \mathcal{I}^n\right)
+\longrightarrow
+X
+$$
+The {\it exceptional divisor} of the blow up is the inverse image
+$b^{-1}(Z)$. Sometimes $Z$ is called the {\it center} of the blowup.
+\end{definition}
+
+\noindent
+We will see later that the exceptional divisor is an effective Cartier
+divisor. Moreover, the blowing up is characterized as the ``smallest''
+algebraic space over $X$ such that the inverse image of $Z$ is an
+effective Cartier divisor.
+
+\medskip\noindent
+If $b : X' \to X$ is the blow up of $X$ in $Z$, then we often denote
+$\mathcal{O}_{X'}(n)$ the twists of the structure sheaf. Note that these
+are invertible $\mathcal{O}_{X'}$-modules and that
+$\mathcal{O}_{X'}(n) = \mathcal{O}_{X'}(1)^{\otimes n}$
+because $X'$ is the relative Proj of a quasi-coherent graded
+$\mathcal{O}_X$-algebra which is generated in degree $1$, see
+Lemma \ref{lemma-relative-proj-generated-in-degree-1}.
+
+\begin{lemma}
+\label{lemma-blowing-up-affine}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{I} \subset \mathcal{O}_X$ be a
+quasi-coherent sheaf of ideals. Let $U = \Spec(A)$ be an affine scheme
+\'etale over $X$ and let $I \subset A$ be the ideal corresponding to
+$\mathcal{I}|_U$. If $X' \to X$ is the blow up of $X$ in $\mathcal{I}$,
+then there is a canonical isomorphism
+$$
+U \times_X X' = \text{Proj}(\bigoplus\nolimits_{d \geq 0} I^d)
+$$
+of schemes over $U$, where the right hand side is
+the homogeneous spectrum of the Rees algebra of $I$ in $A$.
+Moreover, $U \times_X X'$ has an affine open covering by
+spectra of the affine blowup algebras $A[\frac{I}{a}]$.
+\end{lemma}
+
+\begin{proof}
+Note that the restriction $\mathcal{I}|_U$ is equal to the pullback
+of $\mathcal{I}$ via the morphism $U \to X$, see
+Properties of Spaces, Section \ref{spaces-properties-section-modules}.
+Thus the lemma follows on combining Lemma \ref{lemma-relative-proj} with
+Divisors, Lemma \ref{divisors-lemma-blowing-up-affine}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-base-change-blowing-up}
+Let $S$ be a scheme.
+Let $X_1 \to X_2$ be a flat morphism of algebraic spaces over $S$.
+Let $Z_2 \subset X_2$ be a closed subspace.
+Let $Z_1$ be the inverse image of $Z_2$ in $X_1$.
+Let $X'_i$ be the blow up of $Z_i$ in $X_i$. Then there exists a cartesian
+diagram
+$$
+\xymatrix{
+X_1' \ar[r] \ar[d] & X_2' \ar[d] \\
+X_1 \ar[r] & X_2
+}
+$$
+of algebraic spaces over $S$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{I}_2$ be the ideal sheaf of $Z_2$ in $X_2$.
+Denote $g : X_1 \to X_2$ the given morphism. Then the ideal sheaf
+$\mathcal{I}_1$ of $Z_1$ is the image of
+$g^*\mathcal{I}_2 \to \mathcal{O}_{X_1}$
+(see Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-inverse-image-closed-subspace}
+and discussion following the definition).
+By Lemma \ref{lemma-relative-proj-base-change}
+we see that $X_1 \times_{X_2} X_2'$ is the relative Proj of
+$\bigoplus_{n \geq 0} g^*\mathcal{I}_2^n$. Because $g$ is flat the map
+$g^*\mathcal{I}_2^n \to \mathcal{O}_{X_1}$ is injective with image
+$\mathcal{I}_1^n$. Thus we see that $X_1 \times_{X_2} X_2' = X_1'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blowing-up-gives-effective-Cartier-divisor}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $Z \subset X$ be a closed subspace.
+The blowing up $b : X' \to X$ of $Z$ in $X$
+has the following properties:
+\begin{enumerate}
+\item $b|_{b^{-1}(X \setminus Z)} : b^{-1}(X \setminus Z) \to X \setminus Z$
+is an isomorphism,
+\item the exceptional divisor $E = b^{-1}(Z)$ is an effective Cartier divisor
+on $X'$,
+\item there is a canonical isomorphism
+$\mathcal{O}_{X'}(-1) = \mathcal{O}_{X'}(E)$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $U$ be a scheme and let $U \to X$ be a surjective \'etale morphism.
+As blowing up commutes with flat base change
+(Lemma \ref{lemma-flat-base-change-blowing-up})
+we can prove each of these statements after base change to $U$.
+This reduces us to the case of schemes.
+In this case the result is
+Divisors, Lemma
+\ref{divisors-lemma-blowing-up-gives-effective-Cartier-divisor}.
+\end{proof}
+
+\begin{lemma}[Universal property blowing up]
+\label{lemma-universal-property-blowing-up}
+\begin{slogan}
+Blow up a closed subset to make it Cartier.
+\end{slogan}
+Let $S$ be a scheme.
+Let $X$ be an algebraic space over $S$.
+Let $Z \subset X$ be a closed subspace.
+Let $\mathcal{C}$ be the full subcategory of $(\textit{Spaces}/X)$ consisting
+of $Y \to X$ such that the inverse image of $Z$ is an effective
+Cartier divisor on $Y$. Then the blowing up $b : X' \to X$ of $Z$ in $X$
+is a final object of $\mathcal{C}$.
+\end{lemma}
+
+\begin{proof}
+We see that $b : X' \to X$ is an object of $\mathcal{C}$ according to
+Lemma \ref{lemma-blowing-up-gives-effective-Cartier-divisor}.
+Let $f : Y \to X$ be an object of $\mathcal{C}$. We have to show there exists
+a unique morphism $Y \to X'$ over $X$. Let $D = f^{-1}(Z)$.
+Let $\mathcal{I} \subset \mathcal{O}_X$ be the ideal sheaf of $Z$
+and let $\mathcal{I}_D$ be the ideal sheaf of $D$. Then
+$f^*\mathcal{I} \to \mathcal{I}_D$ is a surjection
+to an invertible $\mathcal{O}_Y$-module. This extends to a map
+$\psi : \bigoplus f^*\mathcal{I}^d \to \bigoplus \mathcal{I}_D^d$
+of graded $\mathcal{O}_Y$-algebras. (We observe that
+$\mathcal{I}_D^d = \mathcal{I}_D^{\otimes d}$ as $D$ is an
+effective Cartier divisor.) By
+Lemma \ref{lemma-relative-proj-generated-in-degree-1}.
+the triple $(f : Y \to X, \mathcal{I}_D, \psi)$ defines a
+morphism $Y \to X'$ over $X$. The restriction
+$$
+Y \setminus D \longrightarrow X' \setminus b^{-1}(Z) = X \setminus Z
+$$
+is unique. The open $Y \setminus D$ is scheme theoretically dense in $Y$
+according to Lemma \ref{lemma-complement-effective-Cartier-divisor}. 
+Thus the morphism $Y \to X'$ is unique by
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-equality-of-morphisms}
+(also $b$ is separated by Lemma
+\ref{lemma-relative-proj-separated}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blow-up-effective-Cartier-divisor}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $Z \subset X$ be an effective Cartier divisor.
+The blowup of $X$ in $Z$ is the identity morphism of $X$.
+\end{lemma}
+
+\begin{proof}
+Immediate from the universal property of blowups
+(Lemma \ref{lemma-universal-property-blowing-up}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blow-up-reduced-space}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{I} \subset \mathcal{O}_X$ be a
+quasi-coherent sheaf of ideals. If $X$ is reduced, then the
+blow up $X'$ of $X$ in $\mathcal{I}$ is reduced.
+\end{lemma}
+
+\begin{proof}
+Let $U$ be a scheme and let $U \to X$ be a surjective \'etale morphism.
+As blowing up commutes with flat base change
+(Lemma \ref{lemma-flat-base-change-blowing-up})
+we can prove each of these statements after base change to $U$.
+This reduces us to the case of schemes.
+In this case the result is
+Divisors, Lemma \ref{divisors-lemma-blow-up-reduced-scheme}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blowup-finite-nr-irreducibles}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$. Let
+$b : X' \to X$ be the blowup of $X$ is a closed subspace. If
+$X$ satisfies the equivalent conditions of
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-prepare-normalization}
+then so does $X'$.
+\end{lemma}
+
+\begin{proof}
+Follows immediately from the lemma cited in the statement,
+the \'etale local description of blowing ups in
+Lemma \ref{lemma-blowing-up-affine}, and
+Divisors, Lemma \ref{divisors-lemma-blow-up-and-irreducible-components}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blow-up-pullback-effective-Cartier}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $b : X' \to X$ be a blow up of $X$ in a closed subspace.
+For any effective Cartier divisor $D$ on $X$ the pullback
+$b^{-1}D$ is defined (see Definition
+\ref{definition-pullback-effective-Cartier-divisor}).
+\end{lemma}
+
+\begin{proof}
+By Lemmas \ref{lemma-blowing-up-affine} and
+\ref{lemma-characterize-effective-Cartier-divisor}
+this reduces to the following algebra fact:
+Let $A$ be a ring, $I \subset A$ an ideal, $a \in I$, and $x \in A$
+a nonzerodivisor. Then the image of $x$ in $A[\frac{I}{a}]$ is a
+nonzerodivisor. Namely, suppose that $x (y/a^n) = 0$ in $A[\frac{I}{a}]$.
+Then $a^mxy = 0$ in $A$ for some $m$. Hence $a^my = 0$ as $x$ is a
+nonzerodivisor. Whence $y/a^n$ is zero in $A[\frac{I}{a}]$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blowing-up-two-ideals}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{I} \subset \mathcal{O}_X$ and $\mathcal{J}$ be
+quasi-coherent sheaves of ideals. Let $b : X' \to X$ be the blowing up
+of $X$ in $\mathcal{I}$. Let $b' : X'' \to X'$ be the blowing up of
+$X'$ in $b^{-1}\mathcal{J} \mathcal{O}_{X'}$. Then $X'' \to X$
+is canonically isomorphic to the blowing up of $X$ in $\mathcal{I}\mathcal{J}$.
+\end{lemma}
+
+\begin{proof}
+Let $E \subset X'$ be the exceptional divisor of $b$ which is an effective
+Cartier divisor by
+Lemma \ref{lemma-blowing-up-gives-effective-Cartier-divisor}.
+Then $(b')^{-1}E$ is an effective Cartier divisor on $X''$ by
+Lemma \ref{lemma-blow-up-pullback-effective-Cartier}.
+Let $E' \subset X''$ be the exceptional divisor of $b'$ (also an effective
+Cartier divisor). Consider the effective Cartier divisor
+$E'' = E' + (b')^{-1}E$. By construction the ideal of $E''$ is
+$(b \circ b')^{-1}\mathcal{I} (b \circ b')^{-1}\mathcal{J} \mathcal{O}_{X''}$.
+Hence according to Lemma \ref{lemma-universal-property-blowing-up}
+there is a canonical morphism from $X''$ to the blowup $c : Y \to X$
+of $X$ in $\mathcal{I}\mathcal{J}$. Conversely, as $\mathcal{I}\mathcal{J}$
+pulls back to an invertible ideal we see that
+$c^{-1}\mathcal{I}\mathcal{O}_Y$ defines
+an effective Cartier divisor, see
+Lemma \ref{lemma-sum-closed-subschemes-effective-Cartier}.
+Thus a morphism $c' : Y \to X'$ over $X$ by
+Lemma \ref{lemma-universal-property-blowing-up}.
+Then $(c')^{-1}b^{-1}\mathcal{J}\mathcal{O}_Y = c^{-1}\mathcal{J}\mathcal{O}_Y$
+which also defines an effective Cartier divisor. Thus a morphism
+$c'' : Y \to X''$ over $X'$. We omit the verification that this
+morphism is inverse to the morphism $X'' \to Y$ constructed earlier.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-blowing-up-projective}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $\mathcal{I} \subset \mathcal{O}_X$ be a quasi-coherent
+sheaf of ideals. Let $b : X' \to X$ be the blowing up of $X$
+in the ideal sheaf $\mathcal{I}$. If $\mathcal{I}$ is of finite type, then
+$b : X' \to X$ is a proper morphism.
+\end{lemma}
+
+\begin{proof}
+Let $U$ be a scheme and let $U \to X$ be a surjective \'etale morphism.
+As blowing up commutes with flat base change
+(Lemma \ref{lemma-flat-base-change-blowing-up})
+we can prove each of these statements after base change to $U$
+(see Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-proper-local}).
+This reduces us to the case of schemes.
+In this case the morphism $b$ is projective by
+Divisors, Lemma \ref{divisors-lemma-blowing-up-projective}
+hence proper by
+Morphisms, Lemma \ref{morphisms-lemma-locally-projective-proper}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-finite-type-blowups}
+Let $S$ be a scheme and let $X$ be an algebraic space over $S$.
+Assume $X$ is quasi-compact and quasi-separated.
+Let $Z \subset X$ be a closed subspace of finite presentation.
+Let $b : X' \to X$ be the blowing up with center $Z$.
+Let $Z' \subset X'$ be a closed subspace of finite presentation.
+Let $X'' \to X'$ be the blowing up with center $Z'$.
+There exists a closed subspace $Y \subset X$ of finite presentation,
+such that
+\begin{enumerate}
+\item $|Y| = |Z| \cup |b|(|Z'|)$, and
+\item the composition $X'' \to X$ is isomorphic to the blowing up
+of $X$ in $Y$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The condition that $Z \to X$ is of finite presentation means that
+$Z$ is cut out by a finite type quasi-coherent sheaf of ideals
+$\mathcal{I} \subset \mathcal{O}_X$, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-closed-immersion-finite-presentation}.
+Write $\mathcal{A} = \bigoplus_{n \geq 0} \mathcal{I}^n$ so that
+$X' = \underline{\text{Proj}}(\mathcal{A})$.
+Note that $X \setminus Z$ is a quasi-compact open subspace of $X$ by
+Limits of Spaces, Lemma
+\ref{spaces-limits-lemma-quasi-coherent-finite-type-ideals}.
+Since $b^{-1}(X \setminus Z) \to X \setminus Z$ is an isomorphism
+(Lemma \ref{lemma-blowing-up-gives-effective-Cartier-divisor}) the same
+result shows that
+$b^{-1}(X \setminus Z) \setminus Z'$ is quasi-compact open subspace in $X'$.
+Hence $U = X \setminus (Z \cup b(Z'))$ is quasi-compact open subspace in $X$.
+By Lemma \ref{lemma-closed-subscheme-proj-finite-type}
+there exist a $d > 0$ and a finite type
+$\mathcal{O}_X$-submodule $\mathcal{F} \subset \mathcal{I}^d$ such
+that $Z' = \underline{\text{Proj}}(\mathcal{A}/\mathcal{F}\mathcal{A})$
+and such that the support of $\mathcal{I}^d/\mathcal{F}$ is contained
+in $X \setminus U$.
+
+\medskip\noindent
+Since $\mathcal{F} \subset \mathcal{I}^d$ is an $\mathcal{O}_X$-submodule
+we may think of $\mathcal{F} \subset \mathcal{I}^d \subset \mathcal{O}_X$
+as a finite type quasi-coherent sheaf of ideals on $X$. Let's denote this
+$\mathcal{J} \subset \mathcal{O}_X$ to prevent confusion. Since
+$\mathcal{I}^d / \mathcal{J}$ and $\mathcal{O}/\mathcal{I}^d$ are
+supported on $|X| \setminus |U|$ we see that $|V(\mathcal{J})|$ is contained
+in $|X| \setminus |U|$. Conversely, as $\mathcal{J} \subset \mathcal{I}^d$
+we see that $|Z| \subset |V(\mathcal{J})|$. Over
+$X \setminus Z \cong X' \setminus b^{-1}(Z)$ the sheaf of ideals
+$\mathcal{J}$ cuts out $Z'$ (see displayed formula below). Hence
+$|V(\mathcal{J})|$ equals $|Z| \cup |b|(|Z'|)$. It follows that also
+$|V(\mathcal{I}\mathcal{J})| = |Z| \cup |b|(|Z'|)$. Moreover,
+$\mathcal{I}\mathcal{J}$ is an ideal of finite type as a product of two such.
+We claim that $X'' \to X$ is isomorphic to the blowing up of $X$ in
+$\mathcal{I}\mathcal{J}$ which finishes the proof of the lemma by setting
+$Y = V(\mathcal{I}\mathcal{J})$.
+
+\medskip\noindent
+First, recall that the blow up of $X$ in $\mathcal{I}\mathcal{J}$
+is the same as the blow up of $X'$ in $b^{-1}\mathcal{J} \mathcal{O}_{X'}$,
+see Lemma \ref{lemma-blowing-up-two-ideals}.
+Hence it suffices to show that the blow up of $X'$ in
+$b^{-1}\mathcal{J} \mathcal{O}_{X'}$ agrees with the blow up of $X'$
+in $Z'$. We will show that
+$$
+b^{-1}\mathcal{J} \mathcal{O}_{X'} = \mathcal{I}_E^d \mathcal{I}_{Z'}
+$$
+as ideal sheaves on $X''$. This will prove what we want as
+$\mathcal{I}_E^d$ cuts out the effective Cartier divisor $dE$
+and we can use Lemmas \ref{lemma-blow-up-effective-Cartier-divisor} and
+\ref{lemma-blowing-up-two-ideals}.
+
+\medskip\noindent
+To see the displayed equality of the ideals we may work locally.
+With notation $A$, $I$, $a \in I$ as in Lemma \ref{lemma-blowing-up-affine}
+we see that $\mathcal{F}$ corresponds to an $R$-submodule $M \subset I^d$
+mapping isomorphically to an ideal $J \subset R$. The condition
+$Z' = \underline{\text{Proj}}(\mathcal{A}/\mathcal{F}\mathcal{A})$
+means that $Z' \cap \Spec(A[\frac{I}{a}])$ is cut out by the ideal
+generated by the elements $m/a^d$, $m \in M$. Say the element $m \in M$
+corresponds to the function $f \in J$. Then in the affine blowup algebra
+$A' = A[\frac{I}{a}]$ we see that $f = (a^dm)/a^d = a^d (m/a^d)$.
+Thus the equality holds.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Strict transform}
+\label{section-strict-transform}
+
+\noindent
+This section is the analogue of
+Divisors, Section \ref{divisors-section-strict-transform}.
+Let $S$ be a scheme, let $B$ be an algebraic space over $S$, and
+let $Z \subset B$ be a closed subspace.
+Let $b : B' \to B$ be the blowing up of $B$ in $Z$ and denote $E \subset B'$
+the exceptional divisor $E = b^{-1}Z$. In the following we will often
+consider an algebraic space $X$ over $B$ and form the cartesian diagram
+$$
+\xymatrix{
+\text{pr}_{B'}^{-1}E \ar[r] \ar[d] &
+X \times_B B' \ar[r]_-{\text{pr}_X} \ar[d]_{\text{pr}_{B'}} &
+X \ar[d]^f \\
+E \ar[r] & B' \ar[r] & B
+}
+$$
+Since $E$ is an effective Cartier divisor
+(Lemma \ref{lemma-blowing-up-gives-effective-Cartier-divisor})
+we see that $\text{pr}_{B'}^{-1}E \subset X \times_B B'$
+is locally principal
+(Lemma \ref{lemma-pullback-locally-principal}).
+Thus the inclusion morphism of the complement of
+$\text{pr}_{B'}^{-1}E$ in $X \times_B B'$
+is affine and in particular quasi-compact
+(Lemma \ref{lemma-complement-locally-principal-closed-subscheme}).
+Consequently, for a quasi-coherent $\mathcal{O}_{X \times_B B'}$-module
+$\mathcal{G}$ the subsheaf of sections supported on $|\text{pr}_{B'}^{-1}E|$
+is a quasi-coherent submodule, see
+Limits of Spaces, Definition
+\ref{spaces-limits-definition-subsheaf-sections-supported-on-closed}.
+If $\mathcal{G}$ is a quasi-coherent sheaf of algebras, e.g.,
+$\mathcal{G} = \mathcal{O}_{X \times_B B'}$, then this subsheaf is an ideal
+of $\mathcal{G}$.
+
+\begin{definition}
+\label{definition-strict-transform}
+With $Z \subset B$ and $f : X \to B$ as above.
+\begin{enumerate}
+\item Given a quasi-coherent $\mathcal{O}_X$-module $\mathcal{F}$
+the {\it strict transform} of $\mathcal{F}$ with respect to the blowup
+of $B$ in $Z$ is the quotient $\mathcal{F}'$ of $\text{pr}_X^*\mathcal{F}$
+by the submodule of sections supported on $|\text{pr}_{B'}^{-1}E|$.
+\item The {\it strict transform} of $X$ is the closed subspace
+$X' \subset X \times_B B'$ cut out by the quasi-coherent ideal of
+sections of $\mathcal{O}_{X \times_B B'}$ supported on
+$|\text{pr}_{B'}^{-1}E|$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Note that taking the strict transform along a blowup depends on the
+closed subspace used for the blowup
+(and not just on the morphism $B' \to B$).
+
+\begin{lemma}[\'Etale localization and strict transform]
+\label{lemma-strict-transform-local}
+In the situation of Definition \ref{definition-strict-transform}.
+Let
+$$
+\xymatrix{
+U \ar[r] \ar[d] & X \ar[d] \\
+V \ar[r] & B
+}
+$$
+be a commutative diagram of morphisms with $U$ and $V$ schemes and
+\'etale horizontal arrows. Let $V' \to V$ be the blowup of $V$
+in $Z \times_B V$. Then
+\begin{enumerate}
+\item $V' = V \times_B B'$ and the maps
+$V' \to B'$ and $U \times_V V' \to X \times_B B'$ are \'etale,
+\item the strict transform $U'$ of $U$ relative to $V' \to V$
+is equal to $X' \times_X U$ where $X'$ is the strict transform of $X$
+relative to $B' \to B$, and
+\item for a quasi-coherent $\mathcal{O}_X$-module $\mathcal{F}$ the
+restriction of the strict transform $\mathcal{F}'$ to
+$U \times_V V'$ is the strict transform of $\mathcal{F}|_U$ relative
+to $V' \to V$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) follows from the fact that blowup commutes with flat base
+change (Lemma \ref{lemma-flat-base-change-blowing-up}), the fact that
+\'etale morphisms are flat, and that the base change of an \'etale
+morphism is \'etale. Part (3) then follows from the fact that taking
+the sheaf of sections supported on a closed commutes with pullback
+by \'etale morphisms, see Limits of Spaces, Lemma
+\ref{spaces-limits-lemma-sections-supported-on-closed-subset}.
+Part (2) follows from (3) applied to $\mathcal{F} = \mathcal{O}_X$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform}
+In the situation of Definition \ref{definition-strict-transform}.
+\begin{enumerate}
+\item The strict transform $X'$ of $X$ is the blowup of $X$ in the closed
+subspace $f^{-1}Z$ of $X$.
+\item For a quasi-coherent $\mathcal{O}_X$-module $\mathcal{F}$ the
+strict transform $\mathcal{F}'$ is canonically isomorphic to
+the pushforward along $X' \to X \times_B B'$ of the strict transform of
+$\mathcal{F}$ relative to the blowing up $X' \to X$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $X'' \to X$ be the blowup of $X$ in $f^{-1}Z$. By the universal
+property of blowing up (Lemma \ref{lemma-universal-property-blowing-up})
+there exists a commutative diagram
+$$
+\xymatrix{
+X'' \ar[r] \ar[d] & X \ar[d] \\
+B' \ar[r] & B
+}
+$$
+whence a morphism $i : X'' \to X \times_B B'$. The first assertion
+of the lemma is that $i$ is a closed immersion with image $X'$.
+The second assertion of the lemma is that $\mathcal{F}' = i_*\mathcal{F}''$
+where $\mathcal{F}''$ is the strict transform of $\mathcal{F}$ with
+respect to the blowing up $X'' \to X$. We can check these assertions
+\'etale locally on $X$, hence we reduce to the case of schemes
+(Divisors, Lemma \ref{divisors-lemma-strict-transform}).
+Some details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-flat}
+In the situation of Definition \ref{definition-strict-transform}.
+\begin{enumerate}
+\item If $X$ is flat over $B$ at all points lying over $Z$, then
+the strict transform of $X$ is equal to the base change $X \times_B B'$.
+\item Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+If $\mathcal{F}$ is flat over $B$ at all points lying over $Z$, then
+the strict transform $\mathcal{F}'$ of $\mathcal{F}$ is equal to the
+pullback $\text{pr}_X^*\mathcal{F}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Follows from the case of schemes
+(Divisors, Lemma \ref{divisors-lemma-strict-transform-flat})
+by \'etale localization
+(Lemma \ref{lemma-strict-transform-local}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-affine}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $Z \subset B$ be a closed subspace.
+Let $b : B' \to B$ be the blowing up of $Z$ in $B$. Let
+$g : X \to Y$ be an affine morphism of spaces over $B$.
+Let $\mathcal{F}$ be a quasi-coherent sheaf on $X$.
+Let $g' : X \times_B B' \to Y \times_B B'$ be the base change
+of $g$. Let $\mathcal{F}'$ be the strict transform of $\mathcal{F}$
+relative to $b$. Then $g'_*\mathcal{F}'$ is the strict transform
+of $g_*\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Follows from the case of schemes
+(Divisors, Lemma \ref{divisors-lemma-strict-transform-affine})
+by \'etale localization (Lemma \ref{lemma-strict-transform-local}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-different-centers}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $Z \subset B$ be a closed subspace.
+Let $D \subset B$ be an effective Cartier divisor.
+Let $Z' \subset B$ be the closed subspace cut out by the product
+of the ideal sheaves of $Z$ and $D$.
+Let $B' \to B$ be the blowup of $B$ in $Z$.
+\begin{enumerate}
+\item The blowup of $B$ in $Z'$ is isomorphic to $B' \to B$.
+\item Let $f : X \to B$ be a morphism of algebraic spaces and let $\mathcal{F}$
+be a quasi-coherent $\mathcal{O}_X$-module. If the subsheaf of $\mathcal{F}$ of
+sections supported on $|f^{-1}D|$ is zero, then the
+strict transform of $\mathcal{F}$ relative to the blowing up
+in $Z$ agrees with the strict transform of $\mathcal{F}$ relative
+to the blowing up of $B$ in $Z'$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Follows from the case of schemes
+(Divisors, Lemma \ref{divisors-lemma-strict-transform-different-centers})
+by \'etale localization (Lemma \ref{lemma-strict-transform-local}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-composition-blowups}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $Z \subset B$ be a closed subspace.
+Let $b : B' \to B$ be the blowing up with center $Z$.
+Let $Z' \subset B'$ be a closed subspace.
+Let $B'' \to B'$ be the blowing up with center $Z'$.
+Let $Y \subset B$ be a closed subscheme such that
+$|Y| = |Z| \cup |b|(|Z'|)$ and the composition $B'' \to B$
+is isomorphic to the blowing up of $B$ in $Y$.
+In this situation, given any scheme $X$ over $B$ and
+$\mathcal{F} \in \QCoh(\mathcal{O}_X)$ we have
+\begin{enumerate}
+\item the strict transform of $\mathcal{F}$ with respect to the blowing
+up of $B$ in $Y$ is equal to the strict transform with respect to the
+blowup $B'' \to B'$ in $Z'$ of the strict transform of $\mathcal{F}$
+with respect to the blowup $B' \to B$ of $B$ in $Z$, and
+\item the strict transform of $X$ with respect to the blowing
+up of $B$ in $Y$ is equal to the strict transform with respect to the
+blowup $B'' \to B'$ in $Z'$ of the strict transform of $X$
+with respect to the blowup $B' \to B$ of $B$ in $Z$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Follows from the case of schemes
+(Divisors, Lemma \ref{divisors-lemma-strict-transform-composition-blowups})
+by \'etale localization (Lemma \ref{lemma-strict-transform-local}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-universally-injective}
+In the situation of Definition \ref{definition-strict-transform}.
+Suppose that
+$$
+0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0
+$$
+is an exact sequence of quasi-coherent sheaves on $X$ which remains
+exact after any base change $T \to B$. Then the strict transforms of
+$\mathcal{F}_i'$ relative to any blowup $B' \to B$
+form a short exact sequence
+$0 \to \mathcal{F}'_1 \to \mathcal{F}'_2 \to \mathcal{F}'_3 \to 0$ too.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Follows from the case of schemes
+(Divisors, Lemma \ref{divisors-lemma-strict-transform-universally-injective})
+by \'etale localization (Lemma \ref{lemma-strict-transform-local}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-blowup-fitting-ideal}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a finite type quasi-coherent $\mathcal{O}_B$-module.
+Let $Z_k \subset S$ be the closed subscheme cut out by
+$\text{Fit}_k(\mathcal{F})$, see Section \ref{section-fitting-ideals}.
+Let $B' \to B$ be the blowup of $B$ in $Z_k$ and let
+$\mathcal{F}'$ be the strict transform of $\mathcal{F}$.
+Then $\mathcal{F}'$ can locally be generated by $\leq k$
+sections.
+\end{lemma}
+
+\begin{proof}
+Omitted. Follows from the case of schemes
+(Divisors, Lemma \ref{divisors-lemma-strict-transform-blowup-fitting-ideal})
+by \'etale localization (Lemma \ref{lemma-strict-transform-local}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-transform-blowup-fitting-ideal-locally-free}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $\mathcal{F}$ be a finite type quasi-coherent $\mathcal{O}_B$-module.
+Let $Z_k \subset S$ be the closed subscheme cut out by
+$\text{Fit}_k(\mathcal{F})$, see Section \ref{section-fitting-ideals}.
+Assume that $\mathcal{F}$ is locally free of rank $k$ on $B \setminus Z_k$.
+Let $B' \to B$ be the blowup of $B$ in $Z_k$ and let
+$\mathcal{F}'$ be the strict transform of $\mathcal{F}$.
+Then $\mathcal{F}'$ is locally free of rank $k$.
+\end{lemma}
+
+\begin{proof}
+Omitted. Follows from the case of schemes
+(Divisors, Lemma
+\ref{divisors-lemma-strict-transform-blowup-fitting-ideal-locally-free})
+by \'etale localization (Lemma \ref{lemma-strict-transform-local}).
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Admissible blowups}
+\label{section-admissible-blowups}
+
+\noindent
+To have a bit more control over our blowups we introduce the following
+standard terminology.
+
+\begin{definition}
+\label{definition-admissible-blowup}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $U \subset X$ be an open subspace. A morphism
+$X' \to X$ is called a {\it $U$-admissible blowup} if there exists a
+closed immersion $Z \to X$ of finite presentation with $Z$ disjoint from
+$U$ such that $X'$ is isomorphic to the blow up of $X$ in $Z$.
+\end{definition}
+
+\noindent
+We recall that $Z \to X$ is of finite presentation if and only if the
+ideal sheaf $\mathcal{I}_Z \subset \mathcal{O}_X$ is of finite type, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-closed-immersion-finite-presentation}.
+In particular, a $U$-admissible blowup is a proper morphism, see
+Lemma \ref{lemma-blowing-up-projective}.
+Note that there can be multiple centers which give rise to the same morphism.
+Hence the requirement is just the existence of some center disjoint from
+$U$ which produces $X'$.
+Finally, as the morphism $b : X' \to X$ is an isomorphism over $U$ (see
+Lemma \ref{lemma-blowing-up-gives-effective-Cartier-divisor}) we will often
+abuse notation and think of $U$ as an open subspace of $X'$ as well.
+
+\begin{lemma}
+\label{lemma-composition-admissible-blowups}
+Let $S$ be a scheme.
+Let $X$ be a quasi-compact and quasi-separated algebraic space over $S$.
+Let $U \subset X$ be a quasi-compact open subspace.
+Let $b : X' \to X$ be a $U$-admissible blowup.
+Let $X'' \to X'$ be a $U$-admissible blowup.
+Then the composition $X'' \to X$ is a $U$-admissible blowup.
+\end{lemma}
+
+\begin{proof}
+Immediate from the more precise
+Lemma \ref{lemma-composition-finite-type-blowups}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extend-admissible-blowups}
+Let $S$ be a scheme.
+Let $X$ be a quasi-compact and quasi-separated algebraic space.
+Let $U, V \subset X$ be quasi-compact open subspaces.
+Let $b : V' \to V$ be a $U \cap V$-admissible blowup.
+Then there exists a $U$-admissible blowup $X' \to X$
+whose restriction to $V$ is $V'$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{I} \subset \mathcal{O}_V$ be the finite type
+quasi-coherent sheaf of ideals such that $V(\mathcal{I})$ is
+disjoint from $U \cap V$ and such that $V'$ is isomorphic to the
+blow up of $V$ in $\mathcal{I}$. Let
+$\mathcal{I}' \subset \mathcal{O}_{U \cup V}$ be the quasi-coherent
+sheaf of ideals whose restriction to $U$ is $\mathcal{O}_U$ and
+whose restriction to $V$ is $\mathcal{I}$.
+By Limits of Spaces, Lemma \ref{spaces-limits-lemma-extend}
+there exists a finite type quasi-coherent sheaf of ideals
+$\mathcal{J} \subset \mathcal{O}_X$ whose restriction to $U \cup V$ is
+$\mathcal{I}'$. The lemma follows.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dominate-admissible-blowups}
+Let $S$ be a scheme.
+Let $X$ be a quasi-compact and quasi-separated algebraic space over $S$.
+Let $U \subset X$ be a quasi-compact open subspace.
+Let $b_i : X_i \to X$, $i = 1, \ldots, n$ be $U$-admissible blowups.
+There exists a $U$-admissible blowup $b : X' \to X$ such that
+(a) $b$ factors as $X' \to X_i \to X$ for $i = 1, \ldots, n$ and
+(b) each of the morphisms $X' \to X_i$ is a $U$-admissible blowup.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{I}_i \subset \mathcal{O}_X$ be the finite type
+quasi-coherent sheaf of ideals such that $V(\mathcal{I}_i)$ is
+disjoint from $U$ and such that $X_i$ is isomorphic to the
+blow up of $X$ in $\mathcal{I}_i$. Set
+$\mathcal{I} = \mathcal{I}_1 \cdot \ldots \cdot \mathcal{I}_n$
+and let $X'$ be the blowup of $X$ in $\mathcal{I}$. Then
+$X' \to X$ factors through $b_i$ by Lemma \ref{lemma-blowing-up-two-ideals}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-separate-disjoint-opens-by-blowing-up}
+Let $S$ be a scheme.
+Let $X$ be a quasi-compact and quasi-separated algebraic space over $S$.
+Let $U, V$ be quasi-compact disjoint open subspaces of $X$.
+Then there exist a $U \cup V$-admissible blowup $b : X' \to X$
+such that $X'$ is a disjoint union of open subspaces
+$X' = X'_1 \amalg X'_2$ with $b^{-1}(U) \subset X'_1$ and
+$b^{-1}(V) \subset X'_2$.
+\end{lemma}
+
+\begin{proof}
+Choose a finite type quasi-coherent sheaf of ideals $\mathcal{I}$,
+resp.\ $\mathcal{J}$ such that $X \setminus U = V(\mathcal{I})$,
+resp.\ $X \setminus V = V(\mathcal{J})$, see
+Limits of Spaces, Lemma
+\ref{spaces-limits-lemma-quasi-coherent-finite-type-ideals}.
+Then $|V(\mathcal{I}\mathcal{J})| = |X|$. Hence
+$\mathcal{I}\mathcal{J}$ is a locally nilpotent sheaf of ideals.
+Since $\mathcal{I}$ and $\mathcal{J}$ are of finite type and $X$
+is quasi-compact there exists an $n > 0$ such that
+$\mathcal{I}^n \mathcal{J}^n = 0$. We may and do replace $\mathcal{I}$
+by $\mathcal{I}^n$ and $\mathcal{J}$ by $\mathcal{J}^n$. Whence
+$\mathcal{I} \mathcal{J} = 0$. Let $b : X' \to X$ be the blowing
+up in $\mathcal{I} + \mathcal{J}$. This is $U \cup V$-admissible
+as $|V(\mathcal{I} + \mathcal{J})| = |X| \setminus |U| \cup |V|$.
+We will show that $X'$ is a disjoint union of open subspaces
+$X' = X'_1 \amalg X'_2$ as in the statement of the lemma.
+
+\medskip\noindent
+Since $|V(\mathcal{I} + \mathcal{J})|$ is the complement of
+$|U \cup V|$ we conclude that $V \cup U$ is scheme theoretically
+dense in $X'$, see
+Lemmas \ref{lemma-blowing-up-gives-effective-Cartier-divisor} and
+\ref{lemma-complement-effective-Cartier-divisor}.
+Thus if such a decomposition $X' = X'_1 \amalg X'_2$
+into open and closed subspaces exists, then $X'_1$ is the
+scheme theoretic closure of $U$ in $X'$ and similarly $X'_2$ is
+the scheme theoretic closure of $V$ in $X'$. Since $U \to X'$
+and $V \to X'$ are quasi-compact taking scheme theoretic
+closures commutes with \'etale localization (Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-quasi-compact-scheme-theoretic-image}).
+Hence to verify the existence of $X'_1$ and $X'_2$ we may work \'etale
+locally on $X$. This reduces us to the case of schemes which is
+treated in the proof of Divisors, Lemma
+\ref{divisors-lemma-separate-disjoint-opens-by-blowing-up}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

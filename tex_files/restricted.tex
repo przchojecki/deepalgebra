@@ -1,0 +1,3080 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Restricted Power Series}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+The title of this chapter is a bit misleading because the most
+basic material on restricted power series is in the chapter on
+formal algebraic spaces. For example
+Formal Spaces, Section \ref{formal-spaces-section-restricted-power-series}
+defines the restricted power series ring $A\{x_1, \ldots, x_n\}$
+given a linearly topologized ring $A$. In
+Formal Spaces, Section \ref{formal-spaces-section-tft}
+we discuss the relationship between these restricted power
+series rings and morphisms of finite type between
+locally countably indexed formal algebraic spaces.
+
+\medskip\noindent
+Let $A$ be a Noetherian ring and let $I \subset A$ be an ideal. In the
+first part of this chapter
+(Sections \ref{section-two-categories} -- \ref{section-over-G-ring})
+we discuss the category of $I$-adically complete algebras $B$
+topologically of finite type over a Noetherian ring $A$.
+It is shown that $B = A\{x_1, \ldots, x_n\}/J$ for some
+(closed) ideal $J$ in the restricted power series ring
+(where $A$ is endowed with the $I$-adic topology).
+We show there is a good notion of a naive cotangent complex
+$\NL_{B/A}^\wedge$. If some power of $I$ annihilates
+$\NL_{B/A}^\wedge$, then we think of $\text{Spf}(B)$ as
+a rig-\'etale formal algebraic space over $A$. This leads to
+a definition of rig-\'etale morphisms of Noetherian
+formal algebraic spaces. After a certain amount of work
+we are able to prove the main result of the first part:
+if $\text{Spf}(B)$ is rig-\'etale over $A$ as above,
+then there exists a finite type $A$-algebra $C$
+such that $B$ is isomorphic to the $I$-adic completion of $C$, see
+Lemma \ref{lemma-approximate-by-etale-over-complement}.
+One thing to note here is that we prove this without assuming
+the ring $A$ is excellent or even a G-ring. In the last section
+of the first part we show that under the assumption that
+$A$ is a G-ring there is a straightforward
+proof of the lemma based on Popescu's theorem.
+
+\medskip\noindent
+Many of the results discussed in the first part can be found in the paper
+\cite{Elkik}. Other general references for this part are
+\cite{EGA}, \cite{Abbes}, and \cite{Fujiwara-Kato}.
+
+\medskip\noindent
+In the second part of this chapter we use the main result of
+the first part to prove Artin's result on dilatations from \cite{ArtinII}.
+The result on contractions will be the subject of a later chapter
+(insert future reference here).
+The main existence theorem is the equivalence of categories in
+Theorem \ref{theorem-dilatations-general}.
+It is more general than Artin's result in that it shows that any
+rig-\'etale morphism $f : W \to \Spec(A)_{/V(I)}$
+is the completion of a morphism $Y \to \Spec(A)$
+of algebraic spaces $X$ which is locally of finite type
+and isomorphism away from $V(I)$. In Artin's work
+the morphism $f$ is assumed proper and rig-surjective.
+A special case of this is the main lemma mentioned
+above and the general case follows from this by
+a straightforward (somewhat lengthy) glueing procedure.
+There are several lemmas modifying the main theorem
+the final one of which is (almost) exactly the statement in
+Artin's paper.
+In the last section we apply the results to modifications
+of $\Spec(A)$ before and after completion.
+
+
+
+
+
+
+
+
+
+\section{Two categories}
+\label{section-two-categories}
+
+\noindent
+Let $A$ be a ring and let $I \subset A$ be an ideal.
+In this section ${}^\wedge$ will mean $I$-adic completion.
+Set $A_n = A/I^n$ so that the $I$-adic completion of $A$ is
+$A^\wedge = \lim A_n$. Let $\mathcal{C}$ be the
+category
+\begin{equation}
+\label{equation-C}
+\mathcal{C} =
+\left\{
+\begin{matrix}
+\text{systems }(B_n, B_{n + 1} \to B_n)_{n \in \mathbf{N}}\text{ where }\\
+B_n\text{ is a finite type }A_n\text{-algebra,}\\
+B_{n + 1} \to B_n\text{ is an }A_{n + 1}\text{-algebra map}\\
+\text{which induces }B_{n + 1}/I^nB_{n + 1} \cong B_n
+\end{matrix}
+\right\}
+\end{equation}
+Morphisms in $\mathcal{C}$ are given by systems of homomorphisms.
+Let $\mathcal{C}'$ be the category
+\begin{equation}
+\label{equation-C-prime}
+\mathcal{C}' =
+\left\{
+\begin{matrix}
+A\text{-algebras }B\text{ which are }I\text{-adically complete}\\
+\text{such that }B/IB\text{ is of finite type over }A/I
+\end{matrix}
+\right\}
+\end{equation}
+Morphisms in $\mathcal{C}'$ are $A$-algebra maps. There is a functor
+\begin{equation}
+\label{equation-from-complete-to-systems}
+\mathcal{C}' \longrightarrow \mathcal{C},\quad
+B \longmapsto (B/I^nB)
+\end{equation}
+Indeed, since $B/IB$ is of finite type over $A/I$ the ring maps
+$A_n = A/I^n \to B/I^nB$ are of finite type
+(apply Algebra, Lemma \ref{algebra-lemma-NAK}
+to a ring map $A/I^n[x_1, \ldots, x_r] \to B/I^nB$
+such that the images of $x_1, \ldots, x_r$ generate $B/IB$
+over $A/I$).
+
+\begin{lemma}
+\label{lemma-topologically-finite-type}
+Let $A$ be a ring and let $I \subset A$ be a finitely generated ideal.
+The functor
+$$
+\mathcal{C} \longrightarrow \mathcal{C}',\quad
+(B_n) \longmapsto B = \lim B_n
+$$
+is a quasi-inverse to (\ref{equation-from-complete-to-systems}).
+The completions $A[x_1, \ldots, x_r]^\wedge$ are in $\mathcal{C}'$ and
+any object of $\mathcal{C}'$ is of the form
+$$
+B = A[x_1, \ldots, x_r]^\wedge / J
+$$
+for some ideal $J \subset A[x_1, \ldots, x_r]^\wedge$.
+\end{lemma}
+
+\begin{proof}
+Let $(B_n)$ be an object of $\mathcal{C}$. By
+Algebra, Lemma \ref{algebra-lemma-limit-complete}
+we see that $B = \lim B_n$ is $I$-adically complete
+and $B/I^nB = B_n$. Hence we see that $B$ is an object of
+$\mathcal{C}'$ and that we can recover the object $(B_n)$ 
+by taking the quotients.
+Conversely, if $B$ is an object of $\mathcal{C}'$, then
+$B = \lim B/I^nB$ by assumption. Thus $B \mapsto (B/I^nB)$ is a quasi-inverse
+to the functor of the lemma.
+
+\medskip\noindent
+Since $A[x_1, \ldots, x_r]^\wedge = \lim A_n[x_1, \ldots, x_r]$
+it is an object of $\mathcal{C}'$ by the first statement of the lemma.
+Finally, let $B$ be an object of $\mathcal{C}'$. Choose
+$b_1, \ldots, b_r \in B$ whose images in $B/IB$ generate
+$B/IB$ as an algebra over $A/I$. Since $B$ is $I$-adically
+complete, the $A$-algebra map $A[x_1, \ldots, x_r] \to B$, $x_i \mapsto b_i$
+extends to an $A$-algebra map $A[x_1, \ldots, x_r]^\wedge \to B$.
+To finish the proof we have to show this map is surjective
+which follows from Algebra, Lemma \ref{algebra-lemma-completion-generalities}
+as our map $A[x_1, \ldots, x_r] \to B$ is surjective modulo $I$
+and as $B = B^\wedge$.
+\end{proof}
+
+\noindent
+We warn the reader that, in case $A$ is not Noetherian, the
+quotient of an object of $\mathcal{C}'$ may not be an object
+of $\mathcal{C}'$. See Examples, Lemma
+\ref{examples-lemma-noncomplete-quotient}.
+Next we show this does not happen when $A$ is Noetherian.
+
+\begin{lemma}
+\label{lemma-topologically-finite-type-Noetherian}
+\begin{reference}
+\cite[Proposition 7.5.5]{EGA1}
+\end{reference}
+Let $A$ be a Noetherian ring and let $I \subset A$ be an ideal. Then
+\begin{enumerate}
+\item every object of the category $\mathcal{C}'$, in particular the
+completion $A[x_1, \ldots, x_r]^\wedge$, is Noetherian,
+\item if $B$ is an object of $\mathcal{C}'$ and $J \subset B$ is an
+ideal, then $B/J$ is an object of $\mathcal{C}'$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+To see (1) by Lemma \ref{lemma-topologically-finite-type}
+we reduce to the case of the completion of the polynomial ring.
+This case follows from
+Algebra, Lemma \ref{algebra-lemma-completion-Noetherian-Noetherian}
+as $A[x_1, \ldots, x_r]$ is Noetherian
+(Algebra, Lemma \ref{algebra-lemma-Noetherian-permanence}).
+Part (2) follows from Algebra, Lemma \ref{algebra-lemma-completion-tensor}
+which tells us that ever finite $B$-module is
+$IB$-adically complete.
+\end{proof}
+
+\begin{remark}[Base change]
+\label{remark-base-change}
+Let $\varphi : A_1 \to A_2$ be a ring map and let
+$I_i \subset A_i$ be ideals such that $\varphi(I_1^c) \subset I_2$
+for some $c \geq 1$. This induces ring maps
+$A_{1, cn} = A_1/I_1^{cn} \to A_2/I_2^n = A_{2, n}$ for all $n \geq 1$.
+Let $\mathcal{C}_i$ be the category (\ref{equation-C}) for $(A_i, I_i)$.
+There is a base change functor
+\begin{equation}
+\label{equation-base-change-systems}
+\mathcal{C}_1 \longrightarrow \mathcal{C}_2,\quad
+(B_n) \longmapsto (B_{cn} \otimes_{A_{1, cn}} A_{2, n})
+\end{equation}
+Let $\mathcal{C}_i'$ be the category (\ref{equation-C-prime}) for $(A_i, I_i)$.
+If $I_2$ is finitely generated, then there is a base change functor
+\begin{equation}
+\label{equation-base-change-complete}
+\mathcal{C}_1' \longrightarrow \mathcal{C}_2',\quad
+B \longmapsto (B \otimes_{A_1} A_2)^\wedge
+\end{equation}
+because in this case the completion is complete
+(Algebra, Lemma \ref{algebra-lemma-hathat-finitely-generated}).
+If both $I_1$ and $I_2$ are finitely generated, then
+the two base change functors agree via the functors
+(\ref{equation-from-complete-to-systems})
+which are equivalences by Lemma \ref{lemma-topologically-finite-type}.
+\end{remark}
+
+\begin{remark}[Base change by closed immersion]
+\label{remark-take-bar}
+Let $A$ be a Noetherian ring and $I \subset A$ an ideal.
+Let $\mathfrak a \subset A$ be an ideal. Denote $\bar A = A/\mathfrak a$.
+Let $\bar I \subset \bar A$ be an ideal such that
+$I^c \bar A \subset \bar I$ and $\bar I^d \subset I\bar A$
+for some $c, d \geq 1$. In this case the base change functor
+(\ref{equation-base-change-complete}) for $(A, I)$ to $(\bar A, \bar I)$
+is given by $B \mapsto \bar B = B/\mathfrak aB$. Namely, we have
+\begin{equation}
+\label{equation-base-change-to-closed}
+\bar B = (B \otimes_A \bar A)^\wedge = (B/\mathfrak a B)^\wedge =
+B/\mathfrak a B
+\end{equation}
+the last equality because any finite $B$-module is $I$-adically complete by
+Algebra, Lemma \ref{algebra-lemma-completion-tensor}
+and if annihilated by $\mathfrak a$ also $\bar I$-adically complete by
+Algebra, Lemma \ref{algebra-lemma-change-ideal-completion}.
+\end{remark}
+
+
+
+
+
+
+
+\section{A naive cotangent complex}
+\label{section-naive-cotangent-complex}
+
+\noindent
+Let $A$ be a Noetherian ring and let $I \subset A$ be a ideal.
+Let $B$ be an $A$-algebra which is $I$-adically complete such
+that $A/I \to B/IB$ is of finite type, i.e., an object of
+(\ref{equation-C-prime}).
+By Lemma \ref{lemma-topologically-finite-type-Noetherian} we can write
+$$
+B = A[x_1, \ldots, x_r]^\wedge / J
+$$
+for some finitely generated ideal $J$. For a choice of presentation as
+above we define the naive cotangent complex in this setting by the formula
+\begin{equation}
+\label{equation-NL}
+\NL^\wedge_{B/A} = (J/J^2 \longrightarrow \bigoplus B\text{d}x_i)
+\end{equation}
+with terms sitting in degrees $-1$ and $0$
+where the map sends the residue class of $g \in J$ to the differential
+$\text{d}g = \sum (\partial g/\partial x_i) \text{d}x_i$. Here
+the partial derivative is taken by thinking of $g$ as a power series.
+The following lemma shows that $\NL^\wedge_{B/A}$ is well defined
+in $D(B)$, i.e., independent of the chosen presentation, although this
+could be shown directly by comparing presentations as in
+Algebra, Section \ref{algebra-section-netherlander}.
+
+\begin{lemma}
+\label{lemma-NL-is-limit}
+Let $A$ be a Noetherian ring and let $I \subset A$ be a ideal.
+Let $B$ be an object of (\ref{equation-C-prime}). Then
+$\NL^\wedge_{B/A} = R\lim \NL_{B_n/A_n}$ in $D(B)$.
+\end{lemma}
+
+\begin{proof}
+In fact, the presentation $B = A[x_1, \ldots, x_r]^\wedge / J$
+defines presentations
+$$
+B_n = B/I^nB = A_n[x_1, \ldots, x_r]/J_n
+$$
+where
+$$
+J_n = JA_n[x_1, \ldots, x_r] =
+J/(J \cap I^nA[x_1, \ldots, x_r]^\wedge)
+$$
+By Artin-Rees (Algebra, Lemma \ref{algebra-lemma-Artin-Rees})
+in the Noetherian ring $A[x_1, \ldots, x_r]^\wedge$
+(Lemma \ref{lemma-topologically-finite-type-Noetherian})
+we see that we have canonical surjections
+$$
+J/I^nJ \to J_n \to J/I^{n - c}J,\quad n \geq c
+$$
+for some $c \geq 0$.
+It follows that $\lim J_n/J_n^2 = J/J^2$ as any finite
+$A[x_1, \ldots, x_r]^\wedge$-module is $I$-adically complete
+(Algebra, Lemma \ref{algebra-lemma-completion-tensor}).
+Thus
+$$
+\NL^\wedge_{B/A} =
+\lim (J_n/J_n^2 \longrightarrow \bigoplus B_n \text{d}x_i)
+$$
+(termwise limit)
+and the transition maps in the system are termwise surjective.
+The two term complex $J_n/J_n^2 \longrightarrow \bigoplus B_n \text{d}x_i$
+represents $\NL_{B_n/A_n}$ by
+Algebra, Section \ref{algebra-section-netherlander}.
+It follows that $\NL^\wedge_{B/A}$ represents
+$R\lim \NL_{B_n/A_n}$ in the derived category by
+More on Algebra, Lemma \ref{more-algebra-lemma-compute-Rlim-modules}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-exact-sequence-NL}
+Let $A$ be a Noetherian ring and let $I \subset A$ be a ideal.
+Let $B \to C$ be morphism of (\ref{equation-C-prime}). Then
+there is an exact sequence
+$$
+\xymatrix{
+C \otimes_B H^0(\NL^\wedge_{B/A}) \ar[r] &
+H^0(\NL^\wedge_{C/A}) \ar[r] &
+H^0(\NL^\wedge_{C/B}) \ar[r] & 0 \\
+H^{-1}(\NL^\wedge_{B/A} \otimes_B C) \ar[r] &
+H^{-1}(\NL^\wedge_{C/A}) \ar[r] &
+H^{-1}(\NL^\wedge_{C/B}) \ar[llu]
+}
+$$
+\end{lemma}
+
+\begin{proof}
+Choose a presentation $B = A[x_1, \ldots, x_r]^\wedge/J$.
+Note that $(B, IB)$ is a pair consisting of a Noetherian ring
+and an ideal, and $C$ is in the corresponding category (\ref{equation-C-prime})
+for this pair. Hence we can choose a presentation
+$C = B[y_1, \ldots, y_s]^\wedge/J'$. Combinging these presentations
+gives a presentation
+$$
+C = A[x_1, \ldots, x_r, y_1, \ldots, y_s]^\wedge/K
+$$
+Then the reader verifies that we obtain a commutative diagram
+$$
+\xymatrix{
+0 \ar[r] &
+\bigoplus C \text{d}x_i \ar[r] &
+\bigoplus C \text{d}x_i \oplus \bigoplus C \text{d}y_j \ar[r] &
+\bigoplus C \text{d}y_j \ar[r] &
+0 \\
+&
+J/J^2 \otimes_B C \ar[r] \ar[u] &
+K/K^2 \ar[r] \ar[u] &
+J'/(J')^2 \ar[r] \ar[u] &
+0
+}
+$$
+with exact rows. Note that the vertical arrow on the left hand side
+is the tensor product of the arrow defining $\NL^\wedge_{B/A}$ with
+$\text{id}_C$. The lemma follows by applying the snake lemma
+(Algebra, Lemma \ref{algebra-lemma-snake}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-transitive-lci-at-end}
+With assumptions as in Lemma \ref{lemma-exact-sequence-NL}
+assume that $B/I^nB \to C/I^nC$ is a local complete intersection
+homomorphism for all $n$. Then
+$H^{-1}(\NL^\wedge_{B/A} \otimes_B C) \to H^{-1}(\NL^\wedge_{C/A})$
+is injective.
+\end{lemma}
+
+\begin{proof}
+By More on Algebra, Lemma \ref{more-algebra-lemma-transitive-lci-at-end}
+we see that this holds for the map between naive cotangent complexes
+of the situation modulo $I^n$ for all $n$. In other words, we obtain
+a distinguished triangle in $D(C/I^nC)$ for every $n$. Using
+Lemma \ref{lemma-NL-is-limit}
+this implies the lemma; details omitted.
+\end{proof}
+
+\noindent
+Maps in the derived category out of a complex such as (\ref{equation-NL})
+are easy to understand by the result of the following lemma.
+
+\begin{lemma}
+\label{lemma-map-out-of-almost-free}
+Let $R$ be a ring. Let $M^\bullet$ be a complex of modules over $R$
+with $M^i = 0$ for $i > 0$ and $M^0$ a projective $R$-module.
+Let $K^\bullet$ be a second complex.
+\begin{enumerate}
+\item If $K^i = 0$ for $i \leq -2$, then
+$\Hom_{D(R)}(M^\bullet, K^\bullet) = \Hom_{K(R)}(M^\bullet, K^\bullet)$,
+\item If $K^i = 0$ for $i \leq -3$ and
+$\alpha \in \Hom_{D(R)}(M^\bullet, K^\bullet)$ composed with
+$K^\bullet \to K^{-2}[2]$ comes from an $R$-module map
+$a : M^{-2} \to K^{-2}$ with $a \circ d_M^{-3} = 0$, then
+$\alpha$ can be represented by a map of complexes
+$a^\bullet : M^\bullet \to K^\bullet$ with $a^{-2} = a$.
+\item In (2) for any second map of complexes
+$(a')^\bullet : M^\bullet \to K^\bullet$
+representing $\alpha$ with $a = (a')^{-2}$
+there exist $h' : M^0 \to K^{-1}$ and
+$h : M^{-1} \to K^{-2}$ such that
+$$
+h \circ d_M^{-2} = 0, \quad
+(a')^{-1} = a^{-1} + d_K^{-2} \circ h + h' \circ d_M^{-1},\quad
+(a')^0 = a^0 + d_K^{-1} \circ h'
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Set $F^0 = M^0$.
+Choose a free $R$-module $F^{-1}$ and a surjection $F^{-1} \to M^{-1}$.
+Choose a free $R$-module $F^{-2}$ and a surjection
+$F^{-2} \to M^{-2} \times_{M^{-1}} F^{-1}$. Continuing in this
+way we obtain a quasi-isomorphism $p^\bullet : F^\bullet \to M^\bullet$
+which is termwise surjective and with $F^i$ free for all $i$.
+
+\medskip\noindent
+Proof of (1). By
+Derived Categories, Lemma \ref{derived-lemma-morphisms-from-projective-complex}
+we have
+$$
+\Hom_{D(R)}(M^\bullet, K^\bullet) = \Hom_{K(R)}(F^\bullet, K^\bullet)
+$$
+If $K^i = 0$ for $i \leq -2$, then any morphism of complexes
+$F^\bullet \to K^\bullet$ factors through $p^\bullet$. Similarly, any
+homotopy $\{h^i : F^i \to K^{i - 1}\}$ factors through $p^\bullet$.
+Thus (1) holds.
+
+\medskip\noindent
+Proof of (2). Choose $b^\bullet : F^\bullet \to K^\bullet$ representing
+$\alpha$. The composition of $\alpha$ with $K^\bullet \to K^{-2}[2]$ is
+represented by $b^{-2} : F^{-2} \to K^{-2}$. As this is homotopic to
+$a \circ p^{-2} : F^{-2} \to M^{-2} \to K^{-2}$, there is a map
+$h : F^{-1} \to K^{-2}$ such that $b^{-2} = a \circ p^{-2} + h \circ d_F^{-2}$.
+Adjusting $b^\bullet$ by $h$ viewed as a homotopy from $F^\bullet$
+to $K^\bullet$, we find that $b^{-2} = a \circ p^{-2}$. Hence $b^{-2}$
+factors through $p^{-2}$. Since $F^0 = M^0$ the kernel of $p^{-2}$
+surjects onto the kernel of $p^{-1}$ (for example because the kernel
+of $p^\bullet$ is an acyclic complex or by a diagram chase). Hence $b^{-1}$
+necessarily factors through $p^{-1}$ as well and we see that (2)
+holds for these factorizations and $a^0 = b^0$.
+
+\medskip\noindent
+Proof of (3) is omitted. Hint: There is a homotopy between
+$a^\bullet \circ p^\bullet$ and $(a')^\bullet \circ p^\bullet$
+and we argue as before that this homotopy factors through $p^\bullet$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-zero-in-derived}
+Let $R$ be a ring. Let $M^\bullet$ be a two term complex $M^{-1} \to M^0$
+over $R$. If $\varphi, \psi \in \text{End}_{D(R)}(M^\bullet)$
+are zero on $H^i(M^\bullet)$, then $\varphi \circ \psi = 0$.
+\end{lemma}
+
+\begin{proof}
+Apply
+Derived Categories, Lemma \ref{derived-lemma-trick-vanishing-composition}
+to see that $\varphi \circ \psi$ factors through $\tau_{\leq -2}M^\bullet = 0$.
+\end{proof}
+
+
+
+\section{Rig-\'etale homomorphisms}
+\label{section-rig-etale}
+
+\noindent
+In this and some of the later sections we will study ring maps as
+in Lemma \ref{lemma-equivalent-with-artin}. Condition
+(\ref{item-condition-artin}) is one of the conditions used in
+\cite{ArtinII} to define modifications. Ring maps like this are sometimes
+called rig-\'etale or rigid-\'etale ring maps in the literature. These and
+the analogously defined rig-smooth ring maps were studied
+in \cite{Elkik}. A detailed exposition can also be found in
+\cite{Abbes}. Our main goal will be to show that rig-\'etale
+ring maps are completions of finite type algebras, a result
+very similar to results found in Elkik's paper \cite{Elkik}.
+
+\begin{lemma}
+\label{lemma-equivalent-with-artin}
+Let $A$ be a Noetherian ring and let $I \subset A$ be an ideal.
+Let $B$ be an object of (\ref{equation-C-prime}). The following are equivalent
+\begin{enumerate}
+\item
+\label{item-zero-on-NL}
+there exists a $c \geq 0$ such that multiplication by $a$
+on $\NL^\wedge_{B/A}$ is zero in $D(B)$ for all $a \in I^c$,
+\item
+\label{item-zero-on-cohomology-NL}
+there exits a $c \geq 0$ such that $H^i(\NL^\wedge_{B/A})$, $i = -1, 0$ is
+annihilated by $I^c$,
+\item
+\label{item-zero-on-cohomology-NL-truncations}
+there exists a $c \geq 0$ such that $H^i(\NL_{B_n/A_n})$, $i = -1, 0$ is
+annihilated by $I^c$ for all $n \geq 1$,
+\item
+\label{item-condition-artin}
+$B = A[x_1, \ldots, x_r]^\wedge/J$ and
+for every $a \in I$ there exists a $c \geq 0$ such that
+\begin{enumerate}
+\item $a^c$ annihilates $H^0(\NL^\wedge_{B/A})$, and
+\item there exist $f_1, \ldots, f_r \in J$ such that
+$a^c J \subset (f_1, \ldots, f_r) + J^2$.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (1) and (2) follows from
+Lemma \ref{lemma-zero-in-derived}.
+The equivalence of (1) $+$ (2) and (3) follows from
+Lemma \ref{lemma-NL-is-limit}. Some details omitted.
+
+\medskip\noindent
+Assume the equivalent conditions (1), (2), (3) holds and let
+$B = A[x_1, \ldots, x_r]^\wedge/J$ be a presentation
+(see Lemma \ref{lemma-topologically-finite-type}). Let $a \in I$.
+Let $c$ be such that multiplication by $a^c$ is zero on $\NL^\wedge_{B/A}$
+which exists by (1). By Lemma \ref{lemma-map-out-of-almost-free}
+there exists a map $\alpha : \bigoplus B\text{d}x_i \to J/J^2$ such that
+$\text{d} \circ \alpha$ and $\alpha \circ \text{d}$ are both
+multiplication by $a^c$. Let $f_i \in J$ be an element whose
+class modulo $J^2$ is equal to $\alpha(\text{d}x_i)$.
+Then we see that (\ref{item-condition-artin})(a), (b) hold.
+
+\medskip\noindent
+Assume (\ref{item-condition-artin}) holds. Say $I = (a_1, \ldots, a_t)$.
+Let $c_i \geq 0$ be the integer such that (\ref{item-condition-artin})(a), (b)
+hold for $a_i^{c_i}$. Then we see that $I^{\sum c_i}$ annihilates
+$H^0(\NL^\wedge_{B/A})$. Let $f_{i, 1}, \ldots, f_{i, r} \in J$
+be as in (\ref{item-condition-artin})(b) for $a_i$.
+Consider the composition
+$$
+B^{\oplus r} \to J/J^2 \to \bigoplus B\text{d}x_i
+$$
+where the $j$th basis vector is mapped to the class of $f_{i, j}$ in $J/J^2$.
+By (\ref{item-condition-artin})(a) and (b) the cokernel of the composition
+is annihilated by $a_i^{2c_i}$. Thus this map is surjective after inverting
+$a_i^{c_i}$, and hence an isomorphism (Algebra, Lemma \ref{algebra-lemma-fun}).
+Thus the kernel of $B^{\oplus r} \to \bigoplus B\text{d}x_i$ is
+$a_i$-power torsion, and hence
+$H^{-1}(\NL^\wedge_{B/A}) = \Ker(J/J^2 \to \bigoplus B\text{d}x_i)$
+is $a_i$-power torsion. Since $B$ is Noetherian
+(Lemma \ref{lemma-topologically-finite-type-Noetherian}),
+all modules including $H^{-1}(\NL^\wedge_{B/A})$ are finite.
+Thus $a_i^{d_i}$ annihilates $H^{-1}(\NL^\wedge_{B/A})$ for some $d_i \geq 0$.
+It follows that $I^{\sum d_i}$ annihilates $H^{-1}(\NL^\wedge_{B/A})$
+and we see that (2) holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-rig-etale}
+Let $A$ be a Noetherian ring and let $I$ be an ideal.
+Let $B$ be a finite type $A$-algebra.
+\begin{enumerate}
+\item If $\Spec(B) \to \Spec(A)$ is \'etale over $\Spec(A) \setminus V(I)$,
+then $B^\wedge$ satisfies the equivalent conditions of
+Lemma \ref{lemma-equivalent-with-artin}.
+\item If $B^\wedge$ satisfies the equivalent conditions of
+Lemma \ref{lemma-equivalent-with-artin},
+then there exists $g \in 1 + IB$ such that $\Spec(B_g)$ is \'etale
+over $\Spec(A) \setminus V(I)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume $B^\wedge$ satisfies the equivalent conditions of
+Lemma \ref{lemma-equivalent-with-artin}.
+The naive cotangent complex $\NL_{B/A}$ is a complex of finite type
+$B$-modules and hence $H^{-1}$ and $H^0$ are finite $B$-modules.
+Completion is an exact functor on finite $B$-modules (Algebra,
+Lemma \ref{algebra-lemma-completion-flat}) and $\NL^\wedge_{B^\wedge/A}$
+is the completion of the complex $\NL_{B/A}$ (this is easy to see
+by choosing presentations).
+Hence the assumption implies there exists a $c \geq 0$ such that
+$H^{-1}/I^nH^{-1}$ and $H^0/I^nH^0$ are annihilated by $I^c$
+for all $n$. By Nakayama's lemma (Algebra, Lemma \ref{algebra-lemma-NAK})
+this means that $I^cH^{-1}$ and $I^cH^0$ are annihilated by an element
+of the form $g = 1 + x$ with $x \in IB$. After inverting $g$
+(which does not change the quotients $B/I^nB$)
+we see that $\NL_{B/A}$ has cohomology annihilated by $I^c$. Thus
+$A \to B$ is \'etale at any prime of $B$ not lying over $V(I)$
+by the definition of \'etale ring maps, see
+Algebra, Definition \ref{algebra-definition-etale}.
+
+\medskip\noindent
+Conversely, assume that $\Spec(B) \to \Spec(A)$ is \'etale over
+$\Spec(A) \setminus V(I)$. Then for every $a \in I$ there exists
+a $c \geq 0$ such that multiplication by $a^c$ is zero $\NL_{B/A}$.
+Since $\NL^\wedge_{B^\wedge/A}$ is the derived completion of
+$\NL_{B/A}$ (see Lemma \ref{lemma-NL-is-limit}) it follows that
+$B^\wedge$ satisfies the equivalent conditions of
+Lemma \ref{lemma-equivalent-with-artin}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-zero-after-modding-out}
+Assume the map $(A_1, I_1) \to (A_2, I_2)$ is as in
+Remark \ref{remark-base-change} with $A_1$ and $A_2$ Noetherian.
+Let $B_1$ be in (\ref{equation-C-prime}) for $(A_1, I_1)$.
+Let $B_2$ be the base change of $B_1$.
+If multiplication by $f_1 \in B_1$ on $\NL^\wedge_{B_1/A_1}$
+is zero in $D(B_1)$, then multiplication by
+the image $f_2 \in B_2$ on $\NL^\wedge_{B_2/A_2}$ is zero
+in $D(B_2)$.
+\end{lemma}
+
+\begin{proof}
+Choose a presentation $B_1 = A_1[x_1, \ldots, x_r]^\wedge/J_1$.
+Since
+$A_2/I_2^n[x_1, \ldots, x_r] =
+A_1/I_1^{cn}[x_1, \ldots, x_r] \otimes_{A_1/I_1^{cn}} A_2/I_2^n$
+we have
+$$
+A_2[x_1, \ldots, x_r]^\wedge =
+(A_1[x_1, \ldots, x_r]^\wedge \otimes_{A_1} A_2)^\wedge
+$$
+where we use $I_2$-adic completion on both sides (but of course
+$I_1$-adic completion for $A_1[x_1, \ldots, x_r]^\wedge$).
+Set $J_2 = J_1 A_2[x_1, \ldots, x_r]^\wedge$. Arguing similarly
+we get the presentation
+\begin{align*}
+B_2
+& =
+(B_1 \otimes_{A_1} A_2)^\wedge \\
+& =
+\lim \frac{A_1/I_1^{cn}[x_1, \ldots, x_r]}{J_1(A_1/I_1^{cn}[x_1, \ldots, x_r])}
+\otimes_{A_1/I_1^{cn}} A_2/I_2^n \\
+& =
+\lim \frac{A_2/I_2^n[x_1, \ldots, x_r]}{J_2(A_2/I_2^n[x_1, \ldots, x_r])} \\
+& =
+A_2[x_1, \ldots, x_r]^\wedge/J_2
+\end{align*}
+for $B_2$ over $A_2$. Consider the commutative diagram
+$$
+\xymatrix{
+\NL^\wedge_{B_1/A_1} : \ar[d] &
+J_1/J_1^2 \ar[r]_-{\text{d}} \ar[d] & \bigoplus B_1\text{d}x_i \ar[d] \\
+\NL^\wedge_{B_2/A_2} : &
+J_2/J_2^2 \ar[r] & \bigoplus B_2\text{d}x_i
+}
+$$
+The induced arrow $J_1/J_1^2 \otimes_{B_1} B_2 \to J_2/J_2^2$
+is surjective because $J_2$ is generated by the image of $J_1$.
+By Lemma \ref{lemma-map-out-of-almost-free}
+there is a map $\alpha_1 : \bigoplus B\text{d}x_i \to J_1/J_1^2$
+such that $f_1 \text{id}_{\bigoplus B_1\text{d}x_i} = \text{d} \circ \alpha_1$
+and $f_1 \text{id}_{J_1/J_1^2} = \alpha_1 \circ \text{d}$. We define
+$\alpha_2 : \bigoplus B_1\text{d}x_i \to J_2/J_2^2$
+by mapping $\text{d}x_i$ to the image of $\alpha_1(\text{d}x_i)$
+in $J_2/J_2^2$. Because the image of the vertical arrows
+contains generators of the modules $J_2/J_2^2$ and $\bigoplus B_2 \text{d}x_i$
+it follows that $\alpha_2$ also defines a homotopy between
+multiplication by $f_2$ and the zero map.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fully-faithful-etale-over-complement}
+Let $A$ be a Noetherian ring. Let $I \subset A$ be an ideal.
+Let $B$ be a finite type $A$-algebra such that
+$\Spec(B) \to \Spec(A)$ is \'etale over $\Spec(A) \setminus V(I)$.
+Let $C$ be a Noetherian $A$-algebra. Then any $A$-algebra
+map $B^\wedge \to C^\wedge$ of $I$-adic completions
+comes from a unique $A$-algebra map
+$$
+B \longrightarrow C^h
+$$
+where $C^h$ is the henselization of the pair $(C, IC)$ as
+in More on Algebra, Lemma \ref{more-algebra-lemma-henselization}.
+Moreover, any $A$-algebra homomorphism $B \to C^h$ factors through
+some \'etale $C$-algebra $C'$ such that $C/IC \to C'/IC'$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+Uniqueness follows from the fact that $C^h$ is a subring of
+$C^\wedge$, see for example
+More on Algebra, Lemma \ref{more-algebra-lemma-henselization-Noetherian-pair}.
+The final assertion follows from the fact that $C^h$ is the filtered colimit
+of these $C$-algebras $C'$, see proof of
+More on Algebra, Lemma \ref{more-algebra-lemma-henselization}.
+Having said this we now turn to the proof of existence.
+
+\medskip\noindent
+Let $\varphi : B^\wedge \to C^\wedge$ be the given map.
+This defines a section
+$$
+\sigma : (B \otimes_A C)^\wedge \longrightarrow C^\wedge
+$$
+of the completion of the map $C \to B \otimes_A C$. We may
+replace $(A, I, B, C, \varphi)$ by $(C, IC, B \otimes_A C, C, \sigma)$.
+In this way we see that we may assume that $A = C$.
+
+\medskip\noindent
+Proof of existence in the case $A = C$. In this case the map
+$\varphi : B^\wedge \to A^\wedge$ is necessarily surjective.
+By Lemmas \ref{lemma-rig-etale} and \ref{lemma-exact-sequence-NL}
+we see that the cohomology groups of
+$\NL^\wedge_{A^\wedge/\!_\varphi B^\wedge}$
+are annihilated by a power of $I$. Since $\varphi$ is surjective,
+this implies that $\Ker(\varphi)/\Ker(\varphi)^2$ is annihilated
+by a power of $I$. Hence $\varphi : B^\wedge \to A^\wedge$
+is the completion of a finite type $B$-algebra $B \to D$, see
+More on Algebra, Lemma \ref{more-algebra-lemma-quotient-by-idempotent}.
+Hence $A \to D$ is a finite type algebra map which induces an isomorphism
+$A^\wedge \to D^\wedge$. By
+Lemma \ref{lemma-rig-etale} we may replace $D$ by a localization
+and assume that $A \to D$ is \'etale away from $V(I)$.
+Since $A^\wedge \to D^\wedge$ is an isomorphism, we see that
+$\Spec(D) \to \Spec(A)$ is also \'etale in a neighbourhood of $V(ID)$
+(for example by
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-check-smoothness-on-infinitesimal-nbhds}).
+Thus $\Spec(D) \to \Spec(A)$ is \'etale. Therefore $D$ maps to
+$A^h$ and the lemma is proved.
+\end{proof}
+
+
+
+
+
+
+\section{Rig-\'etale morphisms}
+\label{section-rig-etale-morphisms}
+
+\noindent
+We can use the notion introduced in the previous section to define
+a new type of morphism of locally Noetherian formal algebraic spaces.
+Before we do so, we have to check it is a local property.
+
+\begin{lemma}
+\label{lemma-rig-etale-axioms}
+For morphisms $A \to B$ of the category $\textit{WAdm}^{Noeth}$
+(Formal Spaces, Section \ref{formal-spaces-section-morphisms-rings})
+consider the condition $P=$``for some ideal of definition $I$ of $A$
+the topology on $B$ is the $I$-adic topology, the ring map $A/I \to B/IB$
+is of finite type and $A \to B$ satisfies the equivalent conditions of
+Lemma \ref{lemma-equivalent-with-artin}''. Then $P$ is a local property, see
+Formal Spaces, Remark \ref{formal-spaces-remark-variant-Noetherian}.
+\end{lemma}
+
+\begin{proof}
+We have to show that Formal Spaces, Axioms (\ref{formal-spaces-item-axiom-1}),
+(\ref{formal-spaces-item-axiom-2}), and (\ref{formal-spaces-item-axiom-3})
+hold for maps between Noetherian adic rings. For a Noetherian adic ring
+$A$ with ideal of definition $I$ we have
+$A\{x_1, \ldots, x_r\} = A[x_1, \ldots, x_r]^\wedge$ as topological
+$A$-algebras (see Formal Spaces, Remark
+\ref{formal-spaces-remark-I-adic-completion-and-restricted-power-series}).
+We will use without further mention that we know the axioms hold
+for the property ``$B$ is a quotient of $A[x_1, \ldots, x_r]^\wedge$'', see
+Formal Spaces, Lemma
+\ref{formal-spaces-lemma-quotient-restricted-power-series}.
+
+\medskip\noindent
+Let a diagram as in
+Formal Spaces, Diagram (\ref{formal-spaces-equation-localize})
+be given with $A$ and $B$ in the category $\textit{WAdm}^{Noeth}$.
+Pick an ideal of definition $I \subset A$. By the remarks above
+the topology on each ring in the diagram is the $I$-adic topology.
+Since $A \to A'$ and $B \to B'$ are \'etale we see that
+$\NL^\wedge_{(A')^\wedge/A}$ and $\NL^\wedge_{(B')^\wedge/B}$
+are zero. By Lemmas \ref{lemma-exact-sequence-NL} and
+\ref{lemma-transitive-lci-at-end} we get
+$$
+H^i(\NL^\wedge_{(B')^\wedge/(A')^\wedge})
+\cong
+H^i(\NL^\wedge_{(B')^\wedge/A})
+\quad\text{and}\quad
+H^i(\NL^\wedge_{B/A} \otimes_B (B')^\wedge) \cong
+H^i(\NL^\wedge_{(B')^\wedge/A})
+$$
+for $i = -1, 0$. Since $B$ is Noetherian the ring map
+$B \to B' \to (B')^\wedge$ is flat
+(Algebra, Lemma \ref{algebra-lemma-completion-flat})
+hence the tensor product comes out. Moreover, as $B$ is
+$I$-adically complete, then if $B \to B'$ is faithfully flat,
+so is $B \to (B')^\wedge$. From these observations
+Formal Spaces, Axioms (\ref{formal-spaces-item-axiom-1})
+and (\ref{formal-spaces-item-axiom-2}) follow immediately.
+
+\medskip\noindent
+We omit the proof of Formal Spaces, Axiom (\ref{formal-spaces-item-axiom-3}).
+\end{proof}
+
+\begin{definition}
+\label{definition-rig-etale}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of locally
+Noetherian formal algebraic spaces over $S$. We say $f$ is
+{\it rig-\'etale} if $f$ satisfies the equivalent conditions of
+Formal Spaces, Lemma
+\ref{formal-spaces-lemma-property-defines-property-morphisms}
+(in the setting of locally Noetherian formal algebraic spaces, see
+Formal Spaces, Remark \ref{formal-spaces-remark-variant-adic-star})
+for the property $P$ of Lemma \ref{lemma-rig-etale-axioms}.
+\end{definition}
+
+\noindent
+To be sure, a rig-\'etale morphism is locally of finite type.
+
+\begin{lemma}
+\label{lemma-rig-etale-finite-type}
+A rig-\'etale morphism of locally Noetherian formal algebraic spaces
+is locally of finite type.
+\end{lemma}
+
+\begin{proof}
+The property $P$ in Lemma \ref{lemma-rig-etale-axioms}
+implies the equivalent conditions (a), (b), (c), and (d) in
+Formal Spaces, Lemma
+\ref{formal-spaces-lemma-quotient-restricted-power-series}.
+Hence this follows from
+Formal Spaces, Lemma \ref{formal-spaces-lemma-finite-type-local-property}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Glueing rings along a principal ideal}
+\label{section-approximation-principal}
+
+\noindent
+In this situation we prove some results about the categories
+$\mathcal{C}$ and $\mathcal{C}'$ of
+Section \ref{section-two-categories}
+in case $A$ is a Noetherian ring and $I = (a)$ is a principal
+ideal.
+
+\begin{remark}[Linear approximation]
+\label{remark-linear-approximation}
+Let $A$ be a ring and $I \subset A$ be a finitely generated ideal.
+Let $C$ be an $I$-adically complete $A$-algebra.
+Let $\psi : A[x_1, \ldots, x_r]^\wedge \to C$ be a continuous
+$A$-algebra map. Suppose given $\delta_i \in C$, $i = 1, \ldots, r$.
+Then we can consider
+$$
+\psi' : A[x_1, \ldots, x_r]^\wedge \to C,\quad
+x_i \longmapsto \psi(x_i) + \delta_i
+$$
+see Formal Spaces, Remark \ref{formal-spaces-remark-universal-property}.
+Then we have
+$$
+\psi'(g) = \psi(g) + \sum \psi(\partial g/\partial x_i)\delta_i + \xi
+$$
+with error term $\xi \in (\delta_i\delta_j)$. This follows by
+writing $g$ as a power series and working term by term. Convergence
+is automatic as the coefficients of $g$ tend to zero.
+Details omitted.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-get-morphism-nonzerodivisor}
+Let $A$ be a Noetherian ring and $I = (a)$ a principal ideal.
+Let $B$ be an objects of (\ref{equation-C-prime}).
+Assume given an integer $c \geq 0$ such that
+multiplication by $a^c$ on $\NL^\wedge_{B/A}$ is zero in $D(B)$.
+Let $C$ be an $I$-adically complete $A$-algebra such that
+$a$ is a nonzerodivisor on $C$. Let $n > 2c$. For any $A_n$-algebra
+map $\psi_n : B/a^nB \to C/a^nC$ there exists an $A$-algebra
+map $\varphi : B \to C$ such that
+$\psi_n \bmod a^{n - c} = \varphi \bmod a^{n - c}$.
+\end{lemma}
+
+\begin{proof}
+Choose a presentation $B = A[x_1, \ldots, x_r]^\wedge/J$. Choose
+a lift
+$$
+\psi : A[x_1, \ldots, x_r]^\wedge \to C
+$$
+of $\psi_n$. Then $\psi(J) \subset a^nC$ and $\psi(J^2) \subset a^{2n}C$
+which determines a linear map
+$$
+J/J^2 \longrightarrow a^nC/a^{2n}C,\quad g \longmapsto \psi(g)
+$$
+By assumption and Lemma \ref{lemma-map-out-of-almost-free}
+there is a $B$-module map
+$\bigoplus B\text{d}x_i \to a^nC/a^{2n}C$,
+$\text{d}x_i \mapsto \delta_i$ such that
+$a^c \psi(g) = \sum \psi(\partial g/\partial x_i) \delta_i$
+for all $g \in J$. Write $\delta_i = - a^c \delta'_i$ for some
+$\delta'_i \in a^{n - c}C$. Since $a$ is a nonzerodivisor
+on $C$ we see that $\psi(g) = - \sum \psi(\partial g/\partial x_i) \delta'_i$
+in $C/a^{2n - c}C$.
+Then we look at the map
+$$
+\psi' : A[x_1, \ldots, x_r]^\wedge \to C,\quad
+x_i \longmapsto \psi(x_i) + \delta'_i
+$$
+A computation with power series (see Remark \ref{remark-linear-approximation})
+shows that $\psi'(J) \subset a^{2n - 2c}C$. Since $n > 2c$
+we see that $n' = 2n - 2c = n + (n - 2c) > n$. Thus we obtain a morphism
+$\psi_{n'} : B/a^{n'}B \to C/a^{n'}C$ agreeing with $\psi_n$ modulo
+$a^{n - c}$. Continuing in this fashion and taking the limit
+into $C = \lim C/a^tC$ we obtain the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-get-morphism-principal}
+Let $A$ be a Noetherian ring and $I = (a)$ a principal ideal.
+Let $B$ be an object of (\ref{equation-C-prime}).
+Assume given an integer $c \geq 0$ such that
+multiplication by $a^c$ on $\NL^\wedge_{B/A}$ is zero in $D(B)$.
+Let $C$ be an $I$-adically complete $A$-algebra.
+Assume given an integer $d \geq 0$ such that $C[a^\infty] \cap a^dC = 0$.
+Let $n > \max(2c, c + d)$. For any $A_n$-algebra map
+$\psi_n : B/a^nB \to C/a^nC$ there exists an $A$-algebra map
+$\varphi : B \to C$ such
+that $\psi_n \bmod a^{n - c} = \varphi \bmod a^{n - c}$.
+\end{lemma}
+
+\noindent
+If $C$ is Noetherian we have $C[a^\infty] = C[a^e]$ for some
+$e \geq 0$. By Artin-Rees (Algebra, Lemma \ref{algebra-lemma-Artin-Rees})
+there exists an integer $f$ such that
+$a^nC \cap C[a^\infty] \subset a^{n - f}C[a^\infty]$ for all $n \geq f$.
+Then $d = e + f$ is an integer as in the lemma. This argument
+works in particular if $C$ is an object of (\ref{equation-C-prime})
+by Lemma \ref{lemma-topologically-finite-type-Noetherian}.
+
+\begin{proof}
+Let $C \to C'$ be the quotient of $C$ by $C[a^\infty]$. The $A$-algebra
+$C'$ is $I$-adically complete by
+Algebra, Lemma \ref{algebra-lemma-quotient-complete}
+and the fact that $\bigcap (C[a^\infty] + a^nC) = C[a^\infty]$
+because for $n \geq d$ the sum $C[a^\infty] + a^nC$ is direct.
+For $m \geq d$ the diagram
+$$
+\xymatrix{
+0 \ar[r] &
+C[a^\infty] \ar[r] \ar[d] &
+C \ar[r] \ar[d] & C' \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+C[a^\infty] \ar[r] &
+C/a^m C \ar[r] & C'/a^m C' \ar[r] & 0
+}
+$$
+has exact rows. Thus $C$ is the fibre product of $C'$ and
+$C/a^mC$ over $C'/a^mC'$. Thus the lemma now follows formally from
+the lifting result of Lemma \ref{lemma-get-morphism-nonzerodivisor}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-approximate-principal}
+\begin{reference}
+The rig-\'etale case of \cite[III Theorem 7]{Elkik}
+which handles the rig-smooth case.
+\end{reference}
+Let $A$ be a Noetherian ring and $I = (a)$ a principal ideal.
+Let $B$ be an object of (\ref{equation-C-prime}).
+Assume given an integer $c \geq 0$ such that
+multiplication by $a^c$ on $\NL^\wedge_{B/A}$ is zero in $D(B)$.
+Then there exists a finite type $A$-algebra $C$ and an
+isomorphism $B \cong C^\wedge$.
+\end{lemma}
+
+\begin{proof}
+Choose a presentation $B = A[x_1, \ldots, x_r]^\wedge/J$.
+By Lemma \ref{lemma-map-out-of-almost-free} we can find a map
+$\alpha : \bigoplus B\text{d}x_i \to J/J^2$ such that
+$\text{d} \circ \alpha$ and $\alpha \circ \text{d}$ are both
+multiplication by $a^c$. Pick an element $f_i \in J$ whose
+class modulo $J^2$ is equal to $\alpha(\text{d}x_i)$.
+Then we see that $\text{d}f_i = a^c \text{d}x_i$ in $\bigoplus \text{d}x_i$.
+In particular we have a ring map
+$$
+A[x_1, \ldots, x_r]^\wedge/
+(f_1, \ldots, f_r, \Delta(f_1, \ldots, f_r) - a^{rc})
+\longrightarrow B
+$$
+where $\Delta(f_1, \ldots, f_r) \in A[x_1, \ldots, x_r]^\wedge$
+is the determinant of the matrix of partial derivatives of the $f_i$.
+
+\medskip\noindent
+Pick a large integer $N$. Pick $F_1, \ldots, F_r \in A[x_1, \ldots, x_r]$
+such that $F_i - f_i \in I^NA[x_1, \ldots, x_r]^\wedge$. Set
+$$
+C = A[x_1, \ldots, x_r, z]/
+(F_1, \ldots, F_r, z\Delta(F_1, \ldots, F_r) - a^{rc})
+$$
+We claim that multiplication by $a^{2rc}$ is zero on $\NL_{C/A}$ in $D(C)$.
+Namely, the determinant of the matrix of the partial derivatives
+of the $r + 1$ generators of the ideal of $C$ with respect to the variables
+$x_1, \ldots, x_{r + 1}, z$ is $\Delta(F_1, \ldots, F_r)^2$. Since
+$\Delta(F_1, \ldots, F_r)$ divides $a^{rc}$ we in $C$ the
+claim follows for example from
+Algebra, Lemma \ref{algebra-lemma-matrix-left-inverse}.
+Let $C^\wedge$ be the $I$-adic completion of $C$. Since
+$\NL^\wedge_{C^\wedge/A}$ is the $I$-adic completion of $\NL_{C/A}$
+we conclude that multiplication by $a^{2rc}$ is zero on
+$\NL^\wedge_{C^\wedge/A}$ as well.
+
+\medskip\noindent
+By construction there is a (surjective) map $\psi_N : C/I^NC \to B/I^NB$
+sending $x_i$ to $x_i$ and $z$ to $1$. By
+Lemma \ref{lemma-get-morphism-principal} (with the roles of $B$ and $C$
+reversed) for $N$ large enough we get a map $\varphi : C^\wedge \to B$ which
+agrees with $\psi_N$ modulo $I^{N - 2rc}$.
+
+\medskip\noindent
+Since $\varphi : C^\wedge \to B$ is surjective modulo $I$ we see that it is
+surjective (for example use
+Algebra, Lemma \ref{algebra-lemma-completion-generalities}).
+By construction and assumption the naive cotangent complexes
+$\NL^\wedge_{C^\wedge/A}$ and $\NL^\wedge_{B/A}$
+have cohomology annihilated by a fixed power of $a$. Thus the same thing
+is true for $\NL^\wedge_{B/C^\wedge}$ by Lemma \ref{lemma-exact-sequence-NL}.
+Since $\varphi$ is surjective we conclude that
+$\Ker(\varphi)/\Ker(\varphi)^2$ is annihilated by a power of $a$.
+The result of the lemma now follows from
+More on Algebra, Lemma \ref{more-algebra-lemma-quotient-by-idempotent}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Glueing rings along an ideal}
+\label{section-approximation}
+
+\noindent
+Let $A$ be a Noetherian ring. Let $I \subset A$ be an ideal.
+In this section we study $I$-adically complete $A$-algebras
+which are, in some vague sense, \'etale over the complement of
+$V(I)$ in $\Spec(A)$.
+
+\begin{lemma}
+\label{lemma-get-morphism-general}
+Let $A$ be a Noetherian ring. Let $I \subset A$ be an ideal.
+Let $t$ be the minimal number of generators for $I$.
+Let $C$ be a Noetherian $I$-adically complete $A$-algebra.
+There exists an integer $d \geq 0$ depending only on
+$I \subset A \to C$ with the following property: given
+\begin{enumerate}
+\item $c \geq 0$ and $B$ in (\ref{equation-C-prime}) such that for $a \in I^c$
+multiplication by $a$ on $\NL^\wedge_{B/A}$ is zero in $D(B)$,
+\item an integer $n > 2t\max(c, d)$,
+\item an $A/I^n$-algebra map $\psi_n : B/I^nB \to C/I^nC$,
+\end{enumerate}
+there exists a map $\varphi : B \to C$ of $A$-algebras such
+that $\psi_n \bmod I^{m - c} = \varphi \bmod I^{m - c}$
+with $m = \lfloor \frac{n}{t} \rfloor$.
+\end{lemma}
+
+\begin{proof}
+We prove this lemma by induction on the number of generators of $I$.
+Say $I = (a_1, \ldots, a_t)$. If $t = 0$, then $I = 0$ and there
+is nothing to prove. If $t = 1$, then the lemma follows from
+Lemma \ref{lemma-get-morphism-principal} because
+$2\max(c, d) \geq \max(2c, c + d)$. Assume $t > 1$.
+
+\medskip\noindent
+Set $m = \lfloor \frac{n}{t} \rfloor$ as in the lemma.
+Set $\bar A = A/(a_t^m)$. Consider the ideal
+$\bar I = (\bar a_1, \ldots, \bar a_{t - 1})$ in $\bar A$.
+Set $\bar C = C/(a_t^m)$. Note that $\bar C$ is a $\bar I$-adically
+complete Noetherian $\bar A$-algebra (use
+Algebra, Lemmas \ref{algebra-lemma-completion-tensor} and
+\ref{algebra-lemma-change-ideal-completion}).
+Let $\bar d$ be the integer for $\bar I \subset \bar A \to \bar C$
+which exists by induction hypothesis.
+
+\medskip\noindent
+Let $d_1 \geq 0$ be an integer such that $C[a_t^\infty] \cap a_t^{d_1}C = 0$
+as in Lemma \ref{lemma-get-morphism-principal} (see discussion following
+the lemma and before the proof).
+
+\medskip\noindent
+We claim the lemma holds with $d = \max(\bar d, d_1)$.
+To see this, let $c, B, n, \psi_n$ be as in the lemma.
+
+\medskip\noindent
+Note that $\bar I \subset I\bar A$. Hence by
+Lemma \ref{lemma-zero-after-modding-out}
+multiplication by an element of $\bar I^c$
+on the cotangent complex of $\bar B = B/(a_t^m)$
+is zero in $D(\bar B)$. Also, we have
+$$
+\bar I^{n - m + 1} \supset I^n \bar A
+$$
+Thus $\psi_n$ gives rise to a map
+$$
+\bar \psi_{n - m + 1} :
+\bar B/\bar I^{n - m + 1}\bar B
+\longrightarrow
+\bar C/\bar I^{n - m + 1}\bar C
+$$
+Since $n > 2t\max(c, d)$ and $d \geq \bar d$ we see that
+$$
+n - m + 1 \geq (t - 1)n/t > 2(t - 1)\max(c, d) \geq 2(t - 1)\max(c, \bar d)
+$$
+Hence we can find a morphism $\varphi_m : \bar B \to \bar C$
+agreeing with $\bar \psi_{n - m + 1}$ modulo the ideal
+$\bar I^{m' - c}$ where $m' = \lfloor \frac{n - m + 1}{t - 1} \rfloor$.
+
+\medskip\noindent
+Since $m \geq n/t > 2\max(c, d) \geq 2\max(c, d_1) \geq \max(2c, c+ d_1)$,
+we can apply Lemma \ref{lemma-get-morphism-principal} for
+the ring map $A \to B$ and the ideal $(a_t)$ to
+find a morphism $\varphi : B \to C$ agreeing modulo
+$a_t^{m - c}$ with $\varphi_m$.
+
+\medskip\noindent
+All in all we find $\varphi : B \to C$ which agrees with
+$\psi_n$ modulo
+$$
+(a_t^{m - c}) + (a_1, \ldots, a_{t - 1})^{m' - c}
+\subset I^{\min(m - c, m' - c)}
+$$
+We leave it to the reader to see that
+$\min(m - c, m' - c) = m - c$. This concludes the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lift-approximation}
+Let $A$ be a Noetherian ring and $I \subset A$ an ideal.
+Let $J \subset A$ be a nilpotent ideal. Consider a diagram
+$$
+\xymatrix{
+C \ar[r] & C/JC \\
+& B_0 \ar[u] \\
+A \ar[r] \ar[uu] & A/J \ar[u]
+}
+$$
+whose vertical arrows are of finite type such that
+\begin{enumerate}
+\item $\Spec(C) \to \Spec(A)$ is \'etale over $\Spec(A) \setminus V(I)$,
+\item $\Spec(B_0) \to \Spec(A/J)$ is \'etale over
+$\Spec(A/J) \setminus V((I + J)/J)$, and
+\item $B_0 \to C/JC$ is \'etale and induces an isomorphism
+$B_0/IB_0 = C/(I + J)C$.
+\end{enumerate}
+Then we can fill in the diagram
+$$
+\xymatrix{
+C \ar[r] & C/JC \\
+B \ar[u] \ar[r] & B_0 \ar[u] \\
+A \ar[r] \ar[u] & A/J \ar[u]
+}
+$$
+with $A \to B$ of finite type, $B/JB = B_0$, $B \to C$ \'etale, and
+$\Spec(B) \to \Spec(A)$ \'etale over $\Spec(A) \setminus V(I)$.
+\end{lemma}
+
+\begin{proof}[First proof]
+This proof uses algebraic spaces to construct $B$. Set
+$X = \Spec(A)$, $X_0 = \Spec(A/J)$, $Y_0 = \Spec(B_0)$,
+$Z = \Spec(C)$, $Z_0 = \Spec(C/JC)$. Furthermore, denote
+$U \subset X$, $U_0 \subset X_0$, $V_0 \subset Y_0$,
+$W \subset Z$, $W_0 \subset Z_0$ the complement of the
+vanishing set of $I$. The conditions in the lemma guarantee
+that
+$$
+\xymatrix{
+W_0 \ar[r] \ar[d] & Z_0 \ar[d] \\
+V_0 \ar[r] & Y_0
+}
+$$
+is an elementary distinguished square. In addition we know that
+$W_0 \to U_0$ and $V_0 \to U_0$ are \'etale. The morphism
+$X_0 \subset X$ is a finite order thickening.
+By the topological invariance of the \'etale site
+we can find a unique \'etale morphism $V \to X$
+with $V_0 = V \times_X X_0$ and we can lift the given morphism
+$W_0 \to V_0$ to a unique morphism $W \to V$.
+See More on Morphisms of Spaces, Theorem
+\ref{spaces-more-morphisms-theorem-topological-invariance}.
+By Pushouts of Spaces, Lemma
+\ref{spaces-pushouts-lemma-construct-elementary-distinguished-square}
+we can construct an elementary distinguished square
+$$
+\xymatrix{
+W \ar[r] \ar[d] & Z \ar[d] \\
+V \ar[r] & Y
+}
+$$
+in the category of algebraic spaces over $X$. Since the base change
+of an elementary distinguished square is an elementary distinguished
+square (Derived Categories of Spaces, Lemma
+\ref{spaces-perfect-lemma-make-more-elementary-distinguished-squares})
+and since elementary distinguished squares are pushouts
+(Pushouts of Spaces, Lemma
+\ref{spaces-pushouts-lemma-elementary-distinguished-square-pushout})
+we see that the base change of this diagram by
+$X_0 \to X$ gives the previous diagram.
+It follows that $Y$ is affine by
+Limits of Spaces, Proposition \ref{spaces-limits-proposition-affine}.
+Write $Y = \Spec(B)$. Then $B$ fits into the desired diagram and
+satisfies all the properties required of it.
+\end{proof}
+
+\begin{proof}[Second proof]
+This proof uses a little bit of deformation theory to construct $B$.
+By induction on the smallest $n$ such that $J^n = 0$ we reduce
+to the case $J^2 = 0$. Denote by a subscript zero the base change
+of objects to $A_0 = A/J$. Since $J^2 = 0$ we see that $JC$
+is a $C_0$-module.
+
+\medskip\noindent
+Consider the canonical map
+$$
+\gamma : J \otimes_{A_0} C_0 \longrightarrow JC
+$$
+Since $\Spec(C) \to \Spec(A)$ is \'etale over the complement
+of $V(I)$ (and hence flat) we see that $\gamma$ is an isomorphism
+away from $V(IC_0)$, see
+More on Morphisms, Lemma \ref{more-morphisms-lemma-deform}.
+In particular, the kernel and cokernel of $\gamma$ are annihilated by
+a power of $I$ (use that $C_0$ is Noetherian and that the modules in
+question are finite). Observe that $J \otimes_{A_0} C_0 =
+(J \otimes_{A_0} B_0) \otimes_{B_0} C_0$. Hence by
+More on Algebra, Lemma \ref{more-algebra-lemma-application-formal-glueing}
+there exists a unique $B_0$-module homomorphism
+$$
+c : J \otimes_{A_0} B_0 \to N
+$$
+with $c \otimes \text{id}_{C_0} = \gamma$ and $\Ker(\gamma) = \Ker(c)$
+and $\Coker(\gamma) = \Coker(c)$. Moreover, $N$ is a finite $B_0$-module, see
+More on Algebra, Remark \ref{more-algebra-remark-formal-glueing-algebras}.
+
+\medskip\noindent
+Choose a presentation $B_0 = A[x_1, \ldots, x_r]/K$. To construct $B$
+we try to find the dotted arrow $m$ fitting into the following
+pushout diagram
+$$
+\xymatrix{
+0 \ar[r] & N \ar@{..>}[r] & B \ar@{..>}[r] & B_0 \ar[r] & 0 \\
+0 \ar[r] & K/K^2 \ar[r] \ar@{..>}[u]_m &
+A[x_1, \ldots, x_r]/K^2 \ar[r] \ar@{..>}[u] &
+A[x_1, \ldots, x_r]/K \ar@{=}[u] \ar[r] & 0 \\
+& J \otimes_{A_0} B_0 \ar[u] \ar@/^2pc/[uu] |!{[lu];[u]}\hole
+}
+$$
+where the curved arrow is the map $c$ constructed above and the
+map $J \otimes_{A_0} B_0 \to K/K^2$ is the obvious one.
+
+\medskip\noindent
+As $B_0 \to C_0$ is \'etale we can write
+$C_0 = B_0[y_1, \ldots, y_r]/(g_{0, 1}, \ldots, g_{0, r})$
+such that the determinant of the partial derivatives of the $g_{0, j}$
+is invertible in $C_0$, see
+Algebra, Lemma \ref{algebra-lemma-etale-standard-smooth}.
+We combine this with the chosen presentation of $B_0$ to
+get a presentation $C_0 = A[x_1, \ldots, x_r, y_1, \ldots, y_s]/L$.
+Choose a lift $\psi : A[x_i, y_j] \to C$
+of the map to $C_0$. Then it is the case that $C$ fits into the diagram
+$$
+\xymatrix{
+0 \ar[r] & JC \ar[r] & C \ar[r] & C_0 \ar[r] & 0 \\
+0 \ar[r] & L/L^2 \ar[r] \ar[u]_\mu &
+A[x_i, y_j]/L^2 \ar[r] \ar[u] &
+A[x_i, y_j]/L \ar@{=}[u] \ar[r] & 0 \\
+& J \otimes_{A_0} C_0 \ar[u] \ar@/^2pc/[uu] |!{[lu];[u]}\hole
+}
+$$
+where the curved arrow is the map $\gamma$ constructed above and the
+map $J \otimes_{A_0} C_0 \to L/L^2$ is the obvious one.
+By our choice of presentations and the fact that $C_0$ is
+a complete intersection over $B_0$ we have
+$$
+L/L^2 = K/K^2 \otimes_{B_0} C_0 \oplus \bigoplus C_0 g_j
+$$
+where $g_j \in L$ is any lift of $g_{0, j}$, see
+More on Algebra, Lemma \ref{more-algebra-lemma-transitive-lci-at-end}.
+
+\medskip\noindent
+Consider the three term complex
+$$
+K^\bullet : J \otimes_{A_0} B_0 \to K/K^2 \to \bigoplus B_0 \text{d}x_i
+$$
+where the second arrow is the differential in the naive cotangent
+complex of $B_0$ over $A$ for the given presentation and the last
+term is placed in degree $0$. Since
+$\Spec(B_0) \to \Spec(A_0)$ is \'etale away from $V(I)$
+the cohomology modules of this complex are supported on
+$V(IB_0)$. Namely, for $a \in I$ after inverting $a$
+we can apply 
+More on Algebra, Lemma \ref{more-algebra-lemma-transitive-lci-at-end}
+for the ring maps $A_a \to A_{0, a} \to B_{0, a}$
+and use that $\NL_{A_{0, a}/A_a} = J_a$ and
+$\NL_{B_{0, a}/A_{0, a}} = 0$ (some details omitted).
+Hence these cohomology groups are annihilated by a power of $I$.
+
+\medskip\noindent
+Similarly, consider the three term complex
+$$
+L^\bullet : J \otimes_{A_0} C_0 \to L/L^2 \to
+\bigoplus C_0 \text{d}x_i \oplus \bigoplus C_0 \text{d}y_j
+$$
+By our direct sum decomposition of $L/L^2$ above and the fact
+that the the determinant of the partial derivatives of the $g_{0, j}$
+is invertible in $C_0$ we see that the natural map
+$K^\bullet \to L^\bullet$ induces a quasi-isomorphism
+$$
+K^\bullet \otimes_{B_0} C_0 \longrightarrow L^\bullet
+$$
+Applying
+Dualizing Complexes, Lemma \ref{dualizing-lemma-neighbourhood-extensions}
+we find that
+\begin{equation}
+\label{equation-go-down}
+\Hom_{D(B_0)}(K^\bullet, E) =
+\Hom_{D(C_0)}(L^\bullet, E \otimes_{B_0} C_0)
+\end{equation}
+for any object $E \in D(B_0)$.
+
+\medskip\noindent
+The maps $\text{id}_{J \otimes_{A_0} C_0}$ and $\mu$ define
+an element in
+$$
+\Hom_{D(C_0)}(L^\bullet, (J \otimes_{A_0} C_0 \to  JC))
+$$
+(the target two term complex is placed in degree $-2$ and $-1$)
+such that the composition with the map to $J \otimes_{A_0} C_0[2]$
+is the element in $\Hom_{D(C_0)}(L^\bullet, J \otimes_{A_0} C_0[2])$
+corresponding to $\text{id}_{J \otimes_{A_0} C_0}$. Picture
+$$
+\xymatrix{
+J \otimes_{A_0} C_0 \ar[r] \ar[d]_{\text{id}_{J \otimes_{A_0} C_0}} &
+L/L^2 \ar[r] \ar[d]^\mu &
+\bigoplus C_0 \text{d}x_i \oplus \bigoplus C_0 \text{d}y_j \\
+J \otimes_{A_0} C_0 \ar[r]^-\gamma &
+JC
+}
+$$
+Applying (\ref{equation-go-down}) we obtain a unique element
+$$
+\xi \in \Hom_{D(B_0)}(K^\bullet, (J \otimes_{A_0} B_0 \to N))
+$$
+Its composition with the map to $J \otimes_{A_0} B_0[2]$
+is the element in $\Hom_{D(C_0)}(K^\bullet, J \otimes_{A_0} B_0[2])$
+corresponding to $\text{id}_{J \otimes_{A_0} B_0}$. By
+Lemma \ref{lemma-map-out-of-almost-free}
+we can find a map of complexes $K^\bullet \to (J \otimes_{A_0} B_0 \to N)$
+representing $\xi$ and equal to $\text{id}_{J \otimes_{A_0} B_0}$
+in degree $-2$. Denote $m : K/K^2 \to N$ the degree $-1$ part
+of this map. Picture
+$$
+\xymatrix{
+J \otimes_{A_0} B_0 \ar[r] \ar[d]_{\text{id}_{J \otimes_{A_0} B_0}} &
+K/K^2 \ar[r] \ar[d]^m &
+\bigoplus B_0 \text{d}x_i \\
+J \otimes_{A_0} B_0 \ar[r]^-c &
+N
+}
+$$
+Thus we can use $m$ to create an algebra $B$ by push out as
+explained above. However, we may still have to change $m$ a bit to
+make sure that $B$ maps to $C$ in the correct manner.
+
+\medskip\noindent
+Denote $m \otimes \text{id}_{C_0} \oplus 0 : L/L^2 \to JC$
+the map coming from the direct sum decomposition of $L/L^2$
+(see above), using that $N \otimes_{B_0} C_0 = JC$, and using $0$
+on the second factor. By our choice of $m$ above the maps of complexes
+$(\text{id}_{J \otimes_{A_0} C_0}, \mu, 0)$ and
+$(\text{id}_{J \otimes_{A_0} C_0}, m \otimes \text{id}_{C_0} \oplus 0, 0)$
+define the same element of
+$\Hom_{D(C_0)}(L^\bullet, (J \otimes_{A_0} C_0 \to  JC))$.
+By Lemma \ref{lemma-map-out-of-almost-free} there exist maps
+$h : L^{-1} \to J \otimes_{A_0} C_0$ and $h' : L^0 \to JC$
+which define a homotopy between
+$(\text{id}_{J \otimes_{A_0} C_0}, \mu, 0)$ and
+$(\text{id}_{J \otimes_{A_0} C_0}, m \otimes \text{id}_{C_0} \oplus 0, 0)$.
+Picture
+$$
+\xymatrix{
+J \otimes_{A_0} C_0 \ar[r] \ar[d]_{\text{id}_{J \otimes_{A_0} C_0}} &
+K/K^2 \otimes_{B_0} C_0 \oplus \bigoplus C_0 g_j \ar@{..>}[ld]_h
+\ar[r] \ar@<-1ex>[d]_\mu \ar[d]^{m \otimes \text{id}_{C_0} \oplus 0} &
+\bigoplus C_0 \text{d}x_i \oplus \bigoplus C_0 \text{d}y_j \ar@{..>}[ld]_{h'}\\
+J \otimes_{A_0} C_0 \ar[r]^-\gamma &
+JC
+}
+$$
+Since $h$ precomposed with $d_L^{-2}$ is zero it defines
+an element in $\Hom_{D(C_0)}(L^\bullet, J \otimes_{A_0} C_0[1])$
+which comes from a unique element $\chi$ of
+$\Hom_{D(B_0)}(K^\bullet, J \otimes_{A_0} B_0[1])$
+by (\ref{equation-go-down}).
+Applying Lemma \ref{lemma-map-out-of-almost-free} again we represent $\chi$
+by a map $g : K/K^2 \to J \otimes_{A_0} B_0$.
+Then the base change $g \otimes \text{id}_{C_0}$ and $h$ differ
+by a homotopy $h'' : L^0 \to J \otimes_{A_0} C$.
+Hence if we modify $m$ into $m + c \circ g$, then
+we find that $m \otimes \text{id}_{C_0} \oplus 0$ and $\mu$ just differ by
+a map $h' : L^0 \to JC$.
+
+\medskip\noindent
+Changing our choice of the map $\psi : A[x_i, y_j] \to C$
+by sending $x_i$ to $\psi(x_i) + h'(\text{d}x_i)$ and sending
+$y_j$ to $\psi(y_j) + h'(\text{d}y_j)$, we find a commutative
+diagram
+$$
+\xymatrix{
+N \ar[r] & JC \\
+K/K^2 \ar[r] \ar[u]_m & L/L^2 \ar[u]_\mu \\
+J \otimes_{A_0} B_0 \ar[u] \ar@/^2pc/[uu]^c \ar[r] &
+J \otimes_{A_0} C_0 \ar[u] \ar@/_2pc/[uu]_\gamma
+}
+$$
+At this point we can define $B$ as the pushout in the first
+commutative diagram of the proof. The commutativity of the
+diagram just displayed, shows that there is an $A$-algebra
+map $B \to C$ compatible with the given map $N = JB \to JC$.
+As $N \otimes_{B_0} C_0 = JC$ it follows from
+More on Morphisms, Lemma \ref{more-morphisms-lemma-deform}
+that $B \to C$ is flat.
+From this it easily follows that it is \'etale.
+We omit the proof of the other properties as they are mostly
+self evident at this point.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-approximate}
+Let $A$ be a Noetherian ring. Let $I \subset A$ be an ideal.
+Let $B$ be an object of (\ref{equation-C-prime}).
+Assume there is an integer $c \geq 0$ such that for $a \in I^c$
+multiplication by $a$ on $\NL^\wedge_{B/A}$ is zero in $D(B)$.
+Then there exists a finite type $A$-algebra $C$ and an
+isomorphism $B \cong C^\wedge$.
+\end{lemma}
+
+\noindent
+In Section \ref{section-over-G-ring} we will give a simpler
+proof of this result in case $A$ is a G-ring.
+
+\begin{proof}
+We prove this lemma by induction on the number of generators of $I$.
+Say $I = (a_1, \ldots, a_t)$. If $t = 0$, then $I = 0$ and there
+is nothing to prove. If $t = 1$, then the lemma follows from
+Lemma \ref{lemma-approximate-principal}. Assume $t > 1$.
+
+\medskip\noindent
+For any $m \geq 1$ set $\bar A_m = A/(a_t^m)$. Consider the ideal
+$\bar I_m = (\bar a_1, \ldots, \bar a_{t - 1})$ in $\bar A_m$.
+Let $B_m = B/(a_t^m)$ be the base change of $B$ for the
+map $(A, I) \to (\bar A_m, \bar I_m)$, see
+(\ref{equation-base-change-to-closed}).
+By Lemma \ref{lemma-zero-after-modding-out}
+the assumption of the lemma holds for
+$\bar I_m \subset \bar A_m \to B_m$.
+
+\medskip\noindent
+By induction hypothesis (on $t$) we can find a finite type
+$\bar A_m$-algebra $C_m$ and a map $C_m \to B_m$ which induces an
+isomorphism $C_m^\wedge \cong B_m$
+where the completion is with respect to $\bar I_m$.
+By Lemma \ref{lemma-rig-etale} we may assume that
+$\Spec(C_m) \to \Spec(\bar A_m)$ is \'etale
+over $\Spec(\bar A_m) \setminus V(\bar I_m)$.
+
+\medskip\noindent
+We claim that we may choose $A_m \to C_m \to B_m$ as in the previous
+paragraph such that moreover there are isomorphisms
+$C_m/(a_t^{m - 1}) \to C_{m - 1}$ compatible with the given
+$A$-algebra structure and the maps to $B_{m - 1} = B_m/(a_t^{m - 1})$.
+Namely, first fix a choice of $A_1 \to C_1 \to B_1$.
+Suppose we have found $C_{m - 1} \to C_{m - 2} \to \ldots \to C_1$
+with the desired properties.
+Note that $C_m/(a_t^{m - 1})$ is \'etale over
+$\Spec(\bar A_{m - 1}) \setminus V(\bar I_{m - 1})$.
+Hence by Lemma \ref{lemma-fully-faithful-etale-over-complement}
+there exists an \'etale extension $C_{m - 1} \to C'_{m - 1}$
+which induces an isomorphism modulo $\bar I_{m - 1}$ and an
+$\bar A_{m - 1}$-algebra map $C_m/(a_t^{m - 1}) \to C'_{m - 1}$
+inducing the isomorphism $B_m/(a_t^{m - 1}) \to B_{m - 1}$ on completions.
+Note that $C_m/(a_t^{m - 1}) \to C'_{m - 1}$ is \'etale over the complement
+of $V(\bar I_{m - 1})$ by
+Morphisms, Lemma \ref{morphisms-lemma-etale-permanence}
+and over $V(\bar I_{m - 1})$ induces an isomorphism on completions
+hence is \'etale there too (for example by More on Morphisms, Lemma
+\ref{more-morphisms-lemma-check-smoothness-on-infinitesimal-nbhds}).
+Thus $C_m/(a_t^{m - 1}) \to C'_{m - 1}$ is \'etale. By the
+topological invariance of \'etale morphisms
+(\'Etale Morphisms, Theorem \ref{etale-theorem-remarkable-equivalence})
+there exists an \'etale ring map $C_m \to C'_m$ such that
+$C_m/(a_t^{m - 1}) \to C'_{m - 1}$ is isomorphic to
+$C_m/(a_t^{m - 1}) \to C'_m/(a_t^{m - 1})$. Observe that the
+$\bar I_m$-adic completion of $C'_m$ is equal to the $\bar I_m$-adic
+completion of $C_m$, i.e., to $B_m$ (details omitted).
+We apply Lemma \ref{lemma-lift-approximation} to the diagram
+$$
+\xymatrix{
+ & C'_m \ar[r] & C'_m/(a_t^{m - 1}) \\
+C''_m \ar@{..>}[ru] \ar@{..>}[rr] & & C_{m - 1} \ar[u] \\
+ & \bar A_m \ar[r] \ar[uu] \ar@{..>}[lu] & \bar A_{m - 1} \ar[u]
+}
+$$
+to see that there exists a ``lift'' of $C''_m$ of $C_{m - 1}$
+to an algebra over $\bar A_m$ with all the desired properties.
+
+\medskip\noindent
+By construction $(C_m)$ is an object of the category
+(\ref{equation-C}) for the principal ideal $(a_t)$.
+Thus the inverse limit $B' = \lim C_m$ is an $(a_t)$-adically
+complete $A$-algebra such that $B'/a_t B'$ is of finite type
+over $A/(a_t)$, see Lemma \ref{lemma-topologically-finite-type}.
+By construction the $I$-adic completion of $B'$ is isomorphic to $B$
+(details omitted). Consider the complex $\NL^\wedge_{B'/A}$ constructed
+using the $(a_t)$-adic topology. Choosing a presentation for $B'$
+(which induces a similar presentation for $B$) the reader immediately
+sees that $\NL^\wedge_{B'/A} \otimes_{B'} B = \NL^\wedge_{B/A}$.
+Since $a_t \in I$ and since the cohomology modules of
+$\NL^\wedge_{B'/A}$ are finite $B'$-modules (hence complete for the
+$a_t$-adic topology), we conclude that $a_t^c$ acts as zero on
+these cohomologies as the same thing is true by assumption for
+$\NL^\wedge_{B/A}$. Thus multiplication by $a_t^{2c}$ is zero
+on $\NL^\wedge_{B'/A}$ by Lemma \ref{lemma-zero-in-derived}.
+Hence finally, we may apply Lemma \ref{lemma-approximate-principal}
+to $(a_t) \subset A \to B'$ to finish the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-approximate-by-etale-over-complement}
+Let $A$ be a Noetherian ring. Let $I \subset A$ be an ideal.
+Let $B$ be an $I$-adically complete $A$-algebra with $A/I \to B/IB$
+of finite type. The equivalent conditions of
+Lemma \ref{lemma-equivalent-with-artin} are also equivalent to
+\begin{enumerate}
+\item[(5)]
+\label{item-algebraize}
+there exists a finite type $A$-algebra $C$ with
+$\Spec(C) \to \Spec(A)$ is \'etale over $\Spec(A) \setminus V(I)$
+such that $B \cong C^\wedge$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+First, assume conditions (1) -- (4) hold. Then there exists
+a finite type $A$-algebra $C$ with such that $B \cong C^\wedge$
+by Lemma \ref{lemma-approximate}. In other words, $B_n = C/I^nC$.
+The naive cotangent complex $\NL_{C/A}$ is a complex of finite type
+$C$-modules and hence $H^{-1}$ and $H^0$ are finite $C$-modules.
+By assumption there exists a $c \geq 0$ such that
+$H^{-1}/I^nH^{-1}$ and $H^0/I^nH^0$ are annihilated by $I^c$
+for some $n$. By Nakayama's lemma this means that
+$I^cH^{-1}$ and $I^cH^0$ are annihilated by an element of the
+form $f = 1 + x$ with $x \in IC$. After inverting $f$
+(which does not change the quotients $B_n = C/I^nC$)
+we see that $\NL_{C/A}$ has cohomology annihilated by $I^c$. Thus
+$A \to C$ is \'etale at any prime of $C$ not lying over $V(I)$
+by the definition of \'etale ring maps, see
+Algebra, Definition \ref{algebra-definition-etale}.
+
+\medskip\noindent
+Conversely, assume that $A \to C$ of finite type is given such that
+$\Spec(C) \to \Spec(A)$ is \'etale over $\Spec(A) \setminus V(I)$.
+Then for every $a \in I$ there exists an $c \geq 0$ such that
+multiplication by $a^c$ is zero $\NL_{C/A}$.
+Since $\NL^\wedge_{C^\wedge/A}$ is the derived completion of
+$\NL_{C/A}$ (see Lemma \ref{lemma-NL-is-limit}) it follows that
+$B = C^\wedge$ satisfies the equivalent conditions of
+Lemma \ref{lemma-equivalent-with-artin}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{In case the base ring is a G-ring}
+\label{section-over-G-ring}
+
+\noindent
+If the base ring $A$ is a Noetherian G-ring, then some of the material
+above simplifies somewhat and we obtain some additional results.
+
+\begin{proof}[Proof of Lemma \ref{lemma-approximate} in case $A$ is a G-ring]
+This proof is easier in that it does not depend on the somewhat
+delicate deformation theory argument given in the proof of
+Lemma \ref{lemma-lift-approximation}, but of course it requires
+a very strong assumption on the Noetherian ring $A$.
+
+\medskip\noindent
+Choose a presentation $B = A[x_1, \ldots, x_r]^\wedge/J$.
+Choose generators $g_1, \ldots, g_m \in J$.
+Choose generators $k_1, \ldots, k_t$ of the module
+of relations between $g_1, \ldots, g_m$, i.e., such that
+$$
+(A[x_1, \ldots, x_r]^\wedge)^{\oplus t} \xrightarrow{k_1, \ldots, k_t}
+(A[x_1, \ldots, x_r]^\wedge)^{\oplus m} \xrightarrow{g_1, \ldots, g_m}
+A[x_1, \ldots, x_r]^\wedge
+$$
+is exact in the middle. Write $k_i = (k_{i1}, \ldots, k_{im})$ so that we have
+\begin{equation}
+\label{equation-relations-straight-up}
+\sum k_{ij}g_j = 0
+\end{equation}
+for $i = 1, \ldots, t$.
+Let $I^c = (a_1, \ldots, a_s)$. For each $l \in \{1, \ldots, s\}$
+we know that multiplication by $a_l$ on $\NL^\wedge_{B/A}$ is zero
+in $D(B)$. By Lemma \ref{lemma-map-out-of-almost-free} we can find a map
+$\alpha_l : \bigoplus B\text{d}x_i \to J/J^2$ such that
+$\text{d} \circ \alpha_l$ and $\alpha_l \circ \text{d}$ are both
+multiplication by $a_l$. Pick an element $f_{l, i} \in J$ whose
+class modulo $J^2$ is equal to $\alpha_l(\text{d}x_i)$.
+Then we have for all $l = 1, \ldots, s$ and $i = 1, \ldots, r$ that
+\begin{equation}
+\label{equation-derivatives}
+\sum\nolimits_{i'} (\partial f_{l, i}/ \partial x_{i'}) \text{d}x_{i'} =
+a_l \text{d}x_i + \sum h_{l, i}^{j', i'} g_{j'} \text{d}x_{i'}
+\end{equation}
+for some $h_{l, i}^{j', i'} \in A[x_1, \ldots, x_r]^\wedge$.
+We also have for $j = 1, \ldots, m$ and $l = 1, \ldots, s$ that
+\begin{equation}
+\label{equation-ci}
+a_l g_j = \sum h_{l, j}^if_{l, i} + \sum h_{l, j}^{j', j''}g_{j'} g_{j''}
+\end{equation}
+for some $h_{l, j}^i$ and $h_{l, j}^{j', j''}$ in
+$A[x_1, \ldots, x_r]^\wedge$. Of course, since $f_{l, i} \in J$
+we can write for $l = 1, \ldots, s$ and $i = 1, \ldots, r$
+\begin{equation}
+\label{equation-in-ideal}
+f_{l, i} = \sum h_{l, i}^jg_j
+\end{equation}
+for some $h_{l, i}^j$ in $A[x_1, \ldots, x_r]^\wedge$.
+
+\medskip\noindent
+Let $A[x_1, \ldots, x_r]^h$ be the henselization of the
+pair $(A[x_1, \ldots, x_r], IA[x_1, \ldots, x_r])$, see
+More on Algebra, Lemma \ref{more-algebra-lemma-henselization}.
+Since $A$ is a Noetherian G-ring, so is $A[x_1, \ldots, x_r]$, see
+More on Algebra, Proposition
+\ref{more-algebra-proposition-finite-type-over-G-ring}.
+Hence we have approximation for the map
+$A[x_1, \ldots, x_r]^h \to A[x_1, \ldots, x_r]^\wedge$
+with respect to the ideal generated by $I$, see
+Smoothing Ring Maps, Lemma \ref{smoothing-lemma-henselian-pair}.
+Choose a large integer $M$. Choose
+$$
+G_j, K_{ij}, F_{l, i}, H_{l, j}^i, H_{l, j}^{j', j''}, H_{l, i}^j
+\in A[x_1, \ldots, x_r]^h
+$$
+such that analogues of equations (\ref{equation-relations-straight-up}),
+(\ref{equation-ci}), and (\ref{equation-in-ideal})
+hold for these elements in $A[x_1, \ldots, x_r]^h$, i.e.,
+$$
+\sum K_{ij}G_j = 0,\quad
+a_l G_j = \sum H_{l, j}^iF_{l, i} +
+\sum H_{l, j}^{j', j''} G_{j'} G_{j''},\quad
+F_{l, i} = \sum H_{l, i}^j G_j
+$$
+and such that we have
+$$
+G_j - g_j, K_{ij} - k_{ij}, F_{l, i} - f_{l, i},
+H_{l, j}^i - h_{l, j}^i, H_{l, j}^{j', j''} - h_{l, j}^{j', j''},
+H_{l, i}^j - h_{l, i}^j
+\in I^M A[x_1, \ldots, x_r]^h
+$$
+where we take liberty of thinking of $A[x_1, \ldots, x_r]^h$ as a
+subring of $A[x_1, \ldots, x_r]^\wedge$.
+Note that we cannot guarantee that the analogue of
+(\ref{equation-derivatives}) holds
+in $A[x_1, \ldots, x_r]^h$, because it is not a polynomial equation.
+But since taking partial derivatives is $A$-linear, we do get
+the analogue modulo $I^M$. More precisely, we see that
+\begin{equation}
+\label{equation-derivatives-analogue}
+\sum\nolimits_{i'} (\partial F_{l, i}/ \partial x_{i'}) \text{d}x_{i'}
+- a_l \text{d}x_i - \sum h_{l, i}^{j', i'} G_{j'} \text{d}x_{i'}
+\in I^MA[x_1, \ldots, x_r]^\wedge
+\end{equation}
+for $l = 1, \ldots, s$ and $i = 1, \ldots, r$.
+
+\medskip\noindent
+With these choices, consider the ring
+$$
+C^h = A[x_1, \ldots, x_r]^h/(G_1, \ldots, G_r)
+$$
+and denote $C^\wedge$ its $I$-adic completion, namely
+$$
+C^\wedge = A[x_1, \ldots, x_r]^\wedge/J',\quad
+J' = (G_1, \ldots, G_r)A[x_1, \ldots, x_r]^\wedge
+$$
+In the following paragraphs we establish the fact that $C^\wedge$
+is isomorphic to $B$. Then in the final paragraph we deal with
+show that $C^h$ comes from a finite type algebra
+over $A$ as in the statement of the lemma.
+
+\medskip\noindent
+First consider the cokernel
+$$
+\Omega = \Coker(J'/(J')^2 \longrightarrow \bigoplus C^\wedge \text{d}x_i)
+$$
+This $C^\wedge$ module is generated by the images of the elements
+$\text{d}x_i$. Since $F_{l, i} \in J'$ by the analogue of
+(\ref{equation-in-ideal}) we see from
+(\ref{equation-derivatives-analogue}) we see
+that $a_l \text{d}x_i \in I^M\Omega$. As $I^c = (a_l)$ we see that
+$I^c \Omega \subset I^M \Omega$. Since $M > c$ we conclude that
+$I^c \Omega = 0$ by Algebra, Lemma \ref{algebra-lemma-NAK}.
+
+\medskip\noindent
+Next, consider the kernel
+$$
+H_1 = \Ker(J'/(J')^2 \longrightarrow \bigoplus C^\wedge \text{d}x_i)
+$$
+By the analogue of (\ref{equation-ci}) we see that
+$a_l J' \subset (F_{l, i}) + (J')^2$. On the other hand, the
+determinant $\Delta_l$ of the matrix $(\partial F_{l, i}/ \partial x_{i'})$
+satisfies $\Delta_l = a_l^r \bmod I^M C^\wedge$ by
+(\ref{equation-derivatives-analogue}). It follows that
+$a_l^{r + 1} H_1 \subset I^M H_1$ (some details omitted; use
+Algebra, Lemma \ref{algebra-lemma-matrix-left-inverse}).
+Now $(a_1^{r + 1}, \ldots, a_s^{r + 1}) \supset I^{(sr + 1)c}$.
+Hence $I^{(sr + 1)c}H_1 \subset I^M H_1$ and since $M > (sr + 1)c$
+we conclude that $I^{(sr + 1)c}H_1 = 0$.
+
+\medskip\noindent
+By Lemma \ref{lemma-zero-in-derived}
+we conclude that multiplication by an element
+of $I^{2(sr + 1)c}$ on $\NL^\wedge_{C^\wedge/A}$ is zero
+(note that the bound does not depend on $M$ or the choice
+of the approximation, as long as $M$ is large enough).
+Since $G_j - g_j$ is in the ideal generated by $I^M$
+we see that there is an isomorphism
+$$
+\psi_M : C^\wedge/I^MC^\wedge \to B/I^MB
+$$
+As $M$ is large enough we can use
+Lemma \ref{lemma-get-morphism-general}
+with $d = d(I \subset A \to B)$,
+with $C^\wedge$ playing the role of $B$,
+with $2(rs + 1)c$ instead of $c$,
+to find a morphism
+$$
+\psi : C^\wedge \longrightarrow B
+$$
+which agrees with $\psi_M$ modulo $I^{q - 2(rs + 1)c}$ where
+$q$ is the quotient of $M$ by the number of generators of $I$.
+We claim $\psi$ is an isomorphism. Since $C^\wedge$ and $B$
+are $I$-adically complete the map $\psi$ is surjective
+because it is surjective modulo $I$ (see
+Algebra, Lemma \ref{algebra-lemma-completion-generalities}).
+On the other hand, as $M$ is large enough we see that
+$$
+\text{Gr}_I(C^\wedge) \cong \text{Gr}_I(B)
+$$
+as graded $\text{Gr}_I(A[x_1, \ldots, x_r]^\wedge)$-modules
+by More on Algebra, Lemma \ref{more-algebra-lemma-approximate-complex-graded}.
+Since $\psi$ is compatible with this isomorphism as it
+agrees with $\psi_M$ modulo $I$, this means that $\text{Gr}_I(\psi)$ is an
+isomorphism. As $C^\wedge$ and $B$ are
+$I$-adically complete, it follows that $\psi$ is an isomorphism.
+
+\medskip\noindent
+This paragraph serves to deal with the issue that $C^h$
+is not of finite type over $A$. Namely, the ring
+$A[x_1, \ldots, x_r]^h$ is a filtered colimit of
+\'etale $A[x_1, \ldots, x_r]$ algebras $A'$ such that
+$A/I[x_1, \ldots, x_r] \to A'/IA'$ is an isomorphism
+(see proof of More on Algebra, Lemma \ref{more-algebra-lemma-henselization}).
+Pick an $A'$ such that $G_1, \ldots, G_m$ are the
+images of $G'_1, \ldots, G'_m \in A'$.
+Setting $C = A'/(G'_1, \ldots, G'_m)$ we get the finite
+type algebra we were looking for.
+\end{proof}
+
+\noindent
+The following lemma isn't true in general if $A$ is not a G-ring
+but just Noetherian. Namely, if $(A, \mathfrak m)$ is local
+and $I = \mathfrak m$, then the lemma is equivalent to 
+Artin approximation for $A^h$ (as in
+Smoothing Ring Maps, Theorem \ref{smoothing-theorem-approximation-property})
+which does not hold for every Noetherian local ring.
+
+\begin{lemma}
+\label{lemma-fully-faithfulness}
+Let $A$ be a Noetherian G-ring. Let $I \subset A$ be an ideal.
+Let $B, C$ be finite type $A$-algebras. For any $A$-algebra map
+$\varphi : B^\wedge \to C^\wedge$ of $I$-adic completions and any
+$N \geq 1$ there exist
+\begin{enumerate}
+\item an \'etale ring map $C \to C'$ which induces
+an isomorphism $C/IC \to C'/IC'$,
+\item an $A$-algebra map $\varphi : B \to C'$
+\end{enumerate}
+such that $\varphi$ and $\psi$ agree modulo $I^N$
+into $C^\wedge = (C')^\wedge$.
+\end{lemma}
+
+\begin{proof}
+The statement of the lemma makes sense as $C \to C'$ is flat
+(Algebra, Lemma \ref{algebra-lemma-etale}) hence induces an isomorphism
+$C/I^nC \to C'/I^nC'$ for all $n$
+(More on Algebra, Lemma \ref{more-algebra-lemma-neighbourhood-isomorphism})
+and hence an isomorphism on completions.
+Let $C^h$ be the henselization of the pair $(C, IC)$, see
+More on Algebra, Lemma \ref{more-algebra-lemma-henselization}.
+Then $C^h$ is the filtered colimit of the algebras $C'$
+and the maps
+$C \to C' \to C^h$ induce isomorphism on completions (More on Algebra,
+Lemma \ref{more-algebra-lemma-henselization-Noetherian-pair}).
+Thus it suffices to prove there exists an $A$-algebra map
+$B \to C^h$ which is congruent to $\psi$ modulo $I^N$.
+Write $B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$.
+The ring map $\psi$ corresponds to elements
+$\hat c_1, \ldots, \hat c_n \in C^\wedge$ with
+$f_j(\hat c_1, \ldots, \hat c_n) = 0$ for $j = 1, \ldots, m$.
+Namely, as $A$ is a Noetherian G-ring, so is $C$, see
+More on Algebra, Proposition
+\ref{more-algebra-proposition-finite-type-over-G-ring}.
+Thus Smoothing Ring Maps,
+Lemma \ref{smoothing-lemma-henselian-pair}
+applies to give elements $c_1, \ldots, c_n \in C^h$ such
+that $f_j(c_1, \ldots, c_n) = 0$ for $j = 1, \ldots, m$
+and such that $\hat c_i - c_i \in I^NC^h$.
+This determines the map $B \to C^h$ as desired.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Rig-surjective morphisms}
+\label{section-rig-surjective}
+
+\noindent
+For morphisms locally of finite type between locally Noetherian formal
+algebraic spaces a definition borrowed from \cite{ArtinII} can be used. See
+Remark \ref{remark-rig-surjective-more-general} for a discussion
+of what to do in more general cases.
+
+\begin{definition}
+\label{definition-rig-surjective}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of formal
+algebraic spaces over $S$. Assume that $X$ and $Y$ are locally
+Noetherian and that $f$ is locally of finite type. We say
+$f$ is {\it rig-surjective} if for every solid diagram
+$$
+\xymatrix{
+\text{Spf}(R') \ar@{..>}[r] \ar@{..>}[d] & X \ar[d]^f \\
+\text{Spf}(R) \ar[r]^-p & Y
+}
+$$
+where $R$ is a complete discrete valuation ring and where
+$p$ is an adic morphism there exists an
+extension of complete discrete valuation rings $R \subset R'$
+and a morphism $\text{Spf}(R') \to X$ making the displayed diagram commute.
+\end{definition}
+
+\noindent
+We prove a few lemmas to explain what this means.
+
+\begin{lemma}
+\label{lemma-composition-rig-surjective}
+\begin{slogan}
+Rig-surjectivity of locally finite type morphisms is preserved under
+composition
+\end{slogan}
+Let $S$ be a scheme. Let $f : X \to Y$ and $g : Y \to Z$ be morphisms of formal
+algebraic spaces over $S$. Assume $X$, $Y$, $Z$ are locally Noetherian and
+$f$ and $g$ locally of finite type. Then if $f$ and $g$ are rig-surjective,
+so is $g \circ f$.
+\end{lemma}
+
+\begin{proof}
+Follows in a straightforward manner from the definitions
+(and Formal Spaces, Lemma \ref{formal-spaces-lemma-composition-finite-type}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-rig-surjective}
+Let $S$ be a scheme. Let $f : X \to Y$ and $Z \to Y$ be morphisms
+of formal algebraic spaces over $S$. Assume $X$, $Y$, $Z$ are locally
+Noetherian and $f$ and $g$ locally of finite type. If $f$ is
+rig-surjective, then the base change $Z \times_Y X \to Z$ is too.
+\end{lemma}
+
+\begin{proof}
+Follows in a straightforward manner from the definitions (and
+Formal Spaces, Lemmas \ref{formal-spaces-lemma-fibre-product-Noetherian} and
+\ref{formal-spaces-lemma-base-change-finite-type}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-permanence-rig-surjective}
+Let $S$ be a scheme. Let $f : X \to Y$ and $g : Y \to Z$ be morphisms of
+formal algebraic spaces over $S$. Assume $X$, $Y$, $Z$ locally Noetherian
+and $f$ and $g$ locally of finite type. If $g \circ f : X \to Z$
+is rig-surjective, so is $g : Y \to Z$.
+\end{lemma}
+
+\begin{proof}
+Immediate from the definition.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-covering-rig-surjective}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of formal algebraic
+spaces which is representable by algebraic spaces, \'etale, and surjective.
+Assume $X$ and $Y$ locally Noetherian. Then $f$ is rig-surjective.
+\end{lemma}
+
+\begin{proof}
+Let $p : \text{Spf}(R) \to Y$ be an adic morphism where $R$ is a complete
+discrete valuation ring. Let $Z = \text{Spf}(R) \times_Y X$. Then
+$Z \to \text{Spf}(R)$ is representable by algebraic spaces, \'etale, and
+surjective. Hence $Z$ is nonempty. Pick a nonempty affine formal algebraic
+space $V$ and an \'etale morphism $V \to Z$ (possible by our definitions).
+Then $V \to \text{Spf}(R)$ corresponds to $R \to A^\wedge$ where
+$R \to A$ is an \'etale ring map, see Formal Spaces, Lemma
+\ref{formal-spaces-lemma-etale}. Since $A^\wedge \not = 0$
+(as $V \not = \emptyset$) we can find a maximal ideal $\mathfrak m$
+of $A$ lying over $\mathfrak m_R$. Then $A_\mathfrak m$ is a discrete
+valuation ring (More on Algebra, Lemma
+\ref{more-algebra-lemma-Dedekind-etale-extension}).
+Then $R' = A_\mathfrak m^\wedge$ is a complete discrete valuation ring
+(More on Algebra, Lemma \ref{more-algebra-lemma-completion-dvr}).
+Applying Formal Spaces, Lemma
+\ref{formal-spaces-lemma-morphism-between-formal-spectra}.
+we find the desired morphism $\text{Spf}(R') \to V \to Z \to X$.
+\end{proof}
+
+\begin{remark}
+\label{remark-upshot}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of
+locally Noetherian formal algebraic spaces which is locally of finite type.
+The upshot of the lemmas above is that we may check whether
+$f : X \to Y$ is rig-surjective, \'etale locally on $Y$. For example,
+suppose that $\{Y_i \to Y\}$ is a covering as in
+Formal Spaces, Definition \ref{formal-spaces-definition-formal-algebraic-space}.
+Then $f$ is rig-surjective if and only if $f_i : X \times_Y Y_i \to Y_i$ is
+rig-surjective. Namely, if $f$ is rig-surjective, so is any base change
+(Lemma \ref{lemma-base-change-rig-surjective}).
+Conversely, if all $f_i$ are rig-surjective, so is
+$\coprod f_i : \coprod X \times_Y Y_i \to \coprod Y_i$.
+By Lemma \ref{lemma-etale-covering-rig-surjective}
+the morphism $\coprod Y_i \to Y$ is rig-surjective.
+Hence $\coprod X \times_Y Y_i \to Y$ is rig-surjective
+(Lemma \ref{lemma-composition-rig-surjective}).
+Since this morphism factors through $X \to Y$ we see that $X \to Y$
+is rig-surjective by Lemma \ref{lemma-permanence-rig-surjective}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-completion-proper-surjective-rig-surjective}
+Let $S$ be a scheme. Let $f : X \to Y$ be a proper surjective morphism
+of locally Noetherian algebraic spaces over $S$. Let $T \subset |Y|$
+be a closed subset and let $T' = |f|^{-1}(T) \subset |X|$.
+Then $X_{/T'} \to Y_{/T}$ is rig-surjective.
+\end{lemma}
+
+\begin{proof}
+The statement makes sense by
+Formal Spaces, Lemmas \ref{formal-spaces-lemma-formal-completion-types} and
+\ref{formal-spaces-lemma-map-completions-finite-type}.
+Let $Y_j \to Y$ be a jointly surjective family of \'etale morphism
+where $Y_j$ is an affine scheme for each $j$.
+Denote $T_j \subset Y_j$ the inverse image of $T$.
+Then $\{(Y_j)_{/T_j} \to Y_{/T}\}$ is a covering as in
+Formal Spaces, Definition \ref{formal-spaces-definition-formal-algebraic-space}.
+Moreover, setting $X_j = Y_j \times_Y X$ and $T'_j \subset |X_j|$
+the inverse image of $T$, we have
+$$
+(X_j)_{/T'_j} = (Y_j)_{/T_j} \times_{(Y_{/T})} X_{/T'}
+$$
+By the discussion in Remark \ref{remark-upshot} we reduce to the case where
+$Y$ is an affine Noetherian scheme treated in the next paragraph.
+
+\medskip\noindent
+Assume $Y = \Spec(A)$ where $A$ is a Noetherian ring. This implies that
+$Y_{/T} = \text{Spf}(A^\wedge)$ where $A^\wedge$ is the $I$-adic completion
+of $A$ for some ideal $I \subset A$. Let
+$p : \text{Spf}(R) \to \text{Spf}(A^\wedge)$
+be an adic morphism where $R$ is a complete discrete valuation ring.
+Let $K$ be the field of fractions of $R$.
+Consider the composition $A \to A^\wedge \to R$.
+Since $X \to Y$ is surjective, the fibre $X_K = \Spec(K) \times_Y X$
+is nonempty. Thus we may choose an affine scheme $U$ and an \'etale
+morphism $U \to X$ such that $U_K$ is nonempty.
+Let $u \in U_K$ be a closed point (possible as $U_K$ is affine). By
+Morphisms, Lemma \ref{morphisms-lemma-closed-point-fibre-locally-finite-type}
+the residue field $L = \kappa(u)$ is a finite extension of $K$. Let
+$R' \subset L$ be the integral closure of $R$ in $L$. By
+More on Algebra, Remark \ref{more-algebra-remark-finite-separable-extension}
+we see that $R'$ is a discrete valuation ring.
+Because $X \to Y$ is proper we see that the given morphism
+$\Spec(L) = u \to U_K \to X_K \to X$ extends to a morphism
+$\Spec(R') \to X$ over the given morphism $\Spec(R) \to Y$
+(Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-characterize-proper}).
+By commutativity of the diagram the induced morphisms
+$\Spec(R'/\mathfrak m_{R'}^n) \to X$ are points of $X_{/T'}$
+and we find
+$$
+\text{Spf}((R')^\wedge) = \colim \Spec(R'/\mathfrak m_{R'}^n)
+\longrightarrow X_{/T'}
+$$
+as desired (note that $(R')^\wedge$ is a complete discrete valuation ring
+by More on Algebra, Lemma \ref{more-algebra-lemma-completion-dvr};
+in fact in the current situation $R' = (R')^\wedge$ but we do not
+need this).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-faithfully-flat-rig-surjective}
+Let $A$ be a Noetherian ring complete with respect to an ideal $I$.
+Let $B$ be an $I$-adically complete $A$-algebra.
+If $A/I^n \to B/I^nB$ is of finite type and flat for all $n$ and
+faithfully flat for $n = 1$, then $\text{Spf}(B) \to \text{Spf}(A)$
+is rig-surjective.
+\end{lemma}
+
+\begin{proof}
+We will use without further mention that morphisms between formal spectra
+are given by continuous maps between the corresponding topological rings, see
+Formal Spaces, Lemma \ref{formal-spaces-lemma-morphism-between-formal-spectra}.
+Let $\varphi : A \to R$ be a continuous map into a complete discrete
+valuation ring $A$. This implies that $\varphi(I) \subset \mathfrak m_R$.
+On the other hand, since we only need to produce the lift
+$\varphi' : B' \to R'$ in the case that $\varphi$ corresponds to an adic
+morphism, we may assume that $\varphi(I) \not = 0$. Thus we may consider
+the base change $C = B \widehat{\otimes}_A R$, see
+Remark \ref{remark-base-change} for example.
+Then $C$ is an $\mathfrak m_R$-adically complete $R$-algebra
+such that $C/\mathfrak m_R^n C$ is of finite type and flat over
+$R/\mathfrak m_R^n$ and such that $C/\mathfrak m_R C$ is nonzero.
+Pick any maximal ideal $\mathfrak m \subset C$ lying over
+$\mathfrak m_R$. By flatness (which implies going down) we see that
+$\Spec(C_\mathfrak m) \setminus V(\mathfrak m_R C_\mathfrak m)$
+is a nonempty open. Hence
+We can pick a prime $\mathfrak q \subset \mathfrak m$
+such that $\mathfrak q$ defines a closed point of
+$\Spec(C_\mathfrak m) \setminus \{\mathfrak m\}$ and such that
+$\mathfrak q \not \in V(IC_\mathfrak m)$, see
+Properties, Lemma \ref{properties-lemma-complement-closed-point-Jacobson}.
+Then $C/\mathfrak q$ is a dimension $1$-local domain and we can find
+$C/\mathfrak q \subset R'$ with $R'$ a discrete valuation ring
+(Algebra, Lemma \ref{algebra-lemma-exists-dvr}).
+By construction $\mathfrak m_R R' \subset \mathfrak m_{R'}$
+and we see that $C \to R'$ extends to a continuous map
+$C \to (R')^\wedge$ (in fact we can pick $R'$ such that
+$R' = (R')^\wedge$ in our current situation but we do not need this).
+Since the completion of a discrete valuation ring is a discrete
+valuation ring, we see that the assumption gives a commutative
+diagram of rings
+$$
+\xymatrix{
+(R')^\wedge & C \ar[l] & B \ar[l] \\
+R \ar[u] & R \ar[l] \ar[u] & A \ar[l] \ar[u]
+}
+$$
+which gives the desired lift.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-rig-surjective}
+Let $A$ be a Noetherian ring complete with respect to an ideal $I$.
+Let $B$ be an $I$-adically complete $A$-algebra. Assume that
+\begin{enumerate}
+\item the $I$-torsion in $A$ is $0$,
+\item $A/I^n \to B/I^nB$ is flat and of finite type for all $n$.
+\end{enumerate}
+Then $\text{Spf}(B) \to \text{Spf}(A)$ is rig-surjective if and only
+if $A/I \to B/IB$ is faithfully flat.
+\end{lemma}
+
+\begin{proof}
+Faithful flatness implies rig-surjectivity by
+Lemma \ref{lemma-faithfully-flat-rig-surjective}.
+To prove the converse we will use without further mention that the
+vanishing of $I$-torsion is equivalent to the vanishing of $I$-power torsion
+(More on Algebra, Lemma \ref{more-algebra-lemma-torsion-free}).
+We will also use without further mention that morphisms between
+formal spectra are given by continuous maps between the corresponding
+topological rings, see
+Formal Spaces, Lemma \ref{formal-spaces-lemma-morphism-between-formal-spectra}.
+
+\medskip\noindent
+Assume $\text{Spf}(B) \to \text{Spf}(A)$ is rig-surjective.
+Choose a maximal ideal $I \subset \mathfrak m \subset A$.
+The open $U = \Spec(A_\mathfrak m) \setminus V(I_\mathfrak m)$
+of $\Spec(A_\mathfrak m)$ is nonempty as the $I_\mathfrak m$-torsion of
+$A_\mathfrak m$ is zero
+(use Algebra, Lemma \ref{algebra-lemma-Noetherian-power-ideal-kills-module}).
+Thus we can find a prime $\mathfrak q \subset A_\mathfrak m$ which defines
+a point of $U$ (i.e., $IA_\mathfrak m \not \subset \mathfrak q$)
+and which corresponds to a closed point
+of $\Spec(A_\mathfrak m) \setminus \{\mathfrak m\}$, see
+Properties, Lemma \ref{properties-lemma-complement-closed-point-Jacobson}.
+Then $A_\mathfrak m/\mathfrak q$ is a dimension $1$ local domain.
+Thus we can find an injective local homomorphism of local rings
+$A_\mathfrak m/\mathfrak q \subset R$ where $R$ is a discrete valuation ring
+(Algebra, Lemma \ref{algebra-lemma-exists-dvr}).
+By construction $IR \subset \mathfrak m_R$ and we see that
+$A \to R$ extends to a continuous map $A \to R^\wedge$.
+Since the completion of a discrete valuation ring is a discrete
+valuation ring, we see that the assumption gives a commutative
+diagram of rings
+$$
+\xymatrix{
+R' & B \ar[l] \\
+R^\wedge \ar[u] & A \ar[l] \ar[u]
+}
+$$
+Thus we find a prime ideal of $B$ lying over $\mathfrak m$. It follows
+that $\Spec(B/IB) \to \Spec(A/I)$ is surjective, whence $A/I \to B/IB$
+is faithfully flat
+(Algebra, Lemma \ref{algebra-lemma-ff-rings}).
+\end{proof}
+
+\begin{remark}
+\label{remark-rig-surjective-more-general}
+The condition as formulated in Definition \ref{definition-rig-surjective}
+is not right for morphisms of locally adic* formal algebraic spaces.
+For example, if $A = (\bigcup_{n \geq 1} k[t^{1/n}])^\wedge$
+where the completion is the $t$-adic completion, then
+there are no adic morphisms $\text{Spf}(R) \to \text{Spf}(A)$
+where $R$ is a complete discrete valuation ring.
+Thus any morphism $X \to \text{Spf}(A)$ would be rig-surjective,
+but since $A$ is a domain and $t \in A$ is not zero, we want to
+think of $A$ as having at least one ``rig-point'', and we do not
+want to allow $X = \emptyset$. To cover this
+particular case, one can consider adic morphisms
+$$
+\text{Spf}(R) \longrightarrow Y
+$$
+where $R$ is a valuation ring complete with respect to a principal
+ideal $J$ whose radical is $\mathfrak m_R = \sqrt{J}$.
+In this case the value group of $R$ can be embedded into
+$(\mathbf{R}, +)$ and one obtains the point of view used by
+Berkovich in defining an analytic space associated to $Y$, see
+\cite{Berkovich}. Another approach is championed by Huber. In his theory,
+one drops the hypothesis that $\Spec(R/J)$ is a singleton, see
+\cite{Huber-continuous-valuations}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-monomorphism-rig-surjective}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of formal algebraic
+spaces. Assume $X$ and $Y$ are locally Noetherian, $f$ locally of finite
+type, and $f$ a monomorphism. Then $f$ is rig surjective if and only if
+every adic morphism $\text{Spf}(R) \to Y$ where $R$ is a complete discrete
+valuation ring factors through $X$.
+\end{lemma}
+
+\begin{proof}
+One direction is trivial. For the other, suppose that $\text{Spf}(R) \to Y$
+is an adic morphism such that there exists an extension of complete
+discrete valuation rings $R \subset R'$ with
+$\text{Spf}(R') \to \text{Spf}(R) \to X$ factoring through $Y$. Then
+$\Spec(R'/\mathfrak m_R^n R') \to \Spec(R/\mathfrak m_R^n)$ is surjective
+and flat, hence the morphisms $\Spec(R/\mathfrak m_R^n) \to X$ factor
+through $X$ as $X$ satisfies the sheaf condition for fpqc coverings, see
+Formal Spaces, Lemma \ref{formal-spaces-lemma-sheaf-fpqc}.
+In other words, $\text{Spf}(R) \to Y$ factors through $X$.
+\end{proof}
+
+
+
+
+
+\section{Algebraization}
+\label{section-algebraization}
+
+\noindent
+In this section we prove a generalization of the result on dilatations
+from the paper of Artin \cite{ArtinII}. We first reformulate the algebra
+results proved above into the language of formal algebraic spaces.
+
+\medskip\noindent
+Let $S$ be a scheme. Let $V$ be a locally Noetherian formal algebraic space
+over $S$. We denote $\mathcal{C}_V$ the category of formal algebraic
+spaces $W$ over $V$ such that the structure morphism $W \to V$ is rig-\'etale.
+
+\medskip\noindent
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $T \subset |X|$ be a closed subset. Recall that $X_{/T}$ denotes
+the formal completion of $X$ along $T$, see 
+Formal Spaces, Section \ref{formal-spaces-section-completion}.
+More generally, for any algebraic space $Y$ over $X$ we
+denote $Y_{/T}$ the completion of $Y$ along the inverse
+image of $T$ in $|Y|$, so that $Y_{/T}$ is a formal algebraic space
+over $X_{/T}$.
+
+\begin{lemma}
+\label{lemma-etale-gives-rig-etale}
+Let $S$ be a scheme. Let $X$ be a locally Noetherian algebraic space over $S$.
+Let $T \subset |X|$ be a closed subset. If $Y \to X$ is morphism of
+algebraic spaces which is locally of finite type and \'etale over
+$X \setminus T$, then $Y_{/T} \to X_{/T}$ is rig-\'etale, i.e., $Y_{/T}$
+is an object of $\mathcal{C}_{X_{/T}}$ defined above.
+\end{lemma}
+
+\begin{proof}
+Choose a surjective \'etale morphism $U \to X$ with $U = \coprod U_i$
+a disjoint union of affine schemes, see Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-cover-by-union-affines}.
+For each $i$ choose a surjective \'etale morphism $V_i \to Y \times_X U_i$
+where $V_i = \coprod V_{ij}$ is a disjoint union of affines.
+Write $U_i = \Spec(A_i)$ and $V_{ij} = \Spec(B_{ij})$.
+Let $I_i \subset A_i$ be an ideal cutting out the inverse image
+of $T$ in $U_i$. Then we may apply
+Lemma \ref{lemma-rig-etale}
+to see that the map of $I_i$-adic completions
+$A_i^\wedge \to B_{ij}^\wedge$ has the property
+$P$ of Lemma \ref{lemma-rig-etale-axioms}.
+Since $\{\text{Spf}(A_i^\wedge) \to X_{/T}\}$ and
+$\{\text{Spf}(B_{ij}) \to Y_{/T}\}$ are coverings as in
+Formal Spaces, Definition
+\ref{formal-spaces-definition-formal-algebraic-space}
+we see that $Y_{/T} \to X_{/T}$ is rig-\'etale by definition.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-algebraize-morphism-rig-etale}
+Let $X$ be a Noetherian affine scheme. Let $T \subset X$ be a closed subset.
+Let $U$ be an affine scheme and let $U \to X$ a finite type morphism
+\'etale over $X \setminus T$. Let $V$ be a Noetherian affine scheme over $X$.
+For any morphism $c' : V_{/T} \to U_{/T}$ over $X_{/T}$ there exists
+an \'etale morphism $b : V' \to V$ of affine schemes which induces an
+isomorphism $b_{/T} : V'_{/T} \to V_{/T}$ and a morphism $a : V' \to U$
+such that $c' = a_{/T} \circ b_{/T}^{-1}$.
+\end{lemma}
+
+\begin{proof}
+This is a reformulation of
+Lemma \ref{lemma-fully-faithful-etale-over-complement}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-algebraize-rig-etale-affine}
+Let $X$ be a Noetherian affine scheme. Let $T \subset X$ be a closed subset.
+Let $W \to X_{/T}$ be a rig-\'etale morphism of formal algebraic
+spaces with $W$ an affine formal algebraic space. Then there exists
+an affine scheme $U$, a finite type morphism $U \to X$ \'etale over
+$X \setminus T$ such that $W \cong U_{/T}$.
+Moreover, if $W \to X_{/T}$ is \'etale, then $U \to X$ is \'etale.
+\end{lemma}
+
+\begin{proof}
+The existence of $U$ is a restatement of
+Lemma \ref{lemma-approximate-by-etale-over-complement}.
+The final statement follows from
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-check-smoothness-on-infinitesimal-nbhds}.
+\end{proof}
+
+\noindent
+Let $S$ be a scheme. Let $X$ be a locally Noetherian algebraic space over $S$
+and let $T \subset |X|$ be a closed subset. Let us denote
+$\mathcal{C}_{X, T}$ the category of algebraic spaces $Y$ over $X$
+such that the structure morphism $f : Y \to X$
+is locally of finite type and an isomorphism over the complement of
+$T$. Formal completion defines a functor
+\begin{equation}
+\label{equation-completion-functor}
+F_{X, T} : \mathcal{C}_{X, T} \longrightarrow \mathcal{C}_{X_{/T}},\quad
+(f : Y \to X) \longmapsto (f_{/T} : Y_{/T} \to X_{/T})
+\end{equation}
+see Lemma \ref{lemma-etale-gives-rig-etale}.
+
+\begin{lemma}
+\label{lemma-factor}
+Let $S$ be a scheme. Let $f : X \to Y$ and $g : Z \to Y$ be morphisms
+of algebraic spaces. Let $T \subset |X|$ be closed.
+Assume that
+\begin{enumerate}
+\item $X$ is locally Noetherian,
+\item $g$ is a monomorphism and locally of finite type,
+\item $f|_{X \setminus T} : X \setminus T \to Y$ factors through $g$, and
+\item $f_{/T} : X_{/T} \to Y$ factors through $g$,
+\end{enumerate}
+then $f$ factors through $g$.
+\end{lemma}
+
+\begin{proof}
+Consider the fibre product $E = X \times_Y Z \to X$.
+By assumption the the open immersion $X \setminus T \to X$
+factors through $E$ and any morphism $\varphi : X' \to X$ with
+$|\varphi|(|X'|) \subset T$ factors through $E$ as well, see
+Formal Spaces, Section \ref{formal-spaces-section-completion}.
+By More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-check-smoothness-on-infinitesimal-nbhds}
+this implies that $E \to X$ is \'etale at every point of $E$
+mapping to a point of $T$. Hence $E \to X$ is an \'etale
+monomorphism, hence an open immersion
+(Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-etale-universally-injective-open}).
+Then it follows that $E = X$ since our assumptions imply that $|X| = |E|$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-faithful}
+Let $S$ be a scheme. Let $X$, $Y$ be locally Noetherian algebraic spaces
+over $S$. Let $T \subset |X|$ and $T' \subset |Y|$ be closed subsets.
+Let $a, b : X \to Y$ be morphisms of algebraic spaces over $S$ such
+that $a|_{X \setminus T} = b|_{X \setminus T}$, such that
+$|a|(T) \subset T'$ and $|b|(T) \subset T'$, and such that
+$a_{/T} = b_{/T}$ as morphisms $X_{/T} \to Y_{/T'}$.
+Then $a = b$.
+\end{lemma}
+
+\begin{proof}
+Let $E$ be the equalizer of $a$ and $b$. Then $E$ is an algebraic space
+and $E \to X$ is locally of finite type and a monomorphism, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-properties-diagonal}.
+Our assumptions imply we can apply Lemma \ref{lemma-factor} to the two
+morphisms $f = \text{id} : X \to X$ and $g : E \to X$ and the closed
+subset $T$ of $|X|$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-equivalence-relation}
+Let $S$ be a scheme. Let $X$ be a locally Noetherian algebraic space
+over $S$. Let $T \subset |X|$ be a closed subset.
+Let $s, t : R \to U$ be two morphisms of algebraic spaces over $X$.
+Assume
+\begin{enumerate}
+\item $R$, $U$ are locally of finite type over $X$,
+\item the base change of $s$ and $t$ to $X \setminus T$
+is an \'etale equivalence relation, and
+\item the formal completion
+$(t_{/T}, s_{/T}) : R_{/T} \to U_{/T} \times_{X_{/T}} U_{/T}$
+is an equivalence relation too.
+\end{enumerate}
+Then $(t, s) : R \to U \times_X U$ is an \'etale equivalence relation.
+\end{lemma}
+
+\begin{proof}
+The morphisms $s, t : R \to U$ are \'etale over $X \setminus T$
+by assumption. Since the formal completions of the maps
+$s, t : R \to U$ are \'etale, we see that $s$ and $t$ are \'etale
+for example by More on Morphisms, Lemma
+\ref{more-morphisms-lemma-check-smoothness-on-infinitesimal-nbhds}.
+Applying Lemma \ref{lemma-factor} to the morphisms
+$\text{id} : R \times_{U \times_X U} R \to R \times_{U \times_X U} R$
+and $\Delta : R \to R \times_{U \times_X U} R$ we conclude that
+$(t, s)$ is a monomorphism. Applying it again to
+$(t \circ \text{pr}_0, s \circ \text{pr}_1) :
+R \times_{s, U, t} R \to U \times_X U$ and $(t, s) : R \to U \times_X U$
+we find that ``transitivity'' holds. We omit the proof of
+the other two axioms of an equivalence relation.
+\end{proof}
+
+\begin{remark}
+\label{remark-smash-away-from-T}
+Let $S$, $X$, and $T \subset |X|$ be as in (\ref{equation-completion-functor}).
+Let $U \to X$ be an algebraic space over $X$ such that $U \to X$ is
+locally of finite type and \'etale outside of $T$. We will construct a
+factorization
+$$
+U \longrightarrow Y \longrightarrow X
+$$
+with $Y$ in $\mathcal{C}_{X, T}$ such that $U_{/T} \to Y_{/T}$ is an
+isomorphism. We may assume the image of $U \to X$ contains
+$X \setminus T$, otherwise we replace $U$ by $U \amalg (X \setminus T)$.
+For an algebraic space $Z$ over $X$, let us denote $Z^\circ$
+the open subspace which is the inverse image of $X \setminus T$.
+Let
+$$
+R = U \amalg_{U^\circ} (U \times_X U)^\circ
+$$
+be the pushout of $U^\circ \to U$ and the diagonal morphism
+$U^\circ \to U^\circ \times_X U^\circ = (U \times_X U)^\circ$.
+Since $U^\circ \to X$ is \'etale, the diagonal is an open immersion
+and we see that $R$ is an algebraic space (this follows for example
+from Spaces, Lemma \ref{spaces-lemma-glueing-algebraic-spaces}).
+The two projections $(U \times_X U)^\circ \to U$ extend to $R$
+and we obtain two \'etale morphisms $s, t : R \to U$. Checking on each
+piece separatedly we find that $R$ is an \'etale equivalence
+relation on $U$. Set $Y = U/R$ which is an algebraic space by
+Bootstrap, Theorem \ref{bootstrap-theorem-final-bootstrap}.
+Since $U^\circ \to X \setminus T$ is a surjective \'etale morphism
+and since $R^\circ = U^\circ \times_{X \setminus T} U^\circ$
+we see that $Y^\circ \to X \setminus T$ is an isomorphism.
+In other words, $Y \to X$ is an object of $\mathcal{C}_{X, T}$.
+On the other hand, the morphism $U \to Y$ induces an isomorphism
+$U_{/T} \to Y_{/T}$. Namely, the formal completion of $R$
+along the inverse image of $T$ is equal to the formal completion of
+$U$ along the inverse image of $T$ by our choice of $R$. By
+our construction of the formal completion in
+Formal Spaces, Section \ref{formal-spaces-section-completion}
+we conclude that $U_{/T} = Y_{/T}$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-dilatations-affine}
+Let $S$ be a scheme. Let $X$ be a Noetherian affine algebraic space over $S$.
+Let $T \subset |X|$ be a closed subset. Then the functor $F_{X, T}$ is an
+equivalence.
+\end{lemma}
+
+\noindent
+Before we prove this lemma let us discuss an example. Suppose that
+$S = \Spec(k)$, $X = \mathbf{A}^1_k$, and $T = \{0\}$. Then
+$X_{/T} = \text{Spf}(k[[x]])$. Let $W = \text{Spf}(k[[x]] \times k[[x]])$.
+Then the corresponding $Y$ is the affine line with zero doubled
+(Schemes, Example \ref{schemes-example-affine-space-zero-doubled}).
+Moreover, this is the output of the construction in
+Remark \ref{remark-smash-away-from-T}
+starting with $U = X \amalg X$.
+
+\begin{proof}
+For any scheme or algebraic space $Z$ over $X$, let us denote
+$Z_0 \subset Z$ the inverse image of $T$ with the induced reduced
+closed subscheme or subspace structure. Note that $Z_0 = (Z_{/T})_{red}$
+is the reduction of the formal completion.
+
+\medskip\noindent
+The functor $F_{X, T}$ is faithful by Lemma \ref{lemma-faithful}.
+
+\medskip\noindent
+Let $Y, Y'$ be objects of $\mathcal{C}_{X, T}$ and let
+$a' : Y_{/T} \to Y'_{/T}$ be a morphism in $\mathcal{C}_{X_{/T}}$.
+To prove $F_{X, T}$ is fully faithful, we will construct a morphism
+$a : Y \to Y'$ in $\mathcal{C}_{X, T}$ such that $a' = a_{/T}$.
+
+\medskip\noindent
+Let $U$ be an affine scheme and let $U \to Y$ be an \'etale morphism.
+Because $U$ is affine, $U_0$ is affine and the image of
+$U_0 \to Y_0 \to Y'_0$ is a quasi-compact subspace of $|Y'_0|$.
+Thus we can choose an affine scheme $V$ and an \'etale morphism
+$V \to Y'$ such that the image of $|V_0| \to |Y'_0|$
+contains this quasi-compact subset. Consider the formal algebraic space
+$$
+W = U_{/T} \times_{Y'_{/T}} V_{/T}
+$$
+By our choice of $V$ the above, the map $W \to U_{/T}$ is surjective.
+Thus there exists an affine formal algebraic space $W'$ and an \'etale
+morphism $W' \to W$ such that $W' \to W \to U_{/T}$ is surjective.
+Then $W' \to U_{/T}$ is \'etale.
+By Lemma \ref{lemma-algebraize-rig-etale-affine} $W' = U'_{/T}$
+for $U' \to U$ \'etale and $U'$ affine. Write $V = \Spec(C)$. By
+Lemma \ref{lemma-algebraize-morphism-rig-etale} there exists an
+\'etale morphism $U'' \to U'$ of affines which is an isomorphism on
+completions and a morphism $U'' \to V$ whose completion is
+the composition $U''_{/T} \to U'_{/T} \to W \to V_{/T}$.
+Thus we get
+$$
+Y \longleftarrow U'' \longrightarrow Y'
+$$
+over $X$ agreeing with the given map on formal completions such that
+the image of $U''_0 \to Y_0$ is the same as the image of $U_0 \to Y_0$.
+
+\medskip\noindent
+Taking a disjoint union of $U''$ as constructed in the previous
+paragraph, we find a scheme $U$, an \'etale morphism $U \to Y$,
+and a morphism $b : U \to Y'$ over $X$, such that the diagram
+$$
+\xymatrix{
+U_{/T} \ar[d] \ar[rd]^{b_{/T}} \\
+Y_{/T} \ar[r]^{a'} & Y'_{/T}
+}
+$$
+is commutative and such that $U_0 \to Y_0$ is surjective.
+Taking a disjoint union with the open $X \setminus T$ (which is also
+open in $Y$ and $Y'$), we find that we may even assume that $U \to Y$
+is a surjective \'etale morphism. Let $R = U \times_Y U$.
+Then the two compositions $R \to U \to Y'$ agree both over $X \setminus T$
+and after formal completion along $T$, whence are equal by
+Lemma \ref{lemma-faithful}. This means exactly that $b$ factors as
+$U \to Y \to Y'$ to give us our desired morphism $a : Y \to Y'$.
+
+\medskip\noindent
+Essential surjectivity. Let $W$ be an object of $\mathcal{C}_{X_{/T}}$.
+We prove $W$ is in the essential image in a number of steps.
+
+\medskip\noindent
+Step 1: $W$ is an affine formal algebraic space. Then we can find
+$U \to X$ of finite type and \'etale over $X \setminus T$ such that
+$U_{/T}$ is isomorphic to $W$, see
+Lemma \ref{lemma-algebraize-rig-etale-affine}.
+Thus we see that $W$ is in the essential image by the construction
+in Remark \ref{remark-smash-away-from-T}.
+
+\medskip\noindent
+Step 2: $W$ is separated. Choose $\{W_i \to W\}$ as in
+Formal Spaces, Definition \ref{formal-spaces-definition-formal-algebraic-space}.
+By Step 1 the formal algebraic spaces $W_i$ and $W_i \times_W W_j$
+are in the essential image.
+Say $W_i = (Y_i)_{/T}$ and $W_i \times_W W_j = (Y_{ij})_{/T}$.
+By fully faithfulness we obtain morphisms $t_{ij} : Y_{ij} \to Y_i$
+and $s_{ij} : Y_{ij} \to Y_j$ matching the projections
+$W_i \times_W W_j \to W_i$ and $W_i \times_W W_j \to W_j$.
+Set $R = \coprod Y_{ij}$ and $U = \coprod Y_i$ and denote
+$s = \coprod s_{ij} : R \to U$ and $t = \coprod t_{ij} : R \to U$.
+Applying Lemma \ref{lemma-equivalence-relation}
+we find that $(t, s) : R \to U \times_X U$ is an \'etale equivalence relation.
+Thus we can take the quotient $Y = U/R$ and it is an algebraic
+space, see 
+Bootstrap, Theorem \ref{bootstrap-theorem-final-bootstrap}.
+Since completion commutes with fibre products and taking
+quotient sheaves, we find that $Y_{/T} \cong W$ in $\mathcal{C}_{X_{/T}}$.
+
+\medskip\noindent
+Step 3: $W$ is general. Choose $\{W_i \to W\}$ as in
+Formal Spaces, Definition \ref{formal-spaces-definition-formal-algebraic-space}.
+The formal algebraic spaces $W_i$ and $W_i \times_W W_j$ are separated.
+Hence by Step 2  the formal algebraic spaces $W_i$ and $W_i \times_W W_j$
+are in the essential image. Then we argue exactly as in the previous
+paragraph to see that $W$ is in the essential image as well.
+This concludes the proof.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-dilatations-general}
+Let $S$ be a scheme. Let $X$ be a locally Noetherian algebraic space over $S$.
+Let $T \subset |X|$ be a closed subset. The functor $F_{X, T}$
+(\ref{equation-completion-functor})
+$$
+\left\{
+\begin{matrix}
+\text{algebraic spaces }Y\text{ locally of finite}\\
+\text{type over }X\text{ such that }Y \to X\\
+\text{is an isomorphism over }X \setminus T
+\end{matrix}
+\right\}
+\longrightarrow
+\left\{
+\begin{matrix}
+\text{formal algebraic spaces }W\text{ endowed} \\
+\text{with a rig-\'etale morphism }W \to X_{/T}
+\end{matrix}
+\right\}
+$$
+given by formal completion is an equivalence.
+\end{theorem}
+
+\begin{proof}
+The theorem is essentially a formal consequence of
+Lemma \ref{lemma-dilatations-affine}. We give the details but
+we encourage the reader to think it through for themselves.
+Let $g : U \to X$ be a surjective \'etale morphism with $U = \coprod U_i$
+and each $U_i$ affine. Denote $F_{U, T}$ the functor for $U$ and the
+inverse image of $T$ in $|U|$.
+
+\medskip\noindent
+Since $U = \coprod U_i$ both the category $\mathcal{C}_{U, T}$ and
+the category $\mathcal{C}_{U_{/T}}$ decompose as a product of categories,
+one for each $i$. Since the functors $F_{U_i, T}$ are equivalences
+for all $i$ by the lemma we find that the same is true for $F_{U, T}$.
+
+\medskip\noindent
+Since $F_{U, T}$ is faithful, it follows that $F_{X, T}$
+is faithful too. Namely, if $a, b : Y \to Y'$ are morphisms
+in $\mathcal{C}_{X, T}$ such that $a_{/T} = b_{/T}$, then we find
+on pulling back that the base changes
+$a_U, b_U : U \times_X Y \to U \times_X Y'$ are equal.
+Since $U \times_X Y \to Y$ is surjective \'etale, this implies that $a = b$.
+
+\medskip\noindent
+At this point we know that $F_{X, T}$ is faithful for every situation
+as in the theorem. Let $R = U \times_X U$ where $U$ is as above.
+Let $t, s : R \to U$ be the projections.
+Since $X$ is Noetherian, so is $R$. Thus the functor $F_{R, T}$
+(defined in the obvious manner) is
+faithful. Let $Y \to X$ and $Y' \to X$ be objects of $\mathcal{C}_{X, T}$.
+Let $a' : Y_{/T} \to Y'_{/T}$ be a morphism in the category
+$\mathcal{C}_{X_{/T}}$. Taking the base change to $U$ we obtain a
+morphism $a'_U : (U \times_X Y)_{/T} \to (U \times_X Y')_{/T}$
+in the category $\mathcal{C}_{U_{/T}}$. Since the functor $F_{U, T}$
+is fully faithful we obtain a morphism $a_U : U \times_X Y \to U \times_X Y'$
+with $F_{U, T}(a_U) = a'_U$. Since $s^*(a'_U) = t^*(a'_U)$ and since
+$F_{R, T}$ is faithful, we find that $s^*(a_U) = t^*(a_U)$.
+Since
+$$
+\xymatrix{
+R \times_X Y \ar@<1ex>[r] \ar@<-1ex>[r] &
+U \times_X Y \ar[r] & Y
+}
+$$
+is an equalizer diagram of sheaves, we find that $a_U$ descends to
+a morphism $a : Y \to Y'$. We omit the proof that $F_{X, T}(a) = a'$.
+
+\medskip\noindent
+At this point we know that $F_{X, T}$ is faithful for every situation
+as in the theorem. To finish the proof we show that $F_{X, T}$ is
+essentially surjective. Let $W \to X_{/T}$ be an object of
+$\mathcal{C}_{X_{/T}}$. Then $U \times_X W$ is an object of
+$\mathcal{C}_{U_{/T}}$. By the affine case we find an object
+$V \to U$ of $\mathcal{C}_{U, T}$ and an isomorphism
+$\alpha : F_{U, T}(V) \to U \times_X W$ in $\mathcal{C}_{U_{/T}}$.
+By fully faithfulness of $F_{R, T}$ we find a unique morphism
+$h : s^*V \to t^*V$ in the category $\mathcal{C}_{R, T}$ such that
+$F_{R, T}(h)$ corresponds, via the isomorphism $\alpha$, to the
+canonical descent datum on $U \times_X W$ in the category
+$\mathcal{C}_{R_{/T}}$. Using faithfulness of our functor on
+$R \times_{s, U, t} R$ we see that $h$ satisfies the cocycle
+condition. We conclude, for example by the much more general
+Bootstrap, Lemma \ref{bootstrap-lemma-descend-algebraic-space},
+that there exists an object $Y \to X$ of $\mathcal{C}_{X, T}$
+and an isomorphism $\beta : U \times_X Y \to V$ such that the
+descent datum $h$ corresponds, via $\beta$, to the canonical descent
+datum on $U \times_X Y$. We omit the verification that
+$F_{X, T}(Y)$ is isomorphic to $W$; hint: in the category of formal
+algebraic spaces there is descent for morphisms along \'etale coverings.
+\end{proof}
+
+\noindent
+We are often interested as to whether the output of the construction
+of Theorem \ref{theorem-dilatations-general} is a separated algebraic space.
+In the next few lemmas we match properties of $Y \to X$ and the corresponding
+completion $Y_{/T} \to X_{/T}$.
+
+\begin{lemma}
+\label{lemma-output-quasi-compact}
+Let $S$ be a scheme. Let $X$ be a locally Noetherian algebraic space over $S$.
+Let $T \subset |X|$ be a closed subset. Let $W \to X_{/T}$ be an object
+of the category $\mathcal{C}_{X_{/T}}$ and let $Y \to X$ be the object
+corresponding to $W$ via Theorem \ref{theorem-dilatations-general}.
+Then $Y \to X$ is quasi-compact if and only if $W \to X_{/T}$ is so.
+\end{lemma}
+
+\begin{proof}
+These conditions may be checked after base change to an affine
+scheme \'etale over $X$, resp.\ a formal affine algebraic space
+\'etale over $X_{/T}$, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-quasi-compact-local}
+as well as Formal Spaces, Lemma
+\ref{formal-spaces-lemma-characterize-quasi-compact-morphism}.
+If $U \to X$ ranges over \'etale morphisms with $U$ affine, then
+the formal completions $U_{/T} \to X_{/T}$ give a family
+of formal affine coverings as in Formal Spaces, Definition
+\ref{formal-spaces-definition-formal-algebraic-space}.
+Thus we may and do assume $X$ is affine.
+
+\medskip\noindent
+Let $V \to Y$ be a surjective \'etale morphism
+where $V = \coprod_{j \in J} V_j$ is a disjoint union of affines. Then
+$V_{/T} \to Y_{/T} = W$ is a surjective \'etale morphism.
+Thus if $Y$ is quasi-compact, we can choose $J$ is finite, and
+we conclude that $W$ is quasi-compact. Conversely, if $W$ is
+quasi-compact, then we can find a finite subset $J' \subset J$
+such that $\coprod_{j \in J'} (V_j)_{/T} \to W$ is surjective.
+Then it follows that
+$$
+(X \setminus T) \amalg \coprod\nolimits_{j \in J'} V_j \longrightarrow Y
+$$
+is surjective. This either follows from the construction of
+$Y$ in the proof of Lemma \ref{lemma-dilatations-affine}
+or it follows since we have
+$$
+|Y| = |X \setminus T| \amalg |W_{red}|
+$$
+as $Y_{/T} = W$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-output-quasi-separated}
+Let $S$ be a scheme. Let $X$ be a locally Noetherian algebraic space over $S$.
+Let $T \subset |X|$ be a closed subset. Let $W \to X_{/T}$ be an object
+of the category $\mathcal{C}_{X_{/T}}$ and let $Y \to X$ be the object
+corresponding to $W$ via Theorem \ref{theorem-dilatations-general}.
+Then $Y \to X$ is quasi-separated if and only if $W \to X_{/T}$ is so.
+\end{lemma}
+
+\begin{proof}
+These conditions may be checked after base change to an affine
+scheme \'etale over $X$, resp.\ a formal affine algebraic space
+\'etale over $X_{/T}$, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-separated-local}
+as well as
+Formal Spaces, Lemma
+\ref{formal-spaces-lemma-separated-local},
+If $U \to X$ ranges over \'etale morphisms with $U$ affine, then
+the formal completions $U_{/T} \to X_{/T}$ give a family
+of formal affine coverings as in Formal Spaces, Definition
+\ref{formal-spaces-definition-formal-algebraic-space}.
+Thus we may and do assume $X$ is affine.
+
+\medskip\noindent
+Let $V \to Y$ be a surjective \'etale morphism
+where $V = \coprod_{j \in J} V_j$ is a disjoint union of affines.
+Then $Y$ is quasi-separated if and only if $V_j \times_Y V_{j'}$ is
+quasi-compact for all $j, j' \in J$. Similarly, $W$ is quasi-separated
+if and only if
+$(V_j \times_Y V_{j'})_{/T} = (V_j)_{/T} \times_{Y_{/T}} (V_{j'})_{/T}$
+is quasi-compact for all $j, j' \in J$. Since $X$ is Noetherian affine,
+we see that
+$$
+(V_j \times_Y V_{j'}) \times_X (X \setminus T)
+$$
+is quasi-compact. Hence we conclude the equivalence holds by the equality
+$$
+|V_j \times_Y V_{j'}| =
+|(V_j \times_Y V_{j'}) \times_X (X \setminus T)| \amalg
+|(V_j \times_Y V_{j'})_{/T}|
+$$
+and the fact that the second summand is closed in the left hand side.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-output-separated}
+Let $S$ be a scheme. Let $X$ be a locally Noetherian algebraic space over $S$.
+Let $T \subset |X|$ be a closed subset. Let $W \to X_{/T}$ be an object
+of the category $\mathcal{C}_{X_{/T}}$ and let $Y \to X$ be the object
+corresponding to $W$ via Theorem \ref{theorem-dilatations-general}.
+Then $Y \to X$ is separated if and only if $W \to X_{/T}$ is
+separated and $\Delta : W \to W \times_{X_{/T}} W$ is rig-surjective.
+\end{lemma}
+
+\begin{proof}
+These conditions may be checked after base change to an affine
+scheme \'etale over $X$, resp.\ a formal affine algebraic space
+\'etale over $X_{/T}$, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-separated-local}
+as well as
+Formal Spaces, Lemma \ref{formal-spaces-lemma-separated-local}.
+If $U \to X$ ranges over \'etale morphisms with $U$ affine, then
+the formal completions $U_{/T} \to X_{/T}$ give a family
+of formal affine coverings as in Formal Spaces, Definition
+\ref{formal-spaces-definition-formal-algebraic-space}.
+Thus we may and do assume $X$ is affine.
+In the proof of both directions we may assume that $Y \to X$ and
+$W \to X_{/T}$ are quasi-separated by
+Lemma \ref{lemma-output-quasi-separated}.
+
+\medskip\noindent
+Proof of easy direction. Assume $Y \to X$ is separated.
+Then $Y \to Y \times_X Y$ is a closed immersion and it follows that
+$W \to W \times_{X_{/T}} W$ is a closed immersion too, i.e., we see
+that $W \to X_{/T}$ is separated. Let
+$$
+p : \text{Spf}(R) \longrightarrow W \times_{X_{/T}} W = (Y \times_X Y)_{/T}
+$$
+be an adic morphism where $R$ is a complete discrete valuation ring with
+fraction field $K$. The composition into $Y \times_X Y$ corresponds to
+a morphism $g : \Spec(R) \to Y \times_X Y$, see
+Formal Spaces, Lemma \ref{formal-spaces-lemma-map-into-algebraic-space}.
+Since $p$ is an adic morphism, so is the composition $\text{Spf}(R) \to X$.
+Thus we see that $g(\Spec(K))$ is a point of
+$$
+(Y \times_X Y) \times_X (X \setminus T) \cong
+X \setminus T \cong
+Y \times_X (X \setminus T)
+$$
+(small detail omitted). Hence this lifts to a $K$-point of $Y$ and
+we obtain a commutative diagram
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & Y \ar[d] \\
+\Spec(R) \ar[r] \ar@{-->}[ru] & Y \times_X Y
+}
+$$
+Since $Y \to X$ was assumed separated we find the dotted arrow exists
+(Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-check-separated-dvr}).
+Applying the functor completion along $T$ we find that $p$ can be
+lifted to a morphism into $W$, i.e., $W \to W \times_{X_{/T}} W$ is
+rig-surjective.
+
+\medskip\noindent
+Proof of hard direction. Assume $W \to X_{/T}$ separated and
+$W \to W \times_{X_{/T}} W$ rig-surjective. By
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-check-separated-dvr} and
+Remark \ref{spaces-cohomology-remark-variant}
+it suffices to show that given any commutative diagram
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & Y \ar[d] \\
+\Spec(R) \ar[r]^g \ar@{-->}[ru] & Y \times_X Y
+}
+$$
+where $R$ is a complete discrete valuation ring with fraction field $K$,
+there is at most one dotted arrow making the diagram commute. Let
+$h : \Spec(R) \to X$ be the composition of $g$ with the morphism
+$Y \times_X Y \to X$. There are three cases:
+Case I: $h(\Spec(R)) \subset (X \setminus T)$. This case is trivial
+because $Y \times_X (X \setminus T) = X \setminus T$.
+Case II: $h$ maps $\Spec(R)$ into $T$. This case follows
+from our assumption that $W \to X_{/T}$ is separated. Namely,
+if $T$ denotes the reduced induced closed subspace structure
+on $T$, then $h$ factors through $T$ and
+$$
+W \times_{X_{/T}} T = Y \times_X T \longrightarrow T
+$$
+is separated by assumption (and for example
+Formal Spaces, Lemma \ref{formal-spaces-lemma-separated-local})
+which implies we get the lifting property by
+Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-check-separated-dvr}
+applied to the displayed arrow. Case III: $h(\Spec(K))$ is not in $T$
+but $h$ maps the closed point of $\Spec(R)$ into $T$. In this case
+the corresponding morphism
+$$
+g_{/T} :
+\text{Spf}(R)
+\longrightarrow
+(Y \times_X Y)_{/T} =
+W \times_{X_{/T}} W
+$$
+is an adic morphism (detail omitted). Hence our assumption that
+$W \to W \times_{X_{/T}} W$ be rig-surjective implies we can lift
+$g_{/T}$ to a morphism $e : \text{Spf}(R) \to W = Y_{/T}$ (see
+Lemma \ref{lemma-monomorphism-rig-surjective}
+for why we do not need to extend $R$).
+Algebraizing the composition $\text{Spf}(R) \to Y$ using
+Formal Spaces, Lemma \ref{formal-spaces-lemma-map-into-algebraic-space}
+we find a morphism $\Spec(R) \to Y$ lifting $g$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-output-proper}
+Let $S$ be a scheme. Let $X$ be a locally Noetherian algebraic space over $S$.
+Let $T \subset |X|$ be a closed subset. Let $W \to X_{/T}$ be an object
+of the category $\mathcal{C}_{X_{/T}}$ and let $Y \to X$ be the object
+corresponding to $W$ via Theorem \ref{theorem-dilatations-general}.
+Then $Y \to X$ is proper if and only if the following conditions hold
+\begin{enumerate}
+\item $W \to X_{/T}$ is proper,
+\item $W \to X_{/T}$ is rig-surjective, and
+\item $\Delta : W \to W \times_{X_{/T}} W$ is rig-surjective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+These conditions may be checked after base change to an affine
+scheme \'etale over $X$, resp.\ a formal affine algebraic space
+\'etale over $X_{/T}$, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-proper-local}
+as well as
+Formal Spaces, Lemma \ref{formal-spaces-lemma-proper-local}.
+If $U \to X$ ranges over \'etale morphisms with $U$ affine, then
+the formal completions $U_{/T} \to X_{/T}$ give a family
+of formal affine coverings as in Formal Spaces, Definition
+\ref{formal-spaces-definition-formal-algebraic-space}.
+Thus we may and do assume $X$ is affine.
+In the proof of both directions we may assume that $Y \to X$
+and $W \to X_{/T}$ are separated and quasi-compact and that
+$W \to W \times_{X_{/T}} W$ is rig-surjective by
+Lemmas \ref{lemma-output-quasi-compact} and \ref{lemma-output-separated}.
+
+\medskip\noindent
+Proof of the easy direction. Assume $Y \to X$ is proper.
+Then $Y_{/T} = Y \times_X X_{/T} \to X_{/T}$ is proper too.
+Let
+$$
+p : \text{Spf}(R) \longrightarrow X_{/T}
+$$
+be an adic morphism where $R$ is a complete discrete valuation ring with
+fraction field $K$. Then $p$ corresponds to a morphism $g : \Spec(R) \to X$,
+see
+Formal Spaces, Lemma \ref{formal-spaces-lemma-map-into-algebraic-space}.
+Since $p$ is an adic morphism, we have $p(\Spec(K)) \not \in T$.
+Since $Y \to X$ is an isomorphism over $X \setminus T$ we can lift
+to $X$ and obtain a commutative diagram
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & Y \ar[d] \\
+\Spec(R) \ar[r] \ar@{-->}[ru] & X
+}
+$$
+Since $Y \to X$ was assumed proper we find the dotted arrow exists.
+(Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-check-proper-dvr}).
+Applying the functor completion along $T$ we find that $p$ can be
+lifted to a morphism into $W$, i.e., $W \to X_{/T}$ is
+rig-surjective.
+
+\medskip\noindent
+Proof of hard direction. Assume $W \to X_{/T}$ proper,
+$W \to W \times_{X_{/T}} W$ rig-surjective, and $W \to X_{/T}$
+rig-surjective. By
+Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-check-proper-dvr} and
+Remark \ref{spaces-cohomology-remark-variant}
+it suffices to show that given any commutative diagram
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & Y \ar[d] \\
+\Spec(R) \ar[r]^g \ar@{-->}[ru] & X
+}
+$$
+where $R$ is a complete discrete valuation ring with fraction field $K$,
+there is a dotted arrow making the diagram commute. Let
+$h : \Spec(R) \to X$ be the composition of $g$ with the morphism
+$Y \times_X Y \to X$. There are three cases:
+Case I: $h(\Spec(R)) \subset (X \setminus T)$. This case is trivial
+because $Y \times_X (X \setminus T) = X \setminus T$.
+Case II: $h$ maps $\Spec(R)$ into $T$. This case follows
+from our assumption that $W \to X_{/T}$ is proper. Namely,
+if $T$ denotes the reduced induced closed subspace structure
+on $T$, then $h$ factors through $T$ and
+$$
+W \times_{X_{/T}} T = Y \times_X T \longrightarrow T
+$$
+is proper by assumption which implies we get the lifting property by
+Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-check-proper-dvr}
+applied to the displayed arrow. Case III: $h(\Spec(K))$ is not in $T$
+but $h$ maps the closed point of $\Spec(R)$ into $T$. In this case
+the corresponding morphism
+$$
+g_{/T} : \text{Spf}(R) \longrightarrow Y_{/T} = W
+$$
+is an adic morphism (detail omitted). Hence our assumption that
+$W \to X_{/T}$ be rig-surjective implies we can lift
+$g_{/T}$ to a morphism $e : \text{Spf}(R') \to W = Y_{/T}$
+for some extension of complete discrete valuation rings $R \subset R'$.
+Algebraizing the composition $\text{Spf}(R') \to Y$ using
+Formal Spaces, Lemma \ref{formal-spaces-lemma-map-into-algebraic-space}
+we find a morphism $\Spec(R') \to Y$ lifting $g$. By the discussion
+in Cohomology of Spaces, Remark \ref{spaces-cohomology-remark-variant}
+this is sufficient to conclude that $Y \to X$ is proper.
+\end{proof}
+
+
+
+
+
+\section{Application to modifications}
+\label{section-modifications}
+
+\noindent
+Let $A$ be a Noetherian ring and let $I \subset A$ be an ideal. We set
+$S = \Spec(A)$ and $U = S \setminus V(I)$. In this section
+we will consider the category
+\begin{equation}
+\label{equation-modification}
+\left\{
+f : X \longrightarrow S
+\quad \middle| \quad
+\begin{matrix}
+X\text{ is an algebraic space}\\
+f\text{ is locally of finite type}\\
+f^{-1}(U) \to U\text{ is an isomorphism}
+\end{matrix}
+\right\}
+\end{equation}
+A morphism from $X/S$ to $X'/S$ will be a morphism of algebraic spaces
+$X \to X'$ compatible with the structure morphisms over $S$.
+
+\medskip\noindent
+Let $A \to B$ be a homomorphism of Noetherian rings and let $J \subset B$
+be an ideal such that $J = \sqrt{I B}$. Then base
+change along the morphism $\Spec(B) \to \Spec(A)$ gives a functor
+from the category (\ref{equation-modification}) for $A$
+to the category (\ref{equation-modification}) for $B$.
+
+\begin{lemma}
+\label{lemma-Noetherian-local-ring}
+Let $(A, I)$ be a pair consisting of a Noetherian ring and an ideal $I$.
+Let $A^\wedge$ be the $I$-adic completion of $A$. Then base change defines
+an equivalence of categories between the category (\ref{equation-modification})
+for $A$ with the category (\ref{equation-modification}) for the completion
+$A^\wedge$.
+\end{lemma}
+
+\begin{proof}
+Set $S = \Spec(A)$ as in (\ref{equation-modification}) and $T = V(I)$.
+Similarly, write $S' = \Spec(A^\wedge)$ and $T' = V(IA^\wedge)$.
+The morphism $S' \to S$ defines an isomorphism $S'_{/T'} \to S_{/T}$
+of formal completions. Let $\mathcal{C}_{S, T}$, $\mathcal{C}_{S_{/T}}$,
+$\mathcal{C}_{S'_{/T'}}$, and $\mathcal{C}_{S', T'}$ be the corresponding
+categories as used in (\ref{equation-completion-functor}).
+By Theorem \ref{theorem-dilatations-general} (in fact we only need
+the affine case treated in Lemma \ref{lemma-dilatations-affine})
+we see that
+$$
+\mathcal{C}_{S, T} = \mathcal{C}_{S_{/T}} =
+\mathcal{C}_{S_{/T'}'} = \mathcal{C}_{S', T'}
+$$
+Since $\mathcal{C}_{S, T}$ is the category (\ref{equation-modification})
+for $A$ and $\mathcal{C}_{S', T'}$ the category (\ref{equation-modification})
+for $A^\wedge$ this proves the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-Noetherian-local-ring-properties}
+Notation and assumptions as in Lemma \ref{lemma-Noetherian-local-ring}.
+Let $f : X \to \Spec(A)$ correspond to $g : Y \to \Spec(A^\wedge)$
+via the equivalence. Then $f$ is quasi-compact, quasi-separated, separated,
+proper, finite, and add more here if and only if $g$ is so.
+\end{lemma}
+
+\begin{proof}
+You can deduce this for the statements
+quasi-compact, quasi-separated, separated, and proper
+by using Lemmas \ref{lemma-output-quasi-compact}
+\ref{lemma-output-quasi-separated},
+\ref{lemma-output-separated},
+\ref{lemma-output-quasi-separated}, and
+\ref{lemma-output-proper}
+to translate the corresponding property into a property
+of the formal completion and using the argument of the proof
+of Lemma \ref{lemma-Noetherian-local-ring}.
+However, there is a direct argument using fpqc descent as follows.
+First, note that $\{U \to \Spec(A), \Spec(A^\wedge) \to \Spec(A)\}$ is an
+fpqc covering with $U = \Spec(A) \setminus V(I)$ as before.
+The base change of $f$ by $U \to \Spec(A)$ is $\text{id}_U$
+by definition of our category (\ref{equation-modification}).
+Let $P$ be a property of morphisms of algebraic spaces which
+is fpqc local on the base (Descent on Spaces, Definition
+\ref{spaces-descent-definition-property-morphisms-local})
+such that $P$ holds for identity morphisms.
+Then we see that $P$ holds for $f$ if and only if $P$ holds for $g$.
+This applies to $P$ equal to
+quasi-compact, quasi-separated, separated, proper, and finite
+by
+Descent on Spaces, Lemmas
+\ref{spaces-descent-lemma-descending-property-quasi-compact},
+\ref{spaces-descent-lemma-descending-property-quasi-separated},
+\ref{spaces-descent-lemma-descending-property-separated},
+\ref{spaces-descent-lemma-descending-property-proper}, and
+\ref{spaces-descent-lemma-descending-property-finite}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-equivalence-to-completion}
+Let $A \to B$ be a local map of local Noetherian rings such that
+\begin{enumerate}
+\item $A \to B$ is flat,
+\item $\mathfrak m_B = \mathfrak m_A B$, and
+\item $\kappa(\mathfrak m_A) = \kappa(\mathfrak m_B)$
+\end{enumerate}
+(equivalently, $A \to B$ induces an isomorphism on completions, see
+More on Algebra, Lemma \ref{more-algebra-lemma-flat-unramified}).
+Then the base change functor from the category
+(\ref{equation-modification}) for $(A, \mathfrak m_A)$ to the category
+(\ref{equation-modification}) for $(B, \mathfrak m_B)$
+is an equivalence.
+\end{lemma}
+
+\begin{proof}
+This follows immediately from Lemma \ref{lemma-Noetherian-local-ring}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dominate-by-admissible-blowup}
+Let $(A, \mathfrak m, \kappa)$ be a Noetherian local ring.
+Let $f : X \to S$ be an object of (\ref{equation-modification}).
+Then there exists a $U$-admissible blowup $S' \to S$
+which dominates $X$.
+\end{lemma}
+
+\begin{proof}
+Special case of More on Morphisms of Spaces,
+Lemma \ref{spaces-more-morphisms-lemma-dominate-modification-by-blowup}.
+\end{proof}
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}
+

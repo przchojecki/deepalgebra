@@ -1,0 +1,2941 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Algebraic Spaces}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Algebraic spaces were first introduced by Michael Artin,
+see \cite{ArtinI}, \cite{ArtinII},
+\cite{Artin-Theorem-Representability},
+\cite{Artin-Construction-Techniques},
+\cite{Artin-Algebraic-Spaces},
+\cite{Artin-Algebraic-Approximation},
+\cite{Artin-Implicit-Function},
+and \cite{ArtinVersal}.
+Some of the foundational material was developed jointly with
+Knutson, who produced the book \cite{Kn}.
+Artin defined (see \cite[Definition 1.3]{Artin-Implicit-Function})
+an algebraic space as a sheaf for the \'etale topology
+which is locally in the \'etale topology representable.
+In most of Artin's work the categories of schemes
+considered are schemes locally of finite type over a fixed
+excellent Noetherian base.
+
+\medskip\noindent
+Our definition is slightly different. First of all we consider sheaves
+for the fppf topology. This is just a technical point and scarcely makes
+any difference. Second, we include the condition that the diagonal is
+representable.
+
+\medskip\noindent
+After defining algebraic spaces we make some foundational observations.
+The main result in this chapter is that with our definitions
+an algebraic space is the same thing as an \'etale equivalence relation,
+see the discussion in Section \ref{section-presentations} and
+Theorem \ref{theorem-presentation}. The analogue of this theorem in
+Artin's setting is \cite[Theorem 1.5]{Artin-Implicit-Function}, or
+\cite[Proposition II.1.7]{Kn}. In other words, the sheaf
+defined by an \'etale equivalence relation has a representable diagonal.
+It follows that our definition agrees with Artin's original definition
+in a broad sense. It also means that one can give examples of algebraic
+spaces by simply writing down an \'etale equivalence relation.
+
+\medskip\noindent
+In Section \ref{section-separation} we introduce various separation
+axioms on algebraic spaces that we have found in the literature.
+Finally in Section \ref{section-examples}
+we give some weird and not so weird examples of algebraic spaces.
+
+
+
+
+
+
+\section{General remarks}
+\label{section-general}
+
+\noindent
+We work in a suitable big fppf site $\Sch_{fppf}$
+as in Topologies, Definition \ref{topologies-definition-big-fppf-site}.
+So, if not explicitly stated otherwise all schemes will be objects
+of $\Sch_{fppf}$.
+In Section \ref{section-change-big-site} we discuss what
+changes if you change the big fppf site.
+
+\medskip\noindent
+We will always work relative to a base $S$ contained in $\Sch_{fppf}$.
+And we will then work with the big fppf site $(\Sch/S)_{fppf}$,
+see Topologies, Definition \ref{topologies-definition-big-small-fppf}.
+The absolute case can be recovered by taking
+$S = \Spec(\mathbf{Z})$.
+
+\medskip\noindent
+If $U, T$ are schemes over $S$, then we denote
+$U(T)$ for the set of $T$-valued points {\it over} $S$.
+In a formula: $U(T) = \Mor_S(T, U)$.
+
+\medskip\noindent
+Note that any fpqc covering is a universal effective epimorphism, see
+Descent, Lemma \ref{descent-lemma-fpqc-universal-effective-epimorphisms}.
+Hence the topology on $\Sch_{fppf}$
+is weaker than the canonical topology and all representable presheaves
+are sheaves.
+
+
+
+
+
+
+
+\section{Representable morphisms of presheaves}
+\label{section-representable}
+
+\noindent
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F, G : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$.
+Let $a : F \to G$ be a representable transformation of functors, see
+Categories,
+Definition \ref{categories-definition-representable-map-presheaves}.
+This means that for every
+$U \in \Ob((\Sch/S)_{fppf})$ and
+any $\xi \in G(U)$ the fiber product $h_U \times_{\xi, G} F$ is representable.
+Choose a representing object $V_\xi$ and an isomorphism
+$h_{V_\xi} \to h_U \times_G F$.
+By the Yoneda lemma, see Categories, Lemma \ref{categories-lemma-yoneda},
+the projection $h_{V_\xi} \to h_U \times_G F \to h_U$ comes from a unique
+morphism of schemes $a_\xi : V_\xi \to U$.
+Suggestively we could represent this by the diagram
+$$
+\xymatrix{
+V_\xi \ar@{~>}[r] \ar[d]_{a_\xi} & h_{V_\xi} \ar[d] \ar[r] & F \ar[d]^a \\
+U \ar@{~>}[r] & h_U \ar[r]^\xi & G
+}
+$$
+where the squiggly arrows represent the Yoneda embedding.
+Here are some lemmas about this notion that work in great generality.
+
+\begin{lemma}
+\label{lemma-morphism-schemes-gives-representable-transformation}
+Let $S$, $X$, $Y$ be objects of $\Sch_{fppf}$.
+Let $f : X \to Y$ be a morphism of schemes.
+Then
+$$
+h_f : h_X \longrightarrow h_Y
+$$
+is a representable transformation of functors.
+\end{lemma}
+
+\begin{proof}
+This is formal and relies only on the fact that
+the category $(\Sch/S)_{fppf}$ has fibre products.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-representable-transformations}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F, G, H : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$.
+Let $a : F \to G$, $b : G \to H$ be representable transformations of functors.
+Then
+$$
+b \circ a : F \longrightarrow H
+$$
+is a representable transformation of functors.
+\end{lemma}
+
+\begin{proof}
+This is entirely formal and works in any category.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-representable-transformations}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F, G, H : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$.
+Let $a : F \to G$ be a representable transformation of functors.
+Let $b : H \to G$ be any transformation of functors.
+Consider the fibre product diagram
+$$
+\xymatrix{
+H \times_{b, G, a} F \ar[r]_-{b'} \ar[d]_{a'} & F \ar[d]^a \\
+H \ar[r]^b & G
+}
+$$
+Then the base change $a'$ is a representable transformation of functors.
+\end{lemma}
+
+\begin{proof}
+This is entirely formal and works in any category.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-product-representable-transformations}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F_i, G_i : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$, $i = 1, 2$.
+Let $a_i : F_i \to G_i$, $i = 1, 2$
+be representable transformations of functors.
+Then
+$$
+a_1 \times a_2 : F_1 \times F_2 \longrightarrow G_1 \times G_2
+$$
+is a representable transformation of functors.
+\end{lemma}
+
+\begin{proof}
+Write $a_1 \times a_2$ as the composition
+$F_1 \times F_2 \to G_1 \times F_2 \to G_1 \times G_2$.
+The first arrow is the base change of $a_1$ by the map
+$G_1 \times F_2 \to G_1$, and the second arrow
+is the base change of $a_2$ by the map
+$G_1 \times G_2 \to G_2$. Hence this lemma is a formal
+consequence of Lemmas \ref{lemma-composition-representable-transformations}
+and \ref{lemma-base-change-representable-transformations}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-transformation-to-sheaf}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F, G : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$.
+Let $a : F \to G$ be a representable transformation of functors.
+If $G$ is a sheaf, then so is $F$.
+\end{lemma}
+
+\begin{proof}
+Let $\{\varphi_i : T_i \to T\}$ be a covering of the site
+$(\Sch/S)_{fppf}$.
+Let $s_i \in F(T_i)$ which satisfy the sheaf condition.
+Then $\sigma_i = a(s_i) \in G(T_i)$ satisfy the sheaf condition
+also. Hence there exists a unique $\sigma \in G(T)$ such
+that $\sigma_i = \sigma|_{T_i}$. By assumption
+$F' = h_T \times_{\sigma, G, a} F$ is a representable presheaf
+and hence (see remarks in Section \ref{section-general}) a sheaf.
+Note that $(\varphi_i, s_i) \in F'(T_i)$ satisfy the
+sheaf condition also, and hence come from some unique
+$(\text{id}_T, s) \in F'(T)$. Clearly $s$ is the section of
+$F$ we are looking for.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-transformation-diagonal}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F, G : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$.
+Let $a : F \to G$ be a representable transformation of functors.
+Then $\Delta_{F/G} : F \to F \times_G F$ is representable.
+\end{lemma}
+
+\begin{proof}
+Let $U \in \Ob((\Sch/S)_{fppf})$. Let
+$\xi = (\xi_1, \xi_2) \in (F \times_G F)(U)$.
+Set $\xi' = a(\xi_1) = a(\xi_2) \in G(U)$.
+By assumption there exist a scheme $V$ and a morphism $V \to U$
+representing the fibre product $h_U \times_{\xi', G} F$.
+In particular, the elements $\xi_1, \xi_2$ give morphisms
+$f_1, f_2 : U \to V$ over $U$. Because $V$ represents the
+fibre product $h_U \times_{\xi', G} F$ and because
+$\xi' = a \circ \xi_1 = a \circ \xi_2$
+we see that if $g : U' \to U$ is a morphism then
+$$
+g^*\xi_1 = g^*\xi_2
+\Leftrightarrow
+f_1 \circ g = f_2 \circ g.
+$$
+In other words, we see that $h_U \times_{\xi, F \times_G F} F$
+is represented by $V \times_{\Delta, V \times V, (f_1, f_2)} U$
+which is a scheme.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Lists of useful properties of morphisms of schemes}
+\label{section-lists}
+
+\noindent
+For ease of reference we list in the following remarks the
+properties of morphisms which possess some of the properties
+required of them in later results.
+
+\begin{remark}
+\label{remark-list-properties-stable-base-change}
+Here is a list of properties/types of morphisms
+which are {\it stable under arbitrary base change}:
+\begin{enumerate}
+\item closed, open, and locally closed immersions, see
+Schemes, Lemma \ref{schemes-lemma-base-change-immersion},
+\item quasi-compact, see
+Schemes, Lemma \ref{schemes-lemma-quasi-compact-preserved-base-change},
+\item universally closed, see
+Schemes, Definition \ref{schemes-definition-universally-closed},
+\item (quasi-)separated, see
+Schemes, Lemma \ref{schemes-lemma-separated-permanence},
+\item monomorphism, see
+Schemes, Lemma \ref{schemes-lemma-base-change-monomorphism}
+\item surjective, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-surjective},
+\item universally injective, see
+Morphisms, Lemma \ref{morphisms-lemma-universally-injective},
+\item affine, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-affine},
+\item quasi-affine, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-quasi-affine},
+\item (locally) of finite type, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-finite-type},
+\item (locally) quasi-finite, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-quasi-finite},
+\item (locally) of finite presentation, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-finite-presentation},
+\item locally of finite type of relative dimension $d$, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-relative-dimension-d},
+\item universally open, see
+Morphisms, Definition \ref{morphisms-definition-open},
+\item flat, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-flat},
+\item syntomic, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-syntomic},
+\item smooth, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-smooth},
+\item unramified (resp.\ G-unramified), see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-unramified},
+\item \'etale, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-etale},
+\item proper, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-proper},
+\item H-projective, see
+Morphisms, Lemma \ref{morphisms-lemma-H-projective-base-change},
+\item (locally) projective, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-projective},
+\item finite or integral, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-finite},
+\item finite locally free, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-finite-locally-free},
+\item universally submersive, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-universally-submersive},
+\item universal homeomorphism, see
+Morphisms, Lemma \ref{morphisms-lemma-base-change-universal-homeomorphism}.
+\end{enumerate}
+Add more as needed.
+\end{remark}
+
+\begin{remark}
+\label{remark-list-properties-stable-composition}
+Of the properties of morphisms which are stable under base change
+(as listed in
+Remark \ref{remark-list-properties-stable-base-change})
+the following are also {\it stable under compositions}:
+\begin{enumerate}
+\item closed, open and locally closed immersions, see
+Schemes, Lemma \ref{schemes-lemma-composition-immersion},
+\item quasi-compact, see
+Schemes, Lemma \ref{schemes-lemma-composition-quasi-compact},
+\item universally closed, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-proper},
+\item (quasi-)separated, see
+Schemes, Lemma \ref{schemes-lemma-separated-permanence},
+\item monomorphism, see
+Schemes, Lemma \ref{schemes-lemma-composition-monomorphism},
+\item surjective, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-surjective},
+\item universally injective, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-universally-injective},
+\item affine, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-affine},
+\item quasi-affine, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-quasi-affine},
+\item (locally) of finite type, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-finite-type},
+\item (locally) quasi-finite, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-quasi-finite},
+\item (locally) of finite presentation, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-finite-presentation},
+\item universally open, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-open},
+\item flat, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-flat},
+\item syntomic, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-syntomic},
+\item smooth, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-smooth},
+\item unramified (resp.\ G-unramified), see
+Morphisms, Lemma \ref{morphisms-lemma-composition-unramified},
+\item \'etale, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-etale},
+\item proper, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-proper},
+\item H-projective, see
+Morphisms, Lemma \ref{morphisms-lemma-H-projective-composition},
+\item finite or integral, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-finite},
+\item finite locally free, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-finite-locally-free},
+\item universally submersive, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-universally-submersive},
+\item universal homeomorphism, see
+Morphisms, Lemma \ref{morphisms-lemma-composition-universal-homeomorphism}.
+\end{enumerate}
+Add more as needed.
+\end{remark}
+
+\begin{remark}
+\label{remark-list-properties-fpqc-local-base}
+Of the properties mentioned which are stable under base change
+(as listed in Remark \ref{remark-list-properties-stable-base-change})
+the following are also {\it fpqc local on the base}
+(and a fortiori fppf local on the base):
+\begin{enumerate}
+\item for immersions we have this for
+\begin{enumerate}
+\item closed immersions, see
+Descent, Lemma \ref{descent-lemma-descending-property-closed-immersion},
+\item open immersions, see
+Descent, Lemma \ref{descent-lemma-descending-property-open-immersion}, and
+\item quasi-compact immersions, see
+Descent,
+Lemma \ref{descent-lemma-descending-property-quasi-compact-immersion},
+\end{enumerate}
+\item quasi-compact, see
+Descent, Lemma \ref{descent-lemma-descending-property-quasi-compact},
+\item universally closed, see
+Descent, Lemma
+\ref{descent-lemma-descending-property-universally-closed},
+\item (quasi-)separated, see
+Descent, Lemmas
+\ref{descent-lemma-descending-property-quasi-separated}, and
+\ref{descent-lemma-descending-property-separated},
+\item monomorphism, see
+Descent, Lemma \ref{descent-lemma-descending-property-monomorphism},
+\item surjective, see
+Descent, Lemma \ref{descent-lemma-descending-property-surjective},
+\item universally injective, see
+Descent, Lemma \ref{descent-lemma-descending-property-universally-injective},
+\item affine, see
+Descent, Lemma \ref{descent-lemma-descending-property-affine},
+\item quasi-affine, see
+Descent, Lemma \ref{descent-lemma-descending-property-quasi-affine},
+\item (locally) of finite type, see
+Descent,
+Lemmas \ref{descent-lemma-descending-property-locally-finite-type}, and
+\ref{descent-lemma-descending-property-finite-type},
+\item (locally) quasi-finite, see
+Descent, Lemma \ref{descent-lemma-descending-property-quasi-finite},
+\item (locally) of finite presentation, see
+Descent, Lemmas
+\ref{descent-lemma-descending-property-locally-finite-presentation}, and
+\ref{descent-lemma-descending-property-finite-presentation},
+\item locally of finite type of relative dimension $d$, see
+Descent,
+Lemma \ref{descent-lemma-descending-property-relative-dimension-d},
+\item universally open, see
+Descent, Lemma \ref{descent-lemma-descending-property-universally-open},
+\item flat, see
+Descent, Lemma \ref{descent-lemma-descending-property-flat},
+\item syntomic, see
+Descent, Lemma \ref{descent-lemma-descending-property-syntomic},
+\item smooth, see
+Descent, Lemma \ref{descent-lemma-descending-property-smooth},
+\item unramified (resp.\ G-unramified), see
+Descent, Lemma \ref{descent-lemma-descending-property-unramified},
+\item \'etale, see
+Descent, Lemma \ref{descent-lemma-descending-property-etale},
+\item proper, see
+Descent, Lemma \ref{descent-lemma-descending-property-proper},
+\item finite or integral, see
+Descent, Lemma \ref{descent-lemma-descending-property-finite},
+\item finite locally free, see
+Descent, Lemma \ref{descent-lemma-descending-property-finite-locally-free},
+\item universally submersive, see
+Descent, Lemma \ref{descent-lemma-descending-property-universally-submersive},
+\item universal homeomorphism, see
+Descent, Lemma \ref{descent-lemma-descending-property-universal-homeomorphism}.
+\end{enumerate}
+Note that the property of being an ``immersion'' may not be fpqc local
+on the base, but in
+Descent, Lemma \ref{descent-lemma-descending-fppf-property-immersion}
+we proved that it is fppf local on the base.
+\end{remark}
+
+
+
+
+
+
+
+
+\section{Properties of representable morphisms of presheaves}
+\label{section-representable-properties}
+
+\noindent
+Here is the definition that makes this work.
+
+\begin{definition}
+\label{definition-relative-representable-property}
+With $S$, and $a : F \to G$ representable as above.
+Let $\mathcal{P}$ be a property of morphisms of schemes which
+\begin{enumerate}
+\item is preserved under any base change,
+see Schemes, Definition \ref{schemes-definition-preserved-by-base-change},
+and
+\item is fppf local on the base, see
+Descent, Definition \ref{descent-definition-property-morphisms-local}.
+\end{enumerate}
+In this case we say that $a$ has {\it property $\mathcal{P}$} if for every
+$U \in \Ob((\Sch/S)_{fppf})$ and
+any $\xi \in G(U)$ the resulting morphism of schemes
+$V_\xi \to U$ has property $\mathcal{P}$.
+\end{definition}
+
+\noindent
+It is important to note that we will only use this definition for
+properties of morphisms that are stable under base change, and
+local in the fppf topology on the base. This is
+not because the definition doesn't make sense otherwise; rather it
+is because we may want to give a different definition which is
+better suited to the property we have in mind.
+
+\begin{remark}
+\label{remark-warning}
+Consider the property $\mathcal{P}=$``surjective''.
+In this case there could be some ambiguity if we say
+``let $F \to G$ be a surjective map''.
+Namely, we could mean the notion defined
+in Definition \ref{definition-relative-representable-property}
+above, or we could mean a surjective map of presheaves, see
+Sites, Definition \ref{sites-definition-presheaves-injective-surjective},
+or, if both $F$ and $G$ are sheaves,
+we could mean a surjective map of sheaves, see
+Sites, Definition \ref{sites-definition-sheaves-injective-surjective},
+If not mentioned otherwise when discussing morphisms of algebraic spaces
+we will always mean the first. See
+Lemma \ref{lemma-surjective-flat-locally-finite-presentation}
+for a case where surjectivity implies surjectivity as a map of sheaves.
+\end{remark}
+
+\noindent
+Here is a sanity check.
+
+\begin{lemma}
+\label{lemma-morphism-schemes-gives-representable-transformation-property}
+Let $S$, $X$, $Y$ be objects of $\Sch_{fppf}$.
+Let $f : X \to Y$ be a morphism of schemes.
+Let $\mathcal{P}$ be as in
+Definition \ref{definition-relative-representable-property}.
+Then $h_X \longrightarrow h_Y$ has property $\mathcal{P}$ if
+and only if $f$ has property $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Note that the lemma makes sense by
+Lemma \ref{lemma-morphism-schemes-gives-representable-transformation}.
+Proof omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-representable-transformations-property}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F, G, H : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$.
+Let $\mathcal{P}$ be a property as in
+Definition \ref{definition-relative-representable-property}
+which is stable under composition.
+Let $a : F \to G$, $b : G \to H$ be representable transformations of functors.
+If $a$ and $b$ have property $\mathcal{P}$ so does
+$b \circ a : F \longrightarrow H$.
+\end{lemma}
+
+\begin{proof}
+Note that the lemma makes sense by
+Lemma \ref{lemma-composition-representable-transformations}.
+Proof omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-representable-transformations-property}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F, G, H : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$.
+Let $\mathcal{P}$ be a property as in
+Definition \ref{definition-relative-representable-property}.
+Let $a : F \to G$ be a representable transformations of functors.
+Let $b : H \to G$ be any transformation of functors.
+Consider the fibre product diagram
+$$
+\xymatrix{
+H \times_{b, G, a} F \ar[r]_-{b'} \ar[d]_{a'} & F \ar[d]^a \\
+H \ar[r]^b & G
+}
+$$
+If $a$ has property $\mathcal{P}$ then also the base change $a'$
+has property $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Note that the lemma makes sense by
+Lemma \ref{lemma-base-change-representable-transformations}.
+Proof omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descent-representable-transformations-property}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F, G, H : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$.
+Let $\mathcal{P}$ be a property as in
+Definition \ref{definition-relative-representable-property}.
+Let $a : F \to G$ be a representable transformations of functors.
+Let $b : H \to G$ be any transformation of functors.
+Consider the fibre product diagram
+$$
+\xymatrix{
+H \times_{b, G, a} F \ar[r]_-{b'} \ar[d]_{a'} & F \ar[d]^a \\
+H \ar[r]^b & G
+}
+$$
+Assume that $b$ induces a surjective map of fppf sheaves $H^\# \to G^\#$.
+In this case, if $a'$ has property $\mathcal{P}$, then also $a$
+has property $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+First we remark that by
+Lemma \ref{lemma-base-change-representable-transformations}
+the transformation $a'$ is representable.
+Let $U \in \Ob((\Sch/S)_{fppf})$, and let
+$\xi \in G(U)$. By assumption there exists an fppf covering
+$\{U_i \to U\}_{i \in I}$ and elements $\xi_i \in H(U_i)$ mapping
+to $\xi|_U$ via $b$. From general category theory it follows that for
+each $i$ we have a fibre product diagram
+$$
+\xymatrix{
+U_i \times_{\xi_i, H, a'} (H \times_{b, G, a} F) \ar[r] \ar[d] &
+U \times_{\xi, G, a} F \ar[d] \\
+U_i \ar[r] & U
+}
+$$
+By assumption the left vertical arrow is a morphism of schemes which
+has property $\mathcal{P}$. Since $\mathcal{P}$ is local in the fppf
+topology this implies that also the right vertical arrow has property
+$\mathcal{P}$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-product-representable-transformations-property}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F_i, G_i : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$,
+$i = 1, 2$.
+Let $a_i : F_i \to G_i$, $i = 1, 2$ be representable transformations
+of functors.
+Let $\mathcal{P}$ be a property as in
+Definition \ref{definition-relative-representable-property}
+which is stable under composition.
+If $a_1$ and $a_2$ have property $\mathcal{P}$ so does
+$a_1 \times a_2 : F_1 \times F_2 \longrightarrow G_1 \times G_2$.
+\end{lemma}
+
+\begin{proof}
+Note that the lemma makes sense by
+Lemma \ref{lemma-product-representable-transformations}.
+Proof omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-transformations-property-implication}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F, G : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$.
+Let $a : F \to G$ be a representable transformation of functors.
+Let $\mathcal{P}$, $\mathcal{P}'$ be properties as in
+Definition \ref{definition-relative-representable-property}.
+Suppose that for any morphism of schemes $f : X \to Y$
+we have $\mathcal{P}(f) \Rightarrow \mathcal{P}'(f)$.
+If $a$ has property $\mathcal{P}$ then
+$a$ has property $\mathcal{P}'$.
+\end{lemma}
+
+\begin{proof}
+Formal.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-flat-locally-finite-presentation}
+Let $S$ be a scheme.
+Let $F, G : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$ be sheaves.
+Let $a : F \to G$ be representable, flat,
+locally of finite presentation, and surjective.
+Then $a : F \to G$ is surjective as a map of sheaves.
+\end{lemma}
+
+\begin{proof}
+Let $T$ be a scheme over $S$ and let $g : T \to G$ be a $T$-valued point of
+$G$. By assumption $T' = F \times_G T$ is (representable by) a scheme and
+the morphism $T' \to T$ is a flat, locally of finite presentation, and
+surjective. Hence $\{T' \to T\}$ is an fppf covering such
+that $g|_{T'} \in G(T')$ comes from an element of $F(T')$, namely
+the map $T' \to F$. This proves the map is surjective as
+a map of sheaves, see
+Sites, Definition \ref{sites-definition-sheaves-injective-surjective}.
+\end{proof}
+
+\noindent
+Here is a characterization of those functors for which the
+diagonal is representable.
+
+\begin{lemma}
+\label{lemma-representable-diagonal}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F$ be a presheaf of sets on $(\Sch/S)_{fppf}$.
+The following are equivalent:
+\begin{enumerate}
+\item the diagonal $F \to F \times F$ is representable,
+\item for $U \in \Ob((\Sch/S)_{fppf})$ and any $a \in F(U)$
+the map $a : h_U \to F$ is representable,
+\item for every pair $U, V \in \Ob((\Sch/S)_{fppf})$
+and any $a \in F(U)$, $b \in F(V)$ the fibre product
+$h_U \times_{a, F, b} h_V$ is representable.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This is completely formal, see
+Categories, Lemma \ref{categories-lemma-representable-diagonal}.
+It depends only on the fact that the category $(\Sch/S)_{fppf}$
+has products of pairs of objects and fibre products, see
+Topologies, Lemma \ref{topologies-lemma-fibre-products-fppf}.
+\end{proof}
+
+\noindent
+In the situation of the lemma, for any morphism
+$\xi : h_U \to F$ as in the lemma, it makes sense
+to say that $\xi$ has property $\mathcal{P}$, for any property
+as in Definition \ref{definition-relative-representable-property}.
+In particular this holds for $\mathcal{P} = $ ``surjective''
+and $\mathcal{P} = $ ``\'etale'', see
+Remark \ref{remark-list-properties-fpqc-local-base}
+above. We will use this remark in the definition
+of algebraic spaces below.
+
+\begin{lemma}
+\label{lemma-transformation-diagonal-properties}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F$ be a presheaf of sets on $(\Sch/S)_{fppf}$.
+Let $\mathcal{P}$ be a property as in
+Definition \ref{definition-relative-representable-property}.
+If for every $U, V \in \Ob((\Sch/S)_{fppf})$ and $a \in F(U)$,
+$b \in F(V)$ we have
+\begin{enumerate}
+\item $h_U \times_{a, F, b} h_V$ is representable, say by the scheme $W$, and
+\item the morphism $W \to U \times_S V$ corresponding to
+$h_U \times_{a, F, b} h_V \to h_U \times h_V$ has property $\mathcal{P}$,
+\end{enumerate}
+then $\Delta : F \to F \times F$ is representable and has
+property $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Observe that $\Delta$ is representable by
+Lemma \ref{lemma-representable-diagonal}.
+We can formulate condition (2) as saying that
+the transformation $h_U \times_{a, F, b} h_V \to h_{U \times_S V}$
+has property $\mathcal{P}$, see Lemma
+\ref{lemma-morphism-schemes-gives-representable-transformation-property}.
+Consider $T \in \Ob((\Sch/S)_{fppf})$ and $(a, b) \in (F \times F)(T)$.
+Observe that we have the commutative diagram
+$$
+\xymatrix{
+F \times_{\Delta, F \times F, (a, b)} h_T \ar[d] \ar[r] &
+h_T \ar[d]^{\Delta_{T/S}} \\
+h_T \times_{a, F, b} h_T \ar[r] \ar[d] &
+h_{T \times_S T} \ar[d]^{(a, b)} \\
+F \ar[r]^\Delta & F \times F
+}
+$$
+both of whose squares are cartesian. In this way we see that
+the morphism $F \times_{F \times F} h_T \to h_T$ is the base
+change of a morphism having property $\mathcal{P}$ by
+$\Delta_{T/S}$. Since $\mathcal{P}$ is preserved under base
+change this finishes the proof.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Algebraic spaces}
+\label{section-algebraic-spaces}
+
+\noindent
+Here is the definition.
+
+\begin{definition}
+\label{definition-algebraic-space}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+An {\it algebraic space over $S$} is a presheaf
+$$
+F : (\Sch/S)^{opp}_{fppf} \longrightarrow \textit{Sets}
+$$
+with the following properties
+\begin{enumerate}
+\item The presheaf $F$ is a sheaf.
+\item The diagonal morphism $F  \to F \times F$ is representable.
+\item There exists a scheme $U \in \Ob((\Sch/S)_{fppf})$
+and a map $h_U \to F$ which is surjective, and \'etale.
+\end{enumerate}
+\end{definition}
+
+\noindent
+There are two differences with the ``usual'' definition, for example the
+definition in Knutson's book \cite{Kn}.
+
+\medskip\noindent
+The first is that we require $F$ to be a sheaf in the fppf topology.
+One reason for doing this is that many natural examples
+of algebraic spaces satisfy the sheaf condition for the fppf coverings
+(and even for fpqc coverings). Also, one of the reasons that algebraic
+spaces have been so useful is via Michael Artin's results on algebraic spaces.
+Built into his method is a condition which guarantees the result is
+locally of finite presentation over $S$.
+Combined it somehow seems to us that the fppf topology
+is the natural topology to work with. In the end the category
+of algebraic spaces ends up being the same. See
+Bootstrap, Section \ref{bootstrap-section-spaces-etale}.
+
+\medskip\noindent
+The second is that we only require the diagonal map for $F$ to be
+representable, whereas in \cite{Kn} it is required that it also
+be quasi-compact. If $F = h_U$ for some scheme $U$ over $S$
+this corresponds to the condition that $U$ be quasi-separated.
+Our point of view is to try to prove a certain
+number of the results that follow only assuming that the diagonal
+of $F$ be representable, and simply add an additional hypothesis wherever
+this is necessary. In any case it has the pleasing consequence that
+the following lemma is true.
+
+\begin{lemma}
+\label{lemma-scheme-is-space}
+A scheme is an algebraic space. More precisely,
+given a scheme $T \in \Ob((\Sch/S)_{fppf})$
+the representable functor $h_T$ is an algebraic space.
+\end{lemma}
+
+\begin{proof}
+The functor $h_T$ is a sheaf by our remarks in Section \ref{section-general}.
+The diagonal $h_T \to h_T \times h_T = h_{T \times T}$ is
+representable because $(\Sch/S)_{fppf}$ has fibre products.
+The identity map $h_T \to h_T$ is surjective \'etale.
+\end{proof}
+
+\begin{definition}
+\label{definition-morphism-algebraic-spaces}
+Let $F$, $F'$ be algebraic spaces over $S$.
+A {\it morphism $f : F \to F'$ of algebraic spaces over $S$}
+is a transformation of functors from $F$ to $F'$.
+\end{definition}
+
+\noindent
+The category of algebraic spaces over $S$ contains the category
+$(\Sch/S)_{fppf}$ as a full subcategory via the
+Yoneda embedding $T/S \mapsto h_T$. From now on we no longer distinguish
+between a scheme $T/S$ and the algebraic space it represents.
+Thus when we say ``Let $f : T \to F$ be a morphism from the scheme
+$T$ to the algebraic space $F$'', we mean that
+$T \in \Ob((\Sch/S)_{fppf})$, that $F$ is an
+algebraic space over $S$, and that $f : h_T \to F$ is a morphism
+of algebraic spaces over $S$.
+
+
+
+
+
+
+\section{Fibre products of algebraic spaces}
+\label{section-fibre-products}
+
+\noindent
+The category of algebraic spaces over $S$ has both products and
+fibre products.
+
+\begin{lemma}
+\label{lemma-product-spaces}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F, G$ be algebraic spaces over $S$.
+Then $F \times G$ is an algebraic space, and is a product
+in the category of algebraic spaces over $S$.
+\end{lemma}
+
+\begin{proof}
+It is clear that $H = F \times G$ is a sheaf.
+The diagonal of $H$ is simply the product of the
+diagonals of $F$ and $G$. Hence it is representable by
+Lemma \ref{lemma-product-representable-transformations}.
+Finally, if $U \to F$ and $V \to G$ are surjective
+\'etale morphisms, with $U, V \in \Ob((\Sch/S)_{fppf})$,
+then $U \times V \to F \times G$ is surjective \'etale
+by Lemma \ref{lemma-product-representable-transformations-property}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibre-product-spaces-over-sheaf-with-representable-diagonal}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $H$ be a sheaf on $(\Sch/S)_{fppf}$ whose diagonal
+is representable. Let $F, G$ be algebraic spaces over $S$.
+Let $F \to H$, $G \to H$ be maps of sheaves.
+Then $F \times_H G$ is an algebraic space.
+\end{lemma}
+
+\begin{proof}
+We check the 3 conditions of
+Definition \ref{definition-algebraic-space}.
+A fibre product of sheaves is a sheaf, hence $F \times_H G$ is a sheaf.
+The diagonal of $F \times_H G$ is the left vertical arrow in
+$$
+\xymatrix{
+F \times_H G \ar[r] \ar[d]_\Delta &
+F \times G \ar[d]^{\Delta_F \times \Delta_G} \\
+(F \times F) \times_{(H \times H)} (G \times G) \ar[r] &
+(F \times F) \times (G \times G)
+}
+$$
+which is cartesian. Hence $\Delta$ is representable as the base change
+of the morphism on the right which is representable, see
+Lemmas \ref{lemma-product-representable-transformations} and
+\ref{lemma-base-change-representable-transformations}.
+Finally, let $U, V \in \Ob((\Sch/S)_{fppf})$
+and $a : U \to F$, $b : V \to G$ be surjective and \'etale.
+As $\Delta_H$ is representable, we see that $U \times_H V$ is a scheme.
+The morphism
+$$
+U \times_H V \longrightarrow F \times_H G
+$$
+is surjective and \'etale as a composition of the base changes
+$U \times_H V \to U \times_H G$ and $U \times_H G \to F \times_H G$
+of the \'etale surjective morphisms $U \to F$ and $V \to G$, see
+Lemmas \ref{lemma-composition-representable-transformations} and
+\ref{lemma-base-change-representable-transformations}.
+This proves the last condition of
+Definition \ref{definition-algebraic-space}
+holds and we conclude that $F \times_H G$ is an algebraic space.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibre-product-spaces}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F \to H$, $G \to H$ be morphisms of algebraic spaces over $S$.
+Then $F \times_H G$ is an algebraic space, and is a fibre product
+in the category of algebraic spaces over $S$.
+\end{lemma}
+
+\begin{proof}
+It follows from the stronger
+Lemma \ref{lemma-fibre-product-spaces-over-sheaf-with-representable-diagonal}
+that $F \times_H G$ is an algebraic space.
+It is clear that $F \times_H G$
+is a fibre product in the category of algebraic spaces over $S$
+since that is a full subcategory of the category
+of (pre)sheaves of sets on $(\Sch/S)_{fppf}$.
+\end{proof}
+
+
+
+
+
+
+\section{Glueing algebraic spaces}
+\label{section-glueing-algebraic-spaces}
+
+\noindent
+In this section we really start abusing notation and not
+distinguish between schemes and the spaces they represent.
+
+\begin{lemma}
+\label{lemma-representable-sheaf-coproduct-sheaves}
+Let $S \in \Ob(\Sch_{fppf})$.
+Let $U \in \Ob((\Sch/S)_{fppf})$.
+Given a set $I$ and sheaves $F_i$ on $\Ob((\Sch/S)_{fppf})$,
+if $U \cong \coprod_{i\in I} F_i$
+as sheaves, then each $F_i$ is representable by an open and closed
+subscheme $U_i$ and $U \cong \coprod U_i$ as schemes.
+\end{lemma}
+
+\begin{proof}
+By assumption this means there exists an fppf covering
+$\{U_j \to U\}_{j \in J}$ such that each $U_j \to U$
+factors through $F_{i(j)}$ for some $i(j) \in I$.
+Denote $V_j = \Im(U_j \to U)$.
+This is an open of $U$ by
+Morphisms, Lemma \ref{morphisms-lemma-fppf-open}, and
+$\{U_j \to V_j\}$ is an fppf covering. Hence it follows that
+$V_j \to U$ factors through $F_{i(j)}$ since $F_{i(j)}$ is
+a subsheaf. It follows from $F_i \cap F_{i'} = \emptyset$, $i \not = i'$
+that $V_j \cap V_{j'} = \emptyset$
+unless $i(j) = i(j')$. Hence we can take
+$U_i = \bigcup_{j, \ i(j) = i} V_j$ and everything is clear.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-algebraic-space-coproduct-sheaves}
+Let $S \in \Ob(\Sch_{fppf})$.
+Let $F$ be an algebraic space over $S$.
+Given a set $I$ and sheaves $F_i$ on
+$\Ob((\Sch/S)_{fppf})$,
+if $F \cong \coprod_{i\in I} F_i$ as sheaves,
+then each $F_i$ is an algebraic space over $S$.
+\end{lemma}
+
+\begin{proof}
+It follows directly from the representability of
+$F \to F \times F$ that each diagonal morphism
+$F_i \to F_i \times F_i$ is representable.
+Choose a scheme $U$ in $(\Sch/S)_{fppf}$ and a surjective
+\'etale morphism $U \to \coprod F_i$ (this exist by hypothesis).
+By considering the inverse image of $F_i$ we get a decomposition
+of $U$ (as a sheaf) into a coproduct of sheaves.
+By Lemma \ref{lemma-representable-sheaf-coproduct-sheaves}
+we get correspondingly $U \cong \coprod U_i$.
+Then it follows easily that $U_i \to F_i$ is surjective
+and \'etale (from the corresponding property of $U \to F$).
+\end{proof}
+
+\noindent
+The condition on the size of $I$ and the $F_i$ in the
+following lemma may be ignored by those not worried about
+set theoretic questions.
+
+\begin{lemma}
+\label{lemma-coproduct-algebraic-spaces}
+Let $S \in \Ob(\Sch_{fppf})$.
+Suppose given a set $I$ and algebraic spaces $F_i$, $i \in I$.
+Then $F = \coprod_{i \in I} F_i$ is an algebraic space
+provided $I$, and the $F_i$ are not too ``large'': for example if we
+can choose surjective \'etale morphisms $U_i \to F_i$ such that
+$\coprod_{i \in I} U_i$ is isomorphic to an object of
+$(\Sch/S)_{fppf}$, then $F$ is an algebraic space.
+\end{lemma}
+
+\begin{proof}
+By construction $F$ is a sheaf. We omit the verification that the
+diagonal morphism of $F$ is representable. Finally, if $U$ is an
+object of $(\Sch/S)_{fppf}$ isomorphic to $\coprod_{i \in I} U_i$
+then it is straightforward to verify that the resulting map
+$U \to \coprod F_i$ is surjective and \'etale.
+\end{proof}
+
+\noindent
+Here is the analogue of Schemes, Lemma \ref{schemes-lemma-glue-functors}.
+
+\begin{lemma}
+\label{lemma-glueing-algebraic-spaces}
+Let $S \in \Ob(\Sch_{fppf})$.
+Let $F$ be a presheaf of sets on $(\Sch/S)_{fppf}$.
+Assume
+\begin{enumerate}
+\item $F$ is a sheaf,
+\item there exists an index set $I$
+and subfunctors $F_i \subset F$ such that
+\begin{enumerate}
+\item each $F_i$ is an algebraic space,
+\item each $F_i \to F$ is a representable,
+\item each $F_i \to F$ is an open immersion (see
+Definition \ref{definition-relative-representable-property}),
+\item the map $\coprod F_i \to F$ is surjective as a map of sheaves, and
+\item $\coprod F_i$ is an algebraic space (set theoretic condition, see
+Lemma \ref{lemma-coproduct-algebraic-spaces}).
+\end{enumerate}
+\end{enumerate}
+Then $F$ is an algebraic space.
+\end{lemma}
+
+\begin{proof}
+Let $T$ be an object of $(\Sch/S)_{fppf}$. Let $T \to F$ be a morphism.
+By assumption (2)(b) and (2)(c) the fibre product $F_i \times_F T$
+is representable by an open subscheme $V_i \subset T$. It follows that
+$(\coprod F_i) \times_F T$ is represented by the scheme $\coprod V_i$ over $T$.
+By assumption (2)(d) there exists an fppf covering $\{T_j \to T\}_{j \in J}$
+such that $T_j \to T \to F$ factors through $F_i$, $i = i(j)$.
+Hence $T_j \to T$ factors through the open subscheme $V_{i(j)} \subset T$.
+Since $\{T_j \to T\}$ is jointly surjective, it follows that
+$T = \bigcup V_i$ is an open covering. In particular, the transformation
+of functors $\coprod F_i \to F$ is representable
+and surjective in the sense of
+Definition \ref{definition-relative-representable-property}
+(see Remark \ref{remark-warning} for a discussion).
+
+\medskip\noindent
+Next, let $T' \to F$ be a second morphism from an object in $(\Sch/S)_{fppf}$.
+Write as above $T' = \bigcup V'_i$ with $V'_i = T' \times_F F_i$.
+To show that the diagonal $F \to F \times F$ is representable
+we have to show that $G = T \times_F T'$ is representable, see
+Lemma \ref{lemma-representable-diagonal}.
+Consider the subfunctors $G_i = G \times_F F_i$.
+Note that $G_i = V_i \times_{F_i} V'_i$, and hence is representable
+as $F_i$ is an algebraic space.
+By the above the $G_i$ form a Zariski covering of $F$.
+Hence by Schemes, Lemma \ref{schemes-lemma-glue-functors}
+we see $G$ is representable.
+
+\medskip\noindent
+Choose a scheme $U \in \Ob((\Sch/S)_{fppf})$ and a surjective
+\'etale morphism $U \to \coprod F_i$ (this exist by hypothesis).
+We may write $U = \coprod U_i$ with $U_i$ the inverse image of $F_i$,
+see Lemma \ref{lemma-representable-sheaf-coproduct-sheaves}.
+We claim that $U \to F$ is surjective and \'etale. Surjectivity follows
+as $\coprod F_i \to F$ is surjective (see first paragraph of the proof)
+by applying
+Lemma \ref{lemma-composition-representable-transformations-property}.
+Consider the fibre product $U \times_F T$ where $T \to F$ is as
+above. We have to show that $U \times_F T \to T$ is \'etale.
+Since $U \times_F T = \coprod U_i \times_F T$ it suffices to show
+each $U_i \times_F T \to T$ is \'etale. Since
+$U_i \times_F T = U_i \times_{F_i} V_i$ this follows from the
+fact that $U_i \to F_i$ is \'etale and $V_i \to T$ is an open immersion
+(and Morphisms, Lemmas \ref{morphisms-lemma-open-immersion-etale}
+and \ref{morphisms-lemma-composition-etale}).
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Presentations of algebraic spaces}
+\label{section-presentations}
+
+\noindent
+Given an algebraic space we can find a ``presentation'' of it.
+
+
+\begin{lemma}
+\label{lemma-space-presentation}
+Let $F$ be an algebraic space over $S$. Let $f : U \to F$ be a
+surjective \'etale morphism from a scheme to $F$. Set $R = U \times_F U$.
+Then
+\begin{enumerate}
+\item $j : R \to U \times_S U$ defines an equivalence relation on
+$U$ over $S$ (see
+Groupoids, Definition \ref{groupoids-definition-equivalence-relation}).
+\item the morphisms $s, t : R \to U$ are \'etale, and
+\item the diagram
+$$
+\xymatrix{
+R \ar@<1ex>[r] \ar@<-1ex>[r] &
+U \ar[r] &
+F
+}
+$$
+is a coequalizer diagram in $\Sh((\Sch/S)_{fppf})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $T/S$ be an object of $(\Sch/S)_{fppf}$.
+Then $R(T) = \{(a, b) \in U(T) \times U(T) \mid f \circ a = f \circ b\}$
+which is clearly defines an equivalence relation on $U(T)$.
+The morphisms $s, t : R \to U$ are \'etale because the morphism
+$U \to F$ is \'etale.
+
+\medskip\noindent
+To prove (3) we first show that
+$U \to F$ is a surjection of sheaves, see
+Sites, Definition \ref{sites-definition-sheaves-injective-surjective}.
+Let $\xi \in F(T)$ with $T$ as above. Let $V = T \times_{\xi, F, f}U$.
+By assumption $V$ is a scheme and $V \to T$ is surjective \'etale.
+Hence $\{V \to T\}$ is a covering for the fppf topology.
+Since $\xi|_V$ factors through $U$ by construction we
+conclude $U \to F$ is surjective. Surjectivity implies that
+$F$ is the coequalizer of the diagram by
+Sites, Lemma \ref{sites-lemma-coequalizer-surjection}.
+\end{proof}
+
+\noindent
+This lemma suggests the following definitions.
+
+\begin{definition}
+\label{definition-etale-equivalence-relation}
+Let $S$ be a scheme. Let $U$ be a scheme over $S$.
+An {\it \'etale equivalence relation} on $U$ over $S$
+is an equivalence relation $j : R \to U \times_S U$
+such that $s, t : R \to U$ are \'etale morphisms of schemes.
+\end{definition}
+
+\begin{definition}
+\label{definition-presentation}
+Let $F$ be an algebraic space over $S$.
+A {\it presentation} of $F$ is given by a scheme
+$U$ over $S$ and an \'etale equivalence relation $R$ on $U$ over $S$, and
+a surjective \'etale morphism $U \to F$ such that $R = U \times_F U$.
+\end{definition}
+
+\noindent
+Equivalently we could ask for the existence of an isomorphism
+$$
+U/R \cong F
+$$
+where the quotient $U/R$ is as defined in
+Groupoids, Section \ref{groupoids-section-quotient-sheaves}.
+To construct algebraic spaces we will study the converse question, namely,
+for which equivalence relations the quotient sheaf $U/R$ is an algebraic space.
+It will finally turn out this is always the case if $R$ is an \'etale
+equivalence relation on $U$ over $S$, see Theorem \ref{theorem-presentation}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Algebraic spaces and equivalence relations}
+\label{section-spaces-from-equivalence-relations}
+
+\noindent
+Suppose given a scheme $U$ over $S$
+and an \'etale equivalence relation $R$ on $U$ over $S$.
+We would like to show this defines an algebraic space.
+We will produce a series of lemmas that prove the quotient sheaf $U/R$
+(see Groupoids, Definition \ref{groupoids-definition-quotient-sheaf})
+has all the properties required
+of it in Definition \ref{definition-algebraic-space}.
+
+\begin{lemma}
+\label{lemma-pullback-etale-equivalence-relation}
+Let $S$ be a scheme. Let $U$ be a scheme over $S$.
+Let $j = (s, t) : R \to U \times_S U$
+be an \'etale equivalence relation on $U$ over $S$.
+Let $U' \to U$ be an \'etale morphism.
+Let $R'$ be the restriction of $R$ to $U'$, see
+Groupoids, Definition \ref{groupoids-definition-restrict-relation}.
+Then $j' : R' \to U' \times_S U'$ is an \'etale equivalence
+relation also.
+\end{lemma}
+
+\begin{proof}
+It is clear from the description of $s', t'$ in
+Groupoids, Lemma \ref{groupoids-lemma-restrict-groupoid}
+that $s' , t' : R' \to U'$ are \'etale
+as compositions of base changes of \'etale morphisms
+(see Morphisms, Lemma \ref{morphisms-lemma-base-change-etale}
+and \ref{morphisms-lemma-composition-etale}).
+\end{proof}
+
+\noindent
+We will often use the following lemma to find open subspaces of algebraic
+spaces. A slight improvement (with more general hypotheses) of this lemma is
+Bootstrap, Lemma \ref{bootstrap-lemma-better-finding-opens}.
+
+\begin{lemma}
+\label{lemma-finding-opens}
+Let $S$ be a scheme.
+Let $U$ be a scheme over $S$.
+Let $j = (s, t) : R \to U \times_S U$ be a pre-relation.
+Let $g : U' \to U$ be a morphism.
+Assume
+\begin{enumerate}
+\item $j$ is an equivalence relation,
+\item $s, t : R \to U$ are surjective, flat and
+locally of finite presentation,
+\item $g$ is flat and locally of finite presentation.
+\end{enumerate}
+Let $R' = R|_{U'}$ be the restriction of $R$ to $U'$. Then
+$U'/R' \to U/R$ is representable, and is an open immersion.
+\end{lemma}
+
+\begin{proof}
+By Groupoids, Lemma \ref{groupoids-lemma-restrict-relation}
+the morphism $j' = (t', s') : R' \to U' \times_S U'$
+defines an equivalence relation. Since $g$ is flat and locally of
+finite presentation we see that $g$ is universally open as well
+(Morphisms, Lemma \ref{morphisms-lemma-fppf-open}).
+For the same reason $s, t$ are universally open as well.
+Let $W^1 = g(U') \subset U$, and let $W = t(s^{-1}(W^1))$.
+Then $W^1$ and $W$ are open in $U$. Moreover, as $j$ is an
+equivalence relation we have $t(s^{-1}(W)) = W$ (see
+Groupoids, Lemma \ref{groupoids-lemma-constructing-invariant-opens}
+for example).
+
+\medskip\noindent
+By
+Groupoids,
+Lemma \ref{groupoids-lemma-quotient-pre-equivalence-relation-restrict}
+the map of sheaves $F' = U'/R' \to F = U/R$ is injective.
+Let $a : T \to F$ be a morphism from a scheme into $U/R$.
+We have to show that $T \times_F F'$ is representable
+by an open subscheme of $T$.
+
+\medskip\noindent
+The morphism $a$ is given by the following data:
+an fppf covering $\{\varphi_j : T_j \to T\}_{j \in J}$ of $T$ and
+morphisms $a_j : T_j \to U$ such that the maps
+$$
+a_j \times a_{j'} :
+T_j \times_T T_{j'}
+\longrightarrow
+U \times_S U
+$$
+factor through $j : R \to U \times_S U$ via some (unique) maps
+$r_{jj'} : T_j \times_T T_{j'} \to R$. The system
+$(a_j)$ corresponds to $a$ in the sense that the diagrams
+$$
+\xymatrix{
+T_j \ar[r]_{a_j} \ar[d] & U \ar[d] \\
+T \ar[r]^a & F
+}
+$$
+commute.
+
+\medskip\noindent
+Consider the open subsets $W_j = a_j^{-1}(W) \subset T_j$.
+Since $t(s^{-1}(W)) = W$ we see that
+$$
+W_j \times_T T_{j'} =
+r_{jj'}^{-1}(t^{-1}(W)) = r_{jj'}^{-1}(s^{-1}(W)) =
+T_j \times_T W_{j'}.
+$$
+By
+Descent, Lemma \ref{descent-lemma-open-fpqc-covering}
+this means there exists an open
+$W_T \subset T$ such that $\varphi_j^{-1}(W_T) = W_j$ for all $j \in J$.
+We claim that $W_T \to T$ represents $T \times_F F' \to T$.
+
+\medskip\noindent
+First, let us show that $W_T \to T \to F$ is an element of
+$F'(W_T)$. Since $\{W_j \to W_T\}_{j \in J}$ is an
+fppf covering of $W_T$, it is enough to show that
+each $W_j \to U \to F$ is an element of $F'(W_j)$ (as $F'$ is a sheaf
+for the fppf topology). Consider the commutative diagram
+$$
+\xymatrix{
+W'_j \ar[rr] \ar[dd] \ar[rd] & & U' \ar[d]^g \\
+& s^{-1}(W^1) \ar[r]_s \ar[d]^t & W^1 \ar[d] \\
+W_j \ar[r]^{a_j|_{W_j}} & W \ar[r] & F
+}
+$$
+where $W'_j = W_j \times_W s^{-1}(W^1) \times_{W^1} U'$.
+Since $t$ and $g$ are surjective, flat and locally of finite
+presentation, so is $W'_j \to W_j$. Hence the restriction of
+the element $W_j \to U \to F$ to $W'_j$ is an element of $F'$
+as desired.
+
+\medskip\noindent
+Suppose that $f : T' \to T$ is a morphism of schemes
+such that $a|_{T'} \in F'(T')$. We have to show that
+$f$ factors through the open $W_T$. Since
+$\{T' \times_T T_j \to T\}$ is an fppf covering of $T'$
+it is enough to show each $T' \times_T T_j \to T$
+factors through $W_T$. Hence we may assume $f$ factors
+as $\varphi_j \circ f_j : T' \to T_j \to T$ for some $j$.
+In this case the condition $a|_{T'} \in F'(T')$ means that there exists
+some fppf covering $\{\psi_i : T'_i \to T'\}_{i \in I}$ and some
+morphisms $b_i : T'_i \to U'$ such that
+$$
+\xymatrix{
+T'_i \ar[r]_{b_i} \ar[d]_{f_j \circ \psi_i} & U' \ar[r]_g & U \ar[d] \\
+T_j \ar[r]^{a_j} & U \ar[r] & F
+}
+$$
+is commutative. This commutativity means that there exists a
+morphism $r'_i : T'_i \to R$ such that
+$t \circ r'_i = a_j \circ f_j \circ \psi_i$, and
+$s \circ r'_i = g \circ b_i$. This implies that
+$\Im(f_j \circ \psi_i) \subset W_j$ and we win.
+\end{proof}
+
+\noindent
+The following lemma is not completely trivial although it looks
+like it should be trivial.
+
+\begin{lemma}
+\label{lemma-when-it-works-it-works}
+Let $S$ be a scheme. Let $U$ be a scheme over $S$.
+Let $j = (s, t) : R \to U \times_S U$
+be an \'etale equivalence relation on $U$ over $S$.
+If the quotient $U/R$ is an algebraic space, then
+$U \to U/R$ is \'etale and surjective. Hence
+$(U, R, U \to U/R)$ is a presentation of the algebraic
+space $U/R$.
+\end{lemma}
+
+\begin{proof}
+Denote $c : U \to U/R$ the morphism in question.
+Let $T$ be a scheme and let $a : T \to U/R$ be a morphism.
+We have to show that the morphism (of schemes)
+$\pi : T \times_{a, U/R, c} U \to T$ is \'etale and surjective.
+The morphism $a$ corresponds to an fppf covering
+$\{\varphi_i : T_i \to T\}$ and morphisms $a_i : T_i \to U$ such
+that
+$a_i \times a_{i'} : T_i \times_T T_{i'} \to U \times_S U$
+factors through $R$, and such that $c \circ a_i = a \circ \varphi_i$.
+Hence
+$$
+T_i \times_{\varphi_i, T} T \times_{a, U/R, c} U =
+T_i \times_{c \circ a_i, U/R, c} U =
+T_i \times_{a_i, U} U \times_{c, U/R, c} U = T_i \times_{a_i, U, t} R.
+$$
+Since $t$ is \'etale and surjective we conclude that
+the base change of $\pi$ to $T_i$ is surjective and \'etale.
+Since the property of being surjective and \'etale is local
+on the base in the fpqc topology (see
+Remark \ref{remark-list-properties-fpqc-local-base})
+we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-presentation-quasi-compact}
+Let $S$ be a scheme.
+Let $U$ be a scheme over $S$.
+Let $j = (s, t) : R \to U \times_S U$
+be an \'etale equivalence relation on $U$ over $S$.
+Assume that $U$ is affine. Then the quotient $F = U/R$
+is an algebraic space, and $U \to F$ is \'etale and surjective.
+\end{lemma}
+
+\begin{proof}
+Since $j : R \to U \times_S U$ is a monomorphism we see that $j$ is separated
+(see Schemes, Lemma \ref{schemes-lemma-monomorphism-separated}).
+Since $U$ is affine we see that $U \times_S U$
+(which comes equipped with a monomorphism into the affine scheme
+$U \times U$) is separated. Hence we see that $R$ is separated.
+In particular the morphisms $s, t$ are separated as well as \'etale.
+
+\medskip\noindent
+Since the composition $R \to U \times_S U \to U$ is
+locally of finite type we conclude that
+$j$ is locally of finite type (see
+Morphisms, Lemma \ref{morphisms-lemma-permanence-finite-type}).
+As $j$ is also a monomorphism it has finite fibres and
+we see that $j$ is locally quasi-finite by
+Morphisms, Lemma \ref{morphisms-lemma-finite-fibre}.
+Altogether we see that $j$ is separated and locally quasi-finite.
+
+\medskip\noindent
+Our first step is to show that the quotient map
+$c : U \to F$ is representable.
+Consider a scheme $T$ and a morphism $a : T \to F$.
+We have to show that the sheaf $G = T \times_{a, F, c} U$
+is representable.
+As seen in the proofs of Lemmas \ref{lemma-finding-opens} and
+\ref{lemma-when-it-works-it-works} there exists an fppf covering
+$\{\varphi_i : T_i \to T\}_{i \in I}$ and morphisms $a_i : T_i \to U$
+such that $a_i \times a_{i'} : T_i \times_T T_{i'} \to U \times_S U$
+factors through $R$, and such that $c \circ a_i = a \circ \varphi_i$.
+As in the proof of Lemma \ref{lemma-when-it-works-it-works} we see that
+\begin{eqnarray*}
+T_i \times_{\varphi_i, T} G & = &
+T_i \times_{\varphi_i, T} T \times_{a, U/R, c} U \\
+& = & T_i \times_{c \circ a_i, U/R, c} U \\
+& = & T_i \times_{a_i, U} U \times_{c, U/R, c} U \\
+& = & T_i \times_{a_i, U, t} R
+\end{eqnarray*}
+Since $t$ is separated and \'etale, and in particular
+separated and locally quasi-finite (by Morphisms, Lemmas
+\ref{morphisms-lemma-unramified-quasi-finite} and
+\ref{morphisms-lemma-flat-unramified-etale})
+we see that the restriction
+of $G$ to each $T_i$ is representable by a morphism of schemes
+$X_i \to T_i$ which is separated and locally quasi-finite. By
+Descent, Lemma \ref{descent-lemma-descent-data-sheaves}
+we obtain a descent datum $(X_i, \varphi_{ii'})$ relative
+to the fppf-covering $\{T_i \to T\}$. Since each
+$X_i \to T_i$ is separated and locally quasi-finite we see by
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend}
+that this descent datum is effective.
+Hence by
+Descent, Lemma \ref{descent-lemma-descent-data-sheaves} (2)
+we conclude that $G$ is representable as desired.
+
+\medskip\noindent
+The second step of the proof is to show that $U \to F$ is surjective and
+\'etale. This is clear from the above since in the first step above we
+saw that $G = T \times_{a, F, c} U$ is a scheme over $T$ which base changes
+to schemes $X_i \to T_i$ which are surjective and \'etale. Thus $G \to T$
+is surjective and \'etale (see
+Remark \ref{remark-list-properties-fpqc-local-base}).
+Alternatively one can reread the proof of
+Lemma \ref{lemma-when-it-works-it-works} in the current
+situation.
+
+\medskip\noindent
+The third and final step is to show that the diagonal map $F \to F \times F$
+is representable. We first observe that the diagram
+$$
+\xymatrix{
+R \ar[r] \ar[d]_j & F \ar[d]^\Delta \\
+U \times_S U \ar[r] & F \times F
+}
+$$
+is a fibre product square. By
+Lemma \ref{lemma-product-representable-transformations} the morphism
+$U \times_S U \to F \times F$ is representable (note that
+$h_U \times h_U = h_{U \times_S U}$). Moreover, by
+Lemma \ref{lemma-product-representable-transformations-property}
+the morphism $U \times_S U \to F \times F$ is surjective
+and \'etale (note also that \'etale and surjective occur in the lists of
+Remarks \ref{remark-list-properties-fpqc-local-base}
+and \ref{remark-list-properties-stable-composition}).
+It follows either from
+Lemma \ref{lemma-base-change-representable-transformations}
+and the diagram above, or by writing $R \to F$ as $R \to U \to F$ and
+Lemmas
+\ref{lemma-morphism-schemes-gives-representable-transformation} and
+\ref{lemma-composition-representable-transformations} that
+$R \to F$ is representable as well. Let $T$ be a scheme and let
+$a : T \to F \times F$ be a morphism. We have to show that
+$G = T \times_{a, F \times F, \Delta} F$ is representable.
+By what was said above the morphism (of schemes)
+$$
+T' = (U \times_S U) \times_{F \times F, a} T \longrightarrow T
+$$
+is surjective and \'etale. Hence $\{T' \to T\}$ is an \'etale
+covering of $T$. Note also that
+$$
+T' \times_T G = T' \times_{U \times_S U, j} R
+$$
+as can be seen contemplating the following cube
+$$
+\xymatrix{
+& R \ar[rr] \ar[dd] & & F \ar[dd] \\
+T' \times_T G \ar[rr] \ar[dd] \ar[ru] & & G \ar[dd] \ar[ru] & \\
+& U \times_S U \ar'[r][rr] & & F \times F \\
+T' \ar[rr] \ar[ru] & & T \ar[ru]
+}
+$$
+Hence we see that the restriction of $G$ to $T'$ is representable
+by a scheme $X$, and moreover that the morphism $X \to T'$ is
+a base change of the morphism $j$. Hence $X \to T'$ is
+separated and locally quasi-finite (see second paragraph of the proof).
+By Descent, Lemma \ref{descent-lemma-descent-data-sheaves}
+we obtain a descent datum $(X, \varphi)$ relative
+to the fppf-covering $\{T' \to T\}$. Since
+$X \to T$ is separated and locally quasi-finite we see by
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend}
+that this descent datum is effective.
+Hence by
+Descent, Lemma \ref{descent-lemma-descent-data-sheaves} (2)
+we conclude that $G$ is representable as desired.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-presentation}
+Let $S$ be a scheme. Let $U$ be a scheme over $S$.
+Let $j = (s, t) : R \to U \times_S U$
+be an \'etale equivalence relation on $U$ over $S$.
+Then the quotient $U/R$ is an algebraic space,
+and $U \to U/R$ is \'etale and surjective, in other words
+$(U, R, U \to U/R)$ is a presentation of $U/R$.
+\end{theorem}
+
+\begin{proof}
+By Lemma \ref{lemma-when-it-works-it-works}
+it suffices to prove that $U/R$ is an algebraic space.
+Let $U' \to U$ be a surjective, \'etale morphism.
+Then $\{U' \to U\}$ is in particular an fppf covering.
+Let $R'$ be the restriction of $R$ to $U'$, see
+Groupoids, Definition \ref{groupoids-definition-restrict-relation}.
+According to
+Groupoids, Lemma \ref{groupoids-lemma-quotient-groupoid-restrict}
+we see that $U/R \cong U'/R'$.
+By Lemma \ref{lemma-pullback-etale-equivalence-relation} $R'$ is an
+\'etale equivalence relation on $U'$. Thus we may replace $U$ by $U'$.
+
+\medskip\noindent
+We apply the previous remark to $U' = \coprod U_i$, where
+$U = \bigcup U_i$ is an affine open covering of $S$. Hence we
+may and do assume that $U = \coprod U_i$ where
+each $U_i$ is an affine scheme.
+
+\medskip\noindent
+Consider the restriction $R_i$ of $R$ to $U_i$.
+By Lemma \ref{lemma-pullback-etale-equivalence-relation}
+this is an \'etale equivalence relation.
+Set $F_i = U_i/R_i$ and $F = U/R$.
+It is clear that $\coprod F_i \to F$ is surjective.
+By Lemma \ref{lemma-finding-opens} each $F_i \to F$
+is representable, and an open immersion.
+By Lemma \ref{lemma-presentation-quasi-compact}
+applied to $(U_i, R_i)$ we see that $F_i$ is an algebraic space.
+Then by Lemma \ref{lemma-when-it-works-it-works} we see that
+$U_i \to F_i$ is \'etale and surjective.
+From Lemma \ref{lemma-coproduct-algebraic-spaces}
+it follows that $\coprod F_i$ is an algebraic space.
+Finally, we have verified all
+hypotheses of Lemma \ref{lemma-glueing-algebraic-spaces}
+and it follows that $F = U/R$ is an algebraic space.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Algebraic spaces, retrofitted}
+\label{section-algebraic-spaces-retrofitted}
+
+\noindent
+We start building our arsenal of lemmas dealing with algebraic spaces.
+The first result says that in Definition \ref{definition-algebraic-space}
+we can weaken the condition on the diagonal as follows.
+
+\begin{lemma}
+\label{lemma-etale-locally-representable-gives-space}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F$ be a sheaf on $(\Sch/S)_{fppf}$
+such that there exists $U \in \Ob((\Sch/S)_{fppf})$ and a map
+$U \to F$ which is representable, surjective, and \'etale.
+Then $F$ is an algebraic space.
+\end{lemma}
+
+\begin{proof}
+Set $R = U \times_F U$. This is a scheme as $U \to F$ is assumed representable.
+The projections $s, t : R \to U$ are \'etale as $U \to F$ is assumed \'etale.
+The map $j = (t, s) : R \to U \times_S U$ is a monomorphism and an equivalence
+relation as $R = U \times_F U$. By Theorem \ref{theorem-presentation}
+the quotient sheaf $F' = U/R$ is an algebraic space and $U \to F'$
+is surjective and \'etale. Again since $R = U \times_F U$ we obtain
+a canonical factorization $U \to F' \to F$ and $F' \to F$ is an injective
+map of sheaves. On the other hand, $U \to F$ is surjective as a map
+of sheaves by Lemma \ref{lemma-surjective-flat-locally-finite-presentation}.
+Thus $F' \to F$ is also surjective and we conclude $F' = F$ is an
+algebraic space.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-locally-representable-by-space-gives-space}
+Let $S$ be a scheme contained in $\Sch_{fppf}$. Let $G$ be an algebraic
+space over $S$, let $F$ be a sheaf on $(\Sch/S)_{fppf}$, and let
+$G \to F$ be a representable transformation of functors which is
+surjective and \'etale. Then $F$ is an algebraic space.
+\end{lemma}
+
+\begin{proof}
+Pick a scheme $U$ and a surjective \'etale morphism $U \to G$.
+Since $G$ is an algebraic space $U \to G$ is representable.
+Hence the composition $U \to G \to F$ is representable,
+surjective, and \'etale. See Lemmas
+\ref{lemma-composition-representable-transformations} and
+\ref{lemma-composition-representable-transformations-property}.
+Thus $F$ is an algebraic space by
+Lemma \ref{lemma-etale-locally-representable-gives-space}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-over-space}
+\begin{slogan}
+A functor that admits a representable morphism to an algebraic space is
+an algebraic space.
+\end{slogan}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F$ be an algebraic space over $S$.
+Let $G \to F$ be a representable transformation of functors.
+Then $G$ is an algebraic space.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-representable-transformation-to-sheaf}
+we see that $G$ is a sheaf. The diagram
+$$
+\xymatrix{
+G \times_F G \ar[r] \ar[d] & F \ar[d]^{\Delta_F} \\
+G \times G \ar[r] & F \times F
+}
+$$
+is cartesian. Hence we see that $G \times_F G \to G \times G$
+is representable by
+Lemma \ref{lemma-base-change-representable-transformations}.
+By
+Lemma \ref{lemma-representable-transformation-diagonal}
+we see that $G \to G \times_F G$ is representable.
+Hence $\Delta_G : G \to G \times G$ is representable as a composition
+of representable transformations, see
+Lemma \ref{lemma-composition-representable-transformations}.
+Finally, let $U$ be an object of $(\Sch/S)_{fppf}$
+and let $U \to F$ be surjective and \'etale. By assumption
+$U \times_F G$ is representable by a scheme $U'$. By
+Lemma \ref{lemma-base-change-representable-transformations-property}
+the morphism $U' \to G$ is surjective and \'etale. This verifies
+the final condition of Definition \ref{definition-algebraic-space} and we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-morphisms-spaces-property}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F$, $G$ be algebraic spaces over $S$.
+Let $G \to F$ be a representable morphism.
+Let $U \in \Ob((\Sch/S)_{fppf})$, and $q : U \to F$
+surjective and \'etale. Set $V = G \times_F U$.
+Finally, let $\mathcal{P}$ be a property of morphisms
+of schemes as in Definition \ref{definition-relative-representable-property}.
+Then $G \to F$ has property $\mathcal{P}$ if and only if
+$V \to U$ has property $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+(This lemma follows from
+Lemmas \ref{lemma-base-change-representable-transformations-property} and
+\ref{lemma-descent-representable-transformations-property},
+but we give a direct proof here also.)
+It is clear from the definitions that if $G \to F$ has property
+$\mathcal{P}$, then $V \to U$ has property $\mathcal{P}$.
+Conversely, assume $V \to U$ has property $\mathcal{P}$.
+Let $T \to F$ be a morphism from a scheme to $F$.
+Let $T' = T \times_F G$ which is a scheme since $G \to F$ is
+representable. We have to show that $T' \to T$ has property $\mathcal{P}$.
+Consider the commutative diagram of schemes
+$$
+\xymatrix{
+V \ar[d] & T \times_F V \ar[d] \ar[l] \ar[r] &
+T \times_F G \ar[d] \ar@{=}[r] & T' \\
+U & T \times_F U \ar[l] \ar[r] & T
+}
+$$
+where both squares are fibre product squares. Hence we conclude
+the middle arrow has property $\mathcal{P}$ as a base change
+of $V \to U$. Finally, $\{T \times_F U \to T\}$ is a fppf covering
+as it is surjective \'etale, and hence we conclude that
+$T' \to T$ has property $\mathcal{P}$ as it is local on the
+base in the fppf topology.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-sheaves-with-P-effective-descent-etale}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $G \to F$ be a transformation of presheaves on $(\Sch/S)_{fppf}$.
+Let $\mathcal{P}$ be a property of morphisms of schemes.
+Assume
+\begin{enumerate}
+\item $\mathcal{P}$ is preserved under any base change, fppf local on the
+base, and morphisms of type $\mathcal{P}$ satisfy descent for fppf coverings,
+see Descent, Definition \ref{descent-definition-descending-types-morphisms},
+\item $G$ is a sheaf,
+\item $F$ is an algebraic space,
+\item there exists a $U \in \Ob((\Sch/S)_{fppf})$
+and a surjective \'etale morphism $U \to F$ such that
+$V = G \times_F U$ is representable, and
+\item $V \to U$ has $\mathcal{P}$.
+\end{enumerate}
+Then $G$ is an algebraic space, $G \to F$ is representable and has property
+$\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Let $R = U \times_F U$, and denote $t, s : R \to U$ the projection morphisms
+as usual. Let $T$ be a scheme and let $T \to F$ be a morphism. Then
+$U \times_F T \to T$ is surjective \'etale, hence $\{U \times_F T \to T\}$ is
+a covering for the \'etale topology. Consider
+$$
+W = G \times_F (U \times_F T) = V \times_F T = V \times_U (U \times_F T).
+$$
+It is a scheme since $F$ is an algebraic space. The morphism
+$W \to U \times_F T$ has property $\mathcal{P}$ since it is a
+base change of $V \to U$. There is an isomorphism
+\begin{align*}
+W \times_T (U \times_F T) & =
+(G \times_F (U \times_F T)) \times_T (U \times_F T) \\
+& = (U \times_F T) \times_T (G \times_F (U \times_F T)) \\
+& = (U \times_F T) \times_T W
+\end{align*}
+over $(U \times_F T) \times_T (U \times_F T)$. The middle equality maps
+$((g, (u_1, t)), (u_2, t))$ to $((u_1, t), (g, (u_2, t)))$.
+This defines a descent datum for $W/U \times_F T/T$, see
+Descent, Definition \ref{descent-definition-descent-datum}.
+This follows from
+Descent, Lemma \ref{descent-lemma-descent-data-sheaves}.
+Namely we have a sheaf $G \times_F T$, whose
+base change to $U \times_F T$ is represented by $W$ and the isomorphism
+above is the one from the proof of
+Descent, Lemma \ref{descent-lemma-descent-data-sheaves}.
+By assumption on $\mathcal{P}$ the descent datum above is representable.
+Hence by the last statement of
+Descent, Lemma \ref{descent-lemma-descent-data-sheaves}
+we see that $G \times_F T$ is representable. This proves that
+$G \to F$ is a representable transformation of functors.
+
+\medskip\noindent
+As $G \to F$ is representable, we see that $G$ is an algebraic space by
+Lemma \ref{lemma-representable-over-space}. The fact that $G \to F$ has
+property $\mathcal{P}$ now follows from
+Lemma \ref{lemma-representable-morphisms-spaces-property}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lift-morphism-presentations}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F, G$ be algebraic spaces over $S$.
+Let $a : F \to G$ be a morphism.
+Given any $V \in \Ob((\Sch/S)_{fppf})$
+and a surjective \'etale morphism $q : V \to G$ there exists
+a $U \in \Ob((\Sch/S)_{fppf})$
+and a commutative diagram
+$$
+\xymatrix{
+U \ar[d]_p \ar[r]_\alpha &
+V \ar[d]^q \\
+F \ar[r]^a & G
+}
+$$
+with $p$ surjective and \'etale.
+\end{lemma}
+
+\begin{proof}
+First choose $W \in \Ob((\Sch/S)_{fppf})$
+with surjective \'etale morphism $W \to F$.
+Next, put $U = W \times_G V$. Since $G$ is an algebraic space
+we see that $U$ is isomorphic to an object of $(\Sch/S)_{fppf}$.
+As $q$ is surjective \'etale, we see that $U \to W$ is surjective
+\'etale (see
+Lemma \ref{lemma-base-change-representable-transformations-property}).
+Thus $U \to F$ is surjective \'etale as a composition of surjective
+\'etale morphisms (see
+Lemma \ref{lemma-composition-representable-transformations-property}).
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Immersions and Zariski coverings of algebraic spaces}
+\label{section-Zariski}
+
+\noindent
+At this point an interesting phenomenon occurs. We have already defined
+the notion of an open immersion of algebraic spaces (through
+Definition \ref{definition-relative-representable-property})
+but we have yet to define the notion of a {\it point}\footnote{We
+will associate a topological space to an algebraic space in
+Properties of Spaces, Section
+\ref{spaces-properties-section-points},
+and its opens will correspond exactly to the open subspaces defined below.}.
+Thus the {\it Zariski topology} of an algebraic space
+has already been defined, but there is no space yet!
+
+\medskip\noindent
+Perhaps superfluously we formally introduce immersions as follows.
+
+\begin{definition}
+\label{definition-immersion}
+Let $S \in \Ob(\Sch_{fppf})$ be a scheme.
+Let $F$ be an algebraic space over $S$.
+\begin{enumerate}
+\item A morphism of algebraic spaces over $S$
+is called an {\it open immersion} if it is representable, and an open immersion
+in the sense of Definition \ref{definition-relative-representable-property}.
+\item An {\it open subspace} of $F$ is a subfunctor $F' \subset F$
+such that $F'$ is an algebraic space and $F' \to F$ is an
+open immersion.
+\item A morphism of algebraic spaces over $S$
+is called a {\it closed immersion} if it is representable, and a closed
+immersion in the sense of
+Definition \ref{definition-relative-representable-property}.
+\item A {\it closed subspace} of $F$ is a subfunctor $F' \subset F$
+such that $F'$ is an algebraic space and $F' \to F$ is a
+closed immersion.
+\item A morphism of algebraic spaces over $S$
+is called an {\it immersion} if it is representable, and an immersion
+in the sense of Definition \ref{definition-relative-representable-property}.
+\item A {\it locally closed subspace} of $F$ is a subfunctor $F' \subset F$
+such that $F'$ is an algebraic space and $F' \to F$ is an
+immersion.
+\end{enumerate}
+\end{definition}
+
+\noindent
+We note that these definitions make sense since an immersion
+is in particular a monomorphism (see
+Schemes, Lemma \ref{schemes-lemma-immersions-monomorphisms}
+and Lemma \ref{lemma-representable-transformations-property-implication}),
+and hence the image of an
+immersion $G \to F$ of algebraic spaces is a subfunctor $F' \subset F$
+which is (canonically) isomorphic to $G$. Thus some of the discussion
+of Schemes, Section \ref{schemes-section-immersions} carries over to the
+setting of algebraic spaces.
+
+\begin{lemma}
+\label{lemma-composition-immersions}
+Let $S \in \Ob(\Sch_{fppf})$ be a scheme.
+A composition of (closed, resp.\ open) immersions of
+algebraic spaces over $S$ is a (closed, resp.\ open)
+immersion of algebraic spaces over $S$.
+\end{lemma}
+
+\begin{proof}
+See Lemma \ref{lemma-composition-representable-transformations-property} and
+Remarks \ref{remark-list-properties-fpqc-local-base} (see very last line of
+that remark) and \ref{remark-list-properties-stable-composition}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-immersions}
+Let $S \in \Ob(\Sch_{fppf})$ be a scheme.
+A base change of a (closed, resp.\ open) immersion
+of algebraic spaces over $S$ is a (closed, resp.\ open)
+immersion of algebraic spaces over $S$.
+\end{lemma}
+
+\begin{proof}
+See Lemma \ref{lemma-base-change-representable-transformations-property} and
+Remark \ref{remark-list-properties-fpqc-local-base} (see very last line of
+that remark).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-sub-subspaces}
+Let $S \in \Ob(\Sch_{fppf})$ be a scheme.
+Let $F$ be an algebraic space over $S$. Let $F_1$, $F_2$ be
+locally closed subspaces of $F$. If $F_1 \subset F_2$ as subfunctors
+of $F$, then $F_1$ is a locally closed subspace of $F_2$.
+Similarly for closed and open subspaces.
+\end{lemma}
+
+\begin{proof}
+Let $T \to F_2$ be a morphism with $T$ a scheme.
+Since $F_2 \to F$ is a monomorphism, we see that
+$T \times_{F_2} F_1 = T \times_F F_1$. The lemma follows
+formally from this.
+\end{proof}
+
+\noindent
+Let us formally define the notion of a Zariski open covering of
+algebraic spaces. Note that in Lemma \ref{lemma-glueing-algebraic-spaces}
+we have already encountered such open coverings as a method for
+constructing algebraic spaces.
+
+\begin{definition}
+\label{definition-Zariski-open-covering}
+Let $S \in \Ob(\Sch_{fppf})$ be a scheme.
+Let $F$ be an algebraic space over $S$.
+A {\it Zariski covering} $\{F_i \subset F\}_{i \in I}$ of $F$
+is given by a set $I$ and a collection of open subspaces
+$F_i \subset F$ such that $\coprod F_i \to F$ is a surjective
+map of sheaves.
+\end{definition}
+
+\noindent
+Note that if $T$ is a schemes,
+and $a : T \to F$ is a morphism, then each of the fibre products
+$T \times_F F_i$ is identified with an open subscheme
+$T_i \subset T$. The final condition of the definition signifies
+exactly that $T = \bigcup_{i \in I} T_i$.
+
+\medskip\noindent
+It is clear that the collection $F_{Zar}$ of open subspaces of
+$F$ is a set (as $(\Sch/S)_{fppf}$ is a site, hence a set).
+Moreover, we can turn $F_{Zar}$ into a category by letting the
+morphisms be inclusions of subfunctors (which are automatically open
+immersions by Lemma \ref{lemma-sub-subspaces}). Finally,
+Definition \ref{definition-Zariski-open-covering}
+provides the notion of a Zariski covering $\{F_i \to F'\}_{i \in I}$
+in the category $F_{Zar}$. Hence, just as in the case of a topological
+space (see Sites, Example \ref{sites-example-site-topological})
+by suitably choosing a set of coverings
+we may obtain a Zariski site of the algebraic space $F$.
+
+\begin{definition}
+\label{definition-small-Zariski-site}
+Let $S \in \Ob(\Sch_{fppf})$ be a scheme. Let $F$ be an algebraic space over
+$S$. A {\it small Zariski site $F_{Zar}$} of an algebraic space $F$ is one
+of the sites described above.
+\end{definition}
+
+\noindent
+Hence this gives a notion of what it means for something to be true
+Zariski locally on an algebraic space, which is how we will use this
+notion. In general the Zariski topology is not fine enough for our
+purposes. For example we can consider the category of Zariski sheaves
+on an algebraic space. It will turn out that this is not the
+correct thing to consider, even for quasi-coherent sheaves.
+One only gets the desired result when using the \'etale or fppf site of
+$F$ to define quasi-coherent sheaves.
+
+
+
+
+
+
+
+
+
+
+
+\section{Separation conditions on algebraic spaces}
+\label{section-separation}
+
+\noindent
+A separation condition on an algebraic space $F$ is a condition
+on the diagonal morphism $F \to F \times F$. Let us first
+list the properties the diagonal has automatically.
+Since the diagonal is representable by definition the following lemma
+makes sense (through
+Definition \ref{definition-relative-representable-property}).
+
+\begin{lemma}
+\label{lemma-properties-diagonal}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F$ be an algebraic space over $S$.
+Let $\Delta : F \to F \times F$ be the diagonal morphism.
+Then
+\begin{enumerate}
+\item $\Delta$ is locally of finite type,
+\item $\Delta$ is a monomorphism,
+\item $\Delta$ is separated, and
+\item $\Delta$ is locally quasi-finite.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $F = U/R$ be a presentation of $F$.
+As in the proof of Lemma \ref{lemma-presentation-quasi-compact} the diagram
+$$
+\xymatrix{
+R \ar[r] \ar[d]_j & F \ar[d]^\Delta \\
+U \times_S U \ar[r] & F \times F
+}
+$$
+is cartesian. Hence according to
+Lemma \ref{lemma-representable-morphisms-spaces-property}
+it suffices to show that $j$ has the properties listed in the lemma.
+(Note that each of the properties (1) -- (4) occur in the lists
+of Remarks \ref{remark-list-properties-stable-base-change}
+and \ref{remark-list-properties-fpqc-local-base}.)
+Since $j$ is an equivalence relation it is a monomorphism.
+Hence it is separated by
+Schemes, Lemma \ref{schemes-lemma-monomorphism-separated}.
+As $R$ is an \'etale equivalence relation we see that
+$s, t : R \to U$ are \'etale. Hence $s, t$ are locally of finite
+type. Then it follows from
+Morphisms, Lemma \ref{morphisms-lemma-permanence-finite-type} that
+$j$ is locally of finite type. Finally, as it is a monomorphism
+its fibres are finite. Thus we conclude that it is locally quasi-finite by
+Morphisms, Lemma \ref{morphisms-lemma-finite-fibre}.
+\end{proof}
+
+\noindent
+Here are some common types of separation conditions, relative to the base
+scheme $S$. There is also an absolute notion of these conditions which we
+will discuss in
+Properties of Spaces, Section \ref{spaces-properties-section-separation}.
+Moreover, we will discuss separation conditions for a morphism of
+algebraic spaces in
+Morphisms of Spaces, Section \ref{spaces-morphisms-section-separation-axioms}.
+
+\begin{definition}
+\label{definition-separated}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $F$ be an algebraic space over $S$.
+Let $\Delta : F \to F \times F$ be the diagonal morphism.
+\begin{enumerate}
+\item We say $F$ is {\it separated over $S$} if $\Delta$ is a closed immersion.
+\item We say $F$ is {\it locally separated over $S$}\footnote{In the
+literature this often refers to quasi-separated and
+locally separated algebraic spaces.} if $\Delta$ is an
+immersion.
+\item We say $F$ is {\it quasi-separated over $S$} if $\Delta$ is quasi-compact.
+\item We say $F$ is {\it Zariski locally quasi-separated over $S$}\footnote{This
+definition was suggested by B.\ Conrad.} if there
+exists a Zariski covering $F = \bigcup_{i \in I} F_i$ such that
+each $F_i$ is quasi-separated.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Note that if the diagonal is quasi-compact (when $F$ is separated or
+quasi-separated) then the diagonal is actually
+quasi-finite and separated, hence quasi-affine (by More on Morphisms,
+Lemma \ref{more-morphisms-lemma-quasi-finite-separated-quasi-affine}).
+
+
+
+
+
+
+
+
+\section{Examples of algebraic spaces}
+\label{section-examples}
+
+\noindent
+In this section we construct some examples of algebraic spaces.
+Some of these were suggested by B.\ Conrad.
+Since we do not yet have a lot of theory at our disposal the
+discussion is a bit awkward in some places.
+
+\begin{example}
+\label{example-affine-line-involution}
+Let $k$ be a field of characteristic $\not = 2$. Let $U = \mathbf{A}^1_k$. Set
+$$
+j : R = \Delta \amalg \Gamma \longrightarrow U \times_k U
+$$
+where $\Delta = \{(x, x) \mid x \in \mathbf{A}^1_k\}$ and
+$\Gamma = \{(x, -x) \mid x \in \mathbf{A}^1_k, x \not = 0\}$.
+It is clear that $s, t : R \to U$ are \'etale, and hence
+$j$ is an \'etale equivalence relation.
+The quotient $X = U/R$ is an algebraic space by
+Theorem \ref{theorem-presentation}.
+Since $R$ is quasi-compact we see that $X$ is quasi-separated.
+On the other hand, $X$ is not locally separated because
+the morphism $j$ is not an immersion.
+\end{example}
+
+\begin{example}
+\label{example-non-representable-descent}
+Let $k$ be a field. Let $k'/k$ be a degree $2$ Galois extension
+with $\text{Gal}(k'/k) = \{1, \sigma\}$. Let $S = \Spec(k[x])$
+and $U = \Spec(k'[x])$. Note that
+$$
+U \times_S U =
+\Spec((k' \otimes_k k')[x]) =
+\Delta(U) \amalg \Delta'(U)
+$$
+where $\Delta' = (1, \sigma) : U \to U \times_S U$. Take
+$$
+R = \Delta(U) \amalg \Delta'(U \setminus \{0_U\})
+$$
+where $0_U \in U$ denotes the $k'$-rational point whose $x$-coordinate is zero.
+It is easy to see that $R$ is an \'etale equivalence relation on $U$ over $S$
+and hence $X = U/R$ is an algebraic space by
+Theorem \ref{theorem-presentation}. Here are some properties of $X$ (some
+of which will not make sense until later):
+\begin{enumerate}
+\item $X \to S$ is an isomorphism over $S \setminus \{0_S\}$,
+\item the morphism $X \to S$ is \'etale (see
+Properties of Spaces,
+Definition \ref{spaces-properties-definition-etale})
+\item the fibre $0_X$ of $X \to S$ over $0_S$ is isomorphic to
+$\Spec(k') = 0_U$,
+\item $X$ is not a scheme because if it where, then $\mathcal{O}_{X, 0_X}$
+would be a local domain $(\mathcal{O}, \mathfrak m, \kappa)$ with
+fraction field $k(x)$, with $x \in \mathfrak m$ and residue field
+$\kappa = k'$ which is impossible,
+\item $X$ is not separated, but it is
+locally separated and quasi-separated,
+\item there exists a surjective, finite, \'etale morphism $S' \to S$
+such that the base change $X' = S' \times_S X$ is a scheme (namely, if
+we base change to $S' = \Spec(k'[x])$ then $U$ splits into
+two copies of $S'$ and $X'$ becomes isomorphic to the affine line with
+$0$ doubled, see
+Schemes, Example \ref{schemes-example-affine-space-zero-doubled}), and
+\item if we think of $X$ as a finite type algebraic space over
+$\Spec(k)$, then similarly the base change $X_{k'}$ is a scheme
+but $X$ is not a scheme.
+\end{enumerate}
+In particular, this gives an example of a descent datum for schemes
+relative to the covering $\{\Spec(k') \to \Spec(k)\}$
+which is not effective.
+\end{example}
+
+\noindent
+See also Examples, 
+Lemma \ref{examples-lemma-non-effective-descent-projective},
+which shows that descent data need not be effective
+even for a projective morphism of schemes. That example
+gives a smooth separated algebraic space of dimension 3
+over ${\mathbf C}$ which is not a scheme.
+
+\medskip\noindent
+We will use the following lemma as a convenient way to construct
+algebraic spaces as quotients of schemes by free group actions.
+
+\begin{lemma}
+\label{lemma-quotient}
+Let $U \to S$ be a morphism of $\Sch_{fppf}$.
+Let $G$ be an abstract group. Let $G \to \text{Aut}_S(U)$
+be a group homomorphism. Assume
+\begin{itemize}
+\item[$(*)$] if $u \in U$ is a point, and $g(u) = u$
+for some non-identity element $g \in G$, then $g$
+induces a nontrivial automorphism of $\kappa(u)$.
+\end{itemize}
+Then
+$$
+j :
+R = \coprod\nolimits_{g \in G} U
+\longrightarrow
+U \times_S U,
+\quad
+(g, x) \longmapsto (g(x), x)
+$$
+is an \'etale equivalence relation and hence
+$$
+F = U/R
+$$
+is an algebraic space by Theorem \ref{theorem-presentation}.
+\end{lemma}
+
+\begin{proof}
+In the statement of the lemma the symbol $\text{Aut}_S(U)$ denotes
+the group of automorphisms of $U$ over $S$.
+Assume $(*)$ holds. Let us show that
+$$
+j :
+R = \coprod\nolimits_{g \in G} U
+\longrightarrow
+U \times_S U,
+\quad
+(g, x) \longmapsto (g(x), x)
+$$
+is a monomorphism. This signifies that if $T$ is a nonempty
+scheme, and $h : T \to U$ is a $T$-valued point such that
+$g \circ h = g' \circ h$ then $g = g'$. Suppose
+$T \not = \emptyset$, $h : T \to U$ and $g \circ h = g' \circ h$.
+Let $t \in T$. Consider the composition
+$\Spec(\kappa(t)) \to \Spec(\kappa(h(t))) \to U$.
+Then we conclude that $g^{-1} \circ g'$ fixes $u = h(t)$ and
+acts as the identity on its residue field. Hence $g = g'$ by $(*)$.
+
+\medskip\noindent
+Thus if $(*)$ holds we see that $j$ is a relation (see
+Groupoids, Definition \ref{groupoids-definition-equivalence-relation}).
+Moreover, it is an equivalence relation since on $T$-valued points
+for a connected scheme $T$ we see that
+$R(T) = G \times U(T) \to U(T) \times U(T)$ (recall that we always
+work over $S$). Moreover, the morphisms $s, t : R \to U$ are \'etale
+since $R$ is a disjoint product of copies of $U$.
+This proves that $j : R \to U \times_S U$ is an \'etale equivalence relation.
+\end{proof}
+
+\noindent
+Given a scheme $U$ and an action of a group $G$ on $U$ we say the action
+of $G$ on $U$ is {\it free} if condition $(*)$ of Lemma \ref{lemma-quotient}
+holds. This is equivalent to the notion of a free action of the constant
+group scheme $G_S$ on $U$ as defined in
+Groupoids, Definition \ref{groupoids-definition-free-action}.
+The lemma can be interpreted as saying that quotients of schemes by
+free actions of groups exist in the category of algebraic spaces.
+
+\begin{definition}
+\label{definition-quotient}
+Notation $U \to S$, $G$, $R$ as in Lemma \ref{lemma-quotient}.
+If the action of $G$ on $U$ satisfies $(*)$ we say $G$ {\it acts freely}
+on the scheme $U$. In this case the algebraic space $U/R$ is denoted
+$U/G$ and is called the {\it quotient of $U$ by $G$}.
+\end{definition}
+
+\noindent
+This notation is consistent with the notation $U/G$ introduced in
+Groupoids, Definition \ref{groupoids-definition-quotient-sheaf}.
+We will later make sense of the quotient as an algebraic stack without
+any assumptions on the action whatsoever; when we do this we will use the
+notation $[U/G]$. Before we discuss the examples we prove
+some more lemmas to facilitate the discussion. Here is a lemma discussing the
+various separation conditions for this quotient when $G$ is finite.
+
+\begin{lemma}
+\label{lemma-quotient-finite-separated}
+Notation and assumptions as in Lemma \ref{lemma-quotient}.
+Assume $G$ is finite. Then
+\begin{enumerate}
+\item if $U \to S$ is quasi-separated, then $U/G$ is quasi-separated
+over $S$, and
+\item if $U \to S$ is separated, then $U/G$ is separated over $S$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+In the proof of Lemma \ref{lemma-properties-diagonal}
+we saw that it suffices to prove the
+corresponding properties for the morphism $j : R \to U \times_S U$.
+If $U \to S$ is quasi-separated, then for every affine open $V \subset U$
+which maps into an affine of $S$
+the opens $g(V) \cap V$ are quasi-compact. It follows that $j$ is
+quasi-compact.
+If $U \to S$ is separated, the diagonal $\Delta_{U/S}$ is a closed
+immersion. Hence $j : R \to U \times_S U$ is a finite coproduct
+of closed immersions with disjoint images. Hence $j$ is a closed immersion.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-field-map}
+Notation and assumptions as in Lemma \ref{lemma-quotient}.
+If $\Spec(k) \to U/G$ is a morphism, then there exist
+\begin{enumerate}
+\item a finite Galois extension $k'/k$,
+\item a finite subgroup $H \subset G$,
+\item an isomorphism $H \to \text{Gal}(k'/k)$, and
+\item an $H$-equivariant morphism $\Spec(k') \to U$.
+\end{enumerate}
+Conversely, such data determine a morphism $\Spec(k) \to U/G$.
+\end{lemma}
+
+\begin{proof}
+Consider the fibre product $V = \Spec(k) \times_{U/G} U$.
+Here is a diagram
+$$
+\xymatrix{
+V \ar[r] \ar[d] & U \ar[d] \\
+\Spec(k) \ar[r] & U/G
+}
+$$
+Then $V$ is a nonempty scheme \'etale over $\Spec(k)$ and hence is a
+disjoint union $V = \coprod_{i \in I} \Spec(k_i)$
+of spectra of fields $k_i$ finite separable over $k$
+(Morphisms, Lemma \ref{morphisms-lemma-etale-over-field}).
+We have
+\begin{align*}
+V \times_{\Spec(k)} V
+& =
+(\Spec(k) \times_{U/G} U) \times_{\Spec(k)}(\Spec(k) \times_{U/G} U) \\
+& = 
+\Spec(k) \times_{U/G} U \times_{U/G} U \\
+& =
+\Spec(k) \times_{U/G} U \times G \\
+& =
+V \times G
+\end{align*}
+The action of $G$ on $U$ induces an action of $a : G \times V \to V$.
+The displayed equality means that
+$G \times V \to V \times_{\Spec(k)} V$, $(g, v) \mapsto (a(g, v), v)$
+is an isomorphism. In particular we see that for every $i$ we have
+an isomorphism $H_i \times \Spec(k_i) \to \Spec(k_i \otimes_k k_i)$
+where $H_i \subset G$ is the subgroup of elements fixing $i \in I$.
+Thus $H_i$ is finite and is the Galois group of $k_i/k$.
+We omit the converse construction.
+\end{proof}
+
+\noindent
+It follows from this lemma for example that
+if $k'/k$ is a finite Galois extension, then
+$\Spec(k')/\text{Gal}(k'/k) \cong \Spec(k)$.
+What happens if the extension is infinite? Here is an example.
+
+\begin{example}
+\label{example-Qbar}
+Let $S = \Spec(\mathbf{Q})$.
+Let $U = \Spec(\overline{\mathbf{Q}})$.
+Let $G = \text{Gal}(\overline{\mathbf{Q}}/\mathbf{Q})$ with obvious
+action on $U$. Then by construction property $(*)$ of
+Lemma \ref{lemma-quotient} holds and we obtain an algebraic space
+$$
+X = \Spec(\overline{\mathbf{Q}})/G
+\longrightarrow
+S = \Spec(\mathbf{Q}).
+$$
+Of course this is totally ridiculous as an approximation of $S$!
+Namely, by the Artin-Schreier theorem,
+see \cite[Theorem 17, page 316]{JacobsonIII},
+the only finite subgroups of $\text{Gal}(\overline{\mathbf{Q}}/\mathbf{Q})$
+are $\{1\}$ and the conjugates of the order two group
+$\text{Gal}(\overline{\mathbf{Q}}/\overline{\mathbf{Q}} \cap \mathbf{R})$.
+Hence, if
+$\Spec(k) \to X$ is a morphism with $k$ algebraic over $\mathbf{Q}$,
+then it follows from Lemma \ref{lemma-quotient-field-map} and the theorem
+just mentioned that either $k$ is $\overline{\mathbf{Q}}$ or isomorphic to
+$\overline{\mathbf{Q}} \cap \mathbf{R}$.
+\end{example}
+
+\noindent
+What is wrong with the example above is that
+the Galois group comes equipped with a topology,
+and this should somehow be part of any construction
+of a quotient of $\Spec(\overline{\mathbf{Q}})$.
+The following example is much more reasonable in my opinion
+and may actually occur in ``nature''.
+
+\begin{example}
+\label{example-affine-line-translation}
+Let $k$ be a field of characteristic zero.
+Let $U = \mathbf{A}^1_k$ and let $G = \mathbf{Z}$.
+As action we take $n(x) = x + n$, i.e., the action of
+$\mathbf{Z}$ on the affine line by translation.
+The only fixed point is the generic point and it
+is clearly the case that $\mathbf{Z}$ injects into
+the automorphism group of the field $k(x)$. (This is
+where we use the characteristic zero assumption.)
+Consider the morphism
+$$
+\gamma : \Spec(k(x)) \longrightarrow X = \mathbf{A}^1_k/\mathbf{Z}
+$$
+of the generic point of the affine line into the quotient.
+We claim that this morphism does not factor through any
+monomorphism $\Spec(L) \to X$ of the spectrum of
+a field to $X$. (Contrary to what happens for schemes, see
+Schemes, Section \ref{schemes-section-points}.) In fact, since
+$\mathbf{Z}$ does not have any nontrivial finite subgroups we see from
+Lemma \ref{lemma-quotient-field-map} that for any such
+factorization $k(x) = L$. Finally, $\gamma$ is not a monomorphism
+since
+$$
+\Spec(k(x)) \times_{\gamma, X, \gamma} \Spec(k(x))
+\cong
+\Spec(k(x)) \times \mathbf{Z}.
+$$
+\end{example}
+
+\noindent
+This example suggests that in order to define points of an algebraic space
+$X$ we should consider equivalence classes of morphisms from spectra
+of fields into $X$ and not the set of monomorphisms from spectra of fields.
+
+\medskip\noindent
+We finish with a truly awful example.
+
+\begin{example}
+\label{example-infinite-product}
+Let $k$ be a field.
+Let $A = \prod_{n \in \mathbf{N}} k$ be the infinite product.
+Set $U = \Spec(A)$ seen as a scheme over $S = \Spec(k)$.
+Note that the projection maps $\text{pr}_n : A \to k$ define open
+and closed immersions $f_n : S \to U$. Set
+$$
+R = U \amalg \coprod\nolimits_{(n, m) \in \mathbf{N}^2, \ n \not = m} S
+$$
+with morphism $j$ equal to $\Delta_{U/S}$ on the component $U$
+and $j = (f_n, f_m)$ on the component $S$ corresponding to $(n, m)$.
+It is clear from the remark above that $s, t$ are \'etale.
+It is also clear that $j$ is an equivalence relation. Hence we
+obtain an algebraic space
+$$
+X = U/R.
+$$
+To see what this means we specialize to the case where
+the field $k$ is finite with $q$ elements. Let us first
+discuss the topological space $|U|$ associated to the scheme $U$
+a little bit. All elements of $A$ satisfy $x^q = x$.
+Hence every residue field of $A$ is isomorphic to $k$, and
+all points of $U$ are closed. But the topology on $U$ isn't
+the discrete topology. Let $u_n \in |U|$ be the point corresponding
+to $f_n$. As mentioned above the points $u_n$ are
+the open points (and hence isolated). This implies there have
+to be other points since we know $U$ is quasi-compact, see
+Algebra, Lemma \ref{algebra-lemma-quasi-compact}
+(hence not equal to an infinite discrete set).
+Another way to see this is because the (proper) ideal
+$$
+I =
+\{x = (x_n) \in A \mid \text{all but a finite number of }x_n\text{ are zero}\}
+$$
+is contained in a maximal ideal. Note also that every element
+$x$ of $A$ is of the form $x = ue$ where $u$ is a unit and $e$ is an
+idempotent. Hence a basis for the topology of $A$ consists of open and
+closed subsets (see Algebra, Lemma \ref{algebra-lemma-idempotent-spec}.)
+So the topology on $|U|$ is totally disconnected, but nontrivial.
+Finally, note that $\{u_n\}$ is dense in $|U|$.
+
+\medskip\noindent
+We will later define a topological space $|X|$ associated to $X$, see
+Properties of Spaces, Section \ref{spaces-properties-section-points}.
+What can we say about $|X|$?
+It turns out that the map $|U| \to |X|$ is surjective and continuous.
+All the points $u_n$ map to the same point $x_0$ of $|X|$, and none of
+the other points get identified. Since $\{u_n\}$ is dense in $|U|$ we
+conclude that the closure of $x_0$ in $|X|$ is $|X|$. In other words
+$|X|$ is irreducible and $x_0$ is a generic point of $|X|$. This seems
+bizarre since also $x_0$ is the image of a section
+$S \to X$ of the structure morphism $X \to S$ (and in the case of
+schemes this would imply it was a closed point, see
+Morphisms, Lemma
+\ref{morphisms-lemma-algebraic-residue-field-extension-closed-point-fibre}).
+\end{example}
+
+\noindent
+Whatever you think is actually going on in this example, it certainly
+shows that some care has to be exercised when defining irreducible
+components, connectedness, etc of algebraic spaces.
+
+
+
+
+
+
+\section{Change of big site}
+\label{section-change-big-site}
+
+\noindent
+In this section we briefly discuss what happens when we change big sites.
+The upshot is that we can always enlarge the big site at will, hence we
+may assume any set of schemes we want to consider is contained in the big
+fppf site over which we consider our algebraic space. Here is a precise
+statement of the result.
+
+\begin{lemma}
+\label{lemma-change-big-site}
+Suppose given big sites $\Sch_{fppf}$ and $\Sch'_{fppf}$.
+Assume that $\Sch_{fppf}$ is contained in $\Sch'_{fppf}$,
+see Topologies, Section \ref{topologies-section-change-alpha}.
+Let $S$ be an object of $\Sch_{fppf}$. Let
+\begin{align*}
+g : \Sh((\Sch/S)_{fppf})
+\longrightarrow
+\Sh((\Sch'/S)_{fppf}), \\
+f : \Sh((\Sch'/S)_{fppf})
+\longrightarrow
+\Sh((\Sch/S)_{fppf})
+\end{align*}
+be the morphisms of topoi of
+Topologies, Lemma \ref{topologies-lemma-change-alpha}.
+Let $F$ be a sheaf of sets on $(\Sch/S)_{fppf}$. Then
+\begin{enumerate}
+\item if $F$ is representable by a scheme
+$X \in \Ob((\Sch/S)_{fppf})$ over $S$,
+then $f^{-1}F$ is representable too, in fact it is representable by the
+same scheme $X$, now viewed as an object of $(\Sch'/S)_{fppf}$, and
+\item if $F$ is an algebraic space over $S$, then $f^{-1}F$ is an algebraic
+space over $S$ also.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $X \in \Ob((\Sch/S)_{fppf})$. Let us write $h_X$ for the
+representable sheaf on $(\Sch/S)_{fppf}$ associated to $X$, and
+$h'_X$ for the representable sheaf on $(\Sch'/S)_{fppf}$ associated to
+$X$. By the description of $f^{-1}$ in
+Topologies, Section \ref{topologies-section-change-alpha}
+we see that $f^{-1}h_X = h'_X$. This proves (1).
+
+\medskip\noindent
+Next, suppose that $F$
+is an algebraic space over $S$. By Lemma \ref{lemma-space-presentation}
+this means that $F = h_U/h_R$ for some \'etale equivalence relation
+$R \to U \times_S U$ in $(\Sch/S)_{fppf}$. Since $f^{-1}$ is an
+exact functor we conclude that $f^{-1}F = h'_U/h'_R$. Hence
+$f^{-1}F$ is an algebraic space over $S$ by Theorem \ref{theorem-presentation}.
+\end{proof}
+
+\noindent
+Note that this lemma is purely set theoretical and has virtually no content.
+Moreover, it is not true (in general) that the restriction of an algebraic
+space over the bigger site is an algebraic space over the smaller site (simply
+by reasons of cardinality). Hence we can only ever use a simple lemma of this
+kind to enlarge the base category and never to shrink it.
+
+\begin{lemma}
+\label{lemma-fully-faithful}
+Suppose $\Sch_{fppf}$ is contained in $\Sch'_{fppf}$.
+Let $S$ be an object of $\Sch_{fppf}$. Denote
+$\textit{Spaces}/S$ the category of algebraic spaces over $S$
+defined using $\Sch_{fppf}$. Similarly, denote
+$\textit{Spaces}'/S$ the category of algebraic spaces over $S$
+defined using $\Sch'_{fppf}$. The construction of
+Lemma \ref{lemma-change-big-site}
+defines a fully faithful functor
+$$
+\textit{Spaces}/S \longrightarrow \textit{Spaces}'/S
+$$
+whose essential image consists of those $X' \in \Ob(\textit{Spaces}'/S)$
+such that there exist $U, R \in \Ob((\Sch/S)_{fppf})$\footnote{Requiring the
+existence of $R$ is necessary because of our choice of the function $Bound$ in
+Sets, Equation (\ref{sets-equation-bound}). The size of the fibre product
+$U \times_{X'} U$ can grow faster than $Bound$ in terms of the size of $U$. We
+can illustrate this by setting $S = \Spec(A)$, $U = \Spec(A[x_i, i \in I])$ and
+$R = \coprod_{(\lambda_i) \in A^I} \Spec(A[x_i, y_i]/(x_i - \lambda_i y_i))$.
+In this case the size of $R$ grows like $\kappa^\kappa$ where $\kappa$ is the
+size of $U$.} and morphisms
+$$
+U \longrightarrow X'
+\quad\text{and}\quad
+R \longrightarrow U \times_{X'} U
+$$
+in $\Sh((\Sch'/S)_{fppf})$ which are surjective as maps of sheaves
+(for example if the displayed morphisms are surjective and \'etale).
+\end{lemma}
+
+\begin{proof}
+In Sites, Lemma \ref{sites-lemma-bigger-site} we have seen that the functor
+$f^{-1} : \Sh((\Sch/S)_{fppf}) \to \Sh((\Sch'/S)_{fppf})$
+is fully faithful (see discussion in
+Topologies, Section \ref{topologies-section-change-alpha}).
+Hence we see that the displayed functor of the lemma is fully faithful.
+
+\medskip\noindent
+Suppose that $X' \in \Ob(\textit{Spaces}'/S)$ such that there exists
+$U \in \Ob((\Sch/S)_{fppf})$ and a map $U \to X'$ in
+$\Sh((\Sch'/S)_{fppf})$ which is surjective as a map of sheaves.
+Let $U' \to X'$ be a surjective \'etale morphism with
+$U' \in \Ob((\Sch'/S)_{fppf})$. Let $\kappa = \text{size}(U)$, see
+Sets, Section \ref{sets-section-categories-schemes}.
+Then $U$ has an affine open covering $U = \bigcup_{i \in I} U_i$
+with $|I| \leq \kappa$. Observe that $U' \times_{X'} U \to U$ is \'etale
+and surjective. For each $i$ we can pick a quasi-compact
+open $U'_i \subset U'$ such that $U'_i \times_{X'} U_i \to U_i$
+is surjective (because the scheme $U' \times_{X'} U_i$ is the
+union of the Zariski opens $W \times_{X'} U_i$ for $W \subset U'$
+affine and because $U' \times_{X'} U_i \to U_i$ is \'etale hence open).
+Then $\coprod_{i \in I} U'_i \to X$ is surjective \'etale
+because of our assumption that $U \to X$ and hence $\coprod U_i \to X$
+is a surjection of sheaves (details omitted).
+Because $U'_i \times_{X'} U \to U'_i$ is a surjection of sheaves
+and because $U'_i$ is quasi-compact,
+we can find a quasi-compact open $W_i \subset U'_i \times_{X'} U$
+such that $W_i \to U'_i$ is surjective as a map of sheaves
+(details omitted). Then $W_i \to U$ is \'etale and we conclude
+that $\text{size}(W_i) \leq \text{size}(U)$, see
+Sets, Lemma \ref{sets-lemma-bound-finite-type}. By
+Sets, Lemma \ref{sets-lemma-bound-by-covering} we conclude
+that $\text{size}(U'_i) \leq \text{size}(U)$.
+Hence $\coprod_{i \in I} U'_i$ is isomorphic to an object of
+$(\Sch/S)_{fppf}$ by Sets, Lemma \ref{sets-lemma-bound-size}.
+
+\medskip\noindent
+Now let $X'$, $U \to X'$ and $R \to U \times_{X'} U$ be as in the
+statement of the lemma. In the previous paragraph we have seen that
+we can find $U' \in \Ob((\Sch/S)_{fppf})$ and a surjective \'etale morphism
+$U' \to X'$ in $\Sh((\Sch'/S)_{fppf})$. Then
+$U' \times_{X'} U \to U'$ is a surjection of sheaves, i.e., we can find an fppf
+covering $\{U'_i \to U'\}$ such that $U'_i \to U'$ factors through
+$U' \times_{X'} U \to U'$.
+By Sets, Lemma \ref{sets-lemma-bound-fppf-covering}
+we can find
+$\tilde U \to U'$
+which is surjective, flat, and locally of finite presentation,
+with $\text{size}(\tilde U) \leq \text{size}(U')$,
+such that $\tilde U \to U'$ factors through
+$U' \times_{X'} U \to U'$. Then we consider
+$$
+\xymatrix{
+U' \times_{X'} U' \ar[d] &
+\tilde U \times_{X'} \tilde U  \ar[l] \ar[d] \ar[r] &
+U \times_{X'} U \ar[d] \\
+U' \times_S U' & \tilde U \times_S \tilde U \ar[l] \ar[r] & U \times_S U
+}
+$$
+The squares are cartesian. We know the objects of the bottom row
+are represented by objects of $(\Sch/S)_{fppf}$. By the result of the
+argument of the previous paragraph, the same is true for $U \times_{X'} U$
+(as we have the surjection of sheaves $R \to U \times_{X'} U$
+by assumption). Since $(\Sch/S)_{fppf}$ is closed under fibre
+products (by construction), we see that $\tilde U \times_{X'} \tilde U$
+is represented by an object of $(\Sch/S)_{fppf}$. Finally, the
+map $\tilde U \times_{X'} \tilde U \to U' \times_{X'} U'$ is
+a surjection of fppf sheaves as $\tilde U \to U'$ is so.
+Thus we can once more apply the result of the previous paragraph
+to conclude that $R' = U' \times_{X'} U'$ is represented by an object
+of $(\Sch/S)_{fppf}$. At this point
+Lemma \ref{lemma-space-presentation} and
+Theorem \ref{theorem-presentation} imply that $X = h_{U'}/h_{R'}$
+is an object of $\textit{Spaces}/S$ such that $f^{-1}X \cong X'$
+as desired.
+\end{proof}
+
+
+
+\section{Change of base scheme}
+\label{section-change-base-scheme}
+
+\noindent
+In this section we briefly discuss what happens when we change base schemes.
+The upshot is that given a morphism $S \to S'$ of base schemes, any algebraic
+space over $S$ can be viewed as an algebraic space over $S'$. And, given an
+algebraic space $F'$ over $S'$ there is a base change $F'_S$ which is
+an algebraic space over $S$.
+We explain only what happens in case $S \to S'$ is a morphism of the
+big fppf site under consideration, if only $S$ or $S'$ is contained in the
+big site, then one first enlarges the big site as in
+Section \ref{section-change-big-site}.
+
+\begin{lemma}
+\label{lemma-change-base-scheme}
+Suppose given a big site $\Sch_{fppf}$.
+Let $g : S \to S'$ be morphism of $\Sch_{fppf}$.
+Let $j : (\Sch/S)_{fppf} \to (\Sch/S')_{fppf}$ be
+the corresponding localization functor.
+Let $F$ be a sheaf of sets on $(\Sch/S)_{fppf}$.
+Then
+\begin{enumerate}
+\item for a scheme $T'$ over $S'$ we have
+$j_!F(T'/S') =
+\coprod\nolimits_{\varphi : T' \to S} F(T' \xrightarrow{\varphi} S),$
+\item if $F$ is representable by a scheme
+$X \in \Ob((\Sch/S)_{fppf})$,
+then $j_!F$ is representable by $j(X)$ which is
+$X$ viewed as a scheme over $S'$, and
+\item if $F$ is an algebraic space over $S$, then $j_!F$ is an algebraic
+space over $S'$, and if $F = U/R$ is a presentation, then
+$j_!F = j(U)/j(R)$ is a presentation.
+\end{enumerate}
+Let $F'$ be a sheaf of sets on $(\Sch/S')_{fppf}$. Then
+\begin{enumerate}
+\item[(4)] for a scheme $T$ over $S$ we have $j^{-1}F'(T/S) = F'(T/S')$,
+\item[(5)] if $F'$ is representable by a scheme
+$X' \in \Ob((\Sch/S')_{fppf})$, then
+$j^{-1}F'$ is representable, namely by $X'_S = S \times_{S'} X'$, and
+\item[(6)] if $F'$ is an algebraic space, then
+$j^{-1}F'$ is an algebraic space, and if $F' = U'/R'$ is a presentation,
+then $j^{-1}F' = U'_S/R'_S$ is a presentation.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The functors $j_!$, $j_*$ and $j^{-1}$ are defined in
+Sites, Lemma \ref{sites-lemma-relocalize}
+where it is also shown that $j = j_{S/S'}$ is the localization
+of $(\Sch/S')_{fppf}$ at the object $S/S'$. Hence
+all of the material on localization functors is available for $j$.
+The formula in (1) is
+Sites, Lemma \ref{sites-lemma-describe-j-shriek-good-site}.
+By definition $j_!$ is the left adjoint to restriction $j^{-1}$,
+hence $j_!$ is right exact. By
+Sites, Lemma \ref{sites-lemma-j-shriek-commutes-equalizers-fibre-products}
+it also commutes with fibre products and equalizers.
+By
+Sites, Lemma \ref{sites-lemma-describe-j-shriek-representable}
+we see that $j_!h_X = h_{j(X)}$ hence (2) holds.
+If $F$ is an algebraic space over $S$, then we can write $F = U/R$
+(Lemma \ref{lemma-space-presentation})
+and we get
+$$
+j_!F = j(U)/j(R)
+$$
+because $j_!$ being right exact commutes with coequalizers, and moreover
+$j(R) = j(U) \times_{j_!F} j(U)$ as $j_!$ commutes with fibre products.
+Since the morphisms $j(s), j(t) : j(R) \to j(U)$ are simply the morphisms
+$s, t : R \to U$ (but viewed as morphisms of schemes over $S'$), they
+are still \'etale. Thus $(j(U), j(R), s, t)$ is an \'etale equivalence relation.
+Hence by
+Theorem \ref{theorem-presentation}
+we conclude that $j_!F$ is an algebraic space.
+
+\medskip\noindent
+Proof of (4), (5), and (6). The description of $j^{-1}$ is in
+Sites, Section \ref{sites-section-localize}.
+The restriction of the representable sheaf associated to $X'/S'$
+is the representable sheaf associated to
+$X'_S = S \times_{S'} Y'$ by
+Sites, Lemma \ref{sites-lemma-localize-given-products}.
+The restriction functor $j^{-1}$ is exact, hence $j^{-1}F' = U'_S/R'_S$.
+Again by exactness the sheaf $R'_S$ is still an equivalence relation on
+$U'_S$. Finally the two maps $R'_S \to U'_S$ are \'etale as base changes
+of the \'etale morphisms $R' \to U'$. Hence $j^{-1}F' = U'_S/R'_S$ is
+an algebraic space by
+Theorem \ref{theorem-presentation}
+and we win.
+\end{proof}
+
+\noindent
+Note how the presentation $j_!F = j(U)/j(R)$ is just the presentation
+of $F$ but viewed as a presentation by schemes over $S'$. Hence the
+following definition makes sense.
+
+\begin{definition}
+\label{definition-base-change}
+Let $\Sch_{fppf}$ be a big fppf site.
+Let $S \to S'$ be a morphism of this site.
+\begin{enumerate}
+\item If $F'$ is an algebraic space over $S'$, then the
+{\it base change of $F'$ to $S$} is the
+algebraic space $j^{-1}F'$ described in
+Lemma \ref{lemma-change-base-scheme}. We denote it $F'_S$.
+\item If $F$ is an algebraic space over $S$, then $F$
+{\it viewed as an algebraic space over $S'$}
+is the algebraic space $j_!F$ over $S'$ described in
+Lemma \ref{lemma-change-base-scheme}. We often simply denote this
+$F$; if not then we will write $j_!F$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+The algebraic space $j_!F$ comes equipped with a canonical morphism
+$j_!F \to S$ of algebraic spaces over $S'$. This is true simply
+because the sheaf $j_!F$ maps to $h_S$ (see for example the
+explicit description in
+Lemma \ref{lemma-change-base-scheme}).
+In fact, in
+Sites, Lemma \ref{sites-lemma-essential-image-j-shriek}
+we have seen that the category of sheaves on $(\Sch/S)_{fppf}$
+is equivalent to the category of pairs $(\mathcal{F}', \mathcal{F}' \to h_S)$
+consisting of a sheaf on $(\Sch/S')_{fppf}$ and a map of sheaves
+$\mathcal{F}' \to h_S$. The equivalence assigns to the sheaf $\mathcal{F}$
+the pair $(j_!\mathcal{F}, j_!\mathcal{F} \to h_S)$.
+This, combined with the above, leads to the following
+result for categories of algebraic spaces.
+
+\begin{lemma}
+\label{lemma-category-of-spaces-over-smaller-base-scheme}
+Let $\Sch_{fppf}$ be a big fppf site.
+Let $S \to S'$ be a morphism of this site.
+The construction above give an equivalence of
+categories
+$$
+\left\{
+\begin{matrix}
+\text{category of algebraic}\\
+\text{spaces over }S
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{category of pairs }(F', F' \to S)\text{ consisting}\\
+\text{of an algebraic space }F'\text{ over }S'\text{ and a}\\
+\text{morphism }F' \to S\text{ of algebraic spaces over }S'
+\end{matrix}
+\right\}
+$$
+\end{lemma}
+
+\begin{proof}
+Let $F$ be an algebraic space over $S$. The functor from left to right
+assigns the pair $(j_!F, j_!F \to S)$ ot $F$
+which is an object of the right hand side by
+Lemma \ref{lemma-change-base-scheme}.
+Since this defines an equivalence of categories of sheaves by
+Sites, Lemma \ref{sites-lemma-essential-image-j-shriek}
+to finish the proof it suffices to show:
+if $F$ is a sheaf and $j_!F$ is an algebraic space, then $F$
+is an algebraic space. To do this, write
+$j_!F = U'/R'$ as in
+Lemma \ref{lemma-space-presentation}
+with $U', R' \in \Ob((\Sch/S')_{fppf})$.
+Then the compositions $U' \to j_!F \to S$ and $R' \to j_!F \to S$
+are morphisms of schemes over $S'$. Denote $U, R$ the corresponding
+objects of $(\Sch/S)_{fppf}$. The two morphisms
+$R' \to U'$ are morphisms over $S$ and hence correspond to
+morphisms $R \to U$. Since these are simply the same
+morphisms (but viewed over $S$) we see that we get an \'etale
+equivalence relation over $S$. As $j_!$ defines an equivalence of
+categories of sheaves (see reference above) we see that
+$F = U/R$ and by
+Theorem \ref{theorem-presentation}
+we see that $F$ is an algebraic space.
+\end{proof}
+
+\noindent
+The following lemma is a slight rephrasing of the above.
+
+\begin{lemma}
+\label{lemma-rephrase}
+Let $\Sch_{fppf}$ be a big fppf site.
+Let $S \to S'$ be a morphism of this site.
+Let $F'$ be a sheaf on $(\Sch/S')_{fppf}$.
+The following are equivalent:
+\begin{enumerate}
+\item The restriction $F'|_{(\Sch/S)_{fppf}}$
+is an algebraic space over $S$, and
+\item the sheaf $h_S \times F'$ is an algebraic space over $S'$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The restriction and the product match under
+the equivalence of categories of
+Sites, Lemma \ref{sites-lemma-essential-image-j-shriek}
+so that
+Lemma \ref{lemma-category-of-spaces-over-smaller-base-scheme}
+above gives the result.
+\end{proof}
+
+\noindent
+We finish this section with a lemma on a compatibility.
+
+\begin{lemma}
+\label{lemma-viewed-as-properties}
+Let $\Sch_{fppf}$ be a big fppf site.
+Let $S \to S'$ be a morphism of this site.
+Let $F$ be an algebraic space over $S$.
+Let $T$ be a scheme over $S$ and let $f : T \to F$ be
+a morphism over $S$.
+Let $f' : T' \to F'$ be the morphism over $S'$ we get from
+$f$ by applying the equivalence of categories described in
+Lemma \ref{lemma-category-of-spaces-over-smaller-base-scheme}.
+For any property $\mathcal{P}$ as in
+Definition \ref{definition-relative-representable-property}
+we have $\mathcal{P}(f') \Leftrightarrow \mathcal{P}(f)$.
+\end{lemma}
+
+\begin{proof}
+Suppose that $U$ is a scheme over $S$, and $U \to F$ is a surjective \'etale
+morphism. Denote $U'$ the scheme $U$ viewed as a scheme over $S'$. In
+Lemma \ref{lemma-change-base-scheme}
+we have seen that $U' \to F'$ is surjective \'etale. Since
+$$
+j(T \times_{f, F} U) = T' \times_{f', F'} U'
+$$
+the morphism of schemes $T \times_{f, F} U \to U$
+is identified with the morphism of schemes
+$T' \times_{f', F'} U' \to U'$.
+It is the same morphism, just viewed over different base schemes.
+Hence the lemma follows from
+Lemma \ref{lemma-representable-morphisms-spaces-property}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

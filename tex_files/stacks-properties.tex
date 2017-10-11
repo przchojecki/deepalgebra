@@ -1,0 +1,3169 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Properties of Algebraic Stacks}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Please see
+Algebraic Stacks, Section \ref{algebraic-section-introduction}
+for a brief introduction to algebraic stacks, and please read
+some of that chapter for our foundations of algebraic stacks.
+The intent is that in that chapter we are careful to distinguish
+between schemes, algebraic spaces, algebraic stacks, and starting
+with this chapter we employ the customary abuse of language where
+all of these concepts are used interchangeably.
+
+\medskip\noindent
+The goal of this chapter is to introduce some basic notions and
+properties of algebraic stacks. A fundamental
+reference for the case of quasi-separated algebraic stacks with representable
+diagonal is \cite{LM-B}.
+
+
+
+\section{Conventions and abuse of language}
+\label{section-conventions}
+
+\noindent
+We choose a big fppf site $\Sch_{fppf}$.
+All schemes are contained in $\Sch_{fppf}$.
+And all rings $A$ considered have the property that
+$\Spec(A)$ is (isomorphic) to an object of this big site.
+
+\medskip\noindent
+We also fix a base scheme $S$, by the conventions above an element
+of $\Sch_{fppf}$. The reader who is only interested
+in the absolute case can take $S = \Spec(\mathbf{Z})$.
+
+\medskip\noindent
+Here are our conventions regarding algebraic stacks:
+\begin{enumerate}
+\item When we say {\it algebraic stack} we will mean an algebraic
+stacks over $S$, i.e., a category fibred in groupoids
+$p : \mathcal{X} \to (\Sch/S)_{fppf}$
+which satisfies the conditions of
+Algebraic Stacks, Definition \ref{algebraic-definition-algebraic-stack}.
+\item We will say $f : \mathcal{X} \to \mathcal{Y}$ is a
+{\it morphism of algebraic stacks} to indicate a $1$-morphism
+of algebraic stacks over $S$, i.e., a $1$-morphism of categories fibred
+in groupoids over $(\Sch/S)_{fppf}$, see
+Algebraic Stacks,
+Definition \ref{algebraic-definition-morphism-algebraic-stacks}.
+\item A {\it $2$-morphism} $\alpha : f \to g$ will
+indicate a $2$-morphism in the $2$-category of algebraic stacks over
+$S$, see
+Algebraic Stacks,
+Definition \ref{algebraic-definition-morphism-algebraic-stacks}.
+\item Given morphisms $\mathcal{X} \to \mathcal{Z}$
+and $\mathcal{Y} \to \mathcal{Z}$ of algebraic stacks
+we abusively call the $2$-fibre product
+$\mathcal{X} \times_\mathcal{Z} \mathcal{Y}$ the {\it fibre product}.
+\item We will write $\mathcal{X} \times_S \mathcal{Y}$ for the
+product of the algebraic stacks $\mathcal{X}$, $\mathcal{Y}$.
+\item We will often abuse notation and say two algebraic stacks
+$\mathcal{X}$ and $\mathcal{Y}$ are {\it isomorphic} if they are
+equivalent in this $2$-category.
+\end{enumerate}
+Here are our conventions regarding algebraic spaces.
+\begin{enumerate}
+\item If we say $X$ is an {\it algebraic space} then we mean that
+$X$ is an algebraic space over $S$, i.e., $X$ is a presheaf on
+$(\Sch/S)_{fppf}$ which satisfies the conditions of
+Spaces, Definition \ref{spaces-definition-algebraic-space}.
+\item A {\it morphism of algebraic spaces} $f :X \to Y$ is a morphism
+of algebraic spaces over $S$ as defined in
+Spaces, Definition \ref{spaces-definition-morphism-algebraic-spaces}.
+\item We will {\bf not} distinguish between an algebraic space $X$
+and the algebraic stack $\mathcal{S}_X \to (\Sch/S)_{fppf}$
+it gives rise to, see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-representable-algebraic}.
+\item In particular, a {\it morphism} $f : X \to \mathcal{Y}$ from $X$
+to an algebraic stack $\mathcal{Y}$ means a morphism
+$f : \mathcal{S}_X \to \mathcal{Y}$ of algebraic stacks.
+Similarly for morphisms $\mathcal{Y} \to X$.
+\item Moreover, given an algebraic stack $\mathcal{X}$ we say
+{\it $\mathcal{X}$ is an algebraic space} to indicate that $\mathcal{X}$
+is representable by an algebraic space, see
+Algebraic Stacks,
+Definition \ref{algebraic-definition-representable-by-algebraic-space}.
+\item We will use the following notational convention: If we
+indicate an algebraic stack by a roman capital
+(such as $X, Y, Z, A, B, \ldots$) then it will be the case that
+its inertia stack is trivial, and hence it is an algebraic space, see
+Algebraic Stacks,
+Proposition \ref{algebraic-proposition-algebraic-stack-no-automorphisms}.
+\end{enumerate}
+Here are our conventions regarding schemes.
+\begin{enumerate}
+\item If we say $X$ is a {\it scheme} then we mean that
+$X$ is a scheme over $S$, i.e., $X$ is an object of $(\Sch/S)_{fppf}$.
+\item By a {\it morphism of schemes} we mean a morphism of schemes over $S$.
+\item We will {\bf not} distinguish between a scheme $X$ and the
+algebraic stack $\mathcal{S}_X \to (\Sch/S)_{fppf}$ it gives rise
+to, see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-representable-algebraic}.
+\item In particular, a {\it morphism} $f : X \to \mathcal{Y}$ from
+a scheme $X$ to an algebraic stack $\mathcal{Y}$ means a morphism
+$f : \mathcal{S}_X \to \mathcal{Y}$ of algebraic stacks.
+Similarly for morphisms $\mathcal{Y} \to X$.
+\item Moreover, given an algebraic stack $\mathcal{X}$ we say
+{\it $\mathcal{X}$ is a scheme} to indicate that $\mathcal{X}$
+is representable, see
+Algebraic Stacks, Section \ref{algebraic-section-representable}.
+\end{enumerate}
+Here are our conventions regarding morphisms of algebraic stacks:
+\begin{enumerate}
+\item A morphism $f : \mathcal{X} \to \mathcal{Y}$
+of algebraic stacks is {\it representable}, or
+{\it representable by schemes} if for every scheme
+$T$ and morphism $T \to \mathcal{Y}$ the fibre product
+$T \times_\mathcal{Y} \mathcal{X}$ is a scheme.
+See
+Algebraic Stacks, Section \ref{algebraic-section-representable-morphism}.
+\item A morphism $f : \mathcal{X} \to \mathcal{Y}$
+of algebraic stacks is {\it representable by algebraic spaces}
+if for every scheme $T$ and morphism $T \to \mathcal{Y}$ the fibre product
+$T \times_\mathcal{Y} \mathcal{X}$ is an algebraic space.
+See Algebraic Stacks,
+Definition \ref{algebraic-definition-representable-by-algebraic-spaces}.
+In this case $Z \times_\mathcal{Y} \mathcal{X}$ is an algebraic
+space whenever $Z \to \mathcal{Y}$ is a morphism whose source is
+an algebraic space, see
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-base-change-by-space-representable-by-space}.
+\end{enumerate}
+Note that every morphism $X \to \mathcal{Y}$ from an algebraic space
+to an algebraic stack is representable by algebraic spaces, see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-representable-diagonal}.
+We will use this basic result without further mention.
+
+
+
+
+\section{Properties of morphisms representable by algebraic spaces}
+\label{section-properties-morphisms}
+
+\noindent
+We will study properties of (arbitrary) morphisms of algebraic stacks in its
+own chapter. For morphisms representable by algebraic spaces we know what
+it means to be surjective, smooth, or \'etale, etc. This applies in particular
+to morphisms $X \to \mathcal{Y}$ from algebraic spaces to algebraic stacks.
+In this section, we recall how this works, we list the properties to which
+this applies, and we prove a few easy lemmas.
+
+\medskip\noindent
+Our first lemma says a morphism is representable by algebraic spaces
+if it is so after a base change by a flat,
+locally finitely presented, surjective morphism.
+
+\begin{lemma}
+\label{lemma-check-representable-covering}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+Let $W$ be an algebraic space and let $W \to \mathcal{Y}$ be surjective,
+locally of finite presentation, and flat. The following are equivalent
+\begin{enumerate}
+\item $f$ is representable by algebraic spaces, and
+\item $W \times_\mathcal{Y} \mathcal{X}$ is an algebraic space.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implication (1) $\Rightarrow$ (2) is
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-base-change-by-space-representable-by-space}.
+Conversely, let $W \to \mathcal{Y}$ be as in (2). To prove (1) it
+suffices to show that $f$ is faithful on fibre categories, see
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-characterize-representable-by-algebraic-spaces}.
+Assumption (2) implies in particular that
+$W \times_\mathcal{Y} \mathcal{X} \to W$ is faithful.
+Hence the faithfulness of $f$ follows from
+Stacks, Lemma \ref{stacks-lemma-faithful-descent}.
+\end{proof}
+
+\noindent
+Let $P$ be a property of morphisms of algebraic spaces which is
+fppf local on the target and preserved by arbitrary base change.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks
+representable by algebraic spaces. Then we say
+{\it $f$ has property $P$} if and only if for every scheme $T$
+and morphism $T \to \mathcal{Y}$ the morphism of algebraic spaces
+$T \times_\mathcal{Y} \mathcal{X} \to T$ has property $P$, see
+Algebraic Stacks,
+Definition \ref{algebraic-definition-relative-representable-property}.
+
+\medskip\noindent
+It turns out that if $f : \mathcal{X} \to \mathcal{Y}$ is representable
+by algebraic spaces and has property $P$, then for any morphism of algebraic
+stacks $\mathcal{Y}' \to \mathcal{Y}$ the base change
+$\mathcal{Y}' \times_\mathcal{Y} \mathcal{X} \to \mathcal{Y}'$
+has property $P$, see
+Algebraic Stacks,
+Lemmas \ref{algebraic-lemma-base-change-representable-by-spaces} and
+\ref{algebraic-lemma-base-change-representable-transformations-property}.
+If the property $P$ is preserved under compositions, then this holds
+also in the setting of morphisms of algebraic stacks representable by
+algebraic spaces, see
+Algebraic Stacks,
+Lemmas \ref{algebraic-lemma-composition-representable-by-spaces} and
+\ref{algebraic-lemma-composition-representable-transformations-property}.
+Moreover, in this case products
+$\mathcal{X}_1 \times \mathcal{X}_2 \to \mathcal{Y}_1 \times \mathcal{Y}_2$
+of morphisms representable by algebraic spaces having property $\mathcal{P}$
+have property $\mathcal{P}$, see
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-product-representable-transformations-property}.
+
+\medskip\noindent
+Finally, if we have two properties $P, P'$ of morphisms of algebraic spaces
+which are fppf local on the target and preserved by arbitrary base change
+and if $P(f) \Rightarrow P'(f)$ for every morphism $f$, then the same
+implication holds for the corresponding property of morphisms of algebraic
+stacks representable by algebraic spaces, see
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-representable-transformations-property-implication}.
+We will use this {\it without further mention} in the following and in the
+following chapters.
+
+\medskip\noindent
+The discussion above applies to each of the following properties of
+morphisms of algebraic spaces
+\begin{enumerate}
+\item quasi-compact, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-quasi-compact}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-quasi-compact},
+\item quasi-separated, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-separated}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-quasi-separated},
+\item universally closed, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-universally-closed}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-universally-closed},
+\item universally open, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-universally-open}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-universally-open},
+\item universally submersive, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-universally-submersive}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-universally-submersive},
+\item universal homeomorphism, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-universal-homeomorphism}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-universal-homeomorphism},
+\item surjective, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-surjective}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-surjective},
+\item universally injective, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-universally-injective}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-universally-injective},
+\item locally of finite type, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-finite-type}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-locally-finite-type},
+\item locally of finite presentation, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-finite-presentation}
+and
+Descent on Spaces, Lemma
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation},
+\item finite type, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-finite-type}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-finite-type},
+\item finite presentation, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-finite-presentation}
+and
+Descent on Spaces, Lemma
+\ref{spaces-descent-lemma-descending-property-finite-presentation},
+\item flat, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-flat}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-flat},
+\item open immersion, see
+Morphisms of Spaces,
+Section \ref{spaces-morphisms-section-immersions}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-open-immersion},
+\item isomorphism, see
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-isomorphism},
+\item affine, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-affine}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-affine},
+\item closed immersion, see
+Morphisms of Spaces, Section \ref{spaces-morphisms-section-immersions}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-closed-immersion},
+\item separated, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-separated}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-separated},
+\item proper, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-proper}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-proper},
+\item quasi-affine, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-quasi-affine}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-quasi-affine},
+\item integral, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-integral}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-integral},
+\item finite, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-integral}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-finite},
+\item (locally) quasi-finite, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-quasi-finite}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-quasi-finite},
+\item syntomic, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-syntomic}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-syntomic},
+\item smooth, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-smooth}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-smooth},
+\item unramified, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-unramified}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-unramified},
+\item \'etale, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-etale}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-etale},
+\item finite locally free, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-finite-locally-free}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-finite-locally-free},
+\item monomorphism, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-monomorphism}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-property-monomorphism},
+\item immersion, see
+Morphisms of Spaces, Section \ref{spaces-morphisms-section-immersions}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-fppf-property-immersion},
+\item locally separated, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-separated}
+and
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-descending-fppf-property-locally-separated},
+\end{enumerate}
+
+\begin{lemma}
+\label{lemma-property-spaces-too}
+Let $P$ be a property of morphisms of algebraic spaces as above.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks
+representable by algebraic spaces. The following are equivalent:
+\begin{enumerate}
+\item $f$ has $P$,
+\item for every algebraic space $Z$ and morphism $Z \to \mathcal{Y}$
+the morphism $Z \times_\mathcal{Y} \mathcal{X} \to Z$ has $P$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implication (2) $\Rightarrow$ (1) is immediate. Assume (1).
+Let $Z \to \mathcal{Y}$ be as in (2). Choose a scheme $U$ and a
+surjective \'etale morphism $U \to Z$. By assumption the morphism
+$U \times_\mathcal{Y} \mathcal{X} \to U$ has $P$. But the diagram
+$$
+\xymatrix{
+U \times_\mathcal{Y} \mathcal{X} \ar[d] \ar[r] &
+Z \times_\mathcal{Y} \mathcal{X} \ar[d] \\
+U \ar[r] & Z
+}
+$$
+is cartesian, hence the right vertical arrow has $P$ as
+$\{U \to Z\}$ is an fppf covering.
+\end{proof}
+
+\noindent
+The following lemma tells us it suffices to check $P$
+after a base change by a surjective, flat, locally finitely presented
+morphism.
+
+\begin{lemma}
+\label{lemma-check-property-covering}
+Let $P$ be a property of morphisms of algebraic spaces as above.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks
+representable by algebraic spaces.
+Let $W$ be an algebraic space and let $W \to \mathcal{Y}$ be surjective,
+locally of finite presentation, and flat.
+Set $V = W \times_\mathcal{Y} \mathcal{X}$. Then
+$$
+(f\text{ has }P) \Leftrightarrow (\text{the projection }V \to W\text{ has }P).
+$$
+\end{lemma}
+
+\begin{proof}
+The implication from left to right follows from
+Lemma \ref{lemma-property-spaces-too}.
+Assume $V \to W$ has $P$. Let $T$ be a scheme, and let
+$T \to \mathcal{Y}$ be a morphism. Consider the commutative diagram
+$$
+\xymatrix{
+T \times_\mathcal{Y} \mathcal{X} \ar[d] &
+T \times_\mathcal{Y} W \ar[d] \ar[l] \ar[r] &
+W \ar[d] \\
+T & T \times_\mathcal{Y} V \ar[l] \ar[r] & V
+}
+$$
+of algebraic spaces. The squares are cartesian.
+The bottom left morphism is a surjective, flat morphism which is locally of
+finite presentation, hence $\{T \times_\mathcal{Y} V \to T\}$ is an
+fppf covering. Hence the fact that the right vertical arrow has property
+$P$ implies that the left vertical arrow has property $P$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-property-weak-covering}
+Let $P$ be a property of morphisms of algebraic spaces as above.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks
+representable by algebraic spaces.
+Let $\mathcal{Z} \to \mathcal{Y}$ be a morphism of algebraic stacks which
+is representable by algebraic spaces, surjective, flat, and
+locally of finite presentation.
+Set $\mathcal{W} = \mathcal{Z} \times_\mathcal{Y} \mathcal{X}$. Then
+$$
+(f\text{ has }P) \Leftrightarrow
+(\text{the projection }\mathcal{W} \to \mathcal{Z}\text{ has }P).
+$$
+\end{lemma}
+
+\begin{proof}
+Choose an algebraic space $W$ and a morphism
+$W \to \mathcal{Z}$ which is surjective, flat, and locally of finite
+presentation. By the discussion above the composition
+$W \to \mathcal{Y}$ is also surjective, flat, and locally of finite
+presentation. Denote
+$V = W \times_\mathcal{Z} \mathcal{W} = V \times_\mathcal{Y} \mathcal{X}$.
+By
+Lemma \ref{lemma-check-property-covering}
+we see that $f$ has $\mathcal{P}$ if and only if $V \to W$ does
+and that $\mathcal{W} \to \mathcal{Z}$ has $\mathcal{P}$ if and only
+if $V \to W$ does. The lemma follows.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-property-after-precomposing}
+Let $P$ be a property of morphisms of algebraic spaces as above.
+Let $\tau \in \{\etale, smooth, syntomic, fppf\}$.
+Let $\mathcal{X} \to \mathcal{Y}$ and $\mathcal{Y} \to \mathcal{Z}$
+be morphisms of algebraic stacks representable by algebraic spaces.
+Assume
+\begin{enumerate}
+\item $\mathcal{X} \to \mathcal{Y}$ is surjective and
+\'etale, smooth, syntomic, or flat and locally of finite presentation,
+\item the composition has $P$, and
+\item $P$ is local on the source in the $\tau$ topology.
+\end{enumerate}
+Then $\mathcal{Y} \to \mathcal{Z}$ has property $P$.
+\end{lemma}
+
+\begin{proof}
+Let $Z$ be a scheme and let $Z \to \mathcal{Z}$ be a morphism.
+Set $X = \mathcal{X} \times_\mathcal{Z} Z$,
+$Y = \mathcal{Y} \times_\mathcal{Z} Z$. By (1) $\{X \to Y\}$
+is a $\tau$ covering of algebraic spaces and by (2) $X \to Z$ has property
+$P$. By (3) this implies that $Y \to Z$ has property $P$
+and we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-in-terms-presentations}
+Let $g : \mathcal{X}' \to \mathcal{X}$ be a morphism of algebraic stacks
+which is representable by algebraic spaces. Let $[U/R] \to \mathcal{X}$
+be a presentation. Set $U' = U \times_\mathcal{X} \mathcal{X}'$,
+and $R' = R \times_\mathcal{X} \mathcal{X}'$.
+Then there exists a groupoid in algebraic spaces of the form
+$(U', R', s', t', c')$, a presentation $[U'/R'] \to \mathcal{X}'$,
+and the diagram
+$$
+\xymatrix{
+[U'/R'] \ar[d]_{[\text{pr}]} \ar[r] & \mathcal{X}' \ar[d]^g \\
+[U/R] \ar[r] & \mathcal{X}
+}
+$$
+is $2$-commutative where the morphism $[\text{pr}]$ comes from a
+morphism of groupoids
+$\text{pr} : (U', R', s', t', c') \to (U, R, s, t, c)$.
+\end{lemma}
+
+\begin{proof}
+Since $U \to \mathcal{Y}$ is surjective and smooth, see
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-smooth-quotient-smooth-presentation}
+the base change $U' \to \mathcal{X}'$ is also surjective and smooth.
+Hence, by
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-stack-presentation}
+it suffices to show that $R' = U' \times_{\mathcal{X}'} U'$ in order to
+get a smooth groupoid $(U', R', s', t', c')$ and a presentation
+$[U'/R'] \to \mathcal{X}'$.
+Using that $R = V \times_\mathcal{Y} V$ (see
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-2-cartesian})
+this follows from
+$$
+R' =
+U \times_\mathcal{X} U \times_\mathcal{X} \mathcal{X}' =
+(U \times_\mathcal{X} \mathcal{X}')
+\times_{\mathcal{X}'}
+(U \times_\mathcal{X} \mathcal{X}')
+$$
+see
+Categories, Lemmas \ref{categories-lemma-associativity-2-fibre-product} and
+\ref{categories-lemma-2-fibre-product-erase-factor}.
+Clearly the projection morphisms $U' \to U$ and $R' \to R$ give the
+desired morphism of groupoids
+$\text{pr} : (U', R', s', t', c') \to (U, R, s, t, c)$.
+Hence the morphism $[\text{pr}]$ of quotient stacks by
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-functorial}.
+
+\medskip\noindent
+We still have to show that the diagram $2$-commutes.
+It is clear that the diagram
+$$
+\xymatrix{
+U' \ar[d]_{\text{pr}_U} \ar[r]_{f'} & \mathcal{X}' \ar[d]^g \\
+U \ar[r]^f & \mathcal{X}
+}
+$$
+$2$-commutes where $\text{pr}_U : U' \to U$ is the projection.
+There is a canonical $2$-arrow
+$\tau : f \circ t \to f \circ s$ in $\Mor(R, \mathcal{X})$
+coming from $R = U \times_\mathcal{X} U$, $t = \text{pr}_0$, and
+$s = \text{pr}_1$. Using the isomorphism
+$R' \to U' \times_{\mathcal{X}'} U'$ we get similarly an isomorphism
+$\tau' : f' \circ t' \to f' \circ s'$. Note that
+$g \circ f' \circ t' = f \circ t \circ \text{pr}_R$ and
+$g \circ f' \circ s' = f \circ s \circ \text{pr}_R$, where
+$\text{pr}_R : R' \to R$ is the projection. Thus it makes sense to ask
+if
+\begin{equation}
+\label{equation-verify}
+\tau \star \text{id}_{\text{pr}_R} = \text{id}_g \star \tau'.
+\end{equation}
+Now we make two claims: (1) if Equation (\ref{equation-verify}) holds,
+then the diagram $2$-commutes, and (2) Equation (\ref{equation-verify}) holds.
+We omit the proof of both claims. Hints: part (1) follows from the
+construction of $f = f_{can}$ and $f' = f'_{can}$ in
+Algebraic Stacks, Lemma \ref{algebraic-lemma-map-space-into-stack}.
+Part (2) follows by carefuly working through the definitions.
+\end{proof}
+
+\begin{remark}
+\label{remark-representable-over}
+Let $\mathcal{Y}$ be an algebraic stack. Consider the following
+$2$-category:
+\begin{enumerate}
+\item An object is a morphism $f : \mathcal{X} \to \mathcal{Y}$
+which is representable by algebraic spaces,
+\item a $1$-morphism
+$(g, \beta) :
+(f_1 : \mathcal{X}_1 \to \mathcal{Y})
+\to
+(f_2 : \mathcal{X}_2 \to \mathcal{Y})$
+consists of a morphism $g : \mathcal{X}_1 \to \mathcal{X}_2$ and a
+$2$-morphism $\beta : f_1 \to f_2 \circ g$, and
+\item a $2$-morphism between
+$(g, \beta), (g', \beta') :
+(f_1 : \mathcal{X}_1 \to \mathcal{Y})
+\to
+(f_2 : \mathcal{X}_2 \to \mathcal{Y})$
+is a $2$-morphism $\alpha : g \to g'$ such that
+$(\text{id}_{f_2} \star \alpha) \circ \beta = \beta'$.
+\end{enumerate}
+Let us denote this $2$-category $\textit{Spaces}/\mathcal{Y}$ by
+analogy with the notation of
+Topologies on Spaces, Section \ref{spaces-topologies-section-procedure}.
+Now we claim that in this $2$-category the morphism categories
+$$
+\Mor_{\textit{Spaces}/\mathcal{Y}}(
+(f_1 : \mathcal{X}_1 \to \mathcal{Y}),
+(f_2 : \mathcal{X}_2 \to \mathcal{Y}))
+$$
+are all setoids. Namely, a $2$-morphism $\alpha$ is a rule which to each
+object $x_1$ of $\mathcal{X}_1$ assigns an isomorphism
+$\alpha_{x_1} : g(x_1) \longrightarrow g'(x_1)$
+in the relevant fibre category of $\mathcal{X}_2$ such that the diagram
+$$
+\xymatrix{
+& f_2(x_1) \ar[ld]_{\beta_{x_1}} \ar[rd]^{\beta'_{x_1}} \\
+f_2(g(x_1)) \ar[rr]^{f_2(\alpha_{x_1})} & &
+f_2(g'(x_1))
+}
+$$
+commutes. But since $f_2$ is faithful (see
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-characterize-representable-by-algebraic-spaces})
+this means that if $\alpha_{x_1}$ exists, then it is unique! In other words the
+$2$-category $\textit{Spaces}/\mathcal{Y}$ is very close to
+being a category. Namely, if we replace $1$-morphisms by isomorphism
+classes of $1$-morphisms we obtain a category. We will often
+perform this replacement without further mention.
+\end{remark}
+
+
+
+
+\section{Points of algebraic stacks}
+\label{section-points}
+
+\noindent
+Let $\mathcal{X}$ be an algebraic stack. Let $K, L$ be two fields
+and let $p : \Spec(K) \to \mathcal{X}$ and
+$q : \Spec(L) \to \mathcal{X}$ be morphisms.
+We say that $p$ and $q$ are {\it equivalent} if there exists a
+field $\Omega$ and a $2$-commutative diagram
+$$
+\xymatrix{
+\Spec(\Omega) \ar[r] \ar[d] &
+\Spec(L) \ar[d]^q \\
+\Spec(K) \ar[r]^p &
+\mathcal{X}.
+}
+$$
+
+\begin{lemma}
+\label{lemma-equivalence}
+The notion above does indeed define an equivalence relation on
+morphisms from spectra of fields into the algebraic stack $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+It is clear that the relation is reflexive and symmetric.
+Hence we have to prove that it is transitive. This comes down
+to the following: Given a diagram
+$$
+\xymatrix{
+\Spec(\Omega) \ar[r]_b \ar[d]_a &
+\Spec(L) \ar[d]^q & \Spec(\Omega') \ar[l]^{b'} \ar[d]^{a'} \\
+\Spec(K) \ar[r]^p &
+\mathcal{X} &
+\Spec(K') \ar[l]_{p'}
+}
+$$
+with both squares $2$-commutative we have to show that $p$ is equivalent to
+$p'$. By the $2$-Yoneda lemma (see
+Algebraic Stacks, Section \ref{algebraic-section-2-yoneda})
+the morphisms $p$, $p'$, and $q$ are given by objects
+$x$, $x'$, and $y$ in the fibre categories of $\mathcal{X}$ over
+$\Spec(K)$, $\Spec(K')$, and $\Spec(L)$. The
+$2$-commutativity of the squares means that there are isomorphisms
+$\alpha : a^*x \to b^*y$ and $\alpha' : (a')^*x' \to (b')^*y$
+in the fibre categories
+of $\mathcal{X}$ over $\Spec(\Omega)$ and $\Spec(\Omega')$.
+Choose any field $\Omega''$ and embeddings
+$\Omega \to \Omega''$ and $\Omega' \to \Omega''$ agreeing on $L$.
+Then we can extend the diagram above to
+$$
+\xymatrix{
+& \Spec(\Omega'') \ar[ld]_c \ar[d]^{q'} \ar[rd]^{c'} \\
+\Spec(\Omega) \ar[r]_b \ar[d]_a &
+\Spec(L) \ar[d]^q & \Spec(\Omega') \ar[l]^{b'} \ar[d]^{a'} \\
+\Spec(K) \ar[r]^p &
+\mathcal{X} &
+\Spec(K') \ar[l]_{p'}
+}
+$$
+with commutative triangles and
+$$
+(q')^*(\alpha')^{-1} \circ (q')^*\alpha :
+(a \circ c)^*x
+\longrightarrow
+(a' \circ c')^*x'
+$$
+is an isomorphism in the fibre category over $\Spec(\Omega'')$.
+Hence $p$ is equivalent to $p'$ as desired.
+\end{proof}
+
+\begin{definition}
+\label{definition-points}
+Let $\mathcal{X}$ be an algebraic stack.
+A {\it point} of $\mathcal{X}$ is an equivalence class of morphisms
+from spectra of fields into $\mathcal{X}$.
+The set of points of $\mathcal{X}$ is denoted $|\mathcal{X}|$.
+\end{definition}
+
+\noindent
+This agrees with our definition of points of algebraic spaces, see
+Properties of Spaces, Definition \ref{spaces-properties-definition-points}.
+Moreover, for a scheme we recover the usual notion of points, see
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-scheme-points}.
+If $f : \mathcal{X} \to \mathcal{Y}$ is a morphism of algebraic stacks
+then there is an induced map $|f| : |\mathcal{X}| \to |\mathcal{Y}|$ which
+maps a representative $x : \Spec(K) \to \mathcal{X}$ to the
+representative $f \circ x : \Spec(K) \to \mathcal{Y}$. This is
+well defined: namely $2$-isomorphic $1$-morphisms remain $2$-isomorphic after
+pre- or post-composing by a $1$-morphism because you can horizontally
+pre- or post-compose by the identity of the given $1$-morphism. This holds
+in any (strict) $(2, 1)$-category. If
+$$
+\xymatrix{
+\mathcal{X} \ar[d] \ar[r] & \mathcal{Y} \ar[d] \\
+\mathcal{W} \ar[r] & \mathcal{Z}
+}
+$$
+is a $2$-commutative diagram of algebraic stacks, then the diagram
+of sets
+$$
+\xymatrix{
+|\mathcal{X}| \ar[d] \ar[r] & |\mathcal{Y}| \ar[d] \\
+|\mathcal{W}| \ar[r] & |\mathcal{Z}|
+}
+$$
+is commutative.
+In particular, if $\mathcal{X} \to \mathcal{Y}$ is an equivalence
+then $|\mathcal{X}| \to |\mathcal{Y}|$ is a bijection.
+
+\begin{lemma}
+\label{lemma-points-cartesian}
+Let
+$$
+\xymatrix{
+\mathcal{Z} \times_\mathcal{Y} \mathcal{X} \ar[r] \ar[d] &
+\mathcal{X} \ar[d] \\
+\mathcal{Z} \ar[r] & \mathcal{Y}
+}
+$$
+be a fibre product of algebraic stacks. Then the map of sets
+of points
+$$
+|\mathcal{Z} \times_\mathcal{Y} \mathcal{X}|
+\longrightarrow
+|\mathcal{Z}| \times_{|\mathcal{Y}|} |\mathcal{X}|
+$$
+is surjective.
+\end{lemma}
+
+\begin{proof}
+Namely, suppose given fields $K$, $L$ and morphisms
+$\Spec(K) \to \mathcal{X}$, $\Spec(L) \to \mathcal{Z}$,
+then the assumption that they agree as elements of $|\mathcal{Y}|$ means that
+there is a common extension $K \subset M$ and $L \subset M$
+such that
+$\Spec(M) \to \Spec(K) \to \mathcal{X} \to \mathcal{Y}$ and
+$\Spec(M) \to \Spec(L) \to \mathcal{Z} \to \mathcal{Y}$
+are $2$-isomorphic. And this is exactly the condition which says you get a
+morphism $\Spec(M) \to \mathcal{Z} \times_\mathcal{Y} \mathcal{X}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-surjective}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks
+which is representable by algebraic spaces. The following are equivalent:
+\begin{enumerate}
+\item $|f| : |\mathcal{X}| \to |\mathcal{Y}|$ is surjective, and
+\item $f$ is surjective
+(in the sense of Section \ref{section-properties-morphisms}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (1). Let $T \to \mathcal{Y}$ be a morphism whose source is a scheme.
+To prove (2) we have to show that the morphism of algebraic spaces
+$T \times_\mathcal{Y} \mathcal{X} \to T$ is surjective. By
+Morphisms of Spaces, Definition \ref{spaces-morphisms-definition-surjective}
+this means we have to show that
+$|T \times_\mathcal{Y} \mathcal{X}| \to |T|$ is surjective.
+Applying
+Lemma \ref{lemma-points-cartesian}
+we see that this follows from (1).
+
+\medskip\noindent
+Conversely, assume (2). Let $y : \Spec(K) \to \mathcal{Y}$ be a
+morphism from the spectrum of a field into $\mathcal{Y}$. By assumption the
+morphism
+$\Spec(K) \times_{y, \mathcal{Y}} \mathcal{X} \to \Spec(K)$
+of algebraic spaces is surjective. By
+Morphisms of Spaces, Definition \ref{spaces-morphisms-definition-surjective}
+this means there exists a field extension
+$K \subset K'$ and a morphism
+$\Spec(K') \to \Spec(K) \times_{y, \mathcal{Y}} \mathcal{X}$
+such that the left square of the diagram
+$$
+\xymatrix{
+\Spec(K') \ar[r] \ar[d] &
+\Spec(K) \times_{y, \mathcal{Y}} \mathcal{X} \ar[d] \ar[r] &
+\mathcal{X} \ar[d]
+\\
+\Spec(K) \ar@{=}[r] &
+\Spec(K) \ar[r]^-y &
+\mathcal{Y}
+}
+$$
+is commutative. This shows that $|X| \to |\mathcal{Y}|$ is surjective.
+\end{proof}
+
+\noindent
+Here is a lemma explaining how to compute the set of points in terms
+of a presentation.
+
+\begin{lemma}
+\label{lemma-points-presentation}
+Let $\mathcal{X}$ be an algebraic stack.
+Let $\mathcal{X} = [U/R]$ be a presentation of $\mathcal{X}$, see
+Algebraic Stacks, Definition \ref{algebraic-definition-presentation}.
+Then the image of $|R| \to |U| \times |U|$ is an equivalence relation
+and $|\mathcal{X}|$ is the quotient of $|U|$ by this equivalence relation.
+\end{lemma}
+
+\begin{proof}
+The assumption means that we have a smooth groupoid $(U, R, s, t, c)$
+in algebraic spaces, and an equivalence $f : [U/R] \to \mathcal{X}$.
+We may assume $\mathcal{X} = [U/R]$.
+The induced morphism $p : U \to \mathcal{X}$ is smooth and surjective, see
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-smooth-quotient-smooth-presentation}.
+Hence $|U| \to |\mathcal{X}|$ is surjective by
+Lemma \ref{lemma-characterize-surjective}.
+Note that $R = U \times_\mathcal{X} U$, see
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-2-cartesian}.
+Hence
+Lemma \ref{lemma-points-cartesian}
+implies the map
+$$
+|R| \longrightarrow |U| \times_{|\mathcal{X}|} |U|
+$$
+is surjective. Hence the image of $|R| \to |U| \times |U|$ is
+exactly the set of pairs $(u_1, u_2) \in |U| \times |U|$
+such that $u_1$ and $u_2$ have the same image in $|\mathcal{X}|$.
+Combining these two statements we get the result of the lemma.
+\end{proof}
+
+\begin{remark}
+\label{remark-more-general-presentation}
+The result of
+Lemma \ref{lemma-points-presentation}
+can be generalized as follows.
+Let $\mathcal{X}$ be an algebraic stack.
+Let $U$ be an algebraic space and let $f : U \to \mathcal{X}$ be a surjective
+morphism (which makes sense by
+Section \ref{section-properties-morphisms}).
+Let $R = U \times_\mathcal{X} U$, let $(U, R, s, t, c)$ be the groupoid
+in algebraic spaces, and let $f_{can} : [U/R] \to \mathcal{X}$ be the
+canonical morphism as constructed in
+Algebraic Stacks, Lemma \ref{algebraic-lemma-map-space-into-stack}.
+Then the image of $|R| \to |U| \times |U|$ is an equivalence relation
+and $|\mathcal{X}| = |U|/|R|$. The proof of
+Lemma \ref{lemma-points-presentation}
+works without change. (Of course in general $[U/R]$ is not an algebraic
+stack, and in general $f_{can}$ is not an isomorphism.)
+\end{remark}
+
+\begin{lemma}
+\label{lemma-topology-points}
+There exists a unique topology on the sets of points
+of algebraic stacks with the following properties:
+\begin{enumerate}
+\item for every morphism of algebraic stacks $\mathcal{X} \to \mathcal{Y}$
+the map $|\mathcal{X}| \to |\mathcal{Y}|$ is continuous, and
+\item for every morphism $U \to \mathcal{X}$ which is flat and locally
+of finite presentation with $U$ an algebraic space
+the map of topological spaces $|U| \to |\mathcal{X}|$ is continuous and open.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choose a morphism $p : U \to \mathcal{X}$ which is
+surjective, flat, and locally of finite presentation
+with $U$ an algebraic space. Such exist by the definition of an algebraic
+stack, as a smooth morphism is flat and locally of finite presentation
+(see
+Morphisms of Spaces,
+Lemmas \ref{spaces-morphisms-lemma-smooth-locally-finite-presentation} and
+\ref{spaces-morphisms-lemma-smooth-flat}).
+We define a topology on $|\mathcal{X}|$ by the rule:
+$W \subset |\mathcal{X}|$ is open if and only if $|p|^{-1}(W)$ is open
+in $|U|$. To show that this is independent of the choice of $p$, let
+$p' : U' \to \mathcal{X}$ be another morphism which is surjective, flat,
+locally of finite presentation from an algebraic space to
+$\mathcal{X}$. Set $U'' = U \times_\mathcal{X} U'$
+so that we have a $2$-commutative diagram
+$$
+\xymatrix{
+U'' \ar[r] \ar[d] & U' \ar[d] \\
+U \ar[r] & \mathcal{X}
+}
+$$
+As $U \to \mathcal{X}$ and $U' \to \mathcal{X}$ are surjective, flat,
+locally of finite presentation we see that $U'' \to U'$ and $U'' \to U$
+are surjective, flat and locally of finite presentation, see
+Lemma \ref{lemma-property-spaces-too}.
+Hence the maps $|U''| \to |U'|$ and $|U''| \to |U|$ are continuous, open
+and surjective, see
+Morphisms of Spaces,
+Definition \ref{spaces-morphisms-definition-surjective} and
+Lemma \ref{spaces-morphisms-lemma-fppf-open}.
+This clearly implies that our definition is independent of the choice
+of $p : U \to \mathcal{X}$.
+
+\medskip\noindent
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+By
+Algebraic Stacks, Lemma \ref{algebraic-lemma-lift-morphism-presentations}
+we can find a $2$-commutative diagram
+$$
+\xymatrix{
+U \ar[d]_x \ar[r]_a & V \ar[d]^y \\
+\mathcal{X} \ar[r]^f & \mathcal{Y}
+}
+$$
+with surjective smooth vertical arrows.
+Consider the associated commutative diagram
+$$
+\xymatrix{
+|U| \ar[d]_{|x|} \ar[r]_{|a|} & |V| \ar[d]^{|y|} \\
+|\mathcal{X}| \ar[r]^{|f|} & |\mathcal{Y}|
+}
+$$
+of sets. If $W \subset |\mathcal{Y}|$ is open, then by the definition
+above this means exactly that $|y|^{-1}(W)$ is open in $|V|$. Since
+$|a|$ is continuous we conclude that
+$|a|^{-1}|y|^{-1}(W) = |x|^{-1}|f|^{-1}(W)$ is open in $|W|$ which means
+by definition that $|f|^{-1}(W)$ is open in $|\mathcal{X}|$.
+Thus $|f|$ is continuous.
+
+\medskip\noindent
+Finally, we have to show that if $U$ is an algebraic space, and
+$U \to \mathcal{X}$ is flat and locally of finite presentation, then
+$|U| \to |\mathcal{X}|$ is open. Let $V \to \mathcal{X}$ be surjective,
+flat, and locally of finite presentation with $V$ an algebraic space.
+Consider the commutative diagram
+$$
+\xymatrix{
+|U \times_\mathcal{X} V| \ar[r]_e \ar[rd]_f &
+|U| \times_{|\mathcal{X}|} |V| \ar[d]_c \ar[r]_d &
+|V| \ar[d]^b \\
+& |U| \ar[r]^a & |\mathcal{X}|
+}
+$$
+Now the morphism $U \times_\mathcal{X} V \to U$ is surjective, i.e,
+$f : |U \times_\mathcal{X} V| \to |U|$ is surjective.
+The left top horizontal arrow is surjective, see
+Lemma \ref{lemma-points-cartesian}.
+The morphism $U \times_\mathcal{X} V \to V$ is flat and locally of finite
+presentation, hence $d \circ e : |U \times_\mathcal{X} V| \to |V|$ is open,
+see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-fppf-open}.
+Pick $W \subset |U|$ open. The properties above imply that
+$b^{-1}(a(W)) = (d \circ e)(f^{-1}(W))$ is open, which by construction means
+that $a(W)$ is open as desired.
+\end{proof}
+
+\begin{definition}
+\label{definition-topological-space}
+Let $\mathcal{X}$ be an algebraic stack.
+The underlying {\it topological space} of $\mathcal{X}$ is the set of points
+$|\mathcal{X}|$ endowed with the topology constructed in
+Lemma \ref{lemma-topology-points}.
+\end{definition}
+
+\noindent
+This definition does not conflict with the already existing topology
+on $|\mathcal{X}|$ if $\mathcal{X}$ is an algebraic space.
+
+\begin{lemma}
+\label{lemma-space-locally-quasi-compact}
+Let $\mathcal{X}$ be an algebraic stack.
+Every point of $|\mathcal{X}|$ has a fundamental system of
+quasi-compact open neighbourhoods.
+In particular $|\mathcal{X}|$ is locally quasi-compact in the sense of
+Topology, Definition \ref{topology-definition-locally-quasi-compact}.
+\end{lemma}
+
+\begin{proof}
+This follows formally from the fact that there exists a scheme
+$U$ and a surjective, open, continuous map $U \to |\mathcal{X}|$
+of topological spaces. Namely, if $U \to \mathcal{X}$ is surjective and
+smooth, then
+Lemma \ref{lemma-topology-points}
+guarantees that $|U| \to |\mathcal{X}|$ is continuous, surjective, and open.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Surjective morphisms}
+\label{section-surjective}
+
+\noindent
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks
+which is representable by algebraic spaces. In
+Section \ref{section-properties-morphisms}
+we have already defined what it means for $f$ to be surjective. In
+Lemma \ref{lemma-characterize-surjective}
+we have seen that this is equivalent to requiring
+$|f| : |\mathcal{X}| \to |\mathcal{Y}|$ to be surjective.
+This clears the way for the following definition.
+
+\begin{definition}
+\label{definition-surjective}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+We say $f$ is {\it surjective} if the map
+$|f| : |\mathcal{X}| \to |\mathcal{Y}|$ of associated topological spaces
+is surjective.
+\end{definition}
+
+\noindent
+Here are some lemmas.
+
+\begin{lemma}
+\label{lemma-composition-surjective}
+The composition of surjective morphisms is surjective.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-surjective}
+The base change of a surjective morphism is surjective.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Use
+Lemma \ref{lemma-points-cartesian}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descent-surjective}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+Let $\mathcal{Y}' \to \mathcal{Y}$ be a surjective morphism of algebraic
+stacks. If the base change $f' : \mathcal{Y}' \times_\mathcal{Y} \mathcal{X}
+\to \mathcal{Y}'$ of $f$ is surjective, then $f$ is surjective.
+\end{lemma}
+
+\begin{proof}
+Immediate from
+Lemma \ref{lemma-points-cartesian}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-surjective-permanence}
+Let $\mathcal{X} \to \mathcal{Y} \to \mathcal{Z}$ be morphisms of
+algebraic stacks. If $\mathcal{X} \to \mathcal{Z}$ is surjective
+so is $\mathcal{Y} \to \mathcal{Z}$.
+\end{lemma}
+
+\begin{proof}
+Immediate.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Quasi-compact algebraic stacks}
+\label{section-quasi-compact}
+
+\noindent
+The following definition is equivalent with the definition for algebraic
+spaces by
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-quasi-compact-space}.
+
+\begin{definition}
+\label{definition-quasi-compact}
+Let $\mathcal{X}$ be an algebraic stack.
+We say $\mathcal{X}$ is {\it quasi-compact}
+if and only if $|\mathcal{X}|$ is quasi-compact.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-quasi-compact-stack}
+Let $\mathcal{X}$ be an algebraic stack.
+The following are equivalent:
+\begin{enumerate}
+\item $\mathcal{X}$ is quasi-compact,
+\item there exists a surjective smooth morphism $U \to \mathcal{X}$
+with $U$ a quasi-compact scheme,
+\item there exists a surjective smooth morphism $U \to \mathcal{X}$
+with $U$ a quasi-compact algebraic space, and
+\item there exists a surjective morphism $\mathcal{U} \to \mathcal{X}$
+of algebraic stacks such that $\mathcal{U}$ is quasi-compact.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We will use
+Lemma \ref{lemma-characterize-surjective}.
+Suppose $\mathcal{U}$ and $\mathcal{U} \to \mathcal{X}$ are as in (4).
+Then since $|\mathcal{U}| \to |\mathcal{X}|$ is surjective and
+continuous we conclude that $|\mathcal{X}|$ is quasi-compact.
+Thus (4) implies (1). The implications (2) $\Rightarrow$ (3) $\Rightarrow$ (4)
+are immediate. Assume (1), i.e., $\mathcal{X}$ is quasi-compact, i.e., that
+$|\mathcal{X}|$ is quasi-compact. Choose a scheme $U$ and a surjective
+smooth morphism $U \to \mathcal{X}$. Then since $|U| \to |\mathcal{X}|$
+is open we see that there exists a quasi-compact open $U' \subset U$
+such that $|U'| \to |X|$ is surjective (and still smooth).
+Hence (2) holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-disjoint-quasi-compact}
+A finite disjoint union of quasi-compact algebraic stacks is
+a quasi-compact algebraic stack.
+\end{lemma}
+
+\begin{proof}
+This is clear from the corresponding topological fact.
+\end{proof}
+
+
+\section{Properties of algebraic stacks defined by properties of schemes}
+\label{section-types-properties}
+
+\noindent
+Any smooth local property of schemes gives rise to a corresponding
+property of algebraic stacks via the following lemma. Note that a
+property of schemes which is smooth local is also \'etale local
+as any \'etale covering is also a smooth covering. Hence for a smooth
+local property $P$ of schemes we know what it means to say that
+an algebraic space has $P$, see
+Properties of Spaces, Section \ref{section-types-properties}.
+
+\begin{lemma}
+\label{lemma-type-property}
+Let $\mathcal{P}$ be a property of schemes which is local in the smooth
+topology, see
+Descent, Definition \ref{descent-definition-property-local}.
+Let $\mathcal{X}$ be an algebraic stack. The following are equivalent
+\begin{enumerate}
+\item for some scheme $U$ and some surjective smooth morphism
+$U \to \mathcal{X}$ the scheme $U$ has property $\mathcal{P}$,
+\item for every scheme $U$ and every smooth morphism $U \to \mathcal{X}$
+the scheme $U$ has property $\mathcal{P}$,
+\item for some algebraic space $U$ and some surjective smooth morphism
+$U \to \mathcal{X}$ the algebraic space $U$ has property $\mathcal{P}$, and
+\item for every algebraic space $U$ and every smooth morphism
+$U \to \mathcal{X}$ the algebraic space $U$ has property $\mathcal{P}$.
+\end{enumerate}
+If $\mathcal{X}$ is a scheme this is equivalent to $\mathcal{P}(U)$.
+If $\mathcal{X}$ is an algebraic space this is equivalent to
+$X$ having property $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Let $U \to \mathcal{X}$ surjective and smooth with $U$ an algebraic space.
+Let $V \to \mathcal{X}$ be a smooth morphism with $V$ an algebraic space.
+Choose schemes $U'$ and $V'$ and surjective \'etale morphisms
+$U' \to U$ and $V' \to V$. Finally, choose a scheme $W$ and a
+surjective \'etale morphism $W \to V' \times_\mathcal{X} U'$.
+Then $W \to V'$ and $W \to U'$ are smooth morphisms of schemes
+as compositions of \'etale and smooth morphisms of algebraic spaces, see
+Morphisms of Spaces, Lemmas \ref{spaces-morphisms-lemma-etale-smooth} and
+\ref{spaces-morphisms-lemma-composition-smooth}.
+Moreover, $W \to V'$ is surjective as $U' \to \mathcal{X}$ is surjective.
+Hence, we have
+$$
+\mathcal{P}(U) \Leftrightarrow
+\mathcal{P}(U') \Rightarrow
+\mathcal{P}(W) \Rightarrow
+\mathcal{P}(V') \Leftrightarrow \mathcal{P}(V)
+$$
+where the equivalences are by definition of property $\mathcal{P}$ for
+algebraic spaces, and the two implications come from
+Descent, Definition \ref{descent-definition-property-local}.
+This proves (3) $\Rightarrow$ (4).
+
+\medskip\noindent
+The implications (2) $\Rightarrow$ (1), (1) $\Rightarrow$ (3),
+and (4) $\Rightarrow$ (2) are immediate.
+\end{proof}
+
+\begin{definition}
+\label{definition-type-property}
+Let $\mathcal{X}$ be an algebraic stack.
+Let $\mathcal{P}$ be a property of schemes which is
+local in the smooth topology.
+We say $\mathcal{X}$ {\it has property $\mathcal{P}$}
+if any of the equivalent conditions of
+Lemma \ref{lemma-type-property}
+hold.
+\end{definition}
+
+\begin{remark}
+\label{remark-list-properties-local-smooth-topology}
+Here is a list of properties which are local for the smooth topology
+(keep in mind that the fpqc, fppf, and syntomic topologies are
+stronger than the smooth topology):
+\begin{enumerate}
+\item locally Noetherian, see
+Descent, Lemma \ref{descent-lemma-Noetherian-local-fppf},
+\item Jacobson, see
+Descent, Lemma \ref{descent-lemma-Jacobson-local-fppf},
+\item locally Noetherian and $(S_k)$, see
+Descent, Lemma \ref{descent-lemma-Sk-local-syntomic},
+\item Cohen-Macaulay, see
+Descent, Lemma \ref{descent-lemma-CM-local-syntomic},
+\item reduced, see
+Descent, Lemma \ref{descent-lemma-reduced-local-smooth},
+\item normal, see
+Descent, Lemma \ref{descent-lemma-normal-local-smooth},
+\item locally Noetherian and $(R_k)$, see
+Descent, Lemma \ref{descent-lemma-Rk-local-smooth},
+\item regular, see
+Descent, Lemma \ref{descent-lemma-regular-local-smooth},
+\item Nagata, see
+Descent, Lemma \ref{descent-lemma-Nagata-local-smooth}.
+\end{enumerate}
+\end{remark}
+
+\noindent
+Any smooth local property of germs of schemes gives rise to a corresponding
+property of algebraic stacks. Note that a property of germs which is smooth
+local is also \'etale local. Hence for a smooth local property of germs of
+schemes $P$ we know what it means to say that an algebraic space $X$ has
+property $P$ at $x \in |X|$, see
+Properties of Spaces, Section \ref{section-types-properties}.
+
+\begin{lemma}
+\label{lemma-local-source-target-at-point}
+Let $\mathcal{X}$ be an algebraic stack.
+Let $x \in |\mathcal{X}|$ be a point of $\mathcal{X}$.
+Let $\mathcal{P}$ be a property of germs of schemes which is smooth local, see
+Descent, Definition \ref{descent-definition-local-at-point}.
+The following are equivalent
+\begin{enumerate}
+\item for any smooth morphism $U \to \mathcal{X}$ with $U$ a scheme
+and $u \in U$ with $a(u) = x$ we have $\mathcal{P}(U, u)$,
+\item for some smooth morphism $U \to \mathcal{X}$ with $U$ a scheme
+and some $u \in U$ with $a(u) = x$ we have $\mathcal{P}(U, u)$,
+\item for any smooth morphism $U \to \mathcal{X}$ with $U$ an algebraic space
+and $u \in |U|$ with $a(u) = x$ the algebraic space $U$ has property
+$\mathcal{P}$ at $u$, and
+\item for some smooth morphism $U \to \mathcal{X}$ with $U$ a an
+algebraic space and some $u \in |U|$ with $a(u) = x$ the algebraic space
+$U$ has property $\mathcal{P}$ at $u$.
+\end{enumerate}
+If $\mathcal{X}$ is representable, then this is equivalent to
+$\mathcal{P}(\mathcal{X}, x)$. If $\mathcal{X}$ is an algebraic space then
+this is equivalent to $\mathcal{X}$ having property $\mathcal{P}$ at $x$.
+\end{lemma}
+
+\begin{proof}
+Let $a : U \to \mathcal{X}$ and $u \in |U|$ as in (3). Let
+$b : V \to \mathcal{X}$ be another smooth morphism with $V$ an algebraic
+space and $v \in |V|$ with $b(v) = x$ also.
+Choose a scheme $U'$, an \'etale morphism $U' \to U$ and $u' \in U'$
+mapping to $u$. Choose a scheme $V'$, an \'etale morphism $V' \to V$
+and $v' \in V'$ mapping to $v$. By
+Lemma \ref{lemma-points-cartesian}
+there exists a point $\overline{w} \in |V' \times_\mathcal{X} U'|$
+mapping to $u'$ and $v'$. Choose a scheme $W$ and a surjective \'etale
+morphism $W \to V' \times_\mathcal{X} U'$. We may choose a
+$w \in |W|$ mapping to $\overline{w}$ (see
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-characterize-surjective}).
+Then $W \to V'$ and $W \to U'$ are smooth morphisms of schemes
+as compositions of \'etale and smooth morphisms of algebraic spaces, see
+Morphisms of Spaces, Lemmas \ref{spaces-morphisms-lemma-etale-smooth} and
+\ref{spaces-morphisms-lemma-composition-smooth}.
+Hence
+$$
+\mathcal{P}(U, u)
+\Leftrightarrow
+\mathcal{P}(U', u')
+\Leftrightarrow
+\mathcal{P}(W, w)
+\Leftrightarrow
+\mathcal{P}(V', v')
+\Leftrightarrow
+\mathcal{P}(V, v)
+$$
+The outer two equivalences by
+Properties of Spaces,
+Definition \ref{spaces-properties-definition-property-at-point}
+and the other two by what it means to be a smooth local property
+of germs of schemes. This proves (4) $\Rightarrow$ (3).
+
+\medskip\noindent
+The implications (1) $\Rightarrow$ (2), (2) $\Rightarrow$ (4),
+and (3) $\Rightarrow$ (1) are immediate.
+\end{proof}
+
+\begin{definition}
+\label{definition-property-at-point}
+Let $\mathcal{P}$ be a property of germs of schemes which is
+smooth local. Let $\mathcal{X}$ be an algebraic stack.
+Let $x \in |\mathcal{X}|$.
+We say $\mathcal{X}$ {\it has property $\mathcal{P}$ at $x$}
+if any of the equivalent conditions of
+Lemma \ref{lemma-local-source-target-at-point}
+holds.
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+\section{Monomorphisms of algebraic stacks}
+\label{section-monomorphisms}
+
+\noindent
+We define a monomorphism of algebraic stacks in the following way.
+We will see in
+Lemma \ref{lemma-monomorphism}
+that this is compatible with the corresponding $2$-category theoretic notion.
+
+\begin{definition}
+\label{definition-monomorphism}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+We say $f$ is a {\it monomorphism}
+if it is representable by algebraic spaces and a monomorphism in the sense of
+Section \ref{section-properties-morphisms}.
+\end{definition}
+
+\noindent
+First some basic lemmas.
+
+\begin{lemma}
+\label{lemma-base-change-monomorphism}
+Let $\mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+Let $\mathcal{Z} \to \mathcal{Y}$ be a monomorphism.
+Then $\mathcal{Z} \times_\mathcal{Y} \mathcal{X} \to \mathcal{X}$
+is a monomorphism.
+\end{lemma}
+
+\begin{proof}
+This follows from the general discussion in
+Section \ref{section-properties-morphisms}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-monomorphism}
+Compositions of monomorphisms of algebraic stacks are monomorphisms.
+\end{lemma}
+
+\begin{proof}
+This follows from the general discussion in
+Section \ref{section-properties-morphisms}
+and
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-composition-monomorphism}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-monomorphism}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+The following are equivalent:
+\begin{enumerate}
+\item $f$ is a monomorphism,
+\item $f$ is fully faithful,
+\item the diagonal
+$\Delta_f : \mathcal{X} \to \mathcal{X} \times_\mathcal{Y} \mathcal{X}$
+is an equivalence, and
+\item there exists an algebraic space $W$ and a surjective, flat morphism
+$W \to \mathcal{Y}$ which is locally of finite presentation such that
+$V = \mathcal{X} \times_\mathcal{Y} W$ is an algebraic space, and the
+morphism $V \to W$ is a monomorphism of algebraic spaces.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (1) and (4) follows from the general discussion in
+Section \ref{section-properties-morphisms}
+and in particular
+Lemmas \ref{lemma-check-representable-covering} and
+\ref{lemma-check-property-covering}.
+
+\medskip\noindent
+The equivalence of (2) and (3) is
+Categories, Lemma \ref{categories-lemma-fully-faithful-diagonal-equivalence}.
+
+\medskip\noindent
+Assume the equivalent conditions (2) and (3). Then $f$ is representable
+by algebraic spaces according to
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-characterize-representable-by-algebraic-spaces}.
+Moreover, the $2$-Yoneda lemma combined with the fully faithfulness
+implies that for every scheme $T$ the functor
+$$
+\Mor(T, \mathcal{X})
+\longrightarrow
+\Mor(T, \mathcal{Y})
+$$
+is fully faithful. Hence given a morphism $y : T \to \mathcal{Y}$ there exists
+up to unique $2$-isomorphism at most one morphism $x : T \to \mathcal{X}$
+such that $y \cong f \circ x$. In particular, given a morphism of schemes
+$h : T' \to T$ there exists at most one lift
+$\tilde h : T' \to T \times_\mathcal{Y} \mathcal{X}$ of $h$.
+Thus $T \times_\mathcal{Y} \mathcal{X} \to T$ is a monomorphism of
+algebraic spaces, which proves that (1) holds.
+
+\medskip\noindent
+Finally, assume that (1) holds. Then for any scheme $T$ and morphism
+$y : T \to \mathcal{Y}$ the fibre product $T \times_\mathcal{Y} \mathcal{X}$
+is an algebraic space, and $T \times_\mathcal{Y} \mathcal{X} \to T$
+is a monomorphism. Hence there exists up to unique isomorphism
+exactly one pair $(x, \alpha)$ where $x : T \to \mathcal{X}$ is a morphism
+and $\alpha : f \circ x \to y$ is a $2$-morphism. Applying
+the $2$-Yoneda lemma this says exactly that $f$ is fully faithful, i.e.,
+that (2) holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-monomorphism-injective-points}
+\begin{slogan}
+Monomorphisms of stacks are injective on points.
+\end{slogan}
+A monomorphism of algebraic stacks induces an injective map of
+sets of points.
+\end{lemma}
+
+\begin{proof}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a monomorphism of algebraic stacks.
+Suppose that $x_i : \Spec(K_i) \to \mathcal{X}$ be morphisms such that
+$f \circ x_1$ and $f \circ x_2$ define the same element of $|\mathcal{Y}|$.
+Applying the definition we find a common extension $\Omega$ with corresponding
+morphisms $c_i : \Spec(\Omega) \to \Spec(K_i)$ and a
+$2$-isomorphism $\beta : f \circ x_1 \circ c_1 \to f \circ x_1 \circ c_2$.
+As $f$ is fully faithful, see
+Lemma \ref{lemma-monomorphism},
+we can lift $\beta$ to an isomorphism
+$\alpha : f \circ x_1 \circ c_1 \to f \circ x_1 \circ c_2$.
+Hence $x_1$ and $x_2$ define the same point of $|\mathcal{X}|$
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-monomorphism-diagonal}
+Let $\mathcal{X} \to \mathcal{X}' \to \mathcal{Y}$ be morphisms
+of algebraic stacks. If $\mathcal{X} \to \mathcal{X}'$ is a monomorphism
+then the canonical diagram
+$$
+\xymatrix{
+\mathcal{X} \ar[r] \ar[d] &
+\mathcal{X} \times_\mathcal{Y} \mathcal{X} \ar[d] \\
+\mathcal{X}' \ar[r] &
+\mathcal{X}' \times_\mathcal{Y} \mathcal{X}'
+}
+$$
+is a fibre product square.
+\end{lemma}
+
+\begin{proof}
+We have $\mathcal{X} = \mathcal{X} \times_{\mathcal{X}'} \mathcal{X}$
+by Lemma \ref{lemma-monomorphism}. Thus the result by applying
+Categories, Lemma \ref{categories-lemma-fibre-product-after-map}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Immersions of algebraic stacks}
+\label{section-immersions}
+
+\noindent
+Immersions of algebraic stacks are defined as follows.
+
+\begin{definition}
+\label{definition-immersion}
+Immersions.
+\begin{enumerate}
+\item A morphism of algebraic stacks is called an {\it open immersion}
+if it is representable, and an open immersion
+in the sense of
+Section \ref{section-properties-morphisms}.
+\item A morphism of algebraic stacks is called a {\it closed immersion}
+if it is representable, and a closed immersion
+in the sense of
+Section \ref{section-properties-morphisms}.
+\item A morphism of algebraic stacks is called an {\it immersion}
+if it is representable, and an immersion
+in the sense of
+Section \ref{section-properties-morphisms}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+This is not the most convenient way to think about immersions for us.
+For us it is a little bit more convenient to think of an immersion
+as a morphism of algebraic stacks which is representable by algebraic
+spaces and is an immersion in the sense of
+Section \ref{section-properties-morphisms}.
+Similarly for closed and open immersions.
+Since this is clearly equivalent to the notion just defined we shall
+use this characterization without further mention.
+We prove a few simple lemmas about this notion.
+
+\begin{lemma}
+\label{lemma-base-change-immersion}
+Let $\mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+Let $\mathcal{Z} \to \mathcal{Y}$ be a
+(closed, resp.\ open) immersion.
+Then $\mathcal{Z} \times_\mathcal{Y} \mathcal{X} \to \mathcal{X}$
+is a (closed, resp.\ open) immersion.
+\end{lemma}
+
+\begin{proof}
+This follows from the general discussion in
+Section \ref{section-properties-morphisms}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-immersion}
+Compositions of immersions of algebraic stacks are immersions.
+Similarly for closed immersions and open immersions.
+\end{lemma}
+
+\begin{proof}
+This follows from the general discussion in
+Section \ref{section-properties-morphisms}
+and
+Spaces, Lemma \ref{spaces-lemma-composition-immersions}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-immersion-covering}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+let $W$ be an algebraic space and let $W \to \mathcal{Y}$ be a surjective,
+flat morphism which is locally of finite presentation. The following
+are equivalent:
+\begin{enumerate}
+\item $f$ is an (open, resp.\ closed) immersion, and
+\item $V = W \times_\mathcal{Y} \mathcal{X}$ is an algebraic space, and
+$V \to W$ is an (open, resp.\ closed) immersion.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This follows from the general discussion in
+Section \ref{section-properties-morphisms}
+and in particular
+Lemmas \ref{lemma-check-representable-covering} and
+\ref{lemma-check-property-covering}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-immersion-monomorphism}
+An immersion is a monomorphism.
+\end{lemma}
+
+\begin{proof}
+See
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-immersions-monomorphisms}.
+\end{proof}
+
+\noindent
+The following two lemmas explain how to think about
+immersions in terms of presentations.
+
+\begin{lemma}
+\label{lemma-immersion-into-presentation}
+Let $(U, R, s, t, c)$ be a smooth groupoid in algebraic spaces.
+Let $i : \mathcal{Z} \to [U/R]$ be an immersion.
+Then there exists an $R$-invariant locally closed subspace
+$Z \subset U$ and a presentation $[Z/R_Z] \to \mathcal{Z}$
+where $R_Z$ is the restriction of $R$ to $Z$ such that
+$$
+\xymatrix{
+[Z/R_Z] \ar[dr] \ar[rr] & & \mathcal{Z} \ar[ld]^i \\
+& [U/R]
+}
+$$
+is $2$-commutative. If $i$ is a closed (resp.\ open) immersion
+then $Z$ is a closed (resp.\ open) subspace of $U$.
+\end{lemma}
+
+\begin{proof}
+By
+Lemma \ref{lemma-representable-in-terms-presentations}
+we get a commutative diagram
+$$
+\xymatrix{
+[U'/R'] \ar[dr] \ar[rr] & & \mathcal{Z} \ar[ld] \\
+& [U/R]
+}
+$$
+where $U' = \mathcal{Z} \times_{[U/R]} U$ and
+$R' = \mathcal{Z} \times_{[U/R]} R$.
+Since $\mathcal{Z} \to [U/R]$ is an immersion we see that
+$U' \to U$ is an immersion of algebraic spaces. Let $Z \subset U$
+be the locally closed subspace such that $U' \to U$ factors through
+$Z$ and induces an isomorphism $U' \to Z$.
+It is clear from the construction of $R'$ that
+$R' = U' \times_{U, t} R = R \times_{s, U} U'$.
+This implies that $Z \cong U'$ is $R$-invariant and that the image of
+$R' \to R$ identifies $R'$ with the restriction
+$R_Z = s^{-1}(Z) = t^{-1}(Z)$ of $R$ to $Z$. Hence the lemma holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-immersion-presentation}
+Let $(U, R, s, t, c)$ be a smooth groupoid in algebraic spaces.
+Let $\mathcal{X} = [U/R]$ be the associated algebraic stack, see
+Algebraic Stacks,
+Theorem \ref{algebraic-theorem-smooth-groupoid-gives-algebraic-stack}.
+Let $Z \subset U$ be an $R$-invariant locally closed subspace. Then
+$$
+[Z/R_Z] \longrightarrow [U/R]
+$$
+is an immersion of algebraic stacks, where $R_Z$ is the restriction
+of $R$ to $Z$. If $Z \subset U$ is open (resp.\ closed) then the morphism
+is an open (resp.\ closed) immersion of algebraic stacks.
+\end{lemma}
+
+\begin{proof}
+Recall that by
+Groupoids in Spaces,
+Definition \ref{spaces-groupoids-definition-invariant-open}
+(see also discussion following the definition)
+we have $R_Z = s^{-1}(Z) = t^{-1}(Z)$ as locally closed subspaces
+of $R$. Hence the two morphisms $R_Z \to Z$ are smooth as base changes
+of $s$ and $t$. Hence
+$(Z, R_Z, s|_{R_Z}, t|_{R_Z}, c|_{R_Z \times_{s, Z, t} R_Z})$ is
+a smooth groupoid in algebraic spaces, and we see that
+$[Z/R_Z]$ is an algebraic stack, see
+Algebraic Stacks,
+Theorem \ref{algebraic-theorem-smooth-groupoid-gives-algebraic-stack}.
+The assumptions of
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-criterion-fibre-product}
+are all satisfied and it follows that we have a $2$-fibre square
+$$
+\xymatrix{
+Z \ar[d] \ar[r] & [Z/R_Z] \ar[d] \\
+U \ar[r] & [U/R]
+}
+$$
+It follows from this and
+Lemma \ref{lemma-check-representable-covering}
+that $[Z/R_Z] \to [U/R]$ is representable by algebraic spaces,
+whereupon it follows from
+Lemma \ref{lemma-check-property-covering}
+that the right vertical arrow is an immersion (resp.\ closed immersion,
+resp.\ open immersion) if and only if the left vertical arrow is.
+\end{proof}
+
+\noindent
+We can define open, closed, and locally closed substacks as follows.
+
+\begin{definition}
+\label{definition-substacks}
+Let $\mathcal{X}$ be an algebraic stack.
+\begin{enumerate}
+\item An {\it open substack} of $\mathcal{X}$ is a strictly full subcategory
+$\mathcal{X}' \subset \mathcal{X}$ such that $\mathcal{X}'$ is an algebraic
+stack and $\mathcal{X}' \to \mathcal{X}$ is an open immersion.
+\item A {\it closed substack} of $\mathcal{X}$ is a strictly full subcategory
+$\mathcal{X}' \subset \mathcal{X}$ such that $\mathcal{X}'$ is an algebraic
+stack and $\mathcal{X}' \to \mathcal{X}$ is a closed immersion.
+\item A {\it locally closed substack} of $\mathcal{X}$ is a strictly full
+subcategory $\mathcal{X}' \subset \mathcal{X}$ such that $\mathcal{X}'$
+is an algebraic stack and $\mathcal{X}' \to \mathcal{X}$ is an immersion.
+\end{enumerate}
+\end{definition}
+
+\noindent
+This definition should be used with caution. Namely, if
+$f : \mathcal{X} \to \mathcal{Y}$ is an equivalence of algebraic stacks
+and $\mathcal{X}' \subset \mathcal{X}$ is an open substack, then it
+is not necessarily the case that the subcategory $f(\mathcal{X}')$
+is an open substack of $\mathcal{Y}$. The problem is that it may not
+be a {\it strictly} full subcategory; but this is also the only problem.
+Here is a formal statement.
+
+\begin{lemma}
+\label{lemma-substack-image}
+For any immersion $i : \mathcal{Z} \to \mathcal{X}$ there exists a
+unique locally closed substack $\mathcal{X}' \subset \mathcal{X}$
+such that $i$ factors as the composition of
+an equivalence $i' : \mathcal{Z} \to \mathcal{X}'$
+followed by the inclusion morphism $\mathcal{X}' \to \mathcal{X}$.
+If $i$ is a closed (resp.\ open) immersion, then $\mathcal{X}'$
+is a closed (resp.\ open) substack of $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-substacks-presentation}
+Let $[U/R] \to \mathcal{X}$ be a presentation of an algebraic stack.
+There is a canonical bijection
+$$
+\text{locally closed substacks }\mathcal{Z}\text{ of }\mathcal{X}
+\longrightarrow
+R\text{-invariant locally closed subspaces }Z\text{ of }U
+$$
+which sends $\mathcal{Z}$ to $U \times_\mathcal{X} \mathcal{Z}$.
+Moreover, a morphism of algebraic stacks $f : \mathcal{Y} \to \mathcal{X}$
+factors through $\mathcal{Z}$ if and only if
+$\mathcal{Y} \times_\mathcal{X} U \to U$ factors through $Z$.
+Similarly for closed substacks and open substacks.
+\end{lemma}
+
+\begin{proof}
+By Lemmas \ref{lemma-immersion-into-presentation} and
+\ref{lemma-immersion-presentation}
+we find that the map is a bijection.
+If $\mathcal{Y} \to \mathcal{X}$ factors through $\mathcal{Z}$
+then of course the base change $\mathcal{Y} \times_\mathcal{X} U \to U$
+factors through $Z$. Converse, suppose that $\mathcal{Y} \to \mathcal{X}$
+is a morphism such that $\mathcal{Y} \times_\mathcal{X} U \to U$
+factors through $Z$. We will show that for every scheme $T$ and
+morphism $T \to \mathcal{Y}$,
+given by an object $y$ of the fibre category of $\mathcal{Y}$ over $T$,
+the object $y$ is in fact in the fibre category of $\mathcal{Z}$ over $T$.
+Namely, the fibre product $T \times_\mathcal{X} U$ is an algebraic
+space and $T \times_\mathcal{X} U \to T$ is a surjective smooth morphism.
+Hence there is an fppf covering $\{T_i \to T\}$ such that
+$T_i \to T$ factors through $T \times_\mathcal{X} U \to T$ for all $i$.
+Then $T_i \to \mathcal{X}$ factors through $\mathcal{Y} \times_\mathcal{X} U$
+and hence through $Z \subset U$. Thus $y|_{T_i}$ is an object of
+$\mathcal{Z}$ (as $Z$ is the fibre product of $U$ with
+$\mathcal{Z}$ over $\mathcal{X}$).
+Since $\mathcal{Z}$ is a strictly full substack, we conclude
+that $y$ is an object of $\mathcal{Z}$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-substacks}
+Let $\mathcal{X}$ be an algebraic stack. The rule
+$\mathcal{U} \mapsto |\mathcal{U}|$ defines an inclusion preserving
+bijection between open substacks of $\mathcal{X}$ and open subsets
+of $|\mathcal{X}|$.
+\end{lemma}
+
+\begin{proof}
+Choose a presentation $[U/R] \to \mathcal{X}$, see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-stack-presentation}.
+By
+Lemma \ref{lemma-substacks-presentation}
+we see that open substacks correspond to $R$-invariant open subschemes
+of $U$. On the other hand
+Lemmas \ref{lemma-points-presentation} and \ref{lemma-topology-points}
+guarantee these correspond bijectively to open subsets of $|\mathcal{X}|$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-image-substack}
+Let $\mathcal X$ be an algebraic stack. Let $U$ be an algebraic space and
+$U \to \mathcal X$ a surjective smooth morphism. For an open immersion
+$V \hookrightarrow U$, there exists an algebraic stack $\mathcal Y$, an
+open immersion $\mathcal Y \to \mathcal X$, and a surjective smooth
+morphism $V \to \mathcal Y$.
+\end{lemma}
+
+\begin{proof}
+We define a category fibred in groupoids $\mathcal Y$ by letting the fiber
+category $\mathcal{Y}_T$ over an object $T$ of $(\Sch/S)_{fppf}$ be
+the full subcategory of $\mathcal{X}_T$ consisting of all
+$y \in \Ob(\mathcal{X}_T)$ such that the projection morphism
+$V \times_{\mathcal X, y} T \to T$ surjective. Now for any morphism
+$x : T \to \mathcal X$, the $2$-fibred product
+$T \times_{x, \mathcal X} \mathcal Y$ has fiber category over $T'$ consisting
+of triples $(f : T' \to T, y \in \mathcal{X}_{T'}, f^*x \simeq y)$ such that
+$V \times_{\mathcal X, y} T' \to T'$ is surjective.
+Note that $T \times_{x, \mathcal X} \mathcal Y$ is fibered in setoids since
+$\mathcal Y \to \mathcal X$ is faithful (see
+Stacks, Lemma \ref{stacks-lemma-2-fibre-product-gives-stack-in-setoids}).
+Now the isomorphism $f^*x \simeq y$ gives the diagram
+$$
+\xymatrix{
+V \times_{\mathcal X, y} T' \ar[d] \ar[r] &
+V \times_{\mathcal X, x} T \ar[r] \ar[d] &
+V \ar[d] \\
+T' \ar[r]^f &
+T \ar[r]^x &
+\mathcal X
+}
+$$
+where both squares are cartesian. The morphism
+$V \times_{\mathcal X, x} T \to T$ is smooth by base change, and hence open.
+Let $T_0 \subset T$ be its image. From the cartesian squares we deduce that
+$V \times_{\mathcal X, y} T' \to T'$ is surjective if and only if $f$ lands
+in $T_0$.  Therefore $T \times_{x, \mathcal X} \mathcal Y$ is representable by
+$T_0$, so the inclusion $\mathcal Y \to \mathcal X$ is an open immersion.
+By
+Algebraic Stacks, Lemma \ref{algebraic-lemma-open-fibred-category-is-algebraic}
+we conclude that $\mathcal{Y}$ is an algebraic stack.
+Lastly if we denote the morphism $V \to \mathcal X$ by $g$, we have
+$V \times_{\mathcal X} V \to V$ is surjective (the diagonal gives a
+section). Hence $g$ is in the image of $\mathcal{Y}_V \to \mathcal{X}_V$, i.e.,
+we obtain a morphism $g' : V \to \mathcal{Y}$ fitting into the commutative
+diagram
+$$
+\xymatrix{
+V \ar[r] \ar[d]^{g'} & U \ar[d] \\
+\mathcal{Y} \ar[r] & \mathcal{X}
+}
+$$
+Since $V \times_{g, \mathcal X} \mathcal Y \to V$ is a
+monomorphism, it is in fact an isomorphism since $(1, g')$ defines a section.
+Therefore $g' : V \to \mathcal Y$ is a smooth morphism, as it is the
+base change of the smooth morphism $g : V \to \mathcal{X}$.
+It is surjective by our construction of $\mathcal{Y}$ which finishes
+the proof of the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-union-open-substacks}
+Let $\mathcal X$ be an algebraic stack and $\mathcal{X}_i \subset \mathcal X$
+a collection of open substacks indexed by $i \in I$. Then there exists an
+open substack, which we denote
+$\bigcup_{i\in I} \mathcal{X}_i \subset \mathcal X$, such that
+the $\mathcal{X}_i$ are open substacks covering it.
+\end{lemma}
+
+\begin{proof}
+We define a fibred subcategory
+$\mathcal{X}' = \bigcup_{i \in I} \mathcal{X}_i$
+by letting the fiber category over an object $T$ of $(\Sch/S)_{fppf}$
+be the full subcategory of $\mathcal{X}_T$ consisting of all
+$x \in \Ob(\mathcal{X}_T)$ such that the morphism
+$\coprod_{i \in I} (\mathcal{X}_i \times_{\mathcal X} T) \to T$
+is surjective. Let $x_i \in \Ob((\mathcal{X}_i)_T)$.
+Then $(x_i, 1)$ gives a section of
+$\mathcal{X}_i \times_{\mathcal X} T \to T$, so we have an isomorphism. Thus
+$\mathcal{X}_i \subset \mathcal{X}'$ is a full subcategory.
+Now let $x \in \Ob(\mathcal{X}_T)$. Then
+$\mathcal{X}_i \times_{\mathcal X} T$ is representable
+by an open subscheme $T_i \subset T$. The $2$-fibred product
+$\mathcal{X}' \times_{\mathcal X} T$ has fiber over $T'$ consisting
+of $(y \in \mathcal{X}_{T'}, f : T' \to T, f^*x \simeq y)$ such that
+$\coprod (\mathcal{X}_i \times_{\mathcal X, y} T') \to T'$ is surjective.
+The isomorphism $f^*x \simeq y$ induces an isomorphism
+$\mathcal{X}_i \times_{\mathcal X, y} T' \simeq T_i \times_T T'$.
+Then the $T_i \times_T T'$ cover $T'$ if and only if $f$ lands in
+$\bigcup T_i$. Therefore we have a diagram
+$$
+\xymatrix{
+T_i \ar[r] \ar[d] &
+\bigcup T_i \ar[r] \ar[d] &
+T \ar[d] \\
+\mathcal{X}_i \ar[r] &
+\mathcal{X}' \ar[r] &
+\mathcal{X}
+}
+$$
+with both squares cartesian. By
+Algebraic Stacks, Lemma \ref{algebraic-lemma-open-fibred-category-is-algebraic}
+we conclude that $\mathcal{X'} \subset \mathcal{X}$ is algebraic and an
+open substack. It is also clear from the cartesian squares above that the
+morphism $\coprod_{i \in I} \mathcal{X}_i \to \mathcal{X}'$ which
+finishes the proof of the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-compact-finite-subcover}
+Let $\mathcal X$ be an algebraic stack and $\mathcal X' \subset \mathcal X$
+a quasi-compact open substack. Suppose that we have a collection of open
+substacks $\mathcal{X}_i \subset \mathcal X$  indexed by $i \in I$ such
+that $\mathcal{X}' \subset \bigcup_{i \in I} \mathcal{X}_i$,
+where we define the union as in Lemma \ref{lemma-union-open-substacks}.
+Then there exists a finite subset $I' \subset I$ such that
+$\mathcal{X}' \subset \bigcup_{i \in I'} \mathcal{X}_i$.
+\end{lemma}
+
+\begin{proof}
+Since $\mathcal X$ is algebraic, there exists a scheme $U$ with a surjective
+smooth morphism $U \to \mathcal X$. Let $U_i \subset U$ be the open subscheme
+representing $\mathcal{X}_i \times_{\mathcal X} U$ and $U' \subset U$ the
+open subscheme representing $\mathcal{X}' \times_{\mathcal X} U$. By
+hypothesis, $U'\subset \bigcup_{i\in I} U_i$. From the proof of
+Lemma \ref{lemma-quasi-compact-stack},
+there is a quasi-compact open $V \subset U'$ such that $V \to \mathcal{X}'$
+is a surjective smooth morphism. Therefore there exists a finite subset
+$I' \subset I$ such that $V \subset \bigcup_{i \in I'}
+U_i$. We claim that $\mathcal{X}' \subset \bigcup_{i \in I'} \mathcal{X}_i$.
+Take $x \in \Ob(\mathcal{X}'_T)$ for
+$T \in \Ob((\Sch/S)_{fppf})$.
+Since $\mathcal{X}' \to \mathcal{X}$ is a monomorphism, we have cartesian
+squares
+$$
+\xymatrix{
+V \times_\mathcal{X} T \ar[r] \ar[d] &
+T \ar[d]^x \ar@{=}[r] &
+T \ar[d]^x \\
+V \ar[r] &
+\mathcal{X}' \ar[r] &
+\mathcal X
+}
+$$
+By base change, $V \times_{\mathcal X} T \to T$ is surjective. Therefore
+$\bigcup_{i \in I'} U_i \times_{\mathcal X} T \to T$ is also surjective.
+Let $T_i \subset T$ be the open subscheme representing
+$\mathcal{X}_i \times_{\mathcal X} T$.
+By a formal argument, we have a Cartesian square
+$$
+\xymatrix{
+U_i \times_{\mathcal{X}_i} T_i \ar[r] \ar[d] &
+U \times_{\mathcal X} T \ar[d] \\
+T_i \ar[r] & T
+}
+$$
+where the vertical arrows are surjective by base change. Since
+$U_i \times_{\mathcal{X}_i} T_i \simeq U_i \times_{\mathcal X} T$,
+we find that $\bigcup_{i \in I'} T_i = T$. Hence
+$x$ is an object of $(\bigcup_{i\in I'} \mathcal{X}_i)_T$ by
+definition of the union. Observe that the inclusion
+$\mathcal{X}' \subset \bigcup_{i \in I'} \mathcal{X}_i$
+is automatically an open substack.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-zariski-open-cover-stack-is-space}
+Let $\mathcal X$ be an algebraic stack.
+Let $\mathcal{X}_i$, $i \in I$ be a set of open substacks of $\mathcal{X}$.
+Assume
+\begin{enumerate}
+\item $\mathcal{X} = \bigcup_{i \in I} \mathcal{X}_i$, and
+\item each $\mathcal{X}_i$ is an algebraic space.
+\end{enumerate}
+Then $\mathcal{X}$ is an algebraic space.
+\end{lemma}
+
+\begin{proof}
+Apply
+Stacks, Lemma \ref{stacks-lemma-stack-in-setoids-descent}
+to the morphism $\coprod_{i \in I} \mathcal{X}_i \to \mathcal{X}$
+and the morphism $\text{id} : \mathcal{X} \to \mathcal{X}$ to
+see that $\mathcal{X}$ is a stack in setoids.
+Hence $\mathcal{X}$ is an algebraic space, see
+Algebraic Stacks,
+Proposition \ref{algebraic-proposition-algebraic-stack-no-automorphisms}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-zariski-open-cover-stack-is-scheme}
+Let $\mathcal X$ be an algebraic stack.
+Let $\mathcal{X}_i$, $i \in I$ be a set of open substacks of $\mathcal{X}$.
+Assume
+\begin{enumerate}
+\item $\mathcal{X} = \bigcup_{i \in I} \mathcal{X}_i$, and
+\item each $\mathcal{X}_i$ is a scheme
+\end{enumerate}
+Then $\mathcal{X}$ is a scheme.
+\end{lemma}
+
+\begin{proof}
+By
+Lemma \ref{lemma-zariski-open-cover-stack-is-space}
+we see that $\mathcal{X}$ is an algebraic space. Since any algebraic
+space has a largest open subspace which is a scheme, see
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-subscheme}
+we see that $\mathcal{X}$ is a scheme.
+\end{proof}
+
+
+\noindent
+The following lemma is the analogue of
+More on Groupoids, Lemma \ref{more-groupoids-lemma-local-source}.
+
+\begin{lemma}
+\label{lemma-local-source}
+Let $\mathcal{P}, \mathcal{Q}, \mathcal{R}$ be properties of morphisms
+of algebraic spaces. Assume
+\begin{enumerate}
+\item $\mathcal{P}, \mathcal{Q}, \mathcal{R}$ are fppf local on the target
+and stable under arbitrary base change,
+\item $\text{smooth} \Rightarrow \mathcal{R}$,
+\item for any morphism $f : X \to Y$ which has $\mathcal{Q}$ there exists a
+largest open subspace $W(\mathcal{P}, f) \subset X$ such that
+$f|_{W(\mathcal{P}, f)}$ has $\mathcal{P}$, and
+\item for any morphism $f : X \to Y$ which has $\mathcal{Q}$,
+and any morphism $Y' \to Y$ which has $\mathcal{R}$ we have
+$Y' \times_Y W(\mathcal{P}, f) = W(\mathcal{P}, f')$, where
+$f' : X_{Y'} \to Y'$ is the base change of $f$.
+\end{enumerate}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks
+representable by algebraic spaces. Assume $f$ has $\mathcal{Q}$. Then
+\begin{enumerate}
+\item[(A)] there exists a largest open substack
+$\mathcal{X}' \subset \mathcal{X}$ such that $f|_{\mathcal{X}'}$ has
+$\mathcal{P}$, and
+\item[(B)] if $\mathcal{Z} \to \mathcal{Y}$ is a morphism of algebraic
+stacks representable by algebraic spaces which has $\mathcal{R}$
+then $\mathcal{Z} \times_\mathcal{Y} \mathcal{X}'$ is the largest open
+substack of $\mathcal{Z} \times_\mathcal{Y} \mathcal{X}$ over which
+the base change $\text{id}_\mathcal{Z} \times f$ has property $\mathcal{P}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $V$ and a surjective smooth morphism $V \to \mathcal{Y}$.
+Set $U = V \times_\mathcal{Y} \mathcal{X}$ and let $f' : U \to V$ be the
+base change of $f$. The morphism of algebraic spaces $f' : U \to V$ has
+property $\mathcal{Q}$. Thus we obtain the open $W(\mathcal{P}, f') \subset U$
+by assumption (3). Note that
+$U \times_\mathcal{X} U =
+(V \times_\mathcal{Y} V) \times_\mathcal{Y} \mathcal{X}$
+hence the morphism $f'' : U \times_\mathcal{X} U \to V \times_\mathcal{Y} V$
+is the base change of $f$ via either projection
+$V \times_\mathcal{Y} V \to V$. By our choice of $V$ these projections
+are smooth, hence have property $\mathcal{R}$ by (2). Thus by (4) we see
+that the inverse images of $W(\mathcal{P}, f')$ under the two projections
+$\text{pr}_i : U \times_\mathcal{X} U \to U$ agree. In other words,
+$W(\mathcal{P}, f')$ is an $R$-invariant subspace of $U$ (where
+$R = U \times_\mathcal{X} U$). Let $\mathcal{X}'$ be the open substack of
+$\mathcal{X}$ corresponding to $W(\mathcal{P}, f)$ via
+Lemma \ref{lemma-immersion-into-presentation}.
+By construction $W(\mathcal{P}, f') = \mathcal{X}' \times_\mathcal{Y} V$
+hence $f|_{\mathcal{X}'}$ has property $\mathcal{P}$ by
+Lemma \ref{lemma-check-property-covering}.
+Also, $\mathcal{X}'$ is the largest open substack
+such that $f|_{\mathcal{X}'}$ has $\mathcal{P}$ as the same maximality holds
+for $W(\mathcal{P}, f)$. This proves (A).
+
+\medskip\noindent
+Finally, if $\mathcal{Z} \to \mathcal{Y}$ is a
+morphism of algebraic stacks representable by algebraic spaces which has
+$\mathcal{R}$ then we set $T = V \times_\mathcal{Y} \mathcal{Z}$ and
+we see that $T \to V$ is a morphism of algebraic spaces having
+property $\mathcal{R}$. Set $f'_T : T \times_V U \to T$ the base change
+of $f'$. By (4) again we see that $W(\mathcal{P}, f'_T)$ is the
+inverse image of $W(\mathcal{P}, f)$ in $T \times_V U$. This implies
+(B); some details omitted.
+\end{proof}
+
+\begin{remark}
+\label{remark-local-source-warning}
+Warning:
+Lemma \ref{lemma-local-source}
+should be used with care. For example, it applies to
+$\mathcal{P}=$``flat'', $\mathcal{Q}=$``empty'',
+and $\mathcal{R}=$``flat and locally of finite presentation''. But given a
+morphism of algebraic spaces $f : X \to Y$ the largest open
+subspace $W \subset X$ such that $f|_W$ is flat is {\it not} the set of points
+where $f$ is flat!
+\end{remark}
+
+\begin{remark}
+\label{remark-local-source-apply}
+Notwithstanding the warning in
+Remark \ref{remark-local-source-warning}
+there are some cases where
+Lemma \ref{lemma-local-source}
+can be used without causing ambiguity.
+We give a list. In each case we omit the verification of
+assumptions (1) and (2) and we give references which imply
+(3) and (4). Here is the list:
+\begin{enumerate}
+\item
+\label{item-rel-dim-leq-d}
+$\mathcal{Q} = $``locally of finite type'', $\mathcal{R} = \emptyset$,
+and $\mathcal{P} =$``relative dimension $\leq d$''.
+See
+Morphisms of Spaces,
+Definition \ref{spaces-morphisms-definition-relative-dimension}
+and
+Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-openness-bounded-dimension-fibres} and
+\ref{spaces-morphisms-lemma-dimension-fibre-after-base-change}.
+\item
+\label{item-loc-quasi-finite}
+$\mathcal{Q} =$``locally of finite type'', $\mathcal{R} = \emptyset$,
+and $\mathcal{P} =$``locally quasi-finite''.
+This is the case $d = 0$ of the previous item, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-quasi-finite-rel-dimension-0}.
+On the other hand, properties (3) and (4) are spelled out in
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-finite-type-quasi-finite-part}.
+\item
+\label{item-unramified}
+$\mathcal{Q} = $``locally of finite type'', $\mathcal{R} = \emptyset$,
+and $\mathcal{P} =$``unramified''. This is
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-where-unramified}.
+\item
+\label{item-flat}
+$\mathcal{Q} =$``locally of finite presentation'',
+$\mathcal{R} =$``flat and locally of finite presentation'', and
+$\mathcal{P} =$``flat''. See
+More on Morphisms of Spaces, Theorem
+\ref{spaces-more-morphisms-theorem-openness-flatness} and
+Lemma \ref{spaces-more-morphisms-lemma-flat-locus-base-change}.
+Note that here $W(\mathcal{P}, f)$ is always exactly the set of points
+where the morphism $f$ is flat because we only consider this open
+when $f$ has $\mathcal{Q}$ (see loc.cit.).
+\item
+\label{item-etale}
+$\mathcal{Q} =$``locally of finite presentation'',
+$\mathcal{R} =$``flat and locally of finite presentation'', and
+$\mathcal{P}=$``\'etale''. This follows on combining
+(\ref{item-unramified}) and (\ref{item-flat}) because an unramified
+morphism which is flat and locally of finite presentation is \'etale, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-unramified-flat-lfp-etale}.
+\item Add more here as needed (compare with the longer list at
+More on Groupoids, Remark \ref{more-groupoids-remark-local-source-apply}).
+\end{enumerate}
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+\section{Reduced algebraic stacks}
+\label{section-reduced}
+
+\noindent
+We have already defined reduced algebraic stacks in
+Section \ref{section-types-properties}.
+
+\begin{lemma}
+\label{lemma-reduced-closed-substack}
+Let $\mathcal{X}$ be an algebraic stack.
+Let $T \subset |\mathcal{X}|$ be a closed subset.
+There exists a unique closed substack $\mathcal{Z} \subset \mathcal{X}$
+with the following properties:
+(a) we have $|\mathcal{Z}| = T$, and (b) $\mathcal{Z}$ is reduced.
+\end{lemma}
+
+\begin{proof}
+Let $U \to \mathcal{X}$ be a surjective smooth morphism, where $U$ is an
+algebraic space. Set $R = U \times_\mathcal{X} U$, so that there is a
+presentation $[U/R] \to \mathcal{X}$, see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-stack-presentation}.
+As usual we denote $s, t : R \to U$ the two smooth projection morphisms.
+By Lemma \ref{lemma-points-presentation}
+we see that $T$ corresponds to a closed subset $T' \subset |U|$ such
+that $|s|^{-1}(T') = |t|^{-1}(T')$.
+Let $Z \subset U$ be the reduced induced algebraic space
+structure on $T'$, see
+Properties of Spaces,
+Definition \ref{spaces-properties-definition-reduced-induced-space}.
+The fibre products
+$Z \times_{U, t} R$ and $R \times_{s, U} Z$ are closed subspaces
+of $R$
+(Spaces, Lemma \ref{spaces-lemma-base-change-immersions}).
+The projections $Z \times_{U, t} R \to Z$ and
+$R \times_{s, U} Z \to Z$ are smooth by
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-base-change-smooth}.
+Thus as $Z$ is reduced, it follows that
+$Z \times_{U, t} R$ and $R \times_{s, U} Z$ are reduced, see
+Remark \ref{remark-list-properties-local-smooth-topology}.
+Since
+$$
+|Z \times_{U, t} R| = |t|^{-1}(T') = |s|^{-1}(T') = R \times_{s, U} Z
+$$
+we conclude from the uniqueness in
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-reduced-closed-subspace}
+that $Z \times_{U, t} R = R \times_{s, U} Z$.
+Hence $Z$ is an $R$-invariant closed subspace of $U$.
+By the correspondence of
+Lemma \ref{lemma-substacks-presentation}
+we obtain a closed substack $\mathcal{Z} \subset \mathcal{X}$
+with $Z = \mathcal{Z} \times_\mathcal{X} U$. Then
+$[Z/R_Z] \to \mathcal{Z}$ is a presentation
+(Lemma \ref{lemma-immersion-into-presentation}).
+Then $|\mathcal{Z}| = |Z|/|R_Z| = |T'|/\sim$ is the given
+closed subset $T$. We omit the proof of unicity.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reduced-stack-determined-by-points}
+Let $\mathcal{X}$ be an algebraic stack.
+If $\mathcal{X}' \subset \mathcal{X}$
+is a closed substack, $\mathcal{X}$ is reduced and
+$|\mathcal{X}'| = |\mathcal{X}|$, then $\mathcal{X}' = \mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Choose a presentation $[U/R] \to \mathcal{X}$ with $U$ a scheme.
+As $\mathcal{X}$ is reduced, we see that $U$ is reduced (by definition
+of reduced algebraic stacks). By
+Lemma \ref{lemma-substacks-presentation}
+$\mathcal{X}'$ corresponds to an $R$-invariant closed subscheme $Z \subset U$.
+But now $|Z| \subset |U|$ is the inverse image of $|\mathcal{X}'|$, and
+hence $|Z| = |U|$. Hence $Z$ is a closed subscheme of $U$ whose underlying
+sets of points agree. By
+Schemes, Lemma \ref{schemes-lemma-map-into-reduction}
+the map $\text{id}_U : U \to U$ factors through $Z \to U$, and hence
+$Z = U$, i.e., $\mathcal{X}' = \mathcal{X}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-into-reduction}
+Let $\mathcal{X}$, $\mathcal{Y}$ be algebraic stacks.
+Let $\mathcal{Z} \subset \mathcal{X}$ be a closed substack
+Assume $\mathcal{Y}$ is reduced.
+A morphism $f : \mathcal{Y} \to \mathcal{X}$ factors through
+$\mathcal{Z}$ if and only if
+$f(|\mathcal{Y}|) \subset |\mathcal{Z}|$.
+\end{lemma}
+
+\begin{proof}
+Assume $f(|\mathcal{Y}|) \subset |\mathcal{Z}|$. Consider
+$\mathcal{Y} \times_\mathcal{X} \mathcal{Z} \to \mathcal{Y}$.
+There is an equivalence
+$\mathcal{Y} \times_\mathcal{X} \mathcal{Z} \to \mathcal{Y}'$
+where $\mathcal{Y}'$ is a closed substack of $\mathcal{Y}$, see
+Lemmas \ref{lemma-base-change-immersion} and
+\ref{lemma-substack-image}.
+Using
+Lemmas \ref{lemma-points-cartesian},
+\ref{lemma-monomorphism-injective-points}, and
+\ref{lemma-immersion-monomorphism}
+we see that $|\mathcal{Y}'| = |\mathcal{Y}|$. Hence we have
+reduced the lemma to
+Lemma \ref{lemma-reduced-stack-determined-by-points}.
+\end{proof}
+
+\begin{definition}
+\label{definition-reduced-induced-stack}
+Let $\mathcal{X}$ be an algebraic stack.
+Let $Z \subset |\mathcal{X}|$ be a closed subset.
+An {\it algebraic stack structure on $Z$} is given by a closed substack
+$\mathcal{Z}$ of $\mathcal{X}$ with $|\mathcal{Z}|$ equal to $Z$.
+The {\it reduced induced algebraic stack structure}
+on $Z$ is the one constructed in
+Lemma \ref{lemma-reduced-closed-substack}.
+The {\it reduction $\mathcal{X}_{red}$ of $\mathcal{X}$}
+is the reduced induced algebraic stack structure on $|\mathcal{X}|$.
+\end{definition}
+
+\noindent
+In fact we can use this to define the reduced induced algebraic
+stack structure on a locally closed subset.
+
+\begin{remark}
+\label{remark-stack-structure-locally-closed-subset}
+Let $X$ be an algebraic stack.
+Let $T \subset |\mathcal{X}|$ be a locally closed subset.
+Let $\partial T$ be the boundary of $T$ in
+the topological space $|\mathcal{X}|$. In a formula
+$$
+\partial T = \overline{T} \setminus T.
+$$
+Let $\mathcal{U} \subset \mathcal{X}$ be the open substack of $X$ with
+$|\mathcal{U}| = |\mathcal{X}| \setminus \partial T$, see
+Lemma \ref{lemma-open-substacks}.
+Let $\mathcal{Z}$ be the reduced closed substack of $\mathcal{U}$ with
+$|\mathcal{Z}| = T$ obtained by taking the reduced induced
+closed subspace structure, see
+Definition \ref{definition-reduced-induced-stack}.
+By construction $\mathcal{Z} \to \mathcal{U}$ is a closed immersion of
+algebraic stacks and $\mathcal{U} \to \mathcal{X}$ is an open immersion,
+hence $\mathcal{Z} \to \mathcal{X}$ is an immersion of algebraic stacks by
+Lemma \ref{lemma-composition-immersion}.
+Note that $\mathcal{Z}$ is a reduced algebraic stack and that
+$|\mathcal{Z}| = T$ as subsets of $|X|$. We sometimes say
+$\mathcal{Z}$ is the {\it reduced induced substack structure} on $T$.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Residual gerbes}
+\label{section-residual-gerbe}
+
+\noindent
+In the Stacks project we would like to define the {\it residual gerbe}
+of an algebraic stack $\mathcal{X}$ at a point $x \in |\mathcal{X}|$
+to be a monomorphism of algebraic stacks
+$m_x : \mathcal{Z}_x \to \mathcal{X}$ where $\mathcal{Z}_x$ is a reduced
+algebraic stack having a unique point which is mapped by $m_x$ to $x$.
+It turns out that there are many issues with this notion; existence is not
+clear in general and neither is uniqueness.
+We resolve the uniqueness issue by imposing a slightly stronger
+condition on the algebraic stacks $\mathcal{Z}_x$.
+We discuss this in more detail by working through a few simple lemmas
+regarding reduced algebraic stacks having a unique point.
+
+\begin{lemma}
+\label{lemma-flat-cover-by-field}
+Let $\mathcal{Z}$ be an algebraic stack. Let $k$ be a field and let
+$\Spec(k) \to \mathcal{Z}$ be surjective and flat. Then any
+morphism $\Spec(k') \to \mathcal{Z}$ where $k'$ is a field is
+surjective and flat.
+\end{lemma}
+
+\begin{proof}
+Consider the fibre square
+$$
+\xymatrix{
+T \ar[d] \ar[r] & \Spec(k) \ar[d] \\
+\Spec(k') \ar[r] & \mathcal{Z}
+}
+$$
+Note that $T \to \Spec(k')$ is flat and surjective hence $T$
+is not empty. On the other hand $T \to \Spec(k)$ is flat as
+$k$ is a field. Hence $T \to \mathcal{Z}$ is flat and surjective.
+It follows from
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-flat-permanence}
+(via the discussion in
+Section \ref{section-properties-morphisms})
+that $\Spec(k') \to \mathcal{Z}$ is flat. It is clear that it
+is surjective as by assumption $|\mathcal{Z}|$ is a singleton.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-unique-point}
+Let $\mathcal{Z}$ be an algebraic stack. The following are equivalent
+\begin{enumerate}
+\item $\mathcal{Z}$ is reduced and $|\mathcal{Z}|$ is a singleton,
+\item there exists a surjective flat morphism $\Spec(k) \to \mathcal{Z}$
+where $k$ is a field, and
+\item there exists a locally of finite type, surjective, flat morphism
+$\Spec(k) \to \mathcal{Z}$ where $k$ is a field.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (1). Let $W$ be a scheme and
+let $W \to \mathcal{Z}$ be a surjective smooth morphism. Then $W$ is
+a reduced scheme. Let $\eta \in W$ be a generic point of an irreducible
+component of $W$. Since $W$ is reduced we have
+$\mathcal{O}_{W, \eta} = \kappa(\eta)$. It follows that the canonical
+morphism $\eta = \Spec(\kappa(\eta)) \to W$ is flat. We see that the
+composition $\eta \to \mathcal{Z}$ is flat (see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-composition-flat}).
+It is also surjective as $|\mathcal{Z}|$ is a singleton. In other words
+(2) holds.
+
+\medskip\noindent
+Assume (2). Let $W$ be a scheme and
+let $W \to \mathcal{Z}$ be a surjective smooth morphism. Choose a field
+$k$ and a surjective flat morphism $\Spec(k) \to \mathcal{Z}$.
+Then $W \times_\mathcal{Z} \Spec(k)$ is an algebraic space smooth
+over $k$, hence regular (see
+Spaces over Fields, Lemma \ref{spaces-over-fields-lemma-smooth-regular})
+and in particular reduced. Since $W \times_\mathcal{Z} \Spec(k) \to W$
+is surjective and flat we conclude that $W$ is reduced
+(Descent on Spaces, Lemma \ref{spaces-descent-lemma-descend-reduced}).
+In other words (1) holds.
+
+\medskip\noindent
+It is clear that (3) implies (2). Finally, assume (2). Pick a nonempty
+affine scheme $W$ and a smooth morphism $W \to \mathcal{Z}$. Pick a closed
+point $w \in W$ and set $k = \kappa(w)$. The composition
+$$
+\Spec(k) \xrightarrow{w} W \longrightarrow \mathcal{Z}
+$$
+is locally of finite type by
+Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-composition-finite-type} and
+\ref{spaces-morphisms-lemma-smooth-locally-finite-type}.
+It is also flat and surjective by
+Lemma \ref{lemma-flat-cover-by-field}.
+Hence (3) holds.
+\end{proof}
+
+\noindent
+The following lemma singles out a slightly better class of singleton
+algebraic stacks than the preceding lemma.
+
+\begin{lemma}
+\label{lemma-unique-point-better}
+Let $\mathcal{Z}$ be an algebraic stack. The following are equivalent
+\begin{enumerate}
+\item $\mathcal{Z}$ is reduced, locally Noetherian, and $|\mathcal{Z}|$
+is a singleton, and
+\item there exists a locally finitely presented, surjective, flat morphism
+$\Spec(k) \to \mathcal{Z}$ where $k$ is a field.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (2) holds. By
+Lemma \ref{lemma-unique-point}
+we see that $\mathcal{Z}$ is reduced and $|\mathcal{Z}|$ is a singleton.
+Let $W$ be a scheme and let $W \to \mathcal{Z}$ be a surjective smooth
+morphism. Choose a field $k$ and a locally finitely presented, surjective,
+flat morphism $\Spec(k) \to \mathcal{Z}$.
+Then $W \times_\mathcal{Z} \Spec(k)$ is an algebraic space
+smooth over $k$, hence locally Noetherian (see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}).
+Since $W \times_\mathcal{Z} \Spec(k) \to W$
+is flat, surjective, and locally of finite presentation, we see
+that $\{W \times_\mathcal{Z} \Spec(k) \to W\}$ is an fppf covering
+and we conclude that $W$ is locally Noetherian
+(Descent on Spaces, Lemma
+\ref{spaces-descent-lemma-descend-locally-Noetherian}).
+In other words (1) holds.
+
+\medskip\noindent
+Assume (1). Pick a nonempty affine scheme $W$ and a smooth morphism
+$W \to \mathcal{Z}$. Pick a closed point $w \in W$ and set
+$k = \kappa(w)$. Because $W$ is locally Noetherian the morphism
+$w : \Spec(k) \to W$ is of finite presentation, see
+Morphisms, Lemma \ref{morphisms-lemma-closed-immersion-finite-presentation}.
+Hence the composition
+$$
+\Spec(k) \xrightarrow{w} W \longrightarrow \mathcal{Z}
+$$
+is locally of finite presentation by
+Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-composition-finite-presentation} and
+\ref{spaces-morphisms-lemma-smooth-locally-finite-presentation}.
+It is also flat and surjective by
+Lemma \ref{lemma-flat-cover-by-field}.
+Hence (2) holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-monomorphism-into-point}
+Let $\mathcal{Z}' \to \mathcal{Z}$ be a monomorphism of algebraic stacks.
+Assume there exists a field $k$ and a locally finitely presented, surjective,
+flat morphism $\Spec(k) \to \mathcal{Z}$. Then either $\mathcal{Z}'$
+is empty or $\mathcal{Z}' \to \mathcal{Z}$ is an equivalence.
+\end{lemma}
+
+\begin{proof}
+We may assume that $\mathcal{Z}'$ is nonempty. In this case the
+fibre product $T = \mathcal{Z}' \times_\mathcal{Z} \Spec(k)$
+is nonempty, see
+Lemma \ref{lemma-points-cartesian}.
+Now $T$ is an algebraic space and the projection $T \to \Spec(k)$
+is a monomorphism. Hence $T = \Spec(k)$, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-monomorphism-toward-field}.
+We conclude that $\Spec(k) \to \mathcal{Z}$ factors through
+$\mathcal{Z}'$. Suppose the morphism $z : \Spec(k) \to \mathcal{Z}$
+is given by the object $\xi$ over $\Spec(k)$. We have just seen that
+$\xi$ is isomorphic to an object $\xi'$ of $\mathcal{Z}'$ over
+$\Spec(k)$. Since $z$ is
+is surjective, flat, and locally of finite presentation we see that
+every object of $\mathcal{Z}$ over any scheme is fppf locally isomorphic
+to a pullback of $\xi$, hence also to a pullback of $\xi'$. By descent of
+objects for stacks in groupoids this implies that
+$\mathcal{Z}' \to \mathcal{Z}$ is essentially surjective (as well as
+fully faithful, see
+Lemma \ref{lemma-monomorphism}).
+Hence we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-improve-unique-point}
+Let $\mathcal{Z}$ be an algebraic stack. Assume $\mathcal{Z}$ satisfies
+the equivalent conditions of
+Lemma \ref{lemma-unique-point}.
+Then there exists a unique strictly full subcategory
+$\mathcal{Z}' \subset \mathcal{Z}$ such that
+$\mathcal{Z}'$ is an algebraic stack which satisfies the equivalent
+conditions of
+Lemma \ref{lemma-unique-point-better}.
+The inclusion morphism $\mathcal{Z}' \to \mathcal{Z}$ is a monomorphism
+of algebraic stacks.
+\end{lemma}
+
+\begin{proof}
+The last part is immediate from the first part and
+Lemma \ref{lemma-monomorphism}.
+Pick a field $k$ and a morphism $\Spec(k) \to \mathcal{Z}$
+which is surjective, flat, and locally of finite type.
+Set $U = \Spec(k)$ and $R = U \times_\mathcal{Z} U$.
+The projections $s, t : R \to U$ are locally of finite type.
+Since $U$ is the spectrum of a field, it follows that
+$s, t$ are flat and locally of finite presentation (by
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-noetherian-finite-type-finite-presentation}).
+We see that $\mathcal{Z}' = [U/R]$ is an algebraic stack by
+Criteria for Representability,
+Theorem \ref{criteria-theorem-flat-groupoid-gives-algebraic-stack}.
+By
+Algebraic Stacks, Lemma \ref{algebraic-lemma-map-space-into-stack}
+we obtain a canonical morphism
+$$
+f : \mathcal{Z}' \longrightarrow \mathcal{Z}
+$$
+which is fully faithful. Hence this morphism is representable by
+algebraic spaces, see
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-characterize-representable-by-algebraic-spaces}
+and a monomorphism, see
+Lemma \ref{lemma-monomorphism}.
+By
+Criteria for Representability,
+Lemma \ref{criteria-lemma-flat-quotient-flat-presentation}
+the morphism $U \to \mathcal{Z}'$ is surjective, flat, and locally of finite
+presentation. Hence $\mathcal{Z}'$ is an algebraic stack which satisfies
+the equivalent conditions of
+Lemma \ref{lemma-unique-point-better}.
+By
+Algebraic Stacks, Lemma \ref{algebraic-lemma-equivalent}
+we may replace $\mathcal{Z}'$ by its essential image in $\mathcal{Z}$.
+Hence we have proved all the assertions of the lemma except for the
+uniqueness of $\mathcal{Z}' \subset \mathcal{Z}$. Suppose that
+$\mathcal{Z}'' \subset \mathcal{Z}$ is a second such algebraic stack.
+Then the projections
+$$
+\mathcal{Z}'
+\longleftarrow
+\mathcal{Z}' \times_\mathcal{Z} \mathcal{Z}''
+\longrightarrow
+\mathcal{Z}''
+$$
+are monomorphisms. The algebraic stack in the middle is nonempty by
+Lemma \ref{lemma-points-cartesian}.
+Hence the two projections are isomorphisms by
+Lemma \ref{lemma-monomorphism-into-point}
+and we win.
+\end{proof}
+
+\begin{example}
+\label{example-distinct}
+Here is an example where the morphism constructed in
+Lemma \ref{lemma-improve-unique-point}
+isn't an isomorphism. This example shows that imposing
+that residual gerbes are locally Noetherian is necessary in
+Definition \ref{definition-residual-gerbe}.
+In fact, the example is even an algebraic space!
+Let $\text{Gal}(\overline{\mathbf{Q}}/\mathbf{Q})$ be the absolute
+Galois group of $\mathbf{Q}$ with the pro-finite topology.
+Let
+$$
+U =
+\Spec(\overline{\mathbf{Q}})
+\times_{\Spec(\mathbf{Q})}
+\Spec(\overline{\mathbf{Q}}) =
+\text{Gal}(\overline{\mathbf{Q}}/\mathbf{Q}) \times
+\Spec(\overline{\mathbf{Q}})
+$$
+(we omit a precise explanation of the meaning of the last equal sign).
+Let $G$ denote the absolute Galois group
+$\text{Gal}(\overline{\mathbf{Q}}/\mathbf{Q})$ with the discrete
+topology viewed as a constant group scheme over
+$\Spec(\overline{\mathbf{Q}})$, see
+Groupoids, Example \ref{groupoids-example-constant-group}.
+Then $G$ acts freely and transitively on $U$.
+Let $X = U/G$, see
+Spaces, Definition \ref{spaces-definition-quotient}.
+Then $X$ is a non-noetherian reduced algebraic space with exactly one point.
+Furthermore, $X$ has a (locally) finite type point:
+$$
+x :
+\Spec(\overline{\mathbf{Q}}) \longrightarrow
+U \longrightarrow X
+$$
+Indeed, every point of $U$ is actually closed!
+As $X$ is an algebraic space over $\overline{\mathbf{Q}}$
+it follows that $x$ is a monomorphism. So $x$ is the morphism
+constructed in
+Lemma \ref{lemma-improve-unique-point}
+but $x$ is not an isomorphism. In fact
+$\Spec(\overline{\mathbf{Q}}) \to X$ is the residual gerbe of $X$ at $x$.
+\end{example}
+
+\noindent
+It will turn out later that under mild assumptions on the algebraic stack
+$\mathcal{X}$ the equivalent conditions of the following lemma are satisfied
+for every point $x \in |\mathcal{X}|$ (see Morphisms of Stacks, Section
+\ref{stacks-morphisms-section-existence-residual-gerbes}).
+
+\begin{lemma}
+\label{lemma-residual-gerbe}
+Let $\mathcal{X}$ be an algebraic stack. Let $x \in |\mathcal{X}|$ be a point.
+The following are equivalent
+\begin{enumerate}
+\item there exists an algebraic stack $\mathcal{Z}$ and a monomorphism
+$\mathcal{Z} \to \mathcal{X}$ such that $|\mathcal{Z}|$ is a singleton
+and such that the image of $|\mathcal{Z}|$ in $|\mathcal{X}|$ is $x$,
+\item there exists a reduced algebraic stack $\mathcal{Z}$ and a monomorphism
+$\mathcal{Z} \to \mathcal{X}$ such that $|\mathcal{Z}|$ is a singleton
+and such that the image of $|\mathcal{Z}|$ in $|\mathcal{X}|$ is $x$,
+\item there exists an algebraic stack $\mathcal{Z}$, a monomorphism
+$f : \mathcal{Z} \to \mathcal{X}$, and a surjective flat morphism
+$z : \Spec(k) \to \mathcal{Z}$ where $k$ is a field such that
+$x = f(z)$.
+\end{enumerate}
+Moreover, if these conditions hold, then there exists a unique
+strictly full subcategory $\mathcal{Z}_x \subset \mathcal{X}$
+such that $\mathcal{Z}_x$ is a reduced, locally Noetherian algebraic
+stack and $|\mathcal{Z}_x|$ is a singleton which maps to $x$
+via the map $|\mathcal{Z}_x| \to |\mathcal{X}|$.
+\end{lemma}
+
+\begin{proof}
+If $\mathcal{Z} \to \mathcal{X}$ is as in (1), then
+$\mathcal{Z}_{red} \to \mathcal{X}$ is as in (2). (See
+Section \ref{section-reduced}
+for the notion of the reduction of an algebraic stack.)
+Hence (1) implies (2).
+It is immediate that (2) implies (1).
+The equivalence of (2) and (3) is immediate from
+Lemma \ref{lemma-unique-point}.
+
+\medskip\noindent
+At this point we've seen the equivalence of (1) -- (3).
+Pick a monomorphism $f : \mathcal{Z} \to \mathcal{X}$ as in (2).
+Note that this implies that $f$ is fully faithful, see
+Lemma \ref{lemma-monomorphism}.
+Denote $\mathcal{Z}' \subset \mathcal{X}$ the essential image of the functor
+$f$. Then $f : \mathcal{Z} \to \mathcal{Z}'$ is an equivalence and hence
+$\mathcal{Z}'$ is an algebraic stack, see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-equivalent}.
+Apply
+Lemma \ref{lemma-improve-unique-point}
+to get a strictly full subcategory $\mathcal{Z}_x \subset \mathcal{Z}'$
+as in the statement of the lemma.
+This proves all the statements of the lemma except for uniqueness.
+
+\medskip\noindent
+In order to prove the uniqueness suppose that
+$\mathcal{Z}_x \subset \mathcal{X}$
+and
+$\mathcal{Z}'_x \subset \mathcal{X}$
+are two strictly full subcategories as in the statement of the lemma.
+Then the projections
+$$
+\mathcal{Z}'_x
+\longleftarrow
+\mathcal{Z}'_x \times_\mathcal{X} \mathcal{Z}_x
+\longrightarrow
+\mathcal{Z}_x
+$$
+are monomorphisms. The algebraic stack in the middle is nonempty by
+Lemma \ref{lemma-points-cartesian}.
+Hence the two projections are isomorphisms by
+Lemma \ref{lemma-monomorphism-into-point}
+and we win.
+\end{proof}
+
+\noindent
+Having explained the above we can now make the following definition.
+
+\begin{definition}
+\label{definition-residual-gerbe}
+Let $\mathcal{X}$ be an algebraic stack. Let $x \in |\mathcal{X}|$.
+\begin{enumerate}
+\item We say the {\it residual gerbe of $\mathcal{X}$ at $x$ exists}
+if the equivalent conditions (1), (2), and (3) of
+Lemma \ref{lemma-residual-gerbe}
+hold.
+\item If the residual gerbe of $\mathcal{X}$ at $x$ exists, then the
+{\it residual gerbe of $\mathcal{X}$ at $x$}\footnote{This clashes with
+\cite{LM-B} in spirit, but not in fact. Namely, in Chapter 11 they associate
+to any point on any quasi-separated algebraic stack a gerbe (not necessarily
+algebraic) which they call the residual gerbe. We will see in
+Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-every-point-residual-gerbe}
+that on a quasi-separated algebraic stack every point
+has a residual gerbe in our sense which is then equivalent to theirs. For
+more information on this topic see
+\cite[Appendix B]{rydh_etale_devissage}.}
+is the strictly full
+subcategory $\mathcal{Z}_x \subset \mathcal{X}$ constructed in
+Lemma \ref{lemma-residual-gerbe}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+In particular we know that $\mathcal{Z}_x$ (if it exists) is a
+locally Noetherian, reduced algebraic stack and that there exists a
+field and a surjective, flat, locally finitely presented morphism
+$$
+\Spec(k) \longrightarrow \mathcal{Z}_x.
+$$
+We will see in
+Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-noetherian-singleton-stack-gerbe}
+that $\mathcal{Z}_x$ is a gerbe. Existence of residual gerbes is
+discussed in Morphisms of Stacks, Section
+\ref{stacks-morphisms-section-existence-residual-gerbes}.
+It turns out that $\mathcal{Z}_x$
+is a regular algebraic stack as follows from the following lemma.
+
+\begin{lemma}
+\label{lemma-residual-gerbe-regular}
+A reduced, locally Noetherian algebraic stack $\mathcal{Z}$ such that
+$|\mathcal{Z}|$ is a singleton is regular.
+\end{lemma}
+
+\begin{proof}
+Let $W \to \mathcal{Z}$ be a surjective smooth morphism where $W$ is a scheme.
+Let $k$ be a field and let $\Spec(k) \to \mathcal{Z}$ be surjective,
+flat, and locally of finite presentation (see
+Lemma \ref{lemma-unique-point-better}).
+The algebraic space $T = W \times_\mathcal{Z} \Spec(k)$ is
+smooth over $k$ in particular regular, see
+Spaces over Fields, Lemma \ref{spaces-over-fields-lemma-smooth-regular}.
+Since $T \to W$ is locally of finite presentation, flat, and surjective it
+follows that $W$ is regular, see
+Descent on Spaces, Lemma \ref{spaces-descent-lemma-descend-regular}.
+By definition this means that $\mathcal{Z}$ is regular.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-residual-gerbe-points}
+Let $\mathcal{X}$ be an algebraic stack. Let $x \in |\mathcal{X}|$.
+Assume that the residual gerbe $\mathcal{Z}_x$ of $\mathcal{X}$ exists.
+Let $f : \Spec(K) \to \mathcal{X}$ be a morphism where $K$ is a field
+in the equivalence class of $x$. Then $f$ factors through the inclusion
+morphism $\mathcal{Z}_x \to \mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+Choose a field $k$ and a surjective flat locally finite presentation
+morphism $\Spec(k) \to \mathcal{Z}_x$. Set
+$T = \Spec(K) \times_\mathcal{X} \mathcal{Z}_x$. By
+Lemma \ref{lemma-points-cartesian}
+we see that $T$ is nonempty. As $\mathcal{Z}_x \to \mathcal{X}$
+is a monomorphism we see that $T \to \Spec(K)$ is a monomorphism.
+Hence by
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-monomorphism-toward-field}
+we see that $T = \Spec(K)$ which proves the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-residual-gerbe-unique}
+Let $\mathcal{X}$ be an algebraic stack. Let $x \in |\mathcal{X}|$.
+Let $\mathcal{Z}$ be an algebraic stack satisfying the equivalent conditions of
+Lemma \ref{lemma-unique-point-better}
+and let $\mathcal{Z} \to \mathcal{X}$ be a monomorphism such that the image
+of $|\mathcal{Z}| \to |\mathcal{X}|$ is $x$. Then the residual gerbe
+$\mathcal{Z}_x$ of $\mathcal{X}$ at $x$ exists and
+$\mathcal{Z} \to \mathcal{X}$ factors as
+$\mathcal{Z} \to \mathcal{Z}_x \to \mathcal{X}$ where the first arrow
+is an equivalence.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{Z}_x \subset \mathcal{X}$ be the full subcategory corresponding
+to the essential image of the functor $\mathcal{Z} \to \mathcal{X}$.
+Then $\mathcal{Z} \to \mathcal{Z}_x$ is an equivalence, hence
+$\mathcal{Z}_x$ is an algebraic stack, see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-equivalent}.
+Since $\mathcal{Z}_x$ inherits all the properties of $\mathcal{Z}$ from
+this equivalence it is clear from the uniqueness in
+Lemma \ref{lemma-residual-gerbe}
+that $\mathcal{Z}_x$ is the residual gerbe of $\mathcal{X}$ at $x$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-residual-gerbe-functorial}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+Let $x \in |\mathcal{X}|$ with image $y \in |\mathcal{Y}|$.
+If the residual gerbes $\mathcal{Z}_x \subset \mathcal{X}$
+and $\mathcal{Z}_y \subset \mathcal{Y}$ of $x$ and $y$ exist,
+then $f$ induces a commutative diagram
+$$
+\xymatrix{
+\mathcal{X} \ar[d]_f & \mathcal{Z}_x \ar[l] \ar[d] \\
+\mathcal{Y} & \mathcal{Z}_y \ar[l]
+}
+$$
+\end{lemma}
+
+\begin{proof}
+Choose a field $k$ and a surjective, flat, locally finitely presented
+morphism $\Spec(k) \to \mathcal{Z}_x$. The morphism
+$\Spec(k) \to \mathcal{Y}$ factors through $\mathcal{Z}_y$ by
+Lemma \ref{lemma-residual-gerbe-points}.
+Thus $\mathcal{Z}_x \times_\mathcal{Y} \mathcal{Z}_y$
+is a nonempty substack of $\mathcal{Z}_x$
+hence equal to $\mathcal{Z}_x$ by Lemma \ref{lemma-monomorphism-into-point}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-residual-gerbe-isomorphic}
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a morphism of algebraic stacks.
+Let $x \in |\mathcal{X}|$ with image $y \in |\mathcal{Y}|$.
+Assume the residual gerbes $\mathcal{Z}_x \subset \mathcal{X}$
+and $\mathcal{Z}_y \subset \mathcal{Y}$ of $x$ and $y$ exist
+and that there exists a morphism $\Spec(k) \to \mathcal{X}$
+in the equivalence class of $x$ such that
+$$
+\Spec(k) \times_\mathcal{X} \Spec(k)
+\longrightarrow
+\Spec(k) \times_\mathcal{Y} \Spec(k)
+$$
+is an isomorphism. Then $\mathcal{Z}_x \to \mathcal{Z}_y$
+is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+Let $k'/k$ be an extension of fields. Then
+$$
+\Spec(k') \times_\mathcal{X} \Spec(k')
+\longrightarrow
+\Spec(k') \times_\mathcal{Y} \Spec(k')
+$$
+is the base change of the morphism in the lemma by the
+faithfully flat morphism $\Spec(k' \otimes k') \to \Spec(k \otimes k)$.
+Thus the property described in the lemma is independent of the
+choice of the morphism $\Spec(k) \to \mathcal{X}$ in the
+equivalence class of $x$. Thus we may assume that
+$\Spec(k) \to \mathcal{Z}_x$ is surjective, flat, and
+locally of finite presentation. In this situation we have
+$$
+\mathcal{Z}_x = [\Spec(k)/R]
+$$
+with $R = \Spec(k) \times_\mathcal{X} \Spec(k)$. See
+proof of Lemma \ref{lemma-improve-unique-point}.
+Since also $R = \Spec(k) \times_\mathcal{Y} \Spec(k)$
+we conclude that the morphism $\mathcal{Z}_x \to \mathcal{Z}_y$
+of Lemma \ref{lemma-residual-gerbe-functorial}
+is fully faithful by
+Algebraic Stacks, Lemma \ref{algebraic-lemma-map-space-into-stack}.
+We conclude for example by Lemma \ref{lemma-residual-gerbe-unique}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Dimension of a stack}
+\label{section-dimension}
+
+\noindent
+We can define the dimension of an algebraic stack $\mathcal{X}$
+at a point $x$, using the notion of dimension of an algebraic space
+at a point (Properties of Spaces, Definition
+\ref{spaces-properties-definition-dimension-at-point}).
+In the following lemma the output may be $\infty$ either because
+$\mathcal{X}$ is not quasi-compact or because we run into the
+phenomenon described in Examples, Section
+\ref{examples-section-Noetherian-infinite-dimension}.
+
+\begin{lemma}
+\label{lemma-dimension-at-point-well-defined}
+Let $\mathcal{X}$ be a locally Noetherian algebraic stack over a scheme $S$.
+Let $x \in |\mathcal{X}|$ be a point of $\mathcal{X}$.
+Let $[U/R] \to \mathcal{X}$ be a presentation
+(Algebraic Stacks, Definition \ref{algebraic-definition-presentation})
+where $U$ is a scheme. Let $u \in U$ be a point that maps to $x$.
+Let $e : U \to R$ be the ``identity'' map and let $s : R \to U$ be the
+``source'' map, which is a smooth morphism of algebraic spaces. Let $R_u$
+be the fiber of $s : R \to U$ over $u$. The element
+$$
+\dim_x(\mathcal{X}) = \dim_u(U) - \dim_{e(u)}(R_u) \in \mathbf{Z} \cup \infty
+$$
+is independent of the choice of presentation and the point $u$ over $x$.
+\end{lemma}
+
+\begin{proof}
+Since $R \to U$ is smooth, the scheme $R_u$ is smooth over $\kappa(u)$
+and hence has finite dimension. On the other hand, the scheme $U$
+is locally Noetherian, but this does not guarantee that
+$\dim_u(U)$ is finite. Thus the difference is an element of
+$\mathbf{Z} \cup \{\infty\}$.
+
+\medskip\noindent
+Let $[U'/R'] \to \mathcal{X}$ and $u' \in U'$ be a second presentation
+where $U'$ is a scheme and $u'$ maps to $x$. Consider the algebraic
+space $P = U \times_\mathcal{X} U'$. By
+Lemma \ref{lemma-points-cartesian} there exists a $p \in |P|$ mapping to
+$u$ and $u'$. Since $P \to U$ and $P \to U'$ are smooth we see that
+$\dim_p(P) = \dim_u(U) + \dim_p(P_u)$ and
+$\dim_p(P) = \dim_{u'}(U') + \dim_p(P_{u'})$, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-smoothness-dimension-spaces}.
+Note that
+$$
+R'_{u'} = \Spec(\kappa(u')) \times_\mathcal{X} U'
+\quad\text{and}\quad
+P_u = \Spec(\kappa(u)) \times_\mathcal{X} U'
+$$
+Let us represent $p \in |P|$ by a morphism $\Spec(\Omega) \to P$.
+Since $p$ maps to both $u$ and $u'$ it induces a $2$-morphism
+between the compositions
+$\Spec(\Omega) \to \Spec(\kappa(u')) \to \mathcal{X}$ and
+$\Spec(\Omega) \to \Spec(\kappa(u)) \to \mathcal{X}$
+which in turn defines an isomorphism
+$$
+\Spec(\Omega) \times_{\Spec(\kappa(u'))} R'_{u'}
+\cong
+\Spec(\Omega) \times_{\Spec(\kappa(u))} P_u
+$$
+as algebraic spaces over $\Spec(\Omega)$ mapping the $\Omega$-rational
+point $(1, e'(u'))$ to $(1, p)$ (some details omitted). We conclude that
+$$
+\dim_{e'(u')}(R'_{u'}) = \dim_p(P_u)
+$$
+by Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-dimension-fibre-after-base-change}.
+By symmetry we have
+$\dim_{e(u)}(R_u) = \dim_p(P_{u'})$.
+Putting everything together we obtain the independence of choices.
+\end{proof}
+
+\noindent
+We can use the lemma above to make the following definition.
+
+\begin{definition}
+\label{definition-dimension-at-point}
+Let $\mathcal{X}$ be a locally Noetherian algebraic stack over a scheme $S$.
+Let $x \in |\mathcal{X}|$ be a point of $\mathcal{X}$.
+Let $[U/R] \to \mathcal{X}$ be a presentation
+(Algebraic Stacks, Definition \ref{algebraic-definition-presentation})
+where $U$ is a scheme
+and let $u \in U$ be a point that maps to $x$.
+We define the {\it dimension of $\mathcal{X}$ at $x$} to be
+the element $\dim_x(\mathcal{X}) \in \mathbf{Z} \cup \infty$
+such that 
+$$
+\dim_x(\mathcal{X}) = \dim_u(U)-\dim_{e(u)}(R_u).
+$$
+with notation as in Lemma \ref{lemma-dimension-at-point-well-defined}.
+\end{definition}
+
+\noindent
+The dimension of a stack at a point agrees with the usual notion
+when $\mathcal{X}$ is a scheme (Topology, Definition
+\ref{topology-definition-Krull}),
+or more generally when $\mathcal{X}$ is a locally Noetherian algebraic space
+(Properties of Spaces, Definition
+\ref{spaces-properties-definition-dimension-at-point}).
+
+\begin{definition}
+\label{definition-dimension}
+Let $S$ be a scheme. Let $\mathcal{X}$ be
+a locally Noetherian algebraic stack over $S$.
+The {\it dimension} $\dim(\mathcal{X})$ of $\mathcal{X}$ is defined to be
+$$
+\dim(\mathcal{X}) = \sup\nolimits_{x \in |\mathcal{X}|} \dim_x(\mathcal{X})
+$$
+\end{definition}
+
+\noindent
+This definition of dimension agrees with the usual notion
+if $\mathcal{X}$ is a scheme
+(Properties, Lemma \ref{properties-lemma-dimension})
+or an algebraic space (Properties of Spaces, Definition
+\ref{spaces-properties-definition-dimension}).
+
+\begin{remark}
+\label{remark-dimension-empty-stack}
+If $\mathcal{X}$ is a nonempty stack of finite type over a field,
+then $\dim(\mathcal{X})$ is an integer. For an arbitrary
+locally Noetherian algebraic stack $\mathcal{X}$,
+$\dim(\mathcal{X})$ is in $Z\cup \{\pm \infty\}$,
+and $\dim(\mathcal{X}) = -\infty$ if and only if $\mathcal{X}$
+is empty.
+\end{remark}
+
+\begin{example}
+\label{example-dimension-quotient-stack}
+Let $X$ be a scheme of finite type over a field $k$, and let $G$
+be a group scheme of finite type over $k$ which acts on $X$.
+Then the dimension of the quotient stack $[X/G]$ is equal to
+$\dim(X)-\dim(G)$. In particular, the dimension of the classifying
+stack $BG=[\Spec(k)/G]$ is $-\dim(G)$. Thus the dimension of an algebraic
+stack can be a negative integer, in contrast to what happens for schemes
+or algebraic spaces.
+\end{example}
+
+
+
+
+
+
+\section{Local irreducibility}
+\label{section-irreducible-local-ring}
+
+\noindent
+We have defined the geometric number of branches of a scheme at a point
+in Properties, Section \ref{properties-section-unibranch}
+and for an algebraic space at a point in Properties of Spaces, Section
+\ref{spaces-properties-section-irreducible-local-ring}.
+Let $n \in \mathbf{N}$. For a local ring $A$ set
+$$
+P_n(A) = \text{the number of geometric branches of }A\text{ is }n
+$$
+For a smooth ring map $A \to B$ and a prime ideal $\mathfrak q$
+of $B$ lying over $\mathfrak p$ of $A$ we have
+$$
+P_n(A_\mathfrak p) \Leftrightarrow P_n(B_\mathfrak q)
+$$
+by More on Algebra, Lemma
+\ref{more-algebra-lemma-invariance-number-branches-smooth}.
+As in Properties of Spaces, Remark
+\ref{spaces-properties-remark-list-properties-local-ring-local-etale-topology}
+we may use $P_n$ to define an \'etale local property $\mathcal{P}_n$
+of germs $(U, u)$ of schemes by setting
+$\mathcal{P}_n(U, u) = P_n(\mathcal{O}_{U, u})$.
+The corresponding property $\mathcal{P}_n$
+of an algebraic spaces $X$ at a point $x$
+(see Properties of Spaces, Definition
+\ref{spaces-properties-definition-property-at-point})
+is just the property
+``the number of geometric branches of $X$ at $x$ is $n$'', see
+Properties of Spaces, Definition
+\ref{spaces-properties-definition-number-of-geometric-branches}.
+Moreover, the property $\mathcal{P}_n$ is smooth local, see
+Descent, Definition \ref{descent-definition-local-at-point}.
+This follows either from the equivalence displayed above
+or More on Morphisms, Lemma
+\ref{more-morphisms-lemma-number-of-branches-and-smooth}.
+Thus Definition \ref{definition-property-at-point}
+applies and we obtain a notion for algebraic stacks at a point.
+
+\begin{definition}
+\label{definition-number-of-geometric-branches}
+Let $\mathcal{X}$ be an algebraic stack. Let $x \in |\mathcal{X}|$.
+\begin{enumerate}
+\item The {\it number of geometric branches of $\mathcal{X}$ at $x$}
+is either $n \in \mathbf{N}$ if the equivalent conditions of
+Lemma \ref{lemma-local-source-target-at-point} hold for
+$\mathcal{P}_n$ defined above, or else $\infty$.
+\item We say $\mathcal{X}$ is {\it geometrically unibranch at $x$}
+if the number of geometric branches of $\mathcal{X}$ at $x$ is $1$.
+\end{enumerate}
+\end{definition}
+
+
+
+
+
+
+\section{Finiteness conditions and points}
+\label{section-points-conditions}
+
+\noindent
+This section is the analogue of
+Decent Spaces, Section \ref{decent-spaces-section-points-monomorphisms}
+for points of algebraic stacks.
+
+\begin{lemma}
+\label{lemma-UR-quasi-compact-above-x}
+Let $\mathcal{X}$ be an algebraic stack. Let $x \in |\mathcal{X}|$
+be a point. The following are equivalent
+\begin{enumerate}
+\item for some morphism $\Spec(k) \to \mathcal{X}$ in the equivalence
+class of $x$ is quasi-compact, and
+\item any morphism $\Spec(k) \to \mathcal{X}$ in the equivalence
+class of $x$ is quasi-compact.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $\Spec(k) \to \mathcal{X}$ be in the equivalence
+class of $x$. Let $k'/k$ be a field extension.
+Then we have to show that $\Spec(k) \to \mathcal{X}$ is
+quasi-compact if and only if $\Spec(k') \to \mathcal{X}$
+is quasi-compact. This follows from
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-surjection-from-quasi-compact}
+and the principle of Algebraic Stacks, Lemma
+\ref{algebraic-lemma-representable-transformations-property-implication}.
+\end{proof}
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

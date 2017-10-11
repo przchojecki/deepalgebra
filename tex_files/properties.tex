@@ -1,0 +1,4972 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Properties of Schemes}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+In this chapter we introduce some absolute properties of schemes.
+A foundational reference is \cite{EGA}.
+
+
+
+
+\section{Constructible sets}
+\label{section-constructible}
+
+\noindent
+Constructible and locally constructible sets are introduced in
+Topology, Section \ref{topology-section-constructible}.
+We may characterize locally constructible subsets of schemes as
+follows.
+
+\begin{lemma}
+\label{lemma-locally-constructible}
+Let $X$ be a scheme.
+A subset $E$ of $X$ is locally constructible in $X$ if and only if
+$E \cap U$ is constructible in $U$ for every affine open $U$ of $X$.
+\end{lemma}
+
+\begin{proof}
+Assume $E$ is locally constructible. Then there exists an open covering
+$X = \bigcup U_i$ such that $E \cap U_i$ is constructible in $U_i$
+for each $i$. Let $V \subset X$ be any affine open. We can find a finite
+open affine covering $V = V_1 \cup \ldots \cup V_m$ such that for each $j$
+we have $V_j \subset U_i$ for some $i = i(j)$. By
+Topology, Lemma \ref{topology-lemma-open-immersion-constructible-inverse-image}
+we see that each $E \cap V_j$ is constructible in $V_j$. Since the inclusions
+$V_j \to V$ are quasi-compact (see
+Schemes, Lemma \ref{schemes-lemma-quasi-compact-affine})
+we conclude that $E \cap V$ is constructible in $V$ by
+Topology, Lemma \ref{topology-lemma-collate-constructible}.
+The converse implication is immediate.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-generic-point-in-constructible}
+Let $X$ be a scheme and let $E \subset X$ be a constructible subset.
+Let $\xi \in X$ be a generic point of an irreducible component of $X$.
+\begin{enumerate}
+\item If $\xi \in E$, then an open neighbourhood of
+$\xi$ is contained in $E$.
+\item If $\xi \not \in E$, then an open neighbourhood
+of $\xi$ is disjoint from $E$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+As the complement of a locally constructible subset is locally
+constructible it suffices to show (2). We may assume $X$ is
+affine and hence $E$ constructible (Lemma \ref{lemma-locally-constructible}).
+In this case $X$ is a spectral space
+(Algebra, Lemma \ref{algebra-lemma-spec-spectral}).
+Then $\xi \not \in E$ implies $\xi \not \in \overline{E}$ by
+Topology, Lemma \ref{topology-lemma-constructible-stable-specialization-closed}
+and the fact that there are no points of $X$ different from $\xi$
+which specialize to $\xi$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-separated-quasi-compact-open-retrocompact}
+Let $X$ be a quasi-separated scheme. The intersection of any two
+quasi-compact opens of $X$ is a quasi-compact open of $X$.
+Every quasi-compact open of $X$ is retrocompact in $X$.
+\end{lemma}
+
+\begin{proof}
+If $U$ and $V$ are quasi-compact open then
+$U \cap V = \Delta^{-1}(U \times V)$, where $\Delta : X \to X \times X$
+is the diagonal. As $X$ is quasi-separated we see that $\Delta$ is
+quasi-compact. Hence we see that $U \cap V$ is quasi-compact as
+$U \times V$ is quasi-compact (details omitted; use
+Schemes, Lemma \ref{schemes-lemma-affine-covering-fibre-product}
+to see $U \times V$ is a finite union of affines).
+The other assertions follow from the first and
+Topology, Lemma \ref{topology-lemma-topology-quasi-separated-scheme}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-compact-quasi-separated-spectral}
+Let $X$ be a quasi-compact and quasi-separated scheme.
+Then the underlying topological space of $X$ is a spectral space.
+\end{lemma}
+
+\begin{proof}
+By Topology, Definition \ref{topology-definition-spectral-space}
+we have to check that $X$ is sober, quasi-compact, has a basis
+of quasi-compact opens, and the intersection of any two
+quasi-compact opens is quasi-compact. This follows from
+Schemes, Lemma \ref{schemes-lemma-scheme-sober} and
+\ref{schemes-lemma-basis-affine-opens}
+and
+Lemma \ref{lemma-quasi-separated-quasi-compact-open-retrocompact}
+above.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-constructible-quasi-compact-quasi-separated}
+Let $X$ be a quasi-compact and quasi-separated scheme.
+Any locally constructible subset of $X$ is constructible.
+\end{lemma}
+
+\begin{proof}
+As $X$ is quasi-compact we can choose a finite affine open covering
+$X = V_1 \cup \ldots \cup V_m$. As $X$ is quasi-separated each $V_i$ is
+retrocompact in $X$ by
+Lemma \ref{lemma-quasi-separated-quasi-compact-open-retrocompact}.
+Hence by
+Topology, Lemma \ref{topology-lemma-collate-constructible}
+we see that $E \subset X$ is constructible in $X$ if and only if
+$E \cap V_j$ is constructible in $V_j$. Thus we win by
+Lemma \ref{lemma-locally-constructible}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-retrocompact}
+Let $X$ be a scheme. A subset $Z$ of $X$ is retrocompact in $X$ if and only if
+$E \cap U$ is quasi-compact for every affine open $U$ of $X$.
+\end{lemma}
+
+\begin{proof}
+Immediate from the fact that every quasi-compact open of $X$ is a finite
+union of affine opens.
+\end{proof}
+
+
+
+
+
+\section{Integral, irreducible, and reduced schemes}
+\label{section-integral}
+
+\begin{definition}
+\label{definition-integral}
+Let $X$ be a scheme. We say $X$ is {\it integral} if it is nonempty and
+for every nonempty affine open $\Spec(R) = U \subset X$ the ring $R$
+is an integral domain.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-characterize-reduced}
+Let $X$ be a scheme.
+The following are equivalent.
+\begin{enumerate}
+\item The scheme $X$ is reduced, see
+Schemes, Definition \ref{schemes-definition-reduced}.
+\item There exists an affine open covering $X = \bigcup U_i$
+such that each $\Gamma(U_i, \mathcal{O}_X)$ is reduced.
+\item For every affine open $U \subset X$ the ring
+$\mathcal{O}_X(U)$ is reduced.
+\item For every open $U \subset X$ the ring $\mathcal{O}_X(U)$ is reduced.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+See Schemes, Lemmas \ref{schemes-lemma-reduced} and
+\ref{schemes-lemma-affine-reduced}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-irreducible}
+Let $X$ be a scheme.
+The following are equivalent.
+\begin{enumerate}
+\item The scheme $X$ is irreducible.
+\item There exists an affine open covering $X = \bigcup_{i \in I} U_i$
+such that $I$ is not empty, $U_i$ is irreducible for all $i \in I$, and
+$U_i \cap U_j \not = \emptyset$ for all $i, j \in I$.
+\item The scheme $X$ is nonempty and every nonempty affine open
+$U \subset X$ is irreducible.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (1). By Schemes, Lemma \ref{schemes-lemma-scheme-sober}
+we see that $X$ has a unique generic point $\eta$. Then
+$X = \overline{\{\eta\}}$. Hence $\eta$ is an element of
+every nonempty affine open $U \subset X$. This implies
+that $U = \overline{\{\eta\}}$ and that any two nonempty affines
+meet. Thus (1) implies both (2) and (3).
+
+\medskip\noindent
+Assume (2). Suppose $X = Z_1 \cup Z_2$ is a union of two closed subsets.
+For every $i$ we see that either $U_i \subset Z_1$ or $U_i \subset Z_2$.
+Pick some $i \in I$ and assume $U_i \subset Z_1$ (possibly after renumbering
+$Z_1$, $Z_2$). For any $j \in I$ the open subset $U_i \cap U_j$ is dense in
+$U_j$ and contained in the closed subset $Z_1 \cap U_j$. We conclude that
+also $U_j \subset Z_1$. Thus $X = Z_1$ as desired.
+
+\medskip\noindent
+Assume (3). Choose an affine open covering $X = \bigcup_{i \in I} U_i$.
+We may assume that each $U_i$ is nonempty.
+Since $X$ is nonempty we see that $I$ is not empty.
+By assumption each $U_i$ is irreducible.
+Suppose $U_i \cap U_j = \emptyset$ for some pair $i, j \in I$.
+Then the open $U_i \amalg  U_j = U_i \cup U_j$ is affine, see
+Schemes, Lemma \ref{schemes-lemma-disjoint-union-affines}.
+Hence it is irreducible by assumption which is absurd. We conclude that (3)
+implies (2). The lemma is proved.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-integral}
+A scheme $X$ is integral if and only if it is reduced and irreducible.
+\end{lemma}
+
+\begin{proof}
+If $X$ is irreducible, then every affine open $\Spec(R) = U \subset X$
+is irreducible. If $X$ is reduced, then $R$ is reduced, by
+Lemma \ref{lemma-characterize-reduced} above. Hence $R$ is reduced
+and $(0)$ is a prime ideal, i.e., $R$ is an integral domain.
+
+\medskip\noindent
+If $X$ is integral, then for every nonempty affine open
+$\Spec(R) = U \subset X$ the ring $R$ is reduced
+and hence $X$ is reduced by Lemma \ref{lemma-characterize-reduced}.
+Moreover, every nonempty affine open is irreducible.
+Hence $X$ is irreducible, see Lemma \ref{lemma-characterize-irreducible}.
+\end{proof}
+
+\noindent
+In Examples, Section
+\ref{examples-section-connected-locally-integral-not-integral}
+we construct a connected affine scheme all of whose local rings are domains,
+but which is not integral.
+
+
+
+
+
+
+
+
+
+
+
+\section{Types of schemes defined by properties of rings}
+\label{section-properties-rings}
+
+\noindent
+In this section we study what properties of rings
+allow one to define local properties of schemes.
+
+\begin{definition}
+\label{definition-property-local}
+Let $P$ be a property of rings.
+We say that $P$ is {\it local} if the following hold:
+\begin{enumerate}
+\item For any ring $R$, and any $f \in R$ we have
+$P(R) \Rightarrow P(R_f)$.
+\item For any ring $R$, and $f_i \in R$ such that
+$(f_1, \ldots, f_n) = R$ then
+$\forall i, P(R_{f_i}) \Rightarrow P(R)$.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+\label{definition-locally-P}
+Let $P$ be a property of rings. Let $X$ be a scheme.
+We say $X$ is {\it locally $P$} if for any $x \in X$
+there exists an affine open neighbourhood $U$ of $x$
+in $X$ such that $\mathcal{O}_X(U)$ has property $P$.
+\end{definition}
+
+\noindent
+This is only a good notion if the property is local.
+Even if $P$ is a local property we will not
+automatically use this definition to say that a scheme is
+``locally $P$'' unless we also explicitly state the definition
+elsewhere.
+
+\begin{lemma}
+\label{lemma-locally-P}
+Let $X$ be a scheme. Let $P$ be a local property of rings.
+The following are equivalent:
+\begin{enumerate}
+\item The scheme $X$ is locally $P$.
+\item For every affine open $U \subset X$ the property
+$P(\mathcal{O}_X(U))$ holds.
+\item There exists an affine open covering $X = \bigcup U_i$ such that
+each $\mathcal{O}_X(U_i)$ satisfies $P$.
+\item There exists an open covering $X = \bigcup X_j$
+such that each open subscheme $X_j$ is locally $P$.
+\end{enumerate}
+Moreover, if $X$ is locally $P$ then every open subscheme
+is locally $P$.
+\end{lemma}
+
+\begin{proof}
+Of course (1) $\Leftrightarrow$ (3) and (2) $\Rightarrow$ (1).
+If (3) $\Rightarrow$ (2), then the final statement of the lemma
+holds and it follows easily that (4) is also equivalent to (1).
+Thus we show (3) $\Rightarrow$ (2).
+
+\medskip\noindent
+Let $X = \bigcup U_i$ be an affine open covering, say
+$U_i = \Spec(R_i)$. Assume $P(R_i)$.
+Let $\Spec(R) = U \subset X$ be an arbitrary affine open.
+By Schemes, Lemma \ref{schemes-lemma-good-subcover}
+there exists a standard covering of $U = \Spec(R)$ by
+standard opens $D(f_j)$ such that each ring $R_{f_j}$ is a
+principal localization of one of the rings $R_i$. By
+Definition \ref{definition-property-local} (1) we get $P(R_{f_j})$.
+Whereupon $P(R)$ by Definition \ref{definition-property-local} (2).
+\end{proof}
+
+\noindent
+Here is a sample application.
+
+\begin{lemma}
+\label{lemma-reduced-is-locally-reduced}
+Let $X$ be a scheme. Then $X$ is reduced if and only if $X$ is
+``locally reduced'' in the sense of Definition \ref{definition-locally-P}.
+\end{lemma}
+
+\begin{proof}
+This is clear from Lemma \ref{lemma-characterize-reduced}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-properties-local}
+The following properties of a ring $R$ are local.
+\begin{enumerate}
+\item (Cohen-Macaulay.)
+The ring $R$ is Noetherian and CM, see
+Algebra, Definition \ref{algebra-definition-ring-CM}.
+\item (Regular.)
+The ring $R$ is Noetherian and regular, see
+Algebra, Definition \ref{algebra-definition-regular}.
+\item (Absolutely Noetherian.)
+The ring $R$ is of finite type over $Z$.
+\item Add more here as needed.\footnote{But we only list those properties
+here which we have not already dealt with separately somewhere else.}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Noetherian schemes}
+\label{section-noetherian}
+
+\noindent
+Recall that a ring $R$ is {\it Noetherian} if it satisfies the ascending
+chain condition of ideals. Equivalently every ideal of $R$ is finitely
+generated.
+
+\begin{definition}
+\label{definition-noetherian}
+Let $X$ be a scheme.
+\begin{enumerate}
+\item We say $X$ is {\it locally Noetherian} if every
+$x \in X$ has an affine open neighbourhood
+$\Spec(R) = U \subset X$ such that the ring $R$ is Noetherian.
+\item We say $X$ is {\it Noetherian} if $X$ is locally Noetherian
+and quasi-compact.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Here is the standard result characterizing locally Noetherian schemes.
+
+\begin{lemma}
+\label{lemma-locally-Noetherian}
+Let $X$ be a scheme. The following are equivalent:
+\begin{enumerate}
+\item The scheme $X$ is locally Noetherian.
+\item For every affine open $U \subset X$ the ring $\mathcal{O}_X(U)$
+is Noetherian.
+\item There exists an affine open covering $X = \bigcup U_i$ such that
+each $\mathcal{O}_X(U_i)$ is Noetherian.
+\item There exists an open covering $X = \bigcup X_j$
+such that each open subscheme $X_j$ is locally Noetherian.
+\end{enumerate}
+Moreover, if $X$ is locally Noetherian then every open subscheme
+is locally Noetherian.
+\end{lemma}
+
+\begin{proof}
+To show this it suffices to show that being Noetherian is a local
+property of rings, see Lemma \ref{lemma-locally-P}.
+Any localization of a Noetherian ring is Noetherian, see
+Algebra, Lemma \ref{algebra-lemma-Noetherian-permanence}.
+By Algebra, Lemma \ref{algebra-lemma-cover} we see the second
+property to Definition \ref{definition-property-local}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-immersion-into-noetherian}
+Any immersion $Z \to X$ with $X$ locally Noetherian is quasi-compact.
+\end{lemma}
+
+\begin{proof}
+A closed immersion is clearly quasi-compact.
+A composition of quasi-compact morphisms is quasi-compact,
+see Topology, Lemma \ref{topology-lemma-composition-quasi-compact}.
+Hence it suffices to show that an open immersion into
+a locally Noetherian scheme is quasi-compact.
+Using Schemes, Lemma \ref{schemes-lemma-quasi-compact-affine}
+we reduce to the case where $X$ is affine.
+Any open subset of the spectrum of a Noetherian ring
+is quasi-compact (for example
+combine Algebra, Lemma \ref{algebra-lemma-Noetherian-topology} and
+Topology, Lemmas \ref{topology-lemma-Noetherian} and
+\ref{topology-lemma-Noetherian-quasi-compact}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-Noetherian-quasi-separated}
+A locally Noetherian scheme is quasi-separated.
+\end{lemma}
+
+\begin{proof}
+By Schemes, Lemma \ref{schemes-lemma-characterize-quasi-separated}
+we have to show that the intersection $U \cap V$ of two
+affine opens of $X$ is quasi-compact. This follows from
+Lemma \ref{lemma-immersion-into-noetherian} above on
+considering the open immersion $U \cap V \to U$ for example.
+(But really it is just because any open of the spectrum of a
+Noetherian ring is quasi-compact.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-Noetherian-topology}
+A (locally) Noetherian scheme has a (locally)
+Noetherian underlying topological space,
+see Topology, Definition \ref{topology-definition-noetherian}.
+\end{lemma}
+
+\begin{proof}
+This is because a Noetherian scheme is a finite union of spectra
+of Noetherian rings and
+Algebra, Lemma \ref{algebra-lemma-Noetherian-topology} and
+Topology, Lemma \ref{topology-lemma-finite-union-Noetherian}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-closed-in-Noetherian}
+Any locally closed subscheme of a (locally) Noetherian
+scheme is (locally) Noetherian.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Any quotient, and any localization of a Noetherian
+ring is Noetherian. For the Noetherian case use again
+that any subset of a Noetherian space is a Noetherian space
+(with induced topology).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-Noetherian-irreducible-components}
+A Noetherian scheme has a finite number of irreducible components.
+\end{lemma}
+
+\begin{proof}
+The underlying topological space of a Noetherian scheme is Noetherian
+(Lemma \ref{lemma-Noetherian-topology})
+and we conclude because a Noetherian topological space
+has only finitely many irreducible components
+(Topology, Lemma \ref{topology-lemma-Noetherian}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-Noetherian-schemes-quasi-compact}
+Any morphism of schemes $f : X \to Y$ with $X$ Noetherian
+is quasi-compact.
+\end{lemma}
+
+\begin{proof}
+Use Lemma \ref{lemma-Noetherian-topology}
+and use that any subset of a Noetherian topological
+space is quasi-compact (see Topology, Lemmas
+Lemmas \ref{topology-lemma-Noetherian} and
+\ref{topology-lemma-Noetherian-quasi-compact}).
+\end{proof}
+
+\noindent
+Here is a fun lemma.
+It says that every locally Noetherian scheme has plenty of
+closed points (at least one in every closed subset).
+
+\begin{lemma}
+\label{lemma-locally-Noetherian-closed-point}
+Any nonempty locally Noetherian scheme has a closed point.
+Any nonempty closed subset of a locally Noetherian scheme has a closed point.
+Equivalently, any point of a locally Noetherian scheme specializes
+to a closed point.
+\end{lemma}
+
+\begin{proof}
+The second assertion follows from the first (using
+Schemes, Lemma \ref{schemes-lemma-reduced-closed-subscheme}
+and Lemma \ref{lemma-locally-closed-in-Noetherian}).
+Consider any nonempty affine open $U \subset X$.
+Let $x \in U$ be a closed point. If $x$ is a closed point
+of $X$ then we are done. If not, let $X_0 \subset X$ be the
+reduced induced closed subscheme structure on $\overline{\{x\}}$.
+Then $U_0 = U \cap X_0$ is an affine open of $X_0$ by
+Schemes, Lemma \ref{schemes-lemma-closed-subspace-scheme} and
+$U_0 = \{x\}$. Let $y \in X_0$, $y \not = x$ be a specialization of $x$.
+Consider the local ring $R = \mathcal{O}_{X_0, y}$.
+This is a Noetherian local ring as $X_0$ is Noetherian
+by Lemma \ref{lemma-locally-closed-in-Noetherian}. Denote $V \subset \Spec(R)$
+the inverse image of $U_0$ in $\Spec(R)$ by the canonical morphism
+$\Spec(R) \to X_0$ (see Schemes, Section \ref{schemes-section-points}.)
+By construction $V$ is a singleton with unique point corresponding to $x$ (use
+Schemes, Lemma \ref{schemes-lemma-specialize-points}).
+By
+Algebra, Lemma \ref{algebra-lemma-Noetherian-local-domain-dim-2-infinite-opens}
+we see that $\dim(R) = 1$.
+In other words, we see that $y$ is an immediate specialization
+of $x$ (see Topology, Definition \ref{topology-definition-dimension-function}).
+In other words, any
+point $y \not = x$ such that $x \leadsto y$ is an immediate
+specialization of $x$. Clearly each of these points is a
+closed point as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-Noetherian-specialization-dvr}
+Let $X$ be a locally Noetherian scheme.
+Let $x' \leadsto x$ be a specialization of points of $X$.
+Then
+\begin{enumerate}
+\item there exists a discrete valuation ring $R$ and a morphism
+$f : \Spec(R) \to X$ such that the generic point $\eta$ of
+$\Spec(R)$ maps to $x'$ and the special point maps to $x$, and
+\item given a finitely generated field extension $\kappa(x') \subset K$
+we may arrange it so that the extension $\kappa(x') \subset \kappa(\eta)$
+induced by $f$ is isomorphic to the given one.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $x' \leadsto x$ be a specialization in $X$, and let
+$\kappa(x') \subset K$ be a finitely generated extension of fields. By
+Schemes, Lemma \ref{schemes-lemma-specialize-points}
+and the discussion following
+Schemes, Lemma \ref{schemes-lemma-characterize-points}
+this leads to ring maps $\mathcal{O}_{X, x} \to \kappa(x') \to K$.
+Let $R \subset K$ be any discrete valuation ring whose field of fractions is
+$K$ and which dominates the image of $\mathcal{O}_{X, x} \to K$, see
+Algebra, Lemma \ref{algebra-lemma-exists-dvr}.
+The ring map $\mathcal{O}_{X, x} \to R$ induces the morphism
+$f : \Spec(R) \to X$, see
+Schemes, Lemma \ref{schemes-lemma-morphism-from-spec-local-ring}.
+This morphism has all the desired properties by construction.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-thin-infinite-sequence}
+Let $S$ be a Noetherian scheme. Let $T \subset S$ be an infinite subset.
+Then there exists an infinite subset $T' \subset T$
+such that there are no nontrivial specializations among the points $T'$.
+\end{lemma}
+
+\begin{proof}
+Let $T_0 \subset T$ be the set of $t \in T$ which do not specialize
+to another point of $T$. If $T_0$ is infinite, then $T' = T_0$ works.
+Hence we may and do assume $T_0$ is finite.
+Inductively, for $i > 0$, consider the set $T_i \subset T$
+of $t \in T$ such that
+\begin{enumerate}
+\item $t \not \in T_{i - 1} \cup T_{i - 2} \cup \ldots \cup T_0$,
+\item there exist a nontrivial specialization $t \leadsto t'$ with
+$t' \in T_{i - 1}$, and
+\item for any nontrivial specialization
+$t \leadsto t'$ with $t' \in T$ we have
+$t' \in T_{i - 1} \cup T_{i - 2} \cup \ldots \cup T_0$.
+\end{enumerate}
+Again, if $T_i$ is infinite, then $T' = T_i$ works.
+Let $d$ be the maximum of the dimensions of the local rings
+$\mathcal{O}_{S, t}$ for $t \in T_0$; then $d$ is an integer
+because $T_0$ is finite and the dimensions of the local rings
+are finite by Algebra, Proposition \ref{algebra-proposition-dimension}.
+Then $T_i = \emptyset$ for $i > d$.
+Namely, if $t \in T_i$ then we can find a sequence
+of nontrivial specializations
+$t = t_i \leadsto t_{i - 1} \leadsto \ldots \leadsto t_0$
+with $t_0 \in T_0$. As
+the points $t = t_i, t_{i - 1}, \ldots, t_0$ are in
+$\Spec(\mathcal{O}_{S, t_0})$
+(Schemes, Lemma \ref{schemes-lemma-specialize-points}),
+we see that $i \leq d$.
+Thus $\bigcup T_i = T_d \cup \ldots \cup T_0$ is a finite subset of $T$.
+
+\medskip\noindent
+Suppose $t \in T$ is not in $\bigcup T_i$. Then there must be a specialization
+$t \leadsto t'$ with $t' \in T$ and $t' \not \in \bigcup T_i$. (Namely, if
+every specialization of $t$ is in the finite set $T_d \cup \ldots \cup T_0$,
+then there is a maximum $i$ such that there is some specialization
+$t \leadsto t'$ with $t' \in T_i$ and then $t \in T_{i + 1}$ by construction.)
+Hence we get an infinite sequence
+$$
+t \leadsto t' \leadsto t'' \leadsto \ldots
+$$
+of nontrivial specializations between points of $T \setminus \bigcup T_i$.
+This is impossible because the underlying topological space of $S$
+is Noetherian by Lemma \ref{lemma-locally-Noetherian-quasi-separated}.
+\end{proof}
+
+
+
+
+\section{Jacobson schemes}
+\label{section-jacobson}
+
+\noindent
+Recall that a space is said to be {\it Jacobson} if the closed points are
+dense in every closed subset, see
+Topology, Section \ref{topology-section-space-jacobson}.
+
+\begin{definition}
+\label{definition-jacobson}
+A scheme $S$ is said to be {\it Jacobson} if its underlying topological
+space is Jacobson.
+\end{definition}
+
+\noindent
+Recall that a ring $R$ is Jacobson if every radical ideal of $R$
+is the intersection of maximal ideals, see
+Algebra, Definition \ref{algebra-definition-ring-jacobson}.
+
+\begin{lemma}
+\label{lemma-affine-jacobson}
+An affine scheme $\Spec(R)$ is Jacobson if and only if
+the ring $R$ is Jacobson.
+\end{lemma}
+
+\begin{proof}
+This is Algebra, Lemma \ref{algebra-lemma-jacobson}.
+\end{proof}
+
+\noindent
+Here is the standard result characterizing Jacobson schemes.
+Intuitively it claims that Jacobson $\Leftrightarrow$ locally Jacobson.
+
+\begin{lemma}
+\label{lemma-locally-jacobson}
+Let $X$ be a scheme. The following are equivalent:
+\begin{enumerate}
+\item The scheme $X$ is Jacobson.
+\item The scheme $X$ is ``locally Jacobson'' in the sense of
+Definition \ref{definition-locally-P}.
+\item For every affine open $U \subset X$ the ring $\mathcal{O}_X(U)$
+is Jacobson.
+\item There exists an affine open covering $X = \bigcup U_i$ such that
+each $\mathcal{O}_X(U_i)$ is Jacobson.
+\item There exists an open covering $X = \bigcup X_j$
+such that each open subscheme $X_j$ is Jacobson.
+\end{enumerate}
+Moreover, if $X$ is Jacobson then every open subscheme
+is Jacobson.
+\end{lemma}
+
+\begin{proof}
+The final assertion of the lemma holds by
+Topology, Lemma \ref{topology-lemma-jacobson-inherited}.
+The equivalence of (5) and (1) is
+Topology, Lemma \ref{topology-lemma-jacobson-local}.
+Hence, using Lemma \ref{lemma-affine-jacobson},
+we see that (1) $\Leftrightarrow$ (2).
+To finish proving the lemma it suffices to show that ``Jacobson''
+is a local property of rings, see Lemma \ref{lemma-locally-P}.
+Any localization of a Jacobson ring at an element is Jacobson, see
+Algebra, Lemma \ref{algebra-lemma-Jacobson-invert-element}.
+Suppose $R$ is a ring, $f_1, \ldots, f_n \in R$ generate the unit
+ideal and each $R_{f_i}$ is Jacobson. Then we see that
+$\Spec(R) = \bigcup D(f_i)$ is a union of open subsets
+which are all Jacobson, and hence $\Spec(R)$ is Jacobson
+by Topology, Lemma \ref{topology-lemma-jacobson-local} again.
+This proves the second property of Definition \ref{definition-property-local}.
+\end{proof}
+
+\noindent
+Many schemes used commonly in algebraic geometry are Jacobson, see
+Morphisms, Lemma \ref{morphisms-lemma-ubiquity-Jacobson-schemes}.
+We mention here the following interesting case.
+
+\begin{lemma}
+\label{lemma-complement-closed-point-Jacobson}
+Let $R$ be a Noetherian local ring with maximal ideal $\mathfrak m$.
+In this case the scheme $S = \Spec(R) \setminus \{\mathfrak m\}$
+is Jacobson.
+\end{lemma}
+
+\begin{proof}
+Since $\Spec(R)$ is a Noetherian scheme,
+$S$ is a Noetherian scheme (Lemma \ref{lemma-locally-closed-in-Noetherian}).
+Hence $S$ is a sober, Noetherian topological space (use
+Schemes, Lemma \ref{schemes-lemma-scheme-sober}).
+Assume $S$ is not Jacobson to
+get a contradiction. By
+Topology, Lemma \ref{topology-lemma-non-jacobson-Noetherian-characterize}
+there exists some non-closed point $\xi \in S$
+such that $\{\xi\}$ is locally closed. This corresponds
+to a prime $\mathfrak p \subset R$ such that (1) there exists
+a prime $\mathfrak q$, $\mathfrak p \subset \mathfrak q \subset \mathfrak m$
+with both inclusions strict, and (2) $\{\mathfrak p\}$ is open in
+$\Spec(R/\mathfrak p)$. This is impossible by Algebra,
+Lemma \ref{algebra-lemma-Noetherian-local-domain-dim-2-infinite-opens}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Normal schemes}
+\label{section-normal}
+
+\noindent
+Recall that a ring $R$ is said to be normal if all its local rings
+are normal domains,
+see Algebra, Definition \ref{algebra-definition-ring-normal}.
+A normal domain is a domain which is integrally closed in its field
+of fractions, see
+Algebra, Definition \ref{algebra-definition-domain-normal}.
+Thus it makes sense to define a normal scheme as follows.
+
+\begin{definition}
+\label{definition-normal}
+A scheme $X$ is {\it normal} if and only if for all $x \in X$ the local ring
+$\mathcal{O}_{X, x}$ is a normal domain.
+\end{definition}
+
+\noindent
+This seems to be the definition used in EGA, see \cite[0, 4.1.4]{EGA}.
+Suppose $X = \Spec(A)$, and $A$ is reduced. Then saying that $X$ is
+normal is not equivalent to saying that $A$ is integrally closed in its
+total ring of fractions. However, if $A$ is Noetherian then this is the case
+(see Algebra, Lemma \ref{algebra-lemma-characterize-reduced-ring-normal}).
+
+\begin{lemma}
+\label{lemma-locally-normal}
+Let $X$ be a scheme. The following are equivalent:
+\begin{enumerate}
+\item The scheme $X$ is normal.
+\item For every affine open $U \subset X$ the ring $\mathcal{O}_X(U)$
+is normal.
+\item There exists an affine open covering $X = \bigcup U_i$ such that
+each $\mathcal{O}_X(U_i)$ is normal.
+\item There exists an open covering $X = \bigcup X_j$
+such that each open subscheme $X_j$ is normal.
+\end{enumerate}
+Moreover, if $X$ is normal then every open subscheme
+is normal.
+\end{lemma}
+
+\begin{proof}
+This is clear from the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normal-reduced}
+A normal scheme is reduced.
+\end{lemma}
+
+\begin{proof}
+Immediate from the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-integral-normal}
+Let $X$ be an integral scheme.
+Then $X$ is normal if and only if for every affine open
+$U \subset X$ the ring $\mathcal{O}_X(U)$ is a normal domain.
+\end{lemma}
+
+\begin{proof}
+This follows from
+Algebra, Lemma \ref{algebra-lemma-normality-is-local}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normal-locally-finite-nr-irreducibles}
+Let $X$ be a scheme such that any quasi-compact open has a finite number
+of irreducible components. The following are equivalent:
+\begin{enumerate}
+\item $X$ is normal, and
+\item $X$ is a disjoint union of normal integral schemes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+It is immediate from the definitions that (2) implies (1).
+Let $X$ be a normal scheme such that every quasi-compact open
+has a finite number of irreducible components.
+If $X$ is affine then $X$ satisfies (2) by
+Algebra, Lemma \ref{algebra-lemma-characterize-reduced-ring-normal}.
+For a general $X$, let $X = \bigcup X_i$ be
+an affine open covering. Note that also each $X_i$ has
+but a finite number of irreducible components, and the lemma holds
+for each $X_i$. Let $T \subset X$ be an irreducible component.
+By the affine case each intersection $T \cap X_i$ is open in $X_i$
+and an integral normal scheme.
+Hence $T \subset X$ is open, and an integral normal scheme.
+This proves that $X$ is the disjoint union of its irreducible components,
+which are integral normal schemes. There are only finitely many
+by assumption.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normal-Noetherian}
+Let $X$ be a Noetherian scheme.
+The following are equivalent:
+\begin{enumerate}
+\item $X$ is normal, and
+\item $X$ is a finite disjoint union of normal integral schemes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This is a special case of
+Lemma \ref{lemma-normal-locally-finite-nr-irreducibles} because a Noetherian
+scheme has a Noetherian underlying topological space
+(Lemma \ref{lemma-Noetherian-topology}
+and
+Topology, Lemma \ref{topology-lemma-Noetherian}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normal-locally-Noetherian}
+Let $X$ be a locally Noetherian scheme.
+The following are equivalent:
+\begin{enumerate}
+\item $X$ is normal, and
+\item $X$ is a disjoint union of integral normal schemes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: This is purely topological from
+Lemma \ref{lemma-normal-Noetherian}.
+\end{proof}
+
+\begin{remark}
+\label{remark-normal-connected-irreducible}
+Let $X$ be a normal scheme. If $X$ is locally Noetherian then we see that
+$X$ is integral if and only if $X$ is connected, see
+Lemma \ref{lemma-normal-locally-Noetherian}.
+But there exists a connected affine scheme $X$ such that
+$\mathcal{O}_{X, x}$ is a domain for all $x \in X$, but $X$ is not
+irreducible, see Examples, Section
+\ref{examples-section-connected-locally-integral-not-integral}.
+This example is even a normal scheme (proof omitted), so beware!
+\end{remark}
+
+\begin{lemma}
+\label{lemma-normal-integral-sections}
+Let $X$ be an integral normal scheme.
+Then $\Gamma(X, \mathcal{O}_X)$ is a normal domain.
+\end{lemma}
+
+\begin{proof}
+Set $R = \Gamma(X, \mathcal{O}_X)$.
+It is clear that $R$ is a domain.
+Suppose $f = a/b$ is an element of its fraction field
+which is integral over $R$. Say we have
+$f^d + \sum_{i = 0, \ldots, d - 1} a_i f^i = 0$ with
+$a_i \in R$. Let $U \subset X$ be affine open.
+Since $b \in R$ is not zero and since $X$ is integral we see
+that also $b|_U \in \mathcal{O}_X(U)$ is not zero.
+Hence $a/b$ is an element of the fraction field of
+$\mathcal{O}_X(U)$ which is integral over $\mathcal{O}_X(U)$
+(because we can use the same polynomial
+$f^d + \sum_{i = 0, \ldots, d - 1} a_i|_U f^i = 0$ on $U$).
+Since $\mathcal{O}_X(U)$ is a normal domain
+(Lemma \ref{lemma-locally-normal}), we see that
+$f_U = (a|_U)/(b|_U) \in \mathcal{O}_X(U)$. It is easy to
+see that $f_U|_V = f_V$ whenever $V \subset U \subset X$ are
+affine open. Hence the local sections $f_U$ glue to a global
+section $f$ as desired.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Cohen-Macaulay schemes}
+\label{section-Cohen-Macaulay}
+
+\noindent
+Recall, see Algebra, Definition \ref{algebra-definition-local-ring-CM},
+that a local Noetherian ring $(R, \mathfrak m)$ is
+said to be Cohen-Macaulay if $\text{depth}_{\mathfrak m}(R) = \dim(R)$.
+Recall that a Noetherian ring $R$ is said to be Cohen-Macaulay if
+every local ring $R_{\mathfrak p}$ of $R$ is Cohen-Macaulay,
+see Algebra, Definition \ref{algebra-definition-ring-CM}.
+
+\begin{definition}
+\label{definition-Cohen-Macaulay}
+Let $X$ be a scheme. We say $X$ is {\it Cohen-Macaulay} if
+for every $x \in X$ there exists an affine open neighbourhood
+$U \subset X$ of $x$ such that the ring $\mathcal{O}_X(U)$ is
+Noetherian and Cohen-Macaulay.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-characterize-Cohen-Macaulay}
+Let $X$ be a scheme. The following are equivalent:
+\begin{enumerate}
+\item $X$ is Cohen-Macaulay,
+\item $X$ is locally Noetherian and all of its local rings are Cohen-Macaulay,
+and
+\item $X$ is locally Noetherian and for any closed point $x \in X$
+the local ring $\mathcal{O}_{X, x}$ is Cohen-Macaulay.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Algebra, Lemma \ref{algebra-lemma-localize-CM} says that the localization of
+a Cohen-Macaulay local ring is Cohen-Macaulay. The lemma follows
+by combining this with Lemma \ref{lemma-locally-Noetherian},
+with the existence of closed
+points on locally Noetherian schemes
+(Lemma \ref{lemma-locally-Noetherian-closed-point}), and
+the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-Cohen-Macaulay}
+Let $X$ be a scheme. The following are equivalent:
+\begin{enumerate}
+\item The scheme $X$ is Cohen-Macaulay.
+\item For every affine open $U \subset X$ the ring $\mathcal{O}_X(U)$
+is Noetherian and Cohen-Macaulay.
+\item There exists an affine open covering $X = \bigcup U_i$ such that
+each $\mathcal{O}_X(U_i)$ is Noetherian and Cohen-Macaulay.
+\item There exists an open covering $X = \bigcup X_j$
+such that each open subscheme $X_j$ is Cohen-Macaulay.
+\end{enumerate}
+Moreover, if $X$ is Cohen-Macaulay then every open subscheme
+is Cohen-Macaulay.
+\end{lemma}
+
+\begin{proof}
+Combine Lemmas \ref{lemma-locally-Noetherian}
+and \ref{lemma-characterize-Cohen-Macaulay}.
+\end{proof}
+
+\noindent
+More information on Cohen-Macaulay schemes and depth can be found in
+Cohomology of Schemes, Section \ref{coherent-section-depth}.
+
+
+
+
+
+
+
+
+\section{Regular schemes}
+\label{section-regular}
+
+\noindent
+Recall, see Algebra, Definition \ref{algebra-definition-regular-local},
+that a local Noetherian ring $(R, \mathfrak m)$ is
+said to be {\it regular} if $\mathfrak m$ can be generated
+by $\dim(R)$ elements.
+Recall that a Noetherian ring $R$ is said to be {\it regular} if
+every local ring $R_{\mathfrak p}$ of $R$ is regular,
+see Algebra, Definition \ref{algebra-definition-regular}.
+
+\begin{definition}
+\label{definition-regular}
+Let $X$ be a scheme. We say $X$ is {\it regular}, or {\it nonsingular} if
+for every $x \in X$ there exists an affine open neighbourhood
+$U \subset X$ of $x$ such that the ring $\mathcal{O}_X(U)$ is
+Noetherian and regular.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-characterize-regular}
+Let $X$ be a scheme. The following are equivalent:
+\begin{enumerate}
+\item $X$ is regular,
+\item $X$ is locally Noetherian and all of its local rings are regular,
+and
+\item $X$ is locally Noetherian and for any closed point $x \in X$
+the local ring $\mathcal{O}_{X, x}$ is regular.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By the discussion in Algebra preceding Algebra, Definition
+\ref{algebra-definition-regular} we know that the localization of
+a regular local ring is regular. The lemma follows
+by combining this with Lemma \ref{lemma-locally-Noetherian},
+with the existence of closed
+points on locally Noetherian schemes
+(Lemma \ref{lemma-locally-Noetherian-closed-point}), and
+the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-regular}
+Let $X$ be a scheme. The following are equivalent:
+\begin{enumerate}
+\item The scheme $X$ is regular.
+\item For every affine open $U \subset X$ the ring $\mathcal{O}_X(U)$
+is Noetherian and regular.
+\item There exists an affine open covering $X = \bigcup U_i$ such that
+each $\mathcal{O}_X(U_i)$ is Noetherian and regular.
+\item There exists an open covering $X = \bigcup X_j$
+such that each open subscheme $X_j$ is regular.
+\end{enumerate}
+Moreover, if $X$ is regular then every open subscheme is regular.
+\end{lemma}
+
+\begin{proof}
+Combine Lemmas \ref{lemma-locally-Noetherian}
+and \ref{lemma-characterize-regular}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-regular-normal}
+A regular scheme is normal.
+\end{lemma}
+
+\begin{proof}
+See
+Algebra, Lemma \ref{algebra-lemma-regular-normal}.
+\end{proof}
+
+
+
+
+\section{Dimension}
+\label{section-dimension}
+
+\noindent
+The dimension of a scheme is just the dimension of its underlying
+topological space.
+
+\begin{definition}
+\label{definition-dimension}
+Let $X$ be a scheme.
+\begin{enumerate}
+\item The {\it dimension} of $X$ is just the dimension of $X$
+as a topological spaces, see
+Topology, Definition \ref{topology-definition-Krull}.
+\item For $x \in X$ we denote $\dim_x(X)$ the dimension of the underlying
+topological space of $X$ at $x$ as in
+Topology, Definition \ref{topology-definition-Krull}.
+We say $\dim_x(X)$ is the {\it dimension of $X$ at $x$}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+As a scheme has a sober underlying topological space
+(Schemes, Lemma \ref{schemes-lemma-scheme-sober})
+we may compute the dimension of $X$ as the supremum of the lengths $n$
+of chains
+$$
+T_0 \subset T_1 \subset \ldots \subset T_n
+$$
+of irreducible closed subsets of $X$, or as the supremum of the lengths $n$
+of chains of specializations
+$$
+\xi_n \leadsto \xi_{n - 1} \leadsto \ldots \leadsto \xi_0
+$$
+of points of $X$.
+
+\begin{lemma}
+\label{lemma-dimension}
+Let $X$ be a scheme. The following are equal
+\begin{enumerate}
+\item The dimension of $X$.
+\item The supremum of the dimensions of the local rings of $X$.
+\item The supremum of $\dim_x(X)$ for $x \in X$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Note that given a chain of specializations
+$$
+\xi_n \leadsto \xi_{n - 1} \leadsto \ldots \leadsto \xi_0
+$$
+of points of $X$ all of the points $\xi_i$ correspond to prime ideals
+of the local ring of $X$ at $\xi_0$ by
+Schemes, Lemma \ref{schemes-lemma-specialize-points}.
+Hence we see that the dimension of $X$ is the supremum of the dimensions
+of its local rings. In particular $\dim_x(X) \geq \dim(\mathcal{O}_{X, x})$
+as $\dim_x(X)$ is the minimum of the dimensions of open neighbourhoods of
+$x$. Thus $\sup_{x \in X} \dim_x(X) \geq \dim(X)$. On the other hand,
+it is clear that $\sup_{x \in X} \dim_x(X) \leq \dim(X)$
+as $\dim(U) \leq \dim(X)$ for any open subset of $X$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-codimension-local-ring}
+Let $X$ be a scheme. Let $Y \subset X$ be an irreducible closed
+subset. Let $\xi \in Y$ be the generic point. Then
+$$
+\text{codim}(Y, X) = \dim(\mathcal{O}_{X, \xi})
+$$
+where the codimension is as defined in
+Topology, Definition \ref{topology-definition-codimension}.
+\end{lemma}
+
+\begin{proof}
+By Topology, Lemma \ref{topology-lemma-codimension-at-generic-point}
+we may replace $X$ by an affine open neighbourhood of $\xi$. In this
+case the result follows easily from
+Algebra, Lemma \ref{algebra-lemma-irreducible-components-containing-x}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-generic-point}
+Let $X$ be a scheme. Let $x \in X$. Then $x$ is a generic point of
+an irreducible component of $X$ if and only if $\dim(\mathcal{O}_{X, x}) = 0$.
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-codimension-local-ring} for example.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-Noetherian-dimension-0}
+A locally Noetherian scheme of dimension $0$ is a disjoint
+union of spectra of Artinian local rings.
+\end{lemma}
+
+\begin{proof}
+A Noetherian ring of dimension $0$ is a finite product of Artinian local
+rings, see
+Algebra, Proposition \ref{algebra-proposition-dimension-zero-ring}.
+Hence an affine open of a locally Noetherian scheme $X$ of dimension
+$0$ has discrete underlying topological space. This implies that
+the topology on $X$ is discrete. The lemma follows easily from these
+remarks.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dimension-zero}
+\begin{reference}
+Email from Ofer Gabber dated June 4, 2016
+\end{reference}
+Let $X$ be a scheme of dimension zero. The following are equivalent
+\begin{enumerate}
+\item $X$ is quasi-separated,
+\item $X$ is separated,
+\item $X$ is Hausdorff,
+\item every affine open is closed.
+\end{enumerate}
+In this case the connected components of $X$ are points.
+\end{lemma}
+
+\begin{proof}
+As the dimension of $X$ is zero, we see that for any affine open
+$U \subset X$ the space $U$ is profinite and satisfies
+a bunch of other properties which we will use freely below, see
+Algebra, Lemma \ref{algebra-lemma-ring-with-only-minimal-primes}.
+We choose an affine open covering $X = \bigcup U_i$.
+
+\medskip\noindent
+If (4) holds, then $U_i \cap U_j$ is a closed subset of
+$U_i$, hence quasi-compact, hence $X$ is quasi-separated,
+by Schemes, Lemma \ref{schemes-lemma-characterize-quasi-separated},
+hence (1) holds.
+
+\medskip\noindent
+If (1) holds, then $U_i \cap U_j$ is a quasi-compact open
+of $U_i$ hence closed in $U_i$. Then $U_i \cap U_j \to U_i$
+is an open immersion whose image is closed, hence it is a
+closed immersion. In particular $U_i \cap U_j$ is affine
+and $\mathcal{O}(U_i) \to \mathcal{O}_X(U_i \cap U_j)$ is surjective.
+Thus $X$ is separated
+by Schemes, Lemma \ref{schemes-lemma-characterize-quasi-separated},
+hence (2) holds.
+
+\medskip\noindent
+Assume (2) and let $x, y \in X$. Say $x \in U_i$. If $y \in U_i$
+too, then we can find disjoint open neighbourhoods of $x$ and $y$
+because $U_i$ is Hausdorff. Say $y \not \in U_i$ and $y \in U_j$.
+Then $y \not \in U_i \cap U_j$ which is an affine open of $U_j$
+and hence closed in $U_j$. Thus we can find an open neighbourhood
+of $y$ not meeting $U_i$ and we conclude that $X$ is Hausdorff,
+hence (3) holds.
+
+\medskip\noindent
+Assume (3). Let $U \subset X$ be affine open.
+Then $U$ is closed in $X$ by Topology, Lemma
+\ref{topology-lemma-quasi-compact-in-Hausdorff}.
+This proves (4) holds.
+
+\medskip\noindent
+We omit the proof of the final statement.
+\end{proof}
+
+
+
+
+
+
+\section{Catenary schemes}
+\label{section-catenary}
+
+\noindent
+Recall that a topological space $X$ is called {\it catenary} if
+for every pair of irreducible closed subsets $T \subset T'$
+there exist a maximal chain of irreducible closed subsets
+$$
+T = T_0 \subset T_1 \subset \ldots \subset T_e = T'
+$$
+and every such chain has the same length. See
+Topology, Definition \ref{topology-definition-catenary}.
+
+\begin{definition}
+\label{definition-catenary}
+Let $S$ be a scheme. We say $S$ is {\it catenary} if the
+underlying topological space of $S$ is catenary.
+\end{definition}
+
+\noindent
+Recall that a ring $A$ is called {\it catenary} if
+for any pair of prime ideals $\mathfrak p \subset \mathfrak q$
+there exists a maximal chain of primes
+$$
+\mathfrak p =
+\mathfrak p_0 \subset \ldots \subset \mathfrak p_e
+= \mathfrak q
+$$
+and all of these have the same length. See
+Algebra, Definition \ref{algebra-definition-catenary}.
+
+\begin{lemma}
+\label{lemma-catenary-local}
+Let $S$ be a scheme. The following are equivalent
+\begin{enumerate}
+\item $S$ is catenary,
+\item there exists an open covering of $S$ all of whose members are
+catenary schemes,
+\item for every affine open $\Spec(R) = U \subset S$ the ring
+$R$ is catenary, and
+\item there exists an affine open covering $S = \bigcup U_i$ such
+that each $U_i$ is the spectrum of a catenary ring.
+\end{enumerate}
+Moreover, in this case any locally closed subscheme of $S$ is catenary
+as well.
+\end{lemma}
+
+\begin{proof}
+Combine Topology, Lemma \ref{topology-lemma-catenary}, and
+Algebra, Lemma \ref{algebra-lemma-catenary}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-catenary-dimension-function}
+Let $S$ be a locally Noetherian scheme.
+The following are equivalent:
+\begin{enumerate}
+\item $S$ is catenary, and
+\item locally in the Zariski topology there exists a dimension function
+on $S$ (see Topology, Definition \ref{topology-definition-dimension-function}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This follows from
+Topology, Lemmas
+\ref{topology-lemma-catenary},
+\ref{topology-lemma-dimension-function-catenary}, and
+\ref{topology-lemma-locally-dimension-function},
+Schemes, Lemma \ref{schemes-lemma-scheme-sober}
+and finally Lemma \ref{lemma-Noetherian-topology}.
+\end{proof}
+
+\noindent
+It turns out that a scheme is catenary if and only if its local
+rings are catenary.
+
+\begin{lemma}
+\label{lemma-catenary-local-rings-catenary}
+Let $X$ be a scheme. The following are equivalent
+\begin{enumerate}
+\item $X$ is catenary, and
+\item for any $x \in X$ the local ring $\mathcal{O}_{X, x}$ is
+catenary.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume $X$ is catenary. Let $x \in X$. By Lemma \ref{lemma-catenary-local}
+we may replace $X$ by an affine open neighbourhood of $x$, and
+then $\Gamma(X, \mathcal{O}_X)$ is a catenary ring. By
+Algebra, Lemma \ref{algebra-lemma-localization-catenary} any
+localization of a catenary ring is
+catenary. Whence $\mathcal{O}_{X, x}$ is catenary.
+
+\medskip\noindent
+Conversely assume all local rings of $X$ are catenary.
+Let $Y \subset Y'$ be an inclusion of irreducible closed
+subsets of $X$. Let $\xi \in Y$ be the generic point.
+Let $\mathfrak p \subset \mathcal{O}_{X, \xi}$ be the prime
+corresponding to the generic point of $Y'$, see
+Schemes, Lemma \ref{schemes-lemma-specialize-points}. By that same
+lemma the irreducible closed subsets of $X$ in between $Y$ and $Y'$
+correspond to primes $\mathfrak q \subset \mathcal{O}_{X, \xi}$
+with $\mathfrak p \subset \mathfrak q \subset \mathfrak m_{\xi}$.
+Hence we see all maximal chains of these are finite and have the
+same length as $\mathcal{O}_{X, \xi}$ is a catenary ring.
+\end{proof}
+
+
+
+
+
+
+\section{Serre's conditions}
+\label{section-Rk}
+
+\noindent
+Here are two technical notions that are often useful.
+See also Cohomology of Schemes, Section \ref{coherent-section-depth}.
+
+\begin{definition}
+\label{definition-Rk}
+Let $X$ be a locally Noetherian scheme. Let $k \geq 0$.
+\begin{enumerate}
+\item We say $X$ is {\it regular in codimension $k$},
+or we say $X$ has property {\it $(R_k)$} if for every $x \in X$
+we have
+$$
+\dim(\mathcal{O}_{X, x}) \leq k
+\Rightarrow
+\mathcal{O}_{X, x}\text{ is regular}
+$$
+\item We say $X$ has property {\it $(S_k)$} if for every $x \in X$ we have
+$\text{depth}(\mathcal{O}_{X, x}) \geq \min(k, \dim(\mathcal{O}_{X, x}))$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+The phrase ``regular in codimension $k$'' makes sense since we have seen
+in Section \ref{section-catenary} that if $Y \subset X$ is irreducible
+closed with generic point $x$, then
+$\dim(\mathcal{O}_{X, x}) = \text{codim}(Y, X)$. For example condition
+$(R_0)$ means that for every generic point $\eta \in X$ of an irreducible
+component of $X$ the local ring $\mathcal{O}_{X, \eta}$ is a field.
+But for general Noetherian schemes it can happen that the regular locus
+of $X$ is badly behaved, so care has to be taken.
+
+\begin{lemma}
+\label{lemma-scheme-regular-iff-all-Rk}
+Let $X$ be a locally Noetherian scheme.
+Then $X$ is regular if and only if $X$ has $(R_k)$ for all $k \geq 0$.
+\end{lemma}
+
+\begin{proof}
+Follows from Lemma \ref{lemma-characterize-regular} and the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-scheme-CM-iff-all-Sk}
+Let $X$ be a locally Noetherian scheme.
+Then $X$ is Cohen-Macaulay if and only if $X$ has $(S_k)$ for all $k \geq 0$.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-characterize-Cohen-Macaulay}
+we reduce to looking at local rings.
+Hence the lemma is true because a Noetherian local ring is Cohen-Macaulay
+if and only if it has depth equal to its dimension.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-criterion-reduced}
+Let $X$ be a locally Noetherian scheme.
+Then $X$ is reduced if and only if $X$ has properties $(S_1)$ and $(R_0)$.
+\end{lemma}
+
+\begin{proof}
+This is Algebra, Lemma \ref{algebra-lemma-criterion-reduced}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-criterion-normal}
+Let $X$ be a locally Noetherian scheme.
+Then $X$ is normal if and only if $X$ has properties $(S_2)$ and $(R_1)$.
+\end{lemma}
+
+\begin{proof}
+This is Algebra, Lemma \ref{algebra-lemma-criterion-normal}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normal-dimension-1-regular}
+Let $X$ be a locally Noetherian scheme which is normal and
+has dimension $\leq 1$. Then $X$ is regular.
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-criterion-normal} and the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normal-dimension-2-Cohen-Macaulay}
+Let $X$ be a locally Noetherian scheme which is normal and
+has dimension $\leq 2$. Then $X$ is Cohen-Macaulay.
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-criterion-normal} and the definitions.
+\end{proof}
+
+
+
+
+
+
+
+\section{Japanese and Nagata schemes}
+\label{section-nagata}
+
+\noindent
+The notions considered in this section are not prominently defined in EGA.
+A ``universally Japanese scheme'' is mentioned and defined in
+\cite[IV Corollary 5.11.4]{EGA}. A ``Japanese scheme'' is mentioned in
+\cite[IV Remark 10.4.14 (ii)]{EGA} but no definition is given.
+A Nagata scheme (as given below) occurs in a few
+places in the literature (see for example \cite[Definition 8.2.30]{Liu} and
+\cite[Page 142]{Greco}).
+
+\medskip\noindent
+We briefly recall that a domain $R$ is called {\it Japanese} if the integral
+closure of $R$ in any finite extension of its fraction field is finite over
+$R$. A ring $R$ is called {\it universally Japanese} if for any finite type
+ring map $R \to S$ with $S$ a domain $S$ is Japanese. A ring $R$ is called
+{\it Nagata} if it is Noetherian and $R/\mathfrak p$ is Japanese for every
+prime $\mathfrak p$ of $R$.
+
+\begin{definition}
+\label{definition-nagata}
+Let $X$ be a scheme.
+\begin{enumerate}
+\item Assume $X$ integral. We say $X$ is {\it Japanese}
+if for every $x \in X$ there exists an
+affine open neighbourhood $x \in U \subset X$ such that the ring
+$\mathcal{O}_X(U)$ is Japanese (see
+Algebra, Definition \ref{algebra-definition-N}).
+\item We say $X$ is {\it universally Japanese} if for every $x \in X$
+there exists an affine open neighbourhood $x \in U \subset X$ such that
+the ring $\mathcal{O}_X(U)$ is universally Japanese (see
+Algebra, Definition \ref{algebra-definition-nagata}).
+\item We say $X$ is {\it Nagata} if for every $x \in X$ there exists an
+affine open neighbourhood $x \in U \subset X$ such that the ring
+$\mathcal{O}_X(U)$ is Nagata (see
+Algebra, Definition \ref{algebra-definition-nagata}).
+\end{enumerate}
+\end{definition}
+
+\noindent
+Being Nagata is the same thing as being locally Noetherian
+and universally Japanese, see
+Lemma \ref{lemma-nagata-universally-Japanese}.
+
+\begin{remark}
+\label{remark-non-integral-Japanese}
+In \cite{Hoobler-finite} a (locally Noetherian) scheme $X$ is called
+Japanese if for every $x \in X$ and every associated prime $\mathfrak p$
+of $\mathcal{O}_{X, x}$ the ring $\mathcal{O}_{X, x}/\mathfrak p$ is
+Japanese. We do not use this definition since there exists a one
+dimensional noetherian domain with excellent (in particular
+Japanese) local rings whose normalization is not finite. See
+\cite[Example 1]{Hochster-loci} or \cite{Heinzer-Levy} or
+\cite[Expos\'e XIX]{Traveaux}.
+On the other hand, we could circumvent this problem by calling a scheme
+$X$ Japanese if for every affine open $\Spec(A) \subset X$ the ring
+$A/\mathfrak p$ is Japanese for every associated prime $\mathfrak p$ of $A$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-nagata-locally-Noetherian}
+A Nagata scheme is locally Noetherian.
+\end{lemma}
+
+\begin{proof}
+This is true because a Nagata ring is Noetherian by definition.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-Japanese}
+Let $X$ be an integral scheme. The following are equivalent:
+\begin{enumerate}
+\item The scheme $X$ is Japanese.
+\item For every affine open $U \subset X$ the domain $\mathcal{O}_X(U)$
+is Japanese.
+\item There exists an affine open covering $X = \bigcup U_i$
+such that each $\mathcal{O}_X(U_i)$ is Japanese.
+\item There exists an open covering $X = \bigcup X_j$
+such that each open subscheme $X_j$ is Japanese.
+\end{enumerate}
+Moreover, if $X$ is Japanese then every open subscheme
+is Japanese.
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-locally-P} and
+Algebra, Lemmas \ref{algebra-lemma-localize-N} and
+\ref{algebra-lemma-Japanese-local}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-universally-Japanese}
+Let $X$ be a scheme. The following are equivalent:
+\begin{enumerate}
+\item The scheme $X$ is universally Japanese.
+\item For every affine open $U \subset X$ the ring $\mathcal{O}_X(U)$
+is universally Japanese.
+\item There exists an affine open covering $X = \bigcup U_i$
+such that each $\mathcal{O}_X(U_i)$ is universally Japanese.
+\item There exists an open covering $X = \bigcup X_j$
+such that each open subscheme $X_j$ is universally Japanese.
+\end{enumerate}
+Moreover, if $X$ is universally Japanese then every open subscheme
+is universally Japanese.
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-locally-P} and
+Algebra, Lemmas \ref{algebra-lemma-universally-japanese} and
+\ref{algebra-lemma-nagata-local}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-nagata}
+Let $X$ be a scheme. The following are equivalent:
+\begin{enumerate}
+\item The scheme $X$ is Nagata.
+\item For every affine open $U \subset X$ the ring $\mathcal{O}_X(U)$
+is Nagata.
+\item There exists an affine open covering $X = \bigcup U_i$
+such that each $\mathcal{O}_X(U_i)$ is Nagata.
+\item There exists an open covering $X = \bigcup X_j$
+such that each open subscheme $X_j$ is Nagata.
+\end{enumerate}
+Moreover, if $X$ is Nagata then every open subscheme is Nagata.
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-locally-P} and
+Algebra, Lemmas \ref{algebra-lemma-nagata-localize} and
+\ref{algebra-lemma-nagata-local}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-nagata}
+Let $X$ be a locally Noetherian scheme.
+Then $X$ is Nagata if and only if every integral closed subscheme
+$Z \subset X$ is Japanese.
+\end{lemma}
+
+\begin{proof}
+Assume $X$ is Nagata. Let $Z \subset X$ be an integral closed subscheme.
+Let $z \in Z$.
+Let $\Spec(A) = U \subset X$ be an affine open containing $z$
+such that $A$ is Nagata. Then
+$Z \cap U \cong \Spec(A/\mathfrak p)$ for some prime $\mathfrak p$,
+see Schemes, Lemma \ref{schemes-lemma-closed-subspace-scheme} (and
+Definition \ref{definition-integral}). By
+Algebra, Definition \ref{algebra-definition-nagata} we see
+that $A/\mathfrak p$ is Japanese. Hence $Z$ is Japanese by definition.
+
+\medskip\noindent
+Assume every integral closed subscheme of $X$ is Japanese.
+Let $\Spec(A) = U \subset X$ be any affine open.
+As $X$ is locally Noetherian we see that $A$ is Noetherian
+(Lemma \ref{lemma-locally-Noetherian}). Let $\mathfrak p \subset A$
+be a prime ideal. We have to show that $A/\mathfrak p$ is Japanese.
+Let $T \subset U$ be the closed subset $V(\mathfrak p) \subset \Spec(A)$.
+Let $\overline{T} \subset X$ be the closure. Then $\overline{T}$ is
+irreducible as the closure of an irreducible subset. Hence the reduced
+closed subscheme defined by $\overline{T}$ is an integral closed
+subscheme (called $\overline{T}$ again), see
+Schemes, Lemma \ref{schemes-lemma-reduced-closed-subscheme}.
+In other words, $\Spec(A/\mathfrak p)$ is an affine
+open of an integral closed subscheme of $X$. This subscheme is Japanese
+by assumption and by Lemma \ref{lemma-locally-Japanese} we see that
+$A/\mathfrak p$ is Japanese.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-nagata-universally-Japanese}
+Let $X$ be a scheme.
+The following are equivalent:
+\begin{enumerate}
+\item $X$ is Nagata, and
+\item $X$ is locally Noetherian and universally Japanese.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This is
+Algebra, Proposition \ref{algebra-proposition-nagata-universally-japanese}.
+\end{proof}
+
+\noindent
+This discussion will be continued in
+Morphisms, Section \ref{morphisms-section-nagata}.
+
+
+
+
+
+\section{The singular locus}
+\label{section-singular-locus}
+
+\noindent
+Here is the definition.
+
+\begin{definition}
+\label{definition-singular-locus}
+Let $X$ be a locally Noetherian scheme. The {\it regular locus}
+$\text{Reg}(X)$ of $X$ is the set of $x \in X$ such that $\mathcal{O}_{X, x}$
+is a regular local ring. The {\it singular locus} $\text{Sing}(X)$ is the
+complement $X \setminus \text{Reg}(X)$, i.e., the set of points $x \in X$
+such that $\mathcal{O}_{X, x}$ is not a regular local ring.
+\end{definition}
+
+\noindent
+The regular locus of a locally Noetherian scheme is stable under
+generalizations, see the discussion preceding
+Algebra, Definition \ref{algebra-definition-regular}.
+However, for general locally Noetherian schemes the regular locus
+need not be open. In
+More on Algebra, Section \ref{more-algebra-section-singular-locus}
+the reader can find some criteria for when this is the case.
+We will discuss this further in
+Morphisms, Section \ref{morphisms-section-singular-locus}.
+
+
+
+
+
+
+\section{Local irreducibility}
+\label{section-unibranch}
+
+\noindent
+Recall that in More on Algebra, Section \ref{more-algebra-section-unibranch}
+we introduced the notion of a (geometrically) unibranch local ring.
+
+\begin{definition}
+\label{definition-unibranch}
+\begin{reference}
+\cite[Chapter IV (6.15.1)]{EGA4}
+\end{reference}
+Let $X$ be a scheme. Let $x \in X$. We say $X$ is {\it unibranch at $x$}
+if the local ring $\mathcal{O}_{X, x}$ is unibranch. We say $X$ is
+{\it geometrically unibranch at $x$}
+if the local ring $\mathcal{O}_{X, x}$ is geometrically unibranch.
+We say $X$ is {\it unibranch} if $X$ is unibranch at all of its points.
+We say $X$ is {\it geometrically unibranch} if $X$ is
+geometrically unibranch at all of its points.
+\end{definition}
+
+\noindent
+To be sure, it can happen that a local ring $A$ is geometrically unibranch
+(in the sense of
+More on Algebra, Definition \ref{more-algebra-definition-unibranch})
+but the scheme $\Spec(A)$ is not geometrically unibranch in the sense
+of Definition \ref{definition-unibranch}. For example this happens
+if $A$ is the local ring at the vertex of the cone over an irreducible
+plane curve which has ordinary double point singularity (a node).
+
+\begin{lemma}
+\label{lemma-normal-geometrically-unibranch}
+A normal scheme is geometrically unibranch.
+\end{lemma}
+
+\begin{proof}
+This follows from the definitions. Namely, a scheme
+is normal if the local rings are normal domains. It is immediate
+from the More on Algebra, Definition \ref{more-algebra-definition-unibranch}
+that a local normal domain is geometrically unibranch.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-geometrically-unibranch}
+\begin{reference}
+Compare with \cite[Proposition 2.3]{Etale-coverings}
+\end{reference}
+Let $X$ be a Noetherian scheme. The following are equivalent
+\begin{enumerate}
+\item $X$ is geometrically unibranch (Definition \ref{definition-unibranch}),
+\item for every point $x \in X$ which is not the generic point of
+an irreducible component of $X$, the punctured spectrum of the
+strict henselization $\mathcal{O}_{X, x}^{sh}$ is connected.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+More on Algebra, Lemma \ref{more-algebra-lemma-geometrically-unibranch}
+shows that (1) implies that the punctured spectra in (2) are
+irreducible and in particular connected.
+
+\medskip\noindent
+Assume (2). Let $x \in X$. We have to show that $\mathcal{O}_{X, x}$
+is geometrically unibranch. By induction on $\dim(\mathcal{O}_{X, x})$
+we may assume that the result holds for every nontrivial generalization of $x$.
+We may replace $X$ by $\Spec(\mathcal{O}_{X, x})$. In other words,
+we may assume that $X = \Spec(A)$ with $A$ local and that
+$A_\mathfrak p$ is geometrically unibranch for each nonmaximal
+prime $\mathfrak p \subset A$.
+
+\medskip\noindent
+Let $A^{sh}$ be the strict henselization of $A$. If
+$\mathfrak q \subset A^{sh}$ is a prime lying over $\mathfrak p \subset A$,
+then $A_\mathfrak p \to A^{sh}_\mathfrak q$ is a
+filtered colimit of \'etale algebras. Hence the strict henselizations of
+$A_\mathfrak p$ and $A^{sh}_\mathfrak q$ are isomorphic.
+Thus by More on Algebra, Lemma \ref{more-algebra-lemma-geometrically-unibranch}
+we conclude that $A^{sh}_\mathfrak q$
+has a unique minimal prime ideal for every nonmaximal prime $\mathfrak q$ of
+$A^{sh}$.
+
+\medskip\noindent
+Let $\mathfrak q_1, \ldots, \mathfrak q_r$ be the minimal primes
+of $A^{sh}$. We have to show that $r = 1$. By the above
+we see that $V(\mathfrak q_1) \cap V(\mathfrak q_j) = \{\mathfrak m^{sh}\}$
+for $j = 2, \ldots, r$. Hence $V(\mathfrak q_1) \setminus \{\mathfrak m^{sh}\}$
+is an open and closed subset of the punctured spectrum of $A^{sh}$
+which is a contradiction with the assumption that this punctured spectrum
+is connected unless $r = 1$.
+\end{proof}
+
+\begin{definition}
+\label{definition-number-of-branches}
+Let $X$ be a scheme. Let $x \in X$. The {\it number of branches of $X$
+at $x$} is the number of branches of the local ring $\mathcal{O}_{X, x}$
+as defined in
+More on Algebra, Definition \ref{more-algebra-definition-number-of-branches}.
+The {\it number of geometric branches of $X$ at $x$} is the number of
+geometric branches of the local ring $\mathcal{O}_{X, x}$ as defined in
+More on Algebra, Definition \ref{more-algebra-definition-number-of-branches}.
+\end{definition}
+
+\noindent
+Often we want to compare this with the branches of the complete local
+ring, but the comparison is not straightforward in general; some information
+on this topic can be found in More on Algebra, Section
+\ref{more-algebra-section-branches-completion}.
+
+\begin{lemma}
+\label{lemma-number-of-branches-irreducible-components}
+Let $X$ be a scheme and $x \in X$. Let $X_i$, $i \in I$ be the
+irreducible components of $X$ passing through $x$.
+Then the number of (geometric) branches of $X$ at $x$
+is the sum over $i \in I$ of the number of (geometric)
+branches of $X_i$ at $x$.
+\end{lemma}
+
+\begin{proof}
+We view the $X_i$ as integral closed subschemes of $X$, see
+Schemes, Definition \ref{schemes-definition-reduced-induced-scheme} and
+Lemma \ref{lemma-characterize-integral}.
+Observe that the number of (geometric) branches of $X_i$ at $x$
+is at least $1$ for all $i$ (essentially by definition).
+Recall that the $X_i$ correspond $1$-to-$1$ with the minimal
+prime ideals $\mathfrak p_i \subset \mathcal{O}_{X, x}$, see
+Algebra, Lemma \ref{algebra-lemma-irreducible-components-containing-x}.
+Thus, if $I$ is infinite, then $\mathcal{O}_{X, x}$ has infinitely
+many minimal primes, whence both $\mathcal{O}_{X, x}^h$
+and $\mathcal{O}_{X, x}^{sh}$ have infinitely many minimal
+primes (combine Algebra, Lemmas
+\ref{algebra-lemma-injective-minimal-primes-in-image} and
+\ref{algebra-lemma-minimal-prime-image-minimal-prime} and
+the injectivity of the maps
+$\mathcal{O}_{X, x} \to  \mathcal{O}_{X, x}^h \to \mathcal{O}_{X, x}^{sh}$).
+In this case the number of (geometric) branches of $X$ at $x$
+is defined to be $\infty$ which is also true for the sum.
+Thus we may assume $I$ is finite.
+Let $A'$ be the integral closure of $\mathcal{O}_{X, x}$
+in the total ring of fractions $Q$ of $(\mathcal{O}_{X, x})_{red}$.
+Let $A'_i$ be the  integral closure of $\mathcal{O}_{X, x}/\mathfrak p_i$
+in the total ring of fractions $Q_i$ of $\mathcal{O}_{X, x}/\mathfrak p_i$.
+By Algebra, Lemma \ref{algebra-lemma-total-ring-fractions-no-embedded-points}
+we have $Q = \prod_{i \in I} Q_i$. Thus $A' = \prod A'_i$.
+Then the equality of the lemma follows from
+More on Algebra, Lemma \ref{more-algebra-lemma-number-of-branches-1}
+which expresses the number of (geometric) branches in terms
+of the maximal ideals of $A'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-number-of-branches-1}
+Let $X$ be a scheme. Let $x \in X$.
+\begin{enumerate}
+\item The number of branches of $X$ at $x$ is $1$ if and only if
+$X$ is unibranch at $x$.
+\item The number of geometric branches of $X$ at $x$ is $1$ if and only if
+$X$ is geometrically unibranch at $x$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This lemma follows immediately from the definitions and the corresponding
+result for rings, see More on Algebra, Lemma
+\ref{more-algebra-lemma-number-of-branches-1}.
+\end{proof}
+
+
+
+
+
+
+\section{Characterizing modules of finite type and finite presentation}
+\label{section-characterizing-finite-type-presentation}
+
+\noindent
+Let $X$ be a scheme.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+The following lemma implies that $\mathcal{F}$ is of finite type
+(see Modules, Definition \ref{modules-definition-finite-type})
+if and only if $\mathcal{F}$ is
+on each open affine $\Spec(A) = U \subset X$
+of the form $\widetilde M$ for some finite type $A$-module $M$.
+Similarly, $\mathcal{F}$ is of finite presentation
+(see Modules, Definition \ref{modules-definition-finite-presentation})
+if and only if $\mathcal{F}$ is
+on each open affine $\Spec(A) = U \subset X$
+of the form $\widetilde M$ for some finitely presented $A$-module $M$.
+
+\begin{lemma}
+\label{lemma-finite-type-module}
+Let $X = \Spec(R)$ be an affine scheme.
+The quasi-coherent sheaf of $\mathcal{O}_X$-modules
+$\widetilde M$ is a finite type $\mathcal{O}_X$-module
+if and only if $M$ is a finite $R$-module.
+\end{lemma}
+
+\begin{proof}
+Assume $\widetilde M$ is a finite type $\mathcal{O}_X$-module.
+This means there exists an open covering of $X$ such that
+$\widetilde M$ restricted to the members of this covering is
+globally generated by finitely many sections.
+Thus there also exists a standard open covering
+$X = \bigcup_{i = 1, \ldots, n} D(f_i)$ such that $\widetilde M|_{D(f_i)}$
+is generated by finitely many sections. Thus $M_{f_i}$ is finitely
+generated for each $i$. Hence we conclude by
+Algebra, Lemma \ref{algebra-lemma-cover}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-presentation-module}
+Let $X = \Spec(R)$ be an affine scheme. The quasi-coherent sheaf
+of $\mathcal{O}_X$-modules $\widetilde M$ is an $\mathcal{O}_X$-module of
+finite presentation if and only if $M$ is an $R$-module of finite presentation.
+\end{lemma}
+
+\begin{proof}
+Assume $\widetilde M$ is an $\mathcal{O}_X$-module of finite presentation.
+By Lemma \ref{lemma-finite-type-module} we see that $M$ is a finite $R$-module.
+Choose a surjection $R^n \to M$ with kernel $K$. By
+Schemes, Lemma \ref{schemes-lemma-spec-sheaves}
+there is a short exact sequence
+$$
+0 \to \widetilde{K} \to
+\bigoplus \mathcal{O}_X^{\oplus n} \to
+\widetilde{M} \to 0
+$$
+By
+Modules, Lemma
+\ref{modules-lemma-kernel-surjection-finite-free-onto-finite-presentation}
+we see that $\widetilde{K}$ is a finite type $\mathcal{O}_X$-module.
+Hence by Lemma \ref{lemma-finite-type-module}
+again we see that $K$ is a finite $R$-module.
+Hence $M$ is an $R$-module of finite presentation.
+\end{proof}
+
+
+
+
+
+
+
+\section{Sections over principal opens}
+\label{section-principal-opens}
+
+\noindent
+Here is a typical result of this kind. We will use a more naive but
+more direct method of proof in later lemmas.
+
+\begin{lemma}
+\label{lemma-invert-f-sections}
+\begin{slogan}
+Sections of quasi-coherent sheaves have only meromorphic singularities
+at infinity.
+\end{slogan}
+Let $X$ be a scheme. Let $f \in \Gamma(X, \mathcal{O}_X)$.
+Denote $X_f \subset X$ the open where $f$ is invertible, see
+Schemes, Lemma \ref{schemes-lemma-f-open}.
+If $X$ is quasi-compact and quasi-separated, the canonical map
+$$
+\Gamma(X, \mathcal{O}_X)_f \longrightarrow \Gamma(X_f, \mathcal{O}_X)
+$$
+is an isomorphism. Moreover, if $\mathcal{F}$ is a quasi-coherent
+sheaf of $\mathcal{O}_X$-modules the map
+$$
+\Gamma(X, \mathcal{F})_f \longrightarrow \Gamma(X_f, \mathcal{F})
+$$
+is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+Write $R = \Gamma(X, \mathcal{O}_X)$. Consider the canonical morphism
+$$
+\varphi : X \longrightarrow \Spec(R)
+$$
+of schemes, see
+Schemes, Lemma
+\ref{schemes-lemma-morphism-into-affine}.
+Then the inverse image of the standard open $D(f)$ on the
+right hand side is $X_f$ on the left hand side.
+Moreover, since $X$ is assumed quasi-compact and quasi-separated
+the morphism $\varphi$ is quasi-compact and quasi-separated,
+see Schemes, Lemma \ref{schemes-lemma-quasi-compact-affine} and
+\ref{schemes-lemma-compose-after-separated}. Hence by
+Schemes, Lemma \ref{schemes-lemma-push-forward-quasi-coherent}
+we see that $\varphi_*\mathcal{F}$ is quasi-coherent.
+Hence we see that $\varphi_*\mathcal{F} = \widetilde M$
+with $M = \Gamma(X, \mathcal{F})$ as an $R$-module.
+Thus we see that
+$$
+\Gamma(X_f, \mathcal{F}) =
+\Gamma(D(f), \varphi_*\mathcal{F}) =
+\Gamma(D(f), \widetilde M) = M_f
+$$
+which is exactly the content of the lemma. The first displayed isomorphism
+of the lemma follows by taking $\mathcal{F} = \mathcal{O}_X$.
+\end{proof}
+
+\noindent
+Recall that given a scheme $X$, an invertible sheaf $\mathcal{L}$
+on $X$, and a sheaf of $\mathcal{O}_X$-modules $\mathcal{F}$
+we get a graded ring
+$\Gamma_*(X, \mathcal{L}) =
+\bigoplus\nolimits_{n \geq 0} \Gamma(X, \mathcal{L}^{\otimes n})$
+and a graded $\Gamma_*(X, \mathcal{L})$-module
+$\Gamma_*(X, \mathcal{L}, \mathcal{F}) =
+\bigoplus\nolimits_{n \in \mathbf{Z}}
+\Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})$
+see Modules, Definition \ref{modules-definition-gamma-star}.
+If we have moreover a section $s \in \Gamma(X, \mathcal{L})$, then
+we obtain a map
+\begin{equation}
+\label{equation-module-invert-s}
+\Gamma_*(X, \mathcal{L}, \mathcal{F})_{(s)}
+\longrightarrow
+\Gamma(X_s, \mathcal{F}|_{X_s})
+\end{equation}
+which sends $t/s^n$ where
+$t \in \Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})$
+to $t|_{X_s} \otimes s|_{X_s}^{-n}$. This makes sense
+because $X_s \subset X$ is by definition the open over which
+$s$ has an inverse, see Modules, Lemma \ref{modules-lemma-s-open}.
+
+\begin{lemma}
+\label{lemma-invert-s-sections}
+Let $X$ be a scheme. Let $\mathcal{L}$ be an invertible sheaf on $X$.
+Let $s \in \Gamma(X, \mathcal{L})$. Let $\mathcal{F}$ be a quasi-coherent
+$\mathcal{O}_X$-module.
+\begin{enumerate}
+\item If $X$ is quasi-compact, then (\ref{equation-module-invert-s})
+is injective, and
+\item if $X$ is quasi-compact and quasi-separated, then
+(\ref{equation-module-invert-s}) is an isomorphism.
+\end{enumerate}
+In particular, the canonical map
+$$
+\Gamma_*(X, \mathcal{L})_{(s)}
+\longrightarrow
+\Gamma(X_s, \mathcal{O}_X),\quad
+a/s^n \longmapsto a \otimes s^{-n}
+$$
+is an isomorphism if $X$ is quasi-compact and quasi-separated.
+\end{lemma}
+
+\begin{proof}
+Assume $X$ is quasi-compact. Choose a finite affine open covering
+$X = U_1 \cup \ldots \cup U_m$ with $U_j$ affine and
+$\mathcal{L}|_{U_j} \cong \mathcal{O}_{U_j}$. Via this isomorphism,
+the image $s|_{U_j}$ corresponds to some
+$f_j \in \Gamma(U_j, \mathcal{O}_{U_j})$. Then
+$X_s \cap U_j = D(f_j)$.
+
+\medskip\noindent
+Proof of (1). Let $t/s^n$ be an element in the kernel of
+(\ref{equation-module-invert-s}). Then $t|_{X_s} = 0$.
+Hence $(t|_{U_j})|_{D(f_j)} = 0$. By
+Lemma \ref{lemma-invert-f-sections} we conclude that
+$f_j^{e_j} t|_{U_j} = 0$ for some
+$e_j \geq 0$. Let $e = \max(e_j)$. Then we see that $t \otimes s^e$
+restricts to zero on $U_j$ for all $j$, hence is zero. Since $t/s^n$
+is equal to $t \otimes s^e/s^{n + e}$ in
+$\Gamma_*(X, \mathcal{L}, \mathcal{F})_{(s)}$ we conclude that $t/s^n = 0$
+as desired.
+
+\medskip\noindent
+Proof of (2). Assume $X$ is quasi-compact and quasi-separated.
+Then $U_j \cap U_{j'}$ is quasi-compact for all pairs $j, j'$, see
+Schemes, Lemma \ref{schemes-lemma-characterize-quasi-separated}.
+By part (1) we know (\ref{equation-module-invert-s}) is injective.
+Let $t' \in \Gamma(X_s, \mathcal{F}|_{X_s})$. For every $j$, there exist an
+integer $n_j \geq 0$ and $t'_j \in \Gamma(U_j, \mathcal{F}|_{U_j})$ such that
+$t'|_{D(f_j)}$ corresponds to $t'_j/f_j^{e_j}$
+via the isomorphism of Lemma \ref{lemma-invert-f-sections}.
+Set $e = \max(e_j)$ and
+$$
+t_j = t'_j \otimes s|_{U_j}^e \in
+\Gamma(U_j,
+(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes e})|_{U_j})
+$$
+Then we see that $t_j|_{U_j \cap U_{j'}}$ and $t_{j'}|_{U_j \cap U_{j'}}$
+map to the same section of $\mathcal{F}$ over $U_j \cap U_{j'} \cap X_s$.
+By quasi-compactness of $U_j \cap U_{j'}$ and part (1) there exists an
+integer $e' \geq 0$ such that
+$$
+t_j|_{U_j \cap U_{j'}} \otimes s^{e'}|_{U_j \cap U_{j'}} =
+t_{j'}|_{U_j \cap U_{j'}} \otimes s^{e'}|_{U_j \cap U_{j'}}
+$$
+as sections of $\mathcal{F} \otimes \mathcal{L}^{\otimes e + e'}$ over
+$U_j \cap U_{j'}$. We may choose the same $e'$ to work for all pairs
+$j, j'$. Then the sheaf conditions implies there is a section
+$t \in \Gamma(X, \mathcal{F} \otimes \mathcal{L}^{\otimes e + e'})$
+whose restriction to $U_j$ is $t_j \otimes s^{e'}|_{U_j}$.
+A simple computation shows that $t/s^{e + e'}$ maps to $t'$
+as desired.
+\end{proof}
+
+\noindent
+Let $X$ be a scheme. Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Let $\mathcal{F}$ and $\mathcal{G}$ be quasi-coherent $\mathcal{O}_X$-modules.
+Consider the graded $\Gamma_*(X, \mathcal{L})$-module
+$$
+M = \bigoplus\nolimits_{n \in \mathbf{Z}} \Hom_{\mathcal{O}_X}(\mathcal{F},
+\mathcal{G} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})
+$$
+Next, let $s \in \Gamma(X, \mathcal{L})$ be a section. Then there is a
+canonical map
+\begin{equation}
+\label{equation-hom-invert-s}
+M_{(s)} \longrightarrow
+\Hom_{\mathcal{O}_{X_s}}(\mathcal{F}|_{X_s}, \mathcal{G}|_{X_s})
+\end{equation}
+which sends $\alpha/s^n$ to the map $\alpha|_{X_s} \otimes s|_{X_s}^{-n}$.
+The following lemma, combined with
+Lemma \ref{lemma-extend-finite-presentation},
+says roughly that, if $X$ is quasi-compact and quasi-separated,
+the category of finitely presented $\mathcal{O}_{X_s}$-modules
+is the category of finitely presented $\mathcal{O}_X$-modules
+with the multiplicative system of maps
+$s^n: \mathcal{F} \to
+\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n}$ inverted.
+
+\begin{lemma}
+\label{lemma-section-maps-backwards}
+Let $X$ be a scheme. Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Let $s \in \Gamma(X, \mathcal{L})$ be a section.
+Let $\mathcal{F}$, $\mathcal{G}$ be quasi-coherent $\mathcal{O}_X$-modules.
+\begin{enumerate}
+\item If $X$ is quasi-compact and $\mathcal{F}$ is of finite type,
+then (\ref{equation-hom-invert-s}) is injective, and
+\item if $X$ is quasi-compact and quasi-separated and $\mathcal{F}$
+is of finite presentation, then
+(\ref{equation-hom-invert-s})
+is bijective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We first prove the lemma in case $X = \Spec(A)$ is affine
+and $\mathcal{L} = \mathcal{O}_X$. In this case $s$ corresponds
+to an element $f \in A$. Say
+$\mathcal{F} = \widetilde{M}$ and $\mathcal{G} = \widetilde{N}$
+for some $A$-modules $M$ and $N$. Then the lemma translates
+(via Lemmas \ref{lemma-finite-type-module} and
+\ref{lemma-finite-presentation-module}) into
+the following algebra statements
+\begin{enumerate}
+\item If $M$ is a finite $A$-module and $\varphi : M \to N$ is
+an $A$-module map such that the induced map $M_f \to N_f$ is zero,
+then $f^n\varphi = 0$ for some $n$.
+\item If $M$ is a finitely presented $A$-module, then
+$\Hom_A(M, N)_f = \Hom_{A_f}(M_f, N_f)$.
+\end{enumerate}
+The second statement is
+Algebra, Lemma \ref{algebra-lemma-hom-from-finitely-presented} and we omit
+the proof of the first statement.
+
+\medskip\noindent
+Next, we prove (1) for general $X$.
+Assume $X$ is quasi-compact and hoose a finite affine open covering
+$X = U_1 \cup \ldots \cup U_m$ with $U_j$ affine and
+$\mathcal{L}|_{U_j} \cong \mathcal{O}_{U_j}$. Via this isomorphism,
+the image $s|_{U_j}$ corresponds to some
+$f_j \in \Gamma(U_j, \mathcal{O}_{U_j})$. Then
+$X_s \cap U_j = D(f_j)$.
+Let $\alpha/s^n$ be an element in the kernel of
+(\ref{equation-hom-invert-s}). Then $\alpha|_{X_s} = 0$.
+Hence $(\alpha|_{U_j})|_{D(f_j)} = 0$. By the affine case treated above
+we conclude that $f_j^{e_j} \alpha|_{U_j} = 0$ for some
+$e_j \geq 0$. Let $e = \max(e_j)$. Then we see that $\alpha \otimes s^e$
+restricts to zero on $U_j$ for all $j$, hence is zero. Since $\alpha/s^n$
+is equal to $\alpha \otimes s^e/s^{n + e}$ in $M_{(s)}$ we conclude that
+$\alpha/s^n = 0$ as desired.
+
+\medskip\noindent
+Proof of (2). Since $\mathcal{F}$ is of finite presentation, the
+sheaf $\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$ is
+quasi-coherent, see Schemes, Section \ref{schemes-section-quasi-coherent}.
+Moreover, it is clear that
+$$
+\SheafHom_{\mathcal{O}_X}(\mathcal{F},
+\mathcal{G} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n}) =
+\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})
+\otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n}
+$$
+for all $n$. Hence in this case the statement follows from
+Lemma \ref{lemma-invert-s-sections} applied to
+$\SheafHom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})$.
+\end{proof}
+
+
+
+
+
+\section{Quasi-affine schemes}
+\label{section-quasi-affine}
+
+\begin{definition}
+\label{definition-quasi-affine}
+A scheme $X$ is called {\it quasi-affine} if it is quasi-compact
+and isomorphic to an open subscheme of an affine scheme.
+\end{definition}
+
+
+\begin{lemma}
+\label{lemma-invert-f-affine}
+Let $X$ be a scheme. Let $f \in \Gamma(X, \mathcal{O}_X)$.
+Assume $X$ is quasi-compact and quasi-separated and assume that
+$X_f$ is affine. Then the canonical morphism
+$$
+j : X \longrightarrow \Spec(\Gamma(X, \mathcal{O}_X))
+$$
+from Schemes, Lemma \ref{schemes-lemma-morphism-into-affine}
+induces an isomorphism of $X_f = j^{-1}(D(f))$ onto the standard affine
+open $D(f) \subset \Spec(\Gamma(X, \mathcal{O}_X))$.
+\end{lemma}
+
+\begin{proof}
+This is clear as $j$ induces an isomorphism of rings
+$\Gamma(X, \mathcal{O}_X)_f \to \mathcal{O}_X(X_f)$ by
+Lemma \ref{lemma-invert-f-sections} above.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-affine}
+Let $X$ be a scheme. Then $X$ is quasi-affine if and only if
+the canonical morphism
+$$
+X \longrightarrow \Spec(\Gamma(X, \mathcal{O}_X))
+$$
+from Schemes, Lemma \ref{schemes-lemma-morphism-into-affine} is
+a quasi-compact open immersion.
+\end{lemma}
+
+\begin{proof}
+If the displayed morphism is a quasi-compact open immersion then
+$X$ is isomorphic to a quasi-compact open subscheme of
+$\Spec(\Gamma(X, \mathcal{O}_X))$ and clearly $X$ is quasi-affine.
+
+\medskip\noindent
+Assume $X$ is quasi-affine, say $X \subset \Spec(R)$ is
+quasi-compact open. This in particular implies that $X$ is
+separated, see
+Schemes, Lemma \ref{schemes-lemma-subscheme-of-separated-scheme}.
+Let $A = \Gamma(X, \mathcal{O}_X)$.
+Consider the ring map $R \to A$ coming from
+$R = \Gamma(\Spec(R), \mathcal{O}_{\Spec(R)})$
+and the restriction mapping of the sheaf $\mathcal{O}_{\Spec(R)}$.
+By Schemes, Lemma \ref{schemes-lemma-morphism-into-affine}
+we obtain a factorization:
+$$
+X \longrightarrow
+\Spec(A) \longrightarrow
+\Spec(R)
+$$
+of the inclusion morphism. Let $x \in X$. Choose $r \in R$ such that
+$x \in D(r)$ and $D(r) \subset X$. Denote $f \in A$ the image of $r$
+in $A$. The open $X_f$ of Lemma \ref{lemma-invert-f-sections}
+above is equal to $D(r) \subset X$ and hence $A_f \cong R_r$ by the
+conclusion of that lemma.
+Hence $D(r) \to \Spec(A)$ is an isomorphism onto the
+standard affine open $D(f)$ of $\Spec(A)$. Since $X$
+can be covered by such affine opens $D(f)$ we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cartesian-diagram-quasi-affine}
+Let $U \to V$ be an open immersion of quasi-affine schemes. Then
+$$
+\xymatrix{
+U \ar[d] \ar[rr]_-j & & \Spec(\Gamma(U, \mathcal{O}_U)) \ar[d] \\
+U \ar[r] & V \ar[r]^-{j'} & \Spec(\Gamma(V, \mathcal{O}_V))
+}
+$$
+is cartesian.
+\end{lemma}
+
+\begin{proof}
+The diagram is commutative by Schemes, Lemma
+\ref{schemes-lemma-morphism-into-affine}.
+Write $A = \Gamma(U, \mathcal{O}_U)$ and $B = \Gamma(V, \mathcal{O}_V)$. Let
+$g \in B$ be such that $V_g$ is affine and contained in $U$. This
+means that if $f$ is the image of $g$ in $A$, then $U_f = V_g$. By Lemma
+\ref{lemma-invert-f-affine} we see that $j'$ induces an isomorphism of
+$V_g$ with the standard open $D(g)$ of $\Spec(B)$. Thus
+$V_g \times_{\Spec(B)} \Spec(A) \to \Spec(A)$ is an
+isomorphism onto $D(f) \subset \Spec(A)$. By Lemma \ref{lemma-invert-f-affine}
+again $j$ maps $U_f$ isomorphically to $D(f)$. Thus we see that
+$U_f = U_f \times_{\Spec(B)} \Spec(A)$. Since by
+Lemma \ref{lemma-quasi-affine} we can cover $U$ by $V_g = U_f$ as above,
+we see that $U \to U \times_{\Spec(B)} \Spec(A)$ is an isomorphism.
+\end{proof}
+
+
+
+\section{Flat modules}
+\label{section-flat}
+
+\noindent
+On any ringed space $(X, \mathcal{O}_X)$
+we know what it means for an $\mathcal{O}_X$-module
+to be flat (at a point), see
+Modules, Definition \ref{modules-definition-flat}
+(Definition \ref{modules-definition-flat-at-point}).
+For quasi-coherent sheaves on an affine scheme this matches the notion
+defined in the algebra chapter.
+
+\begin{lemma}
+\label{lemma-flat-module}
+\begin{slogan}
+Flatness is the same for modules and sheaves.
+\end{slogan}
+Let $X = \Spec(R)$ be an affine scheme.
+Let $\mathcal{F} = \widetilde{M}$ for some $R$-module $M$.
+The quasi-coherent sheaf $\mathcal{F}$ is a flat
+$\mathcal{O}_X$-module if and only if $M$ is a flat $R$-module.
+\end{lemma}
+
+\begin{proof}
+Flatness of $\mathcal{F}$ may be checked on the stalks, see
+Modules, Lemma \ref{modules-lemma-flat-stalks-flat}.
+The same is true in the case of modules over a ring, see
+Algebra, Lemma \ref{algebra-lemma-flat-localization}.
+And since $\mathcal{F}_x = M_{\mathfrak p}$ if $x$ corresponds
+to $\mathfrak p$ the lemma is true.
+\end{proof}
+
+
+
+
+
+\section{Locally free modules}
+\label{section-finite-locally-free}
+
+\noindent
+On any ringed space we know what it means for an $\mathcal{O}_X$-module
+to be (finite) locally free. On an affine scheme this matches the notion
+defined in the algebra chapter.
+
+\begin{lemma}
+\label{lemma-locally-free-module}
+Let $X = \Spec(R)$ be an affine scheme.
+Let $\mathcal{F} = \widetilde{M}$ for some $R$-module $M$.
+The quasi-coherent sheaf $\mathcal{F}$ is a (finite) locally free
+$\mathcal{O}_X$-module of if and only if $M$ is a (finite)
+locally free $R$-module.
+\end{lemma}
+
+\begin{proof}
+Follows from the definitions, see
+Modules, Definition \ref{modules-definition-locally-free}
+and
+Algebra, Definition \ref{algebra-definition-locally-free}.
+\end{proof}
+
+\noindent
+We can characterize finite locally free modules in many different ways.
+
+\begin{lemma}
+\label{lemma-finite-locally-free}
+Let $X$ be a scheme.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+The following are equivalent:
+\begin{enumerate}
+\item $\mathcal{F}$ is a flat $\mathcal{O}_X$-module of finite presentation,
+\item $\mathcal{F}$ is $\mathcal{O}_X$-module of finite presentation and
+for all $x \in X$ the stalk $\mathcal{F}_x$ is a free
+$\mathcal{O}_{X, x}$-module,
+\item $\mathcal{F}$ is a locally free, finite type $\mathcal{O}_X$-module,
+\item $\mathcal{F}$ is a finite locally free $\mathcal{O}_X$-module, and
+\item $\mathcal{F}$ is an $\mathcal{O}_X$-module of finite type,
+for every $x \in X$ the stalk $\mathcal{F}_x$ is a free
+$\mathcal{O}_{X, x}$-module, and the function
+$$
+\rho_\mathcal{F} : X \to \mathbf{Z}, \quad
+x \longmapsto
+\dim_{\kappa(x)} \mathcal{F}_x \otimes_{\mathcal{O}_{X, x}} \kappa(x)
+$$
+is locally constant in the Zariski topology on $X$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This lemma immediately reduces to the affine case.
+In this case the lemma is a reformulation of
+Algebra, Lemma \ref{algebra-lemma-finite-projective}.
+The translation uses
+Lemmas \ref{lemma-finite-type-module},
+\ref{lemma-finite-presentation-module},
+\ref{lemma-flat-module}, and
+\ref{lemma-locally-free-module}.
+\end{proof}
+
+
+
+
+
+
+\section{Locally projective modules}
+\label{section-locally-projective}
+
+\noindent
+A consequence of the work done in the algebra chapter is that it
+makes sense to define a locally projective module as follows.
+
+\begin{definition}
+\label{definition-locally-projective}
+Let $X$ be a scheme. Let $\mathcal{F}$ be a quasi-coherent
+$\mathcal{O}_X$-module. We say $\mathcal{F}$ is {\it locally projective}
+if for every affine open $U \subset X$ the $\mathcal{O}_X(U)$-module
+$\mathcal{F}(U)$ is projective.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-locally-projective}
+Let $X$ be a scheme.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+The following are equivalent
+\begin{enumerate}
+\item $\mathcal{F}$ is locally projective, and
+\item there exists an affine open covering $X = \bigcup U_i$
+such that the $\mathcal{O}_X(U_i)$-module
+$\mathcal{F}(U_i)$ is projective for every $i$.
+\end{enumerate}
+In particular, if $X = \Spec(A)$ and $\mathcal{F} = \widetilde{M}$
+then $\mathcal{F}$ is locally projective if and only if $M$ is a projective
+$A$-module.
+\end{lemma}
+
+\begin{proof}
+First, note that if $M$ is a projective $A$-module and $A \to B$ is a
+ring map, then $M \otimes_A B$ is a projective $B$-module, see
+Algebra, Lemma \ref{algebra-lemma-ascend-properties-modules}.
+Hence if $U$ is an affine open such that $\mathcal{F}(U)$ is a projective
+$\mathcal{O}_X(U)$-module, then the standard open $D(f)$ is an
+affine open such that $\mathcal{F}(D(f))$ is a projective
+$\mathcal{O}_X(D(f))$-module for all $f \in \mathcal{O}_X(U)$.
+Assume (2) holds. Let $U \subset X$ be an arbitrary affine open.
+We can find an open covering $U = \bigcup_{j = 1, \ldots, m} D(f_j)$
+by finitely many standard opens $D(f_j)$ such that for each
+$j$ the open $D(f_j)$ is a standard open of some $U_i$, see
+Schemes, Lemma \ref{schemes-lemma-standard-open-two-affines}.
+Hence, if we set $A = \mathcal{O}_X(U)$ and if $M$ is an $A$-module
+such that $\mathcal{F}|_U$ corresponds to $M$, then we see that
+$M_{f_j}$ is a projective $A_{f_j}$-module. It follows that
+$A \to B = \prod A_{f_j}$ is a faithfully flat ring map
+such that $M \times_A B$ is a projective $B$-module.
+Hence $M$ is projective by
+Algebra, Theorem \ref{algebra-theorem-ffdescent-projectivity}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-locally-projective-pullback}
+Let $f : X \to Y$ be a morphism of schemes.
+Let $\mathcal{G}$ be a quasi-coherent $\mathcal{O}_Y$-module.
+If $\mathcal{G}$ is locally projective on $Y$, then $f^*\mathcal{G}$
+is locally projective on $X$.
+\end{lemma}
+
+\begin{proof}
+See
+Algebra, Lemma \ref{algebra-lemma-ascend-properties-modules}.
+\end{proof}
+
+
+
+
+
+
+\section{Extending quasi-coherent sheaves}
+\label{section-extending-quasi-coherent-sheaves}
+
+\noindent
+It is sometimes useful to be able to show that a given quasi-coherent
+sheaf on an open subscheme extends to the whole scheme.
+
+\begin{lemma}
+\label{lemma-extend-trivial}
+Let $j : U \to X$ be a quasi-compact open immersion of schemes.
+\begin{enumerate}
+\item Any quasi-coherent sheaf on $U$ extends to a quasi-coherent
+sheaf on $X$.
+\item Let $\mathcal{F}$ be a quasi-coherent sheaf on $X$.
+Let $\mathcal{G} \subset \mathcal{F}|_U$ be a quasi-coherent
+subsheaf. There exists a quasi-coherent subsheaf $\mathcal{H}$ of
+$\mathcal{F}$ such that $\mathcal{H}|_U = \mathcal{G}$
+as subsheaves of $\mathcal{F}|_U$.
+\item Let $\mathcal{F}$ be a quasi-coherent sheaf on $X$.
+Let $\mathcal{G}$ be a quasi-coherent sheaf on $U$.
+Let $\varphi : \mathcal{G} \to \mathcal{F}|_U$ be a morphism
+of $\mathcal{O}_U$-modules. There exists a quasi-coherent sheaf $\mathcal{H}$
+of $\mathcal{O}_X$-modules and a map $\psi : \mathcal{H} \to \mathcal{F}$
+such that $\mathcal{H}|_U = \mathcal{G}$ and that
+$\psi|_U = \varphi$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+An immersion is separated
+(see Schemes, Lemma \ref{schemes-lemma-immersions-monomorphisms})
+and $j$ is quasi-compact by assumption.
+Hence for any quasi-coherent sheaf $\mathcal{G}$ on $U$ the sheaf
+$j_*\mathcal{G}$ is an extension to $X$. See
+Schemes, Lemma \ref{schemes-lemma-push-forward-quasi-coherent} and
+Sheaves, Section \ref{sheaves-section-open-immersions}.
+
+\medskip\noindent
+Assume $\mathcal{F}$, $\mathcal{G}$ are as in (2).
+Then $j_*\mathcal{G}$ is a quasi-coherent sheaf on $X$ (see above).
+It is a subsheaf of $j_*j^*\mathcal{F}$.
+Hence the kernel
+$$
+\mathcal{H} =
+\Ker(\mathcal{F} \oplus j_* \mathcal{G}
+\longrightarrow j_*j^*\mathcal{F})
+$$
+is quasi-coherent as well, see
+Schemes, Section \ref{schemes-section-quasi-coherent}.
+It is formal to check that $\mathcal{H} \subset \mathcal{F}$ and that
+$\mathcal{H}|_U = \mathcal{G}$ (using the material in
+Sheaves, Section \ref{sheaves-section-open-immersions} again).
+
+\medskip\noindent
+The same proof as above works. Just take
+$\mathcal{H} = \Ker(\mathcal{F} \oplus j_* \mathcal{G}
+\to j_*j^*\mathcal{F})$ with its obvious map to $\mathcal{F}$
+and its obvious identification with $\mathcal{G}$ over $U$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extend}
+Let $X$ be a quasi-compact and quasi-separated scheme.
+Let $U \subset X$ be a quasi-compact open.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Let $\mathcal{G} \subset \mathcal{F}|_U$ be a quasi-coherent
+$\mathcal{O}_U$-submodule which is of finite type. Then
+there exists a quasi-coherent submodule $\mathcal{G}' \subset \mathcal{F}$
+which is of finite type such that $\mathcal{G}'|_U = \mathcal{G}$.
+\end{lemma}
+
+\begin{proof}
+Let $n$ be the minimal number of affine opens $U_i \subset X$,
+$i = 1, \ldots , n$ such that $X = U \cup \bigcup U_i$.
+(Here we use that $X$ is quasi-compact.) Suppose
+we can prove the lemma for the case $n = 1$. Then we can successively
+extend $\mathcal{G}$
+to a $\mathcal{G}_1$ over $U \cup U_1$
+to a $\mathcal{G}_2$ over $U \cup U_1 \cup U_2$
+to a $\mathcal{G}_3$ over $U \cup U_1 \cup U_2 \cup U_3$,
+and so on.
+Thus we reduce to the case $n = 1$.
+
+\medskip\noindent
+Thus we may assume that $X = U \cup V$ with $V$ affine.
+Since $X$ is quasi-separated and $U$, $V$ are quasi-compact open,
+we see that $U \cap V$ is a quasi-compact open. It suffices to prove the
+lemma for the system $(V, U \cap V, \mathcal{F}|_V, \mathcal{G}|_{U \cap V})$
+since we can glue the resulting sheaf $\mathcal{G}'$ over $V$
+to the given sheaf $\mathcal{G}$ over $U$ along the common value
+over $U \cap V$.
+Thus we reduce to the case where $X$ is affine.
+
+\medskip\noindent
+Assume $X = \Spec(R)$. Write $\mathcal{F} = \widetilde M$
+for some $R$-module $M$. By Lemma \ref{lemma-extend-trivial} above we may
+find a quasi-coherent subsheaf $\mathcal{H} \subset \mathcal{F}$
+which restricts to $\mathcal{G}$ over $U$.
+Write $\mathcal{H} = \widetilde N$ for some $R$-module $N$.
+For every $u \in U$ there exists an $f \in R$ such that
+$u \in D(f) \subset U$ and such that $N_f$ is finitely generated,
+see Lemma \ref{lemma-finite-type-module}.
+Since $U$ is quasi-compact we can cover it by finitely
+many $D(f_i)$ such that $N_{f_i}$ is generated by
+finitely many elements, say $x_{i, 1}/f_i^N, \ldots, x_{i, r_i}/f_i^N$.
+Let $N' \subset N$ be the submodule generated by the elements
+$x_{i, j}$. Then the subsheaf
+$\mathcal{G} := \widetilde{N'} \subset \mathcal{H} \subset \mathcal{F}$
+works.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-coherent-colimit-finite-type}
+Let $X$ be a quasi-compact and quasi-separated scheme.
+Any quasi-coherent sheaf of $\mathcal{O}_X$-modules
+is the directed colimit of its quasi-coherent
+$\mathcal{O}_X$-submodules which are of finite type.
+\end{lemma}
+
+\begin{proof}
+The colimit is directed because if $\mathcal{G}_1$, $\mathcal{G}_2$
+are quasi-coherent subsheaves of finite type, then
+$\mathcal{G}_1 + \mathcal{G}_2 \subset \mathcal{F}$ is
+a quasi-coherent subsheaf of finite type.
+Let $U \subset X$ be any affine open, and let
+$s \in \Gamma(U, \mathcal{F})$ be any section.
+Let $\mathcal{G} \subset \mathcal{F}|_U$ be the
+subsheaf generated by $s$. Then clearly $\mathcal{G}$
+is quasi-coherent and has finite type as an $\mathcal{O}_U$-module.
+By Lemma \ref{lemma-extend} we see that $\mathcal{G}$ is the restriction
+of a quasi-coherent subsheaf $\mathcal{G}' \subset \mathcal{F}$
+which has finite type. Since $X$ has a basis for the topology consisting
+of affine opens we conclude that every local section of
+$\mathcal{F}$ is locally contained in a quasi-coherent submodule
+of finite type. Thus we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extend-finite-presentation}
+(Variant of Lemma \ref{lemma-extend} dealing with modules of
+finite presentation.)
+Let $X$ be a quasi-compact and quasi-separated scheme.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Let $U \subset X$ be a quasi-compact open.
+Let $\mathcal{G}$ be an $\mathcal{O}_U$-module which of finite presentation.
+Let $\varphi : \mathcal{G} \to \mathcal{F}|_U$ be a morphism of
+$\mathcal{O}_U$-modules.
+Then there exists an $\mathcal{O}_X$-module
+$\mathcal{G}'$ of finite presentation, and a morphism
+of $\mathcal{O}_X$-modules $\varphi' : \mathcal{G}' \to \mathcal{F}$
+such that $\mathcal{G}'|_U = \mathcal{G}$ and such that
+$\varphi'|_U = \varphi$.
+\end{lemma}
+
+\begin{proof}
+The beginning of the proof is a repeat of the beginning of the
+proof of Lemma \ref{lemma-extend}. We write it out carefuly anyway.
+
+\medskip\noindent
+Let $n$ be the minimal number of affine opens $U_i \subset X$,
+$i = 1, \ldots , n$ such that $X = U \cup \bigcup U_i$.
+(Here we use that $X$ is quasi-compact.) Suppose
+we can prove the lemma for the case $n = 1$. Then we can successively
+extend the pair $(\mathcal{G}, \varphi)$
+to a pair $(\mathcal{G}_1, \varphi_1)$ over $U \cup U_1$
+to a pair $(\mathcal{G}_2, \varphi_2)$ over $U \cup U_1 \cup U_2$
+to a pair $(\mathcal{G}_3, \varphi_3)$ over $U \cup U_1 \cup U_2 \cup U_3$,
+and so on.
+Thus we reduce to the case $n = 1$.
+
+\medskip\noindent
+Thus we may assume that $X = U \cup V$ with $V$ affine.
+Since $X$ is quasi-separated and $U$ quasi-compact,
+we see that $U \cap V \subset V$ is quasi-compact.
+Suppose we prove the lemma for the system
+$(V, U \cap V, \mathcal{F}|_V, \mathcal{G}|_{U \cap V}, \varphi|_{U \cap V})$
+thereby producing $(\mathcal{G}', \varphi')$ over $V$.
+Then we can glue $\mathcal{G}'$ over $V$ to the given sheaf $\mathcal{G}$
+over $U$ along the common value over $U \cap V$, and similarly we can glue
+the map $\varphi'$ to the map $\varphi$ along the common value over
+$U \cap V$. Thus we reduce to the case where $X$ is affine.
+
+\medskip\noindent
+Assume $X = \Spec(R)$.
+By Lemma \ref{lemma-extend-trivial} above we may
+find a quasi-coherent sheaf $\mathcal{H}$ with
+a map $\psi : \mathcal{H} \to \mathcal{F}$ over $X$
+which restricts to $\mathcal{G}$ and $\varphi$ over $U$.
+By Lemma \ref{lemma-extend} we can find a finite type
+quasi-coherent $\mathcal{O}_X$-submodule
+$\mathcal{H}' \subset \mathcal{H}$
+such that $\mathcal{H}'|_U = \mathcal{G}$. Thus after
+replacing $\mathcal{H}$ by $\mathcal{H}'$
+and $\psi$ by the restriction of $\psi$ to $\mathcal{H}'$
+we may assume that $\mathcal{H}$ is of finite type.
+By Lemma \ref{lemma-finite-presentation-module}
+we conclude that $\mathcal{H} = \widetilde{N}$ with
+$N$ a finitely generated $R$-module. Hence there exists a surjection
+as in the following short exact sequence of
+quasi-coherent $\mathcal{O}_X$-modules
+$$
+0 \to \mathcal{K} \to \mathcal{O}_X^{\oplus n} \to \mathcal{H} \to 0
+$$
+where $\mathcal{K}$ is defined as the kernel.
+Since $\mathcal{G}$ is of finite presentation and
+$\mathcal{H}|_U = \mathcal{G}$ by
+Modules, Lemma
+\ref{modules-lemma-kernel-surjection-finite-free-onto-finite-presentation}
+the restriction $\mathcal{K}|_U$ is
+an $\mathcal{O}_U$-module of finite type. Hence by Lemma \ref{lemma-extend}
+again we see that there exists a finite type quasi-coherent
+$\mathcal{O}_X$-submodule $\mathcal{K}' \subset \mathcal{K}$ such
+that $\mathcal{K}'|_U = \mathcal{K}|_U$. The solution to the problem
+posed in the lemma is to set
+$$
+\mathcal{G}' = \mathcal{O}_X^{\oplus n}/\mathcal{K}'
+$$
+which is clearly of finite presentation and restricts to give $\mathcal{G}$
+on $U$ with $\varphi'$ equal to the composition
+$$
+\mathcal{G}' = \mathcal{O}_X^{\oplus n}/\mathcal{K}'
+\to \mathcal{O}_X^{\oplus n}/\mathcal{K} = \mathcal{H} \xrightarrow{\psi}
+\mathcal{F}.
+$$
+This finishes the proof of the lemma.
+\end{proof}
+
+\noindent
+The following lemma says that every quasi-coherent sheaf on a quasi-compact
+and quasi-separated scheme is a filtered colimit of $\mathcal{O}$-modules
+of finite presentation. Actually, we reformulate this in (perhaps more
+familiar) terms of directed colimits over directed sets in the next lemma.
+
+\begin{lemma}
+\label{lemma-directed-colimit-diagram-finite-presentation}
+\begin{slogan}
+Quasi-coherent modules on quasi-compact and quasi-separated schemes
+are filtered colimits of finitely presented modules.
+\end{slogan}
+Let $X$ be a scheme. Assume $X$ is quasi-compact and quasi-separated.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+There exist
+\begin{enumerate}
+\item a filtered index category $\mathcal{I}$ (see
+Categories, Definition \ref{categories-definition-directed}),
+\item a diagram $\mathcal{I} \to \textit{Mod}(\mathcal{O}_X)$ (see
+Categories, Section \ref{categories-section-limits}),
+$i \mapsto \mathcal{F}_i$,
+\item morphisms of $\mathcal{O}_X$-modules
+$\varphi_i : \mathcal{F}_i \to \mathcal{F}$
+\end{enumerate}
+such that each $\mathcal{F}_i$ is of finite presentation
+and such that the morphisms $\varphi_i$ induce an isomorphism
+$$
+\colim_i \mathcal{F}_i
+=
+\mathcal{F}.
+$$
+\end{lemma}
+
+\begin{proof}
+Choose a set $I$ and for each $i \in I$ an $\mathcal{O}_X$-module
+of finite presentation and a homomorphism of $\mathcal{O}_X$-modules
+$\varphi_i : \mathcal{F}_i \to \mathcal{F}$ with the following
+property: For any $\psi : \mathcal{G} \to \mathcal{F}$ with $\mathcal{G}$
+of finite presentation there is an $i \in I$ such that there exists
+an isomorphism $\alpha : \mathcal{F}_i \to \mathcal{G}$ with
+$\varphi_i = \psi \circ \alpha$. It is clear from
+Modules, Lemma \ref{modules-lemma-set-isomorphism-classes-finite-type-modules}
+that such a set exists (see also its proof).
+We denote $\mathcal{I}$ the category
+with $\Ob(\mathcal{I}) = I$ and given $i, i' \in I$
+we set
+$$
+\Mor_\mathcal{I}(i, i') =
+\{\alpha : \mathcal{F}_i \to \mathcal{F}_{i'} \mid
+\alpha \circ \varphi_{i'} = \varphi_i
+\}.
+$$
+We claim that $\mathcal{I}$ is a filtered category and that
+$\mathcal{F} = \colim_i \mathcal{F}_i$.
+
+\medskip\noindent
+Let $i, i' \in I$. Then we can consider the morphism
+$$
+\mathcal{F}_i \oplus \mathcal{F}_{i'} \longrightarrow \mathcal{F}
+$$
+which is the direct sum of $\varphi_i$ and $\varphi_{i'}$.
+Since a direct sum of finitely presented $\mathcal{O}_X$-modules
+is finitely presented we see that there exists some $i'' \in I$
+such that $\varphi_{i''} : \mathcal{F}_{i''} \to \mathcal{F}$
+is isomorphic to the displayed arrow towards $\mathcal{F}$ above.
+Since there are commutative diagrams
+$$
+\xymatrix{
+\mathcal{F}_i \ar[r] \ar[d] & \mathcal{F} \ar@{=}[d] \\
+\mathcal{F}_i \oplus \mathcal{F}_{i'} \ar[r] & \mathcal{F}
+}
+\quad
+\text{and}
+\quad
+\xymatrix{
+\mathcal{F}_{i'} \ar[r] \ar[d] & \mathcal{F} \ar@{=}[d] \\
+\mathcal{F}_i \oplus \mathcal{F}_{i'} \ar[r] & \mathcal{F}
+}
+$$
+we see that there are morphisms $i \to i''$ and $i' \to i''$
+in $\mathcal{I}$. Next, suppose that we have $i, i' \in I$ and
+morphisms $\alpha, \beta : i \to i'$ (corresponding to $\mathcal{O}_X$-module
+maps $\alpha, \beta : \mathcal{F}_i \to \mathcal{F}_{i'}$).
+In this case consider the coequalizer
+$$
+\mathcal{G} =
+\Coker(
+\mathcal{F}_i \xrightarrow{\alpha - \beta} \mathcal{F}_{i'}
+)
+$$
+Note that $\mathcal{G}$ is an $\mathcal{O}_X$-module of finite presentation.
+Since by definition of morphisms in the category $\mathcal{I}$
+we have $\varphi_{i'} \circ \alpha = \varphi_{i'} \circ \beta$
+we see that we get an induced map $\psi : \mathcal{G} \to \mathcal{F}$.
+Hence again the pair $(\mathcal{G}, \psi)$ is isomorphic to
+the pair $(\mathcal{F}_{i''}, \varphi_{i''})$ for some $i''$.
+Hence we see that there exists a morphism $i' \to i''$ in
+$\mathcal{I}$ which equalizes $\alpha$ and $\beta$. Thus we have
+shown that the category $\mathcal{I}$ is filtered.
+
+\medskip\noindent
+We still have to show that the colimit of the diagram is $\mathcal{F}$.
+By definition of the colimit, and by our definition of the category
+$\mathcal{I}$ there is a canonical map
+$$
+\varphi :
+\colim_i \mathcal{F}_i
+\longrightarrow
+\mathcal{F}.
+$$
+Pick $x \in X$. Let us show that $\varphi_x$ is an isomorphism.
+Recall that
+$$
+(\colim_i \mathcal{F}_i)_x
+=
+\colim_i \mathcal{F}_{i, x},
+$$
+see
+Sheaves, Section \ref{sheaves-section-limits-sheaves}.
+First we show that the map $\varphi_x$ is injective.
+Suppose that $s \in \mathcal{F}_{i, x}$ is an element
+such that $s$ maps to zero in $\mathcal{F}_x$. Then there exists
+a quasi-compact open $U$ such that $s$ comes from $s \in \mathcal{F}_i(U)$
+and such that $\varphi_i(s) = 0$ in $\mathcal{F}(U)$.
+By Lemma \ref{lemma-extend}
+we can find a finite type quasi-coherent subsheaf
+$\mathcal{K} \subset \Ker(\varphi_i)$ which restricts to
+the quasi-coherent $\mathcal{O}_U$-submodule of $\mathcal{F}_i$
+generated by $s$:
+$\mathcal{K}|_U = \mathcal{O}_U\cdot s \subset \mathcal{F}_i|_U$.
+Clearly, $\mathcal{F}_i/\mathcal{K}$ is of finite presentation and
+the map $\varphi_i$ factors through the quotient map
+$\mathcal{F}_i \to \mathcal{F}_i/\mathcal{K}$. Hence we can find
+an $i' \in I$ and a morphism $\alpha : \mathcal{F}_i \to \mathcal{F}_{i'}$
+in $\mathcal{I}$ which can be identified with the quotient map
+$\mathcal{F}_i \to \mathcal{F}_i/\mathcal{K}$. Then it follows
+that the section $s$ maps to zero in $\mathcal{F}_{i'}(U)$ and
+in particular in
+$(\colim_i \mathcal{F}_i)_x =
+\colim_i \mathcal{F}_{i, x}$.
+The injectivity follows.
+Finally, we show that the map $\varphi_x$ is surjective.
+Pick $s \in \mathcal{F}_x$. Choose a quasi-compact open neighbourhood
+$U \subset X$ of $x$ such that $s$ corresponds to a section
+$s \in \mathcal{F}(U)$. Consider the map
+$s : \mathcal{O}_U \to \mathcal{F}$ (multiplication by $s$).
+By Lemma \ref{lemma-extend-finite-presentation}
+there exists an $\mathcal{O}_X$-module $\mathcal{G}$
+of finite presentation and an $\mathcal{O}_X$-module map
+$\mathcal{G} \to \mathcal{F}$ such that $\mathcal{G}|_U \to \mathcal{F}|_U$
+is identified with
+$s : \mathcal{O}_U \to \mathcal{F}$.
+Again by definition of $\mathcal{I}$ there exists an $i \in I$
+such that $\mathcal{G} \to \mathcal{F}$ is isomorphic to
+$\varphi_i : \mathcal{F}_i \to \mathcal{F}$. Clearly there exists
+a section $s' \in \mathcal{F}_i(U)$ mapping to $s \in \mathcal{F}(U)$.
+This proves surjectivity and the proof of the lemma is complete.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-directed-colimit-finite-presentation}
+Let $X$ be a scheme. Assume $X$ is quasi-compact and quasi-separated.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+There exist
+\begin{enumerate}
+\item a directed set $I$ (see
+Categories, Definition \ref{categories-definition-directed-set}),
+\item a system $(\mathcal{F}_i, \varphi_{ii'})$
+over $I$ in $\textit{Mod}(\mathcal{O}_X)$ (see
+Categories, Definition \ref{categories-definition-system-over-poset})
+\item morphisms of $\mathcal{O}_X$-modules
+$\varphi_i : \mathcal{F}_i \to \mathcal{F}$
+\end{enumerate}
+such that each $\mathcal{F}_i$ is of finite presentation
+and such that the morphisms $\varphi_i$ induce an isomorphism
+$$
+\colim_i \mathcal{F}_i
+=
+\mathcal{F}.
+$$
+\end{lemma}
+
+\begin{proof}
+This is a direct consequence of
+Lemma \ref{lemma-directed-colimit-diagram-finite-presentation} and
+Categories, Lemma \ref{categories-lemma-directed-category-system}
+(combined with the fact that
+colimits exist in the category of sheaves of $\mathcal{O}_X$-modules, see
+Sheaves, Section \ref{sheaves-section-limits-sheaves}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-directed-colimit-finite-type}
+Let $X$ be a scheme. Assume $X$ is quasi-compact and quasi-separated.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Then $\mathcal{F}$ is the directed colimit of its finite type
+quasi-coherent submodules.
+\end{lemma}
+
+\begin{proof}
+If $\mathcal{G}, \mathcal{H} \subset \mathcal{F}$ are finite type
+quasi-coherent $\mathcal{O}_X$-submodules then the image
+of $\mathcal{G} \oplus \mathcal{H} \to \mathcal{F}$ is another
+finite type quasi-coherent $\mathcal{O}_X$-submodule which contains
+both of them. In this way we see that the system is directed.
+To show that $\mathcal{F}$ is the colimit of this system, write
+$\mathcal{F} = \colim_i \mathcal{F}_i$ as a directed
+colimit of finitely presented quasi-coherent sheaves as in
+Lemma \ref{lemma-directed-colimit-finite-presentation}.
+Then the images $\mathcal{G}_i = \Im(\mathcal{F}_i \to \mathcal{F})$ are
+finite type quasi-coherent subsheaves of $\mathcal{F}$. Since
+$\mathcal{F}$ is the colimit of these the result follows.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-directed-colimit-surjective-maps}
+Let $X$ be a scheme. Assume $X$ is quasi-compact and quasi-separated.
+Let $\mathcal{F}$ be a finite type quasi-coherent $\mathcal{O}_X$-module.
+Then we can write $\mathcal{F} = \colim \mathcal{F}_i$ with $\mathcal{F}_i$
+of finite presentation and all transition maps
+$\mathcal{F}_i \to \mathcal{F}_{i'}$ surjective.
+\end{lemma}
+
+\begin{proof}
+Write $\mathcal{F} = \colim \mathcal{G}_i$ as a filtered colimit of
+finitely presented $\mathcal{O}_X$-modules
+(Lemma \ref{lemma-directed-colimit-finite-presentation}).
+We claim that $\mathcal{G}_i \to \mathcal{F}$ is surjective for some $i$.
+Namely, choose a finite affine open covering $X = U_1 \cup \ldots \cup U_m$.
+Choose sections $s_{jl} \in \mathcal{F}(U_j)$ generating
+$\mathcal{F}|_{U_j}$, see Lemma \ref{lemma-finite-type-module}.
+By Sheaves, Lemma \ref{sheaves-lemma-directed-colimits-sections}
+we see that $s_{jl}$ is in the image of $\mathcal{G}_i \to \mathcal{F}$
+for $i$ large enough. Hence $\mathcal{G}_i \to \mathcal{F}$ is surjective
+for $i$ large enough. Choose such an $i$ and let
+$\mathcal{K} \subset \mathcal{G}_i$ be the kernel of the map
+$\mathcal{G}_i \to \mathcal{F}$. Write $\mathcal{K} = \colim \mathcal{K}_a$
+as the filtered colimit of its finite type quasi-coherent submodules
+(Lemma \ref{lemma-directed-colimit-finite-type}). Then
+$\mathcal{F} = \colim \mathcal{G}_i/\mathcal{K}_a$ is a solution
+to the problem posed by the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-application-directed-colimit}
+Let $X$ be a quasi-compact and quasi-separated scheme.
+Let $\mathcal{F}$ be a finite type quasi-coherent $\mathcal{O}_X$-module.
+Let $U \subset X$ be a quasi-compact open such that $\mathcal{F}|_U$
+is of finite presentation. Then there exists a map of $\mathcal{O}_X$-modules
+$\varphi : \mathcal{G} \to \mathcal{F}$ with
+(a) $\mathcal{G}$ of finite presentation,
+(b) $\varphi$ is surjective, and
+(c) $\varphi|_U$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+Write $\mathcal{F} = \colim \mathcal{F}_i$ as a directed colimit
+with each $\mathcal{F}_i$ of finite presentation,
+see Lemma \ref{lemma-directed-colimit-finite-presentation}.
+Choose a finite affine open covering $X = \bigcup V_j$ and choose
+finitely many sections $s_{jl} \in \mathcal{F}(V_j)$ generating
+$\mathcal{F}|_{V_j}$, see Lemma \ref{lemma-finite-type-module}.
+By Sheaves, Lemma \ref{sheaves-lemma-directed-colimits-sections}
+we see that $s_{jl}$ is in the image of $\mathcal{F}_i \to \mathcal{F}$
+for $i$ large enough. Hence $\mathcal{F}_i \to \mathcal{F}$ is surjective
+for $i$ large enough. Choose such an $i$ and let
+$\mathcal{K} \subset \mathcal{F}_i$ be the kernel of the map
+$\mathcal{F}_i \to \mathcal{F}$. Since $\mathcal{F}_U$ is of finite
+presentation, we see that $\mathcal{K}|_U$ is of finite type, see
+Modules, Lemma
+\ref{modules-lemma-kernel-surjection-finite-free-onto-finite-presentation}.
+Hence we can find a finite type quasi-coherent submodule
+$\mathcal{K}' \subset \mathcal{K}$ with $\mathcal{K}'|_U = \mathcal{K}|_U$,
+see Lemma \ref{lemma-extend}. Then
+$\mathcal{G} = \mathcal{F}_i/\mathcal{K}'$
+with the given map $\mathcal{G} \to \mathcal{F}$ is a solution.
+\end{proof}
+
+\noindent
+Let $X$ be a scheme. In the following lemma we use the notion
+of a {\it quasi-coherent $\mathcal{O}_X$-algebra $\mathcal{A}$
+of finite presentation}. This means that for every affine open
+$\Spec(R) \subset X$ we have $\mathcal{A} = \widetilde{A}$
+where $A$ is a (commutative) $R$-algebra which is of finite presentation
+as an $R$-algebra.
+
+\begin{lemma}
+\label{lemma-algebra-directed-colimit-finite-presentation}
+Let $X$ be a scheme. Assume $X$ is quasi-compact and quasi-separated.
+Let $\mathcal{A}$ be a quasi-coherent $\mathcal{O}_X$-algebra.
+There exist
+\begin{enumerate}
+\item a directed set $I$ (see
+Categories, Definition \ref{categories-definition-directed-set}),
+\item a system $(\mathcal{A}_i, \varphi_{ii'})$
+over $I$ in the category of $\mathcal{O}_X$-algebras,
+\item morphisms of $\mathcal{O}_X$-algebras
+$\varphi_i : \mathcal{A}_i \to \mathcal{A}$
+\end{enumerate}
+such that each $\mathcal{A}_i$ is a quasi-coherent $\mathcal{O}_X$-algebra
+of finite presentation and such that the morphisms $\varphi_i$
+induce an isomorphism
+$$
+\colim_i \mathcal{A}_i
+=
+\mathcal{A}.
+$$
+\end{lemma}
+
+\begin{proof}
+First we write $\mathcal{A} = \colim_i \mathcal{F}_i$ as a directed
+colimit of finitely presented quasi-coherent sheaves as in
+Lemma \ref{lemma-directed-colimit-finite-presentation}.
+For each $i$ let $\mathcal{B}_i = \text{Sym}(\mathcal{F}_i)$ be the
+symmetric algebra on $\mathcal{F}_i$ over $\mathcal{O}_X$. Write
+$\mathcal{I}_i = \Ker(\mathcal{B}_i \to \mathcal{A})$. Write
+$\mathcal{I}_i = \colim_j \mathcal{F}_{i, j}$ where
+$\mathcal{F}_{i, j}$ is a finite type quasi-coherent submodule of
+$\mathcal{I}_i$, see
+Lemma \ref{lemma-directed-colimit-finite-type}.
+Set $\mathcal{I}_{i, j} \subset \mathcal{I}_i$
+equal to the $\mathcal{B}_i$-ideal generated by $\mathcal{F}_{i, j}$.
+Set $\mathcal{A}_{i, j} = \mathcal{B}_i/\mathcal{I}_{i, j}$.
+Then $\mathcal{A}_{i, j}$ is a quasi-coherent finitely presented
+$\mathcal{O}_X$-algebra. Define $(i, j) \leq (i', j')$ if
+$i \leq i'$ and the map $\mathcal{B}_i \to \mathcal{B}_{i'}$
+maps the ideal $\mathcal{I}_{i, j}$ into the ideal $\mathcal{I}_{i', j'}$.
+Then it is clear that $\mathcal{A} = \colim_{i, j} \mathcal{A}_{i, j}$.
+\end{proof}
+
+\noindent
+Let $X$ be a scheme. In the following lemma we use the notion
+of a {\it quasi-coherent $\mathcal{O}_X$-algebra $\mathcal{A}$
+of finite type}. This means that for every affine open
+$\Spec(R) \subset X$ we have $\mathcal{A} = \widetilde{A}$
+where $A$ is a (commutative) $R$-algebra which is of finite type
+as an $R$-algebra.
+
+\begin{lemma}
+\label{lemma-algebra-directed-colimit-finite-type}
+Let $X$ be a scheme. Assume $X$ is quasi-compact and quasi-separated.
+Let $\mathcal{A}$ be a quasi-coherent $\mathcal{O}_X$-algebra.
+Then $\mathcal{A}$ is the directed colimit of its finite type
+quasi-coherent $\mathcal{O}_X$-subalgebras.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Compare with the proof of
+Lemma \ref{lemma-directed-colimit-finite-type}.
+\end{proof}
+
+\noindent
+Let $X$ be a scheme. In the following lemma we use the notion
+of a {\it finite (resp.\ integral) quasi-coherent
+$\mathcal{O}_X$-algebra $\mathcal{A}$}. This means that for every
+affine open $\Spec(R) \subset X$ we have
+$\mathcal{A} = \widetilde{A}$ where $A$ is a (commutative) $R$-algebra
+which is finite (resp.\ integral) as an $R$-algebra.
+
+\begin{lemma}
+\label{lemma-finite-algebra-directed-colimit-finite-finitely-presented}
+Let $X$ be a scheme. Assume $X$ is quasi-compact and quasi-separated.
+Let $\mathcal{A}$ be a finite quasi-coherent $\mathcal{O}_X$-algebra.
+Then $\mathcal{A} = \colim \mathcal{A}_i$ is a directed colimit of finite
+and finitely presented quasi-coherent $\mathcal{O}_X$-algebras
+such that all transition maps $\mathcal{A}_{i'} \to \mathcal{A}_i$
+are surjective.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-finite-directed-colimit-surjective-maps}
+there exists a finitely presented $\mathcal{O}_X$-module
+$\mathcal{F}$ and a surjection $\mathcal{F} \to \mathcal{A}$.
+Using the algebra structure we obtain a surjection
+$$
+\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}) \longrightarrow \mathcal{A}
+$$
+Denote $\mathcal{J}$ the kernel. Write $\mathcal{J} = \colim \mathcal{E}_i$
+as a filtered colimit of finite type $\mathcal{O}_X$-submodules
+$\mathcal{E}_i$ (Lemma \ref{lemma-directed-colimit-finite-type}). Set
+$$
+\mathcal{A}_i = \text{Sym}^*_{\mathcal{O}_X}(\mathcal{F})/(\mathcal{E}_i)
+$$
+where $(\mathcal{E}_i)$ indicates the ideal sheaf generated by
+the image of $\mathcal{E}_i \to \text{Sym}^*_{\mathcal{O}_X}(\mathcal{F})$.
+Then each $\mathcal{A}_i$ is a finitely presented $\mathcal{O}_X$-algebra,
+the transition maps are surjections,
+and $\mathcal{A} = \colim \mathcal{A}_i$. To finish the proof we still
+have to show that $\mathcal{A}_i$ is a finite $\mathcal{O}_X$-algebra
+for $i$ sufficiently large. To do this we choose an affine open
+covering $X = U_1 \cup \ldots \cup U_m$. Take generators
+$f_{j, 1}, \ldots, f_{j, N_j} \in \Gamma(U_i, \mathcal{F})$.
+As $\mathcal{A}(U_j)$ is a finite $\mathcal{O}_X(U_j)$-algebra we
+see that for each $k$ there exists a monic polynomial
+$P_{j, k} \in \mathcal{O}(U_j)[T]$ such that $P_{j, k}(f_{j, k})$
+is zero in $\mathcal{A}(U_j)$. Since
+$\mathcal{A} = \colim \mathcal{A}_i$ by construction, we
+have $P_{j, k}(f_{j, k}) = 0$ in $\mathcal{A}_i(U_j)$
+for all sufficiently large $i$. For such $i$ the algebras
+$\mathcal{A}_i$ are finite.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-integral-algebra-directed-colimit-finite}
+Let $X$ be a scheme. Assume $X$ is quasi-compact and quasi-separated.
+Let $\mathcal{A}$ be an integral quasi-coherent $\mathcal{O}_X$-algebra.
+Then
+\begin{enumerate}
+\item $\mathcal{A}$ is the directed colimit of its finite
+quasi-coherent $\mathcal{O}_X$-subalgebras, and
+\item $\mathcal{A}$ is a direct colimit of finite and finitely
+presented quasi-coherent $\mathcal{O}_X$-algebras.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-algebra-directed-colimit-finite-type} we have
+$\mathcal{A} = \colim \mathcal{A}_i$ where
+$\mathcal{A}_i \subset \mathcal{A}$ runs through the
+quasi-coherent $\mathcal{O}_X$-algebras of finite type.
+Any finite type quasi-coherent $\mathcal{O}_X$-subalgebra
+of $\mathcal{A}$ is finite (apply Algebra, Lemma
+\ref{algebra-lemma-characterize-finite-in-terms-of-integral}
+to $\mathcal{A}_i(U) \subset \mathcal{A}(U)$ for affine opens $U$
+in $X$). This proves (1).
+
+\medskip\noindent
+To prove (2), write $\mathcal{A} = \colim \mathcal{F}_i$
+as a colimit of finitely presented $\mathcal{O}_X$-modules using
+Lemma \ref{lemma-directed-colimit-finite-presentation}.
+For each $i$, let $\mathcal{J}_i$ be the kernel of the map
+$$
+\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i) \longrightarrow \mathcal{A}
+$$
+For $i' \geq i$ there is an induced map $\mathcal{J}_i \to \mathcal{J}_{i'}$
+and we have $\mathcal{A} =
+\colim \text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i)/\mathcal{J}_i$.
+Moreover, the quasi-coherent $\mathcal{O}_X$-algebras
+$\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i)/\mathcal{J}_i$
+are finite (see above). Write $\mathcal{J}_i = \colim \mathcal{E}_{ik}$
+as a colimit of finitely presented $\mathcal{O}_X$-modules.
+Given $i' \geq i$ and $k$ there exists a $k'$ such that we
+have a map $\mathcal{E}_{ik} \to \mathcal{E}_{i'k'}$
+making
+$$
+\xymatrix{
+\mathcal{J}_i \ar[r] & \mathcal{J}_{i'} \\
+\mathcal{E}_{ik} \ar[u] \ar[r] & \mathcal{E}_{i'k'} \ar[u]
+}
+$$
+commute. This follows from
+Modules, Lemma \ref{modules-lemma-finite-presentation-quasi-compact-colimit}.
+This induces a map
+$$
+\mathcal{A}_{ik} =
+\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_i)/(\mathcal{E}_{ik})
+\longrightarrow
+\text{Sym}^*_{\mathcal{O}_X}(\mathcal{F}_{i'})/(\mathcal{E}_{i'k'}) =
+\mathcal{A}_{i'k'}
+$$
+where $(\mathcal{E}_{ik})$ denotes the ideal generated by $\mathcal{E}_{ik}$.
+The quasi-coherent $\mathcal{O}_X$-algebras $\mathcal{A}_{ki}$
+are of finite presentation and finite for $k$ large enough
+(see proof of
+Lemma \ref{lemma-finite-algebra-directed-colimit-finite-finitely-presented}).
+Finally, we have
+$$
+\colim \mathcal{A}_{ik} = \colim \mathcal{A}_i = \mathcal{A}
+$$
+Namely, the first equality was shown in the proof of
+Lemma \ref{lemma-finite-algebra-directed-colimit-finite-finitely-presented}
+and the second equality because $\mathcal{A}$ is the colimit of
+the modules $\mathcal{F}_i$.
+\end{proof}
+
+
+
+
+
+\section{Gabber's result}
+\label{section-gabber}
+
+\noindent
+In this section we prove a result of Gabber which guarantees that on every
+scheme there exists a cardinal $\kappa$ such that every quasi-coherent
+module $\mathcal{F}$ is the union of its quasi-coherent
+$\kappa$-generated subsheaves. It follows that the category of quasi-coherent
+sheaves on a scheme is a Grothendieck abelian category having
+limits and enough injectives\footnote{Nicely explained in a
+\href{http://amathew.wordpress.com/2011/07/30/quasi-coherent-sheaves-presentable-categories-and-a-result-of-gabber/}{blog post}
+by Akhil Mathew.}.
+
+\begin{definition}
+\label{definition-kappa-generated}
+Let $(X, \mathcal{O}_X)$ be a ringed space. Let $\kappa$ be an infinite
+cardinal. We say a sheaf of $\mathcal{O}_X$-modules $\mathcal{F}$ is
+{\it $\kappa$-generated} if there exists an open covering
+$X = \bigcup U_i$ such that $\mathcal{F}|_{U_i}$ is generated by
+a subset $R_i \subset \mathcal{F}(U_i)$ whose cardinality is
+at most $\kappa$.
+\end{definition}
+
+\noindent
+Note that a direct sum of at most $\kappa$ $\kappa$-generated modules is
+again $\kappa$-generated because $\kappa \otimes \kappa = \kappa$, see
+Sets, Section \ref{sets-section-cardinals}.
+In particular this holds for the direct sum of two $\kappa$-generated modules.
+Moreover, a quotient of a $\kappa$-generated sheaf is $\kappa$-generated.
+(But the same needn't be true for submodules.)
+
+\begin{lemma}
+\label{lemma-set-of-iso-classes}
+Let $(X, \mathcal{O}_X)$ be a ringed space. Let $\kappa$ be a cardinal.
+There exists a set $T$ and a family $(\mathcal{F}_t)_{t \in T}$ of
+$\kappa$-generated $\mathcal{O}_X$-modules such that every $\kappa$-generated
+$\mathcal{O}_X$-module is isomorphic to one of the $\mathcal{F}_t$.
+\end{lemma}
+
+\begin{proof}
+There is a set of coverings of $X$ (provided we disallow repeats).
+Suppose $X = \bigcup U_i$ is a covering and suppose $\mathcal{F}_i$
+is an $\mathcal{O}_{U_i}$-module. Then there is a set of isomorphism
+classes of $\mathcal{O}_X$-modules $\mathcal{F}$ with the property
+that $\mathcal{F}|_{U_i} \cong \mathcal{F}_i$ since there is a set of
+glueing maps. This reduces us to proving there is a set of (isomorphism
+classes of) quotients
+$\oplus_{k \in \kappa} \mathcal{O}_X \to \mathcal{F}$
+for any ringed space $X$. This is clear.
+\end{proof}
+
+\noindent
+Here is the result the title of this section refers to.
+
+\begin{lemma}
+\label{lemma-colimit-kappa}
+Let $X$ be a scheme. There exists a cardinal $\kappa$ such that
+every quasi-coherent module $\mathcal{F}$ is the directed colimit
+of its quasi-coherent $\kappa$-generated quasi-coherent subsheaves.
+\end{lemma}
+
+\begin{proof}
+Choose an affine open covering $X = \bigcup_{i \in I} U_i$. For each pair
+$i, j$ choose an affine open covering
+$U_i \cap U_j = \bigcup_{k \in I_{ij}} U_{ijk}$.
+Write $U_i = \Spec(A_i)$ and $U_{ijk} = \Spec(A_{ijk})$.
+Let $\kappa$ be any infinite cardinal $\geq$ than the cardinality
+of any of the sets $I$, $I_{ij}$.
+
+\medskip\noindent
+Let $\mathcal{F}$ be a quasi-coherent sheaf. Set $M_i = \mathcal{F}(U_i)$
+and $M_{ijk} = \mathcal{F}(U_{ijk})$. Note that
+$$
+M_i \otimes_{A_i} A_{ijk} = M_{ijk} = M_j \otimes_{A_j} A_{ijk}.
+$$
+see
+Schemes, Lemma \ref{schemes-lemma-widetilde-pullback}.
+Using the axiom of choice we choose a map
+$$
+(i, j, k, m) \mapsto S(i, j, k, m)
+$$
+which associates to every $i, j \in I$, $k \in I_{ij}$ and $m \in M_i$
+a finite subset $S(i, j, k, m) \subset M_j$ such that we have
+$$
+m \otimes 1 = \sum\nolimits_{m' \in S(i, j, k, m)} m' \otimes a_{m'}
+$$
+in $M_{ijk}$ for some $a_{m'} \in A_{ijk}$. Moreover, let's agree
+that $S(i, i, k, m) = \{m\}$ for all $i, j = i, k, m$ as above.
+Fix such a map.
+
+\medskip\noindent
+Given a family $\mathcal{S} = (S_i)_{i \in I}$ of subsets
+$S_i \subset M_i$ of cardinality at most $\kappa$ we set
+$\mathcal{S}' = (S'_i)$ where
+$$
+S'_j = \bigcup\nolimits_{(i, j, k, m)\text{ such that }m \in S_i}
+S(i, j, k, m)
+$$
+Note that $S_i \subset S'_i$. Note that $S'_i$ has cardinality at most
+$\kappa$ because it is a union over a set of cardinality at most $\kappa$
+of finite sets. Set $\mathcal{S}^{(0)} = \mathcal{S}$,
+$\mathcal{S}^{(1)} = \mathcal{S}'$ and by induction
+$\mathcal{S}^{(n + 1)} = (\mathcal{S}^{(n)})'$. Then set
+$\mathcal{S}^{(\infty)} = \bigcup_{n \geq 0} \mathcal{S}^{(n)}$.
+Writing $\mathcal{S}^{(\infty)} = (S^{(\infty)}_i)$ we see that
+for any element $m \in S^{(\infty)}_i$ the image of $m$ in
+$M_{ijk}$ can be written as a finite sum $\sum m' \otimes a_{m'}$
+with $m' \in S_j^{(\infty)}$. In this way we see that setting
+$$
+N_i = A_i\text{-submodule of }M_i\text{ generated by }S^{(\infty)}_i
+$$
+we have
+$$
+N_i \otimes_{A_i} A_{ijk} = N_j \otimes_{A_j} A_{ijk}.
+$$
+as submodules of $M_{ijk}$. Thus there exists a quasi-coherent subsheaf
+$\mathcal{G} \subset \mathcal{F}$ with $\mathcal{G}(U_i) = N_i$.
+Moreover, by construction the sheaf $\mathcal{G}$ is $\kappa$-generated.
+
+\medskip\noindent
+Let $\{\mathcal{G}_t\}_{t \in T}$ be the set of $\kappa$-generated
+quasi-coherent subsheaves. If $t, t' \in T$ then
+$\mathcal{G}_t + \mathcal{G}_{t'}$ is also a $\kappa$-generated
+quasi-coherent subsheaf as it is the image of the map
+$\mathcal{G}_t \oplus \mathcal{G}_{t'} \to \mathcal{F}$.
+Hence the system (ordered by inclusion) is directed.
+The arguments above show that every section of $\mathcal{F}$ over $U_i$
+is in one of the $\mathcal{G}_t$ (because we can start with $\mathcal{S}$
+such that the given section is an element of $S_i$). Hence
+$\colim_t \mathcal{G}_t \to \mathcal{F}$ is both injective and surjective
+as desired.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-coherator}
+Let $X$ be a scheme.
+\begin{enumerate}
+\item The category $\QCoh(\mathcal{O}_X)$ is a Grothendieck
+abelian category. Consequently, $\QCoh(\mathcal{O}_X)$
+has enough injectives and all limits.
+\item The inclusion functor
+$\QCoh(\mathcal{O}_X) \to \textit{Mod}(\mathcal{O}_X)$
+has a right adjoint\footnote{This functor is sometimes called
+the {\it coherator}.}
+$$
+Q : \textit{Mod}(\mathcal{O}_X) \longrightarrow \QCoh(\mathcal{O}_X)
+$$
+such that for every quasi-coherent sheaf $\mathcal{F}$ the adjunction mapping
+$Q(\mathcal{F}) \to \mathcal{F}$ is an isomorphism.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Part (1) means $\QCoh(\mathcal{O}_X)$ (a) has all colimits,
+(b) filtered colimits are exact, and (c) has a generator, see
+Injectives, Section \ref{injectives-section-grothendieck-conditions}.
+By Schemes, Section \ref{schemes-section-quasi-coherent}
+colimits in $\QCoh(\mathcal{O}_X)$ exist and agree
+with colimits in $\textit{Mod}(\mathcal{O}_X)$. By
+Modules, Lemma \ref{modules-lemma-limits-colimits}
+filtered colimits are exact. Hence (a) and (b) hold.
+To construct a generator $U$, pick a cardinal $\kappa$ as in
+Lemma \ref{lemma-colimit-kappa}. Pick a collection
+$(\mathcal{F}_t)_{t \in T}$ of $\kappa$-generated quasi-coherent sheaves as in
+Lemma \ref{lemma-set-of-iso-classes}. Set
+$U = \bigoplus_{t \in T} \mathcal{F}_t$. Since every object of
+$\QCoh(\mathcal{O}_X)$ is a filtered colimit of $\kappa$-generated
+quasi-coherent modules, i.e., of objects isomorphic to $\mathcal{F}_t$,
+it is clear that $U$ is a generator.
+The assertions on limits and injectives hold in any
+Grothendieck abelian category, see
+Injectives, Theorem
+\ref{injectives-theorem-injective-embedding-grothendieck} and
+Lemma \ref{injectives-lemma-grothendieck-products}.
+
+\medskip\noindent
+Proof of (2). To construct $Q$ we use the following general procedure.
+Given an object $\mathcal{F}$ of $\textit{Mod}(\mathcal{O}_X)$
+we consider the functor
+$$
+\QCoh(\mathcal{O}_X)^{opp} \longrightarrow \textit{Sets},\quad
+\mathcal{G} \longmapsto \Hom_X(\mathcal{G}, \mathcal{F})
+$$
+This functor transforms colimits into limits,
+hence is representable, see
+Injectives, Lemma \ref{injectives-lemma-grothendieck-brown}.
+Thus there exists a quasi-coherent sheaf $Q(\mathcal{F})$
+and a functorial isomorphism
+$\Hom_X(\mathcal{G}, \mathcal{F}) = \Hom_X(\mathcal{G}, Q(\mathcal{F}))$
+for $\mathcal{G}$ in $\QCoh(\mathcal{O}_X)$. By the Yoneda lemma
+(Categories, Lemma \ref{categories-lemma-yoneda})
+the construction $\mathcal{F} \leadsto Q(\mathcal{F})$ is
+functorial in $\mathcal{F}$. By construction $Q$ is a right
+adjoint to the inclusion functor.
+The fact that $Q(\mathcal{F}) \to \mathcal{F}$ is an isomorphism
+when $\mathcal{F}$ is quasi-coherent is a formal consequence of the fact
+that the inclusion functor
+$\QCoh(\mathcal{O}_X) \to \textit{Mod}(\mathcal{O}_X)$
+is fully faithful.
+\end{proof}
+
+
+
+
+
+
+
+\section{Sections with support in a closed subset}
+\label{section-sections-with-support-in-closed}
+
+\noindent
+Given any topological space $X$, a closed subset $Z \subset X$, and an
+abelian sheaf $\mathcal{F}$ you can take the subsheaf of sections whose
+support is contained in $Z$. If $X$ is a scheme, $Z$ a closed
+subscheme, and $\mathcal{F}$ a quasi-coherent module there is a variant
+where you take sections which are scheme theoretically supported
+on $Z$. However, in the scheme setting you have to be careful because
+the resulting $\mathcal{O}_X$-module may not be quasi-coherent.
+
+\begin{lemma}
+\label{lemma-quasi-coherent-finite-type-ideals}
+Let $X$ be a quasi-compact and quasi-separated scheme.
+Let $U \subset X$ be an open subscheme. The following are equivalent:
+\begin{enumerate}
+\item $U$ is retrocompact in $X$,
+\item $U$ is quasi-compact,
+\item $U$ is a finite union of affine opens, and
+\item there exists a finite type quasi-coherent sheaf of ideals
+$\mathcal{I} \subset \mathcal{O}_X$ such that $X \setminus U = V(\mathcal{I})$
+(set theoretically).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (1), (2), and (3) follows from
+Lemma \ref{lemma-quasi-separated-quasi-compact-open-retrocompact}.
+Assume (1), (2), (3). Let $T = X \setminus U$. By
+Schemes, Lemma \ref{schemes-lemma-reduced-closed-subscheme} there exists
+a unique quasi-coherent sheaf of ideals $\mathcal{J}$ cutting
+out the reduced induced closed subscheme structure on $T$.
+Note that $\mathcal{J}|_U = \mathcal{O}_U$ which is an
+$\mathcal{O}_U$-modules of finite type.
+By Lemma \ref{lemma-extend} there exists a quasi-coherent subsheaf
+$\mathcal{I} \subset \mathcal{J}$ which is of finite type
+and has the property that $\mathcal{I}|_U = \mathcal{J}|_U$.
+Then $X \setminus U = V(\mathcal{I})$ and we obtain (4). Conversely,
+if $\mathcal{I}$ is as in (4) and $W = \Spec(R) \subset X$ is an affine
+open, then $\mathcal{I}|_W = \widetilde{I}$ for some finitely generated
+ideal $I \subset R$, see Lemma \ref{lemma-finite-type-module}.
+It follows that $U \cap W = \Spec(R) \setminus V(I)$ is quasi-compact,
+see Algebra, Lemma \ref{algebra-lemma-qc-open}. Hence $U \subset X$
+is retrocompact by Lemma \ref{lemma-retrocompact}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-sections-annihilated-by-ideal}
+Let $X$ be a scheme.
+Let $\mathcal{I} \subset \mathcal{O}_X$ be a quasi-coherent sheaf of ideals.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Consider the sheaf of $\mathcal{O}_X$-modules $\mathcal{F}'$
+which associates to every open $U \subset X$
+$$
+\mathcal{F}'(U)
+=
+\{s \in \mathcal{F}(U) \mid
+\mathcal{I}s = 0\}
+$$
+Assume $\mathcal{I}$ is of finite type. Then
+\begin{enumerate}
+\item $\mathcal{F}'$ is a quasi-coherent sheaf of $\mathcal{O}_X$-modules,
+\item on any affine open $U \subset X$ we have
+$\mathcal{F}'(U) = \{s \in \mathcal{F}(U) \mid \mathcal{I}(U)s = 0\}$, and
+\item $\mathcal{F}'_x = \{s \in \mathcal{F}_x \mid \mathcal{I}_x s = 0\}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+It is clear that the rule defining $\mathcal{F}'$ gives a subsheaf
+of $\mathcal{F}$ (the sheaf condition is easy to verify). Hence we
+may work locally on $X$ to verify the other statements. In other words
+we may assume that $X = \Spec(A)$, $\mathcal{F} = \widetilde{M}$
+and $\mathcal{I} = \widetilde{I}$. It is clear that in this case
+$\mathcal{F}'(U) = \{x \in M \mid Ix = 0\} =: M'$ because $\widetilde{I}$
+is generated by its global sections $I$ which proves (2).
+To show $\mathcal{F}'$ is quasi-coherent it suffices to show that
+for every $f \in A$ we have
+$\{x \in M_f \mid I_f x = 0\} = (M')_f$.
+Write $I = (g_1, \ldots, g_t)$, which is possible because $\mathcal{I}$
+is of finite type, see Lemma \ref{lemma-finite-type-module}.
+If $x = y/f^n$ and $I_fx = 0$, then that means that for every $i$
+there exists an $m \geq 0$ such that $f^mg_ix = 0$.
+We may choose one $m$ which works for all $i$ (and this is where we
+use that $I$ is finitely generated). Then we see that $f^mx \in M'$
+and $x/f^n = f^mx/f^{n + m}$ in $(M')_f$ as desired.
+The proof of (3) is similar and omitted.
+\end{proof}
+
+\begin{definition}
+\label{definition-subsheaf-sections-annihilated-by-ideal}
+Let $X$ be a scheme.
+Let $\mathcal{I} \subset \mathcal{O}_X$ be a quasi-coherent sheaf of ideals
+of finite type.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+The subsheaf $\mathcal{F}' \subset \mathcal{F}$ defined in
+Lemma \ref{lemma-sections-annihilated-by-ideal} above is called
+the {\it subsheaf of sections annihilated by $\mathcal{I}$}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-push-sections-annihilated-by-ideal}
+Let $f : X \to Y$ be a quasi-compact and quasi-separated morphism
+of schemes. Let $\mathcal{I} \subset \mathcal{O}_Y$ be a quasi-coherent
+sheaf of ideals of finite type. Let $\mathcal{F}$ be a quasi-coherent
+$\mathcal{O}_X$-module. Let $\mathcal{F}' \subset \mathcal{F}$
+be the subsheaf of sections annihilated by $f^{-1}\mathcal{I}\mathcal{O}_X$.
+Then $f_*\mathcal{F}' \subset f_*\mathcal{F}$ is the subsheaf
+of sections annihilated by $\mathcal{I}$.
+\end{lemma}
+
+\begin{proof}
+Omitted. (Hint: The assumption that $f$ is quasi-compact and
+quasi-separated implies that $f_*\mathcal{F}$ is quasi-coherent
+so that Lemma \ref{lemma-sections-annihilated-by-ideal} applies
+to $\mathcal{I}$ and $f_*\mathcal{F}$.)
+\end{proof}
+
+\noindent
+For an abelian sheaf on a topological space we have discussed the subsheaf
+of sections with support in a closed subset in
+Modules, Lemma \ref{modules-lemma-sections-support-in-closed}.
+For quasi-coherent modules this submodule isn't always a quasi-coherent
+module, but if the closed subset has a retrocompact complement, then
+it is.
+
+\begin{lemma}
+\label{lemma-sections-supported-on-closed-subset}
+Let $X$ be a scheme. Let $Z \subset X$ be a closed subset.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Consider the sheaf of $\mathcal{O}_X$-modules $\mathcal{F}'$
+which associates to every open $U \subset X$
+$$
+\mathcal{F}'(U)
+=
+\{s \in \mathcal{F}(U) \mid
+\text{the support of }s\text{ is contained in }Z \cap U\}
+$$
+If $X \setminus Z$ is a retrocompact open in $X$, then
+\begin{enumerate}
+\item for an affine open $U \subset X$ there exist a finitely generated
+ideal $I \subset \mathcal{O}_X(U)$ such that $Z \cap U = V(I)$,
+\item for $U$ and $I$ as in (1) we have
+$\mathcal{F}'(U) = \{x \in \mathcal{F}(U) \mid
+I^nx = 0 \text{ for some } n\}$,
+\item $\mathcal{F}'$ is a quasi-coherent sheaf of $\mathcal{O}_X$-modules.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) is Algebra, Lemma \ref{algebra-lemma-qc-open}.
+Let $U = \Spec(A)$ and $I$ be as in (1).
+Then $\mathcal{F}|_U$ is the quasi-coherent sheaf associated to
+some $A$-module $M$. We have
+$$
+\mathcal{F}'(U) = \{x \in M \mid x = 0\text{ in }M_\mathfrak p
+\text{ for all }\mathfrak p \not \in Z\}.
+$$
+by Modules, Definition \ref{modules-definition-support}. Thus
+$x \in \mathcal{F}'(U)$ if and only if $V(\text{Ann}(x)) \subset V(I)$, see
+Algebra, Lemma \ref{algebra-lemma-support-element}. Since $I$ is
+finitely generated this is equivalent to $I^n x = 0$ for some $n$.
+This proves (2).
+
+\medskip\noindent
+The rule for $\mathcal{F}'$ indeed defines a submodule of $\mathcal{F}$.
+Hence we may work locally on $X$ to verify (3). Let $U$, $I$ and $M$ be
+as above. Let $\mathcal{I} \subset \mathcal{O}_X$ be the quasi-coherent
+sheaf of ideals corresponding to $I$. Part (2) implies
+sections of $\mathcal{F}'$ over any affine open of $U$ are the sections
+of $\mathcal{F}$ which are annihilated by some power of $\mathcal{I}$.
+Hence we see that $\mathcal{F}'|_U = \colim \mathcal{F}_n$, where
+$\mathcal{F}_n \subset \mathcal{F}|_U$ is the subsheaf of sections
+annihilated by $\mathcal{I}^n$, see
+Definition \ref{definition-subsheaf-sections-annihilated-by-ideal}.
+Thus (3) follows from Lemma \ref{lemma-sections-annihilated-by-ideal}
+and that colimits of quasi-coherent modules are quasi-coherent,
+see Schemes, Section \ref{schemes-section-quasi-coherent}.
+\end{proof}
+
+\begin{definition}
+\label{definition-subsheaf-sections-supported-on-closed}
+Let $X$ be a scheme.
+Let $T \subset X$ be a closed subset whose complement
+is retrocompact in $X$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+The quasi-coherent subsheaf $\mathcal{F}' \subset \mathcal{F}$ defined in
+Lemma \ref{lemma-sections-supported-on-closed-subset} is called
+the {\it subsheaf of sections supported on $T$}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-push-sections-supported-on-closed-subset}
+Let $f : X \to Y$ be a quasi-compact and quasi-separated morphism
+of schemes. Let $Z \subset Y$ be a closed subset such that
+$Y \setminus Z$ is retrocompact in $Y$. Let $\mathcal{F}$ be a quasi-coherent
+$\mathcal{O}_X$-module. Let $\mathcal{F}' \subset \mathcal{F}$
+be the subsheaf of sections supported in $f^{-1}Z$.
+Then $f_*\mathcal{F}' \subset f_*\mathcal{F}$ is the subsheaf
+of sections supported in $Z$.
+\end{lemma}
+
+\begin{proof}
+Omitted. (Hint: First show that $X \setminus f^{-1}Z$ is retrocompact
+in $X$ as $Y \setminus Z$ is retrocompact in $Y$. Hence
+Lemma \ref{lemma-sections-supported-on-closed-subset}
+applies to $f^{-1}Z$ and $\mathcal{F}$. As $f$ is quasi-compact and
+quasi-separated we see that $f_*\mathcal{F}$ is quasi-coherent.
+Hence Lemma \ref{lemma-sections-supported-on-closed-subset}
+applies to $Z$ and $f_*\mathcal{F}$. Finally, match the sheaves
+directly.)
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Sections of quasi-coherent sheaves}
+\label{section-sections-quasi-coherent}
+
+\noindent
+Here is a computation of sections of a quasi-coherent sheaf on a quasi-compact
+open of an affine spectrum.
+
+\begin{lemma}
+\label{lemma-sections-over-quasi-compact-open-in-affine}
+Let $A$ be a ring.
+Let $I \subset A$ be a finitely generated ideal.
+Let $M$ be an $A$-module.
+Then there is a canonical map
+$$
+\colim_n \Hom_A(I^n, M)
+\longrightarrow
+\Gamma(\Spec(A) \setminus V(I), \widetilde{M}).
+$$
+This map is always injective.
+If for all $x \in M$ we have $Ix = 0 \Rightarrow x = 0$
+then this map is an isomorphism. In general, set
+$M_n = \{x \in M \mid I^nx = 0\}$, then there is an
+isomorphism
+$$
+\colim_n \Hom_A(I^n, M/M_n)
+\longrightarrow
+\Gamma(\Spec(A) \setminus V(I), \widetilde{M}).
+$$
+\end{lemma}
+
+\begin{proof}
+Since $I^n \subset I^{n + 1}$ and $M_n \subset M_{n + 1}$ we can
+use composition via these maps to get canonical maps of $A$-modules
+$$
+\Hom_A(I^n, M)
+\longrightarrow
+\Hom_A(I^{n + 1}, M)
+$$
+and
+$$
+\Hom_A(I^n, M/M_n)
+\longrightarrow
+\Hom_A(I^{n + 1}, M/M_{n + 1})
+$$
+which we will use as the transition maps in the systems. Given an
+$A$-module map $\varphi : I^n \to M$, then we get a map of
+sheaves $\widetilde{\varphi} : \widetilde{I^n} \to \widetilde{M}$
+which we can restrict to the open $\Spec(A) \setminus V(I)$.
+Since $\widetilde{I^n}$ restricted to this open gives the structure
+sheaf we get an element of
+$\Gamma(\Spec(A) \setminus V(I), \widetilde{M})$.
+We omit the verification that this is compatible with the transition maps
+in the system $\Hom_A(I^n, M)$. This gives the first arrow.
+To get the second arrow we note that
+$\widetilde{M}$ and $\widetilde{M/M_n}$ agree over the open
+$\Spec(A) \setminus V(I)$ since the sheaf $\widetilde{M_n}$
+is clearly supported on $V(I)$. Hence we can use the same mechanism
+as before.
+
+\medskip\noindent
+Next, we work out how to define this arrow in terms of algebra.
+Say $I = (f_1, \ldots, f_t)$. Then
+$\Spec(A) \setminus V(I) = \bigcup_{i = 1, \ldots, t} D(f_i)$.
+Hence
+$$
+0 \to
+\Gamma(\Spec(A) \setminus V(I), \widetilde{M}) \to
+\bigoplus\nolimits_i M_{f_i} \to
+\bigoplus\nolimits_{i, j} M_{f_if_j}
+$$
+is exact. Suppose that $\varphi : I^n \to M$ is an $A$-module map.
+Consider the vector of elements $\varphi(f_i^n)/f_i^n \in M_{f_i}$.
+It is easy to see that this vector maps to zero in the
+second direct sum of the exact sequence above. Whence an element
+of $\Gamma(\Spec(A) \setminus V(I), \widetilde{M})$.
+We omit the verification that this description agrees with the one
+given above.
+
+\medskip\noindent
+Let us show that the first arrow is injective using this description.
+Namely, if $\varphi$ maps to zero, then for each $i$ the element
+$\varphi(f_i^n)/f_i^n$ is zero in $M_{f_i}$. In other words we
+see that for each $i$ we have $f_i^m\varphi(f_i^n) = 0$ for some $m \geq 0$.
+We may choose a single $m$ which works for all $i$. Then we see that
+$\varphi(f_i^{n + m}) = 0$ for all $i$. It is easy to see that
+this means that $\varphi|_{I^{t(n + m - 1) + 1}} = 0$ in other
+words that $\varphi$ maps to zero in the $t(n + m - 1) + 1$st
+term of the colimit. Hence injectivity follows.
+
+\medskip\noindent
+Note that each $M_n = 0$ in case we have
+$Ix = 0 \Rightarrow x = 0$ for $x \in M$. Thus
+to finish the proof of the lemma it suffices to show that
+the second arrow is an isomorphism.
+
+\medskip\noindent
+Let us attempt to construct an inverse of the second map of the lemma.
+Let $s \in \Gamma(\Spec(A) \setminus V(I), \widetilde{M})$.
+This corresponds to a vector $x_i/f_i^n$ with $x_i \in M$ of the
+first direct sum of the exact sequence above.
+Hence for each $i, j$ there exists $m \geq 0$
+such that $f_i^m f_j^m (f_j^n x_i - f_i^n x_j) = 0$ in $M$.
+We may choose a single $m$ which works for all pairs $i, j$.
+After replacing $x_i$ by $f_i^mx_i$ and $n$ by $n + m$ we see
+that we get $f_j^nx_i = f_i^nx_j$ in $M$ for all $i, j$.
+Let us introduce
+$$
+K_n = \{x \in M \mid f_1^nx = \ldots = f_t^nx = 0\}
+$$
+We claim there is an $A$-module map
+$$
+\varphi :
+I^{t(n - 1) + 1}
+\longrightarrow
+M/K_n
+$$
+which maps the monomial
+$f_1^{e_1} \ldots f_t^{e_t}$ with $\sum e_i = t(n - 1) + 1$
+to the class modulo $K_n$ of the expression
+$f_1^{e_1} \ldots f_i^{e_i - n} \ldots f_t^{e_t}x_i$
+where $i$ is chosen such that $e_i \geq n$ (note that there
+is at least one such $i$).
+To see that this is indeed the case suppose that
+$$
+\sum\nolimits_{E = (e_1, \ldots, e_t), |E| = t(n - 1) + 1}
+a_E f_1^{e_1} \ldots f_t^{e_t} = 0
+$$
+is a relation between the monomials with coefficients $a_E$ in $A$.
+Then we would map this to
+$$
+z =
+\sum\nolimits_{E = (e_1, \ldots, e_t), |E| = t(n - 1) + 1}
+a_E f_1^{e_1} \ldots f_{i(E)}^{e_{i(E)} - n} \ldots f_t^{e_t}x_{i(E)}
+$$
+where for each multiindex $E$ we have chosen a particular $i(E)$
+such that $e_{i(E)} \geq n$.
+Note that if we multiply this by $f_j^n$ for any $j$, then
+we get zero, since by the relations $f_j^nx_i = f_i^nx_j$ above we get
+\begin{align*}
+f_j^nz & = \sum\nolimits_{E = (e_1, \ldots, e_t), |E| = t(n - 1) + 1}
+a_E f_1^{e_1} \ldots f_j^{e_j + n}
+\ldots f_{i(E)}^{e_{i(E)} - n} \ldots f_t^{e_t}x_{i(E)} \\
+& =
+\sum\nolimits_{E = (e_1, \ldots, e_t), |E| = t(n - 1) + 1}
+a_E f_1^{e_1} \ldots f_t^{e_t}x_j
+= 0.
+\end{align*}
+Hence $z \in K_n$ and we see that every relation gets mapped to zero
+in $M/K_n$. This proves the claim.
+
+\medskip\noindent
+Note that $K_n \subset M_{t(n - 1) + 1}$. Hence the
+map $\varphi$ in particular gives rise to a $A$-module map
+$I^{t(n - 1) + 1} \to M/M_{t(n - 1) + 1}$.
+This proves the second arrow of the lemma is surjective.
+We omit the proof of injectivity.
+\end{proof}
+
+\begin{example}
+\label{example-does-not-work-in-general}
+We will give two examples showing that the first displayed map of
+Lemma \ref{lemma-sections-over-quasi-compact-open-in-affine}
+is not an isomorphism.
+
+\medskip\noindent
+Let $k$ be a field. Consider the ring
+$$
+A = k[x, y, z_1, z_2, \ldots]/(x^nz_n).
+$$
+Set $I = (x)$ and let $M = A$. Then the element $y/x$ defines a section of
+the structure sheaf of $\Spec(A)$ over $D(x) = \Spec(A) \setminus V(I)$.
+We claim that $y/x$ is not in the image of the canonical map
+$\colim \Hom_A(I^n, A) \to A_x = \mathcal{O}(D(x))$. Namely, if so it
+would come from a homomorphism $\varphi : I^n \to A$ for some $n$.
+Set $a = \varphi(x^n)$. Then we would have $x^m(xa - x^ny) = 0$ for some
+$m > 0$. This would mean that $x^{m + 1}a = x^{m + n}y$. This would mean that
+$\varphi(x^{n + m + 1}) = x^{m + n}y$. This leads to a contradiction
+because it would imply that
+$$
+0 = \varphi(0) = \varphi(z_{n + m + 1} x^{n + m + 1}) =
+x^{m + n}y z_{n + m + 1}
+$$
+which is not true in the ring $A$.
+
+\medskip\noindent
+Let $k$ be a field. Consider the ring
+$$
+A = k[f, g, x, y, \{a_n, b_n\}_{n \geq 1}]/
+(fy - gx, \{a_nf^n + b_ng^n\}_{n \geq 1}).
+$$
+Set $I = (f, g)$ and let $M = A$. Then $x/f \in A_f$ and $y/g \in A_g$
+map to the same element of $A_{fg}$. Hence these define a section $s$
+of the structure sheaf of $\Spec(A)$ over
+$D(f) \cup D(g) = \Spec(A) \setminus V(I)$. However, there is no
+$n \geq 0$ such that $s$ comes from an $A$-module map
+$\varphi : I^n \to A$ as in the source of the first displayed arrow
+of Lemma \ref{lemma-sections-over-quasi-compact-open-in-affine}.
+Namely, given such a module map set
+$x_n = \varphi(f^n)$ and $y_n = \varphi(g^n)$.
+Then $f^mx_n = f^{n + m - 1}x$ and
+$g^my_n = g^{n + m - 1}y$ for some $m \geq 0$ (see proof
+of the lemma). But then we would have
+$0 = \varphi(0) =
+\varphi(a_{n + m}f^{n + m} + b_{n + m}g^{n + m}) =
+a_{n + m}f^{n + m - 1}x + b_{n + m}g^{n + m - 1}y$ which is not the case
+in the ring $A$.
+\end{example}
+
+\noindent
+We will improve on the following lemma in the Noetherian case, see
+Cohomology of Schemes, Lemma \ref{coherent-lemma-homs-over-open}.
+
+\begin{lemma}
+\label{lemma-sections-over-quasi-compact-open}
+Let $X$ be a quasi-compact scheme.
+Let $\mathcal{I} \subset \mathcal{O}_X$ be a
+quasi-coherent sheaf of ideals of finite type.
+Let $Z \subset X$ be the closed subscheme
+defined by $\mathcal{I}$ and set $U = X \setminus Z$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+The canonical map
+$$
+\colim_n \Hom_{\mathcal{O}_X}(\mathcal{I}^n,
+\mathcal{F})
+\longrightarrow
+\Gamma(U, \mathcal{F})
+$$
+is injective. Assume further that $X$ is quasi-separated.
+Let $\mathcal{F}_n \subset \mathcal{F}$
+be subsheaf of sections annihilated by $\mathcal{I}^n$.
+The canonical map
+$$
+\colim_n \Hom_{\mathcal{O}_X}(\mathcal{I}^n,
+\mathcal{F}/\mathcal{F}_n)
+\longrightarrow
+\Gamma(U, \mathcal{F})
+$$
+is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+Let $\Spec(A) = W \subset X$ be an affine open. Write
+$\mathcal{F}|_W = \widetilde{M}$ for some $A$-module $M$
+and $\mathcal{I}|_W = \widetilde{I}$ for some finite type
+ideal $I \subset A$. Restricting the first displayed map
+of the lemma to $W$ we obtain the first displayed map of
+Lemma \ref{lemma-sections-over-quasi-compact-open-in-affine}.
+Since we can cover $X$ by a finite number of affine opens this
+proves the first displayed map of the lemma is injective.
+
+\medskip\noindent
+We have $\mathcal{F}_n|_W = \widetilde{M_n}$ where
+$M_n \subset M$ is defined as in
+Lemma \ref{lemma-sections-over-quasi-compact-open-in-affine}
+(details omitted). The lemma guarantees that we have a bijection
+$$
+\colim_n  \Hom_{\mathcal{O}_W}(
+\mathcal{I}^n|_W, (\mathcal{F}/\mathcal{F}_n)|_W)
+\longrightarrow
+\Gamma(U \cap W, \mathcal{F})
+$$
+for any such affine open $W$.
+
+\medskip\noindent
+To see the second displayed arrow of the lemma is bijective,
+we choose a finite affine open covering $X = \bigcup_{j = 1, \ldots, m} W_j$.
+The injectivity follows immediately from the above and the finiteness of
+the covering. If $X$ is quasi-separated, then for each pair
+$j, j'$ we choose a finite affine open covering
+$$
+W_j \cap W_{j'} = \bigcup\nolimits_{k = 1, \ldots, m_{jj'}} W_{jj'k}.
+$$
+Let $s \in \Gamma(U, \mathcal{F})$. As seen above for each $j$ there exists
+an $n_j$ and a map
+$\varphi_j : \mathcal{I}^{n_j}|_{W_j} \to
+(\mathcal{F}/\mathcal{F}_{n_j})|_{W_j}$
+which corresponds to $s|_{W_j}$.
+By the same token for each triple $(j, j', k)$ there exists an integer
+$n_{jj'k}$ such that the restriction of $\varphi_j$ and $\varphi_{j'}$
+as maps $\mathcal{I}^{n_{jj'k}} \to \mathcal{F}/\mathcal{F}_{n_{jj'k}}$
+agree over $W_{jj'l}$. Let $n = \max\{n_j, n_{jj'k}\}$ and we see that
+the $\varphi_j$ glue as maps
+$\mathcal{I}^n \to \mathcal{F}/\mathcal{F}_n$ over $X$.
+This proves surjectivity of the map.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Ample invertible sheaves}
+\label{section-ample}
+
+\noindent
+Recall from Modules, Lemma \ref{modules-lemma-s-open}
+that given an invertible sheaf $\mathcal{L}$ on a locally ringed
+space $X$, and given a global section $s$ of $\mathcal{L}$
+the set $X_s = \{x \in X \mid s \not \in \mathfrak m_x\mathcal{L}_x\}$
+is open. A general remark is that
+$X_s \cap X_{s'} = X_{ss'}$, where $ss'$ denote
+the section $s \otimes s' \in \Gamma(X, \mathcal{L} \otimes \mathcal{L}')$.
+
+\begin{definition}
+\label{definition-ample}
+\begin{reference}
+\cite[II Definition 4.5.3]{EGA}
+\end{reference}
+Let $X$ be a scheme.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+We say $\mathcal{L}$ is {\it ample} if
+\begin{enumerate}
+\item $X$ is quasi-compact, and
+\item for every $x \in X$ there exists an $n \geq 1$
+and $s \in \Gamma(X, \mathcal{L}^{\otimes n})$ such
+that $x \in X_s$ and $X_s$ is affine.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-ample-power-ample}
+\begin{reference}
+\cite[II Proposition 4.5.6(i)]{EGA}
+\end{reference}
+Let $X$ be a scheme. Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Let $n \geq 1$. Then $\mathcal{L}$ is ample if and only if
+$\mathcal{L}^{\otimes n}$ is ample.
+\end{lemma}
+
+\begin{proof}
+This follows from the fact that $X_{s^n} = X_s$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-on-closed}
+Let $X$ be a scheme.
+Let $\mathcal{L}$ be an ample invertible $\mathcal{O}_X$-module.
+For any closed subscheme $Z \subset X$ the restriction of
+$\mathcal{L}$ to $Z$ is ample.
+\end{lemma}
+
+\begin{proof}
+This is clear since a closed subset of a quasi-compact space is quasi-compact
+and a closed subscheme of an affine scheme is affine (see
+Schemes, Lemma \ref{schemes-lemma-closed-immersion-affine-case}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-affine-cap-s-open}
+Let $X$ be a scheme. Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Let $s \in \Gamma(X, \mathcal{L})$. For any affine $U \subset X$
+the intersection $U \cap X_s$ is affine.
+\end{lemma}
+
+\begin{proof}
+This translates into the following algebra problem.
+Let $R$ be a ring. Let $N$ be an invertible $R$-module
+(i.e., locally free of rank 1). Let $s \in N$ be an element.
+Then $U = \{\mathfrak p \mid s \not \in \mathfrak p N\}$ is
+an affine open subset of $\Spec(R)$. This you can see
+as follows. Think of $s$ as an $R$-module map $R \to N$.
+This gives rise to $R$-module maps $N^{\otimes k} \to N^{\otimes k + 1}$.
+Consider
+$$
+R' = \colim_n N^{\otimes n}
+$$
+with transition maps as above. Define an $R$-algebra structure on $R'$ by
+the rule $x \cdot y = x \otimes y \in N^{\otimes n + m}$
+if $x \in N^{\otimes n}$ and $y \in N^{\otimes m}$. We claim that
+$\Spec(R') \to \Spec(R)$ is an open immersion with
+image $U$.
+
+\medskip\noindent
+To prove this is a local question on $\Spec(R)$.
+Let $\mathfrak p \in \Spec(R)$. Pick $f \in R$,
+$f \not \in \mathfrak p$ such that $N_f \cong R_f$ as a module.
+Replacing $R$ by $R_f$, $N$ by $N_f$ and $R'$ by
+$R'_f = \colim N_f^{\otimes n}$ we may assume that $N \cong R$.
+Say $N = R$. In this case $s$ is an element of $R$ and it is
+easy to see that $R' \cong R_s$. Thus the lemma follows.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-tensor-globally-generated}
+\begin{reference}
+\cite[II Proposition 4.5.6(ii)]{EGA}
+\end{reference}
+Let $X$ be a scheme. Let $\mathcal{L}$ and $\mathcal{M}$
+be invertible $\mathcal{O}_X$-modules. If
+\begin{enumerate}
+\item $\mathcal{L}$ is ample, and
+\item the open sets $X_t$ where $t \in \Gamma(X, \mathcal{M}^{\otimes m})$
+for $m > 0$ cover $X$,
+\end{enumerate}
+then $\mathcal{L} \otimes \mathcal{M}$ is ample.
+\end{lemma}
+
+\begin{proof}
+We check the conditions of Definition \ref{definition-ample}.
+As $\mathcal{L}$ is ample we see that $X$ is quasi-compact.
+Let $x \in X$. Choose $n \geq 1$, $m \geq 1$,
+$s \in \Gamma(X, \mathcal{L}^{\otimes n})$, and
+$t \in \Gamma(X, \mathcal{M}^{\otimes m})$
+such that $x \in X_s$, $x \in X_t$ and $X_s$ is affine.
+Then $s^mt^n \in \Gamma(X, (\mathcal{L} \otimes \mathcal{M})^{\otimes nm})$,
+$x \in X_{s^mt^n}$, and $X_{s^mt^n}$ is affine by
+Lemma \ref{lemma-affine-cap-s-open}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-affine-s-opens}
+Let $X$ be a scheme. Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Assume the open sets $X_s$, where $s \in \Gamma(X, \mathcal{L}^{\otimes n})$
+and $n \geq 1$, form a basis for the topology on $X$.
+Then among those opens, the open sets $X_s$ which are affine
+form a basis for the topology on $X$.
+\end{lemma}
+
+\begin{proof}
+Let $x \in X$. Choose an affine open neighbourhood
+$\Spec(R) = U \subset X$ of $x$.
+By assumption, there exists
+a $n \geq 1$ and a $s \in \Gamma(X, \mathcal{L}^{\otimes n})$
+such that $X_s \subset U$. By Lemma \ref{lemma-affine-cap-s-open} above
+the intersection $X_s = U \cap X_s$ is affine.
+Since $U$ can be chosen arbitrarily small we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-affine-s-opens-cover-quasi-separated}
+Let $X$ be a scheme. Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Assume for every point $x$ of $X$ there exists $n \geq 1$ and
+$s \in \Gamma(X, \mathcal{L}^{\otimes n})$ such that
+$x \in X_s$ and $X_s$ is affine. Then $X$ is separated.
+\end{lemma}
+
+\begin{proof}
+By assumption we can find a covering of $X$ by affine opens of the form $X_s$.
+To show that $X$ is quasi-separated, by
+Schemes, Lemma \ref{schemes-lemma-characterize-quasi-separated}
+it suffices to show that $X_s \cap X_{s'}$ is quasi-compact
+whenever $X_s$ is affine. This is true by Lemma \ref{lemma-affine-cap-s-open}.
+Finally, to show that $X$ is separated, we can use the valuative criterion,
+see Schemes, Lemma \ref{schemes-lemma-valuative-criterion-separatedness}.
+
+\medskip\noindent
+Thus, let $A$ be a valuation ring with fraction field $K$ and
+consider two morphisms $f, g : \Spec(A) \to X$ such that
+the two compositions $\Spec(K) \to \Spec(A) \to X$ agree.
+Then $f^*\mathcal{L}$ corresponds to an $A$-module $M$ and
+$g^*\mathcal{L}$ corresponds to an $A$-module $N$ by our classification
+of quasi-coherent modules over affine schemes
+(Schemes, Lemma \ref{schemes-lemma-quasi-coherent-affine}).
+The $A$-modules $M$ and $N$ are locally free of rank $1$
+(Lemma \ref{lemma-locally-free-module}) and as $A$ is local
+they are free of rank $1$. We are given an isomorphism
+$N \otimes_A K \cong M \otimes_A K$ because $f|_{\Spec(K)} = g|_{\Spec(K)}$.
+We fix an isomorphism $M \otimes_A K \cong K \cong N \otimes_A K$
+compatible with the given isomorphism above, so that we may
+think of $M$ and $N$ as $A$-submodules of $K$ (free of rank $1$ over $A$).
+Next, choose $s \in \Gamma(X, \mathcal{L}^{\otimes n})$ such that
+$\Im(f) \subset X_s$ and such that $X_s$ is affine.
+This is possible by assumption and the fact that $A$ is local, so it
+suffices to look at the image of the closed point of $\Spec(A)$.
+Then $s$ corresponds to an element $x \in M^{\otimes n}$ and
+$y \in N^{\otimes n}$ mapping to the same element of $K^{\otimes n}$
+and moreover $x \not \in \mathfrak m_A M^{\otimes n}$ because
+$f(\Spec(A)) \subset X_s$. We conclude that
+$N^{\otimes n} = Ax = Ay \subset M^{\otimes n}$ inside of $K^{\otimes n}$.
+Thus $N \subset M$. By symmetry we get $M = N$. This in turn implies
+that $g(\Spec(A)) \subset X_s$. Then $f = g$ because $X_s$ is affine
+and hence separated, thereby finishing the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-separated}
+Let $X$ be a scheme. If there exists an ample invertible sheaf on $X$
+then $X$ is separated.
+\end{lemma}
+
+\begin{proof}
+Follows immediately from
+Lemma \ref{lemma-affine-s-opens-cover-quasi-separated} and
+Definition \ref{definition-ample}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-into-proj}
+Let $X$ be a scheme.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Set $S = \Gamma_*(X, \mathcal{L})$ as a graded ring.
+If every point of $X$ is contained in one of the
+open subschemes $X_s$, for some $s \in S_{+}$ homogeneous, then
+there is a canonical morphism of schemes
+$$
+f : X \longrightarrow Y = \text{Proj}(S),
+$$
+to the homogeneous spectrum of $S$ (see
+Constructions, Section \ref{constructions-section-proj}).
+This morphism has the following properties
+\begin{enumerate}
+\item $f^{-1}(D_{+}(s)) = X_s$ for any $s \in S_{+}$ homogeneous,
+\item there are $\mathcal{O}_X$-module maps
+$f^*\mathcal{O}_Y(n) \to \mathcal{L}^{\otimes n}$
+compatible with multiplication maps, see
+Constructions, Equation (\ref{constructions-equation-multiply}),
+\item the composition
+$S_n \to \Gamma(Y, \mathcal{O}_Y(n)) \to \Gamma(X, \mathcal{L}^{\otimes n})$
+is the identity map, and
+\item for every $x \in X$ there is an integer $d \geq 1$
+and an open neighbourhood $U \subset X$ of $x$
+such that $f^*\mathcal{O}_Y(dn)|_U \to \mathcal{L}^{\otimes dn}|_U$
+is an isomorphism for all $n \in \mathbf{Z}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Denote $\psi : S \to \Gamma_*(X, \mathcal{L})$ the identity map.
+We are going to use the triple
+$(U(\psi), r_{\mathcal{L}, \psi}, \theta)$ of
+Constructions, Lemma \ref{constructions-lemma-invertible-map-into-proj}.
+By assumption the open subscheme $U(\psi)$ of equals $X$. Hence
+$r_{\mathcal{L}, \psi} : U(\psi) \to Y$ is defined on all of $X$.
+We set $f = r_{\mathcal{L}, \psi}$.
+The maps in part (2) are the components of $\theta$.
+Part (3) follows from condition (2) in the lemma cited above.
+Part (1) follows from (3) combined with condition (1) in the lemma
+cited above. Part (4) follows from the last statement in
+Constructions, Lemma \ref{constructions-lemma-invertible-map-into-proj}
+since the map $\alpha$ mentioned there is an isomorphism.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-into-proj-quasi-compact}
+Let $X$ be a scheme. Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Set $S = \Gamma_*(X, \mathcal{L})$.
+Assume (a) every point of $X$ is contained in one of the
+open subschemes $X_s$, for some $s \in S_{+}$ homogeneous,
+and (b) $X$ is quasi-compact. Then the canonical morphism of schemes
+$f : X \longrightarrow \text{Proj}(S)$ of Lemma \ref{lemma-map-into-proj}
+above is quasi-compact with dense image.
+\end{lemma}
+
+\begin{proof}
+To prove $f$ is quasi-compact it suffices to show that $f^{-1}(D_{+}(s))$
+is quasi-compact for any $s \in S_{+}$ homogeneous. Write
+$X = \bigcup_{i = 1, \ldots, n} X_i$ as a finite union of
+affine opens. By Lemma \ref{lemma-affine-cap-s-open} each intersection
+$X_s \cap X_i$ is affine. Hence $X_s = \bigcup_{i = 1, \ldots, n} X_s \cap X_i$
+is quasi-compact. Assume that the image of $f$ is not dense to get
+a contradiction. Then, since the opens $D_+(s)$ with $s \in S_+$ homogeneous
+form a basis for the topology on $\text{Proj}(S)$, we can find such
+an $s$ with $D_+(s) \not = \emptyset$ and $f(X) \cap D_+(s) = \emptyset$.
+By Lemma \ref{lemma-map-into-proj}
+this means $X_s = \emptyset$. By Lemma \ref{lemma-invert-s-sections}
+this means that a power $s^n$ is the zero section of
+$\mathcal{L}^{\otimes n\deg(s)}$.
+This in turn means that $D_+(s) = \emptyset$ which is the
+desired contradiction.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-immersion-into-proj}
+Let $X$ be a scheme. Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Set $S = \Gamma_*(X, \mathcal{L})$.
+Assume $\mathcal{L}$ is ample. Then the canonical morphism of schemes
+$f : X \longrightarrow \text{Proj}(S)$ of Lemma \ref{lemma-map-into-proj}
+is an open immersion with dense image.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-affine-s-opens-cover-quasi-separated} we see
+that $X$ is quasi-separated. Choose finitely many
+$s_1, \ldots, s_n \in S_{+}$ homogeneous
+such that $X_{s_i}$ are affine, and $X = \bigcup X_{s_i}$.
+Say $s_i$ has degree $d_i$. The inverse image of
+$D_{+}(s_i)$ under $f$ is $X_{s_i}$, see Lemma \ref{lemma-map-into-proj}.
+By Lemma \ref{lemma-invert-s-sections} the ring map
+$$
+(S^{(d_i)})_{(s_i)} = \Gamma(D_{+}(s_i), \mathcal{O}_{\text{Proj}(S)})
+\longrightarrow
+\Gamma(X_{s_i}, \mathcal{O}_X)
+$$
+is an isomorphism. Hence $f$ induces an isomorphism
+$X_{s_i} \to D_{+}(s_i)$. Thus $f$ is an isomorphism of $X$ onto the open
+subscheme $\bigcup_{i = 1, \ldots, n} D_{+}(s_i)$ of $\text{Proj}(S)$.
+The image is dense by Lemma \ref{lemma-map-into-proj-quasi-compact}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-in-proj-ample}
+Let $X$ be a scheme.
+Let $S$ be a graded ring. Assume $X$ is quasi-compact,
+and assume there exists an open immersion
+$$
+j : X \longrightarrow Y = \text{Proj}(S).
+$$
+Then $j^*\mathcal{O}_Y(d)$ is an invertible ample sheaf
+for some $d > 0$.
+\end{lemma}
+
+\begin{proof}
+This is Constructions, Lemma \ref{constructions-lemma-ample-on-proj}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-characterize-ample}
+Let $X$ be a quasi-compact scheme.
+Let $\mathcal{L}$ be an invertible sheaf on $X$.
+Set $S = \Gamma_*(X, \mathcal{L})$.
+The following are equivalent:
+\begin{enumerate}
+\item
+\label{item-ample}
+$\mathcal{L}$ is ample,
+\item
+\label{item-immersion}
+the open sets $X_s$, with $s \in S_{+}$ homogeneous,
+cover $X$ and the associated morphism $X \to \text{Proj}(S)$
+is an open immersion,
+\item
+\label{item-s-basis}
+the open sets $X_s$, with $s \in S_{+}$ homogeneous,
+form a basis for the topology of $X$,
+\item
+\label{item-s-affine-basis}
+the open sets $X_s$, with $s \in S_{+}$ homogeneous,
+which are affine form a basis for the topology of $X$,
+\item
+\label{item-qc-gg}
+for every quasi-coherent sheaf $\mathcal{F}$ on $X$
+the sum of the images of the canonical maps
+$$
+\Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})
+\otimes_{\mathbf{Z}} \mathcal{L}^{\otimes -n}
+\longrightarrow
+\mathcal{F}
+$$
+with $n \geq 1$ equals $\mathcal{F}$,
+\item
+\label{item-qc-i-gg}
+same property as (\ref{item-qc-gg}) with $\mathcal{F}$
+ranging over all quasi-coherent sheaves of ideals,
+\item
+\label{item-c-gg}
+$X$ is quasi-separated and
+for every quasi-coherent sheaf $\mathcal{F}$ of finite type on $X$
+there exists an integer $n_0$ such that
+$\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n}$
+is globally generated for all $n \geq n_0$,
+\item
+\label{item-c-q}
+$X$ is quasi-separated and
+for every quasi-coherent sheaf $\mathcal{F}$ of finite type on $X$
+there exist integers $n > 0$, $k \geq 0$ such that
+$\mathcal{F}$ is a quotient of a direct sum of $k$ copies of
+$\mathcal{L}^{\otimes - n}$, and
+\item
+\label{item-c-i-q}
+same as in (\ref{item-c-q}) with $\mathcal{F}$ ranging over all
+sheaves of ideals of finite type on $X$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Lemma \ref{lemma-ample-immersion-into-proj} is
+(\ref{item-ample}) $\Rightarrow$ (\ref{item-immersion}).
+Lemmas \ref{lemma-ample-power-ample} and \ref{lemma-open-in-proj-ample}
+provide the implication
+(\ref{item-ample}) $\Leftarrow$ (\ref{item-immersion}).
+The implications (\ref{item-immersion}) $\Rightarrow$
+(\ref{item-s-affine-basis}) $\Rightarrow$ (\ref{item-s-basis})
+are clear from Constructions, Section \ref{constructions-section-proj}.
+Lemma \ref{lemma-affine-s-opens} is
+(\ref{item-s-basis}) $\Rightarrow$ (\ref{item-ample}).
+Thus we see that the first 4 conditions are all equivalent.
+
+\medskip\noindent
+Assume the equivalent conditions (1) -- (4).
+Note that in particular $X$ is separated (as an open
+subscheme of the separated scheme $\text{Proj}(S)$).
+Let $\mathcal{F}$ be a quasi-coherent sheaf on $X$.
+Choose $s \in S_{+}$ homogeneous such that $X_s$ is affine.
+We claim that any section $m \in \Gamma(X_s, \mathcal{F})$
+is in the image of one of the maps displayed in
+(\ref{item-qc-gg}) above. This will imply (\ref{item-qc-gg})
+since these affines $X_s$ cover $X$.
+Namely, by Lemma \ref{lemma-invert-s-sections} we may write
+$m$ as the image of $m' \otimes s^{-n}$ for some
+$n \geq 1$, some
+$m' \in \Gamma(X, \mathcal{F} \otimes \mathcal{L}^{\otimes n})$.
+This proves the claim.
+
+\medskip\noindent
+Clearly (\ref{item-qc-gg}) $\Rightarrow$ (\ref{item-qc-i-gg}).
+Let us assume (\ref{item-qc-i-gg}) and prove $\mathcal{L}$ is
+ample. Pick $x \in X$. Let $U \subset X$ be an affine open
+which contains $x$. Set $Z = X \setminus U$. We may think of
+$Z$ as a reduced closed subscheme, see
+Schemes, Section \ref{schemes-section-reduced}.
+Let $\mathcal{I} \subset \mathcal{O}_X$ be the quasi-coherent
+sheaf of ideals corresponding to the closed subscheme $Z$.
+By assumption (\ref{item-qc-i-gg}), there exists an $n \geq 1$ and a section
+$s \in \Gamma(X, \mathcal{I} \otimes \mathcal{L}^{\otimes n})$
+such that $s$ does not vanish at $x$ (more precisely such that
+$s \not \in \mathfrak m_x \mathcal{I}_x \otimes \mathcal{L}_x^{\otimes n}$).
+We may think of $s$ as a section of $\mathcal{L}^{\otimes n}$.
+Since it clearly vanishes along $Z$ we see that
+$X_s \subset U$. Hence $X_s$ is affine, see
+Lemma \ref{lemma-affine-cap-s-open}.
+This proves that $\mathcal{L}$ is ample.
+At this point we have proved that (1) -- (6) are equivalent.
+
+\medskip\noindent
+Assume the equivalent conditions (1) -- (6). In the following
+we will use the fact that the tensor product of two sheaves of
+modules which are globally generated is globally generated without
+further mention (see
+Modules, Lemma \ref{modules-lemma-tensor-product-globally-generated}).
+By (1) we can find elements $s_i \in S_{d_i}$ with $d_i \geq 1$
+such that $X = \bigcup_{i = 1, \ldots, n} X_{s_i}$.
+Set $d = d_1\ldots d_n$. It follows that $\mathcal{L}^{\otimes d}$
+is globally generated by
+$$
+s_1^{d/d_1}, \ldots, s_n^{d/d_n}.
+$$
+This means that if $\mathcal{L}^{\otimes j}$ is globally generated
+then so is $\mathcal{L}^{\otimes j + dn}$ for all $n \geq 0$.
+Fix a $j \in \{0, \ldots, d - 1\}$. For any point $x \in X$ there
+exists an $n \geq 1$ and a global section $s$ of $\mathcal{L}^{j + dn}$
+which does not vanish at $x$, as follows from (\ref{item-qc-gg}) applied
+to $\mathcal{F} = \mathcal{L}^{\otimes j}$ and ample invertible
+sheaf $\mathcal{L}^{\otimes d}$. Since $X$ is quasi-compact there
+we may find a finite list of integers $n_i$ and global sections
+$s_i$ of $\mathcal{L}^{\otimes j + dn_i}$ which do not vanish at any point
+of $X$. Since $\mathcal{L}^{\otimes d}$ is globally generated this means that
+$\mathcal{L}^{\otimes j + dn}$ is globally generated where $n = \max\{n_i\}$.
+Since we proved this for every congruence class mod $d$ we
+conclude that there exists an $n_0 = n_0(\mathcal{L})$ such that
+$\mathcal{L}^{\otimes n}$ is globally generated for all $n \geq n_0$.
+At this point we see that if $\mathcal{F}$ is globally generated then
+so is $\mathcal{F} \otimes \mathcal{L}^{\otimes n}$ for all
+$n \geq n_0$.
+
+\medskip\noindent
+We continue to assume the equivalent conditions (1) -- (6).
+Let $\mathcal{F}$ be a quasi-coherent
+sheaf of $\mathcal{O}_X$-modules of finite type.
+Denote $\mathcal{F}_n \subset \mathcal{F}$ the image of the canonical
+map of (\ref{item-qc-gg}). By construction
+$\mathcal{F}_n \otimes \mathcal{L}^{\otimes n}$ is
+globally generated. By (\ref{item-qc-gg}) we see
+$\mathcal{F}$ is the sum of the subsheaves $\mathcal{F}_n$,
+$n \geq 1$. By
+Modules, Lemma \ref{modules-lemma-finite-type-quasi-compact-colimit}
+we see that $\mathcal{F} = \sum_{n = 1, \ldots, N} \mathcal{F}_n$
+for some $N \geq 1$. It follows that
+$\mathcal{F} \otimes \mathcal{L}^{\otimes n}$ is globally
+generated whenever $n \geq N + n_0(\mathcal{L})$ with $n_0(\mathcal{L})$
+as above. We conclude that (1) -- (6) implies (\ref{item-c-gg}).
+
+\medskip\noindent
+Assume (\ref{item-c-gg}). Let $\mathcal{F}$ be a quasi-coherent
+sheaf of $\mathcal{O}_X$-modules of finite type.
+By (\ref{item-c-gg}) there exists an integer $n \geq 1$ such that
+the canonical map
+$$
+\Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})
+\otimes_{\mathbf{Z}} \mathcal{L}^{\otimes -n}
+\longrightarrow
+\mathcal{F}
+$$
+is surjective. Let $I$ be the set of finite subsets of
+$\Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})$
+partially ordered by inclusion. Then $I$ is a directed partially ordered set.
+For $i = \{s_1, \ldots, s_{r(i)}\}$ let $\mathcal{F}_i \subset \mathcal{F}$
+be the image of the map
+$$
+\bigoplus\nolimits_{j = 1, \ldots, r(i)} \mathcal{L}^{\otimes -n}
+\longrightarrow
+\mathcal{F}
+$$
+which is multiplication by $s_j$ on the $j$th factor. The surjectivity above
+implies that $\mathcal{F} = \colim_{i \in I} \mathcal{F}_i$.
+Hence Modules, Lemma \ref{modules-lemma-finite-type-quasi-compact-colimit}
+applies and we conclude that
+$\mathcal{F} = \mathcal{F}_i$ for some $i$.
+Hence we have proved (\ref{item-c-q}). In other words,
+(\ref{item-c-gg}) $\Rightarrow$ (\ref{item-c-q}).
+
+\medskip\noindent
+The implication (\ref{item-c-q}) $\Rightarrow$ (\ref{item-c-i-q}) is trivial.
+
+\medskip\noindent
+Finally, assume (\ref{item-c-i-q}).
+Let $\mathcal{I} \subset \mathcal{O}_X$ be a quasi-coherent sheaf
+of ideals. By Lemma \ref{lemma-quasi-coherent-colimit-finite-type}
+(this is where we use the condition that $X$ be quasi-separated)
+we see that $\mathcal{I} = \colim_\alpha I_\alpha$ with
+each $I_\alpha$ quasi-coherent of finite type. Since by assumption each of
+the $I_\alpha$ is a quotient of negative tensor powers of
+$\mathcal{L}$ we conclude the same for $\mathcal{I}$ (but of course
+without the finiteness or boundedness of the powers). Hence
+we conclude that (\ref{item-c-i-q}) implies (\ref{item-qc-i-gg}).
+This ends the proof of the proposition.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-on-locally-closed}
+Let $X$ be a scheme.
+Let $\mathcal{L}$ be an ample invertible $\mathcal{O}_X$-module.
+For any quasi-compact immersion $i : X' \to X$ the pullback
+$i^*\mathcal{L}$ is ample on $X'$.
+\end{lemma}
+
+\begin{proof}
+For $s \in \Gamma(X, \mathcal{L}^{\otimes d})$ denote
+$s' = i^*s$ the restriction to $X'$. By
+Proposition \ref{proposition-characterize-ample}
+the opens $X_s$, for $s \in \Gamma(X, \mathcal{L}^{\otimes d})$,
+form a basis for the topology on $X$. Since $X'_{s'} = X' \cap X_s$
+and since $i(X') \subset X$ is locally closed, we conclude
+the same thing is true for the opens $X'_{s'}$. Hence
+the lemma is a consequence of 
+Proposition \ref{proposition-characterize-ample}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-on-product}
+Let $S$ be a quasi-separated scheme. Let $X$, $Y$ be schemes over $S$.
+Let $\mathcal{L}$ be an ample invertible $\mathcal{O}_X$-module
+and let $\mathcal{N}$ be an ample invertible $\mathcal{O}_Y$-module.
+Then $\mathcal{M} = \text{pr}_1^*\mathcal{L}
+\otimes_{\mathcal{O}_{X \times_S Y}} \text{pr}_2^*\mathcal{N}$
+is an ample invertible sheaf on $X \times_S Y$.
+\end{lemma}
+
+\begin{proof}
+The morphism $i : X \times_S Y \to X \times Y$ is a quasi-compact
+immersion, see Schemes, Lemma \ref{schemes-lemma-fibre-product-after-map}.
+On the other hand, $\mathcal{M}$ is the pullback by
+$i$ of the corresponding invertible module on $X \times Y$.
+By Lemma \ref{lemma-ample-on-locally-closed} it suffices to prove the
+lemma for $X \times Y$. We check (1) and (2) of
+Definition \ref{definition-ample} for $\mathcal{M}$ on $X \times Y$.
+
+\medskip\noindent
+Since $X$ and $Y$ are quasi-compact, so is $X \times Y$.
+Let $z \in X \times Y$ be a point. Let $x \in X$ and $y \in Y$
+be the projections. Choose $n > 0$ and
+$s \in \Gamma(X, \mathcal{L}^{\otimes n})$
+such that $X_s$ is an affine open neighbourhood of $x$.
+Choose $m > 0$ and
+$t \in \Gamma(Y, \mathcal{N}^{\otimes m})$
+such that $Y_t$ is an affine open neighbourhood of $y$.
+Then $r = \text{pr}_1^*s \otimes \text{pr}_2^*t$ is a section
+of $\mathcal{M}$ with $(X \times Y)_r = X_s \times Y_t$.
+This is an affine open neighbourhood of $z$ and the proof is complete.
+\end{proof}
+
+
+
+
+\section{Affine and quasi-affine schemes}
+\label{section-affine-quasi-affine}
+
+\begin{lemma}
+\label{lemma-quasi-affine-O-ample}
+Let $X$ be a scheme.
+Then $X$ is quasi-affine if and only if $\mathcal{O}_X$ is ample.
+\end{lemma}
+
+\begin{proof}
+Suppose that $X$ is quasi-affine. Consider the open immersion
+$$
+j : X \longrightarrow \Spec(\Gamma(X, \mathcal{O}_X))
+$$
+from Lemma \ref{lemma-quasi-affine}. Note that
+$\Spec(A) = \text{Proj}(A[T])$, see
+Constructions, Example \ref{constructions-example-trivial-proj}.
+Hence we can apply Lemma \ref{lemma-open-in-proj-ample}
+to deduce that $\mathcal{O}_X$ is ample.
+
+\medskip\noindent
+Suppose that $\mathcal{O}_X$ is ample.
+Note that $\Gamma_*(X, \mathcal{O}_X) \cong \Gamma(X, \mathcal{O}_X)[T]$
+as graded rings. Hence the result follows from Lemmas
+\ref{lemma-ample-immersion-into-proj} and \ref{lemma-quasi-affine}
+taking into account that
+$\Spec(A) = \text{Proj}(A[T])$ for any ring $A$
+as seen above.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-affine-locally-closed}
+Let $X$ be a quasi-affine scheme. For any quasi-compact immersion
+$i : X' \to X$ the scheme $X'$ is quasi-affine.
+\end{lemma}
+
+\begin{proof}
+This can be proved directly without making use of the material on
+ample invertible sheaves; we urge the reader to do this on a napkin.
+Since $X$ is quasi-affine, we have that $\mathcal{O}_X$ is ample by
+Lemma \ref{lemma-quasi-affine-O-ample}.
+Then $\mathcal{O}_{X'}$ is ample by
+Lemma \ref{lemma-ample-on-locally-closed}. Then $X'$ is quasi-affine by
+Lemma \ref{lemma-quasi-affine-O-ample}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-affine}
+Let $X$ be a scheme. Suppose that there exist finitely many elements
+$f_1, \ldots, f_n \in \Gamma(X, \mathcal{O}_X)$ such that
+\begin{enumerate}
+\item each $X_{f_i}$ is an affine open of $X$, and
+\item the ideal generated by $f_1, \ldots, f_n$ in
+$\Gamma(X, \mathcal{O}_X)$ is equal to the unit ideal.
+\end{enumerate}
+Then $X$ is affine.
+\end{lemma}
+
+\begin{proof}
+Assume we have $f_1, \ldots, f_n$ as in the lemma.
+We may write $1 = \sum g_i f_i$ for some $g_j \in \Gamma(X, \mathcal{O}_X)$
+and hence it is clear that $X = \bigcup X_{f_i}$. (The $f_i$'s cannot
+all vanish at a point.) Since each $X_{f_i}$
+is quasi-compact (being affine) it follows that $X$ is quasi-compact.
+Hence we see that $X$ is quasi-affine by
+Lemma \ref{lemma-quasi-affine-O-ample} above.
+Consider the open immersion
+$$
+j : X \to \Spec(\Gamma(X, \mathcal{O}_X)),
+$$
+see Lemma \ref{lemma-quasi-affine}. The inverse image of the standard open
+$D(f_i)$ on the right hand side is equal to $X_{f_i}$ on the
+left hand side and the morphism $j$ induces an isomorphism
+$X_{f_i} \cong D(f_i)$, see
+Lemma \ref{lemma-invert-f-affine}. Since the $f_i$ generate the unit ideal
+we see that $\Spec(\Gamma(X, \mathcal{O}_X))
+= \bigcup_{i = 1, \ldots, n} D(f_i)$. Thus $j$ is an isomorphism.
+\end{proof}
+
+
+
+
+
+
+
+\section{Quasi-coherent sheaves and ample invertible sheaves}
+\label{section-ample-quasi-coherent}
+
+\noindent
+Theme of this section: in the presence of an ample invertible sheaf
+every quasi-coherent sheaf comes from a graded module.
+
+\begin{situation}
+\label{situation-ample}
+Let $X$ be a scheme.
+Let $\mathcal{L}$ be an ample invertible sheaf on $X$.
+Set $S = \Gamma_*(X, \mathcal{L})$ as a graded ring.
+Set $Y = \text{Proj}(S)$.
+Let $f : X \to Y$ be the canonical morphism of Lemma \ref{lemma-map-into-proj}.
+It comes equipped with a $\mathbf{Z}$-graded $\mathcal{O}_X$-algebra map
+$\bigoplus f^*\mathcal{O}_Y(n) \to \bigoplus \mathcal{L}^{\otimes n}$.
+\end{situation}
+
+\noindent
+The following lemma is really a special case of the next lemma
+but it seems like a good idea to point out its validity first.
+
+\begin{lemma}
+\label{lemma-ample-gcd-is-one}
+In Situation \ref{situation-ample}.
+The canonical morphism $f : X \to Y$
+maps $X$ into the open subscheme $W = W_1 \subset Y$
+where $\mathcal{O}_Y(1)$ is invertible and where
+all multiplication maps
+$\mathcal{O}_Y(n) \otimes_{\mathcal{O}_Y} \mathcal{O}_Y(m) \to
+\mathcal{O}_Y(n + m)$
+are isomorphisms (see
+Constructions, Lemma \ref{constructions-lemma-where-invertible}).
+Moreover, the maps $f^*\mathcal{O}_Y(n) \to \mathcal{L}^{\otimes n}$
+are all isomorphisms.
+\end{lemma}
+
+\begin{proof}
+By Proposition \ref{proposition-characterize-ample} there exists an integer
+$n_0$ such that $\mathcal{L}^{\otimes n}$ is globally generated for all
+$n \geq n_0$. Let $x \in X$ be a point. By the above we can find
+$a \in S_{n_0}$ and $b \in S_{n_0 + 1}$ such that
+$a$ and $b$ do not vanish at $x$. Hence
+$f(x) \in D_{+}(a) \cap D_{+}(b) = D_{+}(ab)$. By
+Constructions, Lemma \ref{constructions-lemma-where-invertible}
+we see that $f(x) \in W_1$ as desired. By
+Constructions, Lemma \ref{constructions-lemma-invertible-map-into-proj}
+which was used in the construction of the map $f$
+the maps
+$f^*\mathcal{O}_Y(n_0) \to \mathcal{L}^{\otimes n_0}$ and
+$f^*\mathcal{O}_Y(n_0 + 1) \to \mathcal{L}^{\otimes n_0 + 1}$
+are isomorphisms in a neighbourhood of $x$. By compatibility with
+the algebra structure and the fact that $f$ maps into $W$
+we conclude all the maps
+$f^*\mathcal{O}_Y(n) \to \mathcal{L}^{\otimes n}$ are isomorphisms
+in a neighbourhood of $x$. Hence we win.
+\end{proof}
+
+\noindent
+Recall from Modules, Definition \ref{modules-definition-gamma-star}
+that given a locally ringed space $X$, an invertible sheaf $\mathcal{L}$,
+and a $\mathcal{O}_X$-module $\mathcal{F}$ we have the graded
+$\Gamma_*(X, \mathcal{L})$-module
+$$
+\Gamma_*(X, \mathcal{L}, \mathcal{F}) =
+\bigoplus\nolimits_{n \in \mathbf{Z}}
+\Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n}).
+$$
+The following lemma says that, in Situation \ref{situation-ample},
+we can recover a quasi-coherent $\mathcal{O}_X$-module $\mathcal{F}$
+from this graded module. Take a look also at
+Constructions, Lemma \ref{constructions-lemma-quasi-coherent-projective-space}
+where we prove this lemma in the special case $X = \mathbf{P}^n_R$.
+
+\begin{lemma}
+\label{lemma-ample-quasi-coherent}
+In Situation \ref{situation-ample}.
+Let $\mathcal{F}$ be a quasi-coherent sheaf on $X$.
+Set $M = \Gamma_*(X, \mathcal{L}, \mathcal{F})$ as a graded $S$-module.
+There are isomorphisms
+$$
+f^*\widetilde{M} \longrightarrow \mathcal{F}
+$$
+functorial in $\mathcal{F}$ such that
+$M_0 \to \Gamma(\text{Proj}(S), \widetilde{M}) \to \Gamma(X, \mathcal{F})$
+is the identity map.
+\end{lemma}
+
+\begin{proof}
+Let $s \in S_{+}$ be homogeneous such that $X_s$ is affine open in $X$.
+Recall that $\widetilde{M}|_{D_{+}(s)}$ corresponds to the
+$S_{(s)}$-module $M_{(s)}$, see
+Constructions, Lemma \ref{constructions-lemma-proj-sheaves}.
+Recall that $f^{-1}(D_{+}(s)) = X_s$.
+As $X$ carries an ample invertible sheaf it is quasi-compact and
+quasi-separated, see Section \ref{section-ample}.
+By Lemma \ref{lemma-invert-s-sections} there is a canonical isomorphism
+$M_{(s)} = \Gamma_*(X, \mathcal{L}, \mathcal{F})_{(s)} \to
+\Gamma(X_s, \mathcal{F})$.
+Since $\mathcal{F}$ is quasi-coherent this leads to
+a canonical isomorphism
+$$
+f^*\widetilde{M}|_{X_s} \to \mathcal{F}|_{X_s}
+$$
+Since $\mathcal{L}$ is ample on $X$ we know that $X$ is covered
+by the affine opens of the form $X_s$. Hence it suffices to prove
+that the displayed maps glue on overlaps. Proof of this is
+omitted.
+\end{proof}
+
+\begin{remark}
+\label{remark-neurotic}
+With assumptions and notation of Lemma \ref{lemma-ample-quasi-coherent}.
+Denote the displayed map of the lemma by $\theta_\mathcal{F}$.
+Note that the isomorphism $f^*\mathcal{O}_Y(n) \to \mathcal{L}^{\otimes n}$
+of Lemma \ref{lemma-ample-gcd-is-one} is just
+$\theta_{\mathcal{L}^{\otimes n}}$.
+Consider the multiplication maps
+$$
+\widetilde{M} \otimes_{\mathcal{O}_Y} \mathcal{O}_Y(n)
+\longrightarrow
+\widetilde{M(n)}
+$$
+see
+Constructions, Equation (\ref{constructions-equation-multiply-more-generally}).
+Pull this back to $X$ and consider
+$$
+\xymatrix{
+f^*\widetilde{M} \otimes_{\mathcal{O}_X} f^*\mathcal{O}_Y(n)
+\ar[r]
+\ar[d]_{\theta_\mathcal{F} \otimes \theta_{\mathcal{L}^{\otimes n}}}
+&
+f^*\widetilde{M(n)}
+\ar[d]^{\theta_{\mathcal{F} \otimes \mathcal{L}^{\otimes n}}}
+\\
+\mathcal{F} \otimes \mathcal{L}^{\otimes n} \ar[r]^{\text{id}} &
+\mathcal{F} \otimes \mathcal{L}^{\otimes n}
+}
+$$
+Here we have used the obvious identification
+$M(n) = \Gamma_*(X, \mathcal{L}, \mathcal{F} \otimes \mathcal{L}^{\otimes n})$.
+This diagram commutes. Proof omitted.
+\end{remark}
+
+\noindent
+It should be possible to deduce the following lemma from
+Lemma \ref{lemma-ample-quasi-coherent} (or conversely) but it seems
+simpler to just repeat the proof.
+
+\begin{lemma}
+\label{lemma-proj-quasi-coherent}
+Let $S$ be a graded ring such that $X = \text{Proj}(S)$ is quasi-compact.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module. Set
+$M = \bigoplus_{n \in \mathbf{Z}} \Gamma(X, \mathcal{F}(n))$ as
+a graded $S$-module, see
+Constructions, Section \ref{constructions-section-invertible-on-proj}.
+The map
+$$
+\widetilde{M} \longrightarrow \mathcal{F}
+$$
+of Constructions, Lemma
+\ref{constructions-lemma-comparison-proj-quasi-coherent}
+is an isomorphism.
+If $X$ is covered by standard opens $D_+(f)$ where $f$ has degree $1$,
+then the induced maps
+$M_n \to \Gamma(X, \mathcal{F}(n))$ are the identity maps.
+\end{lemma}
+
+\begin{proof}
+Since $X$ is quasi-compact we can find homogeneous elements
+$f_1, \ldots, f_n \in S$ of positive degrees such that
+$X = D_+(f_1) \cup \ldots \cup D_+(f_n)$. Let $d$ be the
+least common multiple of the degrees of $f_1, \ldots, f_n$.
+After replacing $f_i$ by a power we may assume that each
+$f_i$ has degree $d$. Then we see that $\mathcal{L} = \mathcal{O}_X(d)$ is
+invertible, the multiplication maps
+$\mathcal{O}_X(ad) \otimes \mathcal{O}_X(bd) \to \mathcal{O}_X((a + b)d)$
+are isomorphisms, and each $f_i$ determines a global section $s_i$
+of $\mathcal{L}$ such that $X_{s_i} = D_+(f_i)$, see
+Constructions, Lemmas \ref{constructions-lemma-where-invertible} and
+\ref{constructions-lemma-principal-open}.
+Thus $\Gamma(X, \mathcal{F}(ad)) =
+\Gamma(X, \mathcal{F} \otimes \mathcal{L}^{\otimes a})$.
+Recall that $\widetilde{M}|_{D_{+}(f_i)}$ corresponds to the
+$S_{(f_i)}$-module $M_{(f_i)}$, see
+Constructions, Lemma \ref{constructions-lemma-proj-sheaves}.
+Since the degree of $f_i$ is $d$, the isomorphism class of
+$M_{(f_i)}$ depends only on the homogeneous summands of $M$ of
+degree divisible by $d$. More precisely, the isomorphism class of
+$M_{(f_i)}$ depends only on the graded $\Gamma_*(X, \mathcal{L})$-module
+$\Gamma_*(X, \mathcal{L}, \mathcal{F})$
+and the image $s_i$ of $f_i$ in $\Gamma_*(X, \mathcal{L})$.
+The scheme $X$ is quasi-compact by assumption and
+separated by Constructions, Lemma \ref{constructions-lemma-proj-separated}.
+By Lemma \ref{lemma-invert-s-sections} there is a canonical isomorphism
+$$
+M_{(f_i)} = \Gamma_*(X, \mathcal{L}, \mathcal{F})_{(s_i)} \to
+\Gamma(X_{s_i}, \mathcal{F}).
+$$
+The construction of the map in Constructions, Lemma
+\ref{constructions-lemma-comparison-proj-quasi-coherent}
+then shows that it is an isomorphism over $D_+(f_i)$
+hence an isomorphism as $X$ is covered by these opens.
+We omit the proof of the final statement.
+\end{proof}
+
+
+
+
+\section{Finding suitable affine opens}
+\label{section-finding-affine-opens}
+
+\noindent
+In this section we collect some results on the existence of
+affine opens in more and less general situations.
+
+\begin{lemma}
+\label{lemma-maximal-points-affine}
+Let $X$ be a quasi-separated scheme.
+Let $Z_1, \ldots, Z_n$ be pairwise distinct irreducible components of $X$,
+see Topology, Section \ref{topology-section-irreducible-components}.
+Let $\eta_i \in Z_i$ be their generic points, see
+Schemes, Lemma \ref{schemes-lemma-scheme-sober}.
+There exist affine open neighbourhoods $\eta_i \in U_i$
+such that $U_i \cap U_j = \emptyset$ for all $i \not = j$.
+In particular, $U = U_1 \cup \ldots \cup U_n$ is an affine
+open containing all of the points $\eta_1, \ldots, \eta_n$.
+\end{lemma}
+
+\begin{proof}
+Let $V_i$ be any affine open containing $\eta_i$
+and disjoint from the closed set $Z_1 \cup \ldots \hat Z_i \ldots \cup Z_n$.
+Since $X$ is quasi-separated for each $i$ the union
+$W_i = \bigcup_{j, j \not = i} V_i \cap V_j$ is a quasi-compact
+open of $V_i$ not containing $\eta_i$.
+We can find open neighbourhoods $U_i \subset V_i$
+containing $\eta_i$ and disjoint from $W_i$ by
+Algebra, Lemma \ref{algebra-lemma-standard-open-containing-maximal-point}.
+Finally, $U$ is affine since it is the spectrum of
+the ring $R_1 \times \ldots \times R_n$ where $R_i = \mathcal{O}_X(U_i)$,
+see Schemes, Lemma \ref{schemes-lemma-disjoint-union-affines}.
+\end{proof}
+
+\begin{remark}
+\label{remark-maximal-points-affine}
+Lemma \ref{lemma-maximal-points-affine} above is false if $X$
+is not quasi-separated. Here is an example. Take
+$R = \mathbf{Q}[x, y_1, y_2, \ldots]/((x-i)y_i)$.
+Consider the minimal prime ideal $\mathfrak p = (y_1, y_2, \ldots)$
+of $R$. Glue two copies of $\Spec(R)$ along the
+(not quasi-compact) open $\Spec(R) \setminus V(\mathfrak p)$
+to get a scheme $X$ (glueing as in
+Schemes, Example \ref{schemes-example-affine-space-zero-doubled}).
+Then the two maximal points of $X$ corresponding to $\mathfrak p$
+are not contained in a common affine open. The reason is
+that any open of $\Spec(R)$ containing $\mathfrak p$
+contains infinitely many of the ``lines'' $x = i$, $y_j = 0$,
+$j \not = i$ with parameter $y_i$. Details omitted.
+\end{remark}
+
+\noindent
+Notwithstanding the example above, for ``most'' finite sets of irreducible
+closed subsets one can apply Lemma \ref{lemma-maximal-points-affine} above,
+at least if $X$ is quasi-compact. This is true because $X$ contains a dense
+open which is separated.
+
+\begin{lemma}
+\label{lemma-quasi-compact-dense-open-separated}
+Let $X$ be a quasi-compact scheme.
+There exists a dense open $V \subset X$ which is separated.
+\end{lemma}
+
+\begin{proof}
+Say $X = \bigcup_{i = 1, \ldots, n} U_i$ is a union of $n$ affine open
+subschemes. We will prove the lemma by induction on $n$. It is trivial for
+$n = 1$. Let $V' \subset \bigcup_{i = 1, \ldots, n - 1} U_i$ be a separated
+dense open subscheme, which exists by induction hypothesis. Consider
+$$
+V = V' \amalg (U_n \setminus \overline{V'}).
+$$
+It is clear that $V$ is separated and a dense open subscheme of $X$.
+\end{proof}
+
+\noindent
+It turns out that, even if $X$ is quasi-separated as well as quasi-compact,
+there does not exist a separated, quasi-compact dense open, see
+Examples, Lemma
+\ref{examples-lemma-no-dense-separated-quasi-compact-open-in-qcqs}.
+Here is a slight refinement of Lemma \ref{lemma-maximal-points-affine} above.
+
+\begin{lemma}
+\label{lemma-point-and-maximal-points-affine}
+Let $X$ be a quasi-separated scheme. Let $Z_1, \ldots, Z_n$ be pairwise
+distinct irreducible components of $X$. Let $\eta_i \in Z_i$ be their
+generic points. Let $x \in X$ be arbitrary.
+There exists an affine open $U \subset X$ containing
+$x$ and all the $\eta_i$.
+\end{lemma}
+
+\begin{proof}
+Suppose that $x \in Z_1 \cap \ldots \cap Z_r$ and
+$x \not \in Z_{r + 1}, \ldots, Z_n$. Then we may choose
+an affine open $W \subset X$ such that
+$x \in W$ and $W \cap Z_i = \emptyset$ for
+$i = r + 1, \ldots, n$. Note that clearly $\eta_i \in W$
+for $i = 1, \ldots, r$. By Lemma \ref{lemma-maximal-points-affine}
+we may choose affine opens $U_i \subset X$ which are pairwise
+disjoint such that $\eta_i \in U_i$ for $i = r + 1, \ldots, n$.
+Since $X$ is quasi-separated the opens $W \cap U_i$
+are quasi-compact and do not contain $\eta_i$ for
+$i = r + 1, \ldots, n$. Hence by
+Algebra, Lemma \ref{algebra-lemma-standard-open-containing-maximal-point}
+we may shrink $U_i$ such that $W \cap U_i = \emptyset$
+for $i = r + 1, \ldots, n$. Then the union
+$U = W \cup \bigcup_{i = r + 1, \ldots, n} U_i$ is disjoint and hence
+(by Schemes, Lemma \ref{schemes-lemma-disjoint-union-affines})
+a suitable affine open.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-finite-set-in-affine}
+Let $X$ be a scheme. Assume either
+\begin{enumerate}
+\item The scheme $X$ is quasi-affine.
+\item The scheme $X$ is isomorphic to a locally closed subscheme
+of an affine scheme.
+\item There exists an ample invertible sheaf on $X$.
+\item The scheme $X$ is isomorphic to a locally closed subscheme
+of $\text{Proj}(S)$ for some graded ring $S$.
+\end{enumerate}
+Then for any finite subset $E \subset X$ there exists an
+affine open $U \subset X$ with $E \subset U$.
+\end{lemma}
+
+\begin{proof}
+By Properties, Definition \ref{definition-quasi-affine}
+a quasi-affine scheme is a quasi-compact open subscheme
+of an affine scheme. Any affine scheme $\Spec(R)$ is isomorphic to
+$\text{Proj}(R[X])$ where $R[X]$ is graded by setting $\deg(X) = 1$.
+By Proposition \ref{proposition-characterize-ample}
+if $X$ has an ample invertible sheaf then $X$ is isomorphic to an open
+subscheme of $\text{Proj}(S)$ for some graded ring $S$.
+Hence, it suffices to prove the lemma in case (4).
+(We urge the reader to prove case (2) directly for themselves.)
+
+\medskip\noindent
+Thus assume $X \subset \text{Proj}(S)$ is a locally closed subscheme
+where $S$ is some graded ring. Let $T = \overline{X} \setminus X$.
+Recall that the standard opens $D_{+}(f)$ form a basis of the
+topology on $\text{Proj}(S)$. Since $E$ is finite we may choose finitely many
+homogeneous elements $f_i \in S_{+}$ such that
+$$
+E \subset
+D_{+}(f_1) \cup \ldots \cup D_{+}(f_n) \subset
+\text{Proj}(S) \setminus T
+$$
+Suppose that $E = \{\mathfrak p_1, \ldots, \mathfrak p_m\}$
+as a subset of $\text{Proj}(S)$.
+Consider the ideal $I = (f_1, \ldots, f_n) \subset S$.
+Since $I \not \subset \mathfrak p_j$ for all $j = 1, \ldots, m$
+we see from Algebra, Lemma \ref{algebra-lemma-graded-silly} that
+there exists a homogeneous element $f \in I$, $f \not \in \mathfrak p_j$
+for all $j = 1, \ldots, m$. Then $E \subset D_{+}(f) \subset
+D_{+}(f_1) \cup \ldots \cup D_{+}(f_n)$. Since $D_{+}(f)$ does not
+meet $T$ we see that $X \cap D_{+}(f)$ is a closed subscheme of the
+affine scheme $D_{+}(f)$, hence is an affine open of $X$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ample-finite-set-in-principal-affine}
+Let $X$ be a scheme. Let $\mathcal{L}$ be an ample invertible sheaf on $X$.
+Let
+$$
+E \subset W \subset X
+$$
+with $E$ finite and $W$ open in $X$. Then there exists an $n > 0$
+and a section $s \in \Gamma(X, \mathcal{L}^{\otimes n})$ such that
+$X_s$ is affine and $E \subset X_s \subset W$.
+\end{lemma}
+
+\begin{proof}
+The reader can modify the proof of Lemma \ref{lemma-ample-finite-set-in-affine}
+to prove this lemma; we will instead deduce the lemma from it.
+By Lemma \ref{lemma-ample-finite-set-in-affine} we can choose an affine
+open $U \subset W$ such that $E \subset U$.
+Consider the graded ring $S = \Gamma_*(X, \mathcal{L}) =
+\bigoplus_{n \geq 0} \Gamma(X, \mathcal{L}^{\otimes n})$.
+For each $x \in E$ let $\mathfrak p_x \subset S$ be the graded ideal
+of sections vanishing at $x$. It is clear that $\mathfrak p_x$ is
+a prime ideal and since some power of $\mathcal{L}$ is globally
+generated, it is clear that $S_{+} \not \subset \mathfrak p_x$.
+Let $I \subset S$ be the graded ideal of sections vanishing on all
+points of $X \setminus U$. Since the sets $X_s$ form a basis
+for the topology we see that $I \not \subset \mathfrak p_x$ for
+all $x \in E$.
+By (graded) prime avoidance (Algebra, Lemma \ref{algebra-lemma-graded-silly})
+we can find $s \in I$ homogeneous
+with $s \not \in \mathfrak p_x$ for all $x \in E$.
+Then $E \subset X_s \subset U$ and $X_s$ is affine by
+Lemma \ref{lemma-affine-cap-s-open}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ring-affine-open-injective-local-ring}
+Let $X$ be a scheme and $x \in X$ a point. There exists an affine open
+neighbourhood $U \subset X$ of $x$ such that the canonical map
+$\mathcal{O}_X(U) \to \mathcal{O}_{X, x}$ is injective in each of
+the following cases:
+\begin{enumerate}
+\item $X$ is integral,
+\item $X$ is locally Noetherian,
+\item $X$ is reduced and has a finite number of irreducible components.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+After translation into algebra, this follows from
+Algebra, Lemma \ref{algebra-lemma-subring-of-local-ring}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}
