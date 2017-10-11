@@ -1,4 +1,4 @@
-# deep-algebra
+# DeepAlgebra
 Automating LaTeX understanding after https://arxiv.org/abs/1610.01044
 
 The first step is to implement an enhanced semantic tagger which will annotate .tex files (from the Stacks Project). The idea is to use both rule-based approach and machine learning methods like Word2Vec. 
