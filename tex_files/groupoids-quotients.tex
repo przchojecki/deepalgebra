@@ -1,0 +1,1465 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Quotients of Groupoids}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+This chapter is devoted to generalities concerning groupoids and their
+quotients (as far as they exist).
+There is a lot of literature on this subject, see for example
+\cite{GIT}, \cite{seshadri_quotients}, \cite{KollarQuotients},
+\cite{K-M}, \cite{KollarFinite} and many more.
+
+
+
+
+
+\section{Conventions and notation}
+\label{section-conventions-notation}
+
+\noindent
+In this chapter the conventions and notation are those introduced in
+Groupoids in Spaces, Sections \ref{spaces-groupoids-section-conventions}
+and \ref{spaces-groupoids-section-notation}.
+
+
+\section{Invariant morphisms}
+\label{section-invariant}
+
+\begin{definition}
+\label{definition-invariant}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $j = (t, s) : R \to U \times_B U$ be a pre-relation of algebraic
+spaces over $B$. We say a morphism $\phi : U \to X$ of algebraic spaces
+over $B$ is {\it $R$-invariant} if the diagram
+$$
+\xymatrix{
+R \ar[r]_s \ar[d]_t & U \ar[d]^\phi \\
+U \ar[r]^\phi & X
+}
+$$
+is commutative. If $j : R \to U \times_B U$ comes from the action
+of a group algebraic space $G$ on $U$ over $B$ as in
+Groupoids in Spaces, Lemma \ref{spaces-groupoids-lemma-groupoid-from-action},
+then we say that $\phi$ is {\it $G$-invariant}.
+\end{definition}
+
+\noindent
+In other words, a morphism $U \to X$ is $R$-invariant if it equalizes
+$s$ and $t$.  We can reformulate this in terms of associated quotient
+sheaves as follows.
+
+\begin{lemma}
+\label{lemma-invariant}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $j = (t, s) : R \to U \times_B U$ be a pre-relation of algebraic
+spaces over $B$. A morphism of algebraic spaces $\phi : U \to X$ is
+$R$-invariant if and only if it factors as
+$U \to U/R \to X$.
+\end{lemma}
+
+\begin{proof}
+This is clear from the definition of the quotient sheaf in
+Groupoids in Spaces, Section \ref{spaces-groupoids-section-quotient-sheaves}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-on-invariant}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $j = (t, s) : R \to U \times_B U$ be a pre-relation of algebraic
+spaces over $B$. Let $U \to X$ be an $R$-invariant morphism of algebraic
+spaces over $B$. Let $X' \to X$ be any morphism of algebraic spaces.
+\begin{enumerate}
+\item Setting $U' = X' \times_X U$, $R' = X' \times_X R$ we obtain
+a pre-relation $j' : R' \to U' \times_B U'$.
+\item If $j$ is a relation, then $j'$ is a relation.
+\item If $j$ is a pre-equivalence relation, then $j'$ is a
+pre-equivalence relation.
+\item If $j$ is an equivalence relation, then $j'$ is an equivalence
+relation.
+\item If $j$ comes from a groupoid in algebraic spaces
+$(U, R, s, t, c)$ over $B$, then
+\begin{enumerate}
+\item $(U, R, s, t, c)$ is a groupoid in algebraic spaces over $X$, and
+\item $j'$ comes from the base change $(U', R', s', t', c')$
+of this groupoid to $X'$, see
+Groupoids in Spaces, Lemma
+\ref{spaces-groupoids-lemma-base-change-groupoid}.
+\end{enumerate}
+\item If $j$ comes from the action of a group algebraic space $G/B$ on $U$
+as in Groupoids in Spaces, Lemma
+\ref{spaces-groupoids-lemma-groupoid-from-action}
+then $j'$ comes from the induced action of $G$ on $U'$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Functorial point of view combined with the picture:
+$$
+\xymatrix{
+R' = X' \times_X R \ar[dd] \ar[rr] \ar[rd] & &
+X' \times_X U = U' \ar'[d][dd] \ar[rd] \\
+& R \ar[dd] \ar[rr] & & U \ar[dd] \\
+U' = X' \times_X U \ar'[r][rr] \ar[rd] & & X' \ar[rd] \\
+& U \ar[rr] & & X
+}
+$$
+\end{proof}
+
+\begin{definition}
+\label{definition-base-change}
+In the situation of Lemma \ref{lemma-base-change-on-invariant}
+we call $j' : R' \to U' \times_B U'$ the {\it base change} of the pre-relation
+$j$ to $X'$. We say it is a {\it flat base change} if $X' \to X$ is a flat
+morphism of algebraic spaces.
+\end{definition}
+
+\noindent
+This kind of base change interacts well with taking quotient sheaves
+and quotient stacks.
+
+\begin{lemma}
+\label{lemma-base-change-quotient-sheaf}
+In the situation of Lemma \ref{lemma-base-change-on-invariant}
+there is an isomorphism of sheaves
+$$
+U'/R' = X' \times_X U/R
+$$
+For the construction of quotient sheaves, see
+Groupoids in Spaces, Section \ref{spaces-groupoids-section-quotient-sheaves}.
+\end{lemma}
+
+\begin{proof}
+Since $U \to X$ is $R$-invariant, it is clear that the map
+$U \to X$ factors through the quotient sheaf $U/R$.
+Recall that by definition
+$$
+\xymatrix{
+R \ar@<1ex>[r] \ar@<-1ex>[r] &
+U \ar[r] &
+U/R
+}
+$$
+is a coequalizer diagram in the category $\Sh$ of sheaves of sets on
+$(\Sch/S)_{fppf}$. In fact, this is a coequalizer diagram in the
+comma category $\Sh/X$. Since the base change functor
+$X' \times_X - : \Sh/X \to \Sh/X'$ is exact (true in any topos),
+we conclude.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-quotient-stack}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+Let $U \to X$ be an $R$-invariant morphism of algebraic spaces over
+$B$. Let $g : X' \to X$ be a morphism of algebraic spaces over $B$
+and let $(U', R', s', t', c')$ be the base change as in
+Lemma \ref{lemma-base-change-on-invariant}. Then
+$$
+\xymatrix{
+[U'/R'] \ar[r] \ar[d] & [U/R] \ar[d] \\
+\mathcal{S}_{X'} \ar[r] & \mathcal{S}_X
+}
+$$
+is a $2$-fibre product of stacks in groupoids over $(\Sch/S)_{fppf}$.
+For the construction of quotient stacks and the morphisms in this
+diagram, see
+Groupoids in Spaces, Section \ref{spaces-groupoids-section-stacks}.
+\end{lemma}
+
+\begin{proof}
+We will prove this by using the explicit
+description of the quotient stacks given in
+Groupoids in Spaces, Lemma
+\ref{spaces-groupoids-lemma-quotient-stack-objects}.
+However, we strongly urge the reader to find their own proof.
+First, we may view $(U, R, s, t, c)$ as a groupoid in
+algebraic spaces over $X$, hence we obtain a map
+$f : [U/R] \to \mathcal{S}_X$, see
+Groupoids in Spaces, Lemma \ref{spaces-groupoids-lemma-quotient-stack-arrows}.
+Similarly, we have $f' : [U'/R'] \to X'$.
+
+\medskip\noindent
+An object of the $2$-fibre product
+$\mathcal{S}_{X'} \times_{\mathcal{S}_X} [U/R]$ over a scheme $T$ over $S$
+is the same as a morphism $x' : T \to X'$ and an object $y$ of $[U/R]$ over $T$
+such that such that the composition $g \circ x'$ is equal to $f(y)$.
+This makes sense because objects of $\mathcal{S}_X$ over $T$
+are morphisms $T \to X$. By Groupoids in Spaces, Lemma
+\ref{spaces-groupoids-lemma-quotient-stack-objects}
+we may assume $y$ is given by a $[U/R]$-descent datum $(u_i, r_{ij})$
+relative to an fppf covering $\{T_i \to T\}$.
+The agreement of $g \circ x' = f(y)$ means that the diagrams
+$$
+\vcenter{
+\xymatrix{
+T_i \ar[rr]_{u_i} \ar[d] & & U \ar[d] \\
+T \ar[r]^{x'} & X' \ar[r]^g & X
+}
+}
+\quad\text{and}\quad
+\vcenter{
+\xymatrix{
+T_i \times_T T_j \ar[rr]_{r_{ij}} \ar[d] & & R \ar[d] \\
+T \ar[r]^{x'} & X' \ar[r]^g & X
+}
+}
+$$
+are commutative.
+
+\medskip\noindent
+On the other hand, an object $y'$ of $[U'/R']$ over a scheme $T$ over $S$
+by Groupoids in Spaces, Lemma
+\ref{spaces-groupoids-lemma-quotient-stack-objects}
+is given by a $[U'/R']$-descent datum $(u'_i, r'_{ij})$
+relative to an fppf covering $\{T_i \to T\}$.
+Setting $f'(y') = x' : T \to X'$ we see that
+the diagrams
+$$
+\vcenter{
+\xymatrix{
+T_i \ar[r]_{u'_i} \ar[d] & U' \ar[d] \\
+T \ar[r]^{x'} & X'
+}
+}
+\quad\text{and}\quad
+\vcenter{
+\xymatrix{
+T_i \times_T T_j \ar[r]_{r'_{ij}} \ar[d] & U' \ar[d] \\
+T \ar[r]^{x'} & X'
+}
+}
+$$
+are commutative.
+
+\medskip\noindent
+With this notation in place, we define a functor
+$$
+[U'/R'] \longrightarrow \mathcal{S}_{X'} \times_{\mathcal{S}_X} [U/R]
+$$
+by sending $y' = (u'_i, r'_{ij})$ as above to the object
+$(x', (u_i, r_{ij}))$ where $x' = f'(y')$, where
+$u_i$ is the composition $T_i \to U' \to U$, and where
+$r_{ij}$ is the composition $T_i \times_T T_j \to R' \to R$.
+Conversely, given an object $(x', (u_i, r_{ij})$
+of the right hand side we can send this to the object
+$((x', u_i), (x', r_{ij}))$ of the left hand side.
+We omit the discussion of what to do with morphisms (works
+in exactly the same manner).
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Categorical quotients}
+\label{section-categorical}
+
+\noindent
+This is the most basic kind of quotient one can consider.
+
+\begin{definition}
+\label{definition-categorical}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $j = (t, s) : R \to U \times_B U$ be pre-relation in algebraic spaces
+over $B$.
+\begin{enumerate}
+\item We say a morphism $\phi : U \to X$ of algebraic spaces over $B$
+is a {\it categorical quotient} if it is $R$-invariant, and
+for every $R$-invariant morphism $\psi : U \to Y$ of algebraic spaces over $B$
+there exists a unique morphism $\chi : X \to Y$ such that
+$\psi = \phi \circ \chi$.
+\item Let $\mathcal{C}$ be a full subcategory of the category of algebraic
+spaces over $B$. Assume $U$, $R$ are objects of $\mathcal{C}$.
+In this situation we say
+a morphism $\phi : U \to X$ of algebraic spaces over $B$
+is a {\it categorical quotient in $\mathcal{C}$}
+if $X \in \Ob(\mathcal{C})$, and $\phi$ is $R$-invariant,
+and for every $R$-invariant morphism
+$\psi : U \to Y$ with $Y \in \Ob(\mathcal{C})$
+there exists a unique morphism $\chi : X \to Y$ such
+that $\psi = \phi \circ \chi$.
+\item If $B = S$ and $\mathcal{C}$ is the category of schemes over $S$,
+then we say $U \to X$ is a
+{\it categorical quotient in the category of schemes}, or simply a
+{\it categorical quotient in schemes}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+We often single out a category $\mathcal{C}$ of algebraic spaces over $B$
+by some separation axiom, see
+Example \ref{example-categories}
+for some standard cases.
+Note that $\phi : U \to X$ is a categorical quotient if and only
+if $U \to X$ is a coequalizer for the
+morphisms $t, s : R \to U$ in the category. Hence we immediately
+deduce the following lemma.
+
+\begin{lemma}
+\label{lemma-categorical-unique}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation in algebraic spaces over $B$.
+If a categorical quotient in the category of algebraic spaces
+over $B$ exists, then it is unique up to unique isomorphism.
+Similarly for categorical quotients in full subcategories of
+$\textit{Spaces}/B$.
+\end{lemma}
+
+\begin{proof}
+See Categories, Section \ref{categories-section-coequalizers}.
+\end{proof}
+
+\begin{example}
+\label{example-categories}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Here are some standard examples of categories $\mathcal{C}$
+that we often come up when applying
+Definition \ref{definition-categorical}:
+\begin{enumerate}
+\item $\mathcal{C}$ is the category of all algebraic spaces over $B$,
+\item $B$ is separated and $\mathcal{C}$ is the category of all separated
+algebraic spaces over $B$,
+\item $B$ is quasi-separated and $\mathcal{C}$ is the category of all
+quasi-separated algebraic spaces over $B$,
+\item $B$ is locally separated and $\mathcal{C}$ is the category of all
+locally separated algebraic spaces over $B$,
+\item $B$ is decent and $\mathcal{C}$ is the category of all decent algebraic
+spaces over $B$, and
+\item $S = B$ and $\mathcal{C}$ is the category of schemes over $S$.
+\end{enumerate}
+In this case, if $\phi : U \to X$ is a categorical quotient then we say
+$U \to X$ is
+(1) a {\it categorical quotient},
+(2) a {\it categorical quotient in separated algebraic spaces},
+(3) a {\it categorical quotient in quasi-separated algebraic spaces},
+(4) a {\it categorical quotient in locally separated algebraic spaces},
+(5) a {\it categorical quotient in decent algebraic spaces},
+(6) a {\it categorical quotient in schemes}.
+\end{example}
+
+\begin{definition}
+\label{definition-universal-categorical}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $\mathcal{C}$ be a full subcategory of the category of algebraic
+spaces over $B$ closed under fibre products.
+Let $j = (t, s) : R \to U \times_B U$ be pre-relation in
+$\mathcal{C}$, and let $U \to X$ be an $R$-invariant morphism with
+$X \in \Ob(\mathcal{C})$.
+\begin{enumerate}
+\item We say $U \to X$ is a {\it universal categorical quotient}
+in $\mathcal{C}$ if for every morphism $X' \to X$ in $\mathcal{C}$
+the morphism $U' = X' \times_X U \to X'$ is the categorical quotient in
+$\mathcal{C}$ of the base change $j' : R' \to U'$ of $j$.
+\item We say $U \to X$ is a {\it uniform categorical quotient}
+in $\mathcal{C}$ if for every flat morphism $X' \to X$ in $\mathcal{C}$
+the morphism $U' = X' \times_X U \to X'$ is the categorical quotient in
+$\mathcal{C}$ of the base change $j' : R' \to U'$ of $j$.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+\label{lemma-categorical-reduced}
+In the situation of
+Definition \ref{definition-categorical}.
+If $\phi : U \to X$ is a categorical quotient and $U$ is reduced,
+then $X$ is reduced. The same holds for categorical quotients in
+a category of spaces $\mathcal{C}$ listed in
+Example \ref{example-categories}.
+\end{lemma}
+
+\begin{proof}
+Let $X_{red}$ be the reduction of the algebraic space $X$.
+Since $U$ is reduced the morphism $\phi : U \to X$ factors through
+$i : X_{red} \to X$ (insert future reference here). Denote this morphism
+by $\phi_{red} : U \to X_{red}$. Since $\phi \circ s = \phi \circ t$ we
+see that also $\phi_{red} \circ s = \phi_{red} \circ t$ (as
+$i : X_{red} \to X$ is a monomorphism). Hence by the universal property
+of $\phi$ there exists a morphism $\chi : X \to X_{red}$ such that
+$\phi_{red} = \phi \circ \chi$. By uniqueness we see that
+$i \circ \chi = \text{id}_X$ and $\chi \circ i = \text{id}_{X_{red}}$.
+Hence $i$ is an isomorphism and $X$ is reduced.
+
+\medskip\noindent
+To show that this argument works in a category $\mathcal{C}$ one
+just needs to show that the reduction of an object of $\mathcal{C}$
+is an object of $\mathcal{C}$. We omit the verification that this
+holds for each of the standard examples.
+\end{proof}
+
+
+
+
+
+\section{Quotients as orbit spaces}
+\label{section-orbits}
+
+\noindent
+Let $j = (t, s) : R \to U \times_B U$ be a pre-relation.
+If $j$ is a pre-equivalence relation, then loosely speaking
+the ``orbits'' of $R$ on $U$
+are the subsets $t(s^{-1}(\{u\}))$ of $U$. However, if $j$ is just a
+pre-relation, then we need to take the equivalence relation generated
+by $R$.
+
+\begin{definition}
+\label{definition-orbit}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation over $B$.
+If $u \in |U|$, then the {\it orbit}, or more precisely the
+{\it $R$-orbit} of $u$ is
+$$
+O_u =
+\left\{
+u' \in |U|\ :
+\begin{matrix}
+\exists n \geq 1, \ \exists u_0, \ldots, u_n \in |U|\text{ such that} \\
+\text{for all }i \in \{0, \ldots, n - 1\}\text{ either } \\
+u_i = u_{i + 1}\text{ or } \\
+\exists r \in |R|, \ s(r) = u_i, t(r) = u_{i + 1}
+\text{ or } \\
+\exists r \in |R|, \ t(r) = u_i, s(r) = u_{i + 1}
+\end{matrix}
+\right\}
+$$
+\end{definition}
+
+\noindent
+It is clear that these are the equivalence classes of an equivalence relation,
+i.e., we have $u' \in O_u$ if and only if $u \in O_{u'}$. The following lemma
+is a reformulation of
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-pre-equivalence-equivalence-relation-points}.
+
+\begin{lemma}
+\label{lemma-pre-equivalence-equivalence-relation-points}
+Let $B \to S$ as in Section \ref{section-conventions-notation}.
+Let $j : R \to U \times_B U$ be a pre-equivalence relation
+of algebraic spaces over $B$. Then
+$$
+O_u =
+\{u' \in |U| \text{ such that } \exists r \in |R|, \ s(r) = u, \ t(r) = u'\}.
+$$
+\end{lemma}
+
+\begin{proof}
+By the aforementioned
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-pre-equivalence-equivalence-relation-points}
+we see that the orbits $O_u$ as defined in the lemma give a disjoint
+union decomposition of $|U|$. Thus we see they are equal to the
+orbits as defined in Definition \ref{definition-orbit}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-invariant-map-constant-on-orbit}
+In the situation of Definition \ref{definition-orbit}.
+Let $\phi : U \to X$ be an $R$-invariant morphism of algebraic spaces over
+$B$. Then $|\phi| : |U| \to |X|$ is constant on the orbits.
+\end{lemma}
+
+\begin{proof}
+To see this we just have to show that $\phi(u) = \phi(u')$
+for all $u, u' \in |U|$ such that
+there exists an $r \in |R|$ such that $s(r) = u$ and $t(r) = u'$.
+And this is clear since $\phi$ equalizes $s$ and $t$.
+\end{proof}
+
+\noindent
+There are several problems with considering the orbits $O_u \subset |U|$
+as a tool for singling out properties of quotient maps. One issue is the
+following. Suppose that $\Spec(k) \to B$
+is a geometric point of $B$. Consider the canonical map
+$$
+U(k) \longrightarrow |U|.
+$$
+Then it is usually not the case that the equivalence classes
+of the equivalence relation generated by $j(R(k)) \subset U(k) \times U(k)$
+are the inverse images of the orbits $O_u \subset |U|$.
+A silly example is to take $S = B = \Spec(\mathbf{Z})$,
+$U = R = \Spec(k)$ with $s = t = \text{id}_k$. Then $|U| = |R|$ is
+a single point but $U(k)/R(k)$ is enormous.
+A more interesting example is to take $S = B = \Spec(\mathbf{Q})$,
+choose some of number fields $K \subset L$, and set $U = \Spec(L)$
+and $R = \Spec(L \otimes_K L)$ with obvious maps $s, t : R \to U$.
+In this case $|U|$ still has just one point, but the quotient
+$$
+U(k)/R(k) = \Hom(K, k)
+$$
+consists of more than one element. We conclude from both examples
+that if $U \to X$ is an $R$-invariant map and if we want it to
+``separate orbits'' we get a much stronger and interesting notion by
+considering the induced maps $U(k) \to X(k)$ and ask that
+those maps separate orbits.
+
+\medskip\noindent
+There is an issue with this too. Namely, suppose that
+$S = B = \Spec(\mathbf{R})$,
+$U = \Spec(\mathbf{C})$, and
+$R = \Spec(\mathbf{C}) \amalg \Spec(K)$
+for some field extension $\sigma : \mathbf{C} \to K$.
+Let the maps $s, t$ be given by the identity on the component
+$\Spec(\mathbf{C})$, but by $\sigma, \sigma \circ \tau$ on the
+second component where $\tau$ is complex conjugation. If
+$K$ is a nontrivial extension of $\mathbf{C}$, then the two points
+$1, \tau \in U(\mathbf{C})$ are not equivalent under
+$j(R(\mathbf{C}))$. But after choosing an extension $\mathbf{C} \subset \Omega$
+of sufficiently large cardinality (for example larger than the cardinality
+of $K$) then the images of $1, \tau \in U(\mathbf{C})$ in
+$U(\Omega)$ do become equivalent! It seems intuitively clear that
+this happens either because $s, t : R \to U$ are not locally of finite type
+or because the cardinality of the field $k$ is not large enough.
+
+\medskip\noindent
+Keeping this in mind we make the following definition.
+
+\begin{definition}
+\label{definition-geometric-orbits}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation over $B$.
+Let $\Spec(k) \to B$ be a geometric point of $B$.
+\begin{enumerate}
+\item We say $\overline{u}, \overline{u}' \in U(k)$ are
+{\it weakly $R$-equivalent} if they are in the same equivalence class
+for the equivalence relation generated by the relation
+$j(R(k)) \subset U(k) \times U(k)$.
+\item We say $\overline{u}, \overline{u}' \in U(k)$ are
+{\it $R$-equivalent} if for some overfield $k \subset \Omega$
+the images in $U(\Omega)$ are weakly $R$-equivalent.
+\item The {\it weak orbit}, or more precisely the {\it weak $R$-orbit}
+of $\overline{u} \in U(k)$ is set of all
+elements of $U(k)$ which are weakly $R$-equivalent to $\overline{u}$.
+\item The {\it orbit}, or more precisely the {\it $R$-orbit}
+of $\overline{u} \in U(k)$ is set of all
+elements of $U(k)$ which are $R$-equivalent to $\overline{u}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+It turns out that in good cases orbits and weak orbits agree, see
+Lemma \ref{lemma-geometric-orbits}. The following lemma illustrates
+the difference in the special case of a pre-equivalence relation.
+
+\begin{lemma}
+\label{lemma-weak-orbit-pre-equivalence}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $\Spec(k) \to B$ be a geometric point of $B$.
+Let $j : R \to U \times_B U$ be a pre-equivalence relation over $B$.
+In this case the weak orbit of $\overline{u} \in U(k)$ is simply
+$$
+\{
+\overline{u}' \in U(k)
+\text{ such that }
+\exists \overline{r} \in R(k),
+\ s(\overline{r}) = \overline{u},
+\ t(\overline{r}) = \overline{u}'
+\}
+$$
+and the orbit of $\overline{u} \in U(k)$ is
+$$
+\{
+\overline{u}' \in U(k) :
+\exists\text{ field extension }k \subset K, \ \exists\ r \in R(K),
+\ s(r) = \overline{u}, \ t(r) = \overline{u}'\}
+$$
+\end{lemma}
+
+\begin{proof}
+This is true because by definition of a pre-equivalence relation the image
+$j(R(k)) \subset U(k) \times U(k)$ is an equivalence relation.
+\end{proof}
+
+\noindent
+Let us describe the recipe for turning any pre-relation into a
+pre-equivalence relation. We will use the morphisms
+\begin{equation}
+\label{equation-list}
+\begin{matrix}
+j_{diag} &
+: &
+U &
+\longrightarrow &
+U \times_B U, &
+u &
+\longmapsto &
+(u, u) \\
+j_{flip} &
+: &
+R &
+\longrightarrow &
+U \times_B U, &
+r &
+\longmapsto &
+(s(r), t(r)) \\
+j_{comp} &
+: &
+R \times_{s, U, t} R &
+\longrightarrow &
+U \times_B U, &
+(r, r') &
+\longmapsto &
+(t(r), s(r'))
+\end{matrix}
+\end{equation}
+We define $j_1 = (t_1, s_1) : R_1 \to U \times_B U$ to be the morphism
+$$
+j \amalg j_{diag} \amalg j_{flip} :
+R \amalg U \amalg R
+\longrightarrow
+U \times_B U
+$$
+with notation as in
+Equation (\ref{equation-list}).
+For $n > 1$ we set
+$$
+j_n = (t_n, s_n) :
+R_n = R_1 \times_{s_1, U, t_{n - 1}} R_{n - 1} \longrightarrow U \times_B U
+$$
+where $t_n$ comes from $t_1$ precomposed with projection onto $R_1$ and
+$s_n$ comes from $s_{n - 1}$ precomposed with projection onto $R_{n - 1}$.
+Finally, we denote
+$$
+j_\infty = (t_\infty, s_\infty) :
+R_\infty = \coprod\nolimits_{n \geq 1} R_n
+\longrightarrow
+U \times_B U.
+$$
+
+\begin{lemma}
+\label{lemma-make-pre-equivalence}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation over $B$.
+Then $j_\infty : R_\infty \to U \times_B U$ is a
+pre-equivalence relation over $B$. Moreover
+\begin{enumerate}
+\item $\phi : U \to X$ is $R$-invariant if and only if it is
+$R_\infty$-invariant,
+\item the canonical map of quotient sheaves $U/R \to U/R_\infty$ (see
+Groupoids in Spaces, Section \ref{spaces-groupoids-section-quotient-sheaves})
+is an isomorphism,
+\item weak $R$-orbits agree with weak $R_\infty$-orbits,
+\item $R$-orbits agree with $R_\infty$-orbits,
+\item if $s, t$ are locally of finite type, then $s_\infty$, $t_\infty$
+are locally of finite type,
+\item add more here as needed.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint for (5): Any property of $s, t$ which is stable under composition
+and stable under base change, and Zariski local on the source
+will be inherited by $s_\infty, t_\infty$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-geometric-orbits}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation over $B$.
+Let $\Spec(k) \to B$ be a geometric point of $B$.
+\begin{enumerate}
+\item If $s, t : R \to U$ are locally of finite type
+then weak $R$-equivalence on $U(k)$ agrees with $R$-equivalence, and
+weak $R$-orbits agree with $R$-orbits on $U(k)$.
+\item If $k$ has sufficiently large cardinality then weak $R$-equivalence
+on $U(k)$ agrees with $R$-equivalence, and weak $R$-orbits agree
+with $R$-orbits on $U(k)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We first prove (1). Assume $s, t$ locally of finite type. By
+Lemma \ref{lemma-make-pre-equivalence}
+we may assume that $R$ is a pre-equivalence relation.
+Let $k$ be an algebraically closed field over $B$.
+Suppose $\overline{u}, \overline{u}' \in U(k)$ are $R$-equivalent.
+Then for some extension field $k \subset \Omega$ there exists
+a point $\overline{r} \in R(\Omega)$ mapping to
+$(\overline{u}, \overline{u}') \in (U \times_B U)(\Omega)$, see
+Lemma \ref{lemma-weak-orbit-pre-equivalence}.
+Hence
+$$
+Z = R \times_{j, U \times_B U, (\overline{u}, \overline{u}')} \Spec(k)
+$$
+is nonempty. As $s$ is locally of finite type we see that
+also $j$ is locally of finite type, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-permanence-finite-type}.
+This implies $Z$ is a nonempty algebraic space locally of finite type
+over the algebraically closed field $k$ (use
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-finite-type}).
+Thus $Z$ has a $k$-valued point, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-finite-type-surjective-geometric-points}.
+Hence we conclude there exists a $\overline{r} \in R(k)$ with
+$j(\overline{r}) = (\overline{u}, \overline{u}')$, and we conclude that
+$\overline{u}, \overline{u}'$ are $R$-equivalent as desired.
+
+\medskip\noindent
+The proof of part (2) is the same, except that it uses
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-large-enough}
+instead of
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-finite-type-surjective-geometric-points}.
+This shows that the assertion holds as soon as $|k| > \lambda(R)$ with
+$\lambda(R)$ as introduced just above
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-finite-type-surjective-geometric-points}.
+\end{proof}
+
+\noindent
+In the following definition we use the terminology ``$k$ is a field
+over $B$'' to mean that $\Spec(k)$ comes equipped with a morphism
+$\Spec(k) \to B$.
+
+\begin{definition}
+\label{definition-set-theoretically-invariant}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation over $B$.
+\begin{enumerate}
+\item We say $\phi : U \to X$ is {\it set-theoretically $R$-invariant}
+if and only if the map $U(k) \to X(k)$ equalizes the two maps
+$s, t : R(k) \to U(k)$ for every algebraically closed field $k$
+over $B$.
+\item We say $\phi : U \to X$ {\it separates orbits}, or
+{\it separates $R$-orbits} if it is set-theoretically $R$-invariant and
+$\phi(\overline{u}) = \phi(\overline{u}')$ in $X(k)$ implies that
+$\overline{u}, \overline{u}' \in U(k)$ are in the same orbit
+for every algebraically closed field $k$ over $B$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+In
+Example \ref{example-not-invariant}
+we show that being set-theoretically invariant is ``too weak'' a notion in
+the category of algebraic spaces. A more geometric reformulation
+of what it means to be set-theoretically invariant or to separate orbits is in
+Lemma \ref{lemma-separates-orbits}.
+
+\begin{lemma}
+\label{lemma-set-theoretic-invariant}
+In the situation of Definition \ref{definition-set-theoretically-invariant}.
+A morphism $\phi : U \to X$ is set-theoretically $R$-invariant if and
+only if for any algebraically closed field $k$ over $B$ the map
+$U(k) \to X(k)$ is constant on orbits.
+\end{lemma}
+
+\begin{proof}
+This is true because the condition is supposed to hold for all algebraically
+closed fields over $B$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-invariant-set-theoretically-invariant}
+In the situation of Definition \ref{definition-set-theoretically-invariant}.
+An invariant morphism is set-theoretically invariant.
+\end{lemma}
+
+\begin{proof}
+This is immediate from the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-set-theoretically-invariant-invariant-when-reduced}
+In the situation of Definition \ref{definition-set-theoretically-invariant}.
+Let $\phi : U \to X$ be a morphism of algebraic spaces over $B$.
+Assume
+\begin{enumerate}
+\item $\phi$ is set-theoretically $R$-invariant,
+\item $R$ is reduced, and
+\item $X$ is locally separated over $B$.
+\end{enumerate}
+Then $\phi$ is $R$-invariant.
+\end{lemma}
+
+\begin{proof}
+Consider the equalizer
+$$
+Z = R \times_{(\phi, \phi) \circ j, X \times_B X, \Delta_{X/B}} X
+$$
+algebraic space. Then $Z \to R$ is an immersion by assumption (3).
+By assumption (1) $|Z| \to |R|$ is surjective. This implies that
+$Z \to R$ is a bijective closed immersion (use
+Schemes, Lemma \ref{schemes-lemma-immersion-when-closed})
+and by assumption (2) we conclude that $Z = R$.
+\end{proof}
+
+\begin{example}
+\label{example-not-invariant}
+There exist reduced quasi-separated algebraic spaces $X$, $Y$ and a pair of
+morphisms $a, b : Y \to X$ which agree on all $k$-valued points but are not
+equal. To get an example take $Y = \Spec(k[[x]])$ and
+$$
+X = \mathbf{A}^1_k \Big/ \big(\Delta \amalg \{(x, -x) \mid x \not = 0\}\big)
+$$
+the algebraic space of
+Spaces, Example \ref{spaces-example-affine-line-involution}.
+The two morphisms $a, b : Y \to X$
+come from the two maps $x \mapsto x$ and $x \mapsto -x$
+from $Y$ to $\mathbf{A}^1_k = \Spec(k[x])$. On the generic point
+the two maps are the same because on the open part $x \not = 0$ of the
+space $X$ the functions $x$ and $-x$ are equal. On the closed point
+the maps are obviously the same. It is also true that $a \not = b$.
+This implies that
+Lemma \ref{lemma-set-theoretically-invariant-invariant-when-reduced}
+does not hold with assumption (3) replaced by the assumption that $X$
+be quasi-separated. Namely, consider the diagram
+$$
+\xymatrix{
+Y \ar[d]_{-1} \ar[r]_1 & Y \ar[d]^a \\
+Y \ar[r]^a & X
+}
+$$
+then the composition $a \circ (-1) = b$. Hence we can set $R = Y$,
+$U = Y$, $s = 1$, $t = -1$, $\phi = a$ to get an example of a set-theoretically
+invariant morphism which is not invariant.
+\end{example}
+
+\noindent
+The example above is instructive because the map $Y \to X$ even separates
+orbits. It shows that in the category of algebraic spaces there are simply
+too many set-theoretically invariant morphisms lying around. Next, let us
+define what it means for $R$ to be a set-theoretic equivalence relation, while
+remembering that we need to allow for field extensions to make this work
+correctly.
+
+\begin{definition}
+\label{definition-set-theoretic-equivalence}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation over $B$.
+\begin{enumerate}
+\item We say $j$ is a {\it set-theoretic pre-equivalence relation} if
+$$
+\overline{u} \sim_R \overline{u}'
+\Leftrightarrow
+\begin{matrix}
+\exists\text{ field extension }k \subset K, \ \exists\ r \in R(K), \\
+s(r) = \overline{u}, \ t(r) = \overline{u}'
+\end{matrix}
+$$
+defines an equivalence relation on $U(k)$ for all algebraically closed fields
+$k$ over $B$.
+\item We say $j$ is a {\it set-theoretic equivalence relation}
+if $j$ is universally injective and a set-theoretic pre-equivalence
+relation.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Let us reformulate this in more geometric terms.
+
+\begin{lemma}
+\label{lemma-set-theoretic-pre-equivalence-geometric}
+In the situation of Definition \ref{definition-set-theoretic-equivalence}.
+The following are equivalent:
+\begin{enumerate}
+\item The morphism $j$ is a set-theoretic pre-equivalence relation.
+\item The subset $j(|R|) \subset |U \times_B U|$ contains the image of
+$|j'|$ for any of the morphisms $j'$ as in Equation (\ref{equation-list}).
+\item For every algebraically closed field $k$ over $B$ of sufficiently large
+cardinality the subset $j(R(k)) \subset U(k) \times U(k)$ is an equivalence
+relation.
+\end{enumerate}
+If $s, t$ are locally of finite type these are also equivalent to
+\begin{enumerate}
+\item[(4)] For every algebraically closed field $k$ over $B$
+the subset $j(R(k)) \subset U(k) \times U(k)$ is an equivalence relation.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (2). Let $k$ be an algebraically closed field over $B$.
+We are going to show that $\sim_R$ is an equivalence relation.
+Suppose that $\overline{u}_i : \Spec(k) \to U$, $i = 1, 2$
+are $k$-valued points of $U$. Suppose that $(\overline{u}_1, \overline{u}_2)$
+is the image of a $K$-valued point $r \in R(K)$. Consider the
+solid commutative diagram
+$$
+\xymatrix{
+\Spec(K') \ar@{..>}[r] \ar@{..>}[d]
+&
+\Spec(k) \ar[d]_{(\overline{u}_2, \overline{u}_1)} &
+\Spec(K) \ar[d] \ar[l] \\
+R \ar[r]^-j &
+U \times_B U &
+R \ar[l]_-{j_{flip}}
+}
+$$
+We also denote $r \in |R|$ the image of $r$.
+By assumption the image of $|j_{flip}|$ is contained in the image of
+$|j|$, in other words there exists a $r' \in |R|$ such that
+$|j|(r') = |j_{flip}|(r)$. But note that $(\overline{u}_2, \overline{u}_1)$
+is in the equivalence class that defines $|j|(r')$ (by the commutativity
+of the solid part of the diagram). This means there exists a field
+extension $k \subset K'$ and a morphism $r' : \Spec(K) \to R$
+(abusively denoted $r'$ as well) with
+$j \circ r' = (\overline{u}_2, \overline{u}_1) \circ i$
+where $i : \Spec(K') \to \Spec(K)$ is the obvious map.
+In other words the dotted part of the diagram commutes.
+This proves that $\sim_R$ is a symmetric relation on $U(k)$.
+In the similar way, using that the image of $|j_{diag}|$ is contained
+in the image of $|j|$ we see that $\sim_R$ is reflexive (details omitted).
+
+\medskip\noindent
+To show that $\sim_R$ is transitive assume given
+$\overline{u}_i : \Spec(k) \to U$, $i = 1, 2, 3$
+and field extensions $k \subset K_i$ and points
+$r_i : \Spec(K_i) \to R$, $i = 1, 2$ such that
+$j(r_1) = (\overline{u}_1, \overline{u}_2)$ and
+$j(r_1) = (\overline{u}_2, \overline{u}_3)$. Then we may choose a
+commutative diagram of fields
+$$
+\xymatrix{
+K & K_2 \ar[l] \\
+K_1 \ar[u] & k \ar[l] \ar[u]
+}
+$$
+and we may think of $r_1, r_2 \in R(K)$. We consider the
+commutative solid diagram
+$$
+\xymatrix{
+\Spec(K') \ar@{..>}[r] \ar@{..>}[d]
+&
+\Spec(k) \ar[d]_{(\overline{u}_1, \overline{u}_3)} &
+\Spec(K) \ar[d]^{(r_1, r_2)} \ar[l]
+\\
+R \ar[r]^-j &
+U \times_B U &
+R \times_{s, U, t} R \ar[l]_-{j_{comp}}
+}
+$$
+By exactly the same reasoning as in the first part of the proof, but
+this time using that $|j_{comp}|((r_1, r_2))$ is in the image of $|j|$,
+we conclude that a field $K'$ and dotted arrows exist making the
+diagram commute. This proves that $\sim_R$ is transitive and concludes
+the proof that (2) implies (1).
+
+\medskip\noindent
+Assume (1) and let $k$ be an algebraically closed field over $B$ whose
+cardinality is larger than $\lambda(R)$, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-large-enough}.
+Suppose that $\overline{u} \sim_R \overline{u}'$ with
+$\overline{u}, \overline{u}' \in U(k)$. By assumption there exists
+a point in $|R|$ mapping to $(\overline{u}, \overline{u}') \in |U \times_B U|$.
+Hence by
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-large-enough}
+we conclude there exists an $\overline{r} \in R(k)$ with
+$j(\overline{r}) = (\overline{u}, \overline{u}')$. In this way we see
+that (1) implies (3).
+
+\medskip\noindent
+Assume (3). Let us show that
+$\Im(|j_{comp}|) \subset \Im(|j|)$. Pick any point
+$c \in |R \times_{s, U, t} R|$. We may represent this by a morphism
+$\overline{c} : \Spec(k) \to R \times_{s, U, t} R$, with $k$ over $B$
+having sufficiently large cardinality. By assumption we see that
+$j_{comp}(\overline{c}) \in U(k) \times U(k) = (U \times_B U)(k)$
+is also the image $j(\overline{r})$ for some $\overline{r} \in R(k)$.
+Hence $j_{comp}(c) = j(r)$ in $|U \times_B U|$ as desired (with
+$r \in |R|$ the equivalence class of $\overline{r}$). The same argument
+shows also that $\Im(|j_{diag}|) \subset \Im(|j|)$ and
+$\Im(|j_{flip}|) \subset \Im(|j|)$ (details omitted).
+In this way we see that (3) implies (2). At this point we have
+shown that (1), (2) and (3) are all equivalent.
+
+\medskip\noindent
+It is clear that (4) implies (3) (without any assumptions on $s$, $t$).
+To finish the proof of the lemma we show that (1) implies (4) if $s, t$
+are locally of finite type. Namely, let $k$ be an algebraically closed
+field over $B$. Suppose that $\overline{u} \sim_R \overline{u}'$ with
+$\overline{u}, \overline{u}' \in U(k)$. By assumption the algebraic space
+$Z = R \times_{j, U \times_B U, (\overline{u}, \overline{u}')} \Spec(k)$
+is nonempty. On the other hand, since $j = (t, s)$ is locally of finite type
+the morphism $Z \to \Spec(k)$ is locally of finite type as well (use
+Morphisms of Spaces, Lemmas \ref{spaces-morphisms-lemma-permanence-finite-type}
+and \ref{spaces-morphisms-lemma-base-change-finite-type}).
+Hence $Z$ has a $k$ point by
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-finite-type-surjective-geometric-points}
+and we conclude that $(\overline{u}, \overline{u}') \in j(R(k))$
+as desired. This finishes the proof of the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-set-theoretic-equivalence-geometric}
+In the situation of Definition \ref{definition-set-theoretic-equivalence}.
+The following are equivalent:
+\begin{enumerate}
+\item The morphism $j$ is a set-theoretic equivalence relation.
+\item The morphism $j$ is universally injective and
+$j(|R|) \subset |U \times_B U|$ contains the image of
+$|j'|$ for any of the morphisms $j'$ as in Equation (\ref{equation-list}).
+\item For every algebraically closed field $k$ over $B$ of sufficiently large
+cardinality the map $j : R(k) \to U(k) \times U(k)$ is injective and
+its image is an equivalence relation.
+\end{enumerate}
+If $j$ is decent, or locally separated, or quasi-separated
+these are also equivalent to
+\begin{enumerate}
+\item[(4)] For every algebraically closed field $k$ over $B$
+the map $j : R(k) \to U(k) \times U(k)$ is injective and its image
+is an equivalence relation.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implications (1) $\Rightarrow$ (2) and (2) $\Rightarrow$ (3) follow from
+Lemma \ref{lemma-set-theoretic-pre-equivalence-geometric}
+and the definitions. The same lemma shows that (3) implies
+$j$ is a set-theoretic pre-equivalence relation. But of course condition
+(3) also implies that $j$ is universally injective, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-universally-injective},
+so that $j$ is indeed a set-theoretic equivalence relation.
+At this point we know that (1), (2), (3) are all equivalent.
+
+\medskip\noindent
+Condition (4) implies (3) without any further hypotheses on $j$. Assume $j$
+is decent, or locally separated, or quasi-separated and the equivalent
+conditions (1), (2), (3) hold. By
+More on Morphisms of Spaces,
+Lemma \ref{spaces-more-morphisms-lemma-when-universally-injective-radicial}
+we see that $j$ is radicial.
+Let $k$ be any algebraically closed field over $B$. Let
+$\overline{u}, \overline{u}' \in U(k)$ with
+$\overline{u} \sim_R \overline{u}'$. We see that
+$R \times_{U \times_B U, (\overline{u}, \overline{u}')} \Spec(k)$
+is nonempty. Hence, as $j$ is radicial, its reduction is the spectrum of a
+field purely inseparable over $k$. As $k = \overline{k}$ we see that
+it is the spectrum of $k$. Whence a point $\overline{r} \in R(k)$
+with $t(\overline{r}) = \overline{u}$ and $s(\overline{r}) = \overline{u}'$
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-set-theoretic-equivalence}
+Let $S$ be a scheme, and let $B$ be an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation over $B$.
+\begin{enumerate}
+\item If $j$ is a pre-equivalence relation, then $j$ is a
+set-theoretic pre-equivalence relation. This holds in particular
+when $j$ comes from a groupoid in algebraic spaces, or from an
+action of a group algebraic space on $U$.
+\item If $j$ is an equivalence relation, then $j$ is a
+set-theoretic equivalence relation.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-separates-orbits}
+Let $B \to S$ be as in Section \ref{section-conventions-notation}.
+Let $j : R \to U \times_B U$ be a pre-relation.
+Let $\phi : U \to X$ be a morphism of algebraic spaces over $B$.
+Consider the diagram
+$$
+\xymatrix{
+(U \times_X U) \times_{(U \times_B U)} R \ar[d]^q \ar[r]_-p & R \ar[d]^j \\
+U \times_X U \ar[r]^c & U \times_B U
+}
+$$
+Then we have:
+\begin{enumerate}
+\item The morphism $\phi$ is set-theoretically invariant if and only
+if $p$ is surjective.
+\item If $j$ is a set-theoretic pre-equivalence relation then
+$\phi$ separates orbits if and only if $p$ and $q$ are surjective.
+\item If $p$ and $q$ are surjective, then $j$ is a set-theoretic
+pre-equivalence relation (and $\phi$ separates orbits).
+\item If $\phi$ is $R$-invariant and $j$ is a set-theoretic pre-equivalence
+relation, then $\phi$ separates orbits if and only if the induced morphism
+$R \to U \times_X U$ is surjective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume $\phi$ is set-theoretically invariant. This means that for any
+algebraically closed field $k$ over $B$ and any $\overline{r} \in R(k)$
+we have $\phi(s(\overline{r})) = \phi(t(\overline{r}))$. Hence
+$((\phi(t(\overline{r})), \phi(s(\overline{r}))), \overline{r})$
+defines a point in the fibre product mapping to $\overline{r}$ via
+$p$. This shows that $p$ is surjective. Conversely, assume $p$ is
+surjective. Pick $\overline{r} \in R(k)$. As $p$ is surjective, we
+can find a field extension $k \subset K$ and a $K$-valued point
+$\tilde r$ of the fibre product with $p(\tilde r) = \overline{r}$.
+Then $q(\tilde r) \in U \times_X U$ maps to
+$(t(\overline{r}), s(\overline{r}))$ in $U \times_B U$ and we conclude
+that $\phi(s(\overline{r})) = \phi(t(\overline{r}))$. This proves
+that $\phi$ is set-theoretically invariant.
+
+\medskip\noindent
+The proofs of (2), (3), and (4) are omitted. Hint: Assume $k$ is an
+algebraically closed field over $B$ of large cardinality. Consider the
+associated diagram of sets
+$$
+\xymatrix{
+(U(k) \times_{X(k)} U(k)) \times_{U(k) \times U(k)} R(k) \ar[d]^q \ar[r]_-p &
+R(k) \ar[d]^j \\
+U(k) \times_{X(k)} U(k) \ar[r]^c & U(k) \times U(k)
+}
+$$
+By the lemmas above the equivalences posed in (2), (3), and (4) become
+set-theoretic questions related to the diagram we just displayed, using
+that surjectivity translates into surjectivity on $k$-valued points by
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-large-enough}.
+\end{proof}
+
+\noindent
+Because we have seen above that the notion of a set-theoretically
+invariant morphism is a rather weak one in the category of algebraic
+spaces, we define an orbit space for a pre-relation as follows.
+
+\begin{definition}
+\label{definition-orbit-space}
+Let $B \to S$ as in Section \ref{section-conventions-notation}.
+Let $j : R \to U \times_B U$ be a pre-relation.
+We say $\phi : U \to X$ is an {\it orbit space for $R$} if
+\begin{enumerate}
+\item $\phi$ is $R$-invariant,
+\item $\phi$ separates $R$-orbits, and
+\item $\phi$ is surjective.
+\end{enumerate}
+\end{definition}
+
+\noindent
+The definition of separating $R$-orbits involves a discussion of
+points with values in algebraically closed fields. But as we've seen
+in many cases this just corresponds to the surjectivity of certain
+canonically associated morphisms of algebraic spaces.
+We summarize some of the discussion above in the following characterization
+of orbit spaces.
+
+\begin{lemma}
+\label{lemma-orbit-space}
+Let $B \to S$ as in Section \ref{section-conventions-notation}.
+Let $j : R \to U \times_B U$ be a set-theoretic pre-equivalence
+relation. A morphism $\phi : U \to X$ is an orbit space for $R$ if and only if
+\begin{enumerate}
+\item $\phi \circ s = \phi \circ t$, i.e., $\phi$ is invariant,
+\item the induced morphism $(t, s) : R \to U \times_X U$ is surjective, and
+\item the morphism $\phi : U \to X$ is surjective.
+\end{enumerate}
+This characterization applies for example if $j$ is a pre-equivalence relation,
+or comes from a groupoid in algebraic spaces over $B$, or comes from the action
+of a group algebraic space over $B$ on $U$.
+\end{lemma}
+
+\begin{proof}
+Follows immediately from Lemma \ref{lemma-separates-orbits} part (4).
+\end{proof}
+
+\noindent
+In the following lemma it is (probably) not good enough to assume just that
+the morphisms $s, t$ are locally of finite type. The reason is that
+it may happen that some map $\phi : U \to X$ is an orbit space, yet is
+not locally of finite type. In that case $U(k) \to X(k)$ may not
+be surjective for all algebraically closed fields $k$ over $B$.
+
+\begin{lemma}
+\label{lemma-orbit-space-locally-finite-type-over-base}
+Let $B \to S$ as in Section \ref{section-conventions-notation}.
+Let $j = (t, s) : R \to U \times_B U$ be a pre-relation.
+Assume $R, U$ are locally of finite type over $B$.
+Let $\phi : U \to X$ be an $R$-invariant morphism of algebraic spaces over $B$.
+Then $\phi$ is an orbit space for $R$ if and only if the natural map
+$$
+U(k)/\big(\text{equivalence relation generated by }j(R(k))\big)
+\longrightarrow
+X(k)
+$$
+is bijective for all algebraically closed fields $k$ over $B$.
+\end{lemma}
+
+\begin{proof}
+Note that since $U$, $R$ are locally of finite type over $B$ all of the
+morphisms $s, t, j, \phi$ are locally of finite type, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-permanence-finite-type}.
+We will also use without further mention
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-finite-type-surjective-geometric-points}.
+Assume $\phi$ is an orbit space. Let $k$ be any algebraically closed
+field over $B$. Let $\overline{x} \in X(k)$. Consider
+$U \times_{\phi, X, \overline{x}} \Spec(k)$.
+This is a nonempty algebraic space
+which is locally of finite type over $k$. Hence it has a $k$-valued point.
+This shows the displayed map of the lemma is surjective.
+Suppose that $\overline{u}, \overline{u}' \in U(k)$ map to the same
+element of $X(k)$. By
+Definition \ref{definition-set-theoretically-invariant}
+this means that $\overline{u}, \overline{u}'$ are in the same
+$R$-orbit. By Lemma \ref{lemma-geometric-orbits} this means that
+they are equivalent under the equivalence relation generated by
+$j(R(k))$. Thus the displayed morphism is injective.
+
+\medskip\noindent
+Conversely, assume the displayed map is bijective for all algebraically
+closed fields $k$ over $B$. This condition clearly implies that $\phi$
+is surjective. We have already assumed that $\phi$ is $R$-invariant.
+Finally, the injectivity of all the displayed maps implies that
+$\phi$ separates orbits. Hence $\phi$ is an orbit space.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Coarse quotients}
+\label{section-coarse}
+
+\noindent
+We only add this here so that we can later say that coarse quotients
+correspond to coarse moduli spaces (or moduli schemes).
+
+\begin{definition}
+\label{definition-coarse}
+Let $S$ be a scheme and $B$ an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation.
+A morphism $\phi : U \to X$ of algebraic spaces over $B$
+is called a {\it coarse quotient} if
+\begin{enumerate}
+\item $\phi$ is a categorical quotient, and
+\item $\phi$ is an orbit space.
+\end{enumerate}
+If $S = B$, $U$, $R$ are all schemes, then we say a morphism of schemes
+$\phi : U \to X$ is a {\it coarse quotient in schemes} if
+\begin{enumerate}
+\item $\phi$ is a categorical quotient in schemes, and
+\item $\phi$ is an orbit space.
+\end{enumerate}
+\end{definition}
+
+\noindent
+In many situations the algebraic spaces $R$ and $U$ are locally of finite type
+over $B$ and the orbit space condition simply means that
+$$
+U(k)/\big(\text{equivalence relation generated by }j(R(k))\big)
+\cong
+X(k)
+$$
+for all algebraically closed fields $k$. See
+Lemma \ref{lemma-orbit-space-locally-finite-type-over-base}.
+If $j$ is also a (set-theoretic) pre-equivalence relation, then the condition
+is simply equivalent to $U(k)/j(R(k)) \to X(k)$ being bijective for all
+algebraically closed fields $k$.
+
+
+
+
+
+
+
+
+
+\section{Topological properties}
+\label{section-topological}
+
+\noindent
+Let $S$ be a scheme and $B$ an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation.
+We say a subset $T \subset |U|$ is {\it $R$-invariant} if
+$s^{-1}(T) = t^{-1}(T)$ as subsets of $|R|$.
+Note that if $T$ is closed, then it may not be the case that
+the corresponding reduced closed subspace of $U$ is $R$-invariant
+(as in
+Groupoids in Spaces, Definition
+\ref{spaces-groupoids-definition-invariant-open})
+because the pullbacks $s^{-1}(T)$, $t^{-1}(T)$ may not be reduced.
+Here are some conditions that we can consider for an
+invariant morphism $\phi : U \to X$.
+
+\begin{definition}
+\label{definition-topological}
+Let $S$ be a scheme and $B$ an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation.
+Let $\phi : U \to X$ be an $R$-invariant morphism of algebraic spaces over $B$.
+\begin{enumerate}
+\item
+\label{item-submersive}
+The morphism $\phi$ is submersive.
+\item
+\label{item-invariant-closed}
+For any $R$-invariant closed subset $Z \subset |U|$ the image
+$\phi(Z)$ is closed in $|X|$.
+\item
+\label{item-intersect-invariant-closed}
+Condition (\ref{item-invariant-closed}) holds and for any pair of
+$R$-invariant closed subsets $Z_1, Z_2 \subset |U|$ we have
+$$
+\phi(Z_1 \cap Z_2) = \phi(Z_1) \cap \phi(Z_2)
+$$
+\item The morphism $(t, s) : R \to U \times_X U$ is universally submersive.
+\label{item-strong}
+\end{enumerate}
+For each of these properties we can also require them to hold after any
+flat base change, or after any base change, see
+Definition \ref{definition-base-change}. In this case we say condition
+(\ref{item-submersive}),
+(\ref{item-invariant-closed}),
+(\ref{item-intersect-invariant-closed}), or
+(\ref{item-strong}) holds {\it uniformly} or {\it universally}.
+\end{definition}
+
+
+
+
+
+
+
+
+\section{Invariant functions}
+\label{section-functions}
+
+\noindent
+In some cases it is convenient to pin down the structure sheaf
+of a quotient by requiring any invariant function to be a local
+section of the structure sheaf of the quotient.
+
+\begin{definition}
+\label{definition-functions}
+Let $S$ be a scheme and $B$ an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation.
+Let $\phi : U \to X$ be an $R$-invariant morphism.
+Denote $\phi' = \phi \circ s = \phi \circ t : R \to X$.
+\begin{enumerate}
+\item We denote $(\phi_*\mathcal{O}_U)^R$ the $\mathcal{O}_X$-sub-algebra
+of $\phi_*\mathcal{O}_U$ which is the equalizer of the two maps
+$$
+\xymatrix{
+\phi_*\mathcal{O}_U
+\ar@<1ex>[rr]^{\phi_*s^\sharp}
+\ar@<-1ex>[rr]_{\phi_*t^\sharp}
+& &
+\phi'_*\mathcal{O}_R
+}
+$$
+on $X_\etale$. We sometimes call this the
+{\it sheaf of $R$-invariant functions on $X$}.
+\item We say {\it the functions on $X$ are the $R$-invariant functions on
+$U$} if the natural map $\mathcal{O}_X \to (\phi_*\mathcal{O}_U)^R$
+is an isomorphism.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Of course we can require this property holds after any
+(flat or any) base change, leading to a (uniform or) universal notion.
+This condition is often thrown in
+with other conditions in order to obtain a (more) unique quotient. And of
+course a good deal of motivation for the whole subject comes from the following
+special case: $U = \Spec(A)$ is an affine scheme over a field
+$S = B = \Spec(k)$ and where $R = G \times U$, with
+$G$ an affine group scheme over $k$. In this case
+you have the option of taking for the quotient:
+$$
+X = \Spec(A^G)
+$$
+so that at least the condition of the definition above is satisfied.
+Even though this is a nice thing you can do it is often not the right
+quotient; for example if $U = \text{GL}_{n, k}$ and $G$ is the group of
+upper triangular matrices, then the above gives $X = \Spec(k)$, whereas
+a much better quotient (namely the flag variety) exists.
+
+
+
+
+
+
+
+
+\section{Good quotients}
+\label{section-good}
+
+\noindent
+Especially when taking quotients by group actions the following definition
+is useful.
+
+\begin{definition}
+\label{definition-good}
+Let $S$ be a scheme and $B$ an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation.
+A morphism $\phi : U \to X$ of algebraic spaces over $B$
+is called a {\it good quotient} if
+\begin{enumerate}
+\item $\phi$ is invariant,
+\item $\phi$ is affine,
+\item $\phi$ is surjective,
+\item condition (\ref{item-intersect-invariant-closed}) holds universally, and
+\item the functions on $X$ are the $R$-invariant functions on $U$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+In \cite{seshadri_quotients} Seshadri gives almost the same definition,
+except that instead of (4) he simply requires the condition
+(\ref{item-intersect-invariant-closed}) to hold -- he does not require
+it to hold universally.
+
+
+
+
+
+
+
+\section{Geometric quotients}
+\label{section-geometric}
+
+\noindent
+This is Mumford's definition of a geometric quotient (at least the definition
+from the first edition of GIT; as far as we can tell later editions
+changed ``universally submersive'' to ``submersive'').
+
+\begin{definition}
+\label{definition-geometric}
+Let $S$ be a scheme and $B$ an algebraic space over $S$.
+Let $j : R \to U \times_B U$ be a pre-relation.
+A morphism $\phi : U \to X$ of algebraic spaces over $B$
+is called a {\it geometric quotient} if
+\begin{enumerate}
+\item $\phi$ is an orbit space,
+\item condition (\ref{item-submersive}) holds universally, i.e.,
+$\phi$ is universally submersive, and
+\item the functions on $X$ are the $R$-invariant functions on $U$.
+\end{enumerate}
+\end{definition}
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

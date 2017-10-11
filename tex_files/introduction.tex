@@ -1,0 +1,151 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Introduction}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\begin{verbatim}
+Copyright (C) 2005 -- 2017 Johan de Jong
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.2 or any later version published by the Free Software
+Foundation; with no Invariant Sections, no Front-Cover Texts,
+and no Back-Cover Texts. A copy of the license is included in
+the section entitled "GNU Free Documentation License".
+\end{verbatim}
+
+\tableofcontents
+
+
+\section{Overview}
+\label{section-overview}
+
+\noindent
+Besides the book by Laumon and Moret-Bailly, see \cite{LM-B}, and the work
+(in progress) by Fulton et al, we think there is a place for an open source
+textbook on algebraic stacks and the algebraic geometry that is needed
+to define them. The Stacks Project attempts to do this by building the
+foundations starting with commutative algebra and proceeding via the
+theory of schemes and algebraic spaces to a comprehensive foundation for
+the theory of algebraic stacks.
+
+\medskip\noindent
+We expect this material to be read online as a key feature are the hyperlinks
+giving quick access to internal references spread over many different pages.
+If you use an embedded pdf or dvi viewer in your browser, the cross file
+links should work.
+
+\medskip\noindent
+This project is a collaborative effort and we encourage you to help out.
+Please email any typos or errors you find while reading or
+any suggestions, additional material, or examples you have to
+\href{mailto:stacks.project@gmail.com}{stacks.project@gmail.com}.
+You can download a tarball containing all source files, extract,
+run make, and use a dvi or pdf viewer locally. Please feel free to
+edit the LaTeX files and email your improvements.
+
+
+\section{Attribution}
+\label{section-attribution}
+
+\noindent
+The scope of this work is such that it is a daunting task to attribute
+correctly and succinctly all of those mathematicians whose work has led
+to the development of the theory we try to explain here. We hope eventually
+to generate enough community interest to find contributors willing to write
+sections with historical remarks for each and every chapter.
+
+\medskip\noindent
+Those who contributed to this work are listed on the title page of the book
+version of this work and
+\href{http://stacks.math.columbia.edu/tex/CONTRIBUTORS}{online}.
+Here we would like to name a selection of major contributions:
+\begin{enumerate}
+\item Jarod Alper wrote
+\hyperref[guide-section-phantom]{Guide to Literature}.
+\item Bhargav Bhatt wrote the initial version of
+\hyperref[etale-section-phantom]{\'Etale Morphisms of Schemes}.
+\item Bhargav Bhatt wrote the initial version of
+More on Algebra, Section \ref{more-algebra-section-formal-glueing}.
+\item Kiran Kedlaya contributed the initial writeup of
+Descent, Section \ref{descent-section-descent-universally-injective}.
+\item The initial versions of
+\begin{enumerate}
+\item Algebra, Section \ref{algebra-section-oka-families},
+\item Injectives, Section \ref{injectives-section-baer}, and
+\item the chapter \hyperref[fields-section-phantom]{Fields}
+\end{enumerate}
+are from
+\href{http://people.fas.harvard.edu/~amathew/cr.html}{The CRing Project},
+courtesy of Akhil Mathew et al.
+\item Alex Perry wrote the material on projective modules,
+Mittag-Leffler modules, including the proof of
+Algebra, Theorem \ref{algebra-theorem-ffdescent-projectivity}.
+\item Alex Perry wrote
+\hyperref[formal-defos-section-phantom]{Formal Deformation Theory}.
+\item Thibaut Pugin, Zachary Maddock and Min Lee took course notes
+which formed the basis for
+\hyperref[etale-cohomology-section-phantom]{\'Etale Cohomology}.
+\item David Rydh has contributed many helpful comments, pointed out several
+mistakes, helped out in an essential way with the material on residual gerbes,
+and was the originator for the material in
+More on Groupoids in Spaces, Sections
+\ref{spaces-more-groupoids-section-finite} and
+\ref{spaces-more-groupoids-section-etale-localize}.
+\item Burt Totaro contributed Examples, Sections
+\ref{examples-section-non-descending-property-projective},
+\ref{examples-section-non-effective-descent-projective},
+and
+Properties of Stacks, Section \ref{stacks-properties-section-dimension}.
+\item The material in the chapter
+\hyperref[proetale-section-phantom]{Pro-\'etale Cohomology}
+is taken from a paper by Bhargav Bhatt and Peter Scholze.
+\item Bhargav Bhatt contributed Examples, Sections
+\ref{examples-section-non-algebraic-hom-stack} and
+\ref{examples-section-flat-not-colimit-flat-finitely-presented}.
+\item Ofer Gabber found mistakes, contributed corrections and he
+contributed
+Varieties, Lemma \ref{varieties-lemma-image-connected-component},
+Formal Spaces, Lemma \ref{formal-spaces-lemma-completion-countably-indexed},
+the material in
+More on Groupoids, Section \ref{more-groupoids-section-ind-quasi-affine},
+the main result of
+Properties of Spaces, Section \ref{spaces-properties-section-fpqc},
+and the proof of
+More on Flatness, Proposition
+\ref{flat-proposition-finite-type-injective-into-flat-mod-m}.
+\item J\'anos Koll\'ar contributed
+Algebra, Lemma \ref{algebra-lemma-hart-serre-loc-thm} and
+Local Cohomology, Proposition \ref{local-cohomology-proposition-kollar}.
+\item Kiran Kedlaya wrote the initial version of
+More on Algebra, Section \ref{more-algebra-section-beauville-laszlo}.
+\item Matthew Emerton, Toby Gee, and Brandon Levin contributed
+some results on thickenings, in particular
+More on Morphisms of Stacks, Lemmas
+\ref{stacks-more-morphisms-lemma-reduced-diagonal},
+\ref{stacks-more-morphisms-lemma-thickening-diagonals}, and
+\ref{stacks-more-morphisms-lemma-thickening-properties}.
+\item Lena Min Ji wrote the initial version of
+More on Algebra, Section \ref{more-algebra-section-principal-radical-ideals}.
+\item Matthew Emerton and Toby Gee wrote the initial versions of
+Geometry of Stacks,
+Sections \ref{stacks-geometry-section-multiplicities} and
+\ref{stacks-geometry-section-dimension-of-algebraic-stacks}.
+\end{enumerate}
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

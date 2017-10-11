@@ -1,0 +1,1876 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Examples of Stacks}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+This is a discussion of examples of stacks in algebraic geometry.
+Some of them are algebraic stacks, some are not.
+We will discuss which are algebraic stacks in a later chapter.
+This means that in this chapter we mainly worry about the descent
+conditions. See \cite{Vis2} for example.
+
+\medskip\noindent
+Some of the notation, conventions and terminology in this chapter is awkward
+and may seem backwards to the more experienced reader. This is intentional.
+Please see Quot, Section \ref{quot-section-conventions} for an
+explanation.
+
+
+
+
+\section{Notation}
+\label{section-notation}
+
+\noindent
+In this chapter we fix a suitable big fppf site $\Sch_{fppf}$
+as in Topologies, Definition \ref{topologies-definition-big-fppf-site}.
+So, if not explicitly stated otherwise all schemes will be objects
+of $\Sch_{fppf}$.
+We will always work relative to a base $S$ contained in $\Sch_{fppf}$.
+And we will then work with the big fppf site $(\Sch/S)_{fppf}$,
+see Topologies, Definition \ref{topologies-definition-big-small-fppf}.
+The absolute case can be recovered by taking
+$S = \Spec(\mathbf{Z})$.
+
+
+
+
+\section{Examples of stacks}
+\label{section-examples-stacks}
+
+\noindent
+We first give some important examples of stacks over
+$(\Sch/S)_{fppf}$.
+
+
+
+
+
+\section{Quasi-coherent sheaves}
+\label{section-stack-of-quasi-coherent-sheaves}
+
+\noindent
+We define a category $\QCohstack$ as follows:
+\begin{enumerate}
+\item An object of $\QCohstack$ is a pair $(X, \mathcal{F})$,
+where $X/S$ is an object of $(\Sch/S)_{fppf}$, and $\mathcal{F}$
+is a quasi-coherent $\mathcal{O}_X$-module, and
+\item a morphism $(f, \varphi) : (Y, \mathcal{G}) \to (X, \mathcal{F})$
+is a pair consisting of a morphism $f : Y \to X$ of schemes over $S$
+and an $f$-map (see
+Sheaves, Section \ref{sheaves-section-ringed-spaces-functoriality-modules})
+$\varphi : \mathcal{F} \to \mathcal{G}$.
+\item The composition of morphisms
+$$
+(Z, \mathcal{H}) \xrightarrow{(g, \psi)}
+(Y, \mathcal{G}) \xrightarrow{(f, \phi)} (X, \mathcal{F})
+$$
+is $(f \circ g, \psi \circ \phi)$ where $\psi \circ \phi$ is
+the composition of $f$-maps.
+\end{enumerate}
+Thus $\QCohstack$ is a category and
+$$
+p : \QCohstack \to (\Sch/S)_{fppf},
+\quad
+(X, \mathcal{F}) \mapsto X
+$$
+is a functor. Note that the fibre category of $\QCohstack$ over
+a scheme $X$ is just the category $\QCoh(\mathcal{O}_X)$
+of quasi-coherent $\mathcal{O}_X$-modules.
+We remark for later use that given
+$(X, \mathcal{F}), (Y, \mathcal{G}) \in \Ob(\QCohstack)$
+we have
+\begin{equation}
+\label{equation-morphisms-qcoh}
+\Mor_{\QCohstack}((Y, \mathcal{G}), (X, \mathcal{F}))
+=
+\coprod\nolimits_{f \in \Mor_S(Y, X)}
+\Mor_{\QCoh(\mathcal{O}_Y)}(f^*\mathcal{F}, \mathcal{G})
+\end{equation}
+See the discussion on $f$-maps of modules in
+Sheaves, Section \ref{sheaves-section-ringed-spaces-functoriality-modules}.
+
+\medskip\noindent
+The category $\QCohstack$ is not a stack over $(\Sch/S)_{fppf}$
+because its collection of objects is a proper class. On the other hand
+we will see that it does satisfy all the axioms of a stack. We will
+get around the set theoretical issue in
+Section \ref{section-stack-of-finitely-generated-quasi-coherent-sheaves}.
+
+\begin{lemma}
+\label{lemma-quasi-coherent-strongly-cartesian}
+A morphism $(f, \varphi) : (Y, \mathcal{G}) \to (X, \mathcal{F})$
+of $\QCohstack$ is strongly cartesian if and only if the
+map $\varphi$ induces an isomorphism $f^*\mathcal{F} \to \mathcal{G}$.
+\end{lemma}
+
+\begin{proof}
+Let $(X, \mathcal{F}) \in \Ob(\QCohstack)$.
+Let $f : Y \to X$ be a morphism of $(\Sch/S)_{fppf}$.
+Note that there is a canonical $f$-map $c : \mathcal{F} \to f^*\mathcal{F}$
+and hence we get a morphism
+$(f, c) : (Y, f^*\mathcal{F}) \to (X, \mathcal{F})$.
+We claim that $(f, c)$ is strongly cartesian.
+Namely, for any object $(Z, \mathcal{H})$ of $\QCohstack$ we have
+\begin{align*}
+\Mor_{\QCohstack}((Z, \mathcal{H}), (Y, f^*\mathcal{F}))
+& =
+\coprod\nolimits_{g \in \Mor_S(Z, Y)}
+\Mor_{\QCoh(\mathcal{O}_Z)}(g^*f^*\mathcal{F}, \mathcal{H}) \\
+& =
+\coprod\nolimits_{g \in \Mor_S(Z, Y)}
+\Mor_{\QCoh(\mathcal{O}_Z)}((f \circ g)^*\mathcal{F}, \mathcal{H}) \\
+& =
+\Mor_{\QCohstack}((Z, \mathcal{H}), (X, \mathcal{F}))
+\times_{\Mor_S(Z, X)} \Mor_S(Z, Y)
+\end{align*}
+where we have used Equation (\ref{equation-morphisms-qcoh}) twice.
+This proves that the condition of
+Categories, Definition \ref{categories-definition-cartesian-over-C}
+holds for $(f, c)$, and hence our claim is true. Now by
+Categories, Lemma \ref{categories-lemma-composition-cartesian}
+we see that isomorphisms are strongly cartesian and
+compositions of strongly cartesian morphisms are strongly cartesian
+which proves the ``if'' part of the lemma. For the converse, note
+that given $(X, \mathcal{F})$ and $f : Y \to X$, if there exists a
+strongly cartesian morphism lifting $f$ with target $(X, \mathcal{F})$
+then it has to be isomorphic to $(f, c)$ (see discussion following
+Categories, Definition \ref{categories-definition-cartesian-over-C}).
+Hence the "only if" part of the lemma holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-of-quasi-coherent-sheaves}
+The functor $p : \QCohstack \to (\Sch/S)_{fppf}$
+satisfies conditions (1), (2) and (3) of
+Stacks, Definition \ref{stacks-definition-stack}.
+\end{lemma}
+
+\begin{proof}
+It is clear from
+Lemma \ref{lemma-quasi-coherent-strongly-cartesian}
+that $\QCohstack$ is a fibred category over $(\Sch/S)_{fppf}$.
+Given covering $\mathcal{U} = \{X_i \to X\}_{i \in I}$ of
+$(\Sch/S)_{fppf}$ the functor
+$$
+\QCoh(\mathcal{O}_T) \longrightarrow DD(\mathcal{U})
+$$
+is fully faithful and essentially surjective, see
+Descent, Proposition \ref{descent-proposition-fpqc-descent-quasi-coherent}.
+Hence
+Stacks, Lemma \ref{stacks-lemma-stack-equivalences}
+applies to show that $\QCohstack$ satisfies all the
+axioms of a stack.
+\end{proof}
+
+
+
+
+
+\section{The stack of finitely generated quasi-coherent sheaves}
+\label{section-stack-of-finitely-generated-quasi-coherent-sheaves}
+
+\noindent
+It turns out that we can get a stack of quasi-coherent sheaves
+if we only consider finite type quasi-coherent modules.
+Let us denote
+$$
+p_{fg} : \QCohstack_{fg} \to (\Sch/S)_{fppf}
+$$
+the full subcategory of $\QCohstack$ over $(\Sch/S)_{fppf}$
+consisting of pairs $(T, \mathcal{F})$ such that $\mathcal{F}$
+is a quasi-coherent $\mathcal{O}_T$-module of finite type.
+
+\begin{lemma}
+\label{lemma-stack-of-finite-type-quasi-coherent-sheaves}
+The functor $p_{fg} : \QCohstack_{fg} \to (\Sch/S)_{fppf}$
+satisfies conditions (1), (2) and (3) of
+Stacks, Definition \ref{stacks-definition-stack}.
+\end{lemma}
+
+\begin{proof}
+We will verify assumptions (1), (2), (3) of
+Stacks, Lemma \ref{stacks-lemma-substack}
+to prove this. By
+Lemma \ref{lemma-quasi-coherent-strongly-cartesian}
+a morphism $(Y, \mathcal{G}) \to (X, \mathcal{F})$ is
+strongly cartesian if and only if it induces an isomorphism
+$f^*\mathcal{F} \to \mathcal{G}$. By
+Modules, Lemma \ref{modules-lemma-pullback-finite-type}
+the pullback of a finite type $\mathcal{O}_X$-module is of finite
+type. Hence assumption (1) of
+Stacks, Lemma \ref{stacks-lemma-substack}
+holds. Assumption (2) holds trivially.
+Finally, to prove assumption (3) we have to show:
+If $\mathcal{F}$ is a quasi-coherent $\mathcal{O}_X$-module
+and $\{f_i : X_i \to X\}$ is an fppf covering such that each
+$f_i^*\mathcal{F}$ is of finite type, then $\mathcal{F}$ is of
+finite type. Considering the restriction of $\mathcal{F}$ to
+an affine open of $X$ this reduces to the following algebra statement:
+Suppose that $R \to S$ is a finitely presented, faithfully flat ring map
+and $M$ an $R$-module. If $M \otimes_R S$ is a finitely generated
+$S$-module, then $M$ is a finitely generated $R$-module.
+A stronger form of the algebra fact can be found in
+Algebra, Lemma \ref{algebra-lemma-descend-properties-modules}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-type}
+Let $(X, \mathcal{O}_X)$ be a ringed space.
+\begin{enumerate}
+\item The category of finite type $\mathcal{O}_X$-modules has a
+set of isomorphism classes.
+\item The category of finite type quasi-coherent
+$\mathcal{O}_X$-modules has a set of isomorphism classes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (2) follows from part (1) as the category in (2) is a full subcategory
+of the category in (1). Consider any open covering
+$\mathcal{U} : X = \bigcup_{i \in I} U_i$. Denote $j_i : U_i \to X$
+the inclusion maps. Consider any map $r : I \to \mathbf{N}$.
+If $\mathcal{F}$ is an $\mathcal{O}_X$-module whose restriction to
+$U_i$ is generated by at most $r(i)$ sections from $\mathcal{F}(U_i)$,
+then $\mathcal{F}$ is a quotient of the sheaf
+$$
+\mathcal{H}_{\mathcal{U}, r} =
+\bigoplus\nolimits_{i \in I} j_{i, !}\mathcal{O}_{U_i}^{\oplus r(i)}
+$$
+By definition, if $\mathcal{F}$ is of finite type, then there exists
+some open covering with $\mathcal{U}$ whose index set is $I = X$
+such that this condition is true. Hence it suffices to show that
+there is a set of possible choices for $\mathcal{U}$ (obvious),
+a set of possible choices for $r : I \to \mathbf{N}$ (obvious), and
+a set of possible quotient modules of $\mathcal{H}_{\mathcal{U}, r}$
+for each $\mathcal{U}$ and $r$. In other words, it suffices to show
+that given an $\mathcal{O}_X$-module $\mathcal{H}$ there is at most
+a set of isomorphism classes of quotients.
+This last assertion becomes obvious
+by thinking of the kernels of a quotient map
+$\mathcal{H} \to \mathcal{F}$
+as being parametrized by a subset of the power set of
+$\prod_{U \subset X\text{ open}} \mathcal{H}(U)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-fg-quasi-coherent}
+There exists a subcategory
+$\QCohstack_{fg, small} \subset \QCohstack_{fg}$
+with the following properties:
+\begin{enumerate}
+\item the inclusion functor
+$\QCohstack_{fg, small} \to \QCohstack_{fg}$ is
+fully faithful and essentially surjective, and
+\item the functor
+$p_{fg, small} : \QCohstack_{fg, small} \to (\Sch/S)_{fppf}$
+turns $\QCohstack_{fg, small}$ into a stack over $(\Sch/S)_{fppf}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We have seen in
+Lemmas \ref{lemma-stack-of-finite-type-quasi-coherent-sheaves} and
+\ref{lemma-finite-type}
+that $p_{fg} : \QCohstack_{fg} \to (\Sch/S)_{fppf}$
+satisfies (1), (2) and (3) of
+Stacks, Definition \ref{stacks-definition-stack}
+as well as the additional condition (4) of
+Stacks, Remark \ref{stacks-remark-stack-make-small}.
+Hence we obtain $\QCohstack_{fg, small}$ from the discussion
+in that remark.
+\end{proof}
+
+\noindent
+We will often perform the replacement
+$$
+\QCohstack_{fg} \leadsto \QCohstack_{fg, small}
+$$
+without further remarking on it, and by abuse of notation we will
+simply denote $\QCohstack_{fg}$ this replacement.
+
+\begin{remark}
+\label{remark-higher-rank}
+Note that the whole discussion in this section works
+if we want to consider those
+quasi-coherent sheaves which are locally generated by at most $\kappa$
+sections, for some infinite cardinal $\kappa$, e.g., $\kappa = \aleph_0$.
+\end{remark}
+
+
+
+
+
+\section{Finite \'etale covers}
+\label{section-finite-etale}
+
+\noindent
+We define a category $\textit{F\'Et}$ as follows:
+\begin{enumerate}
+\item An object of $\textit{F\'Et}$ is a finite \'etale morphism $Y \to X$
+of schemes (by our conventions this means a finite \'etale morphism
+in $(\Sch/S)_{fppf}$),
+\item A morphism $(b, a) : (Y \to X) \to (Y' \to X')$ of $\textit{F\'Et}$
+is a commutative diagram
+$$
+\xymatrix{
+Y \ar[d] \ar[r]_b & Y' \ar[d] \\
+X \ar[r]_a & X'
+}
+$$
+in the category of schemes.
+\end{enumerate}
+Thus $\textit{F\'Et}$ is a category and
+$$
+p : \textit{F\'Et} \to (\Sch/S)_{fppf},
+\quad
+(Y \to X) \mapsto X
+$$
+is a functor. Note that the fibre category of $\textit{F\'Et}$ over
+a scheme $X$ is just the category $\textit{F\'Et}_X$ studied in
+Fundamental Groups, Section \ref{pione-section-finite-etale}.
+
+\begin{lemma}
+\label{lemma-finite-etale-stack}
+The functor
+$$
+p : \textit{F\'Et} \longrightarrow (\Sch/S)_{fppf}
+$$
+defines a stack in groupoids over $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+Fppf descent for finite \'etale morphisms follows from
+Descent, Lemmas \ref{descent-lemma-affine},
+\ref{descent-lemma-descending-property-finite}, and
+\ref{descent-lemma-descending-property-etale}.
+Details omitted.
+\end{proof}
+
+
+
+
+
+
+\section{Algebraic spaces}
+\label{section-stack-of-spaces}
+
+\noindent
+We define a category $\Spacesstack$ as follows:
+\begin{enumerate}
+\item An object of $\Spacesstack$ is a morphism $X \to U$
+of algebraic spaces over $S$, where $U$ is representable by an object of
+$(\Sch/S)_{fppf}$, and
+\item a morphism $(f, g) : (X \to U) \to (Y \to V)$
+is a commutative diagram
+$$
+\xymatrix{
+X \ar[d] \ar[r]_f & Y \ar[d] \\
+U \ar[r]^g & V
+}
+$$
+of morphisms of algebraic spaces over $S$.
+\end{enumerate}
+Thus $\Spacesstack$ is a category and
+$$
+p : \Spacesstack \to (\Sch/S)_{fppf},
+\quad
+(X \to U) \mapsto U
+$$
+is a functor. Note that the fibre category of $\Spacesstack$ over
+a scheme $U$ is just the category $\textit{Spaces}/U$ of
+algebraic spaces over $U$ (see
+Topologies on Spaces, Section \ref{spaces-topologies-section-procedure}).
+Hence we sometimes think of an object of $\Spacesstack$ as a
+pair $X/U$ consisting of a scheme $U$ and an algebraic space $X$ over $U$.
+We remark for later use that given
+$(X/U), (Y/V) \in \Ob(\Spacesstack)$
+we have
+\begin{equation}
+\label{equation-morphisms-spaces}
+\Mor_{\Spacesstack}(X/U, Y/V)
+=
+\coprod\nolimits_{g \in \Mor_S(U, V)}
+\Mor_{\textit{Spaces}/U}(X, U \times_{g, V} Y)
+\end{equation}
+The category $\Spacesstack$ is almost, but not quite a stack
+over $(\Sch/S)_{fppf}$. The problem is a set theoretical
+issue as we will explain below.
+
+\begin{lemma}
+\label{lemma-spaces-strongly-cartesian}
+A morphism $(f, g) : X/U \to Y/V$
+of $\Spacesstack$ is strongly cartesian if and only if the
+map $f$ induces an isomorphism $X \to U \times_{g, V} Y$.
+\end{lemma}
+
+\begin{proof}
+Let $Y/V \in \Ob(\Spacesstack)$.
+Let $g : U \to V$ be a morphism of $(\Sch/S)_{fppf}$.
+Note that the projection $p : U \times_{g, V} Y \to Y$
+gives rise a morphism
+$(p, g) : U \times_{g, V} Y/U \to Y/V$ of $\Spacesstack$.
+We claim that $(p, g)$ is strongly cartesian.
+Namely, for any object $Z/W$ of $\Spacesstack$ we have
+\begin{align*}
+\Mor_{\Spacesstack}(Z/W, U \times_{g, V} Y/U)
+& =
+\coprod\nolimits_{h \in \Mor_S(W, U)}
+\Mor_{\textit{Spaces}/W}(Z, W \times_{h, U} U \times_{g, V} Y) \\
+& =
+\coprod\nolimits_{h \in \Mor_S(W, U)}
+\Mor_{\textit{Spaces}/W}(Z, W \times_{g \circ h, V} Y) \\
+& =
+\Mor_{\Spacesstack}(Z/W, Y/V)
+\times_{\Mor_S(W, V)} \Mor_S(W, U)
+\end{align*}
+where we have used Equation (\ref{equation-morphisms-spaces}) twice.
+This proves that the condition of
+Categories, Definition \ref{categories-definition-cartesian-over-C}
+holds for $(p, g)$, and hence our claim is true. Now by
+Categories, Lemma \ref{categories-lemma-composition-cartesian}
+we see that isomorphisms are strongly cartesian and
+compositions of strongly cartesian morphisms are strongly cartesian
+which proves the ``if'' part of the lemma. For the converse, note
+that given $Y/V$ and $g : U \to V$, if there exists a
+strongly cartesian morphism lifting $g$ with target $Y/V$
+then it has to be isomorphic to $(p, g)$ (see discussion following
+Categories, Definition \ref{categories-definition-cartesian-over-C}).
+Hence the "only if" part of the lemma holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pre-stack-of-spaces}
+The functor $p : \Spacesstack \to (\Sch/S)_{fppf}$
+satisfies conditions (1) and (2) of
+Stacks, Definition \ref{stacks-definition-stack}.
+\end{lemma}
+
+\begin{proof}
+It is follows from
+Lemma \ref{lemma-spaces-strongly-cartesian}
+that $\Spacesstack$ is a fibred category over $(\Sch/S)_{fppf}$
+which proves (1).
+Suppose that $\{U_i \to U\}_{i \in I}$ is a covering of
+$(\Sch/S)_{fppf}$. Suppose that $X, Y$ are algebraic spaces over
+$U$. Finally, suppose that $\varphi_i : X_{U_i} \to Y_{U_i}$ are morphisms
+of $\textit{Spaces}/U_i$ such that $\varphi_i$ and $\varphi_j$ restrict
+to the same morphisms $X_{U_i \times_U U_j} \to Y_{U_i \times_U U_j}$
+of algebraic spaces over $U_i \times_U U_j$.
+To prove (2) we have to show that there exists a unique morphism
+$\varphi  : X \to Y$ over $U$ whose base change to $U_i$ is
+equal to $\varphi_i$. As a morphism from $X$ to $Y$ is the same thing
+as a map of sheaves this follows directly from
+Sites, Lemma \ref{sites-lemma-glue-maps}.
+\end{proof}
+
+\begin{remark}
+\label{remark-stack-spaces}
+Ignoring set theoretical difficulties\footnote{The difficulty is not
+that $\Spacesstack$ is a proper class, since by our definition of
+an algebraic space over $S$ there is only a set worth of isomorphism
+classes of algebraic spaces over $S$. It is rather that arbitrary disjoint
+unions of algebraic spaces may end up being too large, hence lie outside
+of our chosen ``partial universe'' of sets.}
+$\Spacesstack$ also satisfies
+descent for objects and hence is a stack. Namely, we have to show that
+given
+\begin{enumerate}
+\item an fppf covering $\{U_i \to U\}_{i \in I}$,
+\item for each $i \in I$ an algebraic space $X_i/U_i$, and
+\item for each $i, j \in I$ an isomorphism
+$\varphi_{ij} : X_i \times_U U_j \to U_i \times_U X_j$ of algebraic spaces
+over $U_i \times_U U_j$ satisfying the cocycle condition over
+$U_i \times_U U_j \times_U U_k$,
+\end{enumerate}
+there exists an algebraic space $X/U$ and isomorphisms
+$X_{U_i} \cong X_i$ over $U_i$ recovering the isomorphisms $\varphi_{ij}$.
+First, note that by
+Sites, Lemma \ref{sites-lemma-glue-sheaves}
+there exists a sheaf $X$ on $(\Sch/U)_{fppf}$ recovering
+the $X_i$ and the $\varphi_{ij}$. Then by
+Bootstrap, Lemma \ref{bootstrap-lemma-locally-algebraic-space}
+we see that $X$ is an algebraic space (if we ignore the set theoretic
+condition of that lemma).
+We will use this argument in the next section to show that
+if we consider only algebraic spaces of finite type, then we obtain
+a stack.
+\end{remark}
+
+
+
+
+
+
+\section{The stack of finite type algebraic spaces}
+\label{section-stack-of-finite-type-spaces}
+
+
+\noindent
+It turns out that we can get a stack of spaces
+if we only consider spaces of finite type.
+Let us denote
+$$
+p_{ft} : \Spacesstack_{ft} \to (\Sch/S)_{fppf}
+$$
+the full subcategory of $\Spacesstack$ over $(\Sch/S)_{fppf}$
+consisting of pairs $X/U$ such that $X \to U$
+is a morphism of finite type.
+
+\begin{lemma}
+\label{lemma-stack-of-finite-type-spaces}
+The functor
+$p_{ft} : \Spacesstack_{ft} \to (\Sch/S)_{fppf}$
+satisfies the conditions (1), (2) and (3) of
+Stacks, Definition \ref{stacks-definition-stack}.
+\end{lemma}
+
+\begin{proof}
+We are going to write this out in ridiculous detail (which may make
+it hard to see what is going on).
+
+\medskip\noindent
+We have seen in
+Lemma \ref{lemma-spaces-strongly-cartesian}
+that a morphism $(f, g) : X/U \to Y/V$ of $\Spacesstack$ is
+strongly cartesian if the induced morphism $f : X \to U \times_V Y$
+is an isomorphism. Note that if $Y \to V$ is of finite type
+then also $U \times_V Y \to U$ is of finite type, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-finite-type}.
+So if $(f, g) : X/U \to Y/V$ of $\Spacesstack$ is
+strongly cartesian in $\Spacesstack$ and $Y/V$ is an object
+of $\Spacesstack_{ft}$ then automatically also $X/U$ is an
+object of $\Spacesstack_{ft}$, and of course $(f, g)$ is
+also strongly cartesian in $\Spacesstack_{ft}$. In this way
+we conclude that $\Spacesstack_{ft}$ is a fibred category over
+$(\Sch/S)_{fppf}$. This proves (1).
+
+\medskip\noindent
+The argument above also shows that the inclusion
+functor $\Spacesstack_{ft} \to \Spacesstack$ transforms
+strongly cartesian morphisms into strongly cartesian morphisms.
+In other words $\Spacesstack_{ft} \to \Spacesstack$ is
+a $1$-morphism of fibred categories over $(\Sch/S)_{fppf}$.
+
+\medskip\noindent
+Let $U \in \Ob((\Sch/S)_{fppf})$.
+Let $X, Y$ be algebraic spaces of finite type over $U$. By
+Stacks, Lemma \ref{stacks-lemma-presheaf-mor-map-fibred-categories}
+we obtain a map of presheaves
+$$
+\mathit{Mor}_{\Spacesstack_{ft}}(X, Y)
+\longrightarrow
+\mathit{Mor}_{\Spacesstack}(X, Y)
+$$
+which is an isomorphism as $\Spacesstack_{ft}$ is a full subcategory of
+$\Spacesstack$. Hence the left hand side is a sheaf, because in
+Lemma \ref{lemma-pre-stack-of-spaces}
+we showed the right hand side is a sheaf. This proves (2).
+
+\medskip\noindent
+To prove condition (3) of
+Stacks, Definition \ref{stacks-definition-stack}
+we have to show the following: Given
+\begin{enumerate}
+\item a covering $\{U_i \to U\}_{i \in I}$ of $(\Sch/S)_{fppf}$,
+\item for each $i \in I$ an algebraic space $X_i$ of finite type over $U_i$,
+and
+\item for each $i, j \in I$ an isomorphism
+$\varphi_{ij} : X_i \times_U U_j \to U_i \times_U X_j$ of algebraic spaces
+over $U_i \times_U U_j$ satisfying the cocycle condition over
+$U_i \times_U U_j \times_U U_k$,
+\end{enumerate}
+there exists an algebraic space $X$ of finite type over $U$ and isomorphisms
+$X_{U_i} \cong X_i$ over $U_i$ recovering the isomorphisms $\varphi_{ij}$.
+This follows from
+Bootstrap, Lemma \ref{bootstrap-lemma-descend-algebraic-space} part (2). By
+Descent on Spaces, Lemma
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation}
+we see that $X \to U$ is of finite type which concludes the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-ft-spaces}
+There exists a subcategory
+$\Spacesstack_{ft, small} \subset \Spacesstack_{ft}$
+with the following properties:
+\begin{enumerate}
+\item the inclusion functor
+$\Spacesstack_{ft, small} \to \Spacesstack_{ft}$ is
+fully faithful and essentially surjective, and
+\item the functor
+$p_{ft, small} : \Spacesstack_{ft, small} \to (\Sch/S)_{fppf}$
+turns $\Spacesstack_{ft, small}$ into a stack over
+$(\Sch/S)_{fppf}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We have seen in
+Lemmas \ref{lemma-stack-of-finite-type-spaces}
+that $p_{ft} : \Spacesstack_{ft} \to (\Sch/S)_{fppf}$
+satisfies (1), (2) and (3) of
+Stacks, Definition \ref{stacks-definition-stack}.
+The additional condition (4) of
+Stacks, Remark \ref{stacks-remark-stack-make-small}
+holds because every algebraic space $X$ over $S$ is of the
+form $U/R$ for $U, R \in \Ob((\Sch/S)_{fppf})$, see
+Spaces, Lemma \ref{spaces-lemma-space-presentation}.
+Thus there is only a set worth of isomorphism classes of objects.
+Hence we obtain $\Spacesstack_{ft, small}$ from the discussion
+in that remark.
+\end{proof}
+
+\noindent
+We will often perform the replacement
+$$
+\Spacesstack_{ft} \leadsto \Spacesstack_{ft, small}
+$$
+without further remarking on it, and by abuse of notation we will
+simply denote $\Spacesstack_{ft}$ this replacement.
+
+\begin{remark}
+\label{remark-higher-cardinality-spaces}
+Note that the whole discussion in this section works
+if we want to consider those algebraic spaces $X/U$ which are
+locally of finite type such that the inverse image in $X$ of an affine open
+of $U$ can be covered by countably many affines.
+If needed we can also introduce the notion of a morphism of
+$\kappa$-type (meaning some bound on the number of generators of
+ring extensions and some bound on the cardinality of the affines over
+a given affine in the base) where $\kappa$ is a cardinal, and then
+we can produce a stack
+$$
+\Spacesstack_\kappa \longrightarrow (\Sch/S)_{fppf}
+$$
+in exactly the same manner as above (provided we make sure that
+$\Sch$ is large enough depending on $\kappa$).
+\end{remark}
+
+
+
+
+
+\section{Examples of stacks in groupoids}
+\label{section-examples-stacks-in-groupoids}
+
+\noindent
+The examples above are examples of stacks which are not stacks in
+groupoids. In the rest of this chapter we give
+algebraic geometric examples of stacks in groupoids.
+
+
+
+\section{The stack associated to a sheaf}
+\label{section-stack-associated-to-sheaf}
+
+\noindent
+Let $F : (\Sch/S)_{fppf}^{opp} \to \textit{Sets}$ be a presheaf.
+We obtain a category fibred in sets
+$$
+p_F : \mathcal{S}_F \to (\Sch/S)_{fppf},
+$$
+see
+Categories, Example \ref{categories-example-presheaf}.
+This is a stack in sets if and only if $F$ is a sheaf, see
+Stacks, Lemma \ref{stacks-lemma-stack-in-setoids-characterize}.
+
+
+
+\section{The stack in groupoids of finitely generated quasi-coherent sheaves}
+\label{section-stack-in-groupoids-of-quasi-coherent-sheaves}
+
+\noindent
+Let $p : \QCohstack_{fg} \to (\Sch/S)_{fppf}$ be the stack
+introduced in
+Section \ref{section-stack-of-finitely-generated-quasi-coherent-sheaves}
+(using the abuse of notation introduced there).
+We can turn this into a stack in groupoids
+$p' : \QCohstack_{fg}' \to (\Sch/S)_{fppf}$ by
+the procedure of
+Categories, Lemma \ref{categories-lemma-fibred-gives-fibred-groupoids},
+see
+Stacks, Lemma \ref{stacks-lemma-stack-gives-stack-groupoids}.
+In this particular case this simply means $\QCohstack_{fg}'$ has
+the same objects as $\QCohstack_{fg}$ but the morphisms are
+pairs $(f, g) : (U, \mathcal{F}) \to (U', \mathcal{F}')$
+where $g$ is an isomorphism $g : f^*\mathcal{F}' \to \mathcal{F}$.
+
+
+\section{The stack in groupoids of finite type algebraic spaces}
+\label{section-stack-in-groupoids-of-finite-type-spaces}
+
+\noindent
+Let $p : \Spacesstack_{ft} \to (\Sch/S)_{fppf}$ be the stack
+introduced in
+Section \ref{section-stack-of-finite-type-spaces}
+(using the abuse of notation introduced there).
+We can turn this into a stack in groupoids
+$p' : \Spacesstack_{ft}' \to (\Sch/S)_{fppf}$ by
+the procedure of
+Categories, Lemma \ref{categories-lemma-fibred-gives-fibred-groupoids},
+see
+Stacks, Lemma \ref{stacks-lemma-stack-gives-stack-groupoids}.
+In this particular case this simply means $\Spacesstack_{ft}'$
+has the same objects as $\Spacesstack_{ft}$, i.e., finite type morphisms
+$X \to U$ where $X$ is an algebraic space over $S$ and $U$ is a scheme
+over $S$. But the morphisms $(f, g) : X/U \to Y/V$ are now
+commutative diagrams
+$$
+\xymatrix{
+X \ar[d] \ar[r]_f & Y \ar[d] \\
+U \ar[r]^g & V
+}
+$$
+which are cartesian.
+
+
+
+\section{Quotient stacks}
+\label{section-quotient-stacks}
+
+\noindent
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $S$.
+In this case the quotient stack
+$$
+[U/R] \longrightarrow (\Sch/S)_{fppf}
+$$
+is a stack in groupoids by construction, see
+Groupoids in Spaces,
+Definition \ref{spaces-groupoids-definition-quotient-stack}.
+It is even the case that the $\mathit{Isom}$-sheaves are
+representable by algebraic spaces, see
+Bootstrap, Lemma \ref{bootstrap-lemma-quotient-stack-isom}.
+These quotient stacks are of fundamental importance to the theory of
+algebraic stacks.
+
+\medskip\noindent
+A special case of the construction above is the quotient stack
+$$
+[X/G] \longrightarrow (\Sch/S)_{fppf}
+$$
+associated to a datum $(B, G/B, m, X/B, a)$. Here
+\begin{enumerate}
+\item $B$ is an algebraic space over $S$,
+\item $(G, m)$ is a group algebraic space over $B$,
+\item $X$ is an algebraic space over $B$, and
+\item $a : G \times_B X \to X$ is an action of $G$ on $X$ over $B$.
+\end{enumerate}
+Namely, by
+Groupoids in Spaces,
+Definition \ref{spaces-groupoids-definition-quotient-stack}
+the stack in groupoids $[X/G]$ is the
+quotient stack $[X/G \times_B X]$ given above. It behooves us to
+spell out what the category $[X/G]$ really looks like. We will do this in
+Section \ref{section-group-quotient-stacks}.
+
+
+
+\section{Classifying torsors}
+\label{section-torsors}
+
+\noindent
+We want to carefuly explain a number of variants of what it could
+mean to study the stack of torsors for a group algebraic space $G$
+or a sheaf of groups $\mathcal{G}$.
+
+
+
+\subsection{Torsors for a sheaf of groups}
+\label{subsection-torsors-sheaf}
+
+\noindent
+Let $\mathcal{G}$ be a sheaf of groups on $(\Sch/S)_{fppf}$.
+For $U \in \Ob((\Sch/S)_{fppf})$ we denote
+$\mathcal{G}|_U$ the restriction of $\mathcal{G}$ to $(\Sch/U)_{fppf}$.
+We define a category $\mathcal{G}\textit{-Torsors}$ as follows:
+\begin{enumerate}
+\item An object of $\mathcal{G}\textit{-Torsors}$ is a pair
+$(U, \mathcal{F})$ where $U$ is an object of $(\Sch/S)_{fppf}$
+and $\mathcal{F}$ is a $\mathcal{G}|_U$-torsor, see
+Cohomology on Sites, Definition \ref{sites-cohomology-definition-torsor}.
+\item A morphism $(U, \mathcal{F}) \to (V, \mathcal{H})$ is given
+by a pair $(f, \alpha)$, where $f : U \to V$ is a morphism of schemes
+over $S$, and $\alpha : f^{-1}\mathcal{H} \to \mathcal{F}$ is an
+isomorphism of $\mathcal{G}|_U$-torsors.
+\end{enumerate}
+Thus $\mathcal{G}\textit{-Torsors}$ is a category and
+$$
+p : \mathcal{G}\textit{-Torsors} \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, \mathcal{F}) \longmapsto U
+$$
+is a functor. Note that the fibre category of $\mathcal{G}\textit{-Torsors}$
+over $U$ is the category of $\mathcal{G}|_U$-torsors which is a groupoid.
+
+\begin{lemma}
+\label{lemma-torsors-sheaf-stack-in-groupoids}
+Up to a replacement as in
+Stacks, Remark \ref{stacks-remark-stack-make-small}
+the functor
+$$
+p : \mathcal{G}\textit{-Torsors} \longrightarrow (\Sch/S)_{fppf}
+$$
+defines a stack in groupoids over $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+The most difficult part of the proof is to show that
+we have descent for objects.
+Let $\{U_i \to U\}_{i \in I}$ be a covering of $(\Sch/S)_{fppf}$.
+Suppose that for each $i$ we are given a $\mathcal{G}|_{U_i}$-torsor
+$\mathcal{F}_i$, and for each $i, j \in I$ an isomorphism
+$\varphi_{ij} :
+\mathcal{F}_i|_{U_i \times_U U_j} \to \mathcal{F}_j|_{U_i \times_U U_j}$
+of $\mathcal{G}|_{U_i \times_U U_j}$-torsors
+satisfying a suitable cocycle condition on $U_i \times_U U_j \times_U U_k$.
+Then by
+Sites, Section \ref{sites-section-glueing-sheaves}
+we obtain a sheaf $\mathcal{F}$ on $(\Sch/U)_{fppf}$
+whose restriction to each $U_i$ recovers $\mathcal{F}_i$ as well
+as recovering the descent data. By the equivalence of categories in
+Sites, Lemma \ref{sites-lemma-mapping-property-glue}
+the action maps $\mathcal{G}|_{U_i} \times \mathcal{F}_i \to \mathcal{F}_i$
+glue to give a map $a : \mathcal{G}|_U \times \mathcal{F} \to \mathcal{F}$.
+Now we have to show that $a$ is an action and that $\mathcal{F}$ becomes
+a $\mathcal{G}|_U$-torsor. Both properties may be checked locally, and
+hence follow from the corresponding properties of the actions
+$\mathcal{G}|_{U_i} \times \mathcal{F}_i \to \mathcal{F}_i$.
+This proves that descent for objects holds in
+$\mathcal{G}\textit{-Torsors}$.
+Some details omitted.
+\end{proof}
+
+
+
+\subsection{Variant on torsors for a sheaf}
+\label{subsection-variant-torsor-sheaf}
+
+\noindent
+The construction of
+Subsection \ref{subsection-torsors-sheaf}
+can be generalized slightly.
+Namely, let $\mathcal{G} \to \mathcal{B}$ be a map of sheaves
+on $(\Sch/S)_{fppf}$ and let
+$$
+m :
+\mathcal{G} \times_\mathcal{B} \mathcal{G}
+\longrightarrow
+\mathcal{G}
+$$
+be a group law on $\mathcal{G}/\mathcal{B}$. In other words, the pair
+$(\mathcal{G}, m)$ is a group object of the topos
+$\Sh((\Sch/S)_{fppf})/\mathcal{B}$. See
+Sites, Section \ref{sites-section-localize-topoi}
+for information regarding localizations of topoi.
+In this setting we can define a category
+$\mathcal{G}/\mathcal{B}\textit{-Torsors}$ as follows
+(where we use the Yoneda embedding to think of schemes as sheaves):
+\begin{enumerate}
+\item An object of $\mathcal{G}/\mathcal{B}\textit{-Torsors}$ is a triple
+$(U, b, \mathcal{F})$ where
+\begin{enumerate}
+\item $U$ is an object of $(\Sch/S)_{fppf}$,
+\item $b : U \to \mathcal{B}$ is a section of $\mathcal{B}$ over $U$, and
+\item $\mathcal{F}$ is a $U \times_{b, \mathcal{B}}\mathcal{G}$-torsor
+over $U$.
+\end{enumerate}
+\item A morphism $(U, b, \mathcal{F}) \to (U', b', \mathcal{F}')$ is given
+by a pair $(f, g)$, where $f : U \to U'$ is a morphism of schemes
+over $S$ such that $b = b' \circ f$, and
+$g : f^{-1}\mathcal{F}' \to \mathcal{F}$ is an
+isomorphism of $U \times_{b, \mathcal{B}} \mathcal{G}$-torsors.
+\end{enumerate}
+Thus $\mathcal{G}/\mathcal{B}\textit{-Torsors}$ is a category and
+$$
+p :
+\mathcal{G}/\mathcal{B}\textit{-Torsors}
+\longrightarrow
+(\Sch/S)_{fppf},
+\quad
+(U, b, \mathcal{F}) \longmapsto U
+$$
+is a functor. Note that the fibre category of
+$\mathcal{G}/\mathcal{B}\textit{-Torsors}$
+over $U$ is the disjoint union over $b : U \to \mathcal{B}$
+of the categories of $U \times_{b, \mathcal{B}} \mathcal{G}$-torsors,
+hence is a groupoid.
+
+\medskip\noindent
+In the special case $\mathcal{B} = S$ we recover the category
+$\mathcal{G}\textit{-Torsors}$ introduced in
+Subsection \ref{subsection-torsors-sheaf}.
+
+\begin{lemma}
+\label{lemma-variant-torsors-sheaf-stack-in-groupoids}
+Up to a replacement as in
+Stacks, Remark \ref{stacks-remark-stack-make-small}
+the functor
+$$
+p :
+\mathcal{G}/\mathcal{B}\textit{-Torsors}
+\longrightarrow
+(\Sch/S)_{fppf}
+$$
+defines a stack in groupoids over $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+This proof is a repeat of the proof of
+Lemma \ref{lemma-torsors-sheaf-stack-in-groupoids}.
+The reader is encouraged to read that proof first since
+the notation is less cumbersome.
+The most difficult part of the proof is to show that
+we have descent for objects. Let $\{U_i \to U\}_{i \in I}$
+be a covering of $(\Sch/S)_{fppf}$.
+Suppose that for each $i$ we are given a pair $(b_i, \mathcal{F}_i)$
+consisting of a morphism $b_i : U_i \to \mathcal{B}$ and a
+$U_i \times_{b_i, \mathcal{B}} \mathcal{G}$-torsor
+$\mathcal{F}_i$, and for each $i, j \in I$
+we have $b_i|_{U_i \times_U U_j} = b_j|_{U_i \times_U U_j}$ and
+we are given an isomorphism
+$\varphi_{ij} :
+\mathcal{F}_i|_{U_i \times_U U_j} \to \mathcal{F}_j|_{U_i \times_U U_j}$
+of $(U_i \times_U U_j) \times_\mathcal{B} \mathcal{G}$-torsors
+satisfying a suitable cocycle condition on $U_i \times_U U_j \times_U U_k$.
+Then by
+Sites, Section \ref{sites-section-glueing-sheaves}
+we obtain a sheaf $\mathcal{F}$ on $(\Sch/U)_{fppf}$
+whose restriction to each $U_i$ recovers $\mathcal{F}_i$ as well
+as recovering the descent data. By the sheaf axiom for $\mathcal{B}$
+the morphisms $b_i$ come from a unique morphism $b : U \to \mathcal{B}$.
+By the equivalence of categories in
+Sites, Lemma \ref{sites-lemma-mapping-property-glue}
+the action maps
+$(U_i \times_{b_i, \mathcal{B}} \mathcal{G}) \times_{U_i} \mathcal{F}_i
+\to \mathcal{F}_i$
+glue to give a map
+$(U \times_{b, \mathcal{B}} \mathcal{G}) \times \mathcal{F} \to \mathcal{F}$.
+Now we have to show that this is an action and that $\mathcal{F}$ becomes
+a $U \times_{b, \mathcal{B}} \mathcal{G}$-torsor.
+Both properties may be checked locally, and
+hence follow from the corresponding properties of the actions
+on the $\mathcal{F}_i$.
+This proves that descent for objects holds in
+$\mathcal{G}/\mathcal{B}\textit{-Torsors}$.
+Some details omitted.
+\end{proof}
+
+
+
+\subsection{Principal homogeneous spaces}
+\label{subsection-principal-homogeneous-spaces}
+
+\noindent
+Let $B$ be an algebraic space over $S$.
+Let $G$ be a group algebraic space over $B$.
+We define a category $G\textit{-Principal}$ as follows:
+\begin{enumerate}
+\item An object of $G\textit{-Principal}$ is a triple $(U, b, X)$ where
+\begin{enumerate}
+\item $U$ is an object of $(\Sch/S)_{fppf}$,
+\item $b : U \to B$ is a morphism over $S$, and
+\item $X$ is a principal homogeneous $G_U$-space over $U$ where
+$G_U = U \times_{b, B} G$.
+\end{enumerate}
+See
+Groupoids in Spaces,
+Definition \ref{spaces-groupoids-definition-principal-homogeneous-space}.
+\item A morphism $(U, b, X) \to (U', b', X')$ is given
+by a pair $(f, g)$, where $f : U \to U'$ is a morphism of schemes
+over $B$, and $g : X \to U \times_{f, U'} X'$ is an
+isomorphism of principal homogeneous $G_U$-spaces.
+\end{enumerate}
+Thus $G\textit{-Principal}$ is a category and
+$$
+p : G\textit{-Principal} \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, b, X) \longmapsto U
+$$
+is a functor. Note that the fibre category of $G\textit{-Principal}$
+over $U$ is the disjoint union over $b : U \to B$
+of the categories of principal homogeneous $U \times_{b, B} G$-spaces,
+hence is a groupoid.
+
+\medskip\noindent
+In the special case $S = B$ the objects are simply pairs
+$(U, X)$ where $U$ is a scheme over $S$, and $X$ is a principal homogeneous
+$G_U$-space over $U$. Moreover, morphisms are simply cartesian
+diagrams
+$$
+\xymatrix{
+X \ar[d] \ar[r]_g & X' \ar[d] \\
+U \ar[r]^f & U'
+}
+$$
+where $g$ is $G$-equivariant.
+
+\begin{remark}
+\label{remark-principal-stack-in-groupoids}
+We conjecture that up to a replacement as in
+Stacks, Remark \ref{stacks-remark-stack-make-small}
+the functor
+$$
+p : G\textit{-Principal} \longrightarrow (\Sch/S)_{fppf}
+$$
+defines a stack in groupoids over $(\Sch/S)_{fppf}$. This would
+follow if one could show that given
+\begin{enumerate}
+\item a covering $\{U_i \to U\}_{i \in I}$ of $(\Sch/S)_{fppf}$,
+\item an group algebraic space $H$ over $U$,
+\item for every $i$ a principal homogeneous $H_{U_i}$-space $X_i$
+over $U_i$, and
+\item $H$-equivariant isomorphisms
+$\varphi_{ij} : X_{i, U_i \times_U U_j} \to X_{j, U_i \times_U U_j}$
+satisfying the cocycle condition,
+\end{enumerate}
+there exists a principal homogeneous $H$-space $X$ over $U$
+which recovers $(X_i, \varphi_{ij})$. The technique of the proof of
+Bootstrap, Lemma \ref{bootstrap-lemma-descent-torsor}
+reduces this to a set theoretical question, so the reader who ignores
+set theoretical questions will ``know'' that the result is true. In
+\url{http://math.columbia.edu/~dejong/wordpress/?p=591}
+there is a suggestion as to how to approach this problem.
+\end{remark}
+
+
+
+\subsection{Variant on principal homogeneous spaces}
+\label{subsection-variant-principal-homogeneous-spaces}
+
+\noindent
+Let $S$ be a scheme. Let $B = S$.
+Let $G$ be a group scheme over $B = S$.
+In this setting we can define a full subcategory
+$G\textit{-Principal-Schemes} \subset G\textit{-Principal}$
+whose objects are pairs $(U, X)$ where $U$ is an object of
+$(\Sch/S)_{fppf}$ and $X \to U$ is a principal homogeneous
+$G$-space over $U$ which is representable, i.e., a scheme.
+
+\medskip\noindent
+It is in general not the case that $G\textit{-Principal-Schemes}$ is
+a stack in groupoids over $(\Sch/S)_{fppf}$. The reason is
+that in general there really do exist principal homogeneous spaces
+which are not schemes, hence descent for objects will not be satisfied
+in general.
+
+
+
+\subsection{Torsors in fppf topology}
+\label{subsection-fppf-torsors}
+
+\noindent
+Let $B$ be an algebraic space over $S$.
+Let $G$ be a group algebraic space over $B$.
+We define a category $G\textit{-Torsors}$ as follows:
+\begin{enumerate}
+\item An object of $G\textit{-Torsors}$ is a triple $(U, b, X)$ where
+\begin{enumerate}
+\item $U$ is an object of $(\Sch/S)_{fppf}$,
+\item $b : U \to B$ is a morphism, and
+\item $X$ is an fppf $G_U$-torsor over $U$ where $G_U = U \times_{b, B} G$.
+\end{enumerate}
+See
+Groupoids in Spaces,
+Definition \ref{spaces-groupoids-definition-principal-homogeneous-space}.
+\item A morphism $(U, b, X) \to (U', b', X')$ is given
+by a pair $(f, g)$, where $f : U \to U'$ is a morphism of schemes
+over $B$, and $g : X \to U \times_{f, U'} X'$ is an
+isomorphism of $G_U$-torsors.
+\end{enumerate}
+Thus $G\textit{-Torsors}$ is a category and
+$$
+p : G\textit{-Torsors} \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, a, X) \longmapsto U
+$$
+is a functor. Note that the fibre category of $G\textit{-Torsors}$
+over $U$ is the disjoint union over $b : U \to B$
+of the categories of fppf $U \times_{b, B} G$-torsors,
+hence is a groupoid.
+
+\medskip\noindent
+In the special case $S = B$ the objects are simply pairs
+$(U, X)$ where $U$ is a scheme over $S$, and $X$ is an fppf
+$G_U$-torsor over $U$. Moreover, morphisms are simply cartesian
+diagrams
+$$
+\xymatrix{
+X \ar[d] \ar[r]_g & X' \ar[d] \\
+U \ar[r]^f & U'
+}
+$$
+where $g$ is $G$-equivariant.
+
+\begin{lemma}
+\label{lemma-torsors-stack-in-groupoids}
+Up to a replacement as in
+Stacks, Remark \ref{stacks-remark-stack-make-small}
+the functor
+$$
+p : G\textit{-Torsors} \longrightarrow (\Sch/S)_{fppf}
+$$
+defines a stack in groupoids over $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+The most difficult part of the proof is to show that we have descent for
+objects, which is
+Bootstrap, Lemma \ref{bootstrap-lemma-descent-torsor}.
+We omit the proof of axioms (1) and (2) of
+Stacks, Definition \ref{stacks-definition-stack-in-groupoids}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-torsors}
+Let $B$ be an algebraic space over $S$. Let $G$ be a group algebraic
+space over $B$. Denote $\mathcal{G}$, resp.\ $\mathcal{B}$ the algebraic
+space $G$, resp.\ $B$ seen as a sheaf on $(\Sch/S)_{fppf}$.
+The functor
+$$
+G\textit{-Torsors} \longrightarrow \mathcal{G}/\mathcal{B}\textit{-Torsors}
+$$
+which associates to a triple $(U, b, X)$ the triple
+$(U, b, \mathcal{X})$ where $\mathcal{X}$ is $X$ viewed as a sheaf
+is an equivalence of stacks in groupoids over $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+We will use the result of
+Stacks, Lemma \ref{stacks-lemma-characterize-essentially-surjective-when-ff}
+to prove this. The functor is fully faithful since the category of
+algebraic spaces over $S$ is a full subcategory of the category of
+sheaves on $(\Sch/S)_{fppf}$.
+Moreover, all objects (on both sides) are locally trivial torsors
+so condition (2) of the lemma referenced above holds.
+Hence the functor is an equivalence.
+\end{proof}
+
+
+
+\subsection{Variant on torsors in fppf topology}
+\label{subsection-variant-fppf-torsors}
+
+\noindent
+Let $S$ be a scheme. Let $B = S$.
+Let $G$ be a group scheme over $B = S$.
+In this setting we can define a full subcategory
+$G\textit{-Torsors-Schemes} \subset G\textit{-Torsors}$
+whose objects are pairs $(U, X)$ where $U$ is an object of
+$(\Sch/S)_{fppf}$ and $X \to U$ is an fppf
+$G$-torsor over $U$ which is representable, i.e., a scheme.
+
+\medskip\noindent
+It is in general not the case that $G\textit{-Torsors-Schemes}$ is
+a stack in groupoids over $(\Sch/S)_{fppf}$. The reason is
+that in general there really do exist fppf $G$-torsors
+which are not schemes, hence descent for objects will not be satisfied
+in general.
+
+
+
+
+
+
+\section{Quotients by group actions}
+\label{section-group-quotient-stacks}
+
+\noindent
+At this point we have introduced enough notation that we can work out
+in more detail what the stacks $[X/G]$ of
+Section \ref{section-quotient-stacks}
+look like.
+
+\begin{situation}
+\label{situation-quotient-stack}
+Here
+\begin{enumerate}
+\item $S$ is a scheme contained in $\Sch_{fppf}$,
+\item $B$ is an algebraic space over $S$,
+\item $(G, m)$ is a group algebraic space over $B$,
+\item $\pi : X \to B$ is an algebraic space over $B$, and
+\item $a : G \times_B X \to X$ is an action of $G$ on $X$ over $B$.
+\end{enumerate}
+\end{situation}
+
+\noindent
+In this situation we construct a category $[[X/G]]$\footnote{The notation
+$[[X/G]]$ with double brackets serves to distinguish this category from
+the stack $[X/G]$ introduced earlier. In
+Proposition \ref{proposition-equal-quotient-stacks}
+we show that the two are canonically equivalent.
+Afterwards we will use the notation $[X/G]$ to indicate either.} as follows:
+\begin{enumerate}
+\item An object of $[[X/G]]$ consists of a quadruple
+$(U, b, P, \varphi : P \to X)$ where
+\begin{enumerate}
+\item $U$ is an object of $(\Sch/S)_{fppf}$,
+\item $b : U \to B$ is a morphism over $S$,
+\item $P$ is an fppf $G_U$-torsor over $U$ where $G_U = U \times_{b, B} G$, and
+\item $\varphi : P \to X$ is a $G$-equivariant morphism fitting
+into the commutative diagram
+$$
+\xymatrix{
+P \ar[d] \ar[r]_{\varphi} & X \ar[d] \\
+U \ar[r]^b & B
+}
+$$
+\end{enumerate}
+\item A morphism of $[[X/G]]$ is a pair
+$(f, g) : (U, b, P, \varphi) \to (U', b', P', \varphi')$
+where $f : U \to U'$ is a morphism of schemes over $B$
+and $g : P \to P'$ is a $G$-equivariant morphism over $f$
+which induces an isomorphism $P \cong U \times_{f, U'} P'$, and has
+the property that $\varphi = \varphi' \circ g$.
+In other words $(f, g)$ fits into the following commutative
+diagram
+$$
+\xymatrix{
+P \ar[d] \ar[rrrd]_\varphi \ar[r]^g & P' \ar[d] \ar[rrd]^{\varphi'} \\
+U \ar[rrrd]_b \ar[r]^f & U' \ar[rrd]^{b'} & & X \ar[d] \\
+& & & B
+}
+$$
+\end{enumerate}
+Thus $[[X/G]]$ is a category and
+$$
+p : [[X/G]] \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, b, P, \varphi) \longmapsto U
+$$
+is a functor. Note that the fibre category of $[[X/G]]$
+over $U$ is the disjoint union over $b \in \Mor_S(U, B)$
+of fppf $U \times_{b, B} G$-torsors $P$ endowed with a $G$-equivariant
+morphism to $X$. Hence the fibre categories of $[[X/G]]$ are groupoids.
+
+\medskip\noindent
+Note that the functor
+$$
+[[X/G]] \longrightarrow G\textit{-Torsors},
+\quad
+(U, b, P, \varphi) \longmapsto (U, b, P)
+$$
+is a $1$-morphism of categories over $(\Sch/S)_{fppf}$.
+
+\begin{lemma}
+\label{lemma-group-quotient-stack-in-groupoids}
+Up to a replacement as in
+Stacks, Remark \ref{stacks-remark-stack-make-small}
+the functor
+$$
+p : [[X/G]] \longrightarrow (\Sch/S)_{fppf}
+$$
+defines a stack in groupoids over $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+The most difficult part of the proof is to show that we have descent for
+objects. Suppose that $\{U_i \to U\}_{i \in I}$ is a covering in
+$(\Sch/S)_{fppf}$. Let
+$\xi_i = (U_i, b_i, P_i, \varphi_i)$ be objects of $[[X/G]]$ over $U_i$,
+and let $\varphi_{ij} : \text{pr}_0^*\xi_i \to \text{pr}_1^*\xi_j$
+be a descent datum. This in particular implies that we get a descent
+datum on the triples $(U_i, b_i, P_i)$ for the stack in groupoids
+$G\textit{-Torsors}$ by applying the functor
+$[[X/G]] \to G\textit{-Torsors}$ above. We have seen that
+$G\textit{-Torsors}$ is a stack in groupoids
+(Lemma \ref{lemma-torsors-stack-in-groupoids}).
+Hence we may assume that $b_i = b|_{U_i}$ for some morphism $b : U \to B$, and
+that $P_i = U_i \times_U P$ for some fppf $G_U = U \times_{b, B} G$-torsor
+$P$ over $U$. The morphisms $\varphi_i$ are compatible
+with the canonical descent datum on the restrictions $U_i \times_U P$
+and hence define a morphism $\varphi : P \to X$. (For example you
+can use
+Sites, Lemma \ref{sites-lemma-mapping-property-glue}
+or you can use
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-fpqc-universal-effective-epimorphisms}
+to get $\varphi$.)
+This proves descent for objects.
+We omit the proof of axioms (1) and (2) of
+Stacks, Definition \ref{stacks-definition-stack-in-groupoids}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-equal-quotient-stacks}
+In
+Situation \ref{situation-quotient-stack}
+there exists a canonical equivalence
+$$
+[X/G] \longrightarrow [[X/G]]
+$$
+of stacks in groupoids over $(\Sch/S)_{fppf}$.
+\end{proposition}
+
+\begin{proof}
+We write this out in detail, to make sure that all the definitions
+work out in exactly the correct manner.
+Recall that $[X/G]$ is the quotient stack
+associated to the groupoid in algebraic spaces
+$(X, G \times_B X, s, t, c)$, see
+Groupoids in Spaces,
+Definition \ref{spaces-groupoids-definition-quotient-stack}.
+This means that $[X/G]$ is the stackification of the
+category fibred in groupoids $[X/_{\!p}G]$ associated to the functor
+$$
+(\Sch/S)_{fppf} \longrightarrow \textit{Groupoids},
+\quad
+U \longmapsto (X(U), G(U) \times_{B(U)} X(U), s, t, c)
+$$
+where $s(g, x) = x$, $t(g, x) = a(g, x)$, and
+$c((g, x), (g', x')) = (m(g, g'), x')$. By the construction of
+Categories, Example \ref{categories-example-functor-groupoids}
+an object of $[X/_{\!p}G]$ is a pair $(U, x)$ with $x \in X(U)$
+and a morphism $(f, g) : (U, x) \to (U', x')$ of $[X/_{\!p}G]$
+is given by a morphism of schemes $f : U \to U'$ and an element
+$g \in G(U)$ such that $a(g, x) = x' \circ f$.
+Hence we can define a $1$-morphism of stacks in groupoids
+$$
+F_p : [X/_{\!p}G] \longrightarrow [[X/G]]
+$$
+by the following rules: On objects we set
+$$
+F_p(U, x) =
+(U, \pi \circ x, G \times_{B, \pi \circ x} U, a \circ (\text{id}_G \times x))
+$$
+This makes sense because the diagram
+$$
+\xymatrix{
+G \times_{B, \pi \circ x} U \ar[d] \ar[r]_{\text{id}_G \times x} &
+G \times_{B, \pi} X \ar[r]_-a &
+X \ar[d]^\pi \\
+U \ar[rr]^{\pi \circ x} & & B
+}
+$$
+commutes, and the two horizontal arrows are $G$-equivariant if we think
+of the fibre products as trivial $G$-torsors over $U$, resp.\ $X$.
+On morphisms $(f, g) : (U, x) \to (U', x')$ we set $F_p(f, g) = (f, R_g)$
+where $R_g$ denotes right translation by $g$. More precisely, the
+morphism of $F_p(f, g) : F_p(U, x) \to F_p(U', x')$ is given by the cartesian
+diagram
+$$
+\xymatrix{
+G \times_{B, \pi \circ x} U \ar[d] \ar[r]_{R_{g^{-1}}} &
+G \times_{B, \pi \circ x'} U' \ar[d] \\
+U \ar[r]^f & U'
+}
+$$
+where $R_{g^{-1}}$ on $T$-valued points is given by
+$$
+R_{g^{-1}}(g', u) = (m(g', i(g)), f(u))
+$$
+To see that this works we have to verify that
+$$
+a \circ (\text{id}_G \times x)
+=
+a \circ (\text{id}_G \times x') \circ R_{g^{-1}}
+$$
+which is true because the right hand side applied to the $T$-valued point
+$(g', u)$ gives the desired equality
+\begin{align*}
+a((\text{id}_G \times x')(m(g', i(g)), f(u)))
+& =
+a(m(g', i(g)), x'(f(u))) \\
+& =
+a(g', a(i(g), x'(f(u)))) \\
+& =
+a(g', x(u))
+\end{align*}
+because $a(g, x) = x' \circ f$ and hence $a(i(g), x' \circ f) = x$.
+
+\medskip\noindent
+By the universal property of stackification from
+Stacks, Lemma \ref{stacks-lemma-stackify-groupoids-universal-property}
+we obtain a canonical extension $F : [X/G] \to [[X/G]]$ of the $1$-morphism
+$F_p$ above. We first prove that $F$ is fully faithful.
+To do this, since both source and target are stacks in groupoids,
+it suffices to prove that the $\mathit{Isom}$-sheaves are identified
+under $F$. Pick a scheme $U$ and objects $\xi, \xi'$ of
+$[X/G]$ over $U$. We want to show that
+$$
+F :
+\mathit{Isom}_{[X/G]}(\xi, \xi')
+\longrightarrow
+\mathit{Isom}_{[[X/G]]}(F(\xi), F(\xi'))
+$$
+is an isomorphism of sheaves. To do this it suffices to work locally
+on $U$, and hence we may assume that $\xi, \xi'$ come from objects
+$(U, x)$, $(U, x')$ of $[X/_{\!p}G]$ over $U$; this follows directly
+from the construction of the stackification, and it is also worked
+out in detail in
+Groupoids in Spaces,
+Section \ref{spaces-groupoids-section-explicit-quotient-stacks}.
+Either by directly using the description of morphisms in
+$[X/_{\!p}G]$ above, or using
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-morphisms}
+we see that in this case
+$$
+\mathit{Isom}_{[X/G]}(\xi, \xi') =
+U \times_{(x, x'), X \times_S X, (s, t)} (G \times_B X)
+$$
+A $T$-valued point of this fibre product corresponds to a pair
+$(u, g)$ with $u \in U(T)$, and $g \in G(T)$ such that
+$a(g, x \circ u) = x' \circ u$. (Note that this implies
+$\pi \circ x \circ u = \pi \circ x' \circ u$.)
+On the other hand, a $T$-valued
+point of $\mathit{Isom}_{[[X/G]]}(F(\xi), F(\xi'))$ by definition
+corresponds to a morphism $u : T \to U$ such that
+$\pi \circ x \circ u = \pi \circ x' \circ u : T \to B$ and an isomorphism
+$$
+R :
+G \times_{B, \pi \circ x \circ u} T
+\longrightarrow
+G \times_{B, \pi \circ x' \circ u} T
+$$
+of trivial $G_T$-torsors compatible with the given maps to $X$.
+Since the torsors are trivial we see that $R = R_{g^{-1}}$
+(right multiplication) by some $g \in G(T)$. Compatibility with the maps
+$a \circ (1_G, x \circ u), a \circ (1_G, x' \circ u) : G \times_B T \to X$
+is equivalent to the condition that $a(g, x \circ u) = x' \circ u$.
+Hence we obtain the desired equality of $\mathit{Isom}$-sheaves.
+
+\medskip\noindent
+Now that we know that $F$ is fully faithful we see that
+Stacks, Lemma \ref{stacks-lemma-characterize-essentially-surjective-when-ff}
+applies. Thus to show that $F$ is an equivalence it suffices
+to show that objects of $[[X/G]]$ are fppf locally in the essential image
+of $F$. This is clear as fppf torsors are fppf locally trivial, and hence
+we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-classifying-stacks}
+\begin{slogan}
+The classifying stack of a group scheme or group algebraic space.
+\end{slogan}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $G$ be a group algebraic space over $B$. Then the stacks
+in groupoids
+$$
+[B/G],\quad
+[[B/G]],\quad
+G\textit{-Torsors},\quad
+\mathcal{G}/\mathcal{B}\textit{-Torsors}
+$$
+are all canonically equivalent.
+If $G \to B$ is flat and locally
+of finite presentation, then these are also equivalent to
+$G\textit{-Principal}$.
+\end{lemma}
+
+\begin{proof}
+The equivalence
+$G\textit{-Torsors} \to \mathcal{G}/\mathcal{B}\textit{-Torsors}$
+is given in Lemma \ref{lemma-compare-torsors}.
+The equivalence $[B/G] \to [[B/G]]$ is given in
+Proposition \ref{proposition-equal-quotient-stacks}.
+Unwinding the definition of $[[B/G]]$ given in
+Section \ref{section-group-quotient-stacks}
+we see that $[[B//G]] = G\textit{-Torsors}$.
+
+\medskip\noindent
+Finally, assume $G \to B$ is flat and locally of finite presentation.
+To show that the natural functor
+$G\textit{-Torsors} \to G\textit{-Principal}$ is an equivalence
+it suffices to show that for a scheme $U$ over $B$
+a principal homogeneous $G_U$-space $X \to U$
+is fppf locally trivial. By our definition of principal homogeneous spaces
+(Groupoids in Spaces,
+Definition \ref{spaces-groupoids-definition-principal-homogeneous-space})
+there exists an fpqc covering $\{U_i \to U\}$ such that
+$U_i \times_U X \cong G \times_B U_i$ as algebraic spaces over $U_i$.
+This implies that $X \to U$ is surjective, flat, and locally of finite
+presentation, see
+Descent on Spaces, Lemmas
+\ref{spaces-descent-lemma-descending-property-surjective},
+\ref{spaces-descent-lemma-descending-property-flat}, and
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation}.
+Choose a scheme $W$ and a surjective \'etale morphism $W \to X$.
+Then it follows from what we just said that $\{W \to U\}$ is an fppf covering
+such that $X_W \to W$ has a section. Hence $X$ is an fppf $G_U$-torsor.
+\end{proof}
+
+\begin{remark}
+\label{remark-X-mod-G-group}
+Let $S$ be a scheme.
+Let $G$ be an abstract group.
+Let $X$ be an algebraic space over $S$.
+Let $G \to \text{Aut}_S(X)$ be a group homomorphism.
+In this setting we can define $[[X/G]]$ similarly
+to the above as follows:
+\begin{enumerate}
+\item An object of $[[X/G]]$ consists of a triple
+$(U, P, \varphi : P \to X)$ where
+\begin{enumerate}
+\item $U$ is an object of $(\Sch/S)_{fppf}$,
+\item $P$ is a sheaf on $(\Sch/U)_{fppf}$ which comes
+with an action of $G$ that turns it into a torsor under the constant
+sheaf with value $G$, and
+\item $\varphi : P \to X$ is a $G$-equivariant map of sheaves.
+\end{enumerate}
+\item A morphism
+$(f, g) : (U, P, \varphi) \to (U', P', \varphi')$
+is given by a morphism of schemes $f : T \to T'$
+and a $G$-equivariant isomorphism
+$g : P \to f^{-1}P'$ such that $\varphi = \varphi' \circ g$.
+\end{enumerate}
+In exactly the same manner as above we obtain a functor
+$$
+[[X/G]] \longrightarrow (\Sch/S)_{fppf}
+$$
+which turns $[[X/G]]$ into a stack in groupoids over $(\Sch/S)_{fppf}$.
+The constant sheaf $\underline{G}$ is (provided the cardinality of $G$ is
+not too large) representable by $G_S$ on $(\Sch/S)_{fppf}$
+and this version of $[[X/G]]$ is equivalent to the stack
+$[[X/G_S]]$ introduced above.
+\end{remark}
+
+
+
+
+
+
+\section{The Picard stack}
+\label{section-picard-stack}
+
+\noindent
+In this section we introduce the Picard stack in complete generality.
+In the chapter on Quot and Hilb we will show that it is an algebraic
+stack under suitable hypotheses, see
+Quot, Section \ref{quot-section-picard-stack}.
+
+\medskip\noindent
+Let $S$ be a scheme.
+Let $\pi : X \to B$ be a morphism of algebraic spaces over $S$.
+We define a category $\Picardstack_{X/B}$ as follows:
+\begin{enumerate}
+\item An object is a triple $(U, b, \mathcal{L})$, where
+\begin{enumerate}
+\item $U$ is an object of $(\Sch/S)_{fppf}$,
+\item $b : U \to B$ is a morphism over $S$, and
+\item $\mathcal{L}$ is in invertible sheaf on the base change
+$X_U = U \times_{b, B} X$.
+\end{enumerate}
+\item A morphism $(f, g) : (U, b, \mathcal{L}) \to (U', b', \mathcal{L}')$
+is given by a morphism of schemes $f : U \to U'$ over $B$ and an
+isomorphism $g : f^*\mathcal{L}' \to \mathcal{L}$.
+\end{enumerate}
+The composition of
+$(f, g) : (U, b, \mathcal{L}) \to (U', b', \mathcal{L}')$
+with
+$(f', g') : (U', b', \mathcal{L}') \to (U'', b'', \mathcal{L}'')$
+is given by $(f \circ f', g \circ f^*(g'))$.
+Thus we get a category $\Picardstack_{X/B}$ and
+$$
+p : \Picardstack_{X/B} \longrightarrow (\Sch/S)_{fppf},
+\quad
+(U, b, \mathcal{L}) \longmapsto U
+$$
+is a functor. Note that the fibre category of $\Picardstack_{X/B}$ over $U$
+is the disjoint union over $b \in \Mor_S(U, B)$ of the categories
+of invertible sheaves on $X_U = U \times_{b, B} X$. Hence the fibre
+categories are groupoids.
+
+\begin{lemma}
+\label{lemma-picard-stack}
+Up to a replacement as in
+Stacks, Remark \ref{stacks-remark-stack-make-small}
+the functor
+$$
+\Picardstack_{X/B} \longrightarrow (\Sch/S)_{fppf}
+$$
+defines a stack in groupoids over $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+As usual, the hardest part is to show descent for objects.
+To see this let $\{U_i \to U\}$ be a covering of $(\Sch/S)_{fppf}$.
+Let $\xi_i = (U_i, b_i, \mathcal{L}_i)$ be an object of
+$\Picardstack_{X/B}$ lying over $U_i$, and let
+$\varphi_{ij} : \text{pr}_0^*\xi_i \to \text{pr}_1^*\xi_j$
+be a descent datum. This implies in particular that the morphisms
+$b_i$ are the restrictions of a morphism $b : U \to B$.
+Write $X_U = U \times_{b, B} X$ and
+$X_i = U_i \times_{b_i, B} X =
+U_i \times_U U \times_{b, B} X = U_i \times_U X_U$.
+Observe that $\mathcal{L}_i$ is an invertible $\mathcal{O}_{X_i}$-module.
+Note that $\{X_i \to X_U\}$ forms an fppf covering as well.
+Moreover, the descent datum $\varphi_{ij}$ translates into a
+descent datum on the invertible sheaves $\mathcal{L}_i$ relative
+to the fppf covering $\{X_i \to X_U\}$.
+Hence by
+Descent on Spaces,
+Proposition \ref{spaces-descent-proposition-fpqc-descent-quasi-coherent}
+we obtain a unique invertible sheaf $\mathcal{L}$ on $X_U$
+which recovers $\mathcal{L}_i$ and the descent data over $X_i$.
+The triple $(U, b, \mathcal{L})$ is therefore the object of
+$\Picardstack_{X/B}$ over $U$ we were looking for.
+Details omitted.
+\end{proof}
+
+
+
+
+
+\section{Examples of inertia stacks}
+\label{section-examples-inertia}
+
+\noindent
+Here are some examples of inertia stacks.
+
+\begin{example}
+\label{example-inertia-stack-of-X-mod-G}
+Let $S$ be a scheme. Let $G$ be a commutative group.
+Let $X \to S$ be a scheme over $S$.
+Let $a : G \times X \to X$ be an action of $G$ on $X$.
+For $g \in G$ we denote $g : X \to X$ the corresponding automorphism.
+In this case the inertia stack of $[X/G]$ (see
+Remark \ref{remark-X-mod-G-group})
+is given by
+$$
+I_{[X/G]} = \coprod\nolimits_{g\in G} [X^g/G],
+$$
+where, given an element $g$ of $G$, the symbol $X^g$ denotes the
+scheme $X^g = \{x \in X \mid g(x) = x\}$. In a formula
+$X^g$ is really the fibre
+product
+$$
+X^g =  X \times_{(1, 1), X \times_S X, (g, 1)} X.
+$$
+Indeed, for any $S$-scheme $T$, a
+$T$-point on the inertia stack of $[X/G]$ consists of a
+triple $(P/T, \phi, \alpha)$ consisting of an fppf $G$-torsor
+$P\to T$ together with a $G$-equivariant isomorphism
+$\phi : P \to X$, together
+with an automorphism $\alpha$ of $P\to T$ over $T$ such that
+$\phi \circ \alpha = \phi$.
+Since $G$ is a sheaf of \emph{commutative} groups,
+$\alpha$ is, locally in the fppf topology over $T$,
+given by multiplication by some element $g$ of $G$.
+The condition that $\phi \circ \alpha = \phi$ means that $\phi$
+factors through the inclusion of $X^g$
+in $X$, i.e., $\phi$ is obtained by composing that inclusion with a
+morphism $P \to X^\gamma$.
+The above discussion allows us to define a morphism of fibred categories
+$I_{[X/G]} \to \coprod_{g\in G} [X^g/G]$ given on $T$-points by the discussion
+above. We omit showing that this is an equivalence.
+\end{example}
+
+\begin{example}
+\label{example-inertia-stack-of-picard}
+Let $X\to S$ be a morphism of schemes.
+Assume that for any $T \to S$ the base change $f_T : X_T \to T$
+has the property that the map $\mathcal{O}_T \to f_{T, *}\mathcal{O}_{X_T}$
+is an isomorphism. (This implies that $f$ is
+{\it cohomologically flat in dimension $0$} (insert future reference here)
+but is stronger.) Consider the Picard stack $\Picardstack_{X/S}$, see
+Section \ref{section-picard-stack}.
+The points of its inertia stack over an
+$S$-scheme $T$ consist of pairs $(\mathcal{L}, \alpha)$
+where $\mathcal{L}$ is a line bundle
+on $X_T$ and $\alpha$ is an automorphism of that line bundle.
+I.e., we can think of $\alpha$ as an element of
+$H^0(X_T, \mathcal{O}_{X_T})^\times = H^0(T, \mathcal{O}_T^*)$
+by our condition. Note that $H^0(T, \mathcal{O}_T^*) = \mathbf{G}_{m, S}(T)$,
+see Groupoids, Example \ref{groupoids-example-multiplicative-group}.
+Hence the inertia stack of $\Picardstack_{X/S}$ is
+$$
+I_{\Picardstack_{X/S}} = \mathbf{G}_{m, S} \times_S \Picardstack_{X/S}.
+$$
+as a stack over $(\Sch/S)_{fppf}$.
+\end{example}
+
+
+
+
+
+
+\section{Finite Hilbert stacks}
+\label{section-hilbert-d-stack}
+
+\noindent
+We formulate this in somewhat greater generality than is perhaps strictly
+needed. Fix a $1$-morphism
+$$
+F : \mathcal{X} \longrightarrow \mathcal{Y}
+$$
+of stacks in groupoids over $(\Sch/S)_{fppf}$. For each integer
+$d \geq 1$ consider a category $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$
+defined as follows:
+\begin{enumerate}
+\item An object $(U, Z, y, x, \alpha)$ where $U, Z$ are objects of
+in $(\Sch/S)_{fppf}$ and $Z$ is a finite locally free of degree
+$d$ over $U$, where
+$y \in \Ob(\mathcal{Y}_U)$, $x \in \Ob(\mathcal{X}_Z)$
+and $\alpha : y|_Z \to F(x)$ is an isomorphism\footnote{
+This means the data gives rise, via the $2$-Yoneda lemma
+(Categories, Lemma \ref{categories-lemma-yoneda-2category}), to a
+$2$-commutative diagram
+$$
+\xymatrix{
+(\Sch/Z)_{fppf} \ar[r]_-x \ar[d] & \mathcal{X} \ar[d]^F \\
+(\Sch/U)_{fppf} \ar[r]^-y & \mathcal{Y}
+}
+$$
+of stacks in groupoids over $(\Sch/S)_{fppf}$.
+Alternatively, we may picture $\alpha$ as a $2$-morphism
+$$
+\xymatrix{
+(\Sch/Z)_{fppf}
+\rrtwocell^{y \circ (Z \to U)}_{F \circ x}{\alpha} & &
+\mathcal{Y}.
+}
+$$
+}.
+\item A morphism $(U, Z, y, x, \alpha) \to (U', Z', y', x', \alpha')$ is
+given by a morphism of schemes $f : U \to U'$, a morphism of schemes
+$g : Z \to Z'$ which induces an isomorphism $Z \to Z' \times_U U'$,
+and isomorphisms $b : y \to f^*y'$, $a : x \to g^*x'$ inducing a commutative
+diagram
+$$
+\xymatrix{
+y|_Z \ar[rr]_\alpha \ar[d]_{b|_Z} & &
+F(x) \ar[d]^{F(a)} \\
+f^*y'|_Z \ar[rr]^{\alpha'} & &
+F(g^*x') \\
+}
+$$
+\end{enumerate}
+It is clear from the definitions that there is a canonical
+forgetful functor
+$$
+p :
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\longrightarrow
+(\Sch/S)_{fppf}
+$$
+which assigns to the quintuple $(U, Z, y, x, \alpha)$ the scheme $U$
+and to the morphism
+$(f, g, b, a) : (U, Z, y, x, \alpha) \to (U', Z', y', x', \alpha')$
+the morphism $f : U \to U'$.
+
+\begin{lemma}
+\label{lemma-hilbert-d-stack}
+The category $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ endowed with
+the functor $p$ above defines a stack in groupoids over
+$(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+As usual, the hardest part is to show descent for objects.
+To see this let $\{U_i \to U\}$ be a covering of $(\Sch/S)_{fppf}$.
+Let $\xi_i = (U_i, Z_i, y_i, x_i, \alpha_i)$ be an object of
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ lying over $U_i$, and let
+$\varphi_{ij} : \text{pr}_0^*\xi_i \to \text{pr}_1^*\xi_j$
+be a descent datum. First, observe that $\varphi_{ij}$
+induces a descent datum $(Z_i/U_i, \varphi_{ij})$ which is effective by
+Descent, Lemma \ref{descent-lemma-affine}
+This produces a scheme $Z/U$ which is finite locally free of degree $d$ by
+Descent, Lemma \ref{descent-lemma-descending-property-finite-locally-free}.
+From now on we identify $Z_i$ with $Z \times_U U_i$.
+Next, the objects $y_i$ in the fibre categories $\mathcal{Y}_{U_i}$
+descend to an object $y$ in $\mathcal{Y}_U$ because $\mathcal{Y}$ is a
+stack in groupoids. Similarly the objects $x_i$ in the fibre categories
+$\mathcal{X}_{Z_i}$ descend to an object $x$ in $\mathcal{X}_Z$ because
+$\mathcal{X}$ is a stack in groupoids. Finally, the given
+isomorphisms
+$$
+\alpha_i :
+(y|_Z)_{Z_i} = y_i|_{Z_i}
+\longrightarrow
+F(x_i) = F(x|_{Z_i})
+$$
+glue to a morphism $\alpha : y|_Z \to F(x)$ as the $\mathcal{Y}$
+is a stack and hence $\mathit{Isom}_\mathcal{Y}(y|_Z, F(x))$ is
+a sheaf. Details omitted.
+\end{proof}
+
+\begin{definition}
+\label{definition-hilbert-d-stack}
+We will denote $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$
+the {\it degree $d$ finite Hilbert stack of $\mathcal{X}$ over $\mathcal{Y}$}
+constructed above. If $\mathcal{Y} = S$ we write
+$\mathcal{H}_d(\mathcal{X}) = \mathcal{H}_d(\mathcal{X}/\mathcal{Y})$.
+If $\mathcal{X} = \mathcal{Y} = S$ we denote it $\mathcal{H}_d$.
+\end{definition}
+
+\noindent
+Note that given $F : \mathcal{X} \to \mathcal{Y}$ as above we have the
+following natural $1$-morphisms of stacks in groupoids over
+$(\Sch/S)_{fppf}$:
+\begin{equation}
+\label{equation-diagram-hilbert-d-stack}
+\vcenter{
+\xymatrix{
+\mathcal{H}_d(\mathcal{X}) \ar[rd] &
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \ar[d] \ar[l] \ar[r] &
+\mathcal{Y} \\
+& \mathcal{H}_d
+}
+}
+\end{equation}
+Each of the arrows is given by a "forgetful functor".
+
+\begin{lemma}
+\label{lemma-faithful-hilbert}
+The $1$-morphism
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \to \mathcal{H}_d(\mathcal{X})$
+is faithful.
+\end{lemma}
+
+\begin{proof}
+To check that
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \to \mathcal{H}_d(\mathcal{X})$
+is faithful it suffices to prove that it is faithful on fibre categories.
+Suppose that $\xi = (U, Z, y, x, \alpha)$ and $\xi' = (U, Z', y', x', \alpha')$
+are two objects of $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ over the
+scheme $U$. Let $(g, b, a), (g', b', a') : \xi \to \xi'$ be two morphisms
+in the fibre category of $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ over $U$.
+The image of these morphisms in $\mathcal{H}_d(\mathcal{X})$ agree
+if and only if $g = g'$ and $a = a'$. Then the commutative diagram
+$$
+\xymatrix{
+y|_Z \ar[rr]_\alpha \ar[d]_{b|_Z, \ b'|_Z} & &
+F(x) \ar[d]^{F(a) = F(a')} \\
+y'|_Z \ar[rr]^-{\alpha'} & &
+F(g^*x') = F((g')^*x') \\
+}
+$$
+implies that $b|_Z = b'|_Z$. Since $Z \to U$ is finite locally free of degree
+$d$ we see $\{Z \to U\}$ is an fppf covering, hence $b = b'$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

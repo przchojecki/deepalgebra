@@ -1,0 +1,3396 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Criteria for Representability}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+The purpose of this chapter is to find criteria guaranteeing that a
+stack in groupoids over the category of schemes with the fppf topology
+is an algebraic stack. Historically, this often involved proving that
+certain functors were representable, see Grothendieck's lectures
+\cite{Gr-I},
+\cite{Gr-II},
+\cite{Gr-III},
+\cite{Gr-IV},
+\cite{Gr-V}, and
+\cite{Gr-VI}.
+This explains the title of this chapter. Another important source
+of this material comes from the work of Artin, see
+\cite{ArtinI},
+\cite{ArtinII},
+\cite{Artin-Theorem-Representability},
+\cite{Artin-Construction-Techniques},
+\cite{Artin-Algebraic-Spaces},
+\cite{Artin-Algebraic-Approximation},
+\cite{Artin-Implicit-Function}, and
+\cite{ArtinVersal}.
+
+\medskip\noindent
+Some of the notation, conventions and terminology in this chapter is awkward
+and may seem backwards to the more experienced reader. This is intentional.
+Please see Quot, Section \ref{quot-section-conventions} for an
+explanation.
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+The conventions we use in this chapter are the same as those in the
+chapter on algebraic stacks, see
+Algebraic Stacks, Section \ref{algebraic-section-conventions}.
+
+
+
+
+\section{What we already know}
+\label{section-done-so-far}
+
+\noindent
+The analogue of this chapter for algebraic spaces is the chapter entitled
+``Bootstrap'', see
+Bootstrap, Section \ref{bootstrap-section-introduction}.
+That chapter already contains some representability results.
+Moreover, some of the preliminary material treated there we already
+have worked out in the chapter on algebraic stacks.
+Here is a list:
+\begin{enumerate}
+\item We discuss morphisms of presheaves representable by algebraic spaces in
+Bootstrap, Section
+\ref{bootstrap-section-morphism-representable-by-spaces}.
+In
+Algebraic Stacks, Section
+\ref{algebraic-section-morphisms-representable-by-algebraic-spaces}
+we discuss the notion of a $1$-morphism of categories fibred in groupoids
+being representable by algebraic spaces.
+\item We discuss properties of morphisms of presheaves representable by
+algebraic spaces in
+Bootstrap, Section
+\ref{bootstrap-section-representable-by-spaces-properties}.
+In
+Algebraic Stacks, Section
+\ref{algebraic-section-representable-properties}
+we discuss properties of $1$-morphisms of categories fibred in groupoids
+representable by algebraic spaces.
+\item We proved that if $F$ is a sheaf whose diagonal is representable
+by algebraic spaces and which has an \'etale covering by an algebraic
+space, then $F$ is an algebraic space, see
+Bootstrap, Theorem \ref{bootstrap-theorem-bootstrap}.
+(This is a weak version of the result in the next item on the list.)
+\item
+\label{item-bootstrap-final}
+We proved that if $F$ is a sheaf and if there exists an algebraic
+space $U$ and a morphism $U \to F$ which is representable by algebraic
+spaces, surjective, flat, and locally of finite presentation, then
+$F$ is an algebraic space, see
+Bootstrap, Theorem \ref{bootstrap-theorem-final-bootstrap}.
+\item We have also proved the ``smooth'' analogue of
+(\ref{item-bootstrap-final}) for algebraic
+stacks: If $\mathcal{X}$ is a stack in groupoids over
+$(\Sch/S)_{fppf}$ and if there exists a stack in groupoids
+$\mathcal{U}$ over $(\Sch/S)_{fppf}$ which is representable
+by an algebraic space and a $1$-morphism $u : \mathcal{U} \to \mathcal{X}$
+which is representable by algebraic spaces, surjective, and smooth
+then $\mathcal{X}$ is an algebraic stack, see
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-smooth-surjective-morphism-implies-algebraic}.
+\end{enumerate}
+Our first task now is to prove the analogue of
+(\ref{item-bootstrap-final}) for algebraic
+stacks in general; it is
+Theorem \ref{theorem-bootstrap}.
+
+
+
+\section{Morphisms of stacks in groupoids}
+\label{section-1-morphisms}
+
+\noindent
+This section is preliminary and should be skipped on a first reading.
+
+\begin{lemma}
+\label{lemma-etale-permanence}
+Let $\mathcal{X} \to \mathcal{Y} \to \mathcal{Z}$
+be $1$-morphisms of categories fibred in groupoids over
+$(\Sch/S)_{fppf}$.
+If $\mathcal{X} \to \mathcal{Z}$ and $\mathcal{Y} \to \mathcal{Z}$ are
+representable by algebraic spaces and \'etale so is
+$\mathcal{X} \to \mathcal{Y}$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{U}$ be a representable category fibred in groupoids over $S$.
+Let $f : \mathcal{U} \to \mathcal{Y}$ be a $1$-morphism. We have to show that
+$\mathcal{X} \times_\mathcal{Y} \mathcal{U}$ is representable by an
+algebraic space and \'etale over $\mathcal{U}$.
+Consider the composition $h : \mathcal{U} \to \mathcal{Z}$. Then
+$$
+\mathcal{X} \times_\mathcal{Z} \mathcal{U}
+\longrightarrow
+\mathcal{Y} \times_\mathcal{Z} \mathcal{U}
+$$
+is a $1$-morphism between categories fibres in groupoids which are both
+representable by algebraic spaces and both \'etale over $\mathcal{U}$.
+Hence by
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-etale-permanence}
+this is represented by an \'etale morphism of algebraic spaces.
+Finally, we obtain the result we want as the morphism $f$ induces
+a morphism $\mathcal{U} \to \mathcal{Y} \times_\mathcal{Z} \mathcal{U}$
+and we have
+$$
+\mathcal{X} \times_\mathcal{Y} \mathcal{U} =
+(\mathcal{X} \times_\mathcal{Z} \mathcal{U})
+\times_{(\mathcal{Y} \times_\mathcal{Z} \mathcal{U})}
+\mathcal{U}.
+$$
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stack-in-setoids-descent}
+Let $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$ be stacks in groupoids
+over $(\Sch/S)_{fppf}$. Suppose that $\mathcal{X} \to \mathcal{Y}$
+and $\mathcal{Z} \to \mathcal{Y}$ are $1$-morphisms.
+If
+\begin{enumerate}
+\item $\mathcal{Y}$, $\mathcal{Z}$ are representable by algebraic spaces
+$Y$, $Z$ over $S$,
+\item the associated morphism of algebraic spaces $Y \to Z$ is surjective,
+flat and locally of finite presentation, and
+\item $\mathcal{Y} \times_\mathcal{Z} \mathcal{X}$ is a stack in
+setoids,
+\end{enumerate}
+then $\mathcal{X}$ is a stack in setoids.
+\end{lemma}
+
+\begin{proof}
+This is a special case of
+Stacks, Lemma \ref{stacks-lemma-stack-in-setoids-descent}.
+\end{proof}
+
+\noindent
+The following lemma is the analogue of
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-smooth-surjective-morphism-implies-algebraic}
+and will be superseded by the stronger
+Theorem \ref{theorem-bootstrap}.
+
+\begin{lemma}
+\label{lemma-flat-finite-presentation-surjective-diagonal}
+Let $S$ be a scheme.
+Let $u : \mathcal{U} \to \mathcal{X}$ be a $1$-morphism of
+stacks in groupoids over $(\Sch/S)_{fppf}$. If
+\begin{enumerate}
+\item $\mathcal{U}$ is representable by an algebraic space, and
+\item $u$ is representable by algebraic spaces, surjective, flat and
+locally of finite presentation,
+\end{enumerate}
+then
+$\Delta : \mathcal{X} \to \mathcal{X} \times \mathcal{X}$
+representable by algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+Given two schemes $T_1$, $T_2$ over $S$ denote
+$\mathcal{T}_i = (\Sch/T_i)_{fppf}$ the associated representable
+fibre categories. Suppose given $1$-morphisms
+$f_i : \mathcal{T}_i \to \mathcal{X}$.
+According to
+Algebraic Stacks, Lemma \ref{algebraic-lemma-representable-diagonal}
+it suffices to prove that the $2$-fibered
+product $\mathcal{T}_1 \times_\mathcal{X} \mathcal{T}_2$
+is representable by an algebraic space. By
+Stacks, Lemma
+\ref{stacks-lemma-2-fibre-product-stacks-in-setoids-over-stack-in-groupoids}
+this is in any case a stack in setoids. Thus
+$\mathcal{T}_1 \times_\mathcal{X} \mathcal{T}_2$ corresponds
+to some sheaf $F$ on $(\Sch/S)_{fppf}$, see
+Stacks, Lemma \ref{stacks-lemma-stack-in-setoids-characterize}.
+Let $U$ be the algebraic space which represents $\mathcal{U}$.
+By assumption
+$$
+\mathcal{T}_i' = \mathcal{U} \times_{u, \mathcal{X}, f_i} \mathcal{T}_i
+$$
+is representable by an algebraic space $T'_i$ over $S$. Hence
+$\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2'$ is representable
+by the algebraic space $T'_1 \times_U T'_2$.
+Consider the commutative diagram
+$$
+\xymatrix{
+&
+\mathcal{T}_1 \times_{\mathcal X} \mathcal{T}_2 \ar[rr]\ar'[d][dd] & &
+\mathcal{T}_1 \ar[dd] \\
+\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2' \ar[ur]\ar[rr]\ar[dd] & &
+\mathcal{T}_1' \ar[ur]\ar[dd] \\
+&
+\mathcal{T}_2 \ar'[r][rr] & &
+\mathcal X \\
+\mathcal{T}_2' \ar[rr]\ar[ur] & &
+\mathcal{U} \ar[ur] }
+$$
+In this diagram the bottom square, the right square, the back square, and
+the front square are $2$-fibre products. A formal argument then shows
+that $\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2' \to
+\mathcal{T}_1 \times_{\mathcal X} \mathcal{T}_2$
+is the ``base change'' of $\mathcal{U} \to \mathcal{X}$, more precisely
+the diagram
+$$
+\xymatrix{
+\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2' \ar[d] \ar[r] &
+\mathcal{U} \ar[d] \\
+\mathcal{T}_1 \times_{\mathcal X} \mathcal{T}_2 \ar[r] &
+\mathcal{X}
+}
+$$
+is a $2$-fibre square.
+Hence $T'_1 \times_U T'_2 \to F$ is representable by algebraic spaces,
+flat, locally of finite presentation and surjective, see
+Algebraic Stacks, Lemmas
+\ref{algebraic-lemma-map-fibred-setoids-representable-algebraic-spaces},
+\ref{algebraic-lemma-base-change-representable-by-spaces},
+\ref{algebraic-lemma-map-fibred-setoids-property}, and
+\ref{algebraic-lemma-base-change-representable-transformations-property}.
+Therefore $F$ is an algebraic space by
+Bootstrap, Theorem \ref{bootstrap-theorem-final-bootstrap}
+and we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-second-diagonal}
+Let $\mathcal{X}$ be a category fibred in groupoids over $(\Sch/S)_{fppf}$.
+The following are equivalent
+\begin{enumerate}
+\item $\Delta_\Delta : \mathcal{X} \to
+\mathcal{X} \times_{\mathcal{X} \times \mathcal{X}} \mathcal{X}$
+is representable by algebraic spaces,
+\item for every $1$-morphism $\mathcal{V} \to \mathcal{X} \times \mathcal{X}$
+with $\mathcal{V}$ representable (by a scheme) and the fibre product
+$\mathcal{Y} =
+\mathcal{X} \times_{\Delta, \mathcal{X} \times \mathcal{X}} \mathcal{V}$
+has diagonal representable by algebraic spaces.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Although this is a bit of a brain twister, it is completely formal.
+Namely, recall that
+$\mathcal{X} \times_{\mathcal{X} \times \mathcal{X}} \mathcal{X} =
+\mathcal{I}_\mathcal{X}$ is the inertia of $\mathcal{X}$ and that
+$\Delta_\Delta$ is the identity section of $\mathcal{I}_\mathcal{X}$, see
+Categories, Section \ref{categories-section-inertia}.
+Thus condition (1) says the following: Given a scheme $V$, an object $x$ of
+$\mathcal{X}$ over $V$, and a morphism $\alpha : x \to x$ of $\mathcal{X}_V$
+the condition ``$\alpha = \text{id}_x$'' defines an algebraic space over $V$.
+(In other words, there exists a monomorphism of algebraic spaces $W \to V$
+such that a morphism of schemes $f : T \to V$ factors through $W$
+if and only if $f^*\alpha = \text{id}_{f^*x}$.)
+
+\medskip\noindent
+On the other hand, let $V$ be a scheme and let $x, y$ be objects of
+$\mathcal{X}$ over $V$. Then $(x, y)$ define a morphism
+$\mathcal{V} = (\Sch/V)_{fppf} \to \mathcal{X} \times \mathcal{X}$.
+Next, let $h : V' \to V$ be a morphism of schemes and let
+$\alpha : h^*x \to h^*y$ and $\beta : h^*x \to h^*y$ be morphisms
+of $\mathcal{X}_{V'}$. Then $(\alpha, \beta)$ define a morphism
+$\mathcal{V}' = (\Sch/V)_{fppf} \to \mathcal{Y} \times \mathcal{Y}$.
+Condition (2) now says that (with any choices as above) the
+condition ``$\alpha = \beta$'' defines an algebraic space over $V$.
+
+\medskip\noindent
+To see the equivalence, given $(\alpha, \beta)$ as in (2) we see that
+(1) implies that ``$\alpha^{-1} \circ \beta = \text{id}_{h^*x}$''
+defines an algebraic space. The implication (2) $\Rightarrow$ (1)
+follows by taking $h = \text{id}_V$ and $\beta = \text{id}_x$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Limit preserving on objects}
+\label{section-limit-preserving}
+
+\noindent
+Let $S$ be a scheme. Let $p : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism
+of categories fibred in groupoids over $(\Sch/S)_{fppf}$. We will say that
+$p$ is {\it limit preserving on objects} if the following condition holds:
+Given any data consisting of
+\begin{enumerate}
+\item an affine scheme $U = \lim_{i \in I} U_i$ which is written as the
+directed limit of affine schemes $U_i$ over $S$,
+\item an object $y_i$ of $\mathcal{Y}$ over $U_i$ for some $i$,
+\item an object $x$ of $\mathcal{X}$ over $U$, and
+\item an isomorphism $\gamma : p(x) \to y_i|_U$,
+\end{enumerate}
+then there exists an $i' \geq i$, an object $x_{i'}$ of
+$\mathcal{X}$ over $U_{i'}$, an isomorphism
+$\beta : x_{i'}|_U \to x$, and an isomorphism
+$\gamma_{i'} : p(x_{i'}) \to y_i|_{U_{i'}}$
+such that
+\begin{equation}
+\label{equation-limit-preserving}
+\vcenter{
+\xymatrix{
+p(x_{i'}|_U) \ar[d]_{p(\beta)} \ar[rr]_{\gamma_{i'}|_U} & &
+(y_i|_{U_{i'}})|_U \ar@{=}[d] \\
+p(x) \ar[rr]^\gamma & & y_i|_U
+}
+}
+\end{equation}
+commutes. In this situation we say that ``$(i', x_{i'}, \beta, \gamma_{i'})$
+is a {\it solution} to the problem posed by our data (1), (2), (3), (4)''.
+The motivation for this definition comes from
+Limits of Spaces,
+Lemma \ref{spaces-limits-lemma-characterize-relative-limit-preserving}.
+
+\begin{lemma}
+\label{lemma-base-change-limit-preserving}
+Let $p : \mathcal{X} \to \mathcal{Y}$ and $q : \mathcal{Z} \to \mathcal{Y}$
+be $1$-morphisms of categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+If $p : \mathcal{X} \to \mathcal{Y}$ is limit preserving on objects, then so
+is the base change
+$p' : \mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to \mathcal{Z}$
+of $p$ by $q$.
+\end{lemma}
+
+\begin{proof}
+This is formal. Let $U = \lim_{i \in I} U_i$ be the directed limit
+of affine schemes $U_i$ over $S$, let $z_i$ be an object of $\mathcal{Z}$
+over $U_i$ for some $i$, let $w$ be an object of
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$ over $U$, and let
+$\delta : p'(w) \to z_i|_U$ be an isomorphism.
+We may write
+$w = (U, x, z, \alpha)$ for some object $x$ of $\mathcal{X}$ over $U$
+and object $z$ of $\mathcal{Z}$ over $U$ and isomorphism
+$\alpha : p(x) \to q(z)$. Note that $p'(w) = z$ hence
+$\delta : z \to z_i|_U$. Set $y_i = q(z_i)$ and
+$\gamma = q(\delta) \circ \alpha : p(x) \to y_i|_U$.
+As $p$ is limit preserving on objects there exists an $i' \geq i$
+and an object $x_{i'}$ of $\mathcal{X}$ over $U_{i'}$ as well as
+isomorphisms $\beta : x_{i'}|_U \to x$ and
+$\gamma_{i'} : p(x_{i'}) \to y_i|_{U_{i'}}$ such that
+(\ref{equation-limit-preserving}) commutes. Then we consider the object
+$w_{i'} = (U_{i'}, x_{i'}, z_i|_{U_{i'}}, \gamma_{i'})$ of
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$ over $U_{i'}$
+and define isomorphisms
+$$
+w_{i'}|_U = (U, x_{i'}|_U, z_i|_U, \gamma_{i'}|_U)
+\xrightarrow{(\beta, \delta^{-1})}
+(U, x, z, \alpha) = w
+$$
+and
+$$
+p'(w_{i'}) = z_i|_{U_{i'}} \xrightarrow{\text{id}} z_i|_{U_{i'}}.
+$$
+These combine to give a solution to the problem.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-limit-preserving}
+Let $p : \mathcal{X} \to \mathcal{Y}$ and $q : \mathcal{Y} \to \mathcal{Z}$
+be $1$-morphisms of categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+If $p$ and $q$ are limit preserving on objects, then so is the composition
+$q \circ p$.
+\end{lemma}
+
+\begin{proof}
+This is formal. Let $U = \lim_{i \in I} U_i$ be the directed limit
+of affine schemes $U_i$ over $S$, let $z_i$ be an object of $\mathcal{Z}$
+over $U_i$ for some $i$, let $x$ be an object of $\mathcal{X}$ over $U$,
+and let $\gamma : q(p(x)) \to z_i|_U$ be an isomorphism. As $q$ is
+limit preserving on objects there exist an $i' \geq i$, an object
+$y_{i'}$ of $\mathcal{Y}$ over $U_{i'}$, an isomorphism
+$\beta : y_{i'}|_U \to p(x)$, and an isomorphism
+$\gamma_{i'} : q(y_{i'}) \to z_i|_{U_{i'}}$
+such that (\ref{equation-limit-preserving}) is commutative. As $p$ is
+limit preserving on objects there exist an $i'' \geq i'$, an object
+$x_{i''}$ of $\mathcal{X}$ over $U_{i''}$, an isomorphism
+$\beta' : x_{i''}|_U \to x$, and an isomorphism
+$\gamma'_{i''} : p(x_{i''}) \to y_{i'}|_{U_{i''}}$
+such that (\ref{equation-limit-preserving}) is commutative.
+The solution is to take $x_{i''}$ over $U_{i''}$ with isomorphism
+$$
+q(p(x_{i''})) \xrightarrow{q(\gamma'_{i''})}
+q(y_{i'})|_{U_{i''}} \xrightarrow{\gamma_{i'}|_{U_{i''}}}
+z_i|_{U_{i''}}
+$$
+and isomorphism $\beta' : x_{i''}|_U \to x$. We omit the verification
+that (\ref{equation-limit-preserving}) is commutative.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-limit-preserving}
+Let $p : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. If $p$ is
+representable by algebraic spaces, then the following are equivalent:
+\begin{enumerate}
+\item $p$ is limit preserving on objects, and
+\item $p$ is locally of finite presentation (see
+Algebraic Stacks,
+Definition \ref{algebraic-definition-relative-representable-property}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (2). Let $U = \lim_{i \in I} U_i$ be the directed limit
+of affine schemes $U_i$ over $S$, let $y_i$ be an object of $\mathcal{Y}$
+over $U_i$ for some $i$, let $x$ be an object of $\mathcal{X}$ over $U$,
+and let $\gamma : p(x) \to y_i|_U$ be an isomorphism. Let
+$X_{y_i}$ denote an algebraic space over $U_i$ representing the $2$-fibre
+product
+$$
+(\Sch/U_i)_{fppf} \times_{y_i, \mathcal{Y}, p} \mathcal{X}.
+$$
+Note that $\xi = (U, U \to U_i, x, \gamma^{-1})$ defines an object of
+this $2$-fibre product over $U$. Via the $2$-Yoneda lemma $\xi$ corresponds
+to a morphism $f_\xi : U \to X_{y_i}$ over $U_i$. By
+Limits of Spaces, Proposition
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation}
+there exists an $i' \geq i$ and a morphism $f_{i'} : U_{i'} \to X_{y_i}$
+such that $f_\xi$ is the composition of $f_{i'}$ and the projection
+morphism $U \to U_{i'}$. Also, the $2$-Yoneda lemma tells us that
+$f_{i'}$ corresponds to an object
+$\xi_{i'} = (U_{i'}, U_{i'} \to U_i, x_{i'}, \alpha)$ of
+the displayed $2$-fibre product over $U_{i'}$ whose restriction to
+$U$ recovers $\xi$. In particular we obtain an isomorphism
+$\gamma : x_{i'}|U \to x$. Note that $\alpha : y_i|_{U_{i'}} \to p(x_{i'})$.
+Hence we see that taking $x_{i'}$, the isomorphism
+$\gamma : x_{i'}|U \to x$, and the isomorphism
+$\beta = \alpha^{-1} : p(x_{i'}) \to y_i|_{U_{i'}}$
+is a solution to the problem.
+
+\medskip\noindent
+Assume (1). Choose a scheme $T$ and a $1$-morphism
+$y : (\Sch/T)_{fppf} \to \mathcal{Y}$. Let
+$X_y$ be an algebraic space over $T$ representing the $2$-fibre product
+$(\Sch/T)_{fppf} \times_{y, \mathcal{Y}, p} \mathcal{X}$.
+We have to show that $X_y \to T$ is locally of finite presentation.
+To do this we will use the criterion in
+Limits of Spaces, Remark \ref{spaces-limits-remark-limit-preserving}.
+Consider an affine scheme $U = \lim_{i \in I} U_i$ written as the
+directed limit of affine schemes over $T$.
+Pick any $i \in I$ and set $y_i = y|_{U_i}$. Also denote $i'$ an element
+of $I$ which is bigger than or equal to $i$. By the $2$-Yoneda lemma
+morphisms $U \to X_y$ over $T$ correspond bijectively
+to isomorphism classes of pairs $(x, \alpha)$ where $x$ is an object
+of $\mathcal{X}$ over $U$ and $\alpha : y|_U \to p(x)$ is an isomorphism.
+Of course giving $\alpha$ is, up to an inverse, the same thing as giving
+an isomorphism $\gamma : p(x) \to y_i|_U$.
+Similarly for morphisms $U_{i'} \to X_y$ over $T$. Hence (1) guarantees
+that the canonical map
+$$
+\colim_{i' \geq i} X_y(U_{i'}) \longrightarrow X_y(U)
+$$
+is surjective in this situation. It follows from
+Limits of Spaces, Lemma \ref{spaces-limits-lemma-surjection-is-enough}
+that $X_y \to T$ is locally of finite presentation.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-immersion-limit-preserving}
+Let $p : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. Assume $p$ is representable
+by algebraic spaces and an open immersion. Then $p$ is limit preserving
+on objects.
+\end{lemma}
+
+\begin{proof}
+This follows from
+Lemma \ref{lemma-representable-by-spaces-limit-preserving}
+and (via the general principle
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-representable-transformations-property-implication})
+from the fact that an open immersion of algebraic spaces is
+locally of finite presentation, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-open-immersion-locally-finite-presentation}.
+\end{proof}
+
+\noindent
+Let $S$ be a scheme. In the following lemma we need the notion of the
+{\it size} of an algebraic space $X$ over $S$. Namely, given a cardinal
+$\kappa$ we will say $X$ has $\text{size}(X) \leq \kappa$ if and only
+if there exists a scheme $U$ with $\text{size}(U) \leq \kappa$ (see
+Sets, Section \ref{sets-section-categories-schemes}) and a surjective
+\'etale morphism $U \to X$.
+
+\begin{lemma}
+\label{lemma-check-representable-limit-preserving}
+Let $S$ be a scheme.
+Let $\kappa = \text{size}(T)$ for some $T \in \Ob((\Sch/S)_{fppf})$.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism
+of categories fibred in groupoids over $(\Sch/S)_{fppf}$
+such that
+\begin{enumerate}
+\item $\mathcal{Y} \to (\Sch/S)_{fppf}$ is limit preserving on objects,
+\item for an affine scheme $V$ locally of finite presentation over $S$ and
+$y \in \Ob(\mathcal{Y}_V)$ the fibre product
+$(\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$ is representable
+by an algebraic space of size $\leq \kappa$\footnote{The condition on
+size can be dropped by those ignoring set theoretic issues.},
+\item $\mathcal{X}$ and $\mathcal{Y}$ are stacks for the Zariski topology.
+\end{enumerate}
+Then $f$ is representable by algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+Let $V$ be a scheme over $S$ and $y \in \mathcal{Y}_V$. We have to prove
+$(\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$ is representable
+by an algebraic space.
+
+\medskip\noindent
+Case I: $V$ is affine and maps into an affine open $\Spec(\Lambda) \subset S$.
+Then we can write $V = \lim V_i$ with each $V_i$ affine and of finite
+presentation over $\Spec(\Lambda)$, see
+Algebra, Lemma \ref{algebra-lemma-ring-colimit-fp}.
+Then $y$ comes from an object $y_i$ over $V_i$ for some $i$ by assumption (1).
+By assumption (3) the fibre product
+$(\Sch/V_i)_{fppf} \times_{y_i, \mathcal{Y}} \mathcal{X}$ is representable
+by an algebraic space $Z_i$. Then 
+$(\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$ is representable
+by $Z \times_{V_i} V$.
+
+\medskip\noindent
+Case II: $V$ is general. Choose an affine open covering
+$V = \bigcup_{i \in I} V_i$ such that each $V_i$ maps into an affine open
+of $S$. We first claim
+that $\mathcal{Z} = (\Sch/V)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$
+is a stack in setoids for the Zariski topology. Namely, it is a stack in
+groupoids for the Zariski topology by
+Stacks, Lemma \ref{stacks-lemma-2-product-stacks-in-groupoids}.
+Then suppose that $z$ is an object of $\mathcal{Z}$ over a scheme $T$.
+Denote $g : T \to V$ the morphism corresponding to the
+projection of $z$ in $(\Sch/V)_{fppf}$. Consider the Zariski sheaf
+$\mathit{I} = \mathit{Isom}_{\mathcal{Z}}(z, z)$. By Case I we see that
+$\mathit{I}|_{g^{-1}(V_i)} = *$ (the singleton sheaf). Hence
+$\mathcal{I} = *$. Thus $\mathcal{Z}$ is fibred in setoids. To finish
+the proof we have to show that the Zariski sheaf
+$Z : T \mapsto \Ob(\mathcal{Z}_T)/\cong$ is an algebraic space, see
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-characterize-representable-by-space}.
+There is a map $p : Z \to V$ (transformation of functors) and by Case I
+we know that $Z_i = p^{-1}(V_i)$ is an algebraic space. The morphisms
+$Z_i \to Z$ are representable by open immersions and
+$\coprod Z_i \to Z$ is surjective (in the Zariski topology).
+Hence $Z$ is a sheaf for the fppf topology by
+Bootstrap, Lemma \ref{bootstrap-lemma-glueing-sheaves}.
+Thus Spaces, Lemma \ref{spaces-lemma-glueing-algebraic-spaces}
+applies and we conclude that $Z$ is an algebraic space\footnote{
+To see that the set theoretic condition of that lemma is satisfied
+we argue as follows: First choose the open covering such that
+$|I| \leq \text{size}(V)$. Next, choose schemes $U_i$ of size
+$\leq \max(\kappa, \text{size}(V))$ and surjective \'etale morphisms
+$U_i \to Z_i$; we can do this by assumption (2) and
+Sets, Lemma \ref{sets-lemma-bound-size-fibre-product}
+(details omitted). Then
+Sets, Lemma \ref{sets-lemma-what-is-in-it}
+implies that $\coprod U_i$ is an object of $(\Sch/S)_{fppf}$.
+Hence $\coprod Z_i$ is an algebraic space by
+Spaces, Lemma \ref{spaces-lemma-coproduct-algebraic-spaces}.
+}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-check-property-limit-preserving}
+Let $S$ be a scheme. Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism
+of categories fibred in groupoids over $(\Sch/S)_{fppf}$. Let $\mathcal{P}$
+be a property of morphisms of algebraic spaces as in
+Algebraic Stacks, Definition
+\ref{algebraic-definition-relative-representable-property}. If
+\begin{enumerate}
+\item $f$ is representable by algebraic spaces,
+\item $\mathcal{Y} \to (\Sch/S)_{fppf}$ is limit preserving on objects,
+\item for an affine scheme $V$ locally of finite presentation over $S$ and
+$y \in \mathcal{Y}_V$ the resulting morphism of algebraic spaces
+$f_y : F_y \to V$, see Algebraic Stacks, Equation
+(\ref{algebraic-equation-representable-by-algebraic-spaces}),
+has property $\mathcal{P}$.
+\end{enumerate}
+Then $f$ has property $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Let $V$ be a scheme over $S$ and $y \in \mathcal{Y}_V$. We have to show
+that $F_y \to V$ has property $\mathcal{P}$. Since $\mathcal{P}$ is
+fppf local on the base we may assume that $V$ is an affine scheme which
+maps into an affine open $\Spec(\Lambda) \subset S$. Thus we can write
+$V = \lim V_i$ with each $V_i$ affine and of finite presentation over
+$\Spec(\Lambda)$, see Algebra, Lemma \ref{algebra-lemma-ring-colimit-fp}.
+Then $y$ comes from an object $y_i$ over $V_i$ for some $i$ by assumption (2).
+By assumption (3) the morphism $F_{y_i} \to V_i$ has property $\mathcal{P}$.
+As $\mathcal{P}$ is stable under arbitrary base change and since
+$F_y = F_{y_i} \times_{V_i} V$ we conclude that $F_y \to V$ has property
+$\mathcal{P}$ as desired.
+\end{proof}
+
+
+
+\section{Formally smooth on objects}
+\label{section-formally-smooth}
+
+\noindent
+Let $S$ be a scheme. Let $p : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism
+of categories fibred in groupoids over $(\Sch/S)_{fppf}$. We will say that
+$p$ is {\it formally smooth on objects} if the following condition holds:
+Given any data consisting of
+\begin{enumerate}
+\item a first order thickening $U \subset U'$ of affine schemes over $S$,
+\item an object $y'$ of $\mathcal{Y}$ over $U'$,
+\item an object $x$ of $\mathcal{X}$ over $U$, and
+\item an isomorphism $\gamma : p(x) \to y'|_U$,
+\end{enumerate}
+then there exists an object $x'$ of
+$\mathcal{X}$ over $U'$ with an isomorphism
+$\beta : x'|_U \to x$ and an isomorphism $\gamma' : p(x') \to y'$
+such that
+\begin{equation}
+\label{equation-formally-smooth}
+\vcenter{
+\xymatrix{
+p(x'|_U) \ar[d]_{p(\beta)} \ar[rr]_{\gamma'|_U} & &
+y'|_U \ar@{=}[d] \\
+p(x) \ar[rr]^\gamma & & y'|_U
+}
+}
+\end{equation}
+commutes.  In this situation we say that ``$(x', \beta, \gamma')$
+is a {\it solution} to the problem posed by our data (1), (2), (3), (4)''.
+
+\begin{lemma}
+\label{lemma-base-change-formally-smooth}
+Let $p : \mathcal{X} \to \mathcal{Y}$ and $q : \mathcal{Z} \to \mathcal{Y}$
+be $1$-morphisms of categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+If $p : \mathcal{X} \to \mathcal{Y}$ is formally smooth on objects, then so
+is the base change
+$p' : \mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to \mathcal{Z}$
+of $p$ by $q$.
+\end{lemma}
+
+\begin{proof}
+This is formal. Let $U \subset U'$ be a first order thickening
+of affine schemes over $S$, let $z'$ be an object of $\mathcal{Z}$
+over $U'$, let $w$ be an object of
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$ over $U$, and let
+$\delta : p'(w) \to z'|_U$ be an isomorphism.
+We may write
+$w = (U, x, z, \alpha)$ for some object $x$ of $\mathcal{X}$ over $U$
+and object $z$ of $\mathcal{Z}$ over $U$ and isomorphism
+$\alpha : p(x) \to q(z)$. Note that $p'(w) = z$ hence
+$\delta : z \to z|_U$. Set $y' = q(z')$ and
+$\gamma = q(\delta) \circ \alpha : p(x) \to y'|_U$.
+As $p$ is formally smooth on objects there exists an
+object $x'$ of $\mathcal{X}$ over $U'$ as well as
+isomorphisms $\beta : x'|_U \to x$ and $\gamma' : p(x') \to y'$ such that
+(\ref{equation-formally-smooth}) commutes. Then we consider the object
+$w = (U', x', z', \gamma')$ of $\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$
+over $U'$ and define isomorphisms
+$$
+w'|_U = (U, x'|_U, z'|_U, \gamma'|_U)
+\xrightarrow{(\beta, \delta^{-1})}
+(U, x, z, \alpha) = w
+$$
+and
+$$
+p'(w') = z' \xrightarrow{\text{id}} z'.
+$$
+These combine to give a solution to the problem.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-formally-smooth}
+Let $p : \mathcal{X} \to \mathcal{Y}$ and $q : \mathcal{Y} \to \mathcal{Z}$
+be $1$-morphisms of categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+If $p$ and $q$ are formally smooth on objects, then so is the composition
+$q \circ p$.
+\end{lemma}
+
+\begin{proof}
+This is formal. Let $U \subset U'$ be a first order thickening
+of affine schemes over $S$, let $z'$ be an object of $\mathcal{Z}$
+over $U'$, let $x$ be an object of $\mathcal{X}$ over $U$,
+and let $\gamma : q(p(x)) \to z'|_U$ be an isomorphism. As $q$ is
+formally smooth on objects there exist an object
+$y'$ of $\mathcal{Y}$ over $U'$, an isomorphism
+$\beta : y'|_U \to p(x)$, and an isomorphism $\gamma' : q(y') \to z'$
+such that (\ref{equation-formally-smooth}) is commutative. As $p$ is
+formally smooth on objects there exist an object
+$x'$ of $\mathcal{X}$ over $U'$, an isomorphism
+$\beta' : x'|_U \to x$, and an isomorphism $\gamma'' : p(x') \to y'$
+such that (\ref{equation-formally-smooth}) is commutative.
+The solution is to take $x'$ over $U'$ with isomorphism
+$$
+q(p(x')) \xrightarrow{q(\gamma'')} q(y') \xrightarrow{\gamma'} z'
+$$
+and isomorphism $\beta' : x'|_U \to x$. We omit the verification
+that (\ref{equation-formally-smooth}) is commutative.
+\end{proof}
+
+\noindent
+Note that the class of formally smooth morphisms of algebraic spaces is
+stable under arbitrary base change and local on the target in the
+fpqc topology, see
+More on Morphisms of Spaces,
+Lemma \ref{spaces-more-morphisms-lemma-base-change-formally-smooth} and
+\ref{spaces-more-morphisms-lemma-descending-property-formally-smooth}.
+Hence condition (2) in the lemma below makes sense.
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-formally-smooth}
+Let $p : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. If $p$ is
+representable by algebraic spaces, then the following are equivalent:
+\begin{enumerate}
+\item $p$ is formally smooth on objects, and
+\item $p$ is formally smooth (see
+Algebraic Stacks,
+Definition \ref{algebraic-definition-relative-representable-property}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (2). Let $U \subset U'$ be a first order thickening
+of affine schemes over $S$, let $y'$ be an object of $\mathcal{Y}$
+over $U'$, let $x$ be an object of $\mathcal{X}$ over $U$,
+and let $\gamma : p(x) \to y'|_U$ be an isomorphism. Let
+$X_{y'}$ denote an algebraic space over $U'$ representing the $2$-fibre
+product
+$$
+(\Sch/U')_{fppf} \times_{y', \mathcal{Y}, p} \mathcal{X}.
+$$
+Note that $\xi = (U, U \to U', x, \gamma^{-1})$ defines an object of
+this $2$-fibre product over $U$. Via the $2$-Yoneda lemma $\xi$ corresponds
+to a morphism $f_\xi : U \to X_{y'}$ over $U'$. As $X_{y'} \to U'$ is
+formally smooth by assumption there exists a morphism
+$f' : U' \to X_{y'}$ such that $f_\xi$ is the composition of $f'$
+and the morphism $U \to U'$. Also, the $2$-Yoneda lemma tells us that
+$f'$ corresponds to an object $\xi' = (U', U' \to U', x', \alpha)$ of
+the displayed $2$-fibre product over $U'$ whose restriction to
+$U$ recovers $\xi$. In particular we obtain an isomorphism
+$\gamma : x'|U \to x$. Note that $\alpha : y' \to p(x')$.
+Hence we see that taking $x'$, the isomorphism
+$\gamma : x'|U \to x$, and the isomorphism
+$\beta = \alpha^{-1} : p(x') \to y'$
+is a solution to the problem.
+
+\medskip\noindent
+Assume (1). Choose a scheme $T$ and a $1$-morphism
+$y : (\Sch/T)_{fppf} \to \mathcal{Y}$. Let
+$X_y$ be an algebraic space over $T$ representing the $2$-fibre product
+$(\Sch/T)_{fppf} \times_{y, \mathcal{Y}, p} \mathcal{X}$.
+We have to show that $X_y \to T$ is formally smooth.
+Hence it suffices to show that given a first order thickening
+$U \subset U'$ of affine schemes over $T$, then
+$X_y(U') \to X_y(U')$ is surjective (morphisms in the
+category of algebraic spaces over $T$). Set $y' = y|_{U'}$.
+By the $2$-Yoneda lemma morphisms $U \to X_y$ over $T$ correspond bijectively
+to isomorphism classes of pairs $(x, \alpha)$ where $x$ is an object
+of $\mathcal{X}$ over $U$ and $\alpha : y|_U \to p(x)$ is an isomorphism.
+Of course giving $\alpha$ is, up to an inverse, the same thing as giving
+an isomorphism $\gamma : p(x) \to y'|_U$.
+Similarly for morphisms $U' \to X_y$ over $T$. Hence (1) guarantees
+the surjectivity of $X_y(U') \to X_y(U')$
+in this situation and we win.
+\end{proof}
+
+
+
+
+
+
+
+\section{Surjective on objects}
+\label{section-formally-surjective}
+
+\noindent
+Let $S$ be a scheme. Let $p : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism
+of categories fibred in groupoids over $(\Sch/S)_{fppf}$. We will say that
+$p$ is {\it surjective on objects} if the following condition holds:
+Given any data consisting of
+\begin{enumerate}
+\item a field $k$ over $S$, and
+\item an object $y$ of $\mathcal{Y}$ over $\Spec(k)$,
+\end{enumerate}
+then there exists an extension $k \subset K$ of fields over $S$, an
+object $x$ of $\mathcal{X}$ over $\Spec(K)$
+such that $p(x) \cong y|_{\Spec(K)}$.
+
+\begin{lemma}
+\label{lemma-base-change-surjective}
+Let $p : \mathcal{X} \to \mathcal{Y}$ and $q : \mathcal{Z} \to \mathcal{Y}$
+be $1$-morphisms of categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+If $p : \mathcal{X} \to \mathcal{Y}$ is surjective on objects, then so
+is the base change
+$p' : \mathcal{X} \times_\mathcal{Y} \mathcal{Z} \to \mathcal{Z}$
+of $p$ by $q$.
+\end{lemma}
+
+\begin{proof}
+This is formal. Let $z$ be an object of $\mathcal{Z}$ over a field $k$.
+As $p$ is surjective on objects there exists an extension $k \subset K$
+and an object $x$ of $\mathcal{X}$ over $K$ and an isomorphism
+$\alpha : p(x) \to q(z)|_{\Spec(K)}$. Then
+$w = (\Spec(K), x, z|_{\Spec(K)}, \alpha)$ is an object of
+$\mathcal{X} \times_\mathcal{Y} \mathcal{Z}$ over $K$ with
+$p'(w) = z|_{\Spec(K)}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-surjective}
+Let $p : \mathcal{X} \to \mathcal{Y}$ and $q : \mathcal{Y} \to \mathcal{Z}$
+be $1$-morphisms of categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+If $p$ and $q$ are surjective on objects, then so is the composition
+$q \circ p$.
+\end{lemma}
+
+\begin{proof}
+This is formal. Let $z$ be an object of $\mathcal{Z}$ over a field $k$.
+As $q$ is surjective on objects there exists a field extension $k \subset K$
+and an object $y$ of $\mathcal{Y}$ over $K$ such that
+$q(y) \cong x|_{\Spec(K)}$. As $p$ is surjective on objects there
+exists a field extension $K \subset L$ and an object $x$ of $\mathcal{X}$
+over $L$ such that $p(x) \cong y|_{\Spec(L)}$. Then the field extension
+$k \subset L$ and the object $x$ of $\mathcal{X}$ over $L$ satisfy
+$q(p(x)) \cong z|_{\Spec(L)}$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-surjective}
+Let $p : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of categories
+fibred in groupoids over $(\Sch/S)_{fppf}$. If $p$ is
+representable by algebraic spaces, then the following are equivalent:
+\begin{enumerate}
+\item $p$ is surjective on objects, and
+\item $p$ is surjective (see
+Algebraic Stacks,
+Definition \ref{algebraic-definition-relative-representable-property}).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (2). Let $k$ be a field and let $y$ be an object of
+$\mathcal{Y}$ over $k$. Let $X_y$ denote an algebraic space over $k$
+representing the $2$-fibre product
+$$
+(\Sch/\Spec(k))_{fppf} \times_{y, \mathcal{Y}, p} \mathcal{X}.
+$$
+As we've assumed that $p$ is surjective we see that $X_y$ is not empty.
+Hence we can find a field extension $k \subset K$ and a $K$-valued point
+$x$ of $X_y$. Via the $2$-Yoneda lemma this corresponds to an object
+$x$ of $\mathcal{X}$ over $K$ together with an isomorphism
+$p(x) \cong y|_{\Spec(K)}$ and we see that (1) holds.
+
+\medskip\noindent
+Assume (1). Choose a scheme $T$ and a $1$-morphism
+$y : (\Sch/T)_{fppf} \to \mathcal{Y}$. Let
+$X_y$ be an algebraic space over $T$ representing the $2$-fibre product
+$(\Sch/T)_{fppf} \times_{y, \mathcal{Y}, p} \mathcal{X}$.
+We have to show that $X_y \to T$ is surjective. By
+Morphisms of Spaces, Definition \ref{spaces-morphisms-definition-surjective}
+we have to show that $|X_y| \to |T|$ is surjective.
+This means exactly that given a field $k$ over $T$ and a
+morphism $t : \Spec(k) \to T$ there exists a field extension
+$k \subset K$ and a morphism $x : \Spec(K) \to X_y$ such that
+$$
+\xymatrix{
+\Spec(K) \ar[d] \ar[r]_x & X_y \ar[d] \\
+\Spec(k) \ar[r]^t & T
+}
+$$
+commutes. By the $2$-Yoneda lemma this means exactly that we have to find
+$k \subset K$ and an object $x$ of $\mathcal{X}$ over $K$ such that
+$p(x) \cong t^*y|_{\Spec(K)}$. Hence (1) guarantees that this is
+the case and we win.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Algebraic morphisms}
+\label{section-algebraic}
+
+\noindent
+The following notion is occasionally useful.
+
+\begin{definition}
+\label{definition-algebraic}
+Let $S$ be a scheme. Let $F : \mathcal{X} \to \mathcal{Y}$ be a
+$1$-morphism of stacks in groupoids over $(\Sch/S)_{fppf}$.
+We say that $F$ is {\it algebraic} if for every scheme $T$ and every
+object $\xi$ of $\mathcal{Y}$ over $T$ the $2$-fibre product
+$$
+(\Sch/T)_{fppf} \times_{\xi, \mathcal{Y}} \mathcal{X}
+$$
+is an algebraic stack over $S$.
+\end{definition}
+
+\noindent
+With this terminology in place we have the following result that generalizes
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-representable-morphism-to-algebraic}.
+
+\begin{lemma}
+\label{lemma-algebraic-morphism-to-algebraic}
+Let $S$ be a scheme.
+Let $F : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of
+stacks in groupoids over $(\Sch/S)_{fppf}$. If
+\begin{enumerate}
+\item $\mathcal{Y}$ is an algebraic stack, and
+\item $F$ is algebraic (see above),
+\end{enumerate}
+then $\mathcal{X}$ is an algebraic stack.
+\end{lemma}
+
+\begin{proof}
+By assumption (1) there exists a scheme $T$ and an object
+$\xi$ of $\mathcal{Y}$ over $T$ such that the corresponding
+$1$-morphism $\xi : (\Sch/T)_{fppf} \to \mathcal{Y}$
+is smooth an surjective. Then
+$\mathcal{U} = (\Sch/T)_{fppf} \times_{\xi, \mathcal{Y}} \mathcal{X}$
+is is an algebraic stack by assumption (2).
+Choose a scheme $U$ and a surjective smooth $1$-morphism
+$(\Sch/U)_{fppf} \to \mathcal{U}$.
+The projection $\mathcal{U} \longrightarrow \mathcal{X}$
+is, as the base change of the morphism
+$\xi : (\Sch/T)_{fppf} \to \mathcal{Y}$,
+surjective and smooth, see
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-base-change-representable-transformations-property}.
+Then the composition
+$(\Sch/U)_{fppf} \to \mathcal{U} \to \mathcal{X}$
+is surjective and smooth as a composition of surjective and smooth
+morphisms, see
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-composition-representable-transformations-property}.
+Hence $\mathcal{X}$ is an algebraic stack by
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-smooth-surjective-morphism-implies-algebraic}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-from-algebraic}
+Let $S$ be a scheme. Let $F : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism
+of stacks in groupoids over $(\Sch/S)_{fppf}$. If $\mathcal{X}$ is an
+algebraic stack and $\Delta : \mathcal{Y} \to \mathcal{Y} \times \mathcal{Y}$
+is representable by algebraic spaces, then $F$ is algebraic.
+\end{lemma}
+
+\begin{proof}
+Choose a representable stack in groupoids $\mathcal{U}$ and a surjective
+smooth $1$-morphism $\mathcal{U} \to \mathcal{X}$. Let $T$ be a scheme and
+let $\xi$ be an object of $\mathcal{Y}$ over $T$. The morphism of
+$2$-fibre products
+$$
+(\Sch/T)_{fppf} \times_{\xi, \mathcal{Y}} \mathcal{U}
+\longrightarrow
+(\Sch/T)_{fppf} \times_{\xi, \mathcal{Y}} \mathcal{X}
+$$
+is representable by algebraic spaces, surjective, and smooth as a
+base change of $\mathcal{U} \to \mathcal{X}$, see
+Algebraic Stacks,
+Lemmas \ref{algebraic-lemma-base-change-representable-by-spaces} and
+\ref{algebraic-lemma-base-change-representable-transformations-property}.
+By our condition on the diagonal of $\mathcal{Y}$ we see that
+the source of this morphism is representable by an algebraic space, see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-representable-diagonal}.
+Hence the target is an algebraic stack by
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-smooth-surjective-morphism-implies-algebraic}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagonals-and-algebraic-morphisms}
+Let $S$ be a scheme. Let $F : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism
+of stacks in groupoids over $(\Sch/S)_{fppf}$.
+If $F$ is algebraic and
+$\Delta : \mathcal{Y} \to \mathcal{Y} \times \mathcal{Y}$
+is representable by algebraic spaces, then
+$\Delta : \mathcal{X} \to \mathcal{X} \times \mathcal{X}$
+is representable by algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+Assume $F$ is algebraic and
+$\Delta : \mathcal{Y} \to \mathcal{Y} \times \mathcal{Y}$
+is representable by algebraic spaces.
+Take a scheme $U$ over $S$ and two objects $x_1, x_2$ of
+$\mathcal{X}$ over $U$.
+We have to show that $\mathit{Isom}(x_1, x_2)$ is an algebraic space
+over $U$, see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-representable-diagonal}.
+Set $y_i = F(x_i)$. We have a morphism of sheaves of sets
+$$
+f : \mathit{Isom}(x_1, x_2) \to \mathit{Isom}(y_1, y_2)
+$$
+and the target is an algebraic space by assumption.
+Thus it suffices to show that $f$ is representable by
+algebraic spaces, see Bootstrap, Lemma
+\ref{bootstrap-lemma-representable-by-spaces-over-space}.
+Thus we can choose a scheme $V$ over $U$ and an
+isomorphism $\beta : y_{1, V} \to y_{2, V}$ and
+we have to show the functor
+$$
+(\Sch/V)_{fppf} \to \textit{Sets},\quad
+T/V \mapsto \{\alpha : x_{1, T} \to x_{2, T}
+\text{ in }\mathcal{X}_T \mid F(\alpha) = \beta|_T\}
+$$
+is an algebraic space. Consider the objects
+$z_1 = (V, x_{1, V}, \text{id})$ and 
+$z_2 = (V, x_{2, V}, \beta)$ of
+$$
+\mathcal{Z} = (\Sch/V)_{fppf} \times_{y_{1, V}, \mathcal{Y}} \mathcal{X}
+$$
+Then it is straightforward to verify that
+the functor above is equal to $\mathit{Isom}(z_1, z_2)$
+on $(\Sch/V)_{fppf}$. Hence this is an algebraic space
+by our assumption that $F$ is algebraic (and the definition
+of algebraic stacks).
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Spaces of sections}
+\label{section-spaces-sections}
+
+\noindent
+Given morphisms $W \to Z \to U$ we can consider the functor that associates
+to a scheme $U'$ over $U$ the set of sections $\sigma : Z_{U'} \to W_{U'}$
+of the base change $W_{U'} \to Z_{U'}$ of the morphism $W \to Z$.
+In this section we prove some preliminary lemmas on this functor.
+
+\begin{lemma}
+\label{lemma-surjection-space-of-sections}
+Let $Z \to U$ be a finite morphism of schemes.
+Let $W$ be an algebraic space and let $W \to Z$ be a
+surjective \'etale morphism. Then there exists a surjective
+\'etale morphism $U' \to U$ and a section
+$$
+\sigma : Z_{U'} \to W_{U'}
+$$
+of the morphism $W_{U'} \to Z_{U'}$.
+\end{lemma}
+
+\begin{proof}
+We may choose a separated scheme $W'$ and a surjective \'etale morphism
+$W' \to W$. Hence after replacing $W$ by $W'$ we may assume that $W$
+is a separated scheme. Write $f : W \to Z$ and $\pi : Z \to U$.
+Note that $f \circ \pi : W \to U$ is separated as
+$W$ is separated (see
+Schemes, Lemma \ref{schemes-lemma-compose-after-separated}).
+Let $u \in U$ be a point. Clearly it suffices
+to find an \'etale neighbourhood $(U', u')$ of $(U, u)$ such that
+a section $\sigma$ exists over $U'$. Let $z_1, \ldots, z_r$
+be the points of $Z$ lying above $u$. For each $i$ choose a point
+$w_i \in W$ which maps to $z_i$. We may pick an \'etale neighbourhood
+$(U', u') \to (U, u)$ such that the conclusions of
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-etale-splits-off-quasi-finite-part-technical-variant}
+hold for both $Z \to U$ and the points $z_1, \ldots, z_r$
+and $W \to U$ and the points $w_1, \ldots, w_r$. Hence, after
+replacing $(U, u)$ by $(U', u')$ and relabeling, we may assume that
+all the field extensions $\kappa(u) \subset \kappa(z_i)$ and
+$\kappa(u) \subset \kappa(w_i)$ are purely inseparable, and moreover
+that there exist disjoint union decompositions
+$$
+Z = V_1 \amalg \ldots \amalg V_r \amalg A, \quad
+W = W_1 \amalg \ldots \amalg W_r \amalg B
+$$
+by open and closed subschemes
+with $z_i \in V_i$, $w_i \in W_i$ and $V_i \to U$, $W_i \to U$ finite.
+After replacing $U$ by $U \setminus \pi(A)$ we may assume that
+$A = \emptyset$, i.e., $Z = V_1 \amalg \ldots \amalg V_r$.
+After replacing $W_i$ by $W_i \cap f^{-1}(V_i)$ and
+$B$ by $B \cup \bigcup W_i \cap f^{-1}(Z \setminus V_i)$
+we may assume that $f$ maps $W_i$ into $V_i$.
+Then $f_i = f|_{W_i} : W_i \to V_i$ is a morphism of schemes finite over $U$,
+hence finite (see
+Morphisms, Lemma \ref{morphisms-lemma-finite-permanence}).
+It is also \'etale (by assumption),
+$f_i^{-1}(\{z_i\}) = w_i$, and induces an isomorphism of residue
+fields $\kappa(z_i) = \kappa(w_i)$ (because both are purely inseparable
+extensions of $\kappa(u)$ and $\kappa(z_i) \subset \kappa(w_i)$
+is separable as $f$ is \'etale). Hence by
+\'Etale Morphisms, Lemma \ref{etale-lemma-finite-etale-one-point}
+we see that $f_i$ is an isomorphism in a neighbourhood $V_i'$ of
+$z_i$. Since $\pi : Z \to U$ is closed, after shrinking $U$, we may assume
+that $W_i \to V_i$ is an isomorphism. This proves the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-space-of-sections}
+Let $Z \to U$ be a finite locally free morphism of schemes.
+Let $W$ be an algebraic space and let $W \to Z$ be an \'etale morphism.
+Then the functor
+$$
+F : (\Sch/U)_{fppf}^{opp} \longrightarrow \textit{Sets},
+$$
+defined by the rule
+$$
+U' \longmapsto
+F(U') =
+\{\sigma : Z_{U'} \to W_{U'}\text{ section of }W_{U'} \to Z_{U'}\}
+$$
+is an algebraic space and the morphism $F \to U$ is \'etale.
+\end{lemma}
+
+\begin{proof}
+Assume first that $W \to Z$ is also separated.
+Let $U'$ be a scheme over $U$ and let $\sigma \in F(U')$. By
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-section-immersion}
+the morphism $\sigma$ is a closed immersion.
+Moreover, $\sigma$ is \'etale by
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-etale-permanence}.
+Hence $\sigma$ is also an open immersion, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-etale-universally-injective-open}.
+In other words, $Z_\sigma = \sigma(Z_{U'}) \subset W_{U'}$ is
+an open subspace such that the morphism $Z_\sigma \to Z_{U'}$
+is an isomorphism. In particular, the morphism $Z_\sigma \to U'$
+is finite. Hence we obtain a transformation of functors
+$$
+F \longrightarrow (W/U)_{fin}, \quad
+\sigma \longmapsto (U' \to U, Z_\sigma)
+$$
+where $(W/U)_{fin}$ is the finite part of the morphism $W \to U$
+introduced in
+More on Groupoids in Spaces, Section
+\ref{spaces-more-groupoids-section-finite}.
+It is clear that this transformation of functors is injective (since we can
+recover $\sigma$ from $Z_\sigma$ as the inverse of the isomorphism
+$Z_\sigma \to Z_{U'}$). By
+More on Groupoids in Spaces, Proposition
+\ref{spaces-more-groupoids-proposition-finite-algebraic-space}
+we know that $(W/U)_{fin}$ is an algebraic space \'etale over $U$.
+Hence to finish the proof in this case it suffices to show that
+$F \to (W/U)_{fin}$ is representable and an open immersion.
+To see this suppose that we are given a morphism of schemes $U' \to U$
+and an open subspace $Z' \subset W_{U'}$ such that $Z' \to U'$
+is finite. Then it suffices to show that there exists an
+open subscheme $U'' \subset U'$ such that a morphism
+$T \to U'$ factors through $U''$ if and only if $Z' \times_{U'} T$
+maps isomorphically to $Z \times_{U'} T$. This follows from
+More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-where-isomorphism}
+(here we use that $Z \to B$ is flat and locally of finite presentation
+as well as finite).
+Hence we have proved the lemma in case $W \to Z$ is separated
+as well as \'etale.
+
+\medskip\noindent
+In the general case we choose a separated scheme $W'$ and a surjective
+\'etale morphism $W' \to W$. Note that the morphisms $W' \to W$ and
+$W \to Z$ are separated as their source is separated. Denote $F'$ the
+functor associated to $W' \to Z \to U$ as in the lemma. In the first
+paragraph of the proof we showed that $F'$ is representable by an
+algebraic space \'etale over $U$. By
+Lemma \ref{lemma-surjection-space-of-sections}
+the map of functors $F' \to F$ is surjective for the \'etale topology
+on $\Sch/U$. Moreover, if $U'$ and $\sigma : Z_{U'} \to W_{U'}$
+define a point $\xi \in F(U')$, then the fibre product
+$$
+F'' = F' \times_{F, \xi} U'
+$$
+is the functor on $\Sch/U'$ associated to the morphisms
+$$
+W'_{U'} \times_{W_{U'}, \sigma} Z_{U'} \to Z_{U'} \to U'.
+$$
+Since the first morphism is separated as a base change of a separated
+morphism, we see that $F''$ is an algebraic space \'etale over $U'$
+by the result of the first paragraph. It follows that $F' \to F$ is a
+surjective \'etale transformation of functors, which is representable
+by algebraic spaces. Hence $F$ is an algebraic space by
+Bootstrap, Theorem \ref{bootstrap-theorem-final-bootstrap}.
+Since $F' \to F$ is an \'etale surjective morphism of algebraic spaces
+it follows that $F \to U$ is \'etale because $F' \to U$ is \'etale.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Relative morphisms}
+\label{section-relative-morphisms}
+
+\noindent
+We continue the discussion started in
+More on Morphisms, Section \ref{more-morphisms-section-relative-morphisms}.
+
+\medskip\noindent
+Let $S$ be a scheme. Let $Z \to B$ and $X \to B$ be morphisms of
+algebraic spaces over $S$. Given a scheme $T$ we can consider pairs
+$(a, b)$ where $a : T \to B$
+is a morphism and $b : T \times_{a, B} Z \to T \times_{a, B} X$
+is a morphism over $T$. Picture
+\begin{equation}
+\label{equation-hom}
+\vcenter{
+\xymatrix{
+T \times_{a, B} Z \ar[rd] \ar[rr]_b & &
+T \times_{a, B} X \ar[ld] & Z \ar[rd] & & X \ar[ld] \\
+& T \ar[rrr]^a & & & B
+}
+}
+\end{equation}
+Of course, we can also think of $b$ as a morphism
+$b : T \times_{a, B} Z \to X$ such that
+$$
+\xymatrix{
+T \times_{a, B} Z \ar[r] \ar[d] \ar@/^1pc/[rrr]_-b &
+Z \ar[rd] & & X \ar[ld] \\
+T \ar[rr]^a & & B
+}
+$$
+commutes. In this situation we can define a functor
+\begin{equation}
+\label{equation-hom-functor}
+\mathit{Mor}_B(Z, X) : (\Sch/S)^{opp} \longrightarrow \textit{Sets},
+\quad
+T \longmapsto \{(a, b)\text{ as above}\}
+\end{equation}
+Sometimes we think of this as a functor defined on the category
+of schemes over $B$, in which case we drop $a$ from the notation.
+
+\begin{lemma}
+\label{lemma-hom-functor-sheaf}
+Let $S$ be a scheme. Let $Z \to B$ and $X \to B$ be morphisms of
+algebraic spaces over $S$. Then
+\begin{enumerate}
+\item $\mathit{Mor}_B(Z, X)$ is a sheaf on
+$(\Sch/S)_{fppf}$.
+\item If $T$ is an algebraic space over $S$, then there is a
+canonical bijection
+$$
+\Mor_{\Sh((\Sch/S)_{fppf})}(T, \mathit{Mor}_B(Z, X))
+=
+\{(a, b)\text{ as in }(\ref{equation-hom})\}
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $T$ be an algebraic space over $S$. Let $\{T_i \to T\}$ be an fppf
+covering of $T$ (as in
+Topologies on Spaces, Section \ref{spaces-topologies-section-fppf}).
+Suppose that $(a_i, b_i) \in \mathit{Mor}_B(Z, X)(T_i)$ such
+that $(a_i, b_i)|_{T_i \times_T T_j} = (a_j, b_j)|_{T_i \times_T T_j}$
+for all $i, j$. Then by
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-fpqc-universal-effective-epimorphisms}
+there exists a unique morphism $a : T \to B$ such that $a_i$ is the
+composition of $T_i \to T$ and $a$. Then
+$\{T_i \times_{a_i, B} Z \to T \times_{a, B} Z\}$ is an fppf covering
+too and the same lemma implies there exists a unique morphism
+$b : T \times_{a, B} Z \to T \times_{a, B} X$ such that $b_i$ is the
+composition of $T_i \times_{a_i, B} Z \to T \times_{a, B} Z$ and $b$. Hence
+$(a, b) \in \mathit{Mor}_B(Z, X)(T)$ restricts to $(a_i, b_i)$
+over $T_i$ for all $i$.
+
+\medskip\noindent
+Note that the result of the preceding paragraph in particular implies (1).
+
+\medskip\noindent
+Let $T$ be an algebraic space over $S$. In order to prove (2) we will
+construct mutually inverse maps between the displayed sets. In the
+following when we say ``pair'' we mean a pair $(a, b)$ fitting
+into (\ref{equation-hom}).
+
+\medskip\noindent
+Let $v : T \to \mathit{Mor}_B(Z, X)$ be a natural transformation.
+Choose a scheme $U$ and a surjective \'etale morphism $p : U \to T$.
+Then $v(p) \in \mathit{Mor}_B(Z, X)(U)$ corresponds to a pair $(a_U, b_U)$
+over $U$. Let $R = U \times_T U$ with projections $t, s : R \to U$.
+As $v$ is a transformation of functors we see that the pullbacks of
+$(a_U, b_U)$ by $s$ and $t$ agree. Hence, since $\{U \to T\}$ is an
+fppf covering, we may apply the result of the first paragraph that
+deduce that there exists a unique pair $(a, b)$ over $T$.
+
+\medskip\noindent
+Conversely, let $(a, b)$ be a pair over $T$.
+Let $U \to T$, $R = U \times_T U$, and $t, s : R \to U$ be as
+above. Then the restriction $(a, b)|_U$ gives rise to a
+transformation of functors $v : h_U \to \mathit{Mor}_B(Z, X)$ by the
+Yoneda lemma
+(Categories, Lemma \ref{categories-lemma-yoneda}).
+As the two pullbacks $s^*(a, b)|_U$ and $t^*(a, b)|_U$
+are equal, we see that $v$ coequalizes the two maps
+$h_t, h_s : h_R \to h_U$. Since $T = U/R$ is the fppf quotient sheaf by
+Spaces, Lemma \ref{spaces-lemma-space-presentation}
+and since $\mathit{Mor}_B(Z, X)$ is an fppf sheaf by (1) we conclude
+that $v$ factors through a map $T \to \mathit{Mor}_B(Z, X)$.
+
+\medskip\noindent
+We omit the verification that the two constructions above are mutually
+inverse.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-hom-functor}
+Let $S$ be a scheme. Let $Z \to B$, $X \to B$, and $B' \to B$
+be morphisms of algebraic spaces over $S$. Set $Z' = B' \times_B Z$
+and $X' = B' \times_B X$. Then
+$$
+\mathit{Mor}_{B'}(Z', X')
+=
+B' \times_B \mathit{Mor}_B(Z, X)
+$$
+in $\Sh((\Sch/S)_{fppf})$.
+\end{lemma}
+
+\begin{proof}
+The equality as functors follows immediately from the definitions.
+The equality as sheaves follows from this because both sides are
+sheaves according to
+Lemma \ref{lemma-hom-functor-sheaf}
+and the fact that a fibre product of sheaves is the same as the
+corresponding fibre product of pre-sheaves (i.e., functors).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-covering-hom-functor}
+Let $S$ be a scheme. Let $Z \to B$ and $X' \to X \to B$ be morphisms of
+algebraic spaces over $S$. Assume
+\begin{enumerate}
+\item $X' \to X$ is \'etale, and
+\item $Z \to B$ is finite locally free.
+\end{enumerate}
+Then $\mathit{Mor}_B(Z, X') \to \mathit{Mor}_B(Z, X)$ is representable
+by algebraic spaces and \'etale. If $X' \to X$ is also surjective,
+then $\mathit{Mor}_B(Z, X') \to \mathit{Mor}_B(Z, X)$ is surjective.
+\end{lemma}
+
+\begin{proof}
+Let $U$ be a scheme and let $\xi = (a, b)$ be an element of
+$\mathit{Mor}_B(Z, X)(U)$. We have to prove that the functor
+$$
+h_U \times_{\xi, \mathit{Mor}_B(Z, X)} \mathit{Mor}_B(Z, X')
+$$
+is representable by an algebraic space \'etale over $U$. Set
+$Z_U = U \times_{a, B} Z$ and $W = Z_U \times_{b, X} X'$.
+Then $W \to Z_U \to U$ is as in
+Lemma \ref{lemma-space-of-sections}
+and the sheaf $F$ defined there is identified with the fibre product
+displayed above. Hence the first assertion of the lemma.
+The second assertion follows from this and
+Lemma \ref{lemma-surjection-space-of-sections}
+which guarantees that $F \to U$ is surjective in the situation above.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-hom-functor-algebraic-space}
+Let $S$ be a scheme. Let $Z \to B$ and $X \to B$ be morphisms of
+algebraic spaces over $S$. If $Z \to B$ is finite locally free
+then $\mathit{Mor}_B(Z, X)$ is an algebraic space.
+\end{proposition}
+
+\begin{proof}
+Choose a scheme $B' = \coprod B'_i$ which is a disjoint union of
+affine schemes $B'_i$ and an \'etale surjective morphism $B' \to B$.
+We may also assume that $B'_i \times_B Z$ is the spectrum of a ring
+which is finite free as a $\Gamma(B'_i, \mathcal{O}_{B'_i})$-module.
+By
+Lemma \ref{lemma-base-change-hom-functor}
+and
+Spaces, Lemma
+\ref{spaces-lemma-base-change-representable-transformations-property}
+the morphism $\mathit{Mor}_{B'}(Z', X') \to \mathit{Mor}_B(Z, X)$
+is surjective \'etale. Hence by
+Bootstrap, Theorem \ref{bootstrap-theorem-final-bootstrap}
+it suffices to prove the proposition when $B = B'$ is a disjoint union of
+affine schemes $B'_i$ so that each $B'_i \times_B Z$ is finite free
+over $B'_i$. Then it actually suffices to prove the result for the restriction
+to each $B'_i$. Thus we may assume that $B$ is affine and that
+$\Gamma(Z, \mathcal{O}_Z)$ is a finite free $\Gamma(B, \mathcal{O}_B)$-module.
+
+\medskip\noindent
+Choose a scheme $X'$ which is a disjoint union of affine schemes and
+a surjective \'etale morphism $X' \to X$. By
+Lemma \ref{lemma-etale-covering-hom-functor}
+the morphism $\mathit{Mor}_B(Z, X') \to \mathit{Mor}_B(Z, X)$
+is representable by algebraic spaces, \'etale, and surjective.
+Hence by
+Bootstrap, Theorem \ref{bootstrap-theorem-final-bootstrap}
+it suffices to prove the proposition when $X$ is a disjoint union
+of affine schemes. This reduces us to the case discussed in the next
+paragraph.
+
+\medskip\noindent
+Assume $X = \coprod_{i \in I} X_i$ is a disjoint union of affine
+schemes, $B$ is affine, and that $\Gamma(Z, \mathcal{O}_Z)$ is a finite
+free $\Gamma(B, \mathcal{O}_B)$-module. For any finite subset
+$E \subset I$ set
+$$
+F_E = \mathit{Mor}_B(Z, \coprod\nolimits_{i \in E} X_i).
+$$
+By More on Morphisms,
+Lemma \ref{more-morphisms-lemma-hom-from-finite-free-into-affine}
+we see that $F_E$ is an algebraic space. Consider the morphism
+$$
+\coprod\nolimits_{E \subset I\text{ finite}} F_E
+\longrightarrow
+\mathit{Mor}_B(Z, X)
+$$
+Each of the morphisms
+$F_E \to \mathit{Mor}_B(Z, X)$ is an open immersion, because it is
+simply the locus parametrizing pairs $(a, b)$ where $b$ maps into
+the open subscheme $\coprod\nolimits_{i \in E} X_i$ of $X$. Moreover,
+if $T$ is quasi-compact, then for any pair $(a, b)$ the image
+of $b$ is contained in $\coprod\nolimits_{i \in E} X_i$ for some
+$E \subset I$ finite. Hence the displayed arrow is in fact an
+open covering and we win\footnote{Modulo
+some set theoretic arguments. Namely, we have to show that
+$\coprod F_E$ is an algebraic space. This follows because
+$|I| \leq \text{size}(X)$ and $\text{size}(F_E) \leq \text{size}(X)$
+as follows from the explicit description of $F_E$ in the proof of
+More on Morphisms,
+Lemma \ref{more-morphisms-lemma-hom-from-finite-free-into-affine}.
+Some details omitted.} by
+Spaces, Lemma \ref{spaces-lemma-glueing-algebraic-spaces}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Restriction of scalars}
+\label{section-restriction-of-scalars}
+
+\noindent
+Suppose $X \to Z \to B$ are morphisms of algebraic spaces over $S$.
+Given a scheme $T$ we can consider pairs $(a, b)$ where $a : T \to B$
+is a morphism and $b : T \times_{a, B} Z \to X$ is a morphism over $Z$.
+Picture
+\begin{equation}
+\label{equation-pairs}
+\vcenter{
+\xymatrix{
+& X \ar[d] \\
+T \times_{a, B} Z \ar[d] \ar[ru]^b \ar[r] & Z \ar[d] \\
+T \ar[r]^a & B
+}
+}
+\end{equation}
+In this situation we can define a
+functor
+\begin{equation}
+\label{equation-restriction-of-scalars}
+\text{Res}_{Z/B}(X) : (\Sch/S)^{opp} \longrightarrow \textit{Sets},
+\quad
+T \longmapsto \{(a, b)\text{ as above}\}
+\end{equation}
+Sometimes we think of this as a functor defined on the category
+of schemes over $B$, in which case we drop $a$ from the notation.
+
+\begin{lemma}
+\label{lemma-restriction-of-scalars-sheaf}
+Let $S$ be a scheme. Let $X \to Z \to B$ be morphisms of
+algebraic spaces over $S$. Then
+\begin{enumerate}
+\item $\text{Res}_{Z/B}(X)$ is a sheaf on
+$(\Sch/S)_{fppf}$.
+\item If $T$ is an algebraic space over $S$, then there is a
+canonical bijection
+$$
+\Mor_{\Sh((\Sch/S)_{fppf})}(T, \text{Res}_{Z/B}(X))
+=
+\{(a, b)\text{ as in }(\ref{equation-pairs})\}
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $T$ be an algebraic space over $S$. Let $\{T_i \to T\}$ be an fppf
+covering of $T$ (as in
+Topologies on Spaces, Section \ref{spaces-topologies-section-fppf}).
+Suppose that $(a_i, b_i) \in \text{Res}_{Z/B}(X)(T_i)$ such
+that $(a_i, b_i)|_{T_i \times_T T_j} = (a_j, b_j)|_{T_i \times_T T_j}$
+for all $i, j$. Then by
+Descent on Spaces,
+Lemma \ref{spaces-descent-lemma-fpqc-universal-effective-epimorphisms}
+there exists a unique morphism $a : T \to B$ such that $a_i$ is the
+composition of $T_i \to T$ and $a$. Then
+$\{T_i \times_{a_i, B} Z \to T \times_{a, B} Z\}$ is an fppf covering
+too and the same lemma implies there exists a unique morphism
+$b : T \times_{a, B} Z \to X$ such that $b_i$ is the composition
+of $T_i \times_{a_i, B} Z \to T \times_{a, B} Z$ and $b$. Hence
+$(a, b) \in \text{Res}_{Z/B}(X)(T)$ restricts to $(a_i, b_i)$
+over $T_i$ for all $i$.
+
+\medskip\noindent
+Note that the result of the preceding paragraph in particular implies (1).
+
+\medskip\noindent
+Let $T$ be an algebraic space over $S$. In order to prove (2) we will
+construct mutually inverse maps between the displayed sets. In the
+following when we say ``pair'' we mean a pair $(a, b)$ fitting
+into (\ref{equation-pairs}).
+
+\medskip\noindent
+Let $v : T \to \text{Res}_{Z/B}(X)$ be a natural transformation.
+Choose a scheme $U$ and a surjective \'etale morphism $p : U \to T$.
+Then $v(p) \in \text{Res}_{Z/B}(X)(U)$ corresponds to a pair $(a_U, b_U)$
+over $U$. Let $R = U \times_T U$ with projections $t, s : R \to U$.
+As $v$ is a transformation of functors we see that the pullbacks of
+$(a_U, b_U)$ by $s$ and $t$ agree. Hence, since $\{U \to T\}$ is an
+fppf covering, we may apply the result of the first paragraph that
+deduce that there exists a unique pair $(a, b)$ over $T$.
+
+\medskip\noindent
+Conversely, let $(a, b)$ be a pair over $T$.
+Let $U \to T$, $R = U \times_T U$, and $t, s : R \to U$ be as
+above. Then the restriction $(a, b)|_U$ gives rise to a
+transformation of functors $v : h_U \to \text{Res}_{Z/B}(X)$ by the
+Yoneda lemma
+(Categories, Lemma \ref{categories-lemma-yoneda}).
+As the two pullbacks $s^*(a, b)|_U$ and $t^*(a, b)|_U$
+are equal, we see that $v$ coequalizes the two maps
+$h_t, h_s : h_R \to h_U$. Since $T = U/R$ is the fppf quotient sheaf by
+Spaces, Lemma \ref{spaces-lemma-space-presentation}
+and since $\text{Res}_{Z/B}(X)$ is an fppf sheaf by (1) we conclude
+that $v$ factors through a map $T \to \text{Res}_{Z/B}(X)$.
+
+\medskip\noindent
+We omit the verification that the two constructions above are mutually
+inverse.
+\end{proof}
+
+\noindent
+Of course the sheaf $\text{Res}_{Z/B}(X)$ comes with a natural transformation
+of functors $\text{Res}_{Z/B}(X) \to B$. We will use this without further
+mention in the following.
+
+\begin{lemma}
+\label{lemma-etale-base-change-restriction-of-scalars}
+Let $S$ be a scheme. Let $X \to Z \to B$ and $B' \to B$
+be morphisms of algebraic spaces over $S$.
+Set $Z' = B' \times_B Z$ and $X' = B' \times_B X$. Then
+$$
+\text{Res}_{Z'/B'}(X')
+=
+B' \times_B \text{Res}_{Z/B}(X)
+$$
+in $\Sh((\Sch/S)_{fppf})$.
+\end{lemma}
+
+\begin{proof}
+The equality as functors follows immediately from the definitions.
+The equality as sheaves follows from this because both sides are
+sheaves according to
+Lemma \ref{lemma-restriction-of-scalars-sheaf}
+and the fact that a fibre product of sheaves is the same as the
+corresponding fibre product of pre-sheaves (i.e., functors).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-covering-restriction-of-scalars}
+Let $S$ be a scheme. Let $X' \to X \to Z \to B$ be morphisms of
+algebraic spaces over $S$. Assume
+\begin{enumerate}
+\item $X' \to X$ is \'etale, and
+\item $Z \to B$ is finite locally free.
+\end{enumerate}
+Then $\text{Res}_{Z/B}(X') \to \text{Res}_{Z/B}(X)$ is representable
+by algebraic spaces and \'etale. If $X' \to X$ is also surjective,
+then $\text{Res}_{Z/B}(X') \to \text{Res}_{Z/B}(X)$ is surjective.
+\end{lemma}
+
+\begin{proof}
+Let $U$ be a scheme and let $\xi = (a, b)$ be an element of
+$\text{Res}_{Z/B}(X)(U)$. We have to prove that the functor
+$$
+h_U \times_{\xi, \text{Res}_{Z/B}(X)} \text{Res}_{Z/B}(X')
+$$
+is representable by an algebraic space \'etale over $U$. Set
+$Z_U = U \times_{a, B} Z$ and $W = Z_U \times_{b, X} X'$.
+Then $W \to Z_U \to U$ is as in
+Lemma \ref{lemma-space-of-sections}
+and the sheaf $F$ defined there is identified with the fibre product
+displayed above. Hence the first assertion of the lemma.
+The second assertion follows from this and
+Lemma \ref{lemma-surjection-space-of-sections}
+which guarantees that $F \to U$ is surjective in the situation above.
+\end{proof}
+
+\noindent
+At this point we can use the lemmas above to prove that $\text{Res}_{Z/B}(X)$
+is an algebraic space whenever $Z \to B$ is finite locally free in almost
+exactly the same way as in the proof that $\mathit{Mor}_B(Z, X)$ is an
+algebraic spaces, see
+Proposition \ref{proposition-hom-functor-algebraic-space}.
+Instead we will directly deduce this result from the following lemma
+and the fact that $\mathit{Mor}_B(Z, X)$ is an algebraic space.
+
+\begin{lemma}
+\label{lemma-fibre-diagram}
+Let $S$ be a scheme. Let $X \to Z \to B$ be morphisms of
+algebraic spaces over $S$. The following diagram
+$$
+\xymatrix{
+\mathit{Mor}_B(Z, X) \ar[r] & \mathit{Mor}_B(Z, Z) \\
+\text{Res}_{Z/B}(X) \ar[r] \ar[u] & B \ar[u]_{\text{id}_Z}
+}
+$$
+is a cartesian diagram of sheaves on $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Exercise in the functorial point of view in algebraic
+geometry.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-restriction-of-scalars-algebraic-space}
+Let $S$ be a scheme. Let $X \to Z \to B$ be morphisms of
+algebraic spaces over $S$. If $Z \to B$ is finite locally free
+then $\text{Res}_{Z/B}(X)$ is an algebraic space.
+\end{proposition}
+
+\begin{proof}
+By
+Proposition \ref{proposition-hom-functor-algebraic-space}
+the functors $\mathit{Mor}_B(Z, X)$ and $\mathit{Mor}_B(Z, Z)$
+are algebraic spaces. Hence this follows from the cartesian
+diagram of
+Lemma \ref{lemma-fibre-diagram}
+and the fact that fibre products of algebraic spaces exist and
+are given by the fibre product in the underlying category of
+sheaves of sets (see
+Spaces, Lemma
+\ref{spaces-lemma-fibre-product-spaces-over-sheaf-with-representable-diagonal}).
+\end{proof}
+
+
+
+
+
+
+\section{Finite Hilbert stacks}
+\label{section-finite-hilbert-stacks}
+
+\noindent
+In this section we prove some results concerning the finite
+Hilbert stacks $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$
+introduced in
+Examples of Stacks, Section \ref{examples-stacks-section-hilbert-d-stack}.
+
+\begin{lemma}
+\label{lemma-map-hilbert}
+Consider a $2$-commutative diagram
+$$
+\xymatrix{
+\mathcal{X}' \ar[r]_G \ar[d]_{F'} & \mathcal{X} \ar[d]^F \\
+\mathcal{Y}' \ar[r]^H & \mathcal{Y}
+}
+$$
+of stacks in groupoids over $(\Sch/S)_{fppf}$ with a given
+$2$-isomorphism $\gamma : H \circ F' \to F \circ G$. In this situation we
+obtain a canonical $1$-morphism
+$\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}') \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$.
+This morphism is compatible with the forgetful $1$-morphisms of
+Examples of Stacks,
+Equation (\ref{examples-stacks-equation-diagram-hilbert-d-stack}).
+\end{lemma}
+
+\begin{proof}
+We map the object $(U, Z, y', x', \alpha')$ to the object
+$(U, Z, H(y'), G(x'), \gamma \star \text{id}_H \star \alpha')$
+where $\star$ denotes horizontal composition of $2$-morphisms, see
+Categories, Definition \ref{categories-definition-horizontal-composition}.
+To a morphism
+$(f, g, b, a) :
+(U_1, Z_1, y_1', x_1', \alpha_1') \to (U_2, Z_2, y_2', x_2', \alpha_2')$
+we assign
+$(f, g, H(b), G(a))$.
+We omit the verification that this defines a functor between categories over
+$(\Sch/S)_{fppf}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cartesian-map-hilbert}
+In the situation of
+Lemma \ref{lemma-map-hilbert}
+assume that the given square is $2$-cartesian. Then the diagram
+$$
+\xymatrix{
+\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}') \ar[r] \ar[d] &
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \ar[d] \\
+\mathcal{Y}' \ar[r] &
+\mathcal{Y}
+}
+$$
+is $2$-cartesian.
+\end{lemma}
+
+\begin{proof}
+We get a $2$-commutative diagram by
+Lemma \ref{lemma-map-hilbert}
+and hence we get a $1$-morphism (i.e., a functor)
+$$
+\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}')
+\longrightarrow
+\mathcal{Y}' \times_\mathcal{Y} \mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+$$
+We indicate why this functor is essentially surjective. Namely, an object
+of the category on the right hand side is given by a scheme $U$ over $S$,
+an object $y'$ of $\mathcal{Y}'_U$, an object $(U, Z, y, x, \alpha)$
+of $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ over $U$ and an isomorphism
+$H(y') \to y$ in $\mathcal{Y}_U$. The assumption means exactly that
+there exists an object $x'$ of $\mathcal{X}'_Z$ such that there exist
+isomorphisms $G(x') \cong x$ and $\alpha' : y'|_Z \to F'(x')$ compatible
+with $\alpha$. Then we see that $(U, Z, y', x', \alpha')$ is an
+object of $\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}')$ over $U$.
+Details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-covering-hilbert}
+In the situation of
+Lemma \ref{lemma-map-hilbert}
+assume
+\begin{enumerate}
+\item $\mathcal{Y}' = \mathcal{Y}$ and $H = \text{id}_\mathcal{Y}$,
+\item $G$ is representable by algebraic spaces and \'etale.
+\end{enumerate}
+Then $\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}) \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ is representable by
+algebraic spaces and \'etale.
+If $G$ is also surjective, then
+$\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}) \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ is surjective.
+\end{lemma}
+
+\begin{proof}
+Let $U$ be a scheme and let $\xi = (U, Z, y, x, \alpha)$ be an object of
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ over $U$.
+We have to prove that the $2$-fibre product
+\begin{equation}
+\label{equation-to-show}
+(\Sch/U)_{fppf}
+\times_{\xi, \mathcal{H}_d(\mathcal{X}/\mathcal{Y})}
+\mathcal{H}_d(\mathcal{X}'/\mathcal{Y})
+\end{equation}
+is representable by an algebraic space \'etale over $U$.
+An object of this over $U'$ corresponds to an object
+$x'$ in the fibre category of $\mathcal{X}'$ over $Z_{U'}$
+such that $G(x') \cong x|_{Z_{U'}}$.
+By assumption the $2$-fibre product
+$$
+(\Sch/Z)_{fppf} \times_{x, \mathcal{X}} \mathcal{X}'
+$$
+is representable by an algebraic space $W$ such that the projection
+$W \to Z$ is \'etale. Then (\ref{equation-to-show})
+is representable by the algebraic space $F$ parametrizing sections of
+$W \to Z$ over $U$ introduced in
+Lemma \ref{lemma-space-of-sections}.
+Since $F \to U$ is \'etale we conclude that
+$\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}) \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ is representable by
+algebraic spaces and \'etale.
+Finally, if $\mathcal{X}' \to \mathcal{X}$ is surjective also,
+then $W \to Z$ is surjective, and hence $F \to U$ is surjective by
+Lemma \ref{lemma-surjection-space-of-sections}.
+Thus in this case
+$\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}) \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ is also surjective.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-map-hilbert}
+In the situation of
+Lemma \ref{lemma-map-hilbert}.
+Assume that $G$, $H$ are representable by algebraic spaces and \'etale.
+Then $\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}') \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ is representable by
+algebraic spaces and \'etale.
+If also $H$ is surjective and the induced functor
+$\mathcal{X}' \to \mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$
+is surjective, then
+$\mathcal{H}_d(\mathcal{X}'/\mathcal{Y}') \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ is surjective.
+\end{lemma}
+
+\begin{proof}
+Set $\mathcal{X}'' = \mathcal{Y}' \times_\mathcal{Y} \mathcal{X}$. By
+Lemma \ref{lemma-etale-permanence}
+the $1$-morphism $\mathcal{X}' \to \mathcal{X}''$ is representable by
+algebraic spaces and \'etale (in particular the condition in the second
+statement of the lemma that $\mathcal{X}' \to \mathcal{X}''$ be surjective
+makes sense). We obtain a $2$-commutative diagram
+$$
+\xymatrix{
+\mathcal{X}' \ar[r] \ar[d] &
+\mathcal{X}'' \ar[r] \ar[d] &
+\mathcal{X} \ar[d] \\
+\mathcal{Y}' \ar[r] &
+\mathcal{Y}' \ar[r] &
+\mathcal{Y}
+}
+$$
+It follows from
+Lemma \ref{lemma-cartesian-map-hilbert}
+that $\mathcal{H}_d(\mathcal{X}''/\mathcal{Y}')$ is the base change
+of $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ by $\mathcal{Y}' \to \mathcal{Y}$.
+In particular we see that
+$\mathcal{H}_d(\mathcal{X}''/\mathcal{Y}') \to
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ is
+representable by algebraic spaces and \'etale, see
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-base-change-representable-transformations-property}.
+Moreover, it is also surjective if $H$ is.
+ Hence if we can show that
+the result holds for the left square in the diagram, then we're done.
+In this way we reduce to the case where $\mathcal{Y}' = \mathcal{Y}$
+which is the content of
+Lemma \ref{lemma-etale-covering-hilbert}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-hilbert}
+Let $F : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of stacks in groupoids
+over $(\Sch/S)_{fppf}$. Assume that
+$\Delta : \mathcal{Y} \to \mathcal{Y} \times \mathcal{Y}$
+is representable by algebraic spaces. Then
+$$
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\longrightarrow
+\mathcal{H}_d(\mathcal{X}) \times \mathcal{Y}
+$$
+see
+Examples of Stacks, Equation
+(\ref{examples-stacks-equation-diagram-hilbert-d-stack})
+is representable by algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+Let $U$ be a scheme and let $\xi = (U, Z, p, x, 1)$ be an object of
+$\mathcal{H}_d(\mathcal{X}) = \mathcal{H}_d(\mathcal{X}/S)$ over $U$.
+Here $p$ is just the structure morphism of $U$.
+The fifth component $1$ exists and is unique
+since everything is over $S$.
+Also, let $y$ be an object of $\mathcal{Y}$ over $U$.
+We have to show the $2$-fibre product
+\begin{equation}
+\label{equation-res-isom}
+(\Sch/U)_{fppf}
+\times_{\xi \times y, \mathcal{H}_d(\mathcal{X}) \times \mathcal{Y}}
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\end{equation}
+is representable by an algebraic space. To explain why this is so
+we introduce
+$$
+I = \mathit{Isom}_\mathcal{Y}(y|_Z, F(x))
+$$
+which is an algebraic space over $Z$ by assumption. Let $a : U' \to U$
+be a scheme over $U$. What does it mean to give an object of the fibre
+category of (\ref{equation-res-isom}) over $U'$? Well, it means that we
+have an object $\xi' = (U', Z', y', x', \alpha')$ of
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ over $U'$ and isomorphisms
+$(U', Z', p', x', 1) \cong (U, Z, p, x, 1)|_{U'}$ and
+$y' \cong y|_{U'}$. Thus $\xi'$ is isomorphic to
+$(U', U' \times_{a, U} Z, a^*y, x|_{U' \times_{a, U} Z}, \alpha)$
+for some morphism
+$$
+\alpha :
+a^*y|_{U' \times_{a, U} Z}
+\longrightarrow
+F(x|_{U' \times_{a, U} Z})
+$$
+in the fibre category of $\mathcal{Y}$ over $U' \times_{a, U} Z$. Hence
+we can view $\alpha$ as a morphism $b : U' \times_{a, U} Z \to I$.
+In this way we see that (\ref{equation-res-isom})
+is representable by $\text{Res}_{Z/U}(I)$ which is an algebraic space by
+Proposition \ref{proposition-restriction-of-scalars-algebraic-space}.
+\end{proof}
+
+\noindent
+The following lemma is a (partial) generalization of
+Lemma \ref{lemma-etale-covering-hilbert}.
+
+\begin{lemma}
+\label{lemma-representable-on-top}
+Let $F : \mathcal{X} \to \mathcal{Y}$ and $G : \mathcal{X}' \to \mathcal{X}$
+be $1$-morphisms of stacks in groupoids over $(\Sch/S)_{fppf}$.
+If $G$ is representable by algebraic spaces, then the $1$-morphism
+$$
+\mathcal{H}_d(\mathcal{X}'/\mathcal{Y})
+\longrightarrow
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+$$
+is representable by algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+Let $U$ be a scheme and let $\xi = (U, Z, y, x, \alpha)$ be an object of
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ over $U$.
+We have to prove that the $2$-fibre product
+\begin{equation}
+\label{equation-to-show-again}
+(\Sch/U)_{fppf}
+\times_{\xi, \mathcal{H}_d(\mathcal{X}/\mathcal{Y})}
+\mathcal{H}_d(\mathcal{X}'/\mathcal{Y})
+\end{equation}
+is representable by an algebraic space \'etale over $U$.
+An object of this over $a : U' \to U$ corresponds to an object
+$x'$ of $\mathcal{X}'$ over $U' \times_{a, U} Z$ such that
+$G(x') \cong x|_{U' \times_{a, U} Z}$. By assumption the $2$-fibre product
+$$
+(\Sch/Z)_{fppf} \times_{x, \mathcal{X}} \mathcal{X}'
+$$
+is representable by an algebraic space $X$ over $Z$. It follows that
+(\ref{equation-to-show-again}) is representable by $\text{Res}_{Z/U}(X)$,
+which is an algebraic space by
+Proposition \ref{proposition-restriction-of-scalars-algebraic-space}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-limit-preserving}
+Let $F : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of stacks in groupoids
+over $(\Sch/S)_{fppf}$. Assume $F$ is representable by algebraic
+spaces and locally of finite presentation. Then
+$$
+p : \mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \to \mathcal{Y}
+$$
+is limit preserving on objects.
+\end{lemma}
+
+\begin{proof}
+This means we have to show the following: Given
+\begin{enumerate}
+\item an affine scheme $U = \lim_i U_i$ which is written as the
+directed limit of affine schemes $U_i$ over $S$,
+\item an object $y_i$ of $\mathcal{Y}$ over $U_i$ for some $i$, and
+\item an object $\Xi = (U, Z, y, x, \alpha)$ of
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$
+over $U$ such that $y = y_i|_U$,
+\end{enumerate}
+then there exists an $i' \geq i$ and an object
+$\Xi_{i'} = (U_{i'}, Z_{i'}, y_{i'}, x_{i'}, \alpha_{i'})$ of
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ over $U_{i'}$ with
+$\Xi_{i'}|_U = \Xi$ and $y_{i'} = y_i|_{U_{i'}}$.
+Namely, the last two equalities will take care of the commutativity of
+(\ref{equation-limit-preserving}).
+
+\medskip\noindent
+Let $X_{y_i} \to U_i$ be an algebraic space representing the $2$-fibre
+product
+$$
+(\Sch/U_i)_{fppf} \times_{y_i, \mathcal{Y}, F} \mathcal{X}.
+$$
+Note that $X_{y_i} \to U_i$ is locally of finite presentation by our
+assumption on $F$. Write $\Xi $. It is clear that
+$\xi = (Z, Z \to U_i, x, \alpha)$ is an object of the $2$-fibre product
+displayed above, hence $\xi$ gives rise to a morphism
+$f_\xi : Z \to X_{y_i}$ of algebraic spaces over $U_i$
+(since $X_{y_i}$ is the functor of isomorphisms classes of objects of
+$(\Sch/U_i)_{fppf} \times_{y, \mathcal{Y}, F} \mathcal{X}$, see
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-characterize-representable-by-space}).
+By
+Limits, Lemmas \ref{limits-lemma-descend-finite-presentation} and
+\ref{limits-lemma-descend-finite-locally-free}
+there exists an $i' \geq i$ and a finite locally free morphism
+$Z_{i'} \to U_{i'}$ of degree $d$ whose base change to $U$ is $Z$. By
+Limits of Spaces, Proposition
+\ref{spaces-limits-proposition-characterize-locally-finite-presentation}
+we may, after replacing $i'$ by a bigger index, assume there exists a
+morphism $f_{i'} : Z_{i'} \to X_{y_i}$ such that
+$$
+\xymatrix{
+Z \ar[d] \ar[r] \ar@/^3ex/[rr]^{f_\xi} &
+Z_{i'} \ar[d] \ar[r]_{f_{i'}} & X_{y_i} \ar[d] \\
+U \ar[r] & U_{i'} \ar[r] & U_i
+}
+$$
+is commutative. We set
+$\Xi_{i'} = (U_{i'}, Z_{i'}, y_{i'}, x_{i'}, \alpha_{i'})$
+where
+\begin{enumerate}
+\item $y_{i'}$ is the object of $\mathcal{Y}$ over $U_{i'}$
+which is the pullback of $y_i$ to $U_{i'}$,
+\item $x_{i'}$ is the object of $\mathcal{X}$ over $Z_{i'}$ corresponding
+via the $2$-Yoneda lemma to the $1$-morphism
+$$
+(\Sch/Z_{i'})_{fppf} \to
+\mathcal{S}_{X_{y_i}} \to
+(\Sch/U_i)_{fppf} \times_{y_i, \mathcal{Y}, F} \mathcal{X} \to
+\mathcal{X}
+$$
+where the middle arrow is the equivalence which defines $X_{y_i}$
+(notation as in
+Algebraic Stacks, Sections
+\ref{algebraic-section-representable-by-algebraic-spaces} and
+\ref{algebraic-section-split}).
+\item $\alpha_{i'} : y_{i'}|_{Z_{i'}} \to F(x_{i'})$ is the isomorphism
+coming from the $2$-commutativity of the diagram
+$$
+\xymatrix{
+(\Sch/Z_{i'})_{fppf} \ar[r] \ar[rd] &
+(\Sch/U_i)_{fppf} \times_{y_i, \mathcal{Y}, F} \mathcal{X}
+\ar[r] \ar[d] &
+\mathcal{X} \ar[d]^F \\
+& (\Sch/U_{i'})_{fppf} \ar[r] & \mathcal{Y}
+}
+$$
+\end{enumerate}
+Recall that $f_\xi : Z \to X_{y_i}$ was the morphism corresponding to
+the object $\xi = (Z, Z \to U_i, x, \alpha)$ of
+$(\Sch/U_i)_{fppf} \times_{y_i, \mathcal{Y}, F} \mathcal{X}$
+over $Z$. By construction $f_{i'}$ is the morphism corresponding to
+the object $\xi_{i'} = (Z_{i'}, Z_{i'} \to U_i, x_{i'}, \alpha_{i'})$.
+As $f_\xi = f_{i'} \circ (Z \to Z_{i'})$ we see that
+the object $\xi_{i'} = (Z_{i'}, Z_{i'} \to U_i, x_{i'}, \alpha_{i'})$ pulls
+back to $\xi$ over $Z$. Thus $x_{i'}$ pulls back to $x$ and $\alpha_{i'}$
+pulls back to $\alpha$. This means that $\Xi_{i'}$ pulls back
+to $\Xi$ over $U$ and we win.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{The finite Hilbert stack of a point}
+\label{section-hilbert-point}
+
+\noindent
+Let $d \geq 1$ be an integer. In
+Examples of Stacks, Definition \ref{examples-stacks-definition-hilbert-d-stack}
+we defined a stack in groupoids $\mathcal{H}_d$.
+In this section we prove that $\mathcal{H}_d$ is an
+algebraic stack. We will throughout assume that
+$S = \Spec(\mathbf{Z})$.
+The general case will follow from this by base change.
+Recall that the fibre category of $\mathcal{H}_d$ over a scheme $T$
+is the category of finite locally free morphisms $\pi : Z \to T$ of
+degree $d$. Instead of classifying these directly we first
+study the quasi-coherent sheaves of algebras $\pi_*\mathcal{O}_Z$.
+
+\medskip\noindent
+Let $R$ be a ring. Let us temporarily make the following definition:
+A {\it free $d$-dimensional algebra over $R$}
+is given by a commutative $R$-algebra structure $m$ on $R^{\oplus d}$
+such that $e_1 = (1, 0, \ldots, 0)$ is a unit\footnote{It may be better
+to think of this as a pair consisting of a multiplication map
+$m : R^{\oplus d} \otimes_R R^{\oplus d} \to R^{\oplus d}$ and
+a ring map $\psi : R \to R^{\oplus d}$ satisfying a bunch of axioms.}.
+We think of $m$ as an $R$-linear map
+$$
+m : R^{\oplus d} \otimes_R R^{\oplus d} \longrightarrow R^{\oplus d}
+$$
+such that $m(e_1, x) = m(x, e_1) = x$ and such that $m$ defines a
+commutative and associative ring structure. If we write
+$m(e_i, e_j) = \sum a_{ij}^ke_k$ then we see this boils down
+to the conditions
+$$
+\left\{
+\begin{matrix}
+\sum_l a_{ij}^la_{lk}^m = \sum_l a_{il}^ma_{jk}^l & \forall i, j, k, m \\
+a_{ij}^k = a_{ji}^k & \forall i, j, k \\
+a_{i1}^j = \delta_{ij} & \forall i, j
+\end{matrix}
+\right.
+$$
+where $\delta_{ij}$ is the Kronecker $\delta$-function. OK, so let's define
+$$
+R_{univ} = \mathbf{Z}[a_{ij}^k]/J
+$$
+where the ideal $J$ is the ideal generated by the relations displayed above.
+Denote
+$$
+m_{univ} :
+R_{univ}^{\oplus d} \otimes_{R_{univ}} R_{univ}^{\oplus d}
+\longrightarrow
+R_{univ}^{\oplus d}
+$$
+the free $d$-dimensional algebra $m$ over $R_{univ}$ whose structure
+constants are the classes of $a_{ij}^k$ modulo $J$.
+Then it is clear that given any free $d$-dimensional algebra $m$ over a ring
+$R$ there exists a unique $\mathbf{Z}$-algebra homomorphism
+$\psi : R_{univ} \to R$ such that $\psi_*m_{univ} = m$ (this means that
+$m$ is what you get by applying the base change functor
+$- \otimes_{R_{univ}} R$ to $m_{univ}$). In other words, setting
+$X = \Spec(R_{univ})$ we obtain a canonical identification
+$$
+X(T) = \{\text{free }d\text{-dimensional algebras }m\text{ over }R\}
+$$
+for varying $T = \Spec(R)$. By Zariski localization we obtain
+the following seemingly more general identification
+\begin{equation}
+\label{equation-objects}
+X(T) = \{\text{free }d\text{-dimensional algebras }
+m\text{ over }\Gamma(T, \mathcal{O}_T)\}
+\end{equation}
+for any scheme $T$.
+
+\medskip\noindent
+Next we talk a little bit about {\it isomorphisms of free $d$-dimensional
+$R$-algebras}. Namely, suppose that $m$, $m'$ are two free $d$-dimensional
+algebras over a ring $R$. An {\it isomorphism from $m$ to $m'$} is given by
+an invertible $R$-linear map
+$$
+\varphi : R^{\oplus d} \longrightarrow R^{\oplus d}
+$$
+such that $\varphi(e_1) = e_1$ and such that
+$$
+m \circ \varphi \otimes \varphi = \varphi \circ m'.
+$$
+Note that we can compose these so that the collection of
+free $d$-dimensional algebras over $R$ becomes a category.
+In this way we obtain a functor
+\begin{equation}
+\label{equation-FAd}
+FA_d : \Sch_{fppf}^{opp} \longrightarrow \textit{Groupoids}
+\end{equation}
+from the category of schemes to groupoids: to a scheme $T$ we associate the
+set of free $d$-dimensional algebras over $\Gamma(T, \mathcal{O}_T)$
+endowed with the structure
+of a category using the notion of isomorphisms just defined.
+
+\medskip\noindent
+The above suggests we consider the functor $G$ in groups
+which associates to any scheme $T$ the group
+$$
+G(T) = \{g \in \text{GL}_d(\Gamma(T, \mathcal{O}_T)) \mid g(e_1) = e_1\}
+$$
+It is clear that $G \subset \text{GL}_d$ (see
+Groupoids, Example \ref{groupoids-example-general-linear-group})
+is the closed subgroup scheme cut out by the equations
+$x_{11} = 1$ and $x_{i1} = 0$ for $i > 1$. Hence $G$ is a smooth
+affine group scheme over $\Spec(\mathbf{Z})$. Consider the
+action
+$$
+a : G \times_{\Spec(\mathbf{Z})} X \longrightarrow X
+$$
+which associates to a $T$-valued point $(g, m)$ with $T = \Spec(R)$
+on the left hand side the free $d$-dimensional algebra over $R$
+given by
+$$
+a(g, m) = g^{-1} \circ m \circ g \otimes g.
+$$
+Note that this means that $g$ defines an isomorphism $m \to a(g, m)$
+of $d$-dimensional free $R$-algebras. We omit the verification that
+$a$ indeed defines an action of the group scheme $G$ on the scheme $X$.
+
+\begin{lemma}
+\label{lemma-represent-FAd}
+The functor in groupoids $FA_d$ defined in (\ref{equation-FAd})
+is isomorphic (!) to the functor in groupoids which associates
+to a scheme $T$ the category with
+\begin{enumerate}
+\item set of objects is $X(T)$,
+\item set of morphisms is $G(T) \times X(T)$,
+\item $s : G(T) \times X(T) \to X(T)$ is the projection map,
+\item $t : G(T) \times X(T) \to X(T)$ is $a(T)$, and
+\item composition $G(T) \times X(T) \times_{s, X(T), t} G(T) \times X(T)
+\to G(T) \times X(T)$ is given by $((g, m), (g', m')) \mapsto (gg', m')$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We have seen the rule on objects in (\ref{equation-objects}).
+We have also seen above that $g \in G(T)$ can be viewed as
+a morphism from $m$ to $a(g, m)$ for any free $d$-dimensional algebra $m$.
+Conversely, any morphism $m \to m'$ is given by an invertible linear
+map $\varphi$ which corresponds to an element $g \in G(T)$ such
+that $m' = a(g, m)$.
+\end{proof}
+
+\noindent
+In fact the groupoid $(X, G \times X, s, t, c)$ described in the
+lemma above is the groupoid associated to the action $a : G \times X \to X$
+as defined in
+Groupoids, Lemma \ref{groupoids-lemma-groupoid-from-action}.
+Since $G$ is smooth over $\Spec(\mathbf{Z})$
+we see that the two morphisms $s, t : G \times X \to X$ are
+smooth: by symmetry it suffices to prove that one of them is, and
+$s$ is the base change of $G \to \Spec(\mathbf{Z})$.
+Hence $(G \times X, X, s, t, c)$ is a smooth groupoid scheme,
+and the quotient stack $[X/G]$ is an algebraic stack by
+Algebraic Stacks,
+Theorem \ref{algebraic-theorem-smooth-groupoid-gives-algebraic-stack}.
+
+\begin{proposition}
+\label{proposition-finite-hilbert-point}
+The stack $\mathcal{H}_d$ is equivalent to the quotient stack
+$[X/G]$ described above. In particular $\mathcal{H}_d$ is an
+algebraic stack.
+\end{proposition}
+
+\begin{proof}
+Note that by
+Groupoids in Spaces, Definition
+\ref{spaces-groupoids-definition-quotient-stack}
+the quotient stack $[X/G]$ is the stackification of the
+category fibred in groupoids associated to the ``presheaf in groupoids''
+which associates to a scheme $T$ the groupoid
+$$
+(X(T), G(T) \times X(T), s, t, c).
+$$
+Since this ``presheaf in groupoids'' is isomorphic to $FA_d$ by
+Lemma \ref{lemma-represent-FAd}
+it suffices to prove that the $\mathcal{H}_d$ is the stackification
+of (the category fibred in groupoids associated to the
+``presheaf in groupoids'') $FA_d$. To do this we first define a
+functor
+$$
+\Spec : FA_d \longrightarrow \mathcal{H}_d
+$$
+Recall that the fibre category of $\mathcal{H}_d$ over a scheme $T$
+is the category of finite locally free morphisms $Z \to T$ of degree $d$.
+Thus given a scheme $T$ and a free $d$-dimensional
+$\Gamma(T, \mathcal{O}_T)$-algebra $m$ we may assign to this the object
+$$
+Z = \underline{\Spec}_T(\mathcal{A})
+$$
+of $\mathcal{H}_{d, T}$
+where $\mathcal{A} = \mathcal{O}_T^{\oplus d}$ endowed with a
+$\mathcal{O}_T$-algebra structure via $m$. Moreover, if $m'$ is
+a second such free $d$-dimensional $\Gamma(T, \mathcal{O}_T)$-algebra
+and if $\varphi : m \to m'$ is an isomorphism of these, then
+the induced $\mathcal{O}_T$-linear map
+$\varphi : \mathcal{O}_T^{\oplus d} \to \mathcal{O}_T^{\oplus d}$
+induces an isomorphism
+$$
+\varphi : \mathcal{A}' \longrightarrow \mathcal{A}
+$$
+of quasi-coherent $\mathcal{O}_T$-algebras. Hence
+$$
+\underline{\Spec}_T(\varphi) :
+\underline{\Spec}_T(\mathcal{A})
+\longrightarrow
+\underline{\Spec}_T(\mathcal{A}')
+$$
+is a morphism in the fibre category $\mathcal{H}_{d, T}$. We omit the
+verification that this construction is compatible with base change so
+we get indeed a functor $\Spec : FA_d \to \mathcal{H}_d$
+as claimed above.
+
+\medskip\noindent
+To show that $\Spec : FA_d \to \mathcal{H}_d$ induces an equivalence
+between the stackification of $FA_d$ and $\mathcal{H}_d$ it suffices to
+check that
+\begin{enumerate}
+\item $\mathit{Isom}(m, m') = \mathit{Isom}(\Spec(m), \Spec(m'))$
+for any $m, m' \in FA_d(T)$.
+\item for any scheme $T$ and any object $Z \to T$ of $\mathcal{H}_{d, T}$
+there exists a covering $\{T_i \to T\}$ such that $Z|_{T_i}$ is
+isomorphic to $\Spec(m)$ for some $m \in FA_d(T_i)$, and
+\end{enumerate}
+see
+Stacks, Lemma \ref{stacks-lemma-stackify-groupoids}.
+The first statement follows from the observation that any isomorphism
+$$
+\underline{\Spec}_T(\mathcal{A})
+\longrightarrow
+\underline{\Spec}_T(\mathcal{A}')
+$$
+is necessarily given by a global invertible matrix $g$ when
+$\mathcal{A} = \mathcal{A}' = \mathcal{O}_T^{\oplus d}$ as modules.
+To prove the second statement let $\pi : Z \to T$ be a finite
+locally free morphism of degree $d$. Then $\mathcal{A}$ is a locally
+free sheaf $\mathcal{O}_T$-modules of rank $d$.
+Consider the element $1 \in \Gamma(T, \mathcal{A})$. This element is
+nonzero in $\mathcal{A} \otimes_{\mathcal{O}_{T, t}} \kappa(t)$
+for every $t \in T$ since the scheme
+$Z_t = \Spec(\mathcal{A} \otimes_{\mathcal{O}_{T, t}} \kappa(t))$
+is nonempty being of degree $d > 0$ over $\kappa(t)$. Thus
+$1 : \mathcal{O}_T \to \mathcal{A}$ can locally be used as the first
+basis element (for example you can use
+Algebra, Lemma \ref{algebra-lemma-cokernel-flat} parts (1) and (2)
+to see this). Thus, after localizing on
+$T$ we may assume that there exists an isomorphism
+$\varphi : \mathcal{A} \to \mathcal{O}_T^{\oplus d}$
+such that $1 \in \Gamma(\mathcal{A})$ corresponds to the first basis element.
+In this situation the multiplication map
+$\mathcal{A} \otimes_{\mathcal{O}_T} \mathcal{A} \to \mathcal{A}$
+translates via $\varphi$ into a free $d$-dimensional algebra $m$ over
+$\Gamma(T, \mathcal{O}_T)$. This finishes the proof.
+\end{proof}
+
+
+
+
+\section{Finite Hilbert stacks of spaces}
+\label{section-spaces-hilbert}
+
+\noindent
+The finite Hilbert stack of an algebraic space is an algebraic stack.
+
+\begin{lemma}
+\label{lemma-hilbert-stack-of-space}
+Let $S$ be a scheme.
+Let $X$ be an algebraic space over $S$.
+Then $\mathcal{H}_d(X)$ is an algebraic stack.
+\end{lemma}
+
+\begin{proof}
+The $1$-morphism
+$$
+\mathcal{H}_d(X) \longrightarrow \mathcal{H}_d
+$$
+is representable by algebraic spaces according to
+Lemma \ref{lemma-representable-on-top}.
+The stack $\mathcal{H}_d$ is an algebraic stack according to
+Proposition \ref{proposition-finite-hilbert-point}.
+Hence $\mathcal{H}_d(X)$ is an algebraic stack by
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-representable-morphism-to-algebraic}.
+\end{proof}
+
+\noindent
+This lemma allows us to bootstrap.
+
+\begin{lemma}
+\label{lemma-hilbert-stack-relative-space}
+Let $S$ be a scheme. Let $F : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism
+of stacks in groupoids over $(\Sch/S)_{fppf}$ such that
+\begin{enumerate}
+\item $\mathcal{X}$ is representable by an algebraic space, and
+\item $F$ is representable by algebraic spaces, surjective, flat, and
+locally of finite presentation.
+\end{enumerate}
+Then $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ is an algebraic stack.
+\end{lemma}
+
+\begin{proof}
+Choose a representable stack in groupoids $\mathcal{U}$ over $S$ and a
+$1$-morphism $f : \mathcal{U} \to \mathcal{H}_d(\mathcal{X})$
+which is representable by algebraic spaces, smooth, and surjective.
+This is possible because $\mathcal{H}_d(\mathcal{X})$ is an algebraic stack by
+Lemma \ref{lemma-hilbert-stack-of-space}.
+Consider the $2$-fibre product
+$$
+\mathcal{W} =
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\times_{\mathcal{H}_d(\mathcal{X}), f}
+\mathcal{U}.
+$$
+Since $\mathcal{U}$ is representable (in particular a stack in setoids)
+it follows from
+Examples of Stacks, Lemma \ref{examples-stacks-lemma-faithful-hilbert}
+and
+Stacks, Lemma \ref{stacks-lemma-2-fibre-product-gives-stack-in-setoids}
+that $\mathcal{W}$ is a stack in setoids. The $1$-morphism
+$\mathcal{W} \to \mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ is
+representable by algebraic spaces, smooth, and surjective as a base
+change of the morphism $f$ (see
+Algebraic Stacks,
+Lemmas \ref{algebraic-lemma-base-change-representable-by-spaces} and
+\ref{algebraic-lemma-base-change-representable-transformations-property}).
+Thus, if we can show that $\mathcal{W}$ is representable by an algebraic space,
+then the lemma follows from
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-smooth-surjective-morphism-implies-algebraic}.
+
+\medskip\noindent
+The diagonal of $\mathcal{Y}$ is representable by algebraic spaces according to
+Lemma \ref{lemma-flat-finite-presentation-surjective-diagonal}.
+We may apply
+Lemma \ref{lemma-relative-hilbert}
+to see that the $1$-morphism
+$$
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\longrightarrow
+\mathcal{H}_d(\mathcal{X}) \times \mathcal{Y}
+$$
+is representable by algebraic spaces. Consider the $2$-fibre product
+$$
+\mathcal{V} =
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\times_{(\mathcal{H}_d(\mathcal{X}) \times \mathcal{Y}), f \times F}
+(\mathcal{U} \times \mathcal{X}).
+$$
+The projection morphism $\mathcal{V} \to \mathcal{U} \times \mathcal{X}$
+is representable by algebraic spaces as a base change of the last
+displayed morphism. Hence $\mathcal{V}$ is an algebraic space (see
+Bootstrap, Lemma \ref{bootstrap-lemma-representable-by-spaces-over-space}
+or
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-base-change-by-space-representable-by-space}).
+The $1$-morphism $\mathcal{V} \to \mathcal{U}$ fits into the following
+$2$-cartesian diagram
+$$
+\xymatrix{
+\mathcal{V} \ar[d] \ar[r] & \mathcal{X} \ar[d]^F \\
+\mathcal{W} \ar[r] & \mathcal{Y}
+}
+$$
+because
+$$
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\times_{(\mathcal{H}_d(\mathcal{X}) \times \mathcal{Y}), f \times F}
+(\mathcal{U} \times \mathcal{X})
+=
+(\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+\times_{\mathcal{H}_d(\mathcal{X}), f}
+\mathcal{U}) \times_{\mathcal{Y}, F} \mathcal{X}.
+$$
+Hence $\mathcal{V} \to \mathcal{W}$ is representable by algebraic spaces,
+surjective, flat, and locally of finite presentation as a base change
+of $F$. It follows that the same thing is true for the corresponding
+sheaves of sets associated to $\mathcal{V}$ and $\mathcal{W}$, see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-map-fibred-setoids-property}.
+Thus we conclude that the sheaf associated to $\mathcal{W}$ is an
+algebraic space by
+Bootstrap, Theorem \ref{bootstrap-theorem-final-bootstrap}.
+\end{proof}
+
+
+
+
+\section{LCI locus in the Hilbert stack}
+\label{section-lci}
+
+\noindent
+Please consult
+Examples of Stacks, Section \ref{examples-stacks-section-hilbert-d-stack}
+for notation. Fix a $1$-morphism $F : \mathcal{X} \longrightarrow \mathcal{Y}$
+of stacks in groupoids over $(\Sch/S)_{fppf}$. Assume that
+$F$ is representable by algebraic spaces. Fix $d \geq 1$. Consider an
+object $(U, Z, y, x, \alpha)$ of $\mathcal{H}_d$. There is an
+induced $1$-morphism
+$$
+(\Sch/Z)_{fppf}
+\longrightarrow
+(\Sch/U)_{fppf} \times_{y, \mathcal{Y}, F} \mathcal{X}
+$$
+(by the universal property of $2$-fibre products) which is representable by
+a morphism of algebraic spaces over $U$.
+Namely, since $F$ is representable by algebraic spaces, we may choose
+an algebraic space $X_y$ over $U$ which represents the $2$-fibre product
+$(\Sch/U)_{fppf} \times_{y, \mathcal{Y}, F} \mathcal{X}$.
+Since $\alpha : y|_Z \to F(x)$ is an isomorphism we see that
+$\xi = (Z, Z \to U, x, \alpha)$ is an object of the $2$-fibre product
+$(\Sch/U)_{fppf} \times_{y, \mathcal{Y}, F} \mathcal{X}$ over $Z$.
+Hence $\xi$ gives rise to a morphism $x_\alpha : Z \to X_y$ of algebraic spaces
+over $U$ as $X_y$ is the functor of isomorphisms classes of objects of
+$(\Sch/U)_{fppf} \times_{y, \mathcal{Y}, F} \mathcal{X}$, see
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-characterize-representable-by-space}.
+Here is a picture
+\begin{equation}
+\label{equation-relative-map}
+\vcenter{
+\xymatrix{
+Z \ar[r]_{x_\alpha} \ar[rd] & X_y \ar[d] \\
+& U
+}
+}
+\quad\quad
+\vcenter{
+\xymatrix{
+(\Sch/Z)_{fppf} \ar[rd] \ar[r]_-{x, \alpha} &
+(\Sch/U)_{fppf} \times_{y, \mathcal{Y}, F} \mathcal{X} \ar[r] \ar[d] &
+\mathcal{X} \ar[d]^F \\
+& (\Sch/U)_{fppf} \ar[r]^y & \mathcal{Y}
+}
+}
+\end{equation}
+We remark that if
+$(f, g, b, a) : (U, Z, y, x, \alpha) \to (U', Z', y', x', \alpha')$
+is a morphism between objects of $\mathcal{H}_d$, then the morphism
+$x'_{\alpha'} : Z' \to X'_{y'}$ is the base change of the morphism
+$x_\alpha$ by the morphism $g : U' \to U$ (details omitted).
+
+\medskip\noindent
+Now assume moreover that $F$ is flat and locally of finite presentation.
+In this situation we define a full subcategory
+$$
+\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y}) \subset
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+$$
+consisting of those objects $(U, Z, y, x, \alpha)$ of
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ such
+that the corresponding morphism $x_\alpha : Z \to X_y$ is unramified
+and a local complete intersection morphism (see
+Morphisms of Spaces, Definition \ref{spaces-morphisms-definition-unramified}
+and
+More on Morphisms of Spaces,
+Definition \ref{spaces-more-morphisms-definition-lci}
+for definitions).
+
+\begin{lemma}
+\label{lemma-lci-locus-stack-in-groupoids}
+Let $S$ be a scheme. Fix a $1$-morphism
+$F : \mathcal{X} \longrightarrow \mathcal{Y}$
+of stacks in groupoids over $(\Sch/S)_{fppf}$.
+Assume $F$ is representable by algebraic spaces, flat, and locally
+of finite presentation. Then $\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$
+is a stack in groupoids and the inclusion functor
+$$
+\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})
+\longrightarrow
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+$$
+is representable and an open immersion.
+\end{lemma}
+
+\begin{proof}
+Let $\Xi = (U, Z, y, x, \alpha)$ be an object of $\mathcal{H}_d$. It follows
+from the remark following
+(\ref{equation-relative-map})
+that the pullback of $\Xi$ by $U' \to U$ belongs to
+$\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$ if and only if the base
+change of $x_\alpha$ is unramified and a local complete intersection morphism.
+Note that $Z \to U$ is finite locally free (hence flat, locally of
+finite presentation and universally closed) and that $X_y \to U$ is
+flat and locally of finite presentation by our assumption on $F$. Then
+More on Morphisms of Spaces, Lemmas
+\ref{spaces-more-morphisms-lemma-where-unramified} and
+\ref{spaces-more-morphisms-lemma-where-lci}
+imply exists an open subscheme $W \subset U$ such that a morphism
+$U' \to U$ factors through $W$ if and only if the base change of
+$x_\alpha$ via $U' \to U$ is unramified and a local complete intersection
+morphism. This implies that
+$$
+(\Sch/U)_{fppf}
+\times_{\Xi, \mathcal{H}_d(\mathcal{X}/\mathcal{Y})}
+\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})
+$$
+is representable by $W$. Hence the final statement of the lemma
+holds. The first statement (that
+$\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$ is a stack in groupoids)
+follows from this and
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-open-fibred-category-is-algebraic}.
+\end{proof}
+
+\noindent
+Local complete intersection morphisms are ``locally unobstructed''.
+This holds in much greater generality than the special case
+that we need in this chapter here.
+
+\begin{lemma}
+\label{lemma-lci-unobstructed}
+Let $U \subset U'$ be a first order thickening of affine schemes.
+Let $X'$ be an algebraic space flat over $U'$. Set $X = U \times_{U'} X'$.
+Let $Z \to U$ be finite locally free of degree $d$. Finally, let
+$f : Z \to X$ be unramified and a local complete intersection morphism.
+Then there exists a commutative diagram
+$$
+\xymatrix{
+(Z \subset Z') \ar[rd] \ar[rr]_{(f, f')} & & (X \subset X') \ar[ld] \\
+& (U \subset U')
+}
+$$
+of algebraic spaces over $U'$ such that $Z' \to U'$ is finite locally free
+of degree $d$ and $Z = U \times_{U'} Z'$.
+\end{lemma}
+
+\begin{proof}
+By
+More on Morphisms of Spaces,
+Lemma \ref{spaces-more-morphisms-lemma-unramified-lci}
+the conormal sheaf $\mathcal{C}_{Z/X}$ of the unramified morphism $Z \to X$
+is a finite locally free $\mathcal{O}_Z$-module and by
+More on Morphisms of Spaces,
+Lemma \ref{spaces-more-morphisms-lemma-transitivity-conormal-lci}
+we have an exact sequence
+$$
+0 \to i^*\mathcal{C}_{X/X'} \to
+\mathcal{C}_{Z/X'} \to
+\mathcal{C}_{Z/X} \to 0
+$$
+of conormal sheaves. Since $Z$ is affine this sequence is split. Choose
+a splitting
+$$
+\mathcal{C}_{Z/X'} = i^*\mathcal{C}_{X/X'} \oplus \mathcal{C}_{Z/X}
+$$
+Let $Z \subset Z''$ be the universal first order thickening of of $Z$
+over $X'$ (see
+More on Morphisms of Spaces,
+Section \ref{spaces-more-morphisms-section-universal-thickening}).
+Denote $\mathcal{I} \subset \mathcal{O}_{Z''}$ the quasi-coherent sheaf
+of ideals corresponding to $Z \subset Z''$. By definition we have
+$\mathcal{C}_{Z/X'}$ is $\mathcal{I}$ viewed as a sheaf on $Z$.
+Hence the splitting above determines a splitting
+$$
+\mathcal{I} = i^*\mathcal{C}_{X/X'} \oplus \mathcal{C}_{Z/X}
+$$
+Let $Z' \subset Z''$ be the closed subscheme cut out by
+$\mathcal{C}_{Z/X} \subset \mathcal{I}$ viewed as a quasi-coherent sheaf
+of ideals on $Z''$. It is clear that $Z'$ is a first order thickening
+of $Z$ and that we obtain a commutative diagram of first order thickenings
+as in the statement of the lemma.
+
+\medskip\noindent
+Since $X' \to U'$ is flat and since $X = U \times_{U'} X'$ we see that
+$\mathcal{C}_{X/X'}$ is the pullback of $\mathcal{C}_{U/U'}$ to $X$, see
+More on Morphisms of Spaces, Lemma \ref{spaces-more-morphisms-lemma-deform}.
+Note that by construction $\mathcal{C}_{Z/Z'} = i^*\mathcal{C}_{X/X'}$
+hence we conclude that $\mathcal{C}_{Z/Z'}$ is isomorphic to the pullback
+of $\mathcal{C}_{U/U'}$ to $Z$. Applying
+More on Morphisms of Spaces, Lemma \ref{spaces-more-morphisms-lemma-deform}
+once again (or its analogue for schemes, see
+More on Morphisms, Lemma \ref{more-morphisms-lemma-deform})
+we conclude that $Z' \to U'$ is flat and that $Z = U \times_{U'} Z'$.
+Finally,
+More on Morphisms, Lemma \ref{more-morphisms-lemma-deform-property}
+shows that $Z' \to U'$ is finite locally free of degree $d$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lci-formally-smooth}
+Let $F : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of stacks in groupoids
+over $(\Sch/S)_{fppf}$. Assume $F$ is representable by algebraic
+spaces, flat, and locally of finite presentation. Then
+$$
+p : \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y}) \to \mathcal{Y}
+$$
+is formally smooth on objects.
+\end{lemma}
+
+\begin{proof}
+We have to show the following: Given
+\begin{enumerate}
+\item an object $(U, Z, y, x, \alpha)$ of
+$\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$ over an affine scheme $U$,
+\item a first order thickening $U \subset U'$, and
+\item an object $y'$ of $\mathcal{Y}$ over $U'$ such that $y'|_U = y$,
+\end{enumerate}
+then there exists an object $(U', Z', y', x', \alpha')$ of
+$\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$ over $U'$ with
+$Z = U \times_{U'} Z'$, with $x = x'|_Z$, and with
+$\alpha = \alpha'|_U$. Namely, the last two equalities will take care
+of the commutativity of (\ref{equation-formally-smooth}).
+
+\medskip\noindent
+Consider the morphism $x_\alpha : Z \to X_y$ constructed in
+Equation (\ref{equation-relative-map}). Denote similarly $X'_{y'}$
+the algebraic space over $U'$ representing the $2$-fibre product
+$(\Sch/U')_{fppf} \times_{y', \mathcal{Y}, F} \mathcal{X}$.
+By assumption the morphism $X'_{y'} \to U'$ is flat (and locally of finite
+presentation). As $y'|_U = y$ we see that $X_y = U \times_{U'} X'_{y'}$.
+Hence we may apply
+Lemma \ref{lemma-lci-unobstructed}
+to find $Z' \to U'$ finite locally free of degree $d$ with
+$Z = U \times_{U'} Z'$ and with $Z' \to X'_{y'}$ extending $x_\alpha$.
+By construction the morphism $Z' \to X'_{y'}$ corresponds to a pair
+$(x', \alpha')$. It is clear that $(U', Z', y', x', \alpha')$
+is an object of $\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ over $U'$
+with $Z = U \times_{U'} Z'$, with $x = x'|_Z$, and with
+$\alpha = \alpha'|_U$. As we've seen in
+Lemma \ref{lemma-lci-locus-stack-in-groupoids}
+that $\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y}) \subset
+\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$ is an ``open substack''
+it follows that $(U', Z', y', x', \alpha')$ is an object of
+$\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lci-surjective}
+Let $F : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of stacks in groupoids
+over $(\Sch/S)_{fppf}$. Assume $F$ is representable by algebraic
+spaces, flat, surjective, and locally of finite presentation. Then
+$$
+\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})
+\longrightarrow
+\mathcal{Y}
+$$
+is surjective on objects.
+\end{lemma}
+
+\begin{proof}
+It suffices to prove the following: For any field $k$
+and object $y$ of $\mathcal{Y}$ over $\Spec(k)$ there exists
+an integer $d \geq 1$ and an object $(U, Z, y, x, \alpha)$ of
+$\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$ with $U = \Spec(k)$.
+Namely, in this case we see that $p$ is surjective on objects in the
+strong sense that an extension of the field is not needed.
+
+\medskip\noindent
+Denote $X_y$ the algebraic space over $U = \Spec(k)$
+representing the $2$-fibre product
+$(\Sch/U')_{fppf} \times_{y', \mathcal{Y}, F} \mathcal{X}$.
+By assumption the morphism $X_y \to \Spec(k)$ is surjective and
+locally of finite presentation (and flat). In particular $X_y$ is
+nonempty. Choose a nonempty affine scheme $V$ and an \'etale morphism
+$V \to X_y$. Note that $V \to \Spec(k)$ is (flat), surjective,
+and locally of finite presentation (by
+Morphisms of Spaces,
+Definition \ref{spaces-morphisms-definition-locally-finite-presentation}).
+Pick a closed point $v \in V$ where $V \to \Spec(k)$ is Cohen-Macaulay
+(i.e., $V$ is Cohen-Macaulay at $v$), see
+More on Morphisms,
+Lemma \ref{more-morphisms-lemma-flat-finite-presentation-CM-open}.
+Applying
+More on Morphisms,
+Lemma \ref{more-morphisms-lemma-slice-CM}
+we find a regular immersion $Z \to V$ with $Z = \{v\}$.
+This implies $Z \to V$ is a closed immersion. Moreover, it follows that
+$Z \to \Spec(k)$ is finite (for example by
+Algebra, Lemma \ref{algebra-lemma-isolated-point}).
+Hence $Z \to \Spec(k)$ is finite locally free of some degree $d$.
+Now $Z \to X_y$ is unramified as the composition
+of a closed immersion followed by an \'etale morphism
+(see
+Morphisms of Spaces, Lemmas \ref{spaces-morphisms-lemma-composition-unramified},
+\ref{spaces-morphisms-lemma-etale-unramified}, and
+\ref{spaces-morphisms-lemma-immersion-unramified}).
+Finally, $Z \to X_y$ is a local complete intersection morphism
+as a composition of a regular immersion of schemes and an \'etale
+morphism of algebraic spaces (see
+More on Morphisms, Lemma \ref{more-morphisms-lemma-regular-immersion-lci}
+and
+Morphisms of Spaces, Lemmas \ref{spaces-morphisms-lemma-etale-smooth} and
+\ref{spaces-morphisms-lemma-smooth-syntomic} and
+More on Morphisms of Spaces,
+Lemmas \ref{spaces-more-morphisms-lemma-flat-lci} and
+\ref{spaces-more-morphisms-lemma-composition-lci}).
+The morphism $Z \to X_y$ corresponds to an object $x$ of $\mathcal{X}$
+over $Z$ together with an isomorphism $\alpha : y|_Z \to F(x)$.
+We obtain an object $(U, Z, y, x, \alpha)$ of
+$\mathcal{H}_d(\mathcal{X}/\mathcal{Y})$. By what was said above about
+the morphism $Z \to X_y$ we see that it actually is an object of the
+subcategory $\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$ and we win.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Bootstrapping algebraic stacks}
+\label{section-bootstrap}
+
+\noindent
+The following theorem is one of the main results of this chapter.
+
+\begin{theorem}
+\label{theorem-bootstrap}
+Let $S$ be a scheme. Let $F : \mathcal{X} \to \mathcal{Y}$
+be a $1$-morphism of stacks in groupoids over $(\Sch/S)_{fppf}$. If
+\begin{enumerate}
+\item $\mathcal{X}$ is representable by an algebraic space, and
+\item $F$ is representable by algebraic spaces, surjective, flat and
+locally of finite presentation,
+\end{enumerate}
+then $\mathcal{Y}$ is an algebraic stack.
+\end{theorem}
+
+\begin{proof}
+By
+Lemma \ref{lemma-flat-finite-presentation-surjective-diagonal}
+we see that the diagonal of $\mathcal{Y}$ is representable by algebraic
+spaces. Hence we only need to verify the existence of a $1$-morphism
+$f : \mathcal{V} \to \mathcal{Y}$ of stacks in groupoids over
+$(\Sch/S)_{fppf}$ with $\mathcal{V}$ representable and
+$f$ surjective and smooth. By
+Lemma \ref{lemma-hilbert-stack-relative-space}
+we know that
+$$
+\coprod\nolimits_{d \geq 1} \mathcal{H}_d(\mathcal{X}/\mathcal{Y})
+$$
+is an algebraic stack. It follows from
+Lemma \ref{lemma-lci-locus-stack-in-groupoids}
+and
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-open-fibred-category-is-algebraic}
+that
+$$
+\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})
+$$
+is an algebraic stack as well. Choose a representable stack in groupoids
+$\mathcal{V}$ over $(\Sch/S)_{fppf}$ and a surjective and smooth
+$1$-morphism
+$$
+\mathcal{V}
+\longrightarrow
+\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y}).
+$$
+We claim that the composition
+$$
+\mathcal{V}
+\longrightarrow
+\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})
+\longrightarrow
+\mathcal{Y}
+$$
+is smooth and surjective which finishes the proof of the theorem. In fact,
+the smoothness will be a consequence of
+Lemmas \ref{lemma-limit-preserving} and \ref{lemma-lci-formally-smooth}
+and the surjectivity a consequence of
+Lemma \ref{lemma-lci-surjective}.
+We spell out the details in the following paragraph.
+
+\medskip\noindent
+By construction $\mathcal{V} \to
+\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$
+is representable by algebraic spaces, surjective, and smooth (and hence
+also locally of finite presentation and formally smooth by the general
+principle
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-representable-transformations-property-implication}
+and
+More on Morphisms of Spaces,
+Lemma \ref{spaces-more-morphisms-lemma-smooth-formally-smooth}).
+Applying
+Lemmas \ref{lemma-representable-by-spaces-limit-preserving},
+\ref{lemma-representable-by-spaces-formally-smooth}, and
+\ref{lemma-representable-by-spaces-surjective}
+we see that $\mathcal{V} \to
+\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})$
+is limit preserving on objects, formally smooth on objects, and
+surjective on objects. The $1$-morphism
+$\coprod\nolimits_{d \geq 1} \mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y})
+\to \mathcal{Y}$ is
+\begin{enumerate}
+\item limit preserving on objects: this is
+Lemma \ref{lemma-limit-preserving}
+for $\mathcal{H}_d(\mathcal{X}/\mathcal{Y}) \to \mathcal{Y}$
+and we combine it with Lemmas
+\ref{lemma-lci-locus-stack-in-groupoids},
+\ref{lemma-open-immersion-limit-preserving}, and
+\ref{lemma-composition-limit-preserving}
+to get it for $\mathcal{H}_{d, lci}(\mathcal{X}/\mathcal{Y}) \to \mathcal{Y}$,
+\item formally smooth on objects by
+Lemma \ref{lemma-lci-formally-smooth},
+and
+\item surjective on objects by
+Lemma \ref{lemma-lci-surjective}.
+\end{enumerate}
+Using
+Lemmas \ref{lemma-composition-limit-preserving},
+\ref{lemma-composition-formally-smooth}, and
+\ref{lemma-composition-surjective}
+we conclude that the composition $\mathcal{V} \to \mathcal{Y}$ is
+limit preserving on objects, formally smooth on objects, and
+surjective on objects.
+Using
+Lemmas \ref{lemma-representable-by-spaces-limit-preserving},
+\ref{lemma-representable-by-spaces-formally-smooth}, and
+\ref{lemma-representable-by-spaces-surjective}
+we see that $\mathcal{V} \to \mathcal{Y}$ is
+locally of finite presentation, formally smooth, and surjective.
+Finally, using (via the general principle
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-representable-transformations-property-implication})
+the infinitesimal lifting criterion
+(More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-smooth-formally-smooth})
+we see that $\mathcal{V} \to \mathcal{Y}$ is smooth and we win.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Applications}
+\label{section-applications}
+
+\noindent
+Our first task is to show that the quotient stack $[U/R]$ associated to
+a ``flat and locally finitely presented groupoid'' is an algebraic stack.
+See
+Groupoids in Spaces,
+Definition \ref{spaces-groupoids-definition-quotient-stack}
+for the definition of the quotient stack.
+The following lemma is preliminary and is the analogue of
+Algebraic Stacks,
+Lemma \ref{algebraic-lemma-smooth-quotient-smooth-presentation}.
+
+\begin{lemma}
+\label{lemma-flat-quotient-flat-presentation}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $S$.
+Assume $s, t$ are flat and locally of finite presentation.
+Then the morphism $\mathcal{S}_U \to [U/R]$ is flat, locally of
+finite presentation, and surjective.
+\end{lemma}
+
+\begin{proof}
+Let $T$ be a scheme and let $x : (\Sch/T)_{fppf} \to [U/R]$
+be a $1$-morphism. We have to show that the projection
+$$
+\mathcal{S}_U \times_{[U/R]} (\Sch/T)_{fppf}
+\longrightarrow
+(\Sch/T)_{fppf}
+$$
+is surjective and smooth. We already know that the left hand side
+is representable by an algebraic space $F$, see
+Algebraic Stacks, Lemmas \ref{algebraic-lemma-diagonal-quotient-stack} and
+\ref{algebraic-lemma-representable-diagonal}.
+Hence we have to show the corresponding morphism $F \to T$ of
+algebraic spaces is surjective, locally of finite presentation, and flat.
+Since we are working with properties of morphisms of algebraic
+spaces which are local on the target in the fppf topology we
+may check this fppf locally on $T$. By construction, there exists
+an fppf covering $\{T_i \to T\}$ of $T$ such that
+$x|_{(\Sch/T_i)_{fppf}}$ comes from a morphism
+$x_i : T_i \to U$. (Note that $F \times_T T_i$ represents the
+$2$-fibre product $\mathcal{S}_U \times_{[U/R]} (\Sch/T_i)_{fppf}$
+so everything is compatible with the base change via $T_i \to T$.)
+Hence we may assume that $x$ comes from $x : T \to U$.
+In this case we see that
+$$
+\mathcal{S}_U \times_{[U/R]} (\Sch/T)_{fppf}
+=
+(\mathcal{S}_U \times_{[U/R]} \mathcal{S}_U)
+\times_{\mathcal{S}_U} (\Sch/T)_{fppf}
+=
+\mathcal{S}_R \times_{\mathcal{S}_U} (\Sch/T)_{fppf}
+$$
+The first equality by
+Categories, Lemma \ref{categories-lemma-2-fibre-product-erase-factor}
+and the second equality by
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-2-cartesian}.
+Clearly the last $2$-fibre product is represented by the algebraic
+space $F = R \times_{s, U, x} T$ and the projection
+$R \times_{s, U, x} T \to T$ is flat and locally of finite presentation
+as the base change of the flat locally finitely presented
+morphism of algebraic spaces $s : R \to U$.
+It is also surjective as $s$ has a section (namely the identity
+$e : U \to R$ of the groupoid).
+This proves the lemma.
+\end{proof}
+
+\noindent
+Here is the first main result of this section.
+
+\begin{theorem}
+\label{theorem-flat-groupoid-gives-algebraic-stack}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $S$.
+Assume $s, t$ are flat and locally of finite presentation.
+Then the quotient stack $[U/R]$ is an algebraic stack over $S$.
+\end{theorem}
+
+\begin{proof}
+We check the two conditions of
+Theorem \ref{theorem-bootstrap}
+for the morphism
+$$
+(\Sch/U)_{fppf} \longrightarrow [U/R].
+$$
+The first is trivial (as $U$ is an algebraic space).
+The second is
+Lemma \ref{lemma-flat-quotient-flat-presentation}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{When is a quotient stack algebraic?}
+\label{section-quotient-algebraic}
+
+\noindent
+In
+Groupoids in Spaces, Section \ref{spaces-groupoids-section-stacks}
+we have defined the quotient stack $[U/R]$ associated to a groupoid
+$(U, R, s, t, c)$ in algebraic spaces. Note that $[U/R]$ is a stack
+in groupoids whose diagonal is representable by algebraic spaces (see
+Bootstrap, Lemma \ref{bootstrap-lemma-quotient-stack-isom}
+and
+Algebraic Stacks, Lemma \ref{algebraic-lemma-representable-diagonal})
+and such that there exists an algebraic space $U$ and a $1$-morphism
+$(\Sch/U)_{fppf} \to [U/R]$ which is an ``fppf surjection''
+in the sense that it induces a map on presheaves of isomorphism classes of
+objects which becomes surjective after sheafification.
+However, it is not the case that that $[U/R]$ is an algebraic
+stack in general. This is not a contradiction with
+Theorem \ref{theorem-bootstrap}
+as the $1$-morphism $(\Sch/U)_{fppf} \to [U/R]$ is not
+representable by algebraic spaces in general, and if it is it may not
+be flat and locally of finite presentation.
+
+\medskip\noindent
+The easiest way to make examples of non-algebraic quotient stacks is
+to look at quotients of the form $[S/G]$ where $S$ is a scheme and $G$
+is a group scheme over $S$ acting trivially on $S$. Namely, we will see
+below
+(Lemma \ref{lemma-BG-algebraic})
+that if $[S/G]$ is algebraic, then $G \to S$ has to be flat and locally
+of finite presentation. An explicit example can be found in
+Examples, Section \ref{examples-section-not-algebraic-stack}.
+
+\begin{lemma}
+\label{lemma-quotient-algebraic}
+Let $S$ be a scheme and let $B$ be an algebraic space over $S$.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+The quotient stack $[U/R]$ is an algebraic stack if and only if
+there exists a morphism of algebraic spaces $g : U' \to U$ such that
+\begin{enumerate}
+\item the composition
+$U' \times_{g, U, t} R \to R \xrightarrow{s} U$ is a surjection of
+sheaves, and
+\item the morphisms $s', t' : R' \to U'$ are flat and locally of finite
+presentation where $(U', R', s', t', c')$ is the restriction of
+$(U, R, s, t, c)$ via $g$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+First, assume that $g : U' \to U$ satisfies (1) and (2). Property (1)
+implies that $[U'/R'] \to [U/R]$ is an equivalence, see
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-restrict-equivalence}.
+By
+Theorem \ref{theorem-flat-groupoid-gives-algebraic-stack}
+the quotient stack $[U'/R']$ is an algebraic stack. Hence
+$[U/R]$ is an algebraic stack too, see
+Algebraic Stacks, Lemma \ref{algebraic-lemma-equivalent}.
+
+\medskip\noindent
+Conversely, assume that $[U/R]$ is an algebraic stack. We may choose a
+scheme $W$ and a surjective smooth $1$-morphism
+$$
+f : (\Sch/W)_{fppf} \longrightarrow [U/R].
+$$
+By the $2$-Yoneda lemma
+(Algebraic Stacks, Section \ref{algebraic-section-2-yoneda})
+this corresponds to an object $\xi$ of $[U/R]$ over $W$.
+By the description of $[U/R]$ in
+Groupoids in Spaces, Lemma \ref{spaces-groupoids-lemma-quotient-stack-objects}
+we can find a surjective, flat, locally finitely presented morphism
+$b : U' \to W$ of schemes such that $\xi' = b^*\xi$ corresponds to a morphism
+$g : U' \to U$. Note that the $1$-morphism
+$$
+f' : (\Sch/U')_{fppf} \longrightarrow [U/R].
+$$
+corresponding to $\xi'$ is surjective, flat, and locally of finite
+presentation, see
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-composition-representable-transformations-property}.
+Hence
+$(\Sch/U')_{fppf} \times_{[U/R]} (\Sch/U')_{fppf}$
+which is represented by the algebraic space
+$$
+\mathit{Isom}_{[U/R]}(\text{pr}_0^*\xi', \text{pr}_1^*\xi') =
+(U' \times_S U')
+\times_{(g \circ \text{pr}_0, g \circ \text{pr}_1), U \times_S U} R = R'
+$$
+(see
+Groupoids in Spaces, Lemma
+\ref{spaces-groupoids-lemma-quotient-stack-morphisms}
+for the first equality; the second is the definition of restriction)
+is flat and locally of finite presentation over $U'$ via both $s'$ and $t'$
+(by base change, see
+Algebraic Stacks, Lemma
+\ref{algebraic-lemma-base-change-representable-transformations-property}).
+By this description of $R'$ and by
+Algebraic Stacks, Lemma \ref{algebraic-lemma-map-space-into-stack}
+we obtain a canonical fully faithful $1$-morphism $[U'/R'] \to [U/R]$.
+This $1$-morphism is essentially surjective because $f'$ is flat,
+locally of finite presentation, and surjective (see
+Stacks, Lemma \ref{stacks-lemma-characterize-essentially-surjective-when-ff});
+another way to prove this is to use
+Algebraic Stacks, Remark
+\ref{algebraic-remark-flat-fp-presentation}.
+Finally, we can use
+Groupoids in Spaces, Lemma
+\ref{spaces-groupoids-lemma-quotient-stack-restrict-equivalence}
+to conclude that the composition
+$U' \times_{g, U, t} R \to R \xrightarrow{s} U$ is a surjection of sheaves.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-group-quotient-algebraic}
+Let $S$ be a scheme and let $B$ be an algebraic space over $S$.
+Let $G$ be a group algebraic space over $B$.
+Let $X$ be an algebraic space over $B$ and let $a : G \times_B X \to X$
+be an action of $G$ on $X$ over $B$.
+The quotient stack $[X/G]$ is an algebraic stack if and only if
+there exists a morphism of algebraic spaces $\varphi : X' \to X$ such that
+\begin{enumerate}
+\item $G \times_B X' \to X$, $(g, x') \mapsto a(g, \varphi(x'))$ is a
+surjection of sheaves, and
+\item the two projections $X'' \to X'$ of the algebraic space $X''$
+given by the rule
+$$
+T \longmapsto \{(x'_1, g, x'_2) \in (X' \times_B G \times_B X')(T)
+\mid \varphi(x'_1) = a(g, \varphi(x'_2))\}
+$$
+are flat and locally of finite presentation.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This lemma is a special case of
+Lemma \ref{lemma-quotient-algebraic}.
+Namely, the quotient stack $[X/G]$ is by
+Groupoids in Spaces, Definition \ref{spaces-groupoids-definition-quotient-stack}
+equal to the quotient stack $[X/G \times_B X]$ of the groupoid in
+algebraic spaces $(X, G \times_B X, s, t, c)$ associated to
+the group action in
+Groupoids in Spaces, Lemma \ref{spaces-groupoids-lemma-groupoid-from-action}.
+There is one small observation that is needed to get condition (1).
+Namely, the morphism $s : G \times_B X \to X$ is the second projection
+and the morphism $t :  G \times_B X \to X$ is the action morphism $a$.
+Hence the morphism $h : U' \times_{g, U, t} R \to R \xrightarrow{s} U$ from
+Lemma \ref{lemma-quotient-algebraic}
+corresponds to the morphism
+$$
+X' \times_{\varphi, X, a} (G \times_B X) \xrightarrow{\text{pr}_1} X
+$$
+in the current setting. However, because of the symmetry given by
+the inverse of $G$ this morphism is isomorphic to the morphism
+$$
+(G \times_B X) \times_{\text{pr}_1, X, \varphi} X' \xrightarrow{a} X
+$$
+of the statement of the lemma. Details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-BG-algebraic}
+Let $S$ be a scheme and let $B$ be an algebraic space over $S$.
+Let $G$ be a group algebraic space over $B$.
+Endow $B$ with the trivial action of $G$.
+Then the quotient stack $[B/G]$ is an algebraic stack
+if and only if $G$ is flat and locally of finite presentation over $B$.
+\end{lemma}
+
+\begin{proof}
+If $G$ is flat and locally of finite presentation over $B$, then
+$[B/G]$ is an algebraic stack by
+Theorem \ref{theorem-flat-groupoid-gives-algebraic-stack}.
+
+\medskip\noindent
+Conversely, assume that $[B/G]$ is an algebraic stack. By
+Lemma \ref{lemma-group-quotient-algebraic}
+and because the action is trivial, we see
+there exists an algebraic space $B'$ and a morphism
+$B' \to B$ such that (1) $B' \to B$ is a surjection
+of sheaves and (2) the projections
+$$
+B' \times_B G \times_B B' \to B'
+$$
+are flat and locally of finite presentation. Note that the base change
+$B' \times_B G \times_B B' \to G \times_B B'$ of $B' \to B$
+is a surjection of sheaves also. Thus it follows from
+Descent on Spaces, Lemma \ref{spaces-descent-lemma-curiosity}
+that the projection $G \times_B B' \to B'$ is flat and locally
+of finite presentation. By (1) we can find an fppf covering
+$\{B_i \to B\}$ such that $B_i \to B$ factors through $B' \to B$.
+Hence $G \times_B B_i \to B_i$ is flat and locally of finite presentation
+by base change. By
+Descent on Spaces, Lemmas
+\ref{spaces-descent-lemma-descending-property-flat} and
+\ref{spaces-descent-lemma-descending-property-locally-finite-presentation}
+we conclude that $G \to B$ is flat and locally of finite presentation.
+\end{proof}
+
+\noindent
+Later we will see that the quotient stack of a smooth $S$-space
+by a group algebraic space $G$ is smooth, even when $G$ is not smooth
+(Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-smooth-quotient-stack}).
+
+
+
+
+\section{Algebraic stacks in the \'etale topology}
+\label{section-stacks-etale}
+
+\noindent
+Let $S$ be a scheme. Instead of working with stacks in groupoids over
+the big fppf site $(\Sch/S)_{fppf}$ we could work with stacks in groupoids
+over the big \'etale site $(\Sch/S)_\etale$. All of the material in
+Algebraic Stacks, Sections
+\ref{algebraic-section-representable},
+\ref{algebraic-section-2-yoneda},
+\ref{algebraic-section-representable-morphism},
+\ref{algebraic-section-split},
+\ref{algebraic-section-representable-by-algebraic-spaces},
+\ref{algebraic-section-morphisms-representable-by-algebraic-spaces},
+\ref{algebraic-section-representable-properties}, and
+\ref{algebraic-section-stacks}
+makes sense for categories fibred in groupoids over $(\Sch/S)_\etale$.
+Thus we get a second notion of an algebraic stack by working in the
+\'etale topology. This notion is (a priori) weaker than the notion introduced
+in Algebraic Stacks, Definition \ref{algebraic-definition-algebraic-stack}
+since a stack in the fppf topology is certainly a stack in the \'etale
+topology. However, the notions are equivalent as is shown by the following
+lemma.
+
+\begin{lemma}
+\label{lemma-stacks-etale}
+Denote the common underlying category of $\Sch_{fppf}$
+and $\Sch_\etale$ by $\Sch_\alpha$ (see
+Sheaves on Stacks, Section \ref{stacks-sheaves-section-sheaves} and
+Topologies, Remark \ref{topologies-remark-choice-sites}). Let $S$ be an object
+of $\Sch_\alpha$. Let
+$$
+p : \mathcal{X} \to \Sch_\alpha/S
+$$
+be a category fibred in groupoids with the following properties:
+\begin{enumerate}
+\item $\mathcal{X}$ is a stack in groupoids over $(\Sch/S)_\etale$,
+\item the diagonal $\Delta : \mathcal{X} \to \mathcal{X} \times \mathcal{X}$
+is representable by algebraic spaces\footnote{Here we can either mean
+sheaves in the \'etale topology whose diagonal is representable and which
+have an \'etale surjective covering by a scheme or algebraic spaces as
+defined in
+Algebraic Spaces, Definition \ref{spaces-definition-algebraic-space}.
+Namely, by Bootstrap, Lemma \ref{bootstrap-lemma-spaces-etale}
+there is no difference.}, and
+\item there exists $U \in \Ob(\Sch_\alpha/S)$
+and a $1$-morphism $(\Sch/U)_\etale \to \mathcal{X}$
+which is surjective and smooth.
+\end{enumerate}
+Then $\mathcal{X}$ is an algebraic stack in the sense of
+Algebraic Stacks, Definition \ref{algebraic-definition-algebraic-stack}.
+\end{lemma}
+
+\begin{proof}
+Note that properties (2) and (3) of the lemma and the corresponding
+properties (2) and (3) of
+Algebraic Stacks, Definition \ref{algebraic-definition-algebraic-stack}
+are independent of the topology. This is true because these properties
+involve only the notion of a $2$-fibre product of categories fibred in
+groupoids, $1$- and $2$-morphisms of categories fibred in groupoids, the
+notion of a $1$-morphism of categories fibred in groupoids representable
+by algebraic spaces, and what it means for such a $1$-morphism to be
+surjective and smooth.
+Thus all we have to prove is that an \'etale stack in groupoids
+$\mathcal{X}$ with properties (2) and (3) is also an fppf stack in groupoids.
+
+\medskip\noindent
+Using (2) let $R$ be an algebraic space representing
+$$
+(\Sch_\alpha/U) \times_\mathcal{X} (\Sch_\alpha/U)
+$$
+By (3) the projections $s, t : R \to U$ are smooth. Exactly as in the proof of
+Algebraic Stacks, Lemma \ref{algebraic-lemma-map-space-into-stack}
+there exists a groupoid in spaces $(U, R, s, t, c)$ and a canonical
+fully faithful $1$-morphism $[U/R]_\etale \to \mathcal{X}$
+where $[U/R]_\etale$ is the \'etale stackification of presheaf
+in groupoids
+$$
+T \longmapsto (U(T), R(T), s(T), t(T), c(T))
+$$
+Claim: If $V \to T$ is a surjective smooth morphism from an algebraic space
+$V$ to a scheme $T$, then there exists an \'etale covering $\{T_i \to T\}$
+refining the covering $\{V \to T\}$. This follows from
+More on Morphisms, Lemma \ref{more-morphisms-lemma-etale-dominates-smooth}
+or the more general
+Sheaves on Stacks, Lemma
+\ref{stacks-sheaves-lemma-surjective-flat-locally-finite-presentation}.
+Using the claim and arguing exactly as in
+Algebraic Stacks, Lemma \ref{algebraic-lemma-stack-presentation}
+it follows that $[U/R]_\etale \to \mathcal{X}$ is an
+equivalence.
+
+\medskip\noindent
+Next, let $[U/R]$ denote the quotient stack in the fppf topology
+which is an algebraic stack by
+Algebraic Stacks, Theorem
+\ref{algebraic-theorem-smooth-groupoid-gives-algebraic-stack}.
+Thus we have $1$-morphisms
+$$
+U \to [U/R]_\etale \to [U/R].
+$$
+Both $U \to [U/R]_\etale \cong \mathcal{X}$ and
+$U \to [U/R]$ are surjective and smooth (the first by assumption
+and the second by the theorem) and in both cases the
+fibre product $U \times_\mathcal{X} U$ and $U \times_{[U/R]} U$
+is representable by $R$. Hence the $1$-morphism
+$[U/R]_\etale \to [U/R]$ is fully faithful (since morphisms
+in the quotient stacks are given by morphisms into $R$, see
+Groupoids in Spaces, Section
+\ref{spaces-groupoids-section-explicit-quotient-stacks}).
+
+\medskip\noindent
+Finally, for any scheme $T$ and morphism $t : T \to [U/R]$ the fibre product
+$V = T \times_{U/R} U$ is an algebraic space surjective and smooth over $T$.
+By the claim above there exists an \'etale covering $\{T_i \to T\}_{i \in I}$
+and morphisms $T_i \to V$ over $T$. This proves that the object
+$t$ of $[U/R]$ over $T$ comes \'etale locally from $U$. We conclude that
+$[U/R]_\etale \to [U/R]$ is an equivalence of stacks in
+groupoids over $(\Sch/S)_\etale$ by
+Stacks, Lemma \ref{stacks-lemma-characterize-essentially-surjective-when-ff}.
+This concludes the proof.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

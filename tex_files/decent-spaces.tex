@@ -1,0 +1,4831 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Decent Algebraic Spaces}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+In this chapter we study ``local'' properties of general
+algebraic spaces, i.e., those algebraic spaces which aren't quasi-separated.
+Quasi-separated algebraic spaces are studied in \cite{Kn}.
+It turns out that essentially new phenomena happen, especially
+regarding points and specializations of points, on more
+general algebraic spaces. On the other hand, for most basic results
+on algebraic spaces, one needn't worry about these phenomena, which is why
+we have decided to have this material in a separate chapter following
+the standard development of the theory.
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+The standing assumption is that all schemes are contained in
+a big fppf site $\Sch_{fppf}$. And all rings $A$ considered
+have the property that $\Spec(A)$ is (isomorphic) to an
+object of this big site.
+
+\medskip\noindent
+Let $S$ be a scheme and let $X$ be an algebraic space over $S$.
+In this chapter and the following we will write $X \times_S X$
+for the product of $X$ with itself (in the category of algebraic
+spaces over $S$), instead of $X \times X$.
+
+
+
+\section{Universally bounded fibres}
+\label{section-universally-bounded}
+
+\noindent
+We briefly discuss what it means for a morphism from a scheme to an
+algebraic space to have universally bounded fibres. Please refer to
+Morphisms, Section \ref{morphisms-section-universally-bounded}
+for similar definitions and results on morphisms of schemes.
+
+\begin{definition}
+\label{definition-universally-bounded}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$, and
+let $U$ be a scheme over $S$. Let $f : U \to X$ be a morphism over $S$.
+We say the {\it fibres of $f$ are universally bounded}\footnote{This is
+probably nonstandard notation.}
+if there exists an integer $n$ such that for all fields
+$k$ and all morphisms $\Spec(k) \to X$ the fibre
+product $\Spec(k) \times_X U$ is a finite scheme over $k$
+whose degree over $k$ is $\leq n$.
+\end{definition}
+
+\noindent
+This definition makes sense because the fibre product
+$\Spec(k) \times_Y X$ is a scheme. Moreover, if $Y$ is a scheme
+we recover the notion of
+Morphisms, Definition \ref{morphisms-definition-universally-bounded}
+by virtue of
+Morphisms, Lemma \ref{morphisms-lemma-characterize-universally-bounded}.
+
+\begin{lemma}
+\label{lemma-composition-universally-bounded}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $V \to U$ be a morphism of schemes over $S$, and let
+$U \to X$ be a morphism from $U$ to $X$. If the fibres of
+$V \to U$ and $U \to X$ are universally bounded, then so
+are the fibres of $V \to X$.
+\end{lemma}
+
+\begin{proof}
+Let $n$ be an integer which works for $V \to U$, and let $m$ be
+an integer which works for $U \to X$ in
+Definition \ref{definition-universally-bounded}.
+Let $\Spec(k) \to X$ be a morphism, where $k$ is a field.
+Consider the morphisms
+$$
+\Spec(k) \times_X V
+\longrightarrow
+\Spec(k) \times_X U
+\longrightarrow
+\Spec(k).
+$$
+By assumption the scheme $\Spec(k) \times_X U$
+is finite of degree at most $m$ over $k$, and $n$ is an integer which
+bounds the degree of the fibres of the first morphism. Hence by
+Morphisms, Lemma \ref{morphisms-lemma-composition-universally-bounded}
+we conclude that $\Spec(k) \times_X V$ is finite over $k$
+of degree at most $nm$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-universally-bounded}
+Let $S$ be a scheme.
+Let $Y \to X$ be a representable morphism of algebraic spaces over $S$.
+Let $U \to X$ be a morphism from a scheme to $X$.
+If the fibres of $U \to X$ are universally bounded, then the fibres
+of $U \times_X Y \to Y$ are universally bounded.
+\end{lemma}
+
+\begin{proof}
+This is clear from the definition, and properties of fibre products.
+(Note that $U \times_X Y$ is a scheme
+as we assumed $Y \to X$ representable, so the definition applies.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descent-universally-bounded}
+Let $S$ be a scheme. Let $g : Y \to X$ be a representable morphism of
+algebraic spaces over $S$. Let $f : U \to X$ be a morphism from a scheme
+towards $X$. Let $f' : U \times_X Y \to Y$ be the base change of $f$.
+If
+$$
+\Im(|f| : |U| \to |X|) \subset \Im(|g| : |Y| \to |X|)
+$$
+and $f'$ has universally bounded fibres, then $f$ has universally
+bounded fibres.
+\end{lemma}
+
+\begin{proof}
+Let $n \geq 0$ be an integer bounding the degrees of the fibre
+products $\Spec(k) \times_Y (U \times_X Y)$ as in
+Definition \ref{definition-universally-bounded} for the morphism $f'$.
+We claim that $n$ works for $f$ also. Namely, suppose that
+$x : \Spec(k) \to X$ is a morphism from the spectrum of
+a field. Then either $\Spec(k) \times_X U$ is empty (and there
+is nothing to prove), or $x$ is in the image of $|f|$. By
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian}
+and the assumption of the lemma we see
+that this means there exists a field extension $k \subset k'$ and a
+commutative diagram
+$$
+\xymatrix{
+\Spec(k') \ar[r] \ar[d] & Y \ar[d] \\
+\Spec(k) \ar[r] & X
+}
+$$
+Hence we see that
+$$
+\Spec(k') \times_Y (U \times_X Y) =
+\Spec(k') \times_{\Spec(k)} (\Spec(k) \times_X U)
+$$
+Since the scheme $\Spec(k') \times_Y (U \times_X Y)$ is assumed finite
+of degree $\leq n$ over $k'$ it follows that also $\Spec(k) \times_X U$
+is finite of degree $\leq n$ over $k$ as desired. (Some details omitted.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-universally-bounded-permanence}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Consider a commutative diagram
+$$
+\xymatrix{
+U \ar[rd]_g \ar[rr]_f & & V \ar[ld]^h \\
+& X &
+}
+$$
+where $U$ and $V$ are schemes. If $g$ has universally bounded fibres,
+and $f$ is surjective and flat, then also $h$ has universally bounded fibres.
+\end{lemma}
+
+\begin{proof}
+Assume $g$ has universally bounded fibres, and $f$ is surjective and flat.
+Say $n \geq 0$ is an integer which bounds the degrees of the schemes
+$\Spec(k) \times_X U$ as in
+Definition \ref{definition-universally-bounded}.
+We claim $n$ also works for $h$.
+Let $\Spec(k) \to X$ be a morphism from the spectrum of a
+field to $X$. Consider the morphism of schemes
+$$
+\Spec(k) \times_X V \longrightarrow \Spec(k) \times_X U
+$$
+It is flat and surjective. By assumption the scheme
+on the left is finite of degree $\leq n$ over $\Spec(k)$.
+It follows from
+Morphisms, Lemma \ref{morphisms-lemma-universally-bounded-permanence}
+that the degree of the scheme on the right is also bounded by $n$
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-universally-bounded-finite-fibres}
+Let $S$ be a scheme.
+Let $X$ be an algebraic space over $S$, and let $U$ be a scheme over $S$.
+Let $\varphi : U \to X$ be a morphism over $S$.
+If the fibres of $\varphi$ are universally bounded, then there exists an
+integer $n$ such that each fibre of $|U| \to |X|$ has at most
+$n$ elements.
+\end{lemma}
+
+\begin{proof}
+The integer $n$ of Definition \ref{definition-universally-bounded} works.
+Namely, pick $x \in |X|$. Represent $x$ by a morphism
+$x : \Spec(k) \to X$. Then we get a commutative diagram
+$$
+\xymatrix{
+\Spec(k) \times_X U \ar[r] \ar[d] & U \ar[d] \\
+\Spec(k) \ar[r]^x & X
+}
+$$
+which shows (via
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian})
+that the inverse image of $x$ in $|U|$ is the image of
+the top horizontal arrow. Since $\Spec(k) \times_X U$ is finite
+of degree $\leq n$ over $k$ it has at most $n$ points.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Finiteness conditions and points}
+\label{section-points-monomorphisms}
+
+\noindent
+In this section we elaborate on the question of when points can be represented
+by monomorphisms from spectra of fields into the space.
+
+\begin{remark}
+\label{remark-recall}
+Before we give the proof of the next lemma let us recall some facts
+about \'etale morphisms of schemes:
+\begin{enumerate}
+\item An \'etale morphism is flat and hence generalizations lift along
+an \'etale morphism
+(Morphisms, Lemmas \ref{morphisms-lemma-etale-flat}
+and \ref{morphisms-lemma-generalizations-lift-flat}).
+\item An \'etale morphism is unramified, an unramified morphism is locally
+quasi-finite, hence fibres are discrete
+(Morphisms, Lemmas \ref{morphisms-lemma-flat-unramified-etale},
+\ref{morphisms-lemma-unramified-quasi-finite}, and
+\ref{morphisms-lemma-quasi-finite-at-point-characterize}).
+\item A quasi-compact \'etale morphism is quasi-finite and in particular
+has finite fibres
+(Morphisms, Lemmas \ref{morphisms-lemma-quasi-finite-locally-quasi-compact} and
+\ref{morphisms-lemma-quasi-finite}).
+\item An \'etale scheme over a field $k$ is a disjoint union of spectra
+of finite separable field extension of $k$
+(Morphisms, Lemma \ref{morphisms-lemma-etale-over-field}).
+\end{enumerate}
+For a general discussion of \'etale morphisms, please see
+\'Etale Morphisms, Section \ref{etale-section-etale-morphisms}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-U-finite-above-x}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $x \in |X|$. The following are equivalent:
+\begin{enumerate}
+\item there exists a family of schemes $U_i$ and
+\'etale morphisms $\varphi_i : U_i \to X$ such that
+$\coprod \varphi_i : \coprod U_i \to X$ is surjective,
+and such that for each $i$ the fibre of
+$|U_i| \to |X|$ over $x$ is finite, and
+\item for every affine scheme $U$ and \'etale morphism $\varphi : U \to X$
+the fibre of $|U| \to |X|$ over $x$ is finite.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implication (2) $\Rightarrow$ (1) is trivial.
+Let $\varphi_i : U_i \to X$ be a family of \'etale morphisms as in (1).
+Let $\varphi : U \to X$ be an \'etale morphism from an affine scheme
+towards $X$. Consider the fibre product diagrams
+$$
+\xymatrix{
+U \times_X U_i \ar[r]_-{p_i} \ar[d]_{q_i} & U_i \ar[d]^{\varphi_i} \\
+U \ar[r]^\varphi & X
+}
+\quad \quad
+\xymatrix{
+\coprod U \times_X U_i \ar[r]_-{\coprod p_i} \ar[d]_{\coprod q_i} &
+\coprod U_i \ar[d]^{\coprod \varphi_i} \\
+U \ar[r]^\varphi & X
+}
+$$
+Since $q_i$ is \'etale it is open (see Remark \ref{remark-recall}).
+Moreover, the morphism $\coprod q_i$ is surjective.
+Hence there exist finitely many indices $i_1, \ldots, i_n$ and
+a quasi-compact opens $W_{i_j} \subset U \times_X U_{i_j}$
+which surject onto $U$.
+The morphism $p_i$ is \'etale, hence locally quasi-finite (see remark on
+\'etale morphisms above). Thus we may apply
+Morphisms, Lemma
+\ref{morphisms-lemma-locally-quasi-finite-qc-source-universally-bounded}
+to see the fibres of $p_{i_j}|_{W_{i_j}} : W_{i_j} \to U_i$ are finite.
+Hence by
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian}
+and the assumption on $\varphi_i$ we conclude that the fibre
+of $\varphi$ over $x$ is finite. In other words (2) holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-R-finite-above-x}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $x \in |X|$. The following are equivalent:
+\begin{enumerate}
+\item there exists a scheme $U$, an \'etale morphism
+$\varphi : U \to X$, and points $u, u' \in U$ mapping to
+$x$ such that setting $R = U \times_X U$ the fibre of
+$$
+|R| \to |U| \times_{|X|} |U|
+$$
+over $(u, u')$ is finite,
+\item for every scheme $U$, \'etale morphism $\varphi : U \to X$ and
+any points $u, u' \in U$ mapping to
+$x$ setting $R = U \times_X U$ the fibre of
+$$
+|R| \to |U| \times_{|X|} |U|
+$$
+over $(u, u')$ is finite,
+\item there exists a morphism $\Spec(k) \to X$ with $k$ a field
+in the equivalence class of $x$ such that the projections
+$\Spec(k) \times_X \Spec(k) \to \Spec(k)$ are
+\'etale and quasi-compact, and
+\item there exists a monomorphism $\Spec(k) \to X$ with $k$ a field
+in the equivalence class of $x$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (1), i.e., let $\varphi : U \to X$ be an \'etale morphism from a scheme
+towards $X$, and let $u, u'$ be points of $U$ lying over $x$
+such that the fibre of $|R| \to |U| \times_{|X|} |U|$ over $(u, u')$
+is a finite set. In this proof we think of a point $u = \Spec(\kappa(u))$
+as a scheme. Note that $u \to U$, $u' \to U$ are monomorphisms (see
+Schemes, Lemma \ref{schemes-lemma-injective-points-surjective-stalks}),
+hence $u \times_X u' \to R = U \times_X U$ is a monomorphism.
+In this language the assumption really means that
+$u \times_X u'$ is a scheme whose underlying topological space has
+finitely many points.
+Let $\psi : W \to X$ be an \'etale morphism from a scheme towards $X$.
+Let $w, w' \in W$ be points of $W$ mapping to $x$.
+We have to show that $w \times_X w'$ is a scheme whose underlying topological
+space has finitely many points.
+Consider the fibre product diagram
+$$
+\xymatrix{
+W \times_X U \ar[r]_p \ar[d]_q & U \ar[d]^\varphi \\
+W \ar[r]^\psi & X
+}
+$$
+As $x$ is the image of $u$ and $u'$ we may pick points
+$\tilde w, \tilde w'$ in $W \times_X U$ with $q(\tilde w) = w$,
+$q(\tilde w') = w'$, $u = p(\tilde w)$ and $u' = p(\tilde w')$, see
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian}.
+As $p$, $q$ are \'etale the field extensions
+$\kappa(w) \subset \kappa(\tilde w) \supset \kappa(u)$ and
+$\kappa(w') \subset \kappa(\tilde w') \supset \kappa(u')$ are
+finite separable, see Remark \ref{remark-recall}.
+Then we get a commutative diagram
+$$
+\xymatrix{
+w \times_X w' \ar[d] &
+\tilde w \times_X \tilde w' \ar[l] \ar[d] \ar[r] &
+u \times_X u' \ar[d] \\
+w \times_X w' &
+\tilde w \times_S \tilde w' \ar[l] \ar[r] &
+u \times_S u'
+}
+$$
+where the squares are fibre product squares. The lower horizontal
+morphisms are \'etale and quasi-compact, as any scheme of the form
+$\Spec(k) \times_S \Spec(k')$ is affine, and by our
+observations about the field extensions above.
+Thus we see that the top horizontal arrows are \'etale and quasi-compact
+and hence have finite fibres.
+We have seen above that $|u \times_X u'|$ is finite, so we conclude that
+$|w \times_X w'|$ is finite. In other words, (2) holds.
+
+\medskip\noindent
+Assume (2). Let $U \to X$ be an \'etale morphism from a scheme $U$
+such that $x$ is in the image of $|U| \to |X|$. Let $u \in U$ be
+a point mapping to $x$. Then we have seen in the previous
+paragraph that $u = \Spec(\kappa(u)) \to X$ has the property that
+$u \times_X u$ has a finite underlying topological space. On the other
+hand, the projection maps $u \times_X u \to u$ are the composition
+$$
+u \times_X u \longrightarrow
+u \times_X U \longrightarrow
+u \times_X X = u,
+$$
+i.e., the composition of a monomorphism (the base change of the monomorphism
+$u \to U$) by an \'etale morphism (the base change of the \'etale morphism
+$U \to X$). Hence $u \times_X U$ is a disjoint union of spectra of fields
+finite separable over $\kappa(u)$ (see
+Remark \ref{remark-recall}). Since $u \times_X u$ is finite the image
+of it in $u \times_X U$ is a finite disjoint union of spectra of fields
+finite separable over $\kappa(u)$. By
+Schemes, Lemma \ref{schemes-lemma-mono-towards-spec-field}
+we conclude that $u \times_X u$ is a finite disjoint union of spectra
+of fields finite separable over $\kappa(u)$. In other words, we see that
+$u \times_X u \to u$ is quasi-compact and \'etale. This means that (3) holds.
+
+\medskip\noindent
+Let us prove that (3) implies (4). Let $\Spec(k) \to X$ be a morphism
+from the spectrum of a field into $X$, in the equivalence class of $x$
+such that the two projections
+$t, s : R = \Spec(k) \times_X \Spec(k)  \to \Spec(k)$
+are quasi-compact and \'etale.
+This means in particular
+that $R$ is an \'etale equivalence relation on $\Spec(k)$.
+By Spaces, Theorem \ref{spaces-theorem-presentation}
+we know that the quotient sheaf
+$X' = \Spec(k)/R$ is an algebraic space. By
+Groupoids, Lemma \ref{groupoids-lemma-quotient-groupoid-restrict}
+the map $X' \to X$ is a monomorphism.
+Since $s, t$ are quasi-compact, we see that $R$ is quasi-compact and hence
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-point-like-spaces}
+applies to $X'$, and we see that
+$X' = \Spec(k')$ for some field $k'$. Hence we get a factorization
+$$
+\Spec(k) \longrightarrow
+\Spec(k') \longrightarrow X
+$$
+which shows that $\Spec(k') \to X$ is a monomorphism mapping
+to $x \in |X|$. In other words (4) holds.
+
+\medskip\noindent
+Finally, we prove that (4) implies (1). Let $\Spec(k) \to X$
+be a monomorphism with $k$ a field in the equivalence class of $x$.
+Let $U \to X$ be a surjective \'etale morphism from a scheme $U$ to $X$.
+Let $u \in U$ be a point over $x$. Since $\Spec(k) \times_X u$
+is nonempty, and since $\Spec(k) \times_X u \to u$ is a monomorphism
+we conclude that $\Spec(k) \times_X u = u$ (see
+Schemes, Lemma \ref{schemes-lemma-mono-towards-spec-field}).
+Hence $u \to U \to X$ factors through $\Spec(k) \to X$, here is
+a picture
+$$
+\xymatrix{
+u \ar[r] \ar[d] & U \ar[d] \\
+\Spec(k) \ar[r] & X
+}
+$$
+Since the right vertical arrow is \'etale this implies that
+$k \subset \kappa(u)$ is a finite separable extension. Hence we conclude that
+$$
+u \times_X u = u \times_{\Spec(k)} u
+$$
+is a finite scheme, and we win by the discussion of the meaning of property
+(1) in the first paragraph of this proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-weak-UR-finite-above-x}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $x \in |X|$.
+Let $U$ be a scheme and let $\varphi : U \to X$ be an \'etale morphism.
+The following are equivalent:
+\begin{enumerate}
+\item $x$ is in the image of $|U| \to |X|$, and
+setting $R = U \times_X U$ the fibres of both
+$$
+|U| \longrightarrow |X|
+\quad\text{and}\quad
+|R| \longrightarrow |X|
+$$
+over $x$ are finite,
+\item there exists a monomorphism $\Spec(k) \to X$ with $k$ a field
+in the equivalence class of $x$, and
+the fibre product $\Spec(k) \times_X U$ is
+a finite nonempty scheme over $k$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (1). This clearly implies the first condition of
+Lemma \ref{lemma-R-finite-above-x} and hence we obtain a monomorphism
+$\Spec(k) \to X$ in the class of $x$. Taking the fibre product
+we see that $\Spec(k) \times_X U \to \Spec(k)$ is a scheme
+\'etale over $\Spec(k)$ with finitely many points, hence a finite
+nonempty scheme over $k$, i.e., (2) holds.
+
+\medskip\noindent
+Assume (2). By assumption $x$ is in the image of
+$|U| \to |X|$. The finiteness of the fibre of
+$|U| \to |X|$ over $x$ is clear since this fibre is equal to
+$|\Spec(k) \times_X U|$ by
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian}.
+The finiteness of the fibre of $|R| \to |X|$ above $x$ is also clear
+since it is equal to the set underlying the scheme
+$$
+(\Spec(k) \times_X U) \times_{\Spec(k)} (\Spec(k) \times_X U)
+$$
+which is finite over $k$. Thus (1) holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-UR-finite-above-x}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $x \in |X|$. The following are equivalent:
+\begin{enumerate}
+\item for every affine scheme $U$, any \'etale morphism
+$\varphi : U \to X$ setting $R = U \times_X U$ the fibres of both
+$$
+|U| \longrightarrow |X|
+\quad\text{and}\quad
+|R| \longrightarrow |X|
+$$
+over $x$ are finite,
+\item there exist schemes $U_i$ and \'etale morphisms
+$U_i \to X$ such that $\coprod U_i \to X$ is surjective and for each
+$i$, setting $R_i = U_i \times_X U_i$ the fibres of both
+$$
+|U_i| \longrightarrow |X|
+\quad\text{and}\quad
+|R_i| \longrightarrow |X|
+$$
+over $x$ are finite,
+\item there exists a monomorphism $\Spec(k) \to X$ with $k$ a field
+in the equivalence class of $x$, and for any affine scheme $U$ and \'etale
+morphism $U \to X$ the fibre product $\Spec(k) \times_X U$ is
+a finite scheme over $k$,
+\item there exists a quasi-compact monomorphism $\Spec(k) \to X$
+with $k$ a field in the equivalence class of $x$, and
+\item there exists a quasi-compact morphism $\Spec(k) \to X$
+with $k$ a field in the equivalence class of $x$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (1) and (3) follows on applying
+Lemma \ref{lemma-weak-UR-finite-above-x}
+to every \'etale morphism $U \to X$ with $U$ affine.
+It is clear that (3) implies (2).
+Assume $U_i \to X$ and $R_i$ are as in (2). We conclude from
+Lemma \ref{lemma-U-finite-above-x}
+that for any affine scheme $U$ and \'etale morphism $U \to X$
+the fibre of $|U| \to |X|$ over $x$ is finite.
+Say this fibre is $\{u_1, \ldots, u_n\}$. Then, as
+Lemma \ref{lemma-R-finite-above-x} (1)
+applies to $U_i \to X$ for some $i$ such that $x$ is in the image of
+$|U_i| \to |X|$, we see that the fibre of
+$|R = U \times_X U| \to |U| \times_{|X|} |U|$
+is finite over $(u_a, u_b)$, $a, b \in \{1, \ldots, n\}$.
+Hence the fibre of $|R| \to |X|$ over $x$ is finite.
+In this way we see that (1) holds. At this point we know that
+(1), (2), and (3) are equivalent.
+
+\medskip\noindent
+If (4) holds, then for any affine scheme $U$ and \'etale morphism
+$U \to X$ the scheme $\Spec(k) \times_X U$ is on the one hand
+\'etale over $k$ (hence a disjoint union of spectra of finite separable
+extensions of $k$ by
+Remark \ref{remark-recall})
+and on the other hand quasi-compact over $U$ (hence quasi-compact).
+Thus we see that (3) holds.
+Conversely, if $U_i \to X$ is as in (2) and $\Spec(k) \to X$
+is a monomorphism as in (3), then
+$$
+\coprod \Spec(k) \times_X U_i
+\longrightarrow
+\coprod U_i
+$$
+is quasi-compact (because over each $U_i$ we see that
+$\Spec(k) \times_X U_i$ is a finite disjoint union spectra of fields).
+Thus $\Spec(k) \to X$ is quasi-compact by
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-quasi-compact-local}.
+
+\medskip\noindent
+It is immediate that (4) implies (5). Conversely, let $\Spec(k) \to X$
+be a quasi-compact morphism in the equivalence class of $x$. Let $U \to X$
+be an \'etale morphism with $U$ affine. Consider the fibre product
+$$
+\xymatrix{
+F \ar[r] \ar[d] & U \ar[d] \\
+\Spec(k) \ar[r] & X
+}
+$$
+Then $F \to U$ is quasi-compact, hence $F$ is quasi-compact.
+On the other hand, $F \to \Spec(k)$ is \'etale, hence $F$ is a
+finite disjoint union of spectra of finite separable extensions of $k$
+(Remark \ref{remark-recall}). Since the image of $|F| \to |U|$
+is the fibre of $|U| \to |X|$ over $x$ (Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-points-cartesian}), we conclude that
+the fibre of $|U| \to |X|$ over $x$ is finite. The scheme
+$F \times_{\Spec(k)} F$ is also a finite union of spectra of fields
+because it is also quasi-compact and \'etale over $\Spec(k)$.
+There is a monomorphism
+$F \times_X F \to F \times_{\Spec(k)} F$, hence $F \times_X F$ is
+a finite disjoint union of spectra of fields
+(Schemes, Lemma \ref{schemes-lemma-mono-towards-spec-field}).
+Thus the image of $F \times_X F \to U \times_X U = R$ is finite.
+Since this image is the fibre of $|R| \to |X|$ over $x$ by
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}
+we conclude that (1) holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-U-universally-bounded}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+The following are equivalent:
+\begin{enumerate}
+\item there exist schemes $U_i$ and \'etale morphisms
+$U_i \to X$ such that $\coprod U_i \to X$ is surjective and
+each $U_i \to X$ has universally bounded fibres, and
+\item for every affine scheme $U$ and \'etale morphism $\varphi : U \to X$
+the fibres of $U \to X$ are universally bounded.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implication (2) $\Rightarrow$ (1) is trivial.
+Assume (1). Let $(\varphi_i : U_i \to X)_{i \in I}$ be a collection of
+\'etale morphisms from schemes towards $X$, covering $X$, such that
+each $\varphi_i$ has universally bounded fibres.
+Let $\psi : U \to X$ be an \'etale morphism from an affine scheme towards $X$.
+For each $i$ consider the fibre product diagram
+$$
+\xymatrix{
+U \times_X U_i \ar[r]_{p_i} \ar[d]_{q_i} & U_i \ar[d]^{\varphi_i} \\
+U \ar[r]^\psi & X
+}
+$$
+Since $q_i$ is \'etale it is open (see Remark \ref{remark-recall}).
+Moreover, we have $U = \bigcup \Im(q_i)$, since the family
+$(\varphi_i)_{i \in I}$ is surjective. Since $U$ is affine, hence quasi-compact
+we can finite finitely many $i_1, \ldots, i_n \in I$ and quasi-compact
+opens $W_j \subset U \times_X U_{i_j}$ such that
+$U = \bigcup p_{i_j}(W_j)$.
+The morphism $p_{i_j}$ is \'etale, hence locally quasi-finite
+(see remark on \'etale morphisms above). Thus we may apply
+Morphisms, Lemma
+\ref{morphisms-lemma-locally-quasi-finite-qc-source-universally-bounded}
+to see the fibres of $p_{i_j}|_{W_j} : W_j \to U_{i_j}$ are universally
+bounded. Hence by
+Lemma \ref{lemma-composition-universally-bounded}
+we see that the fibres of $W_j \to X$ are universally bounded.
+Thus also $\coprod_{j = 1, \ldots, n} W_j \to X$ has universally
+bounded fibres. Since $\coprod_{j = 1, \ldots, n} W_j \to X$ factors
+through the surjective \'etale map
+$\coprod q_{i_j}|_{W_j} : \coprod_{j = 1, \ldots, n} W_j \to U$ we
+see that the fibres of $U \to X$ are universally bounded by
+Lemma \ref{lemma-universally-bounded-permanence}.
+In other words (2) holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-very-reasonable}
+Let $S$ be a scheme.
+Let $X$ be an algebraic space over $S$.
+The following are equivalent:
+\begin{enumerate}
+\item there exists a Zariski covering $X = \bigcup X_i$ and for
+each $i$ a scheme $U_i$ and a quasi-compact surjective \'etale
+morphism $U_i \to X_i$, and
+\item there exist schemes $U_i$ and \'etale morphisms $U_i \to X$
+such that the projections $U_i \times_X U_i \to U_i$ are quasi-compact
+and $\coprod U_i \to X$ is surjective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+If (1) holds then the morphisms $U_i \to X_i \to X$ are \'etale (combine
+Morphisms, Lemma \ref{morphisms-lemma-composition-etale}
+and
+Spaces, Lemmas
+\ref{spaces-lemma-composition-representable-transformations-property} and
+\ref{spaces-lemma-morphism-schemes-gives-representable-transformation-property}
+).
+Moreover, as $U_i \times_X U_i = U_i \times_{X_i} U_i$,
+both projections $U_i \times_X U_i \to U_i$ are quasi-compact.
+
+\medskip\noindent
+If (2) holds then let $X_i \subset X$ be the open subspace corresponding
+to the image of the open map $|U_i| \to |X|$, see
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-etale-image-open}.
+The morphisms $U_i \to X_i$ are surjective.
+Hence $U_i \to X_i$ is surjective \'etale, and the projections
+$U_i \times_{X_i} U_i \to U_i$ are quasi-compact, because
+$U_i \times_{X_i} U_i = U_i \times_X U_i$. Thus by
+Spaces, Lemma \ref{spaces-lemma-representable-morphisms-spaces-property}
+the morphisms $U_i \to X_i$ are quasi-compact.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Conditions on algebraic spaces}
+\label{section-conditions}
+
+\noindent
+In this section we discuss the relationship between various natural
+conditions on algebraic spaces we have seen above. Please read
+Section \ref{section-reasonable-decent}
+to get a feeling for the meaning of these conditions.
+
+\begin{lemma}
+\label{lemma-bounded-fibres}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Consider the following conditions on $X$:
+\begin{enumerate}
+\item[$(\alpha)$] For every $x \in |X|$, the equivalent conditions of
+Lemma \ref{lemma-U-finite-above-x}
+hold.
+\item[$(\beta)$] For every $x \in |X|$, the equivalent conditions of
+Lemma \ref{lemma-R-finite-above-x}
+hold.
+\item[$(\gamma)$] For every $x \in |X|$, the equivalent conditions of
+Lemma \ref{lemma-UR-finite-above-x}
+hold.
+\item[$(\delta)$] The equivalent conditions of
+Lemma \ref{lemma-U-universally-bounded}
+hold.
+\item[$(\epsilon)$] The equivalent conditions of
+Lemma \ref{lemma-characterize-very-reasonable}
+hold.
+\item[$(\zeta)$] The space $X$ is Zariski locally quasi-separated.
+\item[$(\eta)$] The space $X$ is quasi-separated
+\item[$(\theta)$] The space $X$ is representable, i.e., $X$ is a scheme.
+\item[$(\iota)$] The space $X$ is a quasi-separated scheme.
+\end{enumerate}
+We have
+$$
+\xymatrix{
+& (\theta) \ar@{=>}[rd] & & & &  \\
+(\iota) \ar@{=>}[ru] \ar@{=>}[rd] & &
+(\zeta) \ar@{=>}[r] &
+(\epsilon) \ar@{=>}[r] &
+(\delta) \ar@{=>}[r] &
+(\gamma) \ar@{<=>}[r] & (\alpha) + (\beta) \\
+& (\eta) \ar@{=>}[ru] & & & &
+}
+$$
+\end{lemma}
+
+\begin{proof}
+The implication $(\gamma) \Leftrightarrow (\alpha) + (\beta)$ is immediate.
+The implications in the diamond on the left are clear from the
+definitions.
+
+\medskip\noindent
+Assume $(\zeta)$, i.e., that $X$ is Zariski locally quasi-separated.
+Then $(\epsilon)$ holds by
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-quasi-separated-quasi-compact-pieces}.
+
+\medskip\noindent
+Assume $(\epsilon)$. By
+Lemma \ref{lemma-characterize-very-reasonable}
+there exists
+a Zariski open covering $X = \bigcup X_i$ such that for each $i$
+there exists a scheme $U_i$ and a quasi-compact surjective \'etale morphism
+$U_i \to X_i$. Choose an $i$ and an affine open subscheme $W \subset U_i$.
+It suffices to show that $W \to X$ has universally bounded fibres, since then
+the family of all these morphisms $W \to X$ covers $X$.
+To do this we consider the diagram
+$$
+\xymatrix{
+W \times_X U_i \ar[r]_-p \ar[d]_q & U_i \ar[d] \\
+W \ar[r] & X
+}
+$$
+Since $W \to X$ factors through $X_i$ we see that
+$W \times_X U_i = W \times_{X_i} U_i$, and hence $q$ is quasi-compact.
+Since $W$ is affine this implies that the scheme $W \times_X U_i$
+is quasi-compact. Thus we may apply
+Morphisms, Lemma
+\ref{morphisms-lemma-locally-quasi-finite-qc-source-universally-bounded}
+and we conclude that $p$ has universally bounded fibres. From
+Lemma \ref{lemma-descent-universally-bounded}
+we conclude that $W \to X$ has universally bounded fibres as well.
+
+\medskip\noindent
+Assume $(\delta)$. Let $U$ be an affine scheme, and let $U \to X$ be an \'etale
+morphism. By assumption the fibres of the morphism $U \to X$ are universally
+bounded. Thus also the fibres of both projections $R = U \times_X U \to U$
+are universally bounded, see
+Lemma \ref{lemma-base-change-universally-bounded}.
+And by
+Lemma \ref{lemma-composition-universally-bounded}
+also the fibres of $R \to X$ are universally bounded.
+Hence for any $x \in X$ the fibres of $|U| \to |X|$ and $|R| \to |X|$
+over $x$ are finite, see
+Lemma \ref{lemma-universally-bounded-finite-fibres}.
+In other words, the equivalent conditions of
+Lemma \ref{lemma-UR-finite-above-x}
+hold. This proves that $(\delta) \Rightarrow (\gamma)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-properties-local}
+Let $S$ be a scheme.
+Let $\mathcal{P}$ be one of the properties
+$(\alpha)$, $(\beta)$, $(\gamma)$, $(\delta)$, $(\epsilon)$, $(\zeta)$, or
+$(\theta)$ of algebraic spaces listed in
+Lemma \ref{lemma-bounded-fibres}.
+Then if $X$ is an algebraic space over $S$, and $X = \bigcup X_i$ is a
+Zariski open covering such that each $X_i$ has $\mathcal{P}$,
+then $X$ has $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Let $X$ be an algebraic space over $S$, and let $X = \bigcup X_i$ is a
+Zariski open covering such that each $X_i$ has $\mathcal{P}$.
+
+\medskip\noindent
+The case $\mathcal{P} = (\alpha)$. The condition $(\alpha)$ for $X_i$
+means that for every $x \in |X_i|$ and every affine scheme $U$, and
+\'etale morphism $\varphi : U \to X_i$ the fibre of $\varphi : |U| \to |X_i|$
+over $x$ is finite. Consider $x \in X$, an affine scheme $U$ and
+an \'etale morphism $U \to X$. Since $X = \bigcup X_i$ is a
+Zariski open covering there exits a finite affine open covering
+$U = U_1 \cup \ldots \cup U_n$ such that each $U_j \to X$ factors through
+some $X_{i_j}$. By assumption the fibres of $|U_j | \to |X_{i_j}|$
+over $x$ are finite for $j = 1, \ldots, n$. Clearly this means that
+the fibre of $|U| \to |X|$ over $x$ is finite.
+This proves the result for $(\alpha)$.
+
+\medskip\noindent
+The case $\mathcal{P} = (\beta)$. The condition $(\beta)$ for $X_i$ means
+that every $x \in |X_i|$ is represented by a monomorphism from the
+spectrum of a field towards $X_i$. Hence the same follows for $X$
+as $X_i \to X$ is a monomorphism and $X = \bigcup X_i$.
+
+\medskip\noindent
+The case $\mathcal{P} = (\gamma)$.
+Note that $(\gamma) = (\alpha) + (\beta)$ by
+Lemma \ref{lemma-bounded-fibres}
+hence the lemma for $(\gamma)$ follows from the cases treated above.
+
+\medskip\noindent
+The case $\mathcal{P} = (\delta)$. The condition $(\delta)$ for $X_i$ means
+there exist schemes $U_{ij}$ and \'etale morphisms $U_{ij} \to X_i$ with
+universally bounded fibres which cover $X_i$. These schemes also give an
+\'etale surjective morphism $\coprod U_{ij} \to X$ and $U_{ij} \to X$
+still has universally bounded fibres.
+
+\medskip\noindent
+The case $\mathcal{P} = (\epsilon)$. The condition $(\epsilon)$ for $X_i$ means
+we can find a set $J_i$ and morphisms
+$\varphi_{ij} : U_{ij} \to X_i$ such that each $\varphi_{ij}$
+is \'etale, both projections $U_{ij} \times_{X_i} U_{ij} \to U_{ij}$
+are quasi-compact, and $\coprod_{j \in J_i} U_{ij} \to X_i$ is surjective.
+In this case the compositions $U_{ij} \to X_i \to X$ are \'etale
+(combine
+Morphisms, Lemmas
+\ref{morphisms-lemma-composition-etale} and
+\ref{morphisms-lemma-open-immersion-etale}
+and
+Spaces, Lemmas
+\ref{spaces-lemma-composition-representable-transformations-property} and
+\ref{spaces-lemma-morphism-schemes-gives-representable-transformation-property}
+).
+Since $X_i \subset X$ is a subspace we see that
+$U_{ij} \times_{X_i} U_{ij} = U_{ij} \times_X U_{ij}$, and hence the
+condition on fibre products is preserved. And clearly
+$\coprod_{i, j} U_{ij} \to X$ is surjective. Hence $X$
+satisfies $(\epsilon)$.
+
+\medskip\noindent
+The case $\mathcal{P} = (\zeta)$. The condition $(\zeta)$ for $X_i$
+means that $X_i$ is Zariski locally quasi-separated. It is immediately
+clear that this means $X$ is Zariski locally quasi-separated.
+
+\medskip\noindent
+For $(\theta)$, see
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-subscheme}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-properties}
+Let $S$ be a scheme. Let $\mathcal{P}$ be one of the properties
+$(\beta)$, $(\gamma)$, $(\delta)$, $(\epsilon)$, or
+$(\theta)$ of algebraic spaces listed in
+Lemma \ref{lemma-bounded-fibres}.
+Let $X$, $Y$ be algebraic spaces over $S$.
+Let $X \to Y$ be a representable morphism.
+If $Y$ has property $\mathcal{P}$, so does $X$.
+\end{lemma}
+
+\begin{proof}
+Assume $f : X \to Y$ is a representable morphism of algebraic spaces,
+and assume that $Y$ has $\mathcal{P}$. Let $x \in |X|$, and set
+$y = f(x) \in |Y|$.
+
+\medskip\noindent
+The case $\mathcal{P} = (\beta)$. Condition $(\beta)$ for $Y$ means
+there exists a monomorphism $\Spec(k) \to Y$ representing $y$.
+The fibre product $X_y = \Spec(k) \times_Y X$ is a scheme, and
+$x$ corresponds to a point of $X_y$, i.e., to a monomorphism
+$\Spec(k') \to X_y$. As $X_y \to X$ is a monomorphism also we see
+that $x$ is represented by the monomorphism $\Spec(k') \to X_y \to X$.
+In other words $(\beta)$ holds for $X$.
+
+\medskip\noindent
+The case $\mathcal{P} = (\gamma)$. Since $(\gamma) \Rightarrow (\beta)$
+we have seen in the preceding paragraph that $y$ and $x$ can be represented
+by monomorphisms as in the following diagram
+$$
+\xymatrix{
+\Spec(k') \ar[r]_-x \ar[d] & X \ar[d] \\
+\Spec(k) \ar[r]^-y & Y
+}
+$$
+Also, by definition of property $(\gamma)$ via
+Lemma \ref{lemma-UR-finite-above-x} (2)
+there exist schemes
+$V_i$ and \'etale morphisms $V_i \to Y$ such that $\coprod V_i \to Y$
+is surjective and for each $i$, setting $R_i = V_i \times_Y V_i$
+the fibres of both
+$$
+|V_i| \longrightarrow |Y|
+\quad\text{and}\quad
+|R_i| \longrightarrow |Y|
+$$
+over $y$ are finite. This means that the schemes
+$(V_i)_y$ and $(R_i)_y$ are finite schemes over $y = \Spec(k)$.
+As $X \to Y$ is representable, the fibre products $U_i = V_i \times_Y X$
+are schemes. The morphisms $U_i \to X$ are \'etale, and
+$\coprod U_i \to X$ is surjective. Finally, for each $i$ we have
+$$
+(U_i)_x =
+(V_i \times_Y X)_x =
+(V_i)_y \times_{\Spec(k)} \Spec(k')
+$$
+and
+$$
+(U_i \times_X U_i)_x =
+\left((V_i \times_Y X) \times_X (V_i \times_Y X)\right)_x =
+(R_i)_y \times_{\Spec(k)} \Spec(k')
+$$
+hence these are finite over $k'$ as base changes of the finite
+schemes $(V_i)_y$ and $(R_i)_y$. This implies that $(\gamma)$ holds for $X$,
+again via the second condition of
+Lemma \ref{lemma-UR-finite-above-x}.
+
+\medskip\noindent
+The case $\mathcal{P} = (\delta)$. Let $V \to Y$ be an \'etale morphism with
+$V$ an affine scheme. Since $Y$ has property $(\delta)$ this morphism has
+universally bounded fibres. By
+Lemma \ref{lemma-base-change-universally-bounded}
+the base change $V \times_Y X \to X$ also has universally bounded fibres.
+Hence the first part of
+Lemma \ref{lemma-U-universally-bounded}
+applies and we see that $Y$ also has property $(\delta)$.
+
+\medskip\noindent
+The case $\mathcal{P} = (\epsilon)$. We will repeatedly use
+Spaces, Lemma
+\ref{spaces-lemma-base-change-representable-transformations-property}.
+Let $V_i \to Y$ be as in
+Lemma \ref{lemma-characterize-very-reasonable} (2).
+Set $U_i = X \times_Y V_i$. The morphisms $U_i \to X$ are \'etale,
+and $\coprod U_i \to X$ is surjective. Because
+$U_i \times_X U_i = X \times_Y (V_i \times_Y V_i)$ we see
+that the projections $U_i \times_Y U_i \to U_i$ are
+base changes of the projections $V_i \times_Y V_i \to V_i$, and so
+quasi-compact as well. Hence $X$ satisfies
+Lemma \ref{lemma-characterize-very-reasonable} (2).
+
+\medskip\noindent
+The case $\mathcal{P} = (\theta)$. In this case the result is
+Categories, Lemma \ref{categories-lemma-representable-over-representable}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Reasonable and decent algebraic spaces}
+\label{section-reasonable-decent}
+
+\noindent
+In
+Lemma \ref{lemma-bounded-fibres}
+we have seen a number of conditions on algebraic spaces related to
+the behaviour of \'etale morphisms from affine schemes into $X$
+and related to the existence of special \'etale coverings of $X$ by
+schemes. We tabulate the different types of conditions here:
+$$
+\boxed{
+\begin{matrix}
+(\alpha) & \text{fibres of \'etale morphisms from affines are finite} \\
+(\beta) & \text{points come from monomorphisms of spectra of fields} \\
+(\gamma) & \text{points come from quasi-compact monomorphisms of
+spectra of fields} \\
+(\delta) & \text{fibres of \'etale morphisms from affines are universally
+bounded} \\
+(\epsilon) & \text{cover by \'etale morphisms from schemes quasi-compact
+onto their image}
+\end{matrix}
+}
+$$
+
+\medskip\noindent
+The conditions in the following definition
+are not exactly conditions on the diagonal of $X$, but they are in some
+sense separation conditions on $X$.
+
+\begin{definition}
+\label{definition-very-reasonable}
+Let $S$ be a scheme.
+Let $X$ be an algebraic space over $S$.
+\begin{enumerate}
+\item We say $X$ is {\it decent} if for every point $x \in X$ the equivalent
+conditions of
+Lemma \ref{lemma-UR-finite-above-x}
+hold, in other words property $(\gamma)$ of
+Lemma \ref{lemma-bounded-fibres}
+holds.
+\item We say $X$ is {\it reasonable} if the equivalent conditions of
+Lemma \ref{lemma-U-universally-bounded}
+hold, in other words property $(\delta)$ of
+Lemma \ref{lemma-bounded-fibres}
+holds.
+\item We say $X$ is {\it very reasonable} if the equivalent conditions of
+Lemma \ref{lemma-characterize-very-reasonable}
+hold, i.e., property $(\epsilon)$ of
+Lemma \ref{lemma-bounded-fibres}
+holds.
+\end{enumerate}
+\end{definition}
+
+\noindent
+We have the following implications among these conditions on algebraic spaces:
+$$
+\xymatrix{
+\text{representable} \ar@{=>}[rd] & & & \\
+ & \text{very reasonable} \ar@{=>}[r] &
+\text{reasonable} \ar@{=>}[r] &
+\text{decent} \\
+\text{quasi-separated} \ar@{=>}[ru] & & &
+}
+$$
+The notion of a very reasonable algebraic space is obsolete.
+It was introduced because the assumption was needed to prove some results
+which are now proven for the class of decent spaces.
+The class of decent spaces is the largest class of spaces $X$ where one has
+a good relationship between the topology of $|X|$ and
+properties of $X$ itself.
+
+\begin{example}
+\label{example-not-decent}
+The algebraic space $\mathbf{A}^1_{\mathbf{Q}}/\mathbf{Z}$ constructed in
+Spaces, Example \ref{spaces-example-affine-line-translation}
+is not decent as its ``generic point'' cannot be represented by a monomorphism
+from the spectrum of a field.
+\end{example}
+
+\begin{remark}
+\label{remark-reasonable}
+Reasonable algebraic spaces are technically easier to work with than very
+reasonable algebraic spaces. For example, if $X \to Y$ is a quasi-compact
+\'etale surjective morphism of algebraic spaces and $X$ is reasonable, then
+so is $Y$, see
+Lemma \ref{lemma-descent-conditions}
+but we don't know if this is true for the property ``very reasonable''.
+Below we give another technical property enjoyed by reasonable
+algebraic spaces.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-fun-property-reasonable}
+Let $S$ be a scheme.
+Let $X$ be a quasi-compact reasonable algebraic space.
+Then there exists a directed system of quasi-compact and quasi-separated
+algebraic spaces $X_i$ such that $X = \colim_i X_i$
+(colimit in the category of sheaves).
+\end{lemma}
+
+\begin{proof}
+We sketch the proof. By
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}
+we have $X = U/R$ with $U$ affine.
+In this case, reasonable means $U \to X$ is universally bounded.
+Hence there exists an integer $N$ such that the ``fibres'' of $U \to X$
+have degree at most $N$, see
+Definition \ref{definition-universally-bounded}.
+Denote $s, t : R \to U$ and $c : R \times_{s, U, t} R \to R$ the
+groupoid structural maps.
+
+\medskip\noindent
+Claim: for every quasi-compact open $A \subset R$ there exists
+an open $R' \subset R$ such that
+\begin{enumerate}
+\item $A \subset R'$,
+\item $R'$ is quasi-compact, and
+\item $(U, R', s|_{R'}, t|_{R'}, c|_{R' \times_{s, U, t} R'})$ is
+a groupoid scheme.
+\end{enumerate}
+Note that $e : U \to R$ is open as it is a section of the \'etale morphism
+$s : R \to U$, see
+\'Etale Morphisms, Proposition \ref{etale-proposition-properties-sections}.
+Moreover $U$ is affine hence quasi-compact. Hence we may replace $A$ by
+$A \cup e(U) \subset R$, and assume that $A$ contains $e(U)$. Next, we
+define inductively $A^1 = A$, and
+$$
+A^n = c(A^{n - 1} \times_{s, U, t} A) \subset R
+$$
+for $n \geq 2$. Arguing inductively, we see that $A^n$ is quasi-compact for
+all $n \geq 2$, as the image of the quasi-compact fibre product
+$A^{n - 1} \times_{s, U, t} A$. If $k$ is an algebraically
+closed field over $S$, and we consider $k$-points then
+$$
+A^n(k) = \left\{(u, u') \in U(k)
+:
+\begin{matrix}
+\text{there exist } u = u_1, u_2, \ldots, u_n \in U(k)\text{ with} \\
+(u_i , u_{i + 1}) \in A \text{ for all }i = 1, \ldots, n - 1.
+\end{matrix}
+\right\}
+$$
+But as the fibres of $U(k) \to X(k)$ have size at most $N$ we see that if
+$n > N$ then we get a repeat in the sequence above, and we can shorten it
+proving $A^N = A^n$ for all $n \geq N$.
+This implies that $R' = A^N$ gives a groupoid scheme
+$(U, R', s|_{R'}, t|_{R'}, c|_{R' \times_{s, U, t} R'})$, proving the claim
+above.
+
+\medskip\noindent
+Consider the map of sheaves on $(\Sch/S)_{fppf}$
+$$
+\colim_{R' \subset R} U/R' \longrightarrow U/R
+$$
+where $R' \subset R$ runs over the quasi-compact open subschemes
+of $R$ which give \'etale equivalence relations as above. Each of the
+quotients $U/R'$ is an algebraic space
+(see Spaces, Theorem \ref{spaces-theorem-presentation}).
+Since $R'$ is quasi-compact, and $U$ affine the morphism
+$R' \to U \times_{\Spec(\mathbf{Z})} U$ is quasi-compact,
+and hence $U/R'$ is quasi-separated. Finally, if $T$ is a quasi-compact
+scheme, then
+$$
+\colim_{R' \subset R} U(T)/R'(T) \longrightarrow U(T)/R(T)
+$$
+is a bijection, since every morphism from $T$ into $R$ ends up in one
+of the open subrelations $R'$ by the claim above. This clearly implies
+that the colimit of the sheaves $U/R'$ is $U/R$. In other words
+the algebraic space $X = U/R$ is the colimit of the quasi-separated
+algebraic spaces $U/R'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-named-properties}
+Let $S$ be a scheme. Let $X$, $Y$ be algebraic spaces over $S$.
+Let $X \to Y$ be a representable morphism.
+If $Y$ is decent (resp.\ reasonable), then so is $X$.
+\end{lemma}
+
+\begin{proof}
+Translation of Lemma \ref{lemma-representable-properties}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-named-properties}
+Let $S$ be a scheme. Let $X \to Y$ be an \'etale morphism of
+algebraic spaces over $S$. If $Y$ is decent, resp.\ reasonable,
+then so is $X$.
+\end{lemma}
+
+\begin{proof}
+Let $U$ be an affine scheme and $U \to X$ an \'etale morphism.
+Set $R = U \times_X U$ and $R' = U \times_Y U$. Note that
+$R \to R'$ is a monomorphism.
+
+\medskip\noindent
+Let $x \in |X|$. To show that $X$ is decent, we have to show that
+the fibres of $|U| \to |X|$ and $|R| \to |X|$ over $x$ are finite.
+But if $Y$ is decent, then the fibres of $|U| \to |Y|$ and
+$|R'| \to |Y|$ are finite. Hence the result for ``decent''.
+
+\medskip\noindent
+To show that $X$ is reasonable, we have to show that the fibres of
+$U \to X$ are universally bounded. However, if $Y$ is reasonable,
+then the fibres of $U \to Y$ are universally bounded, which immediately
+implies the same thing for the fibres of $U \to X$.
+Hence the result for ``reasonable''.
+\end{proof}
+
+
+
+
+
+
+
+\section{Points and specializations}
+\label{section-specializations}
+
+\noindent
+There exists an \'etale morphism of algebraic spaces $f : X \to Y$
+and a nontrivial specialization between points in a fibre of
+$|f| : |X| \to |Y|$, see
+Examples, Lemma \ref{examples-lemma-specializations-fibre-etale}.
+If the source of the morphism is a scheme we can avoid this by
+imposing condition ($\alpha$) on $Y$.
+
+\begin{lemma}
+\label{lemma-no-specializations-map-to-same-point}
+Let $S$ be a scheme.
+Let $X$ be an algebraic space over $S$.
+Let $U \to X$ be an \'etale morphism from a scheme to $X$.
+Assume $u, u' \in |U|$ map to the same point $x$ of $|X|$, and
+$u' \leadsto u$. If the pair $(X, x)$ satisfies the
+equivalent conditions of
+Lemma \ref{lemma-U-finite-above-x}
+then $u = u'$.
+\end{lemma}
+
+\begin{proof}
+Assume the pair $(X, x)$ satisfies the
+equivalent conditions for Lemma \ref{lemma-U-finite-above-x}.
+Let $U$ be a scheme, $U \to X$ \'etale, and
+let $u, u' \in |U|$ map to $x$ of $|X|$, and
+$u' \leadsto u$. We may and do replace $U$ by an affine
+neighbourhood of $u$. Let $t, s : R = U \times_X U \to U$
+be the \'etale projection maps.
+
+\medskip\noindent
+Pick a point $r \in R$ with $t(r) = u$ and $s(r) = u'$.
+This is possible by
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-presentation}.
+Because generalizations lift along the \'etale morphism $t$
+(Remark \ref{remark-recall}) we can find a specialization $r' \leadsto r$ with
+$t(r') = u'$. Set $u'' = s(r')$. Then $u'' \leadsto u'$.
+Thus we may repeat and find $r'' \leadsto r'$ with
+$t(r'') = u''$. Set $u''' = s(r'')$, and so on.
+Here is a picture:
+$$
+\xymatrix{
+& r'' \ar[rd]^s \ar[ld]_t \ar@{~>}[d] & \\
+u'' \ar@{~>}[d] & r' \ar[rd]^s \ar[ld]_t \ar@{~>}[d] & u''' \ar@{~>}[d] \\
+u' \ar@{~>}[d] & r \ar[rd]^s \ar[ld]_t & u'' \ar@{~>}[d] \\
+u & & u'
+}
+$$
+In Remark \ref{remark-recall} we have seen that there are no specializations
+among points in the fibres of the \'etale morphism $s$. Hence if
+$u^{(n + 1)} = u^{(n)}$ for some $n$, then also $r^{(n)} = r^{(n - 1)}$ and
+hence also (by taking $t$) $u^{(n)} = u^{(n - 1)}$. This then forces the
+whole tower to collapse, in particular $u = u'$. Thus we see that if
+$u \not = u'$, then all the specializations are strict and
+$\{u, u', u'', \ldots\}$ is an infinite set of points in $U$ which map to the
+point $x$ in $|X|$. As we chose $U$ affine this contradicts the second part of
+Lemma \ref{lemma-U-finite-above-x}, as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-specialization}
+Let $S$ be a scheme.
+Let $X$ be an algebraic space over $S$.
+Let $x, x' \in |X|$ and assume $x' \leadsto x$, i.e., $x$ is a
+specialization of $x'$.
+Assume the pair $(X, x')$ satisfies the equivalent conditions
+of Lemma \ref{lemma-UR-finite-above-x}.
+Then for every \'etale morphism $\varphi : U \to X$ from a scheme $U$ and any
+$u \in U$ with $\varphi(u) = x$, exists a point $u'\in U$,
+$u' \leadsto u$ with $\varphi(u') = x'$.
+\end{lemma}
+
+\begin{proof}
+We may replace $U$ by an affine open neighbourhood of $u$.
+Hence we may assume that $U$ is affine. As $x$ is in the
+image of the open map $|U| \to |X|$, so is $x'$. Thus we may
+replace $X$ by the Zariski open subspace corresponding to
+the image of $|U| \to |X|$, see
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-etale-image-open}.
+In other words we may assume that
+$U \to X$ is surjective and \'etale.
+Let $s, t : R = U \times_X U \to U$ be the projections.
+By our assumption that $(X, x')$ satisfies the equivalent conditions of
+Lemma \ref{lemma-UR-finite-above-x}
+we see that the fibres of $|U| \to |X|$ and $|R| \to |X|$
+over $x'$ are finite. Say $\{u'_1, \ldots, u'_n\} \subset U$ and
+$\{r'_1, \ldots, r'_m\} \subset R$ form the complete inverse image
+of $\{x'\}$.
+Consider the closed sets
+$$
+T = \overline{\{u'_1\}} \cup \ldots \cup \overline{\{u'_n\}} \subset |U|,
+\quad
+T' = \overline{\{r'_1\}} \cup \ldots \cup \overline{\{r'_m\}} \subset |R|.
+$$
+Trivially we have $s(T') \subset T$. Because $R$ is an equivalence
+relation we also have $t(T') = s(T')$ as the set $\{r_j'\}$
+is invariant under the inverse of $R$ by construction. Let $w \in T$
+be any point. Then $u'_i \leadsto w$ for some $i$. Choose $r \in R$
+with $s(r) = w$. Since generalizations lift along $s : R \to U$, see
+Remark \ref{remark-recall}, we can find $r' \leadsto r$ with
+$s(r') = u_i'$. Then $r' = r'_j$ for some $j$ and we conclude that
+$w \in s(T')$. Hence $T = s(T') = t(T')$ is an $|R|$-invariant closed
+set in $|U|$. This means $T$ is the inverse image of a closed (!)
+subset $T'' = \varphi(T)$ of $|X|$, see
+Properties of Spaces,
+Lemmas \ref{spaces-properties-lemma-points-presentation} and
+\ref{spaces-properties-lemma-topology-points}.
+Hence $T'' = \overline{\{x'\}}$.
+Thus $T$ contains some point $u_1$ mapping to $x$ as $x \in T''$.
+I.e., we see that for some $i$ there exists a specialization
+$u'_i \leadsto u_1$ which maps to the given specialization
+$x' \leadsto x$.
+
+\medskip\noindent
+To finish the proof, choose a point $r \in R$ such that
+$s(r) = u$ and $t(r) = u_1$ (using
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian}).
+As generalizations lift along $t$, and $u'_i \leadsto u_1$
+we can find a specialization $r' \leadsto r$ such that $t(r') = u'_i$.
+Set $u' = s(r')$. Then $u' \leadsto u$ and $\varphi(u') = x'$ as
+desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-generalizations-lift-flat}
+Let $S$ be a scheme. Let $f : Y \to X$ be a  flat morphism of algebraic spaces
+over $S$. Let $x, x' \in |X|$ and assume $x' \leadsto x$, i.e., $x$ is a
+specialization of $x'$. Assume the pair $(X, x')$ satisfies the equivalent
+conditions of Lemma \ref{lemma-UR-finite-above-x} (for example if
+$X$ is decent, $X$ is quasi-separated, or $X$ is representable).
+Then for every $y \in |Y|$ with $f(y) = x$, there exists a point $y' \in |Y|$,
+$y' \leadsto y$ with $f(y') = x'$.
+\end{lemma}
+
+\begin{proof}
+(The parenthetical statement holds by the definition of decent spaces
+and the implications between the different separation conditions
+mentioned in Section \ref{section-reasonable-decent}.)
+Choose a scheme $V$ and a surjective \'etale morphism $V \to Y$.
+Choose $v \in V$ mapping to $y$. Then we see that it suffices to
+prove the lemma for $V \to X$. Thus we may assume $Y$ is a scheme.
+Choose a scheme $U$ and a surjective \'etale morphism $U \to X$.
+Choose $u \in U$ mapping to $x$. By Lemma \ref{lemma-specialization}
+we may choose $u' \leadsto u$ mapping to $x'$. By
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}
+we may choose $z \in U \times_X Y$ mapping to $y$ and $u$.
+Thus we reduce to the case of the flat morphism of
+schemes $U \times_X Y \to U$ which is
+Morphisms, Lemma \ref{morphisms-lemma-generalizations-lift-flat}.
+\end{proof}
+
+
+
+
+
+
+\section{Stratifying algebraic spaces by schemes}
+\label{section-stratifications}
+
+\noindent
+In this section we prove that a quasi-compact and quasi-separated
+algebraic space has a finite stratification by locally closed subspaces
+each of which is a scheme and such that the glueing of the parts is by
+elementary distinguished squares. We first prove a slightly weaker
+result for reasonable algebraic spaces.
+
+\begin{lemma}
+\label{lemma-quasi-compact-reasonable-stratification}
+Let $S$ be a scheme. Let $W \to X$ be a morphism of a scheme $W$
+to an algebraic space $X$ which is flat, locally of finite presentation,
+separated, locally quasi-finite with universally bounded fibres. There exist
+reduced closed subspaces
+$$
+\emptyset = Z_{-1} \subset Z_0 \subset Z_1 \subset Z_2 \subset
+\ldots \subset Z_n = X
+$$
+such that with $X_r = Z_r \setminus Z_{r - 1}$ the stratification
+$X = \coprod_{r = 0, \ldots, n} X_r$ is characterized by the following
+universal property: Given $g : T \to X$ the projection
+$W \times_X T \to T$ is finite locally free of degree $r$ if and only if
+$g(|T|) \subset |X_r|$.
+\end{lemma}
+
+\begin{proof}
+Let $n$ be an integer bounding the degrees of the fibres of $W \to X$.
+Choose a scheme $U$ and a surjective \'etale morphism $U \to X$.
+Apply More on Morphisms, Lemma
+\ref{more-morphisms-lemma-stratify-flat-fp-lqf-universally-bounded}
+to $W \times_X U \to U$. We obtain closed subsets
+$$
+\emptyset = Y_{-1} \subset Y_0 \subset Y_1 \subset Y_2 \subset
+\ldots \subset Y_n = U
+$$
+characterized by the property stated in the lemma for the morphism
+$W \times_X U \to U$. Clearly, the formation of these closed subsets commutes
+with base change. Setting $R = U \times_X U$ with projection maps
+$s, t : R \to U$ we conclude that
+$$
+s^{-1}(Y_r) = t^{-1}(Y_r)
+$$
+as closed subsets of $R$. In other words the closed subsets $Y_r \subset U$
+are $R$-invariant. This means that $|Y_r|$ is the inverse image of a closed
+subset $Z_r \subset |X|$. Denote $Z_r \subset X$ also the reduced induced
+algebraic space structure, see
+Properties of Spaces, Definition
+\ref{spaces-properties-definition-reduced-induced-space}.
+
+\medskip\noindent
+Let $g : T \to X$ be a morphism of algebraic spaces. Choose a scheme $V$
+and a surjective \'etale morphism $V \to T$. To prove the final
+assertion of the lemma it suffices to prove the assertion for the composition
+$V \to X$ (by our definition of finite locally free morphisms, see
+Morphisms of Spaces, Section
+\ref{spaces-morphisms-section-finite-locally-free}).
+Similarly, the morphism of schemes $W \times_X V \to V$ is finite
+locally free of degree $r$ if and only if the morphism of schemes
+$$
+W \times_X (U \times_X V)
+\longrightarrow
+U \times_X V
+$$
+is finite locally free of degree $r$ (see
+Descent, Lemma \ref{descent-lemma-descending-property-finite-locally-free}).
+By construction this happens if and only if $|U \times_X V| \to |U|$
+maps into $|Y_r|$, which is true if and only if $|V| \to |X|$ maps
+into $|Z_r|$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stratify-flat-fp-lqf}
+Let $S$ be a scheme. Let $W \to X$ be a morphism of a scheme $W$ to an
+algebraic space $X$ which is flat, locally of finite presentation,
+separated, and locally quasi-finite. Then there
+exist open subspaces
+$$
+X = X_0 \supset X_1 \supset X_2 \supset \ldots
+$$
+such that a morphism $\Spec(k) \to X$ factors through $X_d$ if and
+only if $W \times_X \Spec(k)$ has degree $\geq d$ over $k$.
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $U$ and a surjective \'etale morphism $U \to X$. Apply
+More on Morphisms, Lemma \ref{more-morphisms-lemma-stratify-flat-fp-lqf}
+to $W \times_X U \to U$. We obtain open subschemes
+$$
+U = U_0 \supset U_1 \supset U_2 \supset \ldots
+$$
+characterized by the property stated in the lemma for the morphism
+$W \times_X U \to U$. Clearly, the formation of these closed subsets commutes
+with base change. Setting $R = U \times_X U$ with projection maps
+$s, t : R \to U$ we conclude that
+$$
+s^{-1}(U_d) = t^{-1}(U_d)
+$$
+as open subschemes of $R$. In other words the open subschemes $U_d \subset U$
+are $R$-invariant. This means that $U_d$ is the inverse image of an
+open subspace $X_d \subset X$
+(Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-subspaces-presentation}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-filter-quasi-compact}
+Let $S$ be a scheme. Let $X$ be a quasi-compact algebraic space
+over $S$. There exist open subspaces
+$$
+\ldots \subset U_4 \subset U_3 \subset U_2 \subset U_1 = X
+$$
+with the following properties:
+\begin{enumerate}
+\item setting $T_p = U_p \setminus U_{p + 1}$ (with reduced induced subspace
+structure) there exists a separated scheme $V_p$ and a surjective \'etale
+morphism $f_p : V_p \to U_p$ such that $f_p^{-1}(T_p) \to T_p$ is an
+isomorphism,
+\item if $x \in |X|$ can be represented by a quasi-compact morphism
+$\Spec(k) \to X$ from a field, then $x \in T_p$ for some $p$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-quasi-compact-affine-cover}
+we can choose an affine scheme $U$ and a surjective \'etale morphism
+$U \to X$. For $p \geq 0$ set
+$$
+W_p = U \times_X \ldots \times_X U \setminus \text{all diagonals}
+$$
+where the fibre product has $p$ factors. Since $U$ is separated,
+the morphism $U \to X$ is separated and all fibre products
+$U \times_X \ldots \times_X U$ are separated schemes. Since $U \to X$ is
+separated the diagonal $U \to U \times_X U$ is a closed immersion. Since
+$U \to X$ is \'etale the diagonal $U \to U \times_X U$ is an open
+immersion, see Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-etale-unramified} and
+\ref{spaces-morphisms-lemma-diagonal-unramified-morphism}.
+Similarly, all the diagonal morphisms are open and closed immersions and
+$W_p$ is an open and closed subscheme of $U \times_X \ldots \times_X U$.
+Moreover, the morphism
+$$
+U \times_X \ldots \times_X U \longrightarrow
+U \times_{\Spec(\mathbf{Z})} \ldots \times_{\Spec(\mathbf{Z})} U
+$$
+is locally quasi-finite and separated (Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-fibre-product-after-map})
+and its target is an affine scheme. Hence every finite set of points of
+$U \times_X \ldots \times_X U$ is contained in an affine open, see
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-over-affine}.
+Therefore, the same is true for $W_p$.
+There is a free action of the symmetric group $S_p$ on $W_p$ over $X$
+(because we threw out the fix point locus from
+$U \times_X \ldots \times_X U$). By the above and
+Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-finite-flat-equivalence-global}
+the quotient $V_p = W_p/S_p$ is a scheme. Since the action of
+$S_p$ on $W_p$ was over $X$, there is a morphism $V_p \to X$.
+Since $W_p \to X$ is \'etale and since $W_p \to V_p$ is surjective
+\'etale, it follows that also $V_p \to X$ is \'etale, see
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-etale-local}.
+Observe that $V_p$ is a separated scheme by
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-quotient-separated}.
+
+\medskip\noindent
+We let $U_p \subset X$ be the open subspace which is the
+image of $V_p \to X$. By construction a morphism $\Spec(k) \to X$ with
+$k$ algebraically closed, factors through $U_p$ if and only if
+$U \times_X \Spec(k)$ has $\geq p$ points; as usual observe that
+$U \times_X \Spec(k)$ is scheme theoretically a disjoint union of
+(possibly infinitely many) copies of $\Spec(k)$, see
+Remark \ref{remark-recall}. It follows that
+the $U_p$ give a filtration of $X$ as stated in the lemma.
+Moreover, our morphism $\Spec(k) \to X$ factors through $T_p$
+if and only if $U \times_X \Spec(k)$ has exactly $p$ points.
+In this case we see that $V_p \times_X \Spec(k)$ has exactly one point.
+Set $Z_p = f_p^{-1}(T_p) \subset V_p$. This is a closed subscheme of $V_p$.
+Then $Z_p \to T_p$ is an \'etale morphism between
+algebraic spaces which induces a bijection on $k$-valued
+points for any algebraically closed field $k$. To be sure this
+implies that $Z_p \to T_p$ is universally injective, whence an
+open immersion by
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-etale-universally-injective-open}
+hence an isomorphism and (1) has been proved.
+
+\medskip\noindent
+Let $x : \Spec(k) \to X$ be a quasi-compact morphism where $k$ is a field.
+Then the composition $\Spec(\overline{k}) \to \Spec(k) \to X$ is quasi-compact
+as well (Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-composition-quasi-compact}).
+In this case the scheme $U \times_X \Spec(\overline{k})$ is
+quasi-compact. In view of the fact (seen above) that it is a disjoint union
+of copies of $\Spec(\overline{k})$ we find that it has finitely many points.
+If the number of points is $p$, then we see that indeed $x \in T_p$ and
+the proof is finished.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-filter-reasonable}
+Let $S$ be a scheme. Let $X$ be a quasi-compact, reasonable algebraic space
+over $S$. There exist an integer $n$ and open subspaces
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+with the following property: setting $T_p = U_p \setminus U_{p + 1}$
+(with reduced induced subspace structure) there exists a separated scheme
+$V_p$ and a surjective \'etale morphism $f_p : V_p \to U_p$ such that
+$f_p^{-1}(T_p) \to T_p$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+The proof of this lemma is identical to the proof of
+Lemma \ref{lemma-filter-quasi-compact}.
+Let $n$ be an integer bounding the degrees of
+the fibres of $U \to X$ which exists as $X$ is reasonable, see
+Definition \ref{definition-very-reasonable}.
+Then we see that $U_{n + 1} = \emptyset$ and the proof is complete.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stratify-reasonable}
+Let $S$ be a scheme. Let $X$ be a quasi-compact, reasonable algebraic space
+over $S$. There exist an integer $n$ and open subspaces
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+such that each $T_p = U_p \setminus U_{p + 1}$ (with reduced induced subspace
+structure) is a scheme.
+\end{lemma}
+
+\begin{proof}
+Immediate consequence of Lemma \ref{lemma-filter-reasonable}.
+\end{proof}
+
+\noindent
+The following result is almost identical to
+\cite[Proposition 5.7.8]{GruRay}.
+
+\begin{lemma}
+\label{lemma-filter-quasi-compact-quasi-separated}
+\begin{reference}
+This result is almost identical to \cite[Proposition 5.7.8]{GruRay}.
+\end{reference}
+Let $X$ be a quasi-compact and quasi-separated algebraic space over
+$\Spec(\mathbf{Z})$. There exist an integer $n$ and open subspaces
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+with the following property: setting $T_p = U_p \setminus U_{p + 1}$
+(with reduced induced subspace structure) there exists a quasi-compact
+separated scheme $V_p$ and a surjective \'etale morphism $f_p : V_p \to U_p$
+such that $f_p^{-1}(T_p) \to T_p$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+The proof of this lemma is identical to the proof of
+Lemma \ref{lemma-filter-quasi-compact}.
+Observe that a quasi-separated space is reasonable, see
+Lemma \ref{lemma-bounded-fibres} and
+Definition \ref{definition-very-reasonable}.
+Hence we find that $U_{n + 1} = \emptyset$ as in
+Lemma \ref{lemma-filter-reasonable}.
+At the end of the argument we add that since $X$ is quasi-separated
+the schemes $U \times_X \ldots \times_X U$ are all quasi-compact.
+Hence the schemes $W_p$ are quasi-compact. Hence the
+quotients $V_p = W_p/S_p$ by the symmetric group $S_p$ are quasi-compact
+schemes.
+\end{proof}
+
+
+
+
+
+\section{Integral cover by a scheme}
+\label{section-integral-cover}
+
+\noindent
+Here we prove that given any quasi-compact and quasi-separated
+algebraic space $X$, there is a scheme $Y$ and a surjective, integral
+morphism $Y \to X$. After we develop some theory about limits of
+algebraic spaces, we will prove that one can do this with a finite
+morphism, see
+Limits of Spaces, Section \ref{spaces-limits-section-finite-cover}.
+
+\begin{lemma}
+\label{lemma-there-is-a-scheme-integral-over}
+Let $S$ be a scheme. Let $X$ be a quasi-compact and quasi-separated
+algebraic space over $S$.
+\begin{enumerate}
+\item There exists a surjective integral morphism $Y \to X$ where $Y$
+is a scheme,
+\item given a surjective \'etale morphism $U \to X$ we may choose
+$Y \to X$ such that for every $y \in Y$ there is an open neighbourhood
+$V \subset Y$ such that $V \to X$ factors through $U$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) is the special case of part (2) where $U = X$.
+Choose a surjective \'etale morphism $U' \to U$
+where $U'$ is a scheme. It is clear that we may replace $U$ by $U'$
+and hence we may assume $U$ is a scheme. Since $X$ is quasi-compact,
+there exist finitely many affine opens $U_i \subset U$ such that
+$U' = \coprod U_i \to X$ is surjective.
+After replacing $U$ by $U'$ again, we see that we may assume $U$ is affine.
+Since $X$ is quasi-separated, hence reasonable, there exists an integer
+$d$ bounding the degree of the geometric fibres of $U \to X$
+(see Lemma \ref{lemma-bounded-fibres}).
+We will prove the lemma by induction on $d$ for all quasi-compact
+and separated schemes $U$ mapping surjective and \'etale onto $X$.
+If $d = 1$, then $U = X$ and the result holds with $Y = U$.
+Assume $d > 1$.
+
+\medskip\noindent
+We apply Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-quasi-finite-separated-quasi-affine}
+and we obtain a factorization
+$$
+\xymatrix{
+U \ar[rr]_j \ar[rd] & & Y \ar[ld]^\pi \\
+& X
+}
+$$
+with $\pi$ integral and $j$ a quasi-compact open immersion. We may and do
+assume that $j(U)$ is scheme theoretically dense in $Y$. Note that
+$$
+U \times_X Y = U \amalg W
+$$
+where the first summand is the image of $U \to U \times_X Y$
+(which is closed by
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-semi-diagonal}
+and open because it is \'etale as a morphism between
+algebraic spaces \'etale over $Y$) and
+the second summand is the (open and closed) complement.
+The image $V \subset Y$ of $W$ is an open subspace containing
+$Y \setminus U$.
+
+\medskip\noindent
+The \'etale morphism $W \to Y$ has geometric fibres of cardinality $< d$.
+Namely, this is clear for geometric points of $U \subset Y$ by inspection.
+Since $|U| \subset |Y|$ is dense, it holds for all geometric points of $Y$
+by Lemma \ref{lemma-quasi-compact-reasonable-stratification}
+(the degree of the fibres of a quasi-compact \'etale morphism
+does not go up under specialization). Thus we may apply the induction
+hypothesis to $W \to V$ and find a surjective integral morphism
+$Z \to V$ with $Z$ a scheme, which Zariski locally factors through $W$.
+Choose a factorization $Z \to Z' \to Y$ with $Z' \to Y$ integral and
+$Z \to Z'$ open immersion
+(Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-quasi-finite-separated-quasi-affine}).
+After replacing $Z'$ by the scheme theoretic closure of $Z$ in $Z'$
+we may assume that $Z$ is scheme theoretically dense in $Z'$.
+After doing this we have $Z' \times_Y V = Z$. Finally,
+let $T \subset Y$ be the induced closed subspace structure on $Y \setminus V$.
+Consider the morphism
+$$
+Z' \amalg T \longrightarrow X
+$$
+This is a surjective integral morphism by construction.
+Since $T \subset U$ it is clear that the morphism $T \to X$
+factors through $U$. On the other hand, let $z \in Z'$
+be a point. If $z \not \in Z$, then $z$ maps to a point of
+$Y \setminus V \subset U$ and we find a neighbourhood of $z$
+on which the morphism factors through $U$.
+If $z \in Z$, then we have a neighbourhood $V \subset Z$
+which factors through $W \subset U \times_X Y$ and hence through $U$.
+\end{proof}
+
+
+
+
+
+
+\section{Schematic locus}
+\label{section-schematic}
+
+\noindent
+In this section we prove that a decent algebraic space has a dense open
+subspace which is a scheme. We first prove this for reasonable algebraic
+spaces.
+
+
+\begin{proposition}
+\label{proposition-reasonable-open-dense-scheme}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+If $X$ is reasonable, then there exists a dense open subspace
+of $X$ which is a scheme.
+\end{proposition}
+
+\begin{proof}
+By Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-subscheme}
+the question is local on $X$. Hence we may assume there exists an affine
+scheme $U$ and a surjective \'etale morphism $U \to X$
+(Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-cover-by-union-affines}).
+Let $n$ be an integer bounding the degrees of the fibres of $U \to X$
+which exists as $X$ is reasonable, see
+Definition \ref{definition-very-reasonable}.
+We will argue by induction on $n$ that whenever
+\begin{enumerate}
+\item $U \to X$ is a surjective \'etale morphism whose fibres have
+degree $\leq n$, and
+\item $U$ is isomorphic to a locally closed subscheme of an affine scheme
+\end{enumerate}
+then the schematic locus is dense in $X$.
+
+\medskip\noindent
+Let $X_n \subset X$ be the open subspace which is the complement of the
+closed subspace $Z_{n - 1} \subset X$ constructed in
+Lemma \ref{lemma-quasi-compact-reasonable-stratification}
+using the morphism $U \to X$.
+Let $U_n \subset U$ be the inverse image of $X_n$. Then
+$U_n \to X_n$ is finite locally free of degree $n$.
+Hence $X_n$ is a scheme by
+Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-finite-flat-equivalence-global}
+(and the fact that any finite set of points of $U_n$ is contained in
+an affine open of $U_n$, see
+Properties, Lemma \ref{properties-lemma-ample-finite-set-in-affine}).
+
+\medskip\noindent
+Let $X' \subset X$ be the open subspace such that $|X'|$ is the
+interior of $|Z_{n - 1}|$ in $|X|$ (see
+Topology, Definition \ref{topology-definition-nowhere-dense}).
+Let $U' \subset U$ be the inverse image. Then $U' \to X'$ is surjective
+\'etale and has degrees of fibres bounded by $n - 1$. By induction
+we see that the schematic locus of $X'$ is an open dense $X'' \subset X'$.
+By elementary topology we see that $X'' \cup X_n \subset X$ is
+open and dense and we win.
+\end{proof}
+
+\begin{theorem}[David Rydh]
+\label{theorem-decent-open-dense-scheme}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+If $X$ is decent, then there exists a dense open subspace
+of $X$ which is a scheme.
+\end{theorem}
+
+\begin{proof}
+Assume $X$ is a decent algebraic space for which the theorem is false. By
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-subscheme}
+there exists a largest open subspace $X' \subset X$ which is a scheme.
+Since $X'$ is not dense in $X$, there exists an open subspace
+$X'' \subset X$ such that $|X''| \cap |X'| = \emptyset$. Replacing $X$
+by $X''$ we get a nonempty decent algebraic space $X$ which does not
+contain {\it any} open subspace which is a scheme.
+
+\medskip\noindent
+Choose a nonempty affine scheme $U$ and an \'etale morphism $U \to X$.
+We may and do replace $X$ by the open subscheme corresponding to the
+image of $|U| \to |X|$. Consider the sequence of open subspaces
+$$
+X = X_0 \supset X_1 \supset X_2 \ldots
+$$
+constructed in Lemma \ref{lemma-stratify-flat-fp-lqf}
+for the morphism $U \to X$. Note that $X_0 = X_1$ as $U \to X$
+is surjective. Let $U = U_0 = U_1 \supset U_2 \ldots$ be the induced
+sequence of open subschemes of $U$.
+
+\medskip\noindent
+Choose a nonempty open affine $V_1 \subset U_1$ (for example $V_1 = U_1$).
+By induction we will construct a sequence of nonempty affine opens
+$V_1 \supset V_2 \supset \ldots$ with $V_n \subset U_n$. Namely, having
+constructed $V_1, \ldots, V_{n - 1}$ we can always choose $V_n$ unless
+$V_{n - 1} \cap U_n = \emptyset$. But if $V_{n - 1} \cap U_n = \emptyset$,
+then the open subspace $X' \subset X$ with
+$|X'| = \Im(|V_{n - 1}| \to |X|)$ is contained in $|X| \setminus |X_n|$.
+Hence $V_{n - 1} \to X'$ is an \'etale morphism whose fibres have degree
+bounded by $n - 1$. In other words, $X'$ is reasonable (by definition),
+hence $X'$ contains a nonempty open subscheme by
+Proposition \ref{proposition-reasonable-open-dense-scheme}.
+This is a contradiction which shows that we can pick $V_n$.
+
+\medskip\noindent
+By Limits, Lemma \ref{limits-lemma-limit-nonempty}
+the limit $V_\infty = \lim V_n$ is a nonempty scheme. Pick a morphism
+$\Spec(k) \to V_\infty$. The composition $\Spec(k) \to V_\infty \to U \to X$
+has image contained in all $X_d$ by construction. In other words, the
+fibred $U \times_X \Spec(k)$ has infinite degree which contradicts
+the definition of a decent space. This contradiction finishes the proof
+of the theorem.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-when-quotient-scheme-at-point}
+Let $S$ be a scheme. Let $X \to Y$ be a surjective finite locally free
+morphism of algebraic spaces over $S$. For $y \in |Y|$ the following are
+equivalent
+\begin{enumerate}
+\item $y$ is in the schematic locus of $Y$, and
+\item there exists an affine open $U \subset X$
+containing the preimage of $y$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+If $y \in Y$ is in the schematic locus, then it has an affine open
+neighbourhood $V \subset Y$ and the inverse image $U$ of $V$ in $X$
+is an open finite over $V$, hence affine. Thus (1) implies (2).
+
+\medskip\noindent
+Conversely, assume that $U \subset X$ as in (2) is given.
+Set $R = X \times_Y X$ and denote the projections $s, t : R \to X$.
+Consider $Z = R \setminus s^{-1}(U) \cap t^{-1}(U)$.
+This is a closed subset of $R$. The image $t(Z)$ is a closed
+subset of $X$ which can loosely be described as the set of
+points of $X$ which are $R$-equivalent to a point of
+$X \setminus U$. Hence $U' = X \setminus t(Z)$ is an $R$-invariant,
+open subspace of $X$ contained in $U$ which contains
+the fibre of $X \to Y$ over $y$. Since $X \to Y$ is open
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-fppf-open})
+the image of $U'$ is an open subspace $V' \subset Y$.
+Since $U'$ is $R$-invariant and $R = X \times_Y X$, we see that $U'$ is the
+inverse image of $V'$ (use
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}).
+After replacing $Y$ by $V'$ and $X$ by $U'$ we see that we may assume
+$X$ is a scheme isomorphic to an open subscheme of an affine scheme.
+
+\medskip\noindent
+Assume $X$ is a scheme isomorphic to an open subscheme of an affine scheme.
+In this case the fppf quotient sheaf $X/R$ is a scheme, see
+Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-finite-flat-equivalence-global}.
+Since $Y$ is a sheaf in the fppf topology, obtain a canonical
+map $X/R \to Y$ factoring $X \to Y$. Since $X \to Y$ is surjective
+finite locally free, it is surjective as a map of sheaves
+(Spaces, Lemma \ref{spaces-lemma-surjective-flat-locally-finite-presentation}).
+We conclude that $X/R \to Y$ is surjective as a map of sheaves.
+On the other hand, since $R = X \times_Y X$ as sheaves we conclude that
+$X/R \to Y$ is injective as a map of sheaves. Hence $X/R \to Y$
+is an isomorphism and we see that $Y$ is representable.
+\end{proof}
+
+\noindent
+At this point we have several different ways for proving the following
+lemma.
+
+\begin{lemma}
+\label{lemma-finite-etale-cover-dense-open-scheme}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+If there exists a finite, \'etale, surjective morphism
+$U \to X$ where $U$ is a scheme, then there exists a dense open subspace
+of $X$ which is a scheme.
+\end{lemma}
+
+\begin{proof}[First proof]
+The morphism $U \to X$ is finite locally free. Hence there is a decomposition
+of $X$ into open and closed subspaces $X_d \subset X$ such that
+$U \times_X X_d \to X_d$ is finite locally free of degree $d$.
+Thus we may assume $U \to X$ is finite locally free of degree $d$.
+In this case, let $U_i \subset U$, $i \in I$ be the set of affine opens.
+For each $i$ the morphism $U_i \to X$ is \'etale and has
+universally bounded fibres (namely, bounded by $d$).
+In other words, $X$ is reasonable and
+the result follows from
+Proposition \ref{proposition-reasonable-open-dense-scheme}.
+\end{proof}
+
+\begin{proof}[Second proof]
+The question is local on $X$
+(Properties of Spaces, Lemma \ref{spaces-properties-lemma-subscheme}),
+hence may assume $X$ is quasi-compact. Then $U$ is quasi-compact.
+Then there exists a dense open subscheme $W \subset U$ which is
+separated (Properties, Lemma
+\ref{properties-lemma-quasi-compact-dense-open-separated}).
+Set $Z = U \setminus W$.
+Let $R = U \times_X U$ and $s, t : R \to U$ the projections.
+Then $t^{-1}(Z)$ is nowhere dense in $R$
+(Topology, Lemma \ref{topology-lemma-open-inverse-image-closed-nowhere-dense})
+and hence $\Delta = s(t^{-1}(Z))$ is an $R$-invariant
+closed nowhere dense subset of $U$
+(Morphisms, Lemma \ref{morphisms-lemma-image-nowhere-dense-finite}).
+Let $u \in U \setminus \Delta$ be a generic point of an
+irreducible component. Since these points are dense in $U \setminus \Delta$
+and since $\Delta$ is nowhere dense, it suffices to show that the image
+$x \in X$ of $u$ is in the schematic locus of $X$.
+Observe that $t(s^{-1}(\{u\})) \subset W$ is a
+finite set of generic points of irreducible components of $W$
+(compare with
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-codimension-0-points}).
+By Properties, Lemma \ref{properties-lemma-maximal-points-affine}
+we can find an affine open $V \subset W$ such that
+$t(s^{-1}(\{u\})) \subset V$. Since $t(s^{-1}(\{u\}))$ is the fibre
+of $|U| \to |X|$ over $x$, we conclude by
+Lemma \ref{lemma-when-quotient-scheme-at-point}.
+\end{proof}
+
+\begin{proof}[Third proof]
+(This proof is essentially the same as the second proof, but uses
+fewer references.)
+Assume $X$ is an algebraic space, $U$ a scheme, and $U \to X$ is a finite
+\'etale surjective morphism. Write $R = U \times_X U$ and denote
+$s, t : R \to U$ the projections as usual. Note that $s, t$ are surjective,
+finite and \'etale. Claim: The union of the $R$-invariant affine opens of
+$U$ is topologically dense in $U$.
+
+\medskip\noindent
+Proof of the claim. Let $W \subset U$ be an affine open.
+Set $W' = t(s^{-1}(W)) \subset U$. Since $s^{-1}(W)$ is affine
+(hence quasi-compact) we see that $W' \subset U$ is a quasi-compact open. By
+Properties, Lemma \ref{properties-lemma-quasi-compact-dense-open-separated}
+there exists a dense open $W'' \subset W'$ which is a separated scheme.
+Set $\Delta' = W' \setminus W''$. This is a nowhere dense closed subset of
+$W''$. Since $t|_{s^{-1}(W)} : s^{-1}(W) \to W'$ is open (because it is \'etale)
+we see that the inverse image
+$(t|_{s^{-1}(W)})^{-1}(\Delta') \subset s^{-1}(W)$
+is a nowhere dense closed subset (see
+Topology, Lemma \ref{topology-lemma-open-inverse-image-closed-nowhere-dense}).
+Hence, by
+Morphisms, Lemma \ref{morphisms-lemma-image-nowhere-dense-finite}
+we see that
+$$
+\Delta = s\left((t|_{s^{-1}(W)})^{-1}(\Delta')\right)
+$$
+is a nowhere dense closed subset of $W$. Pick any point $\eta \in W$,
+$\eta \not \in \Delta$ which is a generic point of an irreducible
+component of $W$ (and hence of $U$). By our choices above the finite set
+$t(s^{-1}(\{\eta\})) = \{\eta_1, \ldots, \eta_n\}$
+is contained in the separated scheme $W''$.
+Note that the fibres of $s$ is are finite discrete spaces, and that
+generalizations lift along the \'etale morphism $t$, see
+Morphisms, Lemmas \ref{morphisms-lemma-etale-flat}
+and \ref{morphisms-lemma-generalizations-lift-flat}.
+In this way we see that each $\eta_i$ is a generic point of an
+irreducible component of $W''$. Thus, by
+Properties, Lemma \ref{properties-lemma-maximal-points-affine}
+we can find an affine open $V \subset W''$ such that
+$\{\eta_1, \ldots, \eta_n\} \subset V$.
+By
+Groupoids, Lemma \ref{groupoids-lemma-find-invariant-affine}
+this implies that $\eta$ is contained in an $R$-invariant affine
+open subscheme of $U$. The claim follows as $W$ was chosen as an
+arbitrary affine open of $U$ and because the set of generic points
+of irreducible components of $W \setminus \Delta$ is dense in $W$.
+
+\medskip\noindent
+Using the claim we can finish the proof. Namely, if $W \subset U$ is
+an $R$-invariant affine open, then the restriction $R_W$ of $R$ to $W$
+equals $R_W = s^{-1}(W) = t^{-1}(W)$ (see
+Groupoids, Definition \ref{groupoids-definition-invariant-open}
+and discussion following it). In particular the maps $R_W \to W$ are
+finite \'etale also. It follows in particular that $R_W$ is affine.
+Thus we see that $W/R_W$ is a scheme, by
+Groupoids, Proposition \ref{groupoids-proposition-finite-flat-equivalence}.
+On the other hand, $W/R_W$ is an open subspace of $X$ by
+Spaces, Lemma \ref{spaces-lemma-finding-opens}.
+Hence having a dense collection of points contained in $R$-invariant
+affine open of $U$ certainly implies that the schematic locus of $X$
+(see Properties of Spaces, Lemma \ref{spaces-properties-lemma-subscheme})
+is open dense in $X$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Points on spaces}
+\label{section-points}
+
+\noindent
+In this section we prove some properties of points on decent algebraic spaces.
+
+\begin{lemma}
+\label{lemma-decent-points-monomorphism}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Consider the map
+$$
+\{\Spec(k) \to X \text{ monomorphism}\}
+\longrightarrow
+|X|
+$$
+This map is always injective. If $X$ is decent then this map
+is a bijection.
+\end{lemma}
+
+\begin{proof}
+We have seen in
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-monomorphism}
+that the map is an injection in general.
+By Lemma \ref{lemma-bounded-fibres} it is surjective when $X$ is
+decent (actually one can say this is part of the definition
+of being decent).
+\end{proof}
+
+\noindent
+The following lemma tells us that the henselian local ring of a point
+on a decent algebraic space is defined.
+
+\begin{lemma}
+\label{lemma-decent-space-elementary-etale-neighbourhood}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+For every point $x \in |X|$ there exists an \'etale morphism
+$$
+(U, u) \longrightarrow (X, x)
+$$
+where $U$ is an affine scheme, $u$ is the only point of $U$ lying
+over $x$, and the induced morphism $\Spec(\kappa(u)) \to X$
+is a monomorphism.
+\end{lemma}
+
+\begin{proof}
+We may assume that $X$ is quasi-compact by replacing $X$ with a
+quasi-compact open containing $x$. Recall that $x$ can be
+represented by a quasi-compact (mono)morphism
+from the spectrum a field (by definition of decent spaces). Thus the
+lemma follows from Lemma \ref{lemma-filter-quasi-compact}.
+\end{proof}
+
+\begin{definition}
+\label{definition-elemenary-etale-neighbourhood}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $x \in X$ be a point. An {\it elementary \'etale neighbourhood}
+is an \'etale morphism $(U, u) \to (X, x)$ where $U$ is a scheme,
+$u \in U$ is a point mapping to $x$, and $\Spec(\kappa(u)) \to X$
+is a monomorphism. A {\it morphism of elementary \'etale neighbourhoods}
+$(U, u) \to (U', u')$ is defined as a morphism $U \to U'$
+over $X$ mapping $u$ to $u'$.
+\end{definition}
+
+\noindent
+If $X$ is not decent then the category of elementary \'etale neighbourhoods
+may be empty.
+
+\begin{lemma}
+\label{lemma-elementary-etale-neighbourhoods}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Let $x$ be a point of $X$.
+The category of elementary \'etale neighborhoods of $(X, x)$
+is cofiltered (see
+Categories, Definition \ref{categories-definition-codirected}).
+\end{lemma}
+
+\begin{proof}
+The category is nonempty by
+Lemma \ref{lemma-decent-space-elementary-etale-neighbourhood}.
+Suppose that we have two elementary \'etale neighbourhoods
+$(U_i, u_i) \to (X, x)$.
+Then consider $U = U_1 \times_X U_2$. Since
+$\Spec(\kappa(u_i)) \to X$, $i = 1, 2$ are both monomorphisms
+in the class of $x$, we see that
+$$
+u = \Spec(\kappa(u_1)) \times_X \Spec(\kappa(u_2))
+$$
+is the spectrum of a field $\kappa(u)$ such that the induced maps
+$\kappa(u_i) \to \kappa(u)$ are isomorphisms. Then $u \to U$ is a point
+of $U$ and we see that $(U, u) \to (X, x)$ is an elementary
+\'etale neighbourhood dominating $(U_i, u_i)$.
+If $a, b : (U_1, u_1) \to (U_2, u_2)$ are two morphisms between
+our elementary \'etale neighbourhoods, then we consider the scheme
+$$
+U = U_1 \times_{(a, b), (U_2 \times_X U_2), \Delta} U_2
+$$
+Using Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-etale-permanence}
+we see that $U \to X$ is \'etale. Moreover, in exactly the same manner
+as before we see that $U$ has a point $u$
+such that $(U, u) \to (X, x)$ is an elementary
+\'etale neighbourhood. Finally, $U \to U_1$ equalizes $a$ and $b$
+and the proof is finished.
+\end{proof}
+
+\begin{definition}
+\label{definition-henselian-local-ring}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Let $x \in |X|$. The {\it henselian local ring of $X$ at $x$}, is
+$$
+\mathcal{O}_{X, x}^h = \colim \Gamma(U, \mathcal{O}_U)
+$$
+where the colimit is over the elementary \'etale neighbourhoods
+$(U, u) \to (X, x)$.
+\end{definition}
+
+\noindent
+To be sure, the henselian local ring of $X$ at $x$ is equal to
+the henselization $\mathcal{O}_{U, u}^h$
+of the local ring $\mathcal{O}_{U, u}$ of any elementary \'etale
+neighbourhood. This follows from the definition,
+Lemma \ref{lemma-elementary-etale-neighbourhoods}, and
+More on Morphisms, Lemma \ref{more-morphisms-lemma-describe-henselization}.
+
+\medskip\noindent
+The following lemma shows that specialization of points behaves well
+on decent algebraic spaces.
+Spaces, Example \ref{spaces-example-infinite-product}
+shows that this is {\bf not} true in general.
+
+\begin{lemma}
+\label{lemma-decent-no-specializations-map-to-same-point}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Let $U \to X$ be an \'etale morphism from a scheme to $X$.
+If $u, u' \in |U|$ map to the same point of $|X|$, and
+$u' \leadsto u$, then $u = u'$.
+\end{lemma}
+
+\begin{proof}
+Combine Lemmas \ref{lemma-bounded-fibres} and
+\ref{lemma-no-specializations-map-to-same-point}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-decent-specialization}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Let $x, x' \in |X|$ and assume $x' \leadsto x$, i.e., $x$ is a
+specialization of $x'$. Then for every \'etale morphism
+$\varphi : U \to X$ from a scheme $U$ and any $u \in U$ with
+$\varphi(u) = x$, exists a point $u'\in U$, $u' \leadsto u$ with
+$\varphi(u') = x'$.
+\end{lemma}
+
+\begin{proof}
+Combine Lemmas \ref{lemma-bounded-fibres} and
+\ref{lemma-specialization}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-kolmogorov}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Then $|X|$ is Kolmogorov (see
+Topology, Definition \ref{topology-definition-generic-point}).
+\end{lemma}
+
+\begin{proof}
+Let $x_1, x_2 \in |X|$ with $x_1 \leadsto x_2$ and $x_2 \leadsto x_1$.
+We have to show that $x_1 = x_2$. Pick a scheme $U$ and an \'etale morphism
+$U \to X$ such that $x_1, x_2$ are both in the image of $|U| \to |X|$.
+By Lemma \ref{lemma-decent-specialization} we can find a specialization
+$u_1 \leadsto u_2$ in $U$ mapping to $x_1 \leadsto x_2$.
+By Lemma \ref{lemma-decent-specialization} we can find
+$u_2' \leadsto u_1$ mapping to $x_2 \leadsto x_1$. This means that
+$u_2' \leadsto u_2$ is a specialization between points of $U$ mapping to
+the same point of $X$, namely $x_2$. This is not possible, unless
+$u_2' = u_2$, see
+Lemma \ref{lemma-decent-no-specializations-map-to-same-point}. Hence
+also $u_1 = u_2$ as desired.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-reasonable-sober}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Then the topological space $|X|$ is sober (see
+Topology, Definition \ref{topology-definition-generic-point}).
+\end{proposition}
+
+\begin{proof}
+We have seen in Lemma \ref{lemma-kolmogorov} that $|X|$ is Kolmogorov.
+Hence it remains to show that every irreducible closed subset
+$T \subset |X|$ has a generic point. By
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-reduced-closed-subspace}
+there exists a closed subspace $Z \subset X$ with $|Z| = |T|$.
+By definition this means that $Z \to X$ is a representable morphism
+of algebraic spaces. Hence $Z$ is a decent algebraic space
+by Lemma \ref{lemma-representable-properties}. By
+Theorem \ref{theorem-decent-open-dense-scheme}
+we see that there exists an open dense subspace $Z' \subset Z$
+which is a scheme. This means that $|Z'| \subset T$ is open dense.
+Hence the topological space $|Z'|$ is irreducible, which means that
+$Z'$ is an irreducible scheme. By
+Schemes, Lemma \ref{schemes-lemma-scheme-sober}
+we conclude that $|Z'|$ is the closure of a single point $\eta \in T$
+and hence also $T = \overline{\{\eta\}}$, and we win.
+\end{proof}
+
+\noindent
+For decent algebraic spaces dimension works as expected.
+
+\begin{lemma}
+\label{lemma-dimension-decent-space}
+Let $S$ be a scheme. Dimension as defined in
+Properties of Spaces, Section \ref{spaces-properties-section-dimension}
+behaves well on decent algebraic spaces $X$ over $S$.
+\begin{enumerate}
+\item If $x \in |X|$, then $\dim_x(|X|) = \dim_x(X)$, and
+\item $\dim(|X|) = \dim(X)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of (1). Choose a scheme $U$ with a point $u \in U$
+and an \'etale morphism $h : U \to X$ mapping $u$ to $x$.
+By definition the dimension of $X$ at $x$ is $\dim_u(|U|)$.
+Thus we may pick $U$ such that $\dim_x(X) = \dim(|U|)$.
+Let $d$ be an integer. If $\dim(U) \geq d$, then
+there exists a sequence of nontrivial specializations
+$u_d \leadsto \ldots \leadsto u_0$ in $U$. Taking the image
+we find a corresponding sequence
+$h(u_d) \leadsto \ldots \leadsto h(u_0)$
+each of which is nontrivial by
+Lemma \ref{lemma-decent-no-specializations-map-to-same-point}.
+Hence we see that the image of $|U|$ in $|X|$ has dimension at least $d$.
+Conversely, suppose that $x_d \leadsto \ldots \leadsto x_0$ is a
+sequence of specializations in $|X|$ with $x_0$ in the image of
+$|U| \to |X|$. Then we can lift this to a sequence of specializations
+in $U$ by Lemma \ref{lemma-decent-specialization}.
+
+\medskip\noindent
+Part (2) is an immediate consequence of part (1),
+Topology, Lemma \ref{topology-lemma-dimension-supremum-local-dimensions},
+and Properties of Spaces, Section \ref{spaces-properties-section-dimension}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-dimension-local-ring-quasi-finite}
+Let $S$ be a scheme. Let $X \to Y$ be a locally quasi-finite morphism
+of algebraic spaces over $S$. Let $x \in |X|$ with image $y \in |Y|$.
+Then the dimension of the local ring of $Y$ at $y$ is $\geq$ to the
+dimension of the local ring of $X$ at $x$.
+\end{lemma}
+
+\begin{proof}
+The definition of the dimension of the local ring of a point on an
+algebraic space is given in Properties of Spaces, Definition
+\ref{spaces-properties-definition-dimension-local-ring}.
+Choose an \'etale morphism $(V, v) \to (Y, y)$ where $V$ is a scheme.
+Choose an \'etale morphism $U \to V \times_Y X$ and a point $u \in U$
+mapping to $x \in |X|$ and $v \in V$. Then $U \to V$ is locally
+quasi-finite and we have to prove that
+$$
+\dim(\mathcal{O}_{V, v}) \geq \dim(\mathcal{O}_{U, u})
+$$
+This is Algebra, Lemma \ref{algebra-lemma-dimension-inequality-quasi-finite}.
+\end{proof}
+
+\noindent
+The following lemma is a tiny bit stronger than
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-point-like-spaces}.
+We will improve this lemma in Lemma \ref{lemma-when-field}.
+
+\begin{lemma}
+\label{lemma-decent-point-like-spaces}
+Let $S$ be a scheme. Let $k$ be a field. Let $X$ be an algebraic space
+over $S$ and assume that there exists a surjective \'etale morphism
+$\Spec(k) \to X$. If $X$ is decent, then $X \cong \Spec(k')$
+where $k' \subset k$ is a finite separable extension.
+\end{lemma}
+
+\begin{proof}
+The assumption implies that $|X| = \{x\}$ is a singleton. Since
+$X$ is decent we can find a quasi-compact monomorphism $\Spec(k') \to X$
+whose image is $x$. Then the projection
+$U = \Spec(k') \times_X \Spec(k) \to \Spec(k)$
+is a monomorphism, whence $U = \Spec(k)$, see
+Schemes, Lemma \ref{schemes-lemma-mono-towards-spec-field}.
+Hence the projection $\Spec(k) = U \to \Spec(k')$ is \'etale and
+we win.
+\end{proof}
+
+
+
+
+
+
+\section{Reduced singleton spaces}
+\label{section-singleton}
+
+\noindent
+A {\it singleton} space is an algebraic space $X$ such that $|X|$ is
+a singleton. It turns out that these can be more interesting than
+just being the spectrum of a field, see
+Spaces, Example \ref{spaces-example-Qbar}.
+We develop a tiny bit of machinery to be able to talk about these.
+
+\begin{lemma}
+\label{lemma-flat-cover-by-field}
+Let $S$ be a scheme. Let $Z$ be an algebraic space over $S$.
+Let $k$ be a field and let $\Spec(k) \to Z$ be surjective and flat.
+Then any morphism $\Spec(k') \to Z$ where $k'$ is a field is
+surjective and flat.
+\end{lemma}
+
+\begin{proof}
+Consider the fibre square
+$$
+\xymatrix{
+T \ar[d] \ar[r] & \Spec(k) \ar[d] \\
+\Spec(k') \ar[r] & Z
+}
+$$
+Note that $T \to \Spec(k')$ is flat and surjective hence $T$
+is not empty. On the other hand $T \to \Spec(k)$ is flat as
+$k$ is a field. Hence $T \to Z$ is flat and surjective.
+It follows from
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-flat-permanence}
+that $\Spec(k') \to Z$ is flat. It is surjective as by assumption
+$|Z|$ is a singleton.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-unique-point}
+Let $S$ be a scheme.
+Let $Z$ be an algebraic space over $S$. The following are equivalent
+\begin{enumerate}
+\item $Z$ is reduced and $|Z|$ is a singleton,
+\item there exists a surjective flat morphism $\Spec(k) \to Z$
+where $k$ is a field, and
+\item there exists a locally of finite type, surjective, flat morphism
+$\Spec(k) \to Z$ where $k$ is a field.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (1). Let $W$ be a scheme and
+let $W \to Z$ be a surjective \'etale morphism. Then $W$ is
+a reduced scheme. Let $\eta \in W$ be a generic point of an irreducible
+component of $W$. Since $W$ is reduced we have
+$\mathcal{O}_{W, \eta} = \kappa(\eta)$. It follows that the canonical
+morphism $\eta = \Spec(\kappa(\eta)) \to W$ is flat. We see that the
+composition $\eta \to Z$ is flat (see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-composition-flat}).
+It is also surjective as $|Z|$ is a singleton. In other words
+(2) holds.
+
+\medskip\noindent
+Assume (2). Let $W$ be a scheme and
+let $W \to Z$ be a surjective \'etale morphism. Choose a field
+$k$ and a surjective flat morphism $\Spec(k) \to Z$.
+Then $W \times_Z \Spec(k)$ is a scheme \'etale over $k$.
+Hence $W \times_Z \Spec(k)$ is a disjoint union of spectra of fields
+(see Remark \ref{remark-recall}), in particular reduced. Since
+$W \times_Z \Spec(k) \to W$
+is surjective and flat we conclude that $W$ is reduced
+(Descent, Lemma \ref{descent-lemma-descend-reduced}).
+In other words (1) holds.
+
+\medskip\noindent
+It is clear that (3) implies (2). Finally, assume (2). Pick a nonempty
+affine scheme $W$ and an \'etale morphism $W \to Z$. Pick a closed
+point $w \in W$ and set $k = \kappa(w)$. The composition
+$$
+\Spec(k) \xrightarrow{w} W \longrightarrow Z
+$$
+is locally of finite type by
+Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-composition-finite-type} and
+\ref{spaces-morphisms-lemma-etale-locally-finite-type}.
+It is also flat and surjective by
+Lemma \ref{lemma-flat-cover-by-field}.
+Hence (3) holds.
+\end{proof}
+
+\noindent
+The following lemma singles out a slightly better class of singleton
+algebraic spaces than the preceding lemma.
+
+\begin{lemma}
+\label{lemma-unique-point-better}
+Let $S$ be a scheme. Let $Z$ be an algebraic space over $S$.
+The following are equivalent
+\begin{enumerate}
+\item $Z$ is reduced, locally Noetherian, and $|Z|$
+is a singleton, and
+\item there exists a locally finitely presented, surjective, flat morphism
+$\Spec(k) \to Z$ where $k$ is a field.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume (2) holds. By
+Lemma \ref{lemma-unique-point}
+we see that $Z$ is reduced and $|Z|$ is a singleton.
+Let $W$ be a scheme and let $W \to Z$ be a surjective \'etale
+morphism. Choose a field $k$ and a locally finitely presented, surjective,
+flat morphism $\Spec(k) \to Z$.
+Then $W \times_Z \Spec(k)$ is a scheme
+\'etale over $k$, hence a disjoint union of spectra of fields
+(see Remark \ref{remark-recall}),
+hence locally Noetherian. Since $W \times_Z \Spec(k) \to W$
+is flat, surjective, and locally of finite presentation, we see
+that $\{W \times_Z \Spec(k) \to W\}$ is an fppf covering
+and we conclude that $W$ is locally Noetherian
+(Descent, Lemma
+\ref{descent-lemma-Noetherian-local-fppf}).
+In other words (1) holds.
+
+\medskip\noindent
+Assume (1). Pick a nonempty affine scheme $W$ and an \'etale morphism
+$W \to Z$. Pick a closed point $w \in W$ and set
+$k = \kappa(w)$. Because $W$ is locally Noetherian the morphism
+$w : \Spec(k) \to W$ is of finite presentation, see
+Morphisms, Lemma \ref{morphisms-lemma-closed-immersion-finite-presentation}.
+Hence the composition
+$$
+\Spec(k) \xrightarrow{w} W \longrightarrow Z
+$$
+is locally of finite presentation by
+Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-composition-finite-presentation} and
+\ref{spaces-morphisms-lemma-etale-locally-finite-presentation}.
+It is also flat and surjective by
+Lemma \ref{lemma-flat-cover-by-field}.
+Hence (2) holds.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-monomorphism-into-point}
+Let $S$ be a scheme.
+Let $Z' \to Z$ be a monomorphism of algebraic spaces over $S$.
+Assume there exists a field $k$ and a locally finitely presented, surjective,
+flat morphism $\Spec(k) \to Z$. Then either $Z'$
+is empty or $Z' = Z$.
+\end{lemma}
+
+\begin{proof}
+We may assume that $Z'$ is nonempty. In this case the
+fibre product $T = Z' \times_Z \Spec(k)$
+is nonempty, see
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}.
+Now $T$ is an algebraic space and the projection $T \to \Spec(k)$
+is a monomorphism. Hence $T = \Spec(k)$, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-monomorphism-toward-field}.
+We conclude that $\Spec(k) \to Z$ factors through $Z'$.
+But as $\Spec(k) \to Z$ is surjective, flat and locally of finite
+presentation, we see that $\Spec(k) \to Z$ is surjective as a
+map of sheaves on $(\Sch/S)_{fppf}$ (see
+Spaces, Remark \ref{spaces-remark-warning})
+and we conclude that $Z' = Z$.
+\end{proof}
+
+\noindent
+The following lemma says that to each point of an algebraic space we
+can associate a canonical reduced, locally Noetherian singleton
+algebraic space.
+
+\begin{lemma}
+\label{lemma-find-singleton-from-point}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $x \in |X|$. Then there exists a unique monomorphism
+$Z \to X$ of algebraic spaces
+over $S$ such that $Z$ is an algebraic space which satisfies the equivalent
+conditions of
+Lemma \ref{lemma-unique-point-better}
+and such that the image of $|Z| \to |X|$ is $\{x\}$.
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $U$ and a surjective \'etale morphism $U \to X$.
+Set $R = U \times_X U$ so that $X = U/R$ is a presentation (see
+Spaces, Section \ref{spaces-section-presentations}).
+Set
+$$
+U' = \coprod\nolimits_{u \in U\text{ lying over }x} \Spec(\kappa(u)).
+$$
+The canonical morphism $U' \to U$ is a monomorphism. Let
+$$
+R' = U' \times_X U' = R \times_{(U \times_S U)} (U' \times_S U').
+$$
+Because $U' \to U$ is a monomorphism we see that the projections
+$s', t' : R' \to U'$ factor as a monomorphism followed by an
+\'etale morphism. Hence, as $U'$ is a disjoint union of spectra
+of fields, using
+Remark \ref{remark-recall},
+and using
+Schemes, Lemma \ref{schemes-lemma-mono-towards-spec-field}
+we conclude that $R'$ is a disjoint union of spectra of fields and
+that the morphisms $s', t' : R' \to U'$ are \'etale. Hence
+$Z = U'/R'$ is an algebraic space by
+Spaces, Theorem \ref{spaces-theorem-presentation}.
+As $R'$ is the restriction of $R$ by $U' \to U$ we see
+$Z \to X$ is a monomorphism by
+Groupoids, Lemma \ref{groupoids-lemma-quotient-groupoid-restrict}.
+Since $Z \to X$ is a monomorphism we see that $|Z| \to |X|$ is injective, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-monomorphism-injective-points}.
+By
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}
+we see that
+$$
+|U'| = |Z \times_X U'| \to |Z| \times_{|X|} |U'|
+$$
+is surjective which implies (by our choice of $U'$) that
+$|Z| \to |X|$ has image $\{x\}$. We conclude that $|Z|$ is a singleton.
+Finally, by construction $U'$ is locally Noetherian and reduced, i.e.,
+we see that $Z$ satisfies the equivalent conditions of
+Lemma \ref{lemma-unique-point-better}.
+
+\medskip\noindent
+Let us prove uniqueness of $Z \to X$. Suppose that
+$Z' \to X$ is a second such monomorphism of algebraic spaces.
+Then the projections
+$$
+Z' \longleftarrow Z' \times_X Z \longrightarrow Z
+$$
+are monomorphisms. The algebraic space in the middle is nonempty by
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-points-cartesian}.
+Hence the two projections are isomorphisms by
+Lemma \ref{lemma-monomorphism-into-point}
+and we win.
+\end{proof}
+
+\noindent
+We introduce the following terminology which foreshadows
+the residual gerbes we will introduce later, see
+Properties of Stacks, Definition
+\ref{stacks-properties-definition-residual-gerbe}.
+
+\begin{definition}
+\label{definition-residual-space}
+Let $S$ be a scheme.
+Let $X$ be an algebraic space over $S$. Let $x \in |X|$.
+The
+{\it residual space of $X$ at $x$}\footnote{This is nonstandard notation.}
+is the monomorphism $Z_x \to X$ constructed in
+Lemma \ref{lemma-find-singleton-from-point}.
+\end{definition}
+
+\noindent
+In particular we know that $Z_x$ is a
+locally Noetherian, reduced, singleton algebraic space
+and that there exists a field and a surjective, flat, locally
+finitely presented morphism
+$$
+\Spec(k) \longrightarrow Z_x.
+$$
+It turns out that $Z_x$
+is a regular algebraic space as follows from the following lemma.
+
+\begin{lemma}
+\label{lemma-residual-space-regular}
+A reduced, locally Noetherian singleton algebraic space $Z$ is regular.
+\end{lemma}
+
+\begin{proof}
+Let $Z$ be a reduced, locally Noetherian singleton algebraic space
+over a scheme $S$. Let $W \to Z$ be a surjective \'etale morphism where $W$
+is a scheme. Let $k$ be a field and let $\Spec(k) \to Z$
+be surjective, flat, and locally of finite presentation (see
+Lemma \ref{lemma-unique-point-better}).
+The scheme $T = W \times_Z \Spec(k)$ is
+\'etale over $k$ in particular regular, see
+Remark \ref{remark-recall}.
+Since $T \to W$ is locally of finite presentation, flat, and surjective it
+follows that $W$ is regular, see
+Descent, Lemma \ref{descent-lemma-descend-regular}.
+By definition this means that $Z$ is regular.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{Decent spaces}
+\label{section-decent}
+
+\noindent
+In this section we collect some useful facts on decent spaces.
+
+\begin{lemma}
+\label{lemma-locally-Noetherian-decent-quasi-separated}
+Any locally Noetherian decent algebraic space is quasi-separated.
+\end{lemma}
+
+\begin{proof}
+Namely, let $X$ be an algebraic space (over some base scheme, for
+example over $\mathbf{Z}$) which is decent and locally Noetherian.
+Let $U \to X$ and $V \to X$ be \'etale morphisms with $U$ and $V$
+affine schemes. We have to show that $W = U \times_X V$ is quasi-compact
+(Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-characterize-quasi-separated}).
+Since $X$ is locally Noetherian, the schemes $U$, $V$ are Noetherian
+and $W$ is locally Noetherian. Since $X$ is decent, the fibres
+of the morphism $W \to U$ are finite. Namely, we can represent
+any $x \in |X|$ by a quasi-compact monomorphism $\Spec(k) \to X$.
+Then $U_k$ and $V_k$ are finite disjoint unions of spectra of
+finite separable extensions of $k$ (Remark \ref{remark-recall})
+and we see that $W_k = U_k \times_{\Spec(k)} V_k$ is finite.
+Let $n$ be the maximum degree of a fibre of $W \to U$ at a generic
+point of an irreducible component of $U$. Consider the stratification
+$$
+U = U_0 \supset U_1 \supset U_2 \supset \ldots
+$$
+associated to $W \to U$ in
+More on Morphisms, Lemma \ref{more-morphisms-lemma-stratify-flat-fp-lqf}.
+By our choice of $n$ above we conclude that $U_{n + 1}$ is empty.
+Hence we see that the fibres of $W \to U$ are universally bounded.
+Then we can apply More on Morphisms, Lemma
+\ref{more-morphisms-lemma-stratify-flat-fp-lqf-universally-bounded}
+to find a stratification
+$$
+\emptyset = Z_{-1} \subset Z_0 \subset Z_1 \subset Z_2 \subset
+\ldots \subset Z_n = U
+$$
+by closed subsets such that with $S_r = Z_r \setminus Z_{r - 1}$
+the morphism $W \times_U S_r \to S_r$ is finite locally free.
+Since $U$ is Noetherian, the schemes $S_r$ are Noetherian,
+whence the schemes $W \times_U S_r$ are Noetherian, whence
+$W = \coprod W \times_U S_r$ is quasi-compact as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-when-field}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+\begin{enumerate}
+\item If $|X|$ is a singleton then $X$ is a scheme.
+\item If $|X|$ is a singleton and $X$ is reduced, then
+$X \cong \Spec(k)$ for some field $k$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume $|X|$ is a singleton. It follows immediately from
+Theorem \ref{theorem-decent-open-dense-scheme} that $X$ is a scheme,
+but we can also argue directly as follows.
+Choose an affine scheme $U$ and a surjective \'etale morphism $U \to X$.
+Set $R = U \times_X U$. Then $U$ and $R$ have finitely many points by
+Lemma \ref{lemma-UR-finite-above-x} (and the definition of a decent space).
+All of these points are closed in $U$ and $R$ by
+Lemma \ref{lemma-decent-no-specializations-map-to-same-point}.
+It follows that $U$ and $R$ are affine schemes.
+We may shrink $U$ to a singleton space. Then $U$ is
+the spectrum of a henselian local ring, see
+Algebra, Lemma \ref{algebra-lemma-local-dimension-zero-henselian}.
+The projections $R \to U$ are \'etale, hence finite \'etale because
+$U$ is the spectrum of a $0$-dimensional henselian local ring, see
+Algebra, Lemma \ref{algebra-lemma-characterize-henselian}.
+It follows that $X$ is a scheme by
+Groupoids, Proposition \ref{groupoids-proposition-finite-flat-equivalence}.
+
+\medskip\noindent
+Part (2) follows from (1) and the fact that a reduced singleton
+scheme is the spectrum of a field.
+\end{proof}
+
+\begin{remark}
+\label{remark-one-point-decent-scheme}
+We will see in
+Limits of Spaces, Lemma \ref{spaces-limits-lemma-reduction-scheme}
+that an algebraic space
+whose reduction is a scheme is a scheme.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-algebraic-residue-field-extension-closed-point}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Consider a commutative diagram
+$$
+\xymatrix{
+\Spec(k) \ar[rr] \ar[rd] & & X \ar[ld] \\
+& S
+}
+$$
+Assume that the image point $s \in S$ of $\Spec(k) \to S$ is
+a closed point and that $\kappa(s) \subset k$ is algebraic.
+Then the image $x$ of $\Spec(k) \to X$ is a closed point of $|X|$.
+\end{lemma}
+
+\begin{proof}
+Suppose that $x \leadsto x'$ for some $x' \in |X|$. Choose an
+\'etale morphism $U \to X$ where $U$ is a scheme and a point $u' \in U'$
+mapping to $x'$. Choose a specialization $u \leadsto u'$ in $U$ with $u$
+mapping to $x$ in $X$, see Lemma \ref{lemma-decent-specialization}.
+Then $u$ is the image of a point $w$ of the scheme
+$W = \Spec(k) \times_X U$. Since the projection $W \to \Spec(k)$ is \'etale
+we see that $\kappa(w) \supset k$ is finite. Hence
+$\kappa(w) \supset \kappa(s)$ is algebraic. Hence $\kappa(u) \supset \kappa(s)$
+is algebraic. Thus $u$ is a closed point of $U$ by
+Morphisms, Lemma
+\ref{morphisms-lemma-algebraic-residue-field-extension-closed-point-fibre}.
+Thus $u = u'$, whence $x = x'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-residue-field-extension-finite}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Consider a commutative diagram
+$$
+\xymatrix{
+\Spec(k) \ar[rr] \ar[rd] & & X \ar[ld] \\
+& S
+}
+$$
+Assume that the image point $s \in S$ of $\Spec(k) \to S$ is
+a closed point and that $\kappa(s) \subset k$ is finite.
+Then $\Spec(k) \to X$ is finite morphism. If $\kappa(s) = k$
+then $\Spec(k) \to X$ is closed immersion.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-algebraic-residue-field-extension-closed-point}
+the image point $x \in |X|$ is closed. Let $Z \subset X$ be the
+reduced closed subspace with $|Z| = \{x\}$ (Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-reduced-closed-subspace}).
+Note that $Z$ is a decent algebraic space by
+Lemma \ref{lemma-representable-named-properties}.
+By Lemma \ref{lemma-when-field} we see that $Z = \Spec(k')$
+for some field $k'$. Of course $k \supset k' \supset \kappa(s)$.
+Then $\Spec(k) \to Z$ is a finite morphism of schemes
+and $Z \to X$ is a finite morphism as it is a closed immersion.
+Hence $\Spec(k) \to X$ is finite (Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-composition-integral}).
+If $k = \kappa(s)$, then $\Spec(k) = Z$ and $\Spec(k) \to X$
+is a closed immersion.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-decent-space-closed-point}
+Let $S$ be a scheme. Suppose $X$ is a decent algebraic space over $S$.
+Let $x \in |X|$ be a closed point. Then $x$ can be represented by a
+closed immersion $i : \Spec(k) \to X$ from the spectrum of a field.
+\end{lemma}
+
+\begin{proof}
+We know that $x$ can be represented by a quasi-compact monomorphism
+$i : \Spec(k) \to X$ where $k$ is a field
+(Definition \ref{definition-very-reasonable}).
+Let $U \to X$ be an \'etale morphism where $U$ is an affine scheme.
+As $x$ is closed and $X$ decent, the fibre $F$ of $|U| \to |X|$ over $x$
+consists of closed points
+(Lemma \ref{lemma-decent-no-specializations-map-to-same-point}).
+As $i$ is a monomorphism, so is $U_k = U \times_X \Spec(k) \to U$.
+In particular, the map $|U_k| \to F$ is injective. Since $U_k$
+is quasi-compact and \'etale over a field, we see that $U_k$ is a
+finite disjoint union of spectra of fields (Remark \ref{remark-recall}).
+Say $U_k = \Spec(k_1) \amalg \ldots \amalg \Spec(k_r)$.
+Since $\Spec(k_i) \to U$ is a monomorphism, we see that
+its image $u_i$ has residue field $\kappa(u_i) = k_i$.
+Since $u_i \in F$ is a closed point we conclude the morphism
+$\Spec(k_i) \to U$ is a closed immersion. As the $u_i$ are pairwise distinct,
+$U_k \to U$ is a closed immersion. Hence $i$ is a closed immersion
+(Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-closed-immersion-local}). This finishes the proof.
+\end{proof}
+
+
+
+
+
+\section{Locally separated spaces}
+\label{section-locally-separated}
+
+\noindent
+It turns out that a locally separated algebraic space is decent.
+
+\begin{lemma}
+\label{lemma-infinite-number}
+Let $A$ be a ring. Let $k$ be a field. Let $\mathfrak p_n$, $n \geq 1$
+be a sequence of pairwise distinct primes of $A$. Moreover, for each
+$n$ let $k \to \kappa(\mathfrak p_n)$ be an embedding. Then the closure
+of the image of
+$$
+\coprod\nolimits_{n \not = m}
+\Spec(\kappa(\mathfrak p_n) \otimes_k \kappa(\mathfrak p_m))
+\longrightarrow
+\Spec(A \otimes A)
+$$
+meets the diagonal.
+\end{lemma}
+
+\begin{proof}
+Set $k_n = \kappa(\mathfrak p_n)$. We may assume that $A = \prod k_n$.
+Denote $x_n = \Spec(k_n)$ the open and closed point corresponding to
+$A \to k_n$. Then $\Spec(A) = Z \amalg \{x_n\}$ where $Z$ is a nonempty
+closed subset. Namely, $Z = V(e_n; n \geq 1)$ where $e_n$
+is the idempotent of $A$ corresponding to the factor $k_n$
+and $Z$ is nonempty as the ideal generated by the $e_n$ is not
+equal to $A$. We will show that the closure of the image
+contains $\Delta(Z)$. The kernel of the map
+$$
+(\prod k_n) \otimes_k (\prod k_m)
+\longrightarrow
+\prod\nolimits_{n \not = m} k_n \otimes_k k_m
+$$
+is the ideal generated by $e_n \otimes e_n$, $n \geq 1$.
+Hence the closure of the image of the map on spectra is 
+$V(e_n \otimes e_n; n \geq 1)$ whose intersection with $\Delta(\Spec(A))$
+is $\Delta(Z)$. Thus it suffices to show that
+$$
+\coprod\nolimits_{n \not = m} \Spec(k_n \otimes_k k_m)
+\longrightarrow
+\Spec(\prod\nolimits_{n \not = m} k_n \otimes_k k_m)
+$$
+has dense image. This follows as the family of ring maps
+$\prod_{n \not = m} k_n \otimes_k k_m \to k_n \otimes_k k_m$
+is jointly injective.
+\end{proof}
+
+\begin{lemma}[David Rydh]
+\label{lemma-locally-separated-decent}
+A locally separated algebraic space is decent.
+\end{lemma}
+
+\begin{proof}
+Let $S$ be a scheme and let $X$ be a locally separated algebraic space
+over $S$. We may assume $S = \Spec(\mathbf{Z})$, see
+Properties of Spaces, Definition \ref{spaces-properties-definition-separated}.
+Unadorned fibre products will be over $\mathbf{Z}$.
+Let $x \in |X|$. Choose a scheme $U$, an \'etale
+morphism $U \to X$, and a point $u \in U$ mapping to $x$ in $|X|$.
+As usual we identify $u = \Spec(\kappa(u))$.
+As $X$ is locally separated the morphism
+$$
+u \times_X u \to u \times u
+$$
+is an immersion (Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-fibre-product-after-map}).
+Hence More on Groupoids, Lemma
+\ref{more-groupoids-lemma-locally-closed-image-is-closed}
+tells us that it is a closed immersion (use
+Schemes, Lemma \ref{schemes-lemma-immersion-when-closed}).
+As $u \times_X u \to u \times_X U$ is a monomorphism (base change
+of $u \to U$) and as $u \times_X U \to u$ is \'etale we conclude that
+$u \times_X u$ is a disjoint union of spectra of fields
+(see Remark \ref{remark-recall} and
+Schemes, Lemma \ref{schemes-lemma-mono-towards-spec-field}).
+Since it is also closed in the affine scheme $u \times u$ we
+conclude $u \times_X u$ is a finite disjoint union of spectra of fields.
+Thus $x$ can be represented by a monomorphism $\Spec(k) \to X$ where $k$
+is a field, see
+Lemma \ref{lemma-R-finite-above-x}.
+
+\medskip\noindent
+Next, let $U = \Spec(A)$ be an affine scheme and let $U \to X$ be an
+\'etale morphism. To finish the proof it suffices to show that
+$F = U \times_X \Spec(k)$ is finite. Write $F = \coprod_{i \in I} \Spec(k_i)$
+as the disjoint union of finite separable extensions of $k$.
+We have to show that $I$ is finite.
+Set $R = U \times_X U$. As $X$ is locally separated, the morphism
+$j : R \to U \times U$ is an immersion. Let $U' \subset U \times U$
+be an open such that $j$ factors through a closed immersion $j' : R \to U'$.
+Let $e : U \to R$ be the diagonal map. Using that $e$ is a morphism between
+schemes \'etale over $U$ such that $\Delta = j \circ e$ is a
+closed immersion, we conclude that $R = e(U) \amalg W$ for some
+open and closed subscheme $W \subset R$. Since $j'$ is a closed immersion
+we conclude that $j'(W) \subset U'$ is closed and disjoint from
+$j'(e(U))$. Therefore
+$\overline{j(W)} \cap \Delta(U) = \emptyset$ in $U \times U$.
+Note that $W$ contains $\Spec(k_i \otimes_k k_{i'})$ for all
+$i \not = i'$, $i, i' \in I$. By Lemma \ref{lemma-infinite-number}
+we conclude that $I$ is finite as desired.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Valuative criterion}
+\label{section-valuative-criterion-universally-closed}
+
+\noindent
+For a quasi-compact morphism from a decent space the valuative
+criterion is necessary in order for the morphism to be
+universally closed.
+
+
+\begin{proposition}
+\label{proposition-characterize-universally-closed}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Assume $f$ is quasi-compact, and $X$ is decent. Then $f$ is
+universally closed if and only if the existence part of the valuative
+criterion holds.
+\end{proposition}
+
+\begin{proof}
+In
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-quasi-compact-existence-universally-closed}
+we have seen one of the implications.
+To prove the other, assume that $f$ is universally closed. Let
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[d] & X \ar[d] \\
+\Spec(A) \ar[r] & Y
+}
+$$
+be a diagram as in
+Morphisms of Spaces,
+Definition \ref{spaces-morphisms-definition-valuative-criterion}.
+Let $X_A = \Spec(A) \times_Y X$, so that we have
+$$
+\xymatrix{
+\Spec(K) \ar[r] \ar[rd] & X_A \ar[d] \\
+ & \Spec(A)
+}
+$$
+By
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-base-change-quasi-compact}
+we see that $X_A \to \Spec(A)$ is quasi-compact. Since $X_A \to X$
+is representable, we see that $X_A$ is decent also, see
+Lemma \ref{lemma-representable-properties}.
+Moreover, as $f$ is universally closed, we see that $X_A \to \Spec(A)$
+is universally closed.
+Hence we may and do replace $X$ by $X_A$ and $Y$ by $\Spec(A)$.
+
+\medskip\noindent
+Let $x' \in |X|$ be the equivalence class of
+$\Spec(K) \to X$. Let $y \in |Y| = |\Spec(A)|$ be
+the closed point. Set $y' = f(x')$; it is the generic point of
+$\Spec(A)$. Since $f$ is universally closed we see that
+$f(\overline{\{x'\}})$ contains $\overline{\{y'\}}$, and hence
+contains $y$. Let $x \in \overline{\{x'\}}$ be a point such that
+$f(x) = y$. Let $U$ be a scheme, and $\varphi : U \to X$
+an \'etale morphism such that there exists a $u \in U$ with
+$\varphi(u) = x$. By
+Lemma \ref{lemma-specialization}
+and our assumption that $X$ is decent
+there exists a specialization $u' \leadsto u$ on $U$ with $\varphi(u') = x'$.
+This means that there exists a common field extension
+$K \subset K' \supset \kappa(u')$ such that
+$$
+\xymatrix{
+\Spec(K') \ar[r] \ar[d] & U \ar[d] \\
+\Spec(K) \ar[r] \ar[rd] & X \ar[d] \\
+ & \Spec(A)
+}
+$$
+is commutative. This gives the following commutative diagram of rings
+$$
+\xymatrix{
+K' & \mathcal{O}_{U, u} \ar[l] \\
+K \ar[u] & \\
+ & A \ar[lu] \ar[uu]
+}
+$$
+By
+Algebra, Lemma \ref{algebra-lemma-dominate}
+we can find a valuation ring $A' \subset K'$ dominating the image of
+$\mathcal{O}_{U, u}$ in $K'$. Since by construction $\mathcal{O}_{U, u}$
+dominates $A$ we see that $A'$ dominates $A$ also. Hence we obtain a diagram
+resembling the second diagram of
+Morphisms of Spaces,
+Definition \ref{spaces-morphisms-definition-valuative-criterion}
+and the proposition is proved.
+\end{proof}
+
+
+
+
+
+
+
+\section{Relative conditions}
+\label{section-relative-conditions}
+
+\noindent
+This is a (yet another) technical section dealing with conditions on
+algebraic spaces having to do with points. It is probably a good idea
+to skip this section.
+
+\begin{definition}
+\label{definition-relative-conditions}
+Let $S$ be a scheme. We say an algebraic space $X$ over $S$
+{\it has property $(\beta)$} if $X$ has the corresponding property of
+Lemma \ref{lemma-bounded-fibres}.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+\begin{enumerate}
+\item We say $f$ {\it has property $(\beta)$} if for any scheme $T$ and
+morphism $T \to Y$ the fibre product $T \times_Y X$ has property $(\beta)$.
+\item We say $f$ is {\it decent} if for any scheme $T$ and
+morphism $T \to Y$ the fibre product $T \times_Y X$ is a decent
+algebraic space.
+\item We say $f$ is {\it reasonable} if for any scheme $T$ and
+morphism $T \to Y$ the fibre product $T \times_Y X$ is a reasonable
+algebraic space.
+\item We say $f$ is {\it very reasonable} if for any scheme $T$ and
+morphism $T \to Y$ the fibre product $T \times_Y X$ is a very reasonable
+algebraic space.
+\end{enumerate}
+\end{definition}
+
+\noindent
+We refer to Remark \ref{remark-very-reasonable} for an informal discussion.
+It will turn out that the class of very reasonable morphisms is not so
+useful, but that the classes of decent and reasonable morphisms are useful.
+
+\begin{lemma}
+\label{lemma-properties-trivial-implications}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+We have the following implications among the conditions on $f$:
+$$
+\xymatrix{
+\text{representable} \ar@{=>}[rd] & & & & \\
+& \text{very reasonable} \ar@{=>}[r] & \text{reasonable} \ar@{=>}[r] &
+\text{decent} \ar@{=>}[r] & (\beta) \\
+\text{quasi-separated} \ar@{=>}[ru] & & & &
+}
+$$
+\end{lemma}
+
+\begin{proof}
+This is clear from the definitions,
+Lemma \ref{lemma-bounded-fibres}
+and
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-separated-local}.
+\end{proof}
+
+\noindent
+Here is another sanity check.
+
+\begin{lemma}
+\label{lemma-property-for-morphism-out-of-property}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic
+spaces over $S$. If $X$ is decent (resp.\ is reasonable, resp.\ has property
+$(\beta)$ of Lemma \ref{lemma-bounded-fibres}), then $f$ is
+decent (resp.\ reasonable, resp.\ has property $(\beta)$).
+\end{lemma}
+
+\begin{proof}
+Let $T$ be a scheme and let $T \to Y$ be a morphism. Then $T \to Y$
+is representable, hence the base change $T \times_Y X \to X$ is representable.
+Hence if $X$ is decent (or reasonable), then so is $T \times_Y X$, see
+Lemma \ref{lemma-representable-named-properties}.
+Similarly, for property $(\beta)$, see
+Lemma \ref{lemma-representable-properties}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-relative-conditions}
+Having property $(\beta)$, being decent, or being reasonable
+is preserved under arbitrary base change.
+\end{lemma}
+
+\begin{proof}
+This is immediate from the definition.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-property-over-property}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\omega \in \{\beta, decent, reasonable\}$.
+Suppose that $Y$ has property $(\omega)$ and $f : X \to Y$ has $(\omega)$.
+Then $X$ has $(\omega)$.
+\end{lemma}
+
+\begin{proof}
+Let us prove the lemma in case $\omega = \beta$. In this case we have to show
+that any $x \in |X|$ is represented by a monomorphism from the spectrum
+of a field into $X$. Let $y = f(x) \in |Y|$. By assumption there exists
+a field $k$ and a monomorphism $\Spec(k) \to Y$ representing $y$.
+Then $x$ corresponds to a point $x'$ of $\Spec(k) \times_Y X$.
+By assumption $x'$ is represented by a monomorphism
+$\Spec(k') \to \Spec(k) \times_Y X$. Clearly the composition
+$\Spec(k') \to X$ is a monomorphism representing $x$.
+
+\medskip\noindent
+Let us prove the lemma in case $\omega = decent$.
+Let $x \in |X|$ and $y = f(x) \in |Y|$. By the result of the preceding
+paragraph we can choose a diagram
+$$
+\xymatrix{
+\Spec(k') \ar[r]_x \ar[d] & X \ar[d]^f \\
+\Spec(k) \ar[r]^y & Y
+}
+$$
+whose horizontal arrows monomorphisms. As $Y$ is decent the morphism
+$y$ is quasi-compact. As $f$ is decent the algebraic space
+$\Spec(k) \times_Y X$ is decent. Hence the monomorphism
+$\Spec(k') \to \Spec(k) \times_Y X$ is quasi-compact.
+Then the monomorphism $x : \Spec(k') \to X$ is quasi-compact
+as a composition of quasi-compact morphisms (use
+Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-base-change-quasi-compact} and
+\ref{spaces-morphisms-lemma-composition-quasi-compact}).
+As the point $x$ was arbitrary this implies $X$ is decent.
+
+\medskip\noindent
+Let us prove the lemma in case $\omega = reasonable$.
+Choose $V \to Y$ \'etale with $V$ an affine scheme.
+Choose $U \to V \times_Y X$ \'etale with $U$ an affine scheme.
+By assumption $V \to Y$ has universally bounded fibres. By
+Lemma \ref{lemma-base-change-universally-bounded}
+the morphism $V \times_Y X \to X$ has universally bounded fibres.
+By assumption on $f$ we see that $U \to V \times_Y X$ has
+universally bounded fibres. By
+Lemma \ref{lemma-composition-universally-bounded}
+the composition $U \to X$ has universally bounded fibres.
+Hence there exists sufficiently many \'etale morphisms $U \to X$
+from schemes with universally bounded fibres, and we conclude
+that $X$ is reasonable.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-relative-conditions}
+Having property $(\beta)$, being decent, or being reasonable
+is preserved under compositions.
+\end{lemma}
+
+\begin{proof}
+Let $\omega \in \{\beta, decent, reasonable\}$.
+Let $f : X \to Y$ and $g : Y \to Z$ be morphisms of algebraic spaces
+over the scheme $S$. Assume $f$ and $g$ both have property
+$(\omega)$. Then we have to show
+that for any scheme $T$ and morphism $T \to Z$ the space $T \times_Z X$
+has $(\omega)$. By
+Lemma \ref{lemma-base-change-relative-conditions}
+this reduces us to the following claim: Suppose that $Y$ is an algebraic
+space having property $(\omega)$, and that $f : X \to Y$ is a morphism
+with $(\omega)$. Then $X$ has $(\omega)$.
+This is the content of Lemma \ref{lemma-property-over-property}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibre-product-conditions}
+Let $S$ be a scheme. Let $f : X \to Y$, $g : Z \to Y$ be morphisms
+of algebraic spaces over $S$. If $X$ and $Z$ are decent
+(resp.\ reasonable, resp.\ have property 
+$(\beta)$ of Lemma \ref{lemma-bounded-fibres}), then so does $X \times_Y Z$.
+\end{lemma}
+
+\begin{proof}
+Namely, by Lemma \ref{lemma-property-for-morphism-out-of-property}
+the morphism $X \to Y$ has the property. Then the base change
+$X \times_Y Z \to Z$ has the property by
+Lemma \ref{lemma-base-change-relative-conditions}.
+And finally this implies $X \times_Y Z$ has the
+property by Lemma \ref{lemma-property-over-property}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descent-conditions}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\mathcal{P} \in \{(\beta), decent, reasonable\}$.
+Assume
+\begin{enumerate}
+\item $f$ is quasi-compact,
+\item $f$ is \'etale,
+\item $|f| : |X| \to |Y|$ is surjective, and
+\item the algebraic space $X$ has property $\mathcal{P}$.
+\end{enumerate}
+Then $Y$ has property $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Let us prove this in case $\mathcal{P} = (\beta)$. Let $y \in |Y|$ be
+a point. We have to show that $y$ can be represented by a monomorphism
+from a field. Choose a point $x \in |X|$ with $f(x) = y$.
+By assumption we may represent $x$ by a monomorphism
+$\Spec(k) \to X$, with $k$ a field. By
+Lemma \ref{lemma-R-finite-above-x}
+it suffices to show that the projections
+$\Spec(k) \times_Y \Spec(k) \to \Spec(k)$
+are \'etale and quasi-compact. We can factor the first projection as
+$$
+\Spec(k) \times_Y \Spec(k)
+\longrightarrow
+\Spec(k) \times_Y X
+\longrightarrow
+\Spec(k)
+$$
+The first morphism is a monomorphism, and the second is \'etale and
+quasi-compact. By
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-etale-over-field-scheme}
+we see that $\Spec(k) \times_Y X$ is a scheme. Hence it is a
+finite disjoint union of spectra of finite separable field extensions
+of $k$. By
+Schemes, Lemma \ref{schemes-lemma-mono-towards-spec-field}
+we see that the first arrow identifies
+$\Spec(k) \times_Y \Spec(k)$ with a finite disjoint
+union of spectra of finite separable field extensions of $k$.
+Hence the projection morphism is \'etale and quasi-compact.
+
+\medskip\noindent
+Let us prove this in case $\mathcal{P} = decent$.
+We have already seen in the first paragraph of the proof that this implies
+that every $y \in |Y|$ can be represented by a monomorphism
+$y : \Spec(k) \to Y$. Pick such a $y$. Pick an affine
+scheme $U$ and an \'etale morphism $U \to X$ such that the image
+of $|U| \to |Y|$ contains $y$. By
+Lemma \ref{lemma-UR-finite-above-x}
+it suffices to show that $U_y$ is a finite scheme over $k$. The fibre
+product $X_y = \Spec(k) \times_Y X$ is a quasi-compact \'etale
+algebraic space over $k$. Hence by
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-etale-over-field-scheme}
+it is a scheme. So it is a finite disjoint union of spectra of
+finite separable extensions of $k$. Say $X_y = \{x_1, \ldots, x_n\}$
+so $x_i$ is given by  $x_i : \Spec(k_i) \to X$ with
+$[k_i : k] < \infty$. By assumption $X$ is decent, so the schemes
+$U_{x_i} = \Spec(k_i) \times_X U$ are finite over $k_i$.
+Finally, we note that $U_y = \coprod U_{x_i}$ as a scheme and we conclude
+that $U_y$ is finite over $k$ as desired.
+
+\medskip\noindent
+Let us prove this in case $\mathcal{P} = reasonable$.
+Pick an affine scheme $V$ and an \'etale morphism $V \to Y$.
+We have the show the fibres of $V \to Y$ are universally bounded.
+The algebraic space $V \times_Y X$ is quasi-compact.
+Thus we can find an affine scheme $W$ and a surjective \'etale morphism
+$W \to V \times_Y X$, see
+Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-quasi-compact-affine-cover}.
+Here is a picture (solid diagram)
+$$
+\xymatrix{
+W \ar[r]  \ar[rd] &
+V \times_Y X \ar[r] \ar[d] &
+X \ar[d]_f & \Spec(k) \ar@{..>}[l]^x \ar@{..>}[ld]^y \\
+ & V \ar[r] & Y
+}
+$$
+The morphism $W \to X$ is universally bounded by our assumption that
+the space $X$ is reasonable. Let $n$ be an integer bounding
+the degrees of the fibres of $W \to X$. We claim that the same integer
+works for bounding the fibres of $V \to Y$. Namely, suppose $y \in |Y|$
+is a point. Then there exists a $x \in |X|$ with $f(x) = y$ (see above).
+This means we can find a field $k$ and morphisms $x, y$ given as dotted
+arrows in the diagram above. In particular we get a surjective \'etale
+morphism
+$$
+\Spec(k) \times_{x, X} W
+\to
+\Spec(k) \times_{x, X} (V \times_Y X) = \Spec(k) \times_{y, Y} V
+$$
+which shows that the degree of $\Spec(k) \times_{y, Y} V$ over $k$
+is less than or equal to the degree of $\Spec(k) \times_{x, X} W$
+over $k$, i.e., $\leq n$, and we win. (This last part of the argument
+is the same as the argument in the proof of
+Lemma \ref{lemma-descent-universally-bounded}.
+Unfortunately that lemma is not general enough because it only applies
+to representable morphisms.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relative-conditions-local}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Let $\mathcal{P} \in \{(\beta), decent, reasonable, very\ reasonable\}$.
+The following are equivalent
+\begin{enumerate}
+\item $f$ is $\mathcal{P}$,
+\item for every affine scheme $Z$ and every morphism $Z \to Y$ the
+base change $Z \times_Y X \to Z$ of $f$ is $\mathcal{P}$,
+\item for every affine scheme $Z$ and every morphism $Z \to Y$ the
+algebraic space $Z \times_Y X$ is $\mathcal{P}$, and
+\item there exists a Zariski covering $Y = \bigcup Y_i$ such
+that each morphism $f^{-1}(Y_i) \to Y_i$ has $\mathcal{P}$.
+\end{enumerate}
+If $\mathcal{P} \in \{(\beta), decent, reasonable\}$, then this is also
+equivalent to
+\begin{enumerate}
+\item[(5)] there exists a scheme $V$ and a surjective \'etale morphism
+$V \to Y$ such that the base change $V \times_Y X \to V$ has
+$\mathcal{P}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implications (1) $\Rightarrow$ (2) $\Rightarrow$ (3) $\Rightarrow$ (4)
+are trivial.
+The implication (3) $\Rightarrow$ (1) can be seen as follows.
+Let $Z \to Y$ be a morphism whose source is a scheme over $S$.
+Consider the algebraic space $Z \times_Y X$. If we assume (3), then
+for any affine open $W \subset Z$, the open subspace
+$W \times_Y X$ of $Z \times_Y X$ has property $\mathcal{P}$. Hence by
+Lemma \ref{lemma-properties-local}
+the space $Z \times_Y X$ has property $\mathcal{P}$, i.e., (1) holds.
+A similar argument (omitted) shows that (4) implies (1).
+
+\medskip\noindent
+The implication (1) $\Rightarrow$ (5) is trivial. Let $V \to Y$ be
+an \'etale morphism from a scheme as in (5). Let $Z$ be an affine scheme,
+and let $Z \to Y$ be a morphism. Consider the diagram
+$$
+\xymatrix{
+Z \times_Y V \ar[r]_q \ar[d]_p & V \ar[d] \\
+Z \ar[r] & Y
+}
+$$
+Since $p$ is \'etale, and hence open, we can choose finitely many affine open
+subschemes $W_i \subset Z \times_Y V$ such that $Z = \bigcup p(W_i)$.
+Consider the commutative diagram
+$$
+\xymatrix{
+V \times_Y X \ar[d] &
+(\coprod W_i) \times_Y X \ar[l] \ar[d] \ar[r] &
+Z \times_Y X \ar[d] \\
+V &
+\coprod W_i \ar[l] \ar[r] &
+Z
+}
+$$
+We know $V \times_Y X$ has property $\mathcal{P}$. By
+Lemma \ref{lemma-representable-properties}
+we see that $(\coprod W_i) \times_Y X$ has property $\mathcal{P}$.
+Note that the morphism $(\coprod W_i) \times_Y X \to Z \times_Y X$
+is \'etale and quasi-compact as the base change of $\coprod W_i \to Z$.
+Hence by Lemma \ref{lemma-descent-conditions}
+we conclude that $Z \times_Y X$ has property $\mathcal{P}$.
+\end{proof}
+
+\begin{remark}
+\label{remark-very-reasonable}
+An informal description of the properties $(\beta)$, decent, reasonable,
+very reasonable was given in Section \ref{section-reasonable-decent}.
+A morphism has one of these properties if (very) loosely speaking the
+fibres of the morphism have the corresponding properties.
+Being decent is useful to prove things about specializations of
+points on $|X|$. Being reasonable is a bit stronger and technically
+quite easy to work with.
+\end{remark}
+
+\noindent
+Here is a lemma we promised earlier which uses decent morphisms.
+
+\begin{lemma}
+\label{lemma-re-characterize-universally-closed}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$.
+Assume $f$ is quasi-compact and decent.
+(For example if $f$ is representable, or quasi-separated, see
+Lemma \ref{lemma-properties-trivial-implications}.)
+Then $f$ is universally closed if and only if the
+existence part of the valuative criterion holds.
+\end{lemma}
+
+\begin{proof}
+In
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-quasi-compact-existence-universally-closed}
+we proved that any quasi-compact morphism which satisfies the existence
+part of the valuative criterion is universally closed.
+To prove the other, assume that $f$ is universally closed.
+In the proof of
+Proposition \ref{proposition-characterize-universally-closed}
+we have seen that it suffices to show, for any valuation ring $A$,
+and any morphism $\Spec(A) \to Y$, that the base change
+$f_A : X_A \to \Spec(A)$ satisfies the existence part of the valuative
+criterion. By definition the algebraic space $X_A$ has property $(\gamma)$
+and hence
+Proposition \ref{proposition-characterize-universally-closed}
+applies to the morphism $f_A$ and we win.
+\end{proof}
+
+
+
+
+
+\section{Points of fibres}
+\label{section-points-fibres}
+
+\noindent
+Let $S$ be a scheme. Consider a cartesian diagram
+\begin{equation}
+\label{equation-points-fibres}
+\xymatrix{
+W \ar[r]_q \ar[d]_p & Z \ar[d]^g \\
+X \ar[r]^f & Y
+}
+\end{equation}
+of algebraic spaces over $S$. Let $x \in |X|$ and $z \in |Z|$
+be points mapping to the same point $y \in |Y|$. We may ask:
+When is the set
+\begin{equation}
+\label{equation-fibre}
+F_{x, z} = \{ w \in |W| \text{ such that }p(w) = x\text{ and }q(w) = z\}
+\end{equation}
+finite?
+
+\begin{example}
+\label{example-schemes}
+If $X, Y, Z$ are schemes, then the set $F_{x, z}$
+is equal to the spectrum of $\kappa(x) \otimes_{\kappa(y)} \kappa(z)$
+(Schemes, Lemma \ref{schemes-lemma-points-fibre-product}). Thus we
+obtain a finite set if either $\kappa(y) \subset \kappa(x)$ is finite or if
+$\kappa(y) \subset \kappa(z)$ is finite. In particular, this is always
+the case if $g$ is quasi-finite at $z$ (Morphisms, Lemma
+\ref{morphisms-lemma-residue-field-quasi-finite}).
+\end{example}
+
+\begin{example}
+\label{example-not-finite}
+Let $K$ be a characteristic $0$ field endowed with an automorphism
+$\sigma$ of infinite order. Set $Y = \Spec(K)/\mathbf{Z}$ and
+$X = \mathbf{A}^1_K/\mathbf{Z}$ where $\mathbf{Z}$ acts on $K$ via $\sigma$
+and on $\mathbf{A}^1_K = \Spec(K[t])$ via $t \mapsto t + 1$.
+Let $Z = \Spec(K)$. Then $W = \mathbf{A}^1_K$. Picture
+$$
+\xymatrix{
+\mathbf{A}^1_K \ar[r]_q \ar[d]_p & \Spec(K) \ar[d]^g \\
+\mathbf{A}^1_K/\mathbf{Z} \ar[r]^f & \Spec(K)/\mathbf{Z}
+}
+$$
+Take $x$ corresponding to $t = 0$ and $z$ the unique point of $\Spec(K)$.
+Then we see that $F_{x, z} = \mathbf{Z}$ as a set.
+\end{example}
+
+\begin{lemma}
+\label{lemma-surjective-on-fibres}
+In the situation of (\ref{equation-points-fibres}) if $Z' \to Z$
+is a morphism and $z' \in |Z'|$ maps to $z$, then the induced map
+$F_{x, z'} \to F_{x, z}$ is surjective.
+\end{lemma}
+
+\begin{proof}
+Set $W' = X \times_Y Z' = W \times_Z Z'$. Then
+$|W'| \to |W| \times_{|Z|} |Z'|$ is surjective by
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}.
+Hence the surjectivity of $F_{x, z'} \to F_{x, z}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-qf-and-qc-finite-fibre}
+In diagram (\ref{equation-points-fibres}) the set (\ref{equation-fibre})
+is finite if $f$ is of finite type and $f$ is quasi-finite at $x$.
+\end{lemma}
+
+\begin{proof}
+The morphism $q$ is quasi-finite at every $w \in F_{x, z}$, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-base-change-quasi-finite-locus}.
+Hence the lemma follows from
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-quasi-finite-at-a-finite-number-of-points}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-decent-finite-fibre}
+In diagram (\ref{equation-points-fibres}) the set (\ref{equation-fibre})
+is finite if $y$ can be represented by a monomorphism $\Spec(k) \to Y$
+where $k$ is a field and $g$ is quasi-finite at $z$.
+(Special case: $Y$ is decent and $g$ is \'etale.)
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-surjective-on-fibres} applied twice
+we may replace $Z$ by $Z_k = \Spec(k) \times_Y Z$ and
+$X$ by $X_k = \Spec(k) \times_Y X$. We may and do
+replace $Y$ by $\Spec(k)$ as well. Note that $Z_k \to \Spec(k)$
+is quasi-finite at $z$ by Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-base-change-quasi-finite-locus}.
+Choose a scheme $V$, a point $v \in V$, and an \'etale morphism
+$V \to Z_k$ mapping $v$ to $z$. Choose a scheme $U$, a point $u \in U$,
+and an \'etale morphism $U \to X_k$ mapping $u$ to $x$.
+Again by Lemma \ref{lemma-surjective-on-fibres}
+it suffices to show $F_{u, v}$ is finite for the diagram
+$$
+\xymatrix{
+U \times_{\Spec(k)} V \ar[r] \ar[d] & V \ar[d] \\
+U \ar[r] & \Spec(k)
+}
+$$
+The morphism $V \to \Spec(k)$ is quasi-finite at $v$
+(follows from the general discussion in
+Morphisms of Spaces, Section \ref{spaces-morphisms-section-local-source-target}
+and the definition of being quasi-finite at a point).
+At this point the finiteness follows from Example \ref{example-schemes}.
+The parenthetical remark of the statement of the lemma follows
+from the fact that on decent spaces points are represented by
+monomorphisms from fields and from the fact that an \'etale
+morphism of algebraic spaces is locally quasi-finite.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-topology-fibre}
+\begin{slogan}
+Fibers of field points of algebraic spaces have the
+expected Zariski topologies.
+\end{slogan}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$.
+Let $y \in |Y|$ and assume that $y$ is represented by a quasi-compact
+monomorphism $\Spec(k) \to Y$. Then $|X_k| \to |X|$ is a
+homeomorphism onto $f^{-1}(\{y\}) \subset |X|$ with induced topology.
+\end{lemma}
+
+\begin{proof}
+We will use
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-etale-open}
+and
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-monomorphism-injective-points}
+without further mention.
+Let $V \to Y$ be an \'etale morphism with $V$ affine such that there
+exists a $v \in V$ mapping to $y$. Since $\Spec(k) \to Y$ is quasi-compact
+there are a finite number of points of $V$ mapping to $y$
+(Lemma \ref{lemma-UR-finite-above-x}). After shrinking
+$V$ we may assume $v$ is the only one. Choose a scheme $U$ and
+a surjective \'etale morphism $U \to X$.
+Consider the commutative diagram
+$$
+\xymatrix{
+U \ar[d] & U_V \ar[l] \ar[d] & U_v \ar[l] \ar[d] \\
+X \ar[d] & X_V \ar[l] \ar[d] & X_v \ar[l] \ar[d] \\
+Y & V \ar[l] & v \ar[l]
+}
+$$
+Since $U_v \to U_V$ identifies $U_v$ with a subset of $U_V$ with
+the induced topology (Schemes, Lemma \ref{schemes-lemma-fibre-topological}),
+and since $|U_V| \to |X_V|$ and $|U_v| \to |X_v|$ are surjective and open,
+we see that $|X_v| \to |X_V|$ is a homeomorphism onto its image (with
+induced topology).
+On the other hand, the inverse image of $f^{-1}(\{y\})$
+under the open map $|X_V| \to |X|$ is equal to $|X_v|$.
+We conclude that $|X_v| \to f^{-1}(\{y\})$ is open.
+The morphism $X_v \to X$ factors through $X_k$
+and $|X_k| \to |X|$ is injective with image $f^{-1}(\{y\})$
+by Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-points-cartesian}. Using
+$|X_v| \to |X_k| \to f^{-1}(\{y\})$ the lemma follows because
+$X_v \to X_k$ is surjective.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-conditions-on-point-on-space-over-field}
+Let $X$ be an algebraic space locally of finite type over a field $k$.
+Let $x \in |X|$. Consider the conditions
+\begin{enumerate}
+\item $\dim_x(|X|) = 0$,
+\item $x$ is closed in $|X|$ and if $x' \leadsto x$  in $|X|$ then $x' = x$,
+\item $x$ is an isolated point of $|X|$,
+\item $\dim_x(X) = 0$,
+\item $X \to \Spec(k)$ is quasi-finite at $x$.
+\end{enumerate}
+Then (2), (3), (4), and (5) are equivalent.
+If $X$ is decent, then (1) is equivalent to the others.
+\end{lemma}
+
+\begin{proof}
+Parts (4) and (5) are equivalent for example by
+Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-locally-finite-type-quasi-finite-part} and
+\ref{spaces-morphisms-lemma-quasi-finite-at-point}.
+
+\medskip\noindent
+Let $U \to X$ be an \'etale morphism where $U$ is an affine scheme and let
+$u \in U$ be a point mapping to $x$. Moreover, if $x$ is a closed
+point, e.g., in case (2) or (3), then we may and do assume that $u$
+is a closed point. Observe that $\dim_u(U) = \dim_x(X)$ by definition
+and that this is equal to $\dim(\mathcal{O}_{U, u})$ if $u$ is a closed
+point, see Algebra, Lemma
+\ref{algebra-lemma-dimension-closed-point-finite-type-field}.
+
+\medskip\noindent
+If $\dim_x(X) > 0$ and $u$ is closed, by the arguments above
+we can choose a nontrivial
+specialization $u' \leadsto u$ in $U$. Then the transcendence degree
+of $\kappa(u')$ over $k$ exceeds the transcendence degree of
+$\kappa(u)$ over $k$. It follows that the images $x$ and $x'$ in $X$
+are distinct, because the transcendence degree of $x/k$ and $x'/k$
+are well defined, see Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-dimension-fibre}.
+This applies in particular in cases (2) and (3) and we
+conclude that (2) and (3) imply (4).
+
+\medskip\noindent
+Conversely, if $X \to \Spec(k)$ is locally quasi-finite at $x$, then
+$U \to \Spec(k)$ is locally quasi-finite at $u$, hence $u$ is an
+isolated point of $U$
+(Morphisms, Lemma \ref{morphisms-lemma-quasi-finite-at-point-characterize}).
+It follows that (5) implies (2) and (3) as
+$|U| \to |X|$ is continuous and open.
+
+\medskip\noindent
+Assume $X$ is decent and (1) holds. Then $\dim_x(X) = \dim_x(|X|)$
+by Lemma \ref{lemma-dimension-decent-space} and the proof is complete.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-conditions-on-space-over-field}
+Let $X$ be an algebraic space locally of finite type over a field $k$.
+Consider the conditions
+\begin{enumerate}
+\item $|X|$ is a finite set,
+\item $|X|$ is a discrete space,
+\item $\dim(|X|) = 0$,
+\item $\dim(X) = 0$,
+\item $X \to \Spec(k)$ is locally quasi-finite,
+\end{enumerate}
+Then (2), (3), (4), and (5) are equivalent.
+If $X$ is decent, then (1) implies the others.
+\end{lemma}
+
+\begin{proof}
+Parts (4) and (5) are equivalent for example by
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-finite-type-quasi-finite-part}.
+
+\medskip\noindent
+Let $U \to X$ be a surjective \'etale morphism where $U$ is a scheme.
+
+\medskip\noindent
+If $\dim(U) > 0$, then choose a nontrivial specialization
+$u \leadsto u'$ in $U$ and the transcendence degree of $\kappa(u)$
+over $k$ exceeds the transcendence degree of $\kappa(u')$ over $k$.
+It follows that the images $x$ and $x'$ in $X$ are distinct, because
+the transcendence degree of $x/k$ and $x'/k$ is well defined, see
+Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-dimension-fibre}.
+We conclude that (2) and (3) imply (4).
+
+\medskip\noindent
+Conversely, if $X \to \Spec(k)$ is locally quasi-finite, then $U$ is
+locally Noetherian
+(Morphisms, Lemma \ref{morphisms-lemma-finite-type-noetherian})
+of dimension $0$
+(Morphisms, Lemma \ref{morphisms-lemma-locally-quasi-finite-rel-dimension-0})
+and hence is a disjoint union of spectra of Artinian local rings
+(Properties, Lemma \ref{properties-lemma-locally-Noetherian-dimension-0}).
+Hence $U$ is a discrete topological space, and since $|U| \to |X|$
+is continuous and open, the same is true for $|X|$.
+In other words, (4) implies (2) and (3).
+
+\medskip\noindent
+Assume $X$ is decent and (1) holds. Then we may choose $U$ above to
+be affine. The fibres of $|U| \to |X|$ are finite (this is a part of the
+defining property of decent spaces). Hence $U$ is a finite type scheme
+over $k$ with finitely many points. Hence $U$ is quasi-finite over $k$
+(Morphisms, Lemma \ref{morphisms-lemma-finite-fibre})
+which by definition means that $X \to \Spec(k)$ is locally quasi-finite.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-conditions-on-point-in-fibre-and-qf}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$ which is locally of finite type. Let $x \in |X|$ with image
+$y \in |Y|$. Let $F = f^{-1}(\{y\})$ with induced topology from $|X|$.
+Let $k$ be a field and let $\Spec(k) \to Y$ be in the
+equivalence class defining $y$. Set $X_k = \Spec(k) \times_Y X$.
+Let $\tilde x \in |X_k|$ map to $x \in |X|$.
+Consider the following conditions
+\begin{enumerate}
+\item
+\label{item-fibre-at-x-dim-0}
+$\dim_x(F) = 0$,
+\item
+\label{item-isolated-in-fibre}
+$x$ is isolated in $F$,
+\item
+\label{item-no-specializations-in-fibre}
+$x$ is closed in $F$ and if $x' \leadsto x$ in $F$, then $x = x'$,
+\item
+\label{item-dimension-top-k-fibre}
+$\dim_{\tilde x}(|X_k|) = 0$,
+\item
+\label{item-isolated-in-k-fibre}
+$\tilde x$ is isolated in $|X_k|$,
+\item
+\label{item-no-specializations-in-k-fibre}
+$\tilde x$ is closed in $|X_k|$ and if $\tilde x' \leadsto \tilde x$
+in $|X_k|$, then $\tilde x = \tilde x'$,
+\item
+\label{item-k-fibre-at-x-dim-0}
+$\dim_{\tilde x}(X_k) = 0$,
+\item
+\label{item-quasi-finite-at-x}
+$f$ is quasi-finite at $x$.
+\end{enumerate}
+Then we have
+$$
+\xymatrix{
+(\ref{item-dimension-top-k-fibre}) \ar@{=>}[r]_{f\text{ decent}} &
+(\ref{item-isolated-in-k-fibre}) \ar@{<=>}[r] &
+(\ref{item-no-specializations-in-k-fibre}) \ar@{<=>}[r] &
+(\ref{item-k-fibre-at-x-dim-0}) \ar@{<=>}[r] &
+(\ref{item-quasi-finite-at-x})
+}
+$$
+If $Y$ is decent, then conditions (\ref{item-isolated-in-fibre}) and
+(\ref{item-no-specializations-in-fibre}) are equivalent to each other
+and to conditions
+(\ref{item-isolated-in-k-fibre}),
+(\ref{item-no-specializations-in-k-fibre}),
+(\ref{item-k-fibre-at-x-dim-0}), and
+(\ref{item-quasi-finite-at-x}).
+If $Y$ and $X$ are decent, then all conditions are equivalent.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-conditions-on-point-on-space-over-field} conditions
+(\ref{item-isolated-in-k-fibre}),
+(\ref{item-no-specializations-in-k-fibre}), and (\ref{item-k-fibre-at-x-dim-0})
+are equivalent to each other and to the condition that
+$X_k \to \Spec(k)$ is quasi-finite at $\tilde x$.
+Thus by Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-base-change-quasi-finite-locus}
+they are also equivalent to (\ref{item-quasi-finite-at-x}).
+If $f$ is decent, then $X_k$ is a decent algebraic space and
+Lemma \ref{lemma-conditions-on-point-on-space-over-field}
+shows that (\ref{item-dimension-top-k-fibre}) implies
+(\ref{item-isolated-in-k-fibre}).
+
+\medskip\noindent
+If $Y$ is decent, then we can pick a quasi-compact monomorphism
+$\Spec(k') \to Y$ in the equivalence class of $y$. In this case
+Lemma \ref{lemma-topology-fibre}
+tells us that $|X_{k'}| \to F$ is a homeomorphism.
+Combined with the arguments given above this implies
+the remaining statements of the lemma; details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-conditions-on-fibre-and-qf}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$ which is locally of finite type. Let $y \in |Y|$. Let $k$ be a field
+and let $\Spec(k) \to Y$ be in the equivalence class defining $y$.
+Set $X_k = \Spec(k) \times_Y X$ and let $F = f^{-1}(\{y\})$ with the
+induced topology from $|X|$. Consider the following conditions
+\begin{enumerate}
+\item
+\label{item-fibre-finite}
+$F$ is finite,
+\item
+\label{item-fibre-discrete}
+$F$ is a discrete topological space,
+\item
+\label{item-fibre-no-specializations}
+$\dim(F) = 0$,
+\item
+\label{item-k-fibre-finite}
+$|X_k|$ is a finite set,
+\item
+\label{item-k-fibre-discrete}
+$|X_k|$ is a discrete space,
+\item
+\label{item-k-fibre-no-specializations}
+$\dim(|X_k|) = 0$,
+\item
+\label{item-k-fibre-dim-0}
+$\dim(X_k) = 0$,
+\item
+\label{item-quasi-finite-at-points-fibre}
+$f$ is quasi-finite at all points of $|X|$ lying over $y$.
+\end{enumerate}
+Then we have
+$$
+\xymatrix{
+(\ref{item-fibre-finite}) &
+(\ref{item-k-fibre-finite}) \ar@{=>}[l] \ar@{=>}[r]_{f\text{ decent}} &
+(\ref{item-k-fibre-discrete}) \ar@{<=>}[r] &
+(\ref{item-k-fibre-no-specializations}) \ar@{<=>}[r] &
+(\ref{item-k-fibre-dim-0}) \ar@{<=>}[r] &
+(\ref{item-quasi-finite-at-points-fibre})
+}
+$$
+If $Y$ is decent, then conditions (\ref{item-fibre-discrete}) and
+(\ref{item-fibre-no-specializations})
+are equivalent to each other and to conditions (\ref{item-k-fibre-discrete}),
+(\ref{item-k-fibre-no-specializations}), (\ref{item-k-fibre-dim-0}), and
+(\ref{item-quasi-finite-at-points-fibre}).
+If $Y$ and $X$ are decent, then (\ref{item-fibre-finite}) implies
+all the other conditions.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-conditions-on-space-over-field}
+conditions  (\ref{item-k-fibre-discrete}),
+(\ref{item-k-fibre-no-specializations}), and (\ref{item-k-fibre-dim-0})
+are equivalent to each other and to the condition that
+$X_k \to \Spec(k)$ is locally quasi-finite.
+Thus by Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-base-change-quasi-finite-locus}
+they are also equivalent to (\ref{item-quasi-finite-at-points-fibre}).
+If $f$ is decent, then $X_k$ is a decent algebraic space and
+Lemma \ref{lemma-conditions-on-space-over-field}
+shows that (\ref{item-k-fibre-finite}) implies (\ref{item-k-fibre-discrete}).
+
+\medskip\noindent
+The map $|X_k| \to F$ is surjective by
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}
+and we see
+(\ref{item-k-fibre-finite}) $\Rightarrow$ (\ref{item-fibre-finite}).
+
+\medskip\noindent
+If $Y$ is decent, then we can pick a quasi-compact monomorphism
+$\Spec(k') \to Y$ in the equivalence class of $y$. In this case
+Lemma \ref{lemma-topology-fibre}
+tells us that $|X_{k'}| \to F$ is a homeomorphism.
+Combined with the arguments given above this implies
+the remaining statements of the lemma; details omitted.
+\end{proof}
+
+
+
+
+
+
+
+\section{Monomorphisms}
+\label{section-monomorphisms}
+
+\noindent
+Here is another case where monomorphisms are representable.
+Please see More on Morphisms of Spaces, Section
+\ref{spaces-more-morphisms-section-monomorphisms}
+for more information.
+
+\begin{lemma}
+\label{lemma-monomorphism-toward-disjoint-union-dim-0-rings}
+Let $S$ be a scheme. Let $Y$ be a disjoint union of spectra of
+zero dimensional local rings over $S$.
+Let $f : X \to Y$ be a monomorphism of algebraic spaces over $S$.
+Then $f$ is representable, i.e., $X$ is a scheme.
+\end{lemma}
+
+\begin{proof}
+This immediately reduces to the case $Y = \Spec(A)$ where
+$A$ is a zero dimensional local ring, i.e.,
+$\Spec(A) = \{\mathfrak m_A\}$
+is a singleton. If $X = \emptyset$, then there is nothing to prove.
+If not, choose a nonempty affine scheme $U = \Spec(B)$
+and an \'etale morphism $U \to X$. As $|X|$ is a singleton (as a
+subset of $|Y|$, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-monomorphism-injective-points})
+we see that $U \to X$ is surjective. Note that
+$U \times_X U = U \times_Y U = \Spec(B \otimes_A B)$.
+Thus we see that the ring maps $B \to B \otimes_A B$ are \'etale.
+Since
+$$
+(B \otimes_A B)/\mathfrak m_A(B \otimes_A B)
+=
+(B/\mathfrak m_AB) \otimes_{A/\mathfrak m_A} (B/\mathfrak m_AB)
+$$
+we see that
+$B/\mathfrak m_AB \to (B \otimes_A B)/\mathfrak m_A(B \otimes_A B)$
+is flat and in fact free of rank equal to the dimension of
+$B/\mathfrak m_AB$ as a $A/\mathfrak m_A$-vector space. Since
+$B \to B \otimes_A B$ is \'etale, this can only happen if this
+dimension is finite (see for example
+Morphisms, Lemmas \ref{morphisms-lemma-etale-universally-bounded} and
+\ref{morphisms-lemma-locally-quasi-finite-qc-source-universally-bounded}).
+Every prime of $B$ lies over $\mathfrak m_A$ (the unique prime of $A$).
+Hence $\Spec(B) = \Spec(B/\mathfrak m_A)$ as a topological
+space, and this space is a finite discrete set as $B/\mathfrak m_A B$
+is an Artinian ring, see
+Algebra, Lemmas \ref{algebra-lemma-finite-dimensional-algebra} and
+\ref{algebra-lemma-artinian-finite-length}.
+Hence all prime ideals of $B$ are maximal and
+$B = B_1 \times \ldots \times B_n$ is a product of finitely many
+local rings of dimension zero, see
+Algebra, Lemma \ref{algebra-lemma-product-local}.
+Thus $B \to B \otimes_A B$ is finite \'etale as all the local rings
+$B_i$ are henselian by
+Algebra, Lemma \ref{algebra-lemma-local-dimension-zero-henselian}.
+Thus $X$ is an affine scheme by
+Groupoids, Proposition \ref{groupoids-proposition-finite-flat-equivalence}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Generic points}
+\label{section-generic-points}
+
+\noindent
+This section is a continuation of
+Properties of Spaces, Section \ref{spaces-properties-section-generic-points}.
+
+\begin{lemma}
+\label{lemma-decent-generic-points}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Let $x \in |X|$. The following are equivalent
+\begin{enumerate}
+\item $x$ is a generic point of an irreducible component of $|X|$,
+\item for any \'etale morphism $(Y, y) \to (X, x)$ of pointed algebraic
+spaces, $y$ is a generic point of an irreducible component of $|Y|$,
+\item for some \'etale morphism $(Y, y) \to (X, x)$ of pointed algebraic
+spaces, $y$ is a generic point of an irreducible component of $|Y|$,
+\item the dimension of the local ring of $X$ at $x$ is zero, and
+\item $x$ is a point of codimension $0$ on $X$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Conditions (4) and (5) are equivalent for any algebraic space
+by definition, see Properties of Spaces, Definition
+\ref{spaces-properties-definition-dimension-local-ring}.
+Observe that any $Y$ as in (2) and (3) is decent by
+Lemma \ref{lemma-etale-named-properties}.
+Thus it suffices to prove the equivalence of (1) and (4)
+as then the equivalence with (2) and (3) follows since the dimension
+of the local ring of $Y$ at $y$ is equal to the dimension
+of the local ring of $X$ at $x$.
+Let $f : U \to X$ be an \'etale morphism from an affine scheme and let
+$u \in U$ be a point mapping to $x$.
+
+\medskip\noindent
+Assume (1). Let $u' \leadsto u$ be a specialization in $U$.
+Then $f(u') = f(u) = x$. By
+Lemma \ref{lemma-decent-no-specializations-map-to-same-point}
+we see that $u' = u$. Hence $u$ is a generic point of an irreducible component
+of $U$. Thus $\dim(\mathcal{O}_{U, u}) = 0$ and we see that (4) holds.
+
+\medskip\noindent
+Assume (4). The point $x$ is contained in an irreducible component
+$T \subset |X|$. Since $|X|$ is sober
+(Proposition \ref{proposition-reasonable-sober})
+we $T$ has a generic point $x'$. Of course $x' \leadsto x$.
+Then we can lift this specialization to $u' \leadsto u$ in $U$
+(Lemma \ref{lemma-decent-specialization}). This contradicts the assumption
+that $\dim(\mathcal{O}_{U, u}) = 0$ unless $u' = u$, i.e., $x' = x$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-get-reasonable}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$. Assume
+\begin{enumerate}
+\item every quasi-compact scheme \'etale over $X$ has finitely many
+irreducible components, and
+\item every $x \in |X|$ of codimension $0$ on $X$ can be represented
+by a monomorphism $\Spec(k) \to X$.
+\end{enumerate}
+Then $X$ is a reasonable algebraic space.
+\end{lemma}
+
+\begin{proof}
+Let $U$ be an affine scheme and let $a : U \to X$ be an \'etale morphism.
+We have to show that the fibres of $a$ are universally bounded. By
+assumption (1) the scheme $U$ has finitely many irreducible components.
+Let $u_1, \ldots, u_n \in U$ be the generic points of these irreducible
+components. Let $\{x_1, \ldots, x_m\} \subset |X|$ be the image
+of $\{u_1, \ldots, u_n\}$. Each $x_j$ is a point of codimension $0$.
+By assumption (2) we may choose a monomorphism $\Spec(k_j) \to X$
+representing $x_j$. Then
+$$
+U \times_X \Spec(k_j) = \coprod\nolimits_{a(u_i) = x_j} \Spec(\kappa(u_i))
+$$
+is finite over $\Spec(k_j)$ of degree
+$d_j = \sum_{a(u_i) = x_j} [\kappa(u_i) : k_j]$. Set $n = \max d_j$.
+
+\medskip\noindent
+Observe that $a$ is separated
+(Properties of Spaces, Lemma \ref{spaces-properties-lemma-separated-cover}).
+Consider the stratification
+$$
+X = X_0 \supset X_1 \supset X_2 \supset \ldots
+$$
+associated to $U \to X$ in Lemma \ref{lemma-stratify-flat-fp-lqf}.
+By our choice of $n$ above we conclude that $X_{n + 1}$ is empty.
+Namely, if not, then $a^{-1}(X_{n + 1})$ is a nonempty open
+of $U$ and hence would contain one of the $x_i$. This would mean
+that $X_{n + 1}$ contains $x_j = a(u_i)$ which is impossible.
+Hence we see that the fibres of $U \to X$ are universally bounded
+(in fact by the integer $n$).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finitely-many-irreducible-components}
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+The following are equivalent
+\begin{enumerate}
+\item $X$ is decent and $|X|$ has finitely many irreducible components,
+\item every quasi-compact scheme \'etale over $X$ has finitely many
+irreducible components, there are finitely many $x \in |X|$ of
+codimension $0$ on $X$, and each of these can be represented
+by a monomorphism $\Spec(k) \to X$,
+\item there exists a dense open $X' \subset X$ which is
+a scheme, $X'$ has finitely many irreducible components
+with generic points $\{x'_1, \ldots, x'_m\}$, and
+the morphism $x'_j \to X$ is quasi-compact for $j = 1, \ldots, m$.
+\end{enumerate}
+Moreover, if these conditions hold, then $X$ is reasonable and the
+points $x'_j \in |X|$ are the generic points of the irreducible
+components of $|X|$.
+\end{lemma}
+
+\begin{proof}
+In the proof we use Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-codimension-0-points}
+without further mention.
+Assume (1). Then $X$ has a dense open subscheme $X'$ by
+Theorem \ref{theorem-decent-open-dense-scheme}.
+Since the closure of an irreducible component of $|X'|$
+is an irreducible component of $|X|$, we see that $|X'|$
+has finitely many irreducible components. Thus (3) holds.
+
+\medskip\noindent
+Assume $X' \subset X$ is as in (3). Let $\{x'_1, \ldots, x'_m\}$
+be the generic points of the irreducible components of $X'$.
+Let $a : U \to X$ be an \'etale morphism with $U$ a quasi-compact scheme.
+It suffices to show that $U$ has finitely many irreducible components
+whose generic points lie over $\{x'_1, \ldots, x'_m\}$. It suffices
+to prove this for the members of a finite affine open cover of $U$,
+hence we may and do assume $U$ is affine.
+Note that $U' = a^{-1}(X') \subset U$ is a dense open.
+The generic points of irreducible components of $U'$ are the points
+lying over $\{x'_1, \ldots, x'_m\}$ and since $x'_j \to X$ is
+quasi-compact there are finitely many points of $U$ lying over $x'_j$
+(Lemma \ref{lemma-UR-finite-above-x}). Hence $U'$ has finitely
+many irreducible components, which implies that the closures
+of these irreducible components are the irreducible components of
+$U$. Thus (2) holds.
+
+\medskip\noindent
+Assume (2). This implies (1) and the final
+statement by Lemma \ref{lemma-get-reasonable}.
+(We also use that a reasonable algebraic space is decent, see
+discussion following Definition \ref{definition-very-reasonable}.)
+\end{proof}
+
+
+
+\section{Generically finite morphisms}
+\label{section-generically-finite}
+
+\noindent
+This section discusses for morphisms of algebraic spaces the material
+discussed in Morphisms, Section \ref{morphisms-section-generically-finite}
+and
+Varieties, Section \ref{varieties-section-generically-finite}
+for morphisms of schemes.
+
+\begin{lemma}
+\label{lemma-generically-finite}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Assume that $f$ is quasi-separated of finite type.
+Let $y \in |Y|$ be a point of codimension $0$ on $Y$.
+The following are equivalent:
+\begin{enumerate}
+\item the space $|X_k|$ is finite where $\Spec(k) \to Y$ represents $y$,
+\item $X \to Y$ is quasi-finite at all points of $|X|$ over $y$,
+\item there exists an open subspace $Y' \subset Y$ with $y \in |Y'|$
+such that $Y' \times_Y X \to Y'$ is finite.
+\end{enumerate}
+If $Y$ is decent these are also equivalent to
+\begin{enumerate}
+\item[(4)] the set $f^{-1}(\{y\})$ is finite.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (1) and (2) follows from
+Lemma \ref{lemma-conditions-on-fibre-and-qf}
+(and the fact that a quasi-separated morphism is decent by
+Lemma \ref{lemma-properties-trivial-implications}).
+
+\medskip\noindent
+Assume the equivalent conditions of (1) and (2). Choose an affine scheme $V$
+and an \'etale morphism $V \to Y$ mapping a point $v \in V$ to $y$. Then $v$
+is a generic point of an irreducible component of $V$ by
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-codimension-0-points}.
+Choose an affine scheme $U$
+and a surjective \'etale morphism $U \to V \times_Y X$. Then $U \to V$ is of
+finite type. The morphism $U \to V$ is quasi-finite at every point lying over
+$v$ by (2). It follows that the fibre of $U \to V$ over $v$ is finite
+(Morphisms, Lemma
+\ref{morphisms-lemma-quasi-finite-at-a-finite-number-of-points}). By
+Morphisms, Lemma \ref{morphisms-lemma-generically-finite}
+after shrinking $V$ we may assume that $U \to V$ is finite.
+Let
+$$
+R = U \times_{V \times_Y X} U
+$$
+Since $f$ is quasi-separated, we see that $V \times_Y X$ is quasi-separated
+and hence $R$ is a quasi-compact scheme. Moreover the morphisms
+$R \to V$ is quasi-finite as the composition of an \'etale morphism
+$R \to U$ and a finite morphism $U \to V$. Hence we may apply
+Morphisms, Lemma \ref{morphisms-lemma-generically-finite}
+once more and after shrinking $V$ we may assume that $R \to V$ is
+finite as well. This of course implies that the two projections
+$R \to V$ are finite \'etale. It follows that
+$V/R = V \times_Y X$ is an affine scheme, see
+Groupoids, Proposition \ref{groupoids-proposition-finite-flat-equivalence}.
+By Morphisms, Lemma \ref{morphisms-lemma-image-proper-is-proper}
+we conclude that $V \times_Y X \to V$ is proper and by
+Morphisms, Lemma \ref{morphisms-lemma-finite-proper}
+we conclude that $V \times_Y X \to V$ is finite.
+Finally, we let $Y' \subset Y$ be the open subspace of $Y$
+corresponding to the image of $|V| \to |Y|$.
+By Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-integral-local}
+we conclude that $Y' \times_Y X \to Y'$ is finite as the base
+change to $V$ is finite and as $V \to Y'$ is a surjective \'etale
+morphism.
+
+\medskip\noindent
+If $Y$ is decent and $f$ is quasi-separated, then we see that
+$X$ is decent too; use Lemmas
+\ref{lemma-properties-trivial-implications} and
+\ref{lemma-property-over-property}.
+Hence Lemma \ref{lemma-conditions-on-fibre-and-qf}
+applies to show that (4) implies (1) and (2). On the other hand,
+we see that (2) implies (4) by Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-quasi-finite-at-a-finite-number-of-points}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-generically-finite-reprise}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Assume that $f$ is quasi-separated and locally of finite type
+and $Y$ quasi-separated. Let $y \in |Y|$ be a point of codimension $0$ on $Y$.
+The following are equivalent:
+\begin{enumerate}
+\item the set $f^{-1}(\{y\})$ is finite,
+\item the space $|X_k|$ is finite where $\Spec(k) \to Y$ represents $y$,
+\item there exist open subspaces $X' \subset X$ and $Y' \subset Y$
+with $f(X') \subset Y'$, $y \in |Y'|$, and $f^{-1}(\{y\}) \subset |X'|$
+such that $f|_{X'} : X' \to Y'$ is finite.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Since quasi-separated algebraic spaces are decent, the equivalence
+of (1) and (2) follows from
+Lemma \ref{lemma-conditions-on-fibre-and-qf}.
+To prove that (1) and (2) imply (3)
+we may and do replace $Y$ by a quasi-compact open containing $y$.
+Since $f^{-1}(\{y\})$ is finite, we can find a quasi-compact
+open subspace of $X' \subset X$ containing the fibre.
+The restriction $f|_{X'} : X' \to Y$ is quasi-compact and quasi-separated
+by Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-quasi-compact-quasi-separated-permanence}
+(this is where we use that $Y$ is quasi-separated).
+Applying Lemma \ref{lemma-generically-finite}
+to $f|_{X'} : X' \to Y$ we see that (3) holds.
+We omit the proof that (3) implies (2).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-finiteness-over-generic-point}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Assume $f$ is locally of finite type.
+Let $X^0 \subset |X|$, resp.\ $Y^0 \subset |Y|$ denote the set of
+codimension $0$ points of $X$, resp.\ $Y$. Let $y \in Y^0$. The following are
+equivalent
+\begin{enumerate}
+\item $f^{-1}(\{y\}) \subset X^0$,
+\item $f$ is quasi-finite at all points lying over $y$,
+\item $f$ is quasi-finite at all $x \in X^0$ lying over $y$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $V$ be a scheme and let $V \to Y$ be a surjective \'etale morphism.
+Let $U$ be a scheme and let $U \to V \times_Y X$ be a surjective \'etale
+morphism. Then $f$ is quasi-finite at the image $x$ of a point $u \in U$
+if and only if $U \to V$ is quasi-finite at $u$. Moreover, $x \in X^0$
+if and only if $u$ is the generic point of an irreducible component
+of $U$ (Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-codimension-0-points}).
+Thus the lemma reduces to the case of the morphism $U \to V$, i.e., to
+Morphisms, Lemma \ref{morphisms-lemma-quasi-finiteness-over-generic-point}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-over-dense-open}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Assume $f$ is locally of finite type.
+Let $X^0 \subset |X|$, resp.\ $Y^0 \subset |Y|$ denote the set of
+codimension $0$ points of $X$, resp.\ $Y$. Assume
+\begin{enumerate}
+\item $Y$ is decent,
+\item $X^0$ and $Y^0$ are finite and $f^{-1}(Y^0) = X^0$,
+\item either $f$ is quasi-compact or $f$ is separated.
+\end{enumerate}
+Then there exists a dense open $V \subset Y$
+such that $f^{-1}(V) \to V$ is finite.
+\end{lemma}
+
+\begin{proof}
+By Lemmas \ref{lemma-finitely-many-irreducible-components} and
+\ref{lemma-decent-generic-points} we may assume $Y$ is a scheme
+with finitely many irreducible components. Shrinking further we
+may assume $Y$ is an irreducible affine scheme with generic point $y$.
+Then the fibre of $f$ over $y$ is finite.
+
+\medskip\noindent
+Assume $f$ is quasi-compact and $Y$ affine irreducible. Then $X$ is
+quasi-compact and we may choose an affine scheme $U$ and a
+surjective \'etale morphism $U \to X$. Then $U \to Y$ is of finite type
+and the fibre of $U \to Y$ over $y$ is the set $U^0$ of generic points of
+irreducible components of $U$ (Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-codimension-0-points}).
+Hence $U^0$ is finite
+(Morphisms, Lemma
+\ref{morphisms-lemma-quasi-finite-at-a-finite-number-of-points})
+and after shrinking $Y$ we may assume that $U \to Y$ is finite
+(Morphisms, Lemma \ref{morphisms-lemma-generically-finite}).
+Next, consider $R = U \times_X U$. Since the projection
+$s : R \to U$ is \'etale we see that $R^0 = s^{-1}(U^0)$
+lies over $y$. Since $R \to U \times_Y U$ is a monomorphism,
+we conclude that $R^0$ is finite as $U \times_Y U \to Y$ is finite.
+And $R$ is separated
+(Properties of Spaces, Lemma \ref{spaces-properties-lemma-separated-cover}).
+Thus we may shrink $Y$ once more to reach the situation
+where $R$ is finite over $Y$
+(Morphisms, Lemma \ref{morphisms-lemma-finite-over-dense-open}).
+In this case it follows that $X = U/R$ is finite over $Y$
+by exactly the same arguments as given in the proof of
+Lemma \ref{lemma-generically-finite}
+(or we can simply apply that lemma because
+it follows immediately that $X$ is quasi-separated as well).
+
+\medskip\noindent
+Assume $f$ is separated and $Y$ affine irreducible. Choose $V \subset Y$
+and $U \subset X$ as in Lemma \ref{lemma-generically-finite-reprise}.
+Since $f|_U : U \to V$ is finite, we see that $U \subset f^{-1}(V)$
+is closed as well as open
+(Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-universally-closed-permanence} and
+\ref{spaces-morphisms-lemma-finite-proper}).
+Thus $f^{-1}(V) = U \amalg W$ for some
+open subspace $W$ of $X$. However, since $U$ contains all the codimension
+$0$ points of $X$ we conclude that $W = \emptyset$
+(Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-codimension-0-points-dense})
+as desired.
+\end{proof}
+
+
+
+
+
+
+\section{Birational morphisms}
+\label{section-birational}
+
+\noindent
+The following definition of a birational morphism of algebraic spaces
+seems to be the closest to our definition
+(Morphisms, Definition \ref{morphisms-definition-birational})
+of a birational morphism of schemes.
+
+\begin{definition}
+\label{definition-birational}
+Let $S$ be a scheme. Let $X$ and $Y$ algebraic spaces over $S$.
+Assume $X$ and $Y$ are decent and that $|X|$ and $|Y|$ have finitely many
+irreducible components. We say a morphism $f : X \to Y$ is
+{\it birational} if
+\begin{enumerate}
+\item $|f|$ induces a bijection between the set of generic points
+of irreducible components of $|X|$ and the set of generic points
+of the irreducible components of $|Y|$, and
+\item for every generic point $x \in |X|$ of an irreducible component
+the local ring map $\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$
+is an isomorphism (see clarification below).
+\end{enumerate}
+\end{definition}
+
+\noindent
+Clarification: Since $X$ and $Y$ are decent the topological spaces
+$|X|$ and $|Y|$ are sober (Proposition \ref{proposition-reasonable-sober}).
+Hence condition (1) makes sense. Moreover, because we have assumed
+that $|X|$ and $|Y|$ have finitely many irreducible components, we
+see that the generic points $x_1, \ldots, x_n \in |X|$,
+resp.\ $y_1, \ldots, y_n \in |Y|$ are contained in any dense open
+of $|X|$, resp.\ $|Y|$. In particular, they are contained in
+the schematic locus of $X$, resp.\ $Y$ by
+Theorem \ref{theorem-decent-open-dense-scheme}.
+Thus we can define $\mathcal{O}_{X, x_i}$, resp.\ $\mathcal{O}_{Y, y_i}$
+to be the local ring of this scheme at $x_i$, resp.\ $y_i$.
+
+\medskip\noindent
+We conclude that if the morphism $f : X \to Y$ is birational, then
+there exist dense open subspaces $X' \subset X$ and $Y' \subset Y$ such that
+\begin{enumerate}
+\item $f(X') \subset Y'$,
+\item $X'$ and $Y'$ are representable, and
+\item $f|_{X'} : X' \to Y'$ is birational in
+the sense of Morphisms, Definition \ref{morphisms-definition-birational}.
+\end{enumerate}
+However, we do insist that $X$ and $Y$ are decent with finitely many
+irreducible components. Other ways to characterize decent algebraic spaces
+with finitely many irreducible components
+are given in Lemma \ref{lemma-finitely-many-irreducible-components}.
+In most cases birational morphisms are isomorphisms over dense opens.
+
+\begin{lemma}
+\label{lemma-birational-dominant}
+Let $S$ be a scheme.
+Let $f : X \to Y$ be a morphism of algebraic spaces over $S$ which
+are decent and have finitely many irreducible components. If $f$ is
+birational then $f$ is dominant.
+\end{lemma}
+
+\begin{proof}
+Follows immediately from the definitions. See
+Morphisms of Spaces, Definition \ref{spaces-morphisms-definition-dominant}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-birational-generic-fibres}
+Let $S$ be a scheme. Let $f : X \to Y$ be a birational morphism of
+algebraic spaces over $S$ which are decent and have finitely
+many irreducible components. If $y \in Y$ is the generic point of
+an irreducible component, then the base change
+$X \times_Y \Spec(\mathcal{O}_{Y, y}) \to \Spec(\mathcal{O}_{Y, y})$
+is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+Let $X' \subset X$ and $Y' \subset Y$ be the maximal open subspaces
+which are representable, see
+Lemma \ref{lemma-finitely-many-irreducible-components}. By
+Lemma \ref{lemma-quasi-finiteness-over-generic-point}
+the fibre of $f$ over $y$ is consists of
+of points of codimension $0$ of $X$ and is therefore contained
+in $X'$. Hence $X \times_Y \Spec(\mathcal{O}_{Y, y}) =
+X' \times_{Y'} \Spec(\mathcal{O}_{Y', y})$ and the result follows
+from Morphisms, Lemma \ref{morphisms-lemma-birational-generic-fibres}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-birational-birational}
+Let $S$ be a scheme. Let $f : X \to Y$ be a birational morphism of
+algebraic spaces over $S$ which are decent and have finitely many
+irreducible components. Assume one of the following conditions is satisfied
+\begin{enumerate}
+\item $f$ is locally of finite type and $Y$ reduced (i.e., integral),
+\item $f$ is locally of finite presentation.
+\end{enumerate}
+Then there exist dense opens $U \subset X$ and $V \subset Y$
+such that $f(U) \subset V$ and $f|_U : U \to V$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-finitely-many-irreducible-components} we may assume
+that $X$ and $Y$ are schemes. In this case the result is
+Morphisms, Lemma \ref{morphisms-lemma-birational-birational}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-birational-isomorphism-over-dense-open}
+Let $S$ be a scheme. Let $f : X \to Y$ be a birational morphism of
+algebraic spaces over $S$ which are decent and have finitely
+many irreducible components. Assume
+\begin{enumerate}
+\item either $f$ is quasi-compact or $f$ is separated, and
+\item either $f$ is locally of finite type and $Y$ is reduced or
+$f$ is locally of finite presentation.
+\end{enumerate}
+Then there exists a dense open $V \subset Y$
+such that $f^{-1}(V) \to V$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-finitely-many-irreducible-components} we may assume
+$Y$ is a scheme. By Lemma \ref{lemma-finite-over-dense-open} we may assume
+that $f$ is finite. Then $X$ is a scheme too and the result follows from
+Morphisms, Lemma \ref{morphisms-lemma-birational-isomorphism-over-dense-open}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-birational-etale-localization}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic
+spaces over $S$ which are decent and have finitely many irreducible
+components. If $f$ is birational and $V \to Y$ is an \'etale morphism
+with $V$ affine, then $X \times_Y V$ is decent with finitely
+many irreducible components and $X \times_Y V \to V$ is birational.
+\end{lemma}
+
+\begin{proof}
+The algebraic space $U = X \times_Y V$ is decent
+(Lemma \ref{lemma-etale-named-properties}).
+The generic points of $V$ and $U$ are the elements of $|V|$ and $|U|$
+which lie over generic points of $|Y|$ and $|X|$
+(Lemma \ref{lemma-decent-generic-points}).
+Since $Y$ is decent we conclude there are finitely many generic points
+on $V$. Let $\xi \in |X|$ be a generic point of an irreducible component.
+By the discussion following Definition \ref{definition-birational}
+we have a cartesian square
+$$
+\xymatrix{
+\Spec(\mathcal{O}_{X, \xi}) \ar[d] \ar[r] & X \ar[d] \\
+\Spec(\mathcal{O}_{Y, f(\xi)}) \ar[r] & Y
+}
+$$
+whose horizontal morphisms are monomorphisms identifying local rings
+and where the left vertical arrow is an isomorphism. It follows that
+in the diagram
+$$
+\xymatrix{
+\Spec(\mathcal{O}_{X, \xi}) \times_X U \ar[d] \ar[r] & U \ar[d] \\
+\Spec(\mathcal{O}_{Y, f(\xi)}) \times_Y V \ar[r] & V
+}
+$$
+the vertical arrow on the left is an isomorphism. The horizonal arrows
+have image contained in the schematic locus of $U$ and $V$ and
+identify local rings (some details omitted). Since the image of
+the horizontal arrows are the points of $|U|$, resp.\ $|V|$
+lying over $\xi$, resp.\ $f(\xi)$ we conclude.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-birational-induced-morphism-normalizations}
+Let $S$ be a scheme. Let $f : X \to Y$ be a birational morphism between
+algebraic spaces over $S$ which are decent and have finitely many irreducible
+components. Then the normalizations $X^\nu \to X$ and $Y^\nu \to Y$ exist
+and there is a commutative diagram
+$$
+\xymatrix{
+X^\nu \ar[r] \ar[d] &  Y^\nu \ar[d] \\
+X \ar[r] & Y
+}
+$$
+of algebraic spaces over $S$. The morphism $X^\nu \to Y^\nu$ is birational.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-finitely-many-irreducible-components} we see that
+$X$ and $Y$ satisfy the equivalent conditions of
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-prepare-normalization}
+and the normalizations are defined. By
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-normalization-normal}
+the algebraic space $X^\nu$ is normal and maps codimension $0$ points
+to codimension $0$ points. Since $f$ maps codimension $0$ points to
+codimension $0$ points (this is the same as generic points on decent
+spaces by Lemma \ref{lemma-decent-generic-points})
+we obtain from
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-normalization-normal}
+a factorization of the composition $X^\nu \to X \to Y$ through $Y^\nu$.
+
+\medskip\noindent
+Observe that $X^\nu$ and $Y^\nu$ are decent for example by
+Lemma \ref{lemma-representable-named-properties}.
+Moreover the maps $X^\nu \to X$ and $Y^\nu \to Y$
+induce bijections on irreducible components (see references above)
+hence $X^\nu$ and $Y^\nu$ both have a finite number of irreducible
+components and the map $X^\nu \to Y^\nu$ induces a bijection
+between their generic points.
+To prove that $X^\nu \to Y^\nu$ is birational, it therefore
+suffices to show it induces an isomorphism on local rings at
+these points. To do this we may replace $X$ and $Y$ by open neighbourhoods
+of their generic points, hence we may assume $X$ and $Y$ are affine
+irreducible schemes with generic points $x$ and $y$. Since
+$f$ is birational the map $\mathcal{O}_{X, x} \to \mathcal{O}_{Y, y}$
+is an isomorphism. Let $x^\nu \in X^\nu$ and $y^\nu \in Y^\nu$ be
+the points lying over $x$ and $y$.
+By construction of the normalization
+we see that $\mathcal{O}_{X^\nu, x^\nu} = \mathcal{O}_{X, x}/\mathfrak m_x$
+and similarly on $Y$. Thus the map
+$\mathcal{O}_{X^\nu, x^\nu} \to \mathcal{O}_{Y^\nu, y^\nu}$
+is an isomorphism as well.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-birational-over-normal}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic
+spaces over $S$. Assume
+\begin{enumerate}
+\item $X$ and $Y$ are decent and have finitely many irreducible components,
+\item $f$ is integral and birational,
+\item $Y$ is normal, and
+\item $X$ is reduced.
+\end{enumerate}
+Then $f$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+Let $V \to Y$ be an \'etale morphism with $V$ affine. It suffices to show that
+$U = X \times_Y V \to V$ is an isomorphism. By
+Lemma \ref{lemma-birational-etale-localization} and its proof
+we see that $U$ and $V$ are decent and have finitely many
+irreducible components and that $U \to V$ is birational.
+By Properties, Lemma
+\ref{properties-lemma-normal-locally-finite-nr-irreducibles}
+$V$ is a finite disjoint union of integral schemes.
+Thus we may assume $V$ is integral. As $f$ is birational, we
+see that $U$ is irreducible and reduced, i.e., integral
+(note that $U$ is a scheme as $f$ is integral, hence representable).
+Thus we may assume that $X$ and $Y$ are integral schemes
+and the result follows from the case of schemes, see
+Morphisms, Lemma \ref{morphisms-lemma-finite-birational-over-normal}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-normalization-normal}
+Let $S$ be a scheme. Let $f : X \to Y$ be an integral birational morphism of
+decent algebraic spaces over $S$ which have finitely many irreducible
+components. Then there exists a factorization $Y^\nu \to X \to Y$ and
+$Y^\nu \to X$ is the normalization of $X$.
+\end{lemma}
+
+\begin{proof}
+Consider the map $X^\nu \to Y^\nu$ of
+Lemma \ref{lemma-birational-induced-morphism-normalizations}.
+This map is integral by
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-finite-permanence}.
+Hence it is an isomorphism by
+Lemma \ref{lemma-finite-birational-over-normal}.
+\end{proof}
+
+
+
+
+\section{Jacobson spaces}
+\label{section-jacobson}
+
+\noindent
+We have defined the Jacobson property for algebraic spaces in
+Properties of Spaces, Remark
+\ref{spaces-properties-remark-list-properties-local-etale-topology}.
+For representable algebraic spaces it agrees with the property discussed in
+Properties, Section \ref{properties-section-jacobson}.
+The relationship between the Jacobson property and the behaviour of
+the topological space $|X|$ is not evident for general algebraic spaces $|X|$.
+However, a decent (for example quasi-separated or locally separated)
+algebraic space $X$ is Jacobson if and only if $|X|$ is Jacobson
+(see Lemma \ref{lemma-decent-Jacobson}).
+
+\begin{lemma}
+\label{lemma-Jacobson-universally-Jacobson}
+Let $S$ be a scheme. Let $X$ be a Jacobson algebraic space over $S$.
+Any algebraic space locally of finite type over $X$ is Jacobson.
+\end{lemma}
+
+\begin{proof}
+Let $U \to X$ be a surjective \'etale morphism where $U$ is a scheme.
+Then $U$ is Jacobson (by definition) and for a morphism of schemes $V \to U$
+which is locally of finite type we see that $V$ is Jacobson by the
+corresponding result for schemes (Morphisms, Lemma
+\ref{morphisms-lemma-Jacobson-universally-Jacobson}).
+Thus if $Y \to X$ is a morphism of algebraic spaces which is locally
+of finite type, then setting $V = U \times_X Y$ we see that
+$Y$ is Jacobson by definition.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-Jacobson-ft-points-lift-to-closed}
+Let $S$ be a scheme. Let $X$ be a Jacobson algebraic space over $S$.
+For $x \in X_{\text{ft-pts}}$ and $g : W \to X$ locally of finite type
+with $W$ a scheme, if $x \in \Im(|g|)$, then there exists a closed
+point of $W$ mapping to $x$.
+\end{lemma}
+
+\begin{proof}
+Let $U \to X$ be an \'etale morphism with $U$ a scheme and with $u \in U$
+closed mapping to $x$, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-identify-finite-type-points}.
+Observe that $W$, $W \times_X U$, and $U$ are Jacobson schemes
+by Lemma \ref{lemma-Jacobson-universally-Jacobson}.
+Hence finite type points on these schemes
+are the same thing as closed points by
+Morphisms, Lemma \ref{morphisms-lemma-jacobson-finite-type-points}.
+The inverse image $T \subset W \times_X U$ of $u$ is a nonempty
+(as $x$ in the image of $W \to X$) closed subset.
+By Morphisms, Lemma \ref{morphisms-lemma-enough-finite-type-points}
+there is a closed point $t$ of $W \times_X U$ which maps to $u$.
+As $W \times_X U \to W$ is locally of finite type
+the image of $t$ in $W$ is closed by
+Morphisms, Lemma \ref{morphisms-lemma-jacobson-finite-type-points}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-decent-Jacobson-ft-pts}
+Let $S$ be a scheme. Let $X$ be a decent Jacobson algebraic space over $S$.
+Then $X_{\text{ft-pts}} \subset |X|$ is the set of closed points.
+\end{lemma}
+
+\begin{proof}
+If $x \in |X|$ is closed, then we can represent $x$ by a closed
+immersion $\Spec(k) \to X$, see Lemma \ref{lemma-decent-space-closed-point}.
+Hence $x$ is certainly a finite type point.
+
+\medskip\noindent
+Conversely, let $x \in |X|$ be a finite type point. We know that
+$x$ can be represented by a quasi-compact monomorphism
+$\Spec(k) \to X$ where $k$ is a field
+(Definition \ref{definition-very-reasonable}). On the other hand,
+by definition, there exists a morphism $\Spec(k') \to X$
+which is locally of finite type and represents $x$
+(Morphisms, Definition \ref{morphisms-definition-finite-type-point}).
+We obtain a factorization $\Spec(k') \to \Spec(k) \to X$.
+Let $U \to X$ be any \'etale morphism with $U$ affine and consider
+the morphisms
+$$
+\Spec(k') \times_X U \to \Spec(k) \times_X U \to U
+$$
+The quasi-compact scheme $\Spec(k) \times_X U$ is \'etale over
+$\Spec(k)$ hence is a finite disjoint union
+of spectra of fields (Remark \ref{remark-recall}).
+Moreover, the first morphism is surjective and locally of finite type
+(Morphisms, Lemma \ref{morphisms-lemma-permanence-finite-type})
+hence surjective on finite type points
+(Morphisms, Lemma \ref{morphisms-lemma-finite-type-points-surjective-morphism})
+and the composition (which is locally of finite type) sends
+finite type points to closed points as $U$ is Jacobson
+(Morphisms, Lemma \ref{morphisms-lemma-jacobson-finite-type-points}).
+Thus the image of
+$\Spec(k) \times_X U \to U$ is a finite set of closed points hence
+closed. Since this is true for every affine $U$ and \'etale morphism
+$U \to X$, we conclude that $x \in |X|$ is closed.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-decent-Jacobson}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Then $X$ is Jacobson if and only if $|X|$ is Jacobson.
+\end{lemma}
+
+\begin{proof}
+Assume $X$ is Jacobson and that $T \subset |X|$ is a closed subset.
+By Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-enough-finite-type-points}
+we see that $T \cap X_{\text{ft-pts}}$ is dense in $T$.
+By Lemma \ref{lemma-decent-Jacobson-ft-pts} we see that
+$X_{\text{ft-pts}}$ are the
+closed points of $|X|$. Thus $|X|$ is indeed Jacobson.
+
+\medskip\noindent
+Assume $|X|$ is Jacobson. Let $f : U \to X$ be an \'etale
+morphism with $U$ an affine scheme. We have to show that $U$
+is Jacobson. If $x \in |X|$ is closed,
+then the fibre $F = f^{-1}(\{x\})$ is a finite (by definition of
+decent) closed (by construction of the topology on $|X|$) subset of $U$.
+Since there are no specializations between points of $F$
+(Lemma \ref{lemma-decent-no-specializations-map-to-same-point})
+we conclude that every point of $F$ is closed in $U$.
+If $U$ is not Jacobson, then there exists a non-closed point
+$u \in U$ such that $\{u\}$ is locally closed (Topology, Lemma
+\ref{topology-lemma-non-jacobson-Noetherian-characterize}).
+We will show that $f(u) \in |X|$ is closed; by the above $u$
+is closed in $U$ which is a contradiction and finishes
+the proof. To prove this we may replace $U$ by an affine open
+neighbourhood of $u$.
+Thus we may assume that $\{u\}$ is closed in $U$.
+Let $R = U \times_X U$ with projections $s, t : R \to U$.
+Then $s^{-1}(\{u\}) = \{r_1, \ldots, r_m\}$ is finite (by
+definition of decent spaces). After replacing $U$ by a smaller affine
+open neighbourhood of $u$ we may assume that $t(r_j) = u$ for
+$j = 1, \ldots, m$. It follows that $\{u\}$ is an $R$-invariant
+closed subset of $U$. Hence $\{f(u)\}$ is a locally closed subset
+of $X$ as it is closed in the open $|f|(|U|)$ of $|X|$. Since $|X|$
+is Jacobson we conclude that $f(u)$ is closed in $|X|$ as desired.
+\end{proof}
+
+
+
+
+
+
+\section{Local irreducibility}
+\label{section-irreducible-local-ring}
+
+\noindent
+We have already defined the geometric number of branches of an
+algebraic space at a point in Properties of Spaces, Section
+\ref{spaces-properties-section-irreducible-local-ring}.
+The number of branches of an algebraic space at a point can only
+be defined for decent algebraic spaces.
+
+\begin{lemma}
+\label{lemma-irreducible-local-ring}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Let $x \in |X|$ be a point. The following are equivalent
+\begin{enumerate}
+\item for any elementary \'etale neighbourhood $(U, u) \to (X, x)$
+the local ring $\mathcal{O}_{U, u}$ has a unique minimal prime,
+\item for any elementary \'etale neighbourhood $(U, u) \to (X, x)$
+there is a unique irreducible component of $U$ through $u$,
+\item for any elementary \'etale neighbourhood $(U, u) \to (X, x)$
+the local ring $\mathcal{O}_{U, u}$ is unibranch,
+\item the henselian local ring
+$\mathcal{O}_{X, x}^h$ has a unique minimal prime.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (1) and (2) follows from the fact that irreducible
+components of $U$ passing through $u$ are in $1$-$1$ correspondence with
+minimal primes of the local ring of $U$ at $u$. The ring
+$\mathcal{O}_{X, x}^h$ is the henselization of $\mathcal{O}_{U, u}$, see
+discussion following Definition \ref{definition-henselian-local-ring}.
+In particular (3) and (4) are equivalent by
+More on Algebra, Lemma \ref{more-algebra-lemma-unibranch}.
+The equivalence of (2) and (3) follows from
+More on Morphisms, Lemma \ref{more-morphisms-lemma-nr-branches}.
+\end{proof}
+
+\begin{definition}
+\label{definition-unibranch}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Let $x \in |X|$. We say that $X$ is {\it unibranch at $x$}
+if the equivalent conditions of
+Lemma \ref{lemma-irreducible-local-ring} hold.
+We say that $X$ is {\it unibranch} if $X$ is
+unibranch at every $x \in |X|$.
+\end{definition}
+
+\noindent
+This is consistent with the definition for schemes
+(Properties, Definition \ref{properties-definition-unibranch}).
+
+\begin{lemma}
+\label{lemma-nr-branches-local-ring}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Let $x \in |X|$ be a point. Let $n \in \{1, 2, \ldots\}$ be an integer.
+The following are equivalent
+\begin{enumerate}
+\item for any elementary \'etale neighbourhood $(U, u) \to (X, x)$
+the number of minimal primes of the local ring $\mathcal{O}_{U, u}$
+is $\leq n$ and for at least one choice of $(U, u)$ it is $n$,
+\item for any elementary \'etale neighbourhood $(U, u) \to (X, x)$
+the number irreducible components of $U$ passing through $u$ is $\leq n$
+and for at least one choice of $(U, u)$ it is $n$,
+\item for any elementary \'etale neighbourhood $(U, u) \to (X, x)$
+the number of branches of $U$ at $u$ is $\leq n$
+and for at least one choice of $(U, u)$ it is $n$,
+\item the number of minimal prime ideals of
+$\mathcal{O}_{X, x}^h$ is $n$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (1) and (2) follows from the fact that irreducible
+components of $U$ passing through $u$ are in $1$-$1$ correspondence with
+minimal primes of the local ring of $U$ at $u$.
+The ring $\mathcal{O}_{X, x}$ is the henselization of $\mathcal{O}_{U, u}$, see
+discussion following Definition \ref{definition-henselian-local-ring}.
+In particular (3) and (4) are equivalent by
+More on Algebra, Lemma \ref{more-algebra-lemma-unibranch}.
+The equivalence of (2) and (3) follows from
+More on Morphisms, Lemma \ref{more-morphisms-lemma-nr-branches}.
+\end{proof}
+
+\begin{definition}
+\label{definition-number-of-geometric-branches}
+Let $S$ be a scheme. Let $X$ be a decent algebraic space over $S$.
+Let $x \in |X|$. The {\it number of branches of $X$ at $x$} is
+either $n \in \mathbf{N}$ if the equivalent conditions
+of Lemma \ref{lemma-nr-branches-local-ring}
+hold, or else $\infty$.
+\end{definition}
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

@@ -1,0 +1,4936 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Deformation Theory}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+The goal of this chapter is to give a (relatively) gentle introduction to
+deformation theory of modules, morphisms, etc. In this chapter we deal with
+those results that can be proven using the naive cotangent complex. In
+the chapter on the cotangent complex we will extend these results a little
+bit. The advanced reader may wish to consult the treatise by Illusie on this
+subject, see \cite{cotangent}.
+
+
+
+
+
+\section{Deformations of rings and the naive cotangent complex}
+\label{section-deformations}
+
+\noindent
+In this section we use the naive cotangent complex to do a little bit
+of deformation theory. We start with a surjective ring map $A' \to A$
+whose kernel is an ideal $I$ of square zero. Moreover we assume
+given a ring map $A \to B$, a $B$-module $N$, and an $A$-module map
+$c : I \to N$. In this section we ask ourselves whether we can find
+the question mark fitting into the following diagram
+\begin{equation}
+\label{equation-to-solve}
+\vcenter{
+\xymatrix{
+0 \ar[r] & N \ar[r] & {?} \ar[r] & B \ar[r] & 0 \\
+0 \ar[r] & I \ar[u]^c \ar[r] & A' \ar[u] \ar[r] & A \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+and moreover how unique the solution is (if it exists). More precisely,
+we look for a surjection of $A'$-algebras $B' \to B$ whose kernel is
+identified with $N$ such that $A' \to B'$ induces the given map $c$.
+We will say $B'$ is a {\it solution} to (\ref{equation-to-solve}).
+
+\begin{lemma}
+\label{lemma-huge-diagram}
+Given a commutative diagram
+$$
+\xymatrix{
+& 0 \ar[r] & N_2 \ar[r] & B'_2 \ar[r] & B_2 \ar[r] & 0 \\
+& 0 \ar[r]|\hole & I_2 \ar[u]_{c_2} \ar[r] &
+A'_2 \ar[u] \ar[r]|\hole & A_2 \ar[u] \ar[r] & 0 \\
+0 \ar[r] & N_1 \ar[ruu] \ar[r] & B'_1 \ar[r] & B_1 \ar[ruu] \ar[r] & 0 \\
+0 \ar[r] & I_1 \ar[ruu]|\hole \ar[u]^{c_1} \ar[r] &
+A'_1 \ar[ruu]|\hole \ar[u] \ar[r] & A_1 \ar[ruu]|\hole \ar[u] \ar[r] & 0
+}
+$$
+with front and back solutions to (\ref{equation-to-solve}) we have
+\begin{enumerate}
+\item There exist a canonical element in
+$\Ext^1_{B_1}(\NL_{B_1/A_1}, N_2)$
+whose vanishing is a necessary and sufficient condition for the existence
+of a ring map $B'_1 \to B'_2$ fitting into the diagram.
+\item If there exists a map $B'_1 \to B'_2$ fitting into the diagram
+the set of all such maps is a principal homogeneous space under
+$\Hom_{B_1}(\Omega_{B_1/A_1}, N_2)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $E = B_1$ viewed as a set.
+Consider the surjection $A_1[E] \to B_1$ with kernel $J$ used
+to define the naive cotangent complex by the formula
+$$
+\NL_{B_1/A_1} = (J/J^2 \to \Omega_{A_1[E]/A_1} \otimes_{A_1[E]} B_1)
+$$
+in
+Algebra, Section \ref{algebra-section-netherlander}.
+Since $\Omega_{A_1[E]/A_1} \otimes B_1$ is a free
+$B_1$-module we have
+$$
+\Ext^1_{B_1}(\NL_{B_1/A_1}, N_2) =
+\frac{\Hom_{B_1}(J/J^2, N_2)}
+{\Hom_{B_1}(\Omega_{A_1[E]/A_1} \otimes B_1, N_2)}
+$$
+We will construct an obstruction in the module on the right.
+Let $J' = \Ker(A'_1[E] \to B_1)$. Note that there is a surjection
+$J' \to J$ whose kernel is $I_1A_1[E]$.
+For every $e \in E$ denote $x_e \in A_1[E]$ the corresponding variable.
+Choose a lift $y_e \in B'_1$ of the image of $x_e$ in $B_1$ and
+a lift $z_e \in B'_2$ of the image of $x_e$ in $B_2$.
+These choices determine $A'_1$-algebra maps
+$$
+A'_1[E] \to B'_1 \quad\text{and}\quad A'_1[E] \to B'_2
+$$
+The first of these gives a map $J' \to N_1$, $f' \mapsto f'(y_e)$
+and the second gives a map $J' \to N_2$, $f' \mapsto f'(z_e)$.
+A calculation shows that these maps annihilate $(J')^2$.
+Because the left square of the diagram (involving $c_1$ and $c_2$)
+commutes we see that these maps agree on $I_1A_1[E]$ as maps into $N_2$.
+Observe that $B'_1$ is the pushout of $J' \to A'_1[B_1]$ and $J' \to N_1$. 
+Thus, if the maps $J' \to N_1 \to N_2$ and $J' \to N_2$ agree, then we
+obtain a map $B'_1 \to B'_2$ fitting into the diagram.
+Thus we let the obstruction be the class of the map
+$$
+J/J^2 \to N_2,\quad f \mapsto f'(z_e) - \nu(f'(y_e))
+$$
+where $\nu : N_1 \to N_2$ is the given map and where $f' \in J'$
+is a lift of $f$. This is well defined by our remarks above.
+Note that we have the freedom
+to modify our choices of $z_e$ into $z_e + \delta_{2, e}$
+and $y_e$ into $y_e + \delta_{1, e}$ for some $\delta_{i, e} \in N_i$.
+This will modify the map above into
+$$
+f \mapsto f'(z_e + \delta_{2, e}) - \nu(f'(y_e + \delta_{1, e})) =
+f'(z_e) - \nu(f'(z_e)) +
+\sum (\delta_{2, e} - \nu(\delta_{1, e}))\frac{\partial f}{\partial x_e}
+$$
+This means exactly that we are modifying the map $J/J^2 \to N_2$
+by the composition $J/J^2 \to \Omega_{A_1[E]/A_1} \otimes B_1 \to N_2$
+where the second map sends $\text{d}x_e$ to
+$\delta_{2, e} - \nu(\delta_{1, e})$. Thus our obstruction is well defined
+and is zero if and only if a lift exists.
+
+\medskip\noindent
+Part (2) comes from the observation that given two maps
+$\varphi, \psi : B'_1 \to B'_2$ fitting into the diagram, then
+$\varphi - \psi$ factors through a map $D : B_1 \to N_2$ which
+is an $A_1$-derivation:
+\begin{align*}
+D(fg) & = \varphi(f'g') - \psi(f'g') \\
+& =
+\varphi(f')\varphi(g') - \psi(f')\psi(g') \\
+& =
+(\varphi(f') - \psi(f'))\varphi(g') + \psi(f')(\varphi(g') - \psi(g')) \\
+& =
+gD(f) + fD(g)
+\end{align*}
+Thus $D$ corresponds to a unique $B_1$-linear map
+$\Omega_{B_1/A_1} \to N_2$. Conversely, given such a linear map
+we get a derivation $D$ and given a ring map $\psi : B'_1 \to B'_2$
+fitting into the diagram
+the map $\psi + D$ is another ring map fitting into the diagram.
+\end{proof}
+
+\noindent
+The naive cotangent complex isn't good enough to contain all information
+regarding obstructions to finding solutions to (\ref{equation-to-solve}).
+However, if the ring map is a local complete intersection, then the
+obstruction vanishes. This is a kind of lifting result; observe that
+for syntomic ring maps we have proved a rather strong lifting result in
+Smoothing Ring Maps, Proposition \ref{smoothing-proposition-lift-smooth}.
+
+\begin{lemma}
+\label{lemma-existence-lci}
+If $A \to B$ is a local complete intersection ring map, then
+there exists a solution to (\ref{equation-to-solve}).
+\end{lemma}
+
+\begin{proof}
+Write $B = A[x_1, \ldots, x_n]/J$. Let $J' \subset A'[x_1, \ldots, x_n]$
+be the inverse image of $J$. Denote $I[x_1, \ldots, x_n]$ the
+kernel of $A'[x_1, \ldots, x_n] \to A[x_1, \ldots, x_n]$.
+By More on Algebra, Lemma
+\ref{more-algebra-lemma-conormal-sequence-H1-regular-ideal} we have
+$I[x_1, \ldots, x_n] \cap (J')^2 = J'I[x_1, \ldots, x_n] =
+JI[x_1, \ldots, x_n]$. Hence we obtain a short exact sequence
+$$
+0 \to I \otimes_A B \to J'/(J')^2 \to J/J^2 \to 0
+$$
+Since $J/J^2$ is projective (More on Algebra, Lemma
+\ref{more-algebra-lemma-quasi-regular-ideal-finite-projective})
+we can choose a splitting of this sequence
+$$
+J'/(J')^2 = I \otimes_A B \oplus J/J^2 
+$$
+Let $(J')^2 \subset J'' \subset J'$ be the elements which map to the
+second summand in the decomposition above. Then
+$$
+0 \to I \otimes_A B \to A'[x_1, \ldots, x_n]/J'' \to B \to 0
+$$
+is a solution to (\ref{equation-to-solve}) with $N = I \otimes_A B$.
+The general case is obtained by doing a pushout along the given
+map $I \otimes_A B \to N$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-choices}
+If there exists a solution to (\ref{equation-to-solve}), then the set of
+isomorphism classes of solutions is principal homogeneous under
+$\Ext^1_B(\NL_{B/A}, N)$.
+\end{lemma}
+
+\begin{proof}
+We observe right away that given two solutions $B'_1$ and $B'_2$
+to (\ref{equation-to-solve}) we obtain by Lemma \ref{lemma-huge-diagram} an
+obstruction element $o(B'_1, B'_2) \in \Ext^1_B(\NL_{B/A}, N)$
+to the existence of a map $B'_1 \to B'_2$. Clearly, this element
+is the obstruction to the existence of an isomorphism, hence separates
+the isomorphism classes. To finish the proof it therefore suffices to
+show that given a solution $B'$ and an element
+$\xi \in \Ext^1_B(\NL_{B/A}, N)$
+we can find a second solution $B'_\xi$ such that
+$o(B', B'_\xi) = \xi$.
+
+\medskip\noindent
+Let $E = B$ viewed as a set. Consider the surjection $A[E] \to B$ with kernel
+$J$ used to define the naive cotangent complex by the formula
+$$
+\NL_{B/A} = (J/J^2 \to \Omega_{A[E]/A} \otimes_{A[E]} B)
+$$
+in Algebra, Section \ref{algebra-section-netherlander}.
+Since $\Omega_{A[E]/A} \otimes B$ is a free $B$-module we have
+$$
+\Ext^1_B(\NL_{B/A}, N) =
+\frac{\Hom_B(J/J^2, N)}
+{\Hom_B(\Omega_{A[E]/A} \otimes B, N)}
+$$
+Thus we may represent $\xi$ as the class of a morphism $\delta : J/J^2 \to N$.
+
+\medskip\noindent
+For every $e \in E$ denote $x_e \in A[E]$ the corresponding variable.
+Choose a lift $y_e \in B'$ of the image of $x_e$ in $B$.
+These choices determine an $A'$-algebra map $\varphi : A'[E] \to B'$.
+Let $J' = \Ker(A'[E] \to B)$. Observe that $\varphi$ induces a map
+$\varphi|_{J'} : J' \to N$ and that $B'$ is the pushout, as in the following
+diagram
+$$
+\xymatrix{
+0 \ar[r] & N \ar[r] & B' \ar[r] & B \ar[r] & 0 \\
+0 \ar[r] & J' \ar[u]^{\varphi|_{J'}} \ar[r] & A'[E] \ar[u] \ar[r] &
+B \ar[u]_{=} \ar[r] & 0
+}
+$$
+Let $\psi : J' \to N$ be the sum of the map $\varphi|_{J'}$ and the
+composition
+$$
+J' \to J'/(J')^2 \to J/J^2 \xrightarrow{\delta} N.
+$$
+Then the pushout along $\psi$ is an other ring extension $B'_\xi$
+fitting into a diagram as above. A calculation shows that
+$o(B', B'_\xi) = \xi$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extensions-of-rings}
+Let $A$ be a ring and let $I$ be an $A$-module.
+\begin{enumerate}
+\item The set of extensions of rings $0 \to I \to A' \to A \to 0$
+where $I$ is an ideal of square zero is canonically bijective to
+$\Ext^1_A(\NL_{A/\mathbf{Z}}, I)$.
+\item Given a ring map $A \to B$, a $B$-module $N$, an $A$-module
+map $c : I \to N$, and given extensions of rings with square zero kernels:
+\begin{enumerate}
+\item[(a)] $0 \to I \to A' \to A \to 0$ corresponding to
+$\alpha \in \Ext^1_A(\NL_{A/\mathbf{Z}}, I)$, and
+\item[(b)] $0 \to N \to B' \to B \to 0$ corresponding to
+$\beta \in \Ext^1_B(\NL_{B/\mathbf{Z}}, N)$
+\end{enumerate}
+then there is a map $A' \to B'$ fitting into a diagram
+(\ref{equation-to-solve}) if and only if $\beta$ and $\alpha$
+map to the same element of
+$\Ext^1_A(\NL_{A/\mathbf{Z}}, N)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+To prove this we apply the previous results where we work over
+$0 \to 0 \to \mathbf{Z} \to \mathbf{Z} \to 0$, in order words,
+we work over the extension of $\mathbf{Z}$ by $0$.
+Part (1) follows from Lemma \ref{lemma-choices}
+and the fact that there exists a solution, namely $I \oplus A$.
+Part (2) follows from Lemma \ref{lemma-huge-diagram}
+and a compatibility between the constructions in the proofs
+of Lemmas \ref{lemma-choices} and \ref{lemma-huge-diagram}
+whose statement and proof we omit.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Thickenings of ringed spaces}
+\label{section-thickenings-spaces}
+
+\noindent
+In the following few sections we will use the following notions:
+\begin{enumerate}
+\item A sheaf of ideals $\mathcal{I} \subset \mathcal{O}_{X'}$ on
+a ringed space $(X', \mathcal{O}_{X'})$ is {\it locally nilpotent}
+if any local section of $\mathcal{I}$ is locally nilpotent.
+Compare with Algebra, Item \ref{algebra-item-ideal-locally-nilpotent}.
+\item A {\it thickening} of ringed spaces is a morphism
+$i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$ of ringed spaces
+such that
+\begin{enumerate}
+\item $i$ induces a homeomorphism $X \to X'$,
+\item the map $i^\sharp : \mathcal{O}_{X'} \to i_*\mathcal{O}_X$
+is surjective, and
+\item the kernel of $i^\sharp$ is a locally nilpotent sheaf of ideals.
+\end{enumerate}
+\item A {\it first order thickening} of ringed spaces is a thickening
+$i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$ of ringed spaces
+such that $\Ker(i^\sharp)$ has square zero.
+\item It is clear how to define {\it morphisms of thickenings},
+{\it morphisms of thickenings over a base ringed space}, etc.
+\end{enumerate}
+If $i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$ is a thickening
+of ringed spaces then we identify the underlying topological spaces
+and think of $\mathcal{O}_X$, $\mathcal{O}_{X'}$, and
+$\mathcal{I} = \Ker(i^\sharp)$ as sheaves on $X = X'$. We obtain
+a short exact sequence
+$$
+0 \to \mathcal{I} \to \mathcal{O}_{X'} \to \mathcal{O}_X \to 0
+$$
+of $\mathcal{O}_{X'}$-modules. By
+Modules, Lemma \ref{modules-lemma-i-star-equivalence}
+the category of $\mathcal{O}_X$-modules is equivalent to the category
+of $\mathcal{O}_{X'}$-modules annihilated by $\mathcal{I}$. In particular,
+if $i$ is a first order thickening, then
+$\mathcal{I}$ is a $\mathcal{O}_X$-module.
+
+\begin{situation}
+\label{situation-morphism-thickenings}
+A morphism of thickenings $(f, f')$ is given by a commutative diagram
+\begin{equation}
+\label{equation-morphism-thickenings}
+\vcenter{
+\xymatrix{
+(X, \mathcal{O}_X) \ar[r]_i \ar[d]_f & (X', \mathcal{O}_{X'}) \ar[d]^{f'} \\
+(S, \mathcal{O}_S) \ar[r]^t & (S', \mathcal{O}_{S'})
+}
+}
+\end{equation}
+of ringed spaces whose horizontal arrows are thickenings. In this
+situation we set
+$\mathcal{I} = \Ker(i^\sharp) \subset \mathcal{O}_{X'}$ and
+$\mathcal{J} = \Ker(t^\sharp) \subset \mathcal{O}_{S'}$.
+As $f = f'$ on underlying topological spaces we will identify
+the (topological) pullback functors $f^{-1}$ and $(f')^{-1}$.
+Observe that $(f')^\sharp : f^{-1}\mathcal{O}_{S'} \to \mathcal{O}_{X'}$
+induces in particular a map $f^{-1}\mathcal{J} \to \mathcal{I}$
+and therefore a map of $\mathcal{O}_{X'}$-modules
+$$
+(f')^*\mathcal{J} \longrightarrow \mathcal{I}
+$$
+If $i$ and $t$ are first order thickenings, then
+$(f')^*\mathcal{J} = f^*\mathcal{J}$ and the map above becomes a
+map $f^*\mathcal{J} \to \mathcal{I}$.
+\end{situation}
+
+\begin{definition}
+\label{definition-strict-morphism-thickenings}
+In Situation \ref{situation-morphism-thickenings} we say that $(f, f')$ is a
+{\it strict morphism of thickenings}
+if the map $(f')^*\mathcal{J} \longrightarrow \mathcal{I}$ is surjective.
+\end{definition}
+
+\noindent
+The following lemma in particular shows that a morphism
+$(f, f') : (X \subset X') \to (S \subset S')$ of
+thickenings of schemes is strict if and only if $X = S \times_{S'} X'$.
+
+\begin{lemma}
+\label{lemma-strict-morphism-thickenings}
+In Situation \ref{situation-morphism-thickenings} the morphism $(f, f')$
+is a strict morphism of thickenings if and only if
+(\ref{equation-morphism-thickenings}) is cartesian in the category
+of ringed spaces.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+
+
+
+\section{Modules on first order thickenings of ringed spaces}
+\label{section-modules-thickenings}
+
+\noindent
+In this section we discuss some preliminaries to the deformation theory
+of modules. Let $i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$
+be a first order thickening of ringed spaces. We will freely use the notation
+introduced in Section \ref{section-thickenings-spaces}, in particular we will
+identify the underlying topological spaces.
+In this section we consider short exact sequences
+\begin{equation}
+\label{equation-extension}
+0 \to \mathcal{K} \to \mathcal{F}' \to \mathcal{F} \to 0
+\end{equation}
+of $\mathcal{O}_{X'}$-modules, where $\mathcal{F}$, $\mathcal{K}$ are
+$\mathcal{O}_X$-modules and $\mathcal{F}'$ is an $\mathcal{O}_{X'}$-module.
+In this situation we have a canonical $\mathcal{O}_X$-module map
+$$
+c_{\mathcal{F}'} :
+\mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F}
+\longrightarrow
+\mathcal{K}
+$$
+where $\mathcal{I} = \Ker(i^\sharp)$.
+Namely, given local sections $f$ of $\mathcal{I}$ and $s$
+of $\mathcal{F}$ we set $c_{\mathcal{F}'}(f \otimes s) = fs'$
+where $s'$ is a local section of $\mathcal{F}'$ lifting $s$.
+
+\begin{lemma}
+\label{lemma-inf-map}
+Let $i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$
+be a first order thickening of ringed spaces. Assume given
+extensions
+$$
+0 \to \mathcal{K} \to \mathcal{F}' \to \mathcal{F} \to 0
+\quad\text{and}\quad
+0 \to \mathcal{L} \to \mathcal{G}' \to \mathcal{G} \to 0
+$$
+as in (\ref{equation-extension})
+and maps $\varphi : \mathcal{F} \to \mathcal{G}$ and
+$\psi : \mathcal{K} \to \mathcal{L}$.
+\begin{enumerate}
+\item If there exists an $\mathcal{O}_{X'}$-module
+map $\varphi' : \mathcal{F}' \to \mathcal{G}'$ compatible with $\varphi$
+and $\psi$, then the diagram
+$$
+\xymatrix{
+\mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F}
+\ar[r]_-{c_{\mathcal{F}'}} \ar[d]_{1 \otimes \varphi} &
+\mathcal{K} \ar[d]^\psi \\
+\mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{G}
+\ar[r]^-{c_{\mathcal{G}'}} &
+\mathcal{L}
+}
+$$
+is commutative.
+\item The set of $\mathcal{O}_{X'}$-module
+maps $\varphi' : \mathcal{F}' \to \mathcal{G}'$ compatible with $\varphi$
+and $\psi$ is, if nonempty, a principal homogeneous space under
+$\Hom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{L})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) is immediate from the description of the maps.
+For (2), if $\varphi'$ and $\varphi''$ are two maps
+$\mathcal{F}' \to \mathcal{G}'$ compatible with $\varphi$
+and $\psi$, then $\varphi' - \varphi''$ factors as
+$$
+\mathcal{F}' \to \mathcal{F} \to \mathcal{L} \to \mathcal{G}'
+$$
+The map in the middle comes from a unique element of
+$\Hom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{L})$ by
+Modules, Lemma \ref{modules-lemma-i-star-equivalence}.
+Conversely, given an element $\alpha$ of this group we can add the
+composition (as displayed above with $\alpha$ in the middle)
+to $\varphi'$. Some details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-obs-map}
+Let $i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$
+be a first order thickening of ringed spaces. Assume given
+extensions
+$$
+0 \to \mathcal{K} \to \mathcal{F}' \to \mathcal{F} \to 0
+\quad\text{and}\quad
+0 \to \mathcal{L} \to \mathcal{G}' \to \mathcal{G} \to 0
+$$
+as in (\ref{equation-extension})
+and maps $\varphi : \mathcal{F} \to \mathcal{G}$ and
+$\psi : \mathcal{K} \to \mathcal{L}$. Assume the diagram
+$$
+\xymatrix{
+\mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F}
+\ar[r]_-{c_{\mathcal{F}'}} \ar[d]_{1 \otimes \varphi} &
+\mathcal{K} \ar[d]^\psi \\
+\mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{G}
+\ar[r]^-{c_{\mathcal{G}'}} &
+\mathcal{L}
+}
+$$
+is commutative. Then there exists an element
+$$
+o(\varphi, \psi) \in
+\Ext^1_{\mathcal{O}_X}(\mathcal{F}, \mathcal{L})
+$$
+whose vanishing is a necessary and sufficient condition for the existence
+of a map $\varphi' : \mathcal{F}' \to \mathcal{G}'$ compatible with
+$\varphi$ and $\psi$.
+\end{lemma}
+
+\begin{proof}
+We can construct explicitly an extension
+$$
+0 \to \mathcal{L} \to \mathcal{H} \to \mathcal{F} \to 0
+$$
+by taking $\mathcal{H}$ to be the cohomology of the complex
+$$
+\mathcal{K}
+\xrightarrow{1, - \psi}
+\mathcal{F}' \oplus \mathcal{G}' \xrightarrow{\varphi, 1}
+\mathcal{G}
+$$
+in the middle (with obvious notation). A calculation with local sections
+using the assumption that the diagram of the lemma commutes
+shows that $\mathcal{H}$ is annihilated by $\mathcal{I}$. Hence
+$\mathcal{H}$ defines a class in
+$$
+\Ext^1_{\mathcal{O}_X}(\mathcal{F}, \mathcal{L})
+\subset
+\Ext^1_{\mathcal{O}_{X'}}(\mathcal{F}, \mathcal{L})
+$$
+Finally, the class of $\mathcal{H}$ is the difference of the pushout
+of the extension $\mathcal{F}'$ via $\psi$ and the pullback
+of the extension $\mathcal{G}'$ via $\varphi$ (calculations omitted).
+Thus the vanishing of the class of $\mathcal{H}$ is equivalent to the
+existence of a commutative diagram
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{K} \ar[r] \ar[d]_{\psi} &
+\mathcal{F}' \ar[r] \ar[d]_{\varphi'} &
+\mathcal{F} \ar[r] \ar[d]_\varphi & 0\\
+0 \ar[r] &
+\mathcal{L} \ar[r] &
+\mathcal{G}' \ar[r] &
+\mathcal{G} \ar[r] & 0
+}
+$$
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-ext}
+Let $i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$ be a first order
+thickening of ringed spaces.
+Assume given $\mathcal{O}_X$-modules $\mathcal{F}$, $\mathcal{K}$
+and an $\mathcal{O}_X$-linear map
+$c : \mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F} \to \mathcal{K}$.
+If there exists a sequence (\ref{equation-extension}) with
+$c_{\mathcal{F}'} = c$ then the set of isomorphism classes of these
+extensions is principal homogeneous under
+$\Ext^1_{\mathcal{O}_X}(\mathcal{F}, \mathcal{K})$.
+\end{lemma}
+
+\begin{proof}
+Assume given extensions
+$$
+0 \to \mathcal{K} \to \mathcal{F}'_1 \to \mathcal{F} \to 0
+\quad\text{and}\quad
+0 \to \mathcal{K} \to \mathcal{F}'_2 \to \mathcal{F} \to 0
+$$
+with $c_{\mathcal{F}'_1} = c_{\mathcal{F}'_2} = c$. Then the difference
+(in the extension group, see
+Homology, Section \ref{homology-section-extensions})
+is an extension
+$$
+0 \to \mathcal{K} \to \mathcal{E} \to \mathcal{F} \to 0
+$$
+where $\mathcal{E}$ is annihilated by $\mathcal{I}$ (local computation
+omitted). Hence the sequence is an extension of $\mathcal{O}_X$-modules,
+see Modules, Lemma \ref{modules-lemma-i-star-equivalence}.
+Conversely, given such an extension $\mathcal{E}$ we can add the extension
+$\mathcal{E}$ to the $\mathcal{O}_{X'}$-extension $\mathcal{F}'$ without
+affecting the map $c_{\mathcal{F}'}$. Some details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-obs-ext}
+Let $i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$
+be a first order thickening of ringed spaces. Assume given
+$\mathcal{O}_X$-modules $\mathcal{F}$, $\mathcal{K}$
+and an $\mathcal{O}_X$-linear map
+$c : \mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F} \to \mathcal{K}$.
+Then there exists an element
+$$
+o(\mathcal{F}, \mathcal{K}, c) \in
+\Ext^2_{\mathcal{O}_X}(\mathcal{F}, \mathcal{K})
+$$
+whose vanishing is a necessary and sufficient condition for the existence
+of a sequence (\ref{equation-extension}) with $c_{\mathcal{F}'} = c$.
+\end{lemma}
+
+\begin{proof}
+We first show that if $\mathcal{K}$ is an injective $\mathcal{O}_X$-module,
+then there does exist a sequence (\ref{equation-extension}) with
+$c_{\mathcal{F}'} = c$. To do this, choose a flat
+$\mathcal{O}_{X'}$-module $\mathcal{H}'$ and a surjection
+$\mathcal{H}' \to \mathcal{F}$
+(Modules, Lemma \ref{modules-lemma-module-quotient-flat}).
+Let $\mathcal{J} \subset \mathcal{H}'$ be the kernel. Since $\mathcal{H}'$
+is flat we have
+$$
+\mathcal{I} \otimes_{\mathcal{O}_{X'}} \mathcal{H}' =
+\mathcal{I}\mathcal{H}'
+\subset \mathcal{J} \subset \mathcal{H}'
+$$
+Observe that the map
+$$
+\mathcal{I}\mathcal{H}' =
+\mathcal{I} \otimes_{\mathcal{O}_{X'}} \mathcal{H}'
+\longrightarrow
+\mathcal{I} \otimes_{\mathcal{O}_{X'}} \mathcal{F} =
+\mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F}
+$$
+annihilates $\mathcal{I}\mathcal{J}$. Namely, if $f$ is a local section
+of $\mathcal{I}$ and $s$ is a local section of $\mathcal{H}$, then
+$fs$ is mapped to $f \otimes \overline{s}$ where $\overline{s}$ is
+the image of $s$ in $\mathcal{F}$. Thus we obtain
+$$
+\xymatrix{
+\mathcal{I}\mathcal{H}'/\mathcal{I}\mathcal{J}
+\ar@{^{(}->}[r] \ar[d] &
+\mathcal{J}/\mathcal{I}\mathcal{J} \ar@{..>}[d]_\gamma \\
+\mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F} \ar[r]^-c &
+\mathcal{K}
+}
+$$
+a diagram of $\mathcal{O}_X$-modules. If $\mathcal{K}$ is injective
+as an $\mathcal{O}_X$-module, then we obtain the dotted arrow.
+Denote $\gamma' : \mathcal{J} \to \mathcal{K}$ the composition
+of $\gamma$ with $\mathcal{J} \to \mathcal{J}/\mathcal{I}\mathcal{J}$.
+A local calculation shows the pushout
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{J} \ar[r] \ar[d]_{\gamma'} &
+\mathcal{H}' \ar[r] \ar[d] &
+\mathcal{F} \ar[r] \ar@{=}[d] &
+0 \\
+0 \ar[r] &
+\mathcal{K} \ar[r] &
+\mathcal{F}' \ar[r] &
+\mathcal{F} \ar[r] &
+0
+}
+$$
+is a solution to the problem posed by the lemma.
+
+\medskip\noindent
+General case. Choose an embedding $\mathcal{K} \subset \mathcal{K}'$
+with $\mathcal{K}'$ an injective $\mathcal{O}_X$-module. Let $\mathcal{Q}$
+be the quotient, so that we have an exact sequence
+$$
+0 \to \mathcal{K} \to \mathcal{K}' \to \mathcal{Q} \to 0
+$$
+Denote
+$c' : \mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F} \to \mathcal{K}'$
+be the composition. By the paragraph above there exists a sequence
+$$
+0 \to \mathcal{K}' \to \mathcal{E}' \to \mathcal{F} \to 0
+$$
+as in (\ref{equation-extension}) with $c_{\mathcal{E}'} = c'$.
+Note that $c'$ composed with the map $\mathcal{K}' \to \mathcal{Q}$
+is zero, hence the pushout of $\mathcal{E}'$ by
+$\mathcal{K}' \to \mathcal{Q}$ is an extension
+$$
+0 \to \mathcal{Q} \to \mathcal{D}' \to \mathcal{F} \to 0
+$$
+as in (\ref{equation-extension}) with $c_{\mathcal{D}'} = 0$.
+This means exactly that $\mathcal{D}'$ is annihilated by
+$\mathcal{I}$, in other words, the $\mathcal{D}'$ is an extension
+of $\mathcal{O}_X$-modules, i.e., defines an element
+$$
+o(\mathcal{F}, \mathcal{K}, c) \in
+\Ext^1_{\mathcal{O}_X}(\mathcal{F}, \mathcal{Q}) =
+\Ext^2_{\mathcal{O}_X}(\mathcal{F}, \mathcal{K})
+$$
+(the equality holds by the long exact cohomology sequence associated
+to the exact sequence above and the vanishing of higher ext groups
+into the injective module $\mathcal{K}'$). If
+$o(\mathcal{F}, \mathcal{K}, c) = 0$, then we can choose a splitting
+$s : \mathcal{F} \to \mathcal{D}'$ and we can set
+$$
+\mathcal{F}' = \Ker(\mathcal{E}' \to \mathcal{D}'/s(\mathcal{F}))
+$$
+so that we obtain the following diagram
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{K} \ar[r] \ar[d] &
+\mathcal{F}' \ar[r] \ar[d] &
+\mathcal{F} \ar[r] \ar@{=}[d] &
+0 \\
+0 \ar[r] &
+\mathcal{K}' \ar[r] &
+\mathcal{E}' \ar[r] &
+\mathcal{F} \ar[r] & 0
+}
+$$
+with exact rows which shows that $c_{\mathcal{F}'} = c$. Conversely, if
+$\mathcal{F}'$ exists, then the pushout of $\mathcal{F}'$ by the map
+$\mathcal{K} \to \mathcal{K}'$ is isomorphic to $\mathcal{E}'$ by
+Lemma \ref{lemma-inf-ext} and the vanishing of higher ext groups
+into the injective module $\mathcal{K}'$. This gives a diagram
+as above, which implies that $\mathcal{D}'$ is split as an extension, i.e.,
+the class $o(\mathcal{F}, \mathcal{K}, c)$ is zero.
+\end{proof}
+
+\begin{remark}
+\label{remark-trivial-thickening}
+Let $(X, \mathcal{O}_X)$ be a ringed space. A first order thickening
+$i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$ is said
+to be {\it trivial} if there exists a morphism of ringed spaces
+$\pi : (X', \mathcal{O}_{X'}) \to (X, \mathcal{O}_X)$ which is a
+left inverse to $i$. The choice of such a morphism
+$\pi$ is called a {\it trivialization} of the first order thickening.
+Given $\pi$ we obtain a splitting
+\begin{equation}
+\label{equation-splitting}
+\mathcal{O}_{X'} = \mathcal{O}_X \oplus \mathcal{I}
+\end{equation}
+as sheaves of algebras on $X$ by using $\pi^\sharp$ to split the surjection
+$\mathcal{O}_{X'} \to \mathcal{O}_X$. Conversely, such a splitting determines
+a morphism $\pi$. The category of trivialized first order thickenings of
+$(X, \mathcal{O}_X)$ is equivalent to the category of 
+$\mathcal{O}_X$-modules.
+\end{remark}
+
+\begin{remark}
+\label{remark-trivial-extension}
+Let $i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$
+be a trivial first order thickening of ringed spaces
+and let $\pi : (X', \mathcal{O}_{X'}) \to (X, \mathcal{O}_X)$
+be a trivialization. Then given any triple
+$(\mathcal{F}, \mathcal{K}, c)$ consisting of a pair of
+$\mathcal{O}_X$-modules and a map
+$c : \mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F} \to \mathcal{K}$
+we may set
+$$
+\mathcal{F}'_{c, triv} = \mathcal{F} \oplus \mathcal{K}
+$$
+and use the splitting (\ref{equation-splitting}) associated to $\pi$
+and the map $c$ to define the $\mathcal{O}_{X'}$-module structure
+and obtain an extension (\ref{equation-extension}). We will call
+$\mathcal{F}'_{c, triv}$ the {\it trivial extension} of $\mathcal{F}$
+by $\mathcal{K}$ corresponding
+to $c$ and the trivialization $\pi$. Given any extension
+$\mathcal{F}'$ as in (\ref{equation-extension}) we can use
+$\pi^\sharp : \mathcal{O}_X \to \mathcal{O}_{X'}$ to think of $\mathcal{F}'$
+as an $\mathcal{O}_X$-module extension, hence a class $\xi_{\mathcal{F}'}$
+in $\Ext^1_{\mathcal{O}_X}(\mathcal{F}, \mathcal{K})$.
+Lemma \ref{lemma-inf-ext} assures that
+$\mathcal{F}' \mapsto \xi_{\mathcal{F}'}$
+induces a bijection
+$$
+\left\{
+\begin{matrix}
+\text{isomorphism classes of extensions}\\
+\mathcal{F}'\text{ as in (\ref{equation-extension}) with }c = c_{\mathcal{F}'}
+\end{matrix}
+\right\}
+\longrightarrow
+\Ext^1_{\mathcal{O}_X}(\mathcal{F}, \mathcal{K})
+$$
+Moreover, the trivial extension $\mathcal{F}'_{c, triv}$ maps to the zero class.
+\end{remark}
+
+\begin{remark}
+\label{remark-extension-functorial}
+Let $(X, \mathcal{O}_X)$ be a ringed space. Let
+$(X, \mathcal{O}_X) \to (X'_i, \mathcal{O}_{X'_i})$, $i = 1, 2$
+be first order thickenings with ideal sheaves $\mathcal{I}_i$.
+Let $h : (X'_1, \mathcal{O}_{X'_1}) \to (X'_2, \mathcal{O}_{X'_2})$
+be a morphism of first order thickenings of $(X, \mathcal{O}_X)$.
+Picture
+$$
+\xymatrix{
+& (X, \mathcal{O}_X) \ar[ld] \ar[rd] & \\
+(X'_1, \mathcal{O}_{X'_1}) \ar[rr]^h & & 
+(X'_2, \mathcal{O}_{X'_2})
+}
+$$
+Observe that $h^\sharp : \mathcal{O}_{X'_2} \to \mathcal{O}_{X'_1}$
+in particular induces an $\mathcal{O}_X$-module map
+$\mathcal{I}_2 \to \mathcal{I}_1$.
+Let $\mathcal{F}$ be an
+$\mathcal{O}_X$-module. Let $(\mathcal{K}_i, c_i)$, $i = 1, 2$ be a pair
+consisting of an $\mathcal{O}_X$-module $\mathcal{K}_i$ and a map
+$c_i : \mathcal{I}_i \otimes_{\mathcal{O}_X} \mathcal{F} \to
+\mathcal{K}_i$. Assume furthermore given a map
+of $\mathcal{O}_X$-modules $\mathcal{K}_2 \to \mathcal{K}_1$
+such that
+$$
+\xymatrix{
+\mathcal{I}_2 \otimes_{\mathcal{O}_X} \mathcal{F}
+\ar[r]_-{c_2} \ar[d] &
+\mathcal{K}_2 \ar[d] \\
+\mathcal{I}_1 \otimes_{\mathcal{O}_X} \mathcal{F}
+\ar[r]^-{c_1} &
+\mathcal{K}_1
+}
+$$
+is commutative. Then there is a canonical functoriality
+$$
+\left\{
+\begin{matrix}
+\mathcal{F}'_2\text{ as in (\ref{equation-extension}) with }\\
+c_2 = c_{\mathcal{F}'_2}\text{ and }\mathcal{K} = \mathcal{K}_2
+\end{matrix}
+\right\}
+\longrightarrow
+\left\{
+\begin{matrix}
+\mathcal{F}'_1\text{ as in (\ref{equation-extension}) with }\\
+c_1 = c_{\mathcal{F}'_1}\text{ and }\mathcal{K} = \mathcal{K}_1
+\end{matrix}
+\right\}
+$$
+Namely, thinking of all sheaves $\mathcal{O}_X$, $\mathcal{O}_{X'_i}$,
+$\mathcal{F}$, $\mathcal{K}_i$, etc as sheaves on $X$, we set
+given $\mathcal{F}'_2$ the sheaf $\mathcal{F}'_1$ equal to the
+pushout, i.e., fitting into the following diagram of extensions
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{K}_2 \ar[r] \ar[d] &
+\mathcal{F}'_2 \ar[r] \ar[d] &
+\mathcal{F} \ar@{=}[d] \ar[r] & 0 \\
+0 \ar[r] &
+\mathcal{K}_1 \ar[r] &
+\mathcal{F}'_1 \ar[r] &
+\mathcal{F} \ar[r] & 0
+}
+$$
+We omit the construction of the $\mathcal{O}_{X'_1}$-module structure
+on the pushout (this uses the commutativity of the diagram
+involving $c_1$ and $c_2$).
+\end{remark}
+
+\begin{remark}
+\label{remark-trivial-extension-functorial}
+Let $(X, \mathcal{O}_X)$, $(X, \mathcal{O}_X) \to (X'_i, \mathcal{O}_{X'_i})$,
+$\mathcal{I}_i$, and
+$h : (X'_1, \mathcal{O}_{X'_1}) \to (X'_2, \mathcal{O}_{X'_2})$
+be as in Remark \ref{remark-extension-functorial}. Assume that we are
+given given trivializations $\pi_i : X'_i \to X$ such that
+$\pi_1 = h \circ \pi_2$. In other words, assume $h$ is a morphism
+of trivialized first order thickening of $(X, \mathcal{O}_X)$. Let
+$(\mathcal{K}_i, c_i)$, $i = 1, 2$ be a pair consisting of an
+$\mathcal{O}_X$-module $\mathcal{K}_i$ and a map
+$c_i : \mathcal{I}_i \otimes_{\mathcal{O}_X} \mathcal{F} \to
+\mathcal{K}_i$. Assume furthermore given a map
+of $\mathcal{O}_X$-modules $\mathcal{K}_2 \to \mathcal{K}_1$
+such that
+$$
+\xymatrix{
+\mathcal{I}_2 \otimes_{\mathcal{O}_X} \mathcal{F}
+\ar[r]_-{c_2} \ar[d] &
+\mathcal{K}_2 \ar[d] \\
+\mathcal{I}_1 \otimes_{\mathcal{O}_X} \mathcal{F}
+\ar[r]^-{c_1} &
+\mathcal{K}_1
+}
+$$
+is commutative. In this situation the construction of
+Remark \ref{remark-trivial-extension} induces
+a commutative diagram
+$$
+\xymatrix{
+\{\mathcal{F}'_2\text{ as in (\ref{equation-extension}) with }
+c_2 = c_{\mathcal{F}'_2}\text{ and }\mathcal{K} = \mathcal{K}_2\}
+\ar[d] \ar[rr] & &
+\Ext^1_{\mathcal{O}_X}(\mathcal{F}, \mathcal{K}_2) \ar[d] \\
+\{\mathcal{F}'_1\text{ as in (\ref{equation-extension}) with }
+c_1 = c_{\mathcal{F}'_1}\text{ and }\mathcal{K} = \mathcal{K}_1\}
+\ar[rr] & &
+\Ext^1_{\mathcal{O}_X}(\mathcal{F}, \mathcal{K}_1)
+}
+$$
+where the vertical map on the right is given by functoriality of $\Ext$
+and the map $\mathcal{K}_2 \to \mathcal{K}_1$ and the vertical map on the left
+is the one from Remark \ref{remark-extension-functorial}.
+\end{remark}
+
+\begin{remark}
+\label{remark-short-exact-sequence-thickenings}
+Let $(X, \mathcal{O}_X)$ be a ringed space. We define a sequence of morphisms
+of first order thickenings
+$$
+(X'_1, \mathcal{O}_{X'_1}) \to
+(X'_2, \mathcal{O}_{X'_2}) \to
+(X'_3, \mathcal{O}_{X'_3})
+$$
+of $(X, \mathcal{O}_X)$ to be a {\it complex}
+if the corresponding maps between
+the ideal sheaves $\mathcal{I}_i$
+give a complex of $\mathcal{O}_X$-modules
+$\mathcal{I}_3 \to \mathcal{I}_2 \to \mathcal{I}_1$
+(i.e., the composition is zero). In this case the composition
+$(X'_1, \mathcal{O}_{X'_1}) \to (X_3', \mathcal{O}_{X'_3})$ factors through
+$(X, \mathcal{O}_X) \to (X'_3, \mathcal{O}_{X'_3})$, i.e.,
+the first order thickening $(X'_1, \mathcal{O}_{X'_1})$ of
+$(X, \mathcal{O}_X)$ is trivial and comes with
+a canonical trivialization
+$\pi : (X'_1, \mathcal{O}_{X'_1}) \to (X, \mathcal{O}_X)$.
+
+\medskip\noindent
+We say a sequence of morphisms of first order thickenings
+$$
+(X'_1, \mathcal{O}_{X'_1}) \to
+(X'_2, \mathcal{O}_{X'_2}) \to
+(X'_3, \mathcal{O}_{X'_3})
+$$
+of $(X, \mathcal{O}_X)$ is {\it a short exact sequence} if the
+corresponding maps between ideal sheaves is a short exact sequence
+$$
+0 \to \mathcal{I}_3 \to \mathcal{I}_2 \to \mathcal{I}_1 \to 0
+$$
+of $\mathcal{O}_X$-modules.
+\end{remark}
+
+\begin{remark}
+\label{remark-complex-thickenings-and-ses-modules}
+Let $(X, \mathcal{O}_X)$ be a ringed space. Let $\mathcal{F}$ be an
+$\mathcal{O}_X$-module. Let
+$$
+(X'_1, \mathcal{O}_{X'_1}) \to
+(X'_2, \mathcal{O}_{X'_2}) \to
+(X'_3, \mathcal{O}_{X'_3})
+$$
+be a complex first order thickenings of $(X, \mathcal{O}_X)$, see
+Remark \ref{remark-short-exact-sequence-thickenings}.
+Let $(\mathcal{K}_i, c_i)$, $i = 1, 2, 3$ be pairs consisting of
+an $\mathcal{O}_X$-module $\mathcal{K}_i$ and a map
+$c_i : \mathcal{I}_i \otimes_{\mathcal{O}_X} \mathcal{F} \to
+\mathcal{K}_i$. Assume given a short exact sequence
+of $\mathcal{O}_X$-modules
+$$
+0 \to \mathcal{K}_3 \to \mathcal{K}_2 \to \mathcal{K}_1 \to 0
+$$
+such that
+$$
+\vcenter{
+\xymatrix{
+\mathcal{I}_2 \otimes_{\mathcal{O}_X} \mathcal{F}
+\ar[r]_-{c_2} \ar[d] &
+\mathcal{K}_2 \ar[d] \\
+\mathcal{I}_1 \otimes_{\mathcal{O}_X} \mathcal{F}
+\ar[r]^-{c_1} &
+\mathcal{K}_1
+}
+}
+\quad\text{and}\quad
+\vcenter{
+\xymatrix{
+\mathcal{I}_3 \otimes_{\mathcal{O}_X} \mathcal{F}
+\ar[r]_-{c_3} \ar[d] &
+\mathcal{K}_3 \ar[d] \\
+\mathcal{I}_2 \otimes_{\mathcal{O}_X} \mathcal{F}
+\ar[r]^-{c_2} &
+\mathcal{K}_2
+}
+}
+$$
+are commutative. Finally, assume given an extension
+$$
+0 \to \mathcal{K}_2 \to \mathcal{F}'_2 \to \mathcal{F} \to 0
+$$
+as in (\ref{equation-extension}) with $\mathcal{K} = \mathcal{K}_2$
+of $\mathcal{O}_{X'_2}$-modules with $c_{\mathcal{F}'_2} = c_2$.
+In this situation we can apply the functoriality of
+Remark \ref{remark-extension-functorial} to obtain an extension
+$\mathcal{F}'_1$ on $X'_1$ (we'll describe $\mathcal{F}'_1$
+in this special case below). By
+Remark \ref{remark-trivial-extension}
+using the canonical splitting
+$\pi : (X'_1, \mathcal{O}_{X'_1}) \to (X, \mathcal{O}_X)$ of
+Remark \ref{remark-short-exact-sequence-thickenings}
+we obtain
+$\xi_{\mathcal{F}'_1} \in
+\Ext^1_{\mathcal{O}_X}(\mathcal{F}, \mathcal{K}_1)$.
+Finally, we have the obstruction
+$$
+o(\mathcal{F}, \mathcal{K}_3, c_3) \in
+\Ext^2_{\mathcal{O}_X}(\mathcal{F}, \mathcal{K}_3)
+$$
+see Lemma \ref{lemma-inf-obs-ext}.
+In this situation we {\bf claim} that the canonical map
+$$
+\partial :
+\Ext^1_{\mathcal{O}_X}(\mathcal{F}, \mathcal{K}_1)
+\longrightarrow
+\Ext^2_{\mathcal{O}_X}(\mathcal{F}, \mathcal{K}_3)
+$$
+coming from the short exact sequence
+$0 \to \mathcal{K}_3 \to \mathcal{K}_2 \to \mathcal{K}_1 \to 0$
+sends $\xi_{\mathcal{F}'_1}$
+to the obstruction class $o(\mathcal{F}, \mathcal{K}_3, c_3)$.
+
+\medskip\noindent
+To prove this claim choose an embedding $j : \mathcal{K}_3 \to \mathcal{K}$
+where $\mathcal{K}$ is an injective $\mathcal{O}_X$-module.
+We can lift $j$ to a map $j' : \mathcal{K}_2 \to \mathcal{K}$.
+Set $\mathcal{E}'_2 = j'_*\mathcal{F}'_2$ equal to the pushout
+of $\mathcal{F}'_2$ by $j'$ so that $c_{\mathcal{E}'_2} = j' \circ c_2$.
+Picture:
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{K}_2 \ar[r] \ar[d]_{j'} &
+\mathcal{F}'_2 \ar[r] \ar[d] &
+\mathcal{F} \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+\mathcal{K} \ar[r] &
+\mathcal{E}'_2 \ar[r] &
+\mathcal{F} \ar[r] & 0
+}
+$$
+Set $\mathcal{E}'_3 = \mathcal{E}'_2$ but viewed as an
+$\mathcal{O}_{X'_3}$-module via $\mathcal{O}_{X'_3} \to \mathcal{O}_{X'_2}$.
+Then $c_{\mathcal{E}'_3} = j \circ c_3$.
+The proof of Lemma \ref{lemma-inf-obs-ext} constructs
+$o(\mathcal{F}, \mathcal{K}_3, c_3)$
+as the boundary of the class of the extension of $\mathcal{O}_X$-modules
+$$
+0 \to
+\mathcal{K}/\mathcal{K}_3 \to
+\mathcal{E}'_3/\mathcal{K}_3 \to
+\mathcal{F} \to 0
+$$
+On the other hand, note that $\mathcal{F}'_1 = \mathcal{F}'_2/\mathcal{K}_3$
+hence the class $\xi_{\mathcal{F}'_1}$ is the class
+of the extension
+$$
+0 \to \mathcal{K}_2/\mathcal{K}_3 \to \mathcal{F}'_2/\mathcal{K}_3
+\to \mathcal{F} \to 0
+$$
+seen as a sequence of $\mathcal{O}_X$-modules using $\pi^\sharp$
+where $\pi : (X'_1, \mathcal{O}_{X'_1}) \to (X, \mathcal{O}_X)$
+is the canonical splitting.
+Thus finally, the claim follows from the fact that we have
+a commutative diagram
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{K}_2/\mathcal{K}_3 \ar[r] \ar[d] &
+\mathcal{F}'_2/\mathcal{K}_3 \ar[r] \ar[d] &
+\mathcal{F} \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+\mathcal{K}/\mathcal{K}_3 \ar[r] &
+\mathcal{E}'_3/\mathcal{K}_3 \ar[r] &
+\mathcal{F} \ar[r] & 0
+}
+$$
+which is $\mathcal{O}_X$-linear (with the $\mathcal{O}_X$-module
+structures given above).
+\end{remark}
+
+
+
+
+
+
+
+
+\section{Infinitesimal deformations of modules on ringed spaces}
+\label{section-deformation-modules}
+
+\noindent
+Let $i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$ be a first
+order thickening of ringed spaces. We freely use the notation introduced in
+Section \ref{section-thickenings-spaces}.
+Let $\mathcal{F}'$ be an $\mathcal{O}_{X'}$-module
+and set $\mathcal{F} = i^*\mathcal{F}'$.
+In this situation we have a short exact sequence
+$$
+0 \to \mathcal{I}\mathcal{F}' \to \mathcal{F}' \to \mathcal{F} \to 0
+$$
+of $\mathcal{O}_{X'}$-modules. Since $\mathcal{I}^2 = 0$ the
+$\mathcal{O}_{X'}$-module structure on $\mathcal{I}\mathcal{F}'$
+comes from a unique $\mathcal{O}_X$-module structure.
+Thus the sequence above is an extension as in (\ref{equation-extension}).
+As a special case, if $\mathcal{F}' = \mathcal{O}_{X'}$ we have
+$i^*\mathcal{O}_{X'} = \mathcal{O}_X$ and
+$\mathcal{I}\mathcal{O}_{X'} = \mathcal{I}$ and we recover the
+sequence of structure sheaves
+$$
+0 \to \mathcal{I} \to \mathcal{O}_{X'} \to \mathcal{O}_X \to 0
+$$
+
+\begin{lemma}
+\label{lemma-inf-map-special}
+Let $i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$
+be a first order thickening of ringed spaces.
+Let $\mathcal{F}'$, $\mathcal{G}'$ be $\mathcal{O}_{X'}$-modules.
+Set $\mathcal{F} = i^*\mathcal{F}'$ and $\mathcal{G} = i^*\mathcal{G}'$.
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be an $\mathcal{O}_X$-linear map.
+The set of lifts of $\varphi$ to an $\mathcal{O}_{X'}$-linear map
+$\varphi' : \mathcal{F}' \to \mathcal{G}'$ is, if nonempty, a principal
+homogeneous space under
+$\Hom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{I}\mathcal{G}')$.
+\end{lemma}
+
+\begin{proof}
+This is a special case of Lemma \ref{lemma-inf-map} but we also
+give a direct proof. We have short exact sequences of modules
+$$
+0 \to \mathcal{I} \to \mathcal{O}_{X'} \to \mathcal{O}_X \to 0
+\quad\text{and}\quad
+0 \to \mathcal{I}\mathcal{G}' \to \mathcal{G}' \to \mathcal{G} \to 0
+$$
+and similarly for $\mathcal{F}'$.
+Since $\mathcal{I}$ has square zero the $\mathcal{O}_{X'}$-module
+structure on $\mathcal{I}$ and $\mathcal{I}\mathcal{G}'$ comes from
+a unique $\mathcal{O}_X$-module structure. It follows that
+$$
+\Hom_{\mathcal{O}_{X'}}(\mathcal{F}', \mathcal{I}\mathcal{G}') =
+\Hom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{I}\mathcal{G}')
+\quad\text{and}\quad
+\Hom_{\mathcal{O}_{X'}}(\mathcal{F}', \mathcal{G}) =
+\Hom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G})
+$$
+The lemma now follows from the exact sequence
+$$
+0 \to \Hom_{\mathcal{O}_{X'}}(\mathcal{F}', \mathcal{I}\mathcal{G}') \to
+\Hom_{\mathcal{O}_{X'}}(\mathcal{F}', \mathcal{G}') \to
+\Hom_{\mathcal{O}_{X'}}(\mathcal{F}', \mathcal{G})
+$$
+see Homology, Lemma \ref{homology-lemma-check-exactness}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-deform-module}
+Let $(f, f')$ be a morphism of first order thickenings of ringed spaces
+as in Situation \ref{situation-morphism-thickenings}.
+Let $\mathcal{F}'$ be an $\mathcal{O}_{X'}$-module
+and set $\mathcal{F} = i^*\mathcal{F}'$.
+Assume that $\mathcal{F}$ is flat over $S$
+and that $(f, f')$ is a strict morphism of thickenings
+(Definition \ref{definition-strict-morphism-thickenings}).
+Then the following are equivalent
+\begin{enumerate}
+\item $\mathcal{F}'$ is flat over $S'$, and
+\item the canonical map
+$f^*\mathcal{J} \otimes_{\mathcal{O}_X} \mathcal{F} \to
+\mathcal{I}\mathcal{F}'$
+is an isomorphism.
+\end{enumerate}
+Moreover, in this case the maps
+$$
+f^*\mathcal{J} \otimes_{\mathcal{O}_X} \mathcal{F} \to
+\mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F} \to
+\mathcal{I}\mathcal{F}'
+$$
+are isomorphisms.
+\end{lemma}
+
+\begin{proof}
+The map $f^*\mathcal{J} \to \mathcal{I}$ is surjective
+as $(f, f')$ is a strict morphism of thickenings.
+Hence the final statement is a consequence of (2).
+
+\medskip\noindent
+Proof of the equivalence of (1) and (2). We may check these conditions
+at stalks. Let $x \in X \subset X'$
+be a point with image $s = f(x) \in S \subset S'$.
+Set $A' = \mathcal{O}_{S', s}$, $B' = \mathcal{O}_{X', x}$,
+$A = \mathcal{O}_{S, s}$, and $B = \mathcal{O}_{X, x}$.
+Then $A = A'/J$ and $B = B'/I$ for some square zero ideals.
+Since $(f, f')$ is a strict morphism of thickenings we have $I = JB'$.
+Let $M' = \mathcal{F}'_x$ and $M = \mathcal{F}_x$.
+Then $M'$ is a $B'$-module and $M$ is a $B$-module.
+Since $\mathcal{F} = i^*\mathcal{F}'$ we see that the kernel of the
+surjection $M' \to M$ is $IM' = JM'$. Thus we have a short exact
+sequence
+$$
+0 \to JM' \to M' \to M \to 0
+$$
+Using
+Sheaves, Lemma \ref{sheaves-lemma-stalk-pullback-modules}
+and
+Modules, Lemma \ref{modules-lemma-stalk-tensor-product}
+to identify stalks of pullbacks and tensor products we see
+that the stalk at $x$ of the canonical map of the lemma is the map
+$$
+(J \otimes_A B) \otimes_B M = J \otimes_A M = J \otimes_{A'} M'
+\longrightarrow JM'
+$$
+The assumption that $\mathcal{F}$ is flat over $S$ signifies that
+$M$ is a flat $A$-module.
+
+\medskip\noindent
+Assume (1). Flatness implies $\text{Tor}_1^{A'}(M', A) = 0$ by
+Algebra, Lemma \ref{algebra-lemma-characterize-flat}.
+This means $J \otimes_{A'} M' \to M'$ is injective by
+Algebra, Remark \ref{algebra-remark-Tor-ring-mod-ideal}.
+Hence $J \otimes_A M \to JM'$ is an isomorphism.
+
+\medskip\noindent
+Assume (2). Then $J \otimes_{A'} M' \to M'$ is injective. Hence
+$\text{Tor}_1^{A'}(M', A) = 0$ by
+Algebra, Remark \ref{algebra-remark-Tor-ring-mod-ideal}.
+Hence $M'$ is flat over $A'$ by
+Algebra, Lemma \ref{algebra-lemma-what-does-it-mean}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-map-rel}
+Let $(f, f')$ be a morphism of first order thickenings as in
+Situation \ref{situation-morphism-thickenings}.
+Let $\mathcal{F}'$, $\mathcal{G}'$ be $\mathcal{O}_{X'}$-modules and set
+$\mathcal{F} = i^*\mathcal{F}'$ and $\mathcal{G} = i^*\mathcal{G}'$.
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be an $\mathcal{O}_X$-linear map.
+Assume that $\mathcal{G}'$ is flat over $S'$ and that
+$(f, f')$ is a strict morphism of thickenings.
+The set of lifts of $\varphi$ to an $\mathcal{O}_{X'}$-linear map
+$\varphi' : \mathcal{F}' \to \mathcal{G}'$ is, if nonempty, a principal
+homogeneous space under
+$$
+\Hom_{\mathcal{O}_X}(\mathcal{F},
+\mathcal{G} \otimes_{\mathcal{O}_X} f^*\mathcal{J})
+$$
+\end{lemma}
+
+\begin{proof}
+Combine Lemmas \ref{lemma-inf-map-special} and \ref{lemma-deform-module}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-obs-map-special}
+Let $i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$
+be a first order thickening of ringed spaces.
+Let $\mathcal{F}'$, $\mathcal{G}'$ be $\mathcal{O}_{X'}$-modules and set
+$\mathcal{F} = i^*\mathcal{F}'$ and $\mathcal{G} = i^*\mathcal{G}'$.
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be an $\mathcal{O}_X$-linear map.
+There exists an element
+$$
+o(\varphi) \in
+\Ext^1_{\mathcal{O}_X}(Li^*\mathcal{F}',
+\mathcal{I}\mathcal{G}')
+$$
+whose vanishing is a necessary and sufficient condition for the
+existence of a lift of $\varphi$ to an $\mathcal{O}_{X'}$-linear map
+$\varphi' : \mathcal{F}' \to \mathcal{G}'$.
+\end{lemma}
+
+\begin{proof}
+It is clear from the proof of Lemma \ref{lemma-inf-map-special} that the
+vanishing of the boundary of $\varphi$ via the map
+$$
+\Hom_{\mathcal{O}_X}(\mathcal{F}, \mathcal{G}) =
+\Hom_{\mathcal{O}_{X'}}(\mathcal{F}', \mathcal{G}) \longrightarrow
+\Ext^1_{\mathcal{O}_{X'}}(\mathcal{F}', \mathcal{I}\mathcal{G}')
+$$
+is a necessary and sufficient condition for the existence of a lift. We
+conclude as
+$$
+\Ext^1_{\mathcal{O}_{X'}}(\mathcal{F}', \mathcal{I}\mathcal{G}') =
+\Ext^1_{\mathcal{O}_X}(Li^*\mathcal{F}', \mathcal{I}\mathcal{G}')
+$$
+the adjointness of $i_* = Ri_*$ and $Li^*$ on the derived category
+(Cohomology, Lemma \ref{cohomology-lemma-adjoint}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-obs-map-rel}
+Let $(f, f')$ be a morphism of first
+order thickenings as in Situation \ref{situation-morphism-thickenings}.
+Let $\mathcal{F}'$, $\mathcal{G}'$ be $\mathcal{O}_{X'}$-modules and set
+$\mathcal{F} = i^*\mathcal{F}'$ and $\mathcal{G} = i^*\mathcal{G}'$.
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be an $\mathcal{O}_X$-linear map.
+Assume that $\mathcal{F}'$ and $\mathcal{G}'$ are flat over $S'$ and
+that $(f, f')$ is a strict morphism of thickenings. There exists an element
+$$
+o(\varphi) \in  \Ext^1_{\mathcal{O}_X}(\mathcal{F},
+\mathcal{G} \otimes_{\mathcal{O}_X} f^*\mathcal{J})
+$$
+whose vanishing is a necessary and sufficient condition for the
+existence of a lift of $\varphi$ to an $\mathcal{O}_{X'}$-linear map
+$\varphi' : \mathcal{F}' \to \mathcal{G}'$.
+\end{lemma}
+
+\begin{proof}[First proof]
+This follows from Lemma \ref{lemma-inf-obs-map-special}
+as we claim that under the assumptions of the lemma we have
+$$
+\Ext^1_{\mathcal{O}_X}(Li^*\mathcal{F}',
+\mathcal{I}\mathcal{G}') =
+\Ext^1_{\mathcal{O}_X}(\mathcal{F},
+\mathcal{G} \otimes_{\mathcal{O}_X} f^*\mathcal{J})
+$$
+Namely, we have
+$\mathcal{I}\mathcal{G}' =
+\mathcal{G} \otimes_{\mathcal{O}_X} f^*\mathcal{J}$
+by Lemma \ref{lemma-deform-module}.
+On the other hand, observe that
+$$
+H^{-1}(Li^*\mathcal{F}') =
+\text{Tor}_1^{\mathcal{O}_{X'}}(\mathcal{F}', \mathcal{O}_X)
+$$
+(local computation omitted). Using the short exact sequence
+$$
+0 \to \mathcal{I} \to \mathcal{O}_{X'} \to \mathcal{O}_X \to 0
+$$
+we see that this $\text{Tor}_1$ is computed by the kernel of the map
+$\mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F} \to \mathcal{I}\mathcal{F}'$
+which is zero by the final assertion of Lemma \ref{lemma-deform-module}.
+Thus $\tau_{\geq -1}Li^*\mathcal{F}' = \mathcal{F}$.
+On the other hand, we have
+$$
+\Ext^1_{\mathcal{O}_X}(Li^*\mathcal{F}',
+\mathcal{I}\mathcal{G}') =
+\Ext^1_{\mathcal{O}_X}(\tau_{\geq -1}Li^*\mathcal{F}',
+\mathcal{I}\mathcal{G}')
+$$
+by the dual of
+Derived Categories, Lemma \ref{derived-lemma-negative-vanishing}.
+\end{proof}
+
+\begin{proof}[Second proof]
+We can apply Lemma \ref{lemma-inf-obs-map} as follows. Note that
+$\mathcal{K} = \mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F}$ and
+$\mathcal{L} = \mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{G}$
+by Lemma \ref{lemma-deform-module}, that
+$c_{\mathcal{F}'} = 1 \otimes 1$ and $c_{\mathcal{G}'} = 1 \otimes 1$
+and taking $\psi = 1 \otimes \varphi$ the diagram of the lemma
+commutes. Thus $o(\varphi) = o(\varphi, 1 \otimes \varphi)$
+works.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-ext-rel}
+Let $(f, f')$ be a morphism of first order thickenings as in
+Situation \ref{situation-morphism-thickenings}.
+Let $\mathcal{F}$ be an $\mathcal{O}_X$-module.
+Assume $(f, f')$ is a strict morphism of thickenings and
+$\mathcal{F}$ flat over $S$. If there exists a pair
+$(\mathcal{F}', \alpha)$ consisting of an
+$\mathcal{O}_{X'}$-module $\mathcal{F}'$ flat over $S'$ and an isomorphism
+$\alpha : i^*\mathcal{F}' \to \mathcal{F}$, then the set of
+isomorphism classes of such pairs is principal homogeneous
+under
+$\Ext^1_{\mathcal{O}_X}(
+\mathcal{F}, \mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+If we assume there exists one such module, then the canonical map
+$$
+f^*\mathcal{J} \otimes_{\mathcal{O}_X} \mathcal{F} \to
+\mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F}
+$$
+is an isomorphism by Lemma \ref{lemma-deform-module}. Apply
+Lemma \ref{lemma-inf-ext} with $\mathcal{K} = 
+\mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F}$
+and $c = 1$. By Lemma \ref{lemma-deform-module} the corresponding extensions
+$\mathcal{F}'$ are all flat over $S'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-obs-ext-rel}
+Let $(f, f')$ be a morphism of first order thickenings as in
+Situation \ref{situation-morphism-thickenings}.
+Let $\mathcal{F}$ be an $\mathcal{O}_X$-module. Assume
+$(f, f')$ is a strict morphism of thickenings
+and $\mathcal{F}$ flat over $S$. There exists an
+$\mathcal{O}_{X'}$-module $\mathcal{F}'$ flat over $S'$ with
+$i^*\mathcal{F}' \cong \mathcal{F}$, if and only if
+\begin{enumerate}
+\item the canonical map $
+f^*\mathcal{J} \otimes_{\mathcal{O}_X} \mathcal{F} \to
+\mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F}$
+is an isomorphism, and
+\item the class
+$o(\mathcal{F}, \mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F}, 1)
+\in \Ext^2_{\mathcal{O}_X}(
+\mathcal{F}, \mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F})$
+of Lemma \ref{lemma-inf-obs-ext} is zero.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This follows immediately from the characterization of
+$\mathcal{O}_{X'}$-modules flat over $S'$ of 
+Lemma \ref{lemma-deform-module} and
+Lemma \ref{lemma-inf-obs-ext}.
+\end{proof}
+
+
+
+
+
+
+\section{Application to flat modules on flat thickenings of ringed spaces}
+\label{section-flat}
+
+\noindent
+Consider a commutative diagram
+$$
+\xymatrix{
+(X, \mathcal{O}_X) \ar[r]_i \ar[d]_f & (X', \mathcal{O}_{X'}) \ar[d]^{f'} \\
+(S, \mathcal{O}_S) \ar[r]^t & (S', \mathcal{O}_{S'})
+}
+$$
+of ringed spaces whose horizontal arrows are first order thickenings as in
+Situation \ref{situation-morphism-thickenings}. Set
+$\mathcal{I} = \Ker(i^\sharp) \subset \mathcal{O}_{X'}$ and
+$\mathcal{J} = \Ker(t^\sharp) \subset \mathcal{O}_{S'}$.
+Let $\mathcal{F}$ be an $\mathcal{O}_X$-module. Assume that
+\begin{enumerate}
+\item $(f, f')$ is a strict morphism of thickenings,
+\item $f'$ is flat, and
+\item $\mathcal{F}$ is flat over $S$.
+\end{enumerate}
+Note that (1) $+$ (2) imply that $\mathcal{I} = f^*\mathcal{J}$
+(apply Lemma \ref{lemma-deform-module} to $\mathcal{O}_{X'}$).
+The theory of the preceding section is especially nice
+under these assumptions. We summarize the results already obtained
+in the following lemma.
+
+\begin{lemma}
+\label{lemma-flat}
+In the situation above.
+\begin{enumerate}
+\item There exists an $\mathcal{O}_{X'}$-module $\mathcal{F}'$ flat over
+$S'$ with $i^*\mathcal{F}' \cong \mathcal{F}$, if and only if
+the class
+$o(\mathcal{F}, f^*\mathcal{J} \otimes_{\mathcal{O}_X} \mathcal{F}, 1)
+\in \Ext^2_{\mathcal{O}_X}(
+\mathcal{F}, f^*\mathcal{J} \otimes_{\mathcal{O}_X} \mathcal{F})$
+of Lemma \ref{lemma-inf-obs-ext} is zero.
+\item If such a module exists, then the set of isomorphism classes
+of lifts is principal homogeneous under
+$\Ext^1_{\mathcal{O}_X}(
+\mathcal{F}, f^*\mathcal{J} \otimes_{\mathcal{O}_X} \mathcal{F})$.
+\item Given a lift $\mathcal{F}'$, the set of automorphisms of
+$\mathcal{F}'$ which pull back to $\text{id}_\mathcal{F}$ is canonically
+isomorphic to $\Ext^0_{\mathcal{O}_X}(
+\mathcal{F}, f^*\mathcal{J} \otimes_{\mathcal{O}_X} \mathcal{F})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) follows from Lemma \ref{lemma-inf-obs-ext-rel}
+as we have seen above that $\mathcal{I} = f^*\mathcal{J}$.
+Part (2) follows from Lemma \ref{lemma-inf-ext-rel}.
+Part (3) follows from Lemma \ref{lemma-inf-map-rel}.
+\end{proof}
+
+\begin{situation}
+\label{situation-ses-flat-thickenings}
+Let $f : (X, \mathcal{O}_X) \to (S, \mathcal{O}_S)$ be a morphism of
+ringed spaces. Consider a commutative diagram
+$$
+\xymatrix{
+(X'_1, \mathcal{O}'_1) \ar[r]_h \ar[d]_{f'_1} &
+(X'_2, \mathcal{O}'_2) \ar[r] \ar[d]_{f'_2} &
+(X'_3, \mathcal{O}'_3) \ar[d]_{f'_3} \\
+(S'_1, \mathcal{O}_{S'_1}) \ar[r] &
+(S'_2, \mathcal{O}_{S'_2}) \ar[r] &
+(S'_3, \mathcal{O}_{S'_3})
+}
+$$
+where (a) the top row is a short exact sequence of first order thickenings
+of $X$, (b) the lower row is a short exact sequence of first order
+thickenings of $S$, (c) each $f'_i$ restricts to $f$, (d) each pair
+$(f, f_i')$ is a strict morphism of thickenings, and (e) each $f'_i$ is flat.
+Finally, let $\mathcal{F}'_2$ be an $\mathcal{O}'_2$-module flat over
+$S'_2$ and set $\mathcal{F} = \mathcal{F}'_2|_X$. Let $\pi : X'_1 \to X$
+be the canonical splitting
+(Remark \ref{remark-short-exact-sequence-thickenings}).
+\end{situation}
+
+\begin{lemma}
+\label{lemma-verify-iv}
+In Situation \ref{situation-ses-flat-thickenings} the modules
+$\pi^*\mathcal{F}$ and $h^*\mathcal{F}'_2$ are $\mathcal{O}'_1$-modules
+flat over $S'_1$ restricting to $\mathcal{F}$ on $X$.
+Their difference (Lemma \ref{lemma-flat}) is an element
+$\theta$ of $\Ext^1_{\mathcal{O}_X}(
+\mathcal{F}, f^*\mathcal{J}_1 \otimes_{\mathcal{O}_X} \mathcal{F})$
+whose boundary in
+$\Ext^2_{\mathcal{O}_X}(
+\mathcal{F}, f^*\mathcal{J}_3 \otimes_{\mathcal{O}_X} \mathcal{F})$
+equals the obstruction (Lemma \ref{lemma-flat})
+to lifting $\mathcal{F}$ to an $\mathcal{O}'_3$-module flat over $S'_3$.
+\end{lemma}
+
+\begin{proof}
+Note that both $\pi^*\mathcal{F}$ and $h^*\mathcal{F}'_2$
+restrict to $\mathcal{F}$ on $X$ and that the kernels of
+$\pi^*\mathcal{F} \to \mathcal{F}$ and $h^*\mathcal{F}'_2 \to \mathcal{F}$
+are given by $f^*\mathcal{J}_1 \otimes_{\mathcal{O}_X} \mathcal{F}$.
+Hence flatness by Lemma \ref{lemma-deform-module}.
+Taking the boundary makes sense as the sequence of modules
+$$
+0 \to f^*\mathcal{J}_3 \otimes_{\mathcal{O}_X} \mathcal{F} \to
+f^*\mathcal{J}_2 \otimes_{\mathcal{O}_X} \mathcal{F} \to
+f^*\mathcal{J}_1 \otimes_{\mathcal{O}_X} \mathcal{F} \to 0
+$$
+is short exact due to the assumptions in
+Situation \ref{situation-ses-flat-thickenings}
+and the fact that $\mathcal{F}$ is flat over $S$.
+The statement on the obstruction class is a direct translation
+of the result of
+Remark \ref{remark-complex-thickenings-and-ses-modules}
+to this particular situation.
+\end{proof}
+
+
+
+
+
+
+\section{Deformations of ringed spaces and the naive cotangent complex}
+\label{section-deformations-ringed-spaces}
+
+\noindent
+In this section we use the naive cotangent complex to do a little bit
+of deformation theory. We start with a first order thickening
+$t : (S, \mathcal{O}_S) \to (S', \mathcal{O}_{S'})$ of ringed spaces.
+We denote $\mathcal{J} = \Ker(t^\sharp)$ and we
+identify the underlying topological spaces of $S$ and $S'$.
+Moreover we assume given a morphism of ringed spaces
+$f : (X, \mathcal{O}_X) \to (S, \mathcal{O}_S)$, an $\mathcal{O}_X$-module
+$\mathcal{G}$, and an $f$-map $c : \mathcal{J} \to \mathcal{G}$
+of sheaves of modules (Sheaves, Definition \ref{sheaves-definition-f-map}
+and Section \ref{sheaves-section-ringed-spaces-functoriality-modules}).
+In this section we ask ourselves whether we can find
+the question mark fitting into the following diagram
+\begin{equation}
+\label{equation-to-solve-ringed-spaces}
+\vcenter{
+\xymatrix{
+0 \ar[r] & \mathcal{G} \ar[r] & {?} \ar[r] & \mathcal{O}_X \ar[r] & 0 \\
+0 \ar[r] & \mathcal{J} \ar[u]^c \ar[r] & \mathcal{O}_{S'} \ar[u] \ar[r] &
+\mathcal{O}_S \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+(where the vertical arrows are $f$-maps)
+and moreover how unique the solution is (if it exists). More precisely,
+we look for a first order thickening
+$i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$
+and a morphism of thickenings $(f, f')$ as in
+(\ref{equation-morphism-thickenings})
+where $\Ker(i^\sharp)$ is identified with $\mathcal{G}$
+such that $(f')^\sharp$ induces the given map $c$.
+We will say $X'$ is a {\it solution} to
+(\ref{equation-to-solve-ringed-spaces}).
+
+\begin{lemma}
+\label{lemma-huge-diagram-ringed-spaces}
+Assume given a commutative diagram of morphisms ringed spaces
+\begin{equation}
+\label{equation-huge-1}
+\vcenter{
+\xymatrix{
+& (X_2, \mathcal{O}_{X_2}) \ar[r]_{i_2} \ar[d]_{f_2} \ar[ddl]_g &
+(X'_2, \mathcal{O}_{X'_2}) \ar[d]^{f'_2} \\
+& (S_2, \mathcal{O}_{S_2}) \ar[r]^{t_2} \ar[ddl]|\hole &
+(S'_2, \mathcal{O}_{S'_2}) \ar[ddl] \\
+(X_1, \mathcal{O}_{X_1}) \ar[r]_{i_1} \ar[d]_{f_1} &
+(X'_1, \mathcal{O}_{X'_1}) \ar[d]^{f'_1} \\
+(S_1, \mathcal{O}_{S_1}) \ar[r]^{t_1} &
+(S'_1, \mathcal{O}_{S'_1})
+}
+}
+\end{equation}
+whose horizontal arrows are first order thickenings. Set
+$\mathcal{G}_j = \Ker(i_j^\sharp)$ and assume given
+a $g$-map $\nu : \mathcal{G}_1 \to \mathcal{G}_2$ of modules
+giving rise to the commutative diagram
+\begin{equation}
+\label{equation-huge-2}
+\vcenter{
+\xymatrix{
+& 0 \ar[r] & \mathcal{G}_2 \ar[r] &
+\mathcal{O}_{X'_2} \ar[r] &
+\mathcal{O}_{X_2} \ar[r] & 0 \\
+& 0 \ar[r]|\hole &
+\mathcal{J}_2 \ar[u]_{c_2} \ar[r] &
+\mathcal{O}_{S'_2} \ar[u] \ar[r]|\hole &
+\mathcal{O}_{S_2} \ar[u] \ar[r] & 0 \\
+0 \ar[r] & \mathcal{G}_1 \ar[ruu] \ar[r] &
+\mathcal{O}_{X'_1} \ar[r] &
+\mathcal{O}_{X_1} \ar[ruu] \ar[r] & 0 \\
+0 \ar[r] & \mathcal{J}_1 \ar[ruu]|\hole \ar[u]^{c_1} \ar[r] &
+\mathcal{O}_{S'_1} \ar[ruu]|\hole \ar[u] \ar[r] &
+\mathcal{O}_{S_1} \ar[ruu]|\hole \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+with front and back solutions to (\ref{equation-to-solve-ringed-spaces}).
+\begin{enumerate}
+\item There exist a canonical element in
+$\Ext^1_{\mathcal{O}_{X_2}}(Lg^*\NL_{X_1/S_1}, \mathcal{G}_2)$
+whose vanishing is a necessary and sufficient condition for the existence
+of a morphism of ringed spaces $X'_2 \to X'_1$ fitting into
+(\ref{equation-huge-1}) compatibly with $\nu$.
+\item If there exists a morphism $X'_2 \to X'_1$ fitting into
+(\ref{equation-huge-1}) compatibly with $\nu$ the set of all such morphisms
+is a principal homogeneous space under
+$$
+\Hom_{\mathcal{O}_{X_1}}(\Omega_{X_1/S_1}, g_*\mathcal{G}_2) =
+\Hom_{\mathcal{O}_{X_2}}(g^*\Omega_{X_1/S_1}, \mathcal{G}_2) =
+\Ext^0_{\mathcal{O}_{X_2}}(Lg^*\NL_{X_1/S_1}, \mathcal{G}_2).
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The naive cotangent complex $\NL_{X_1/S_1}$ is defined in Modules, Definition
+\ref{modules-definition-cotangent-complex-morphism-ringed-topoi}.
+The equalities in the last statement of the lemma follow from
+the fact that $g^*$ is adjoint to $g_*$, the fact that
+$H^0(\NL_{X_1/S_1}) = \Omega_{X_1/S_1}$ (by construction of the
+naive cotangent complex) and the fact that $Lg^*$ is the left
+derived functor of $g^*$. Thus we will work with the groups
+$\Ext^k_{\mathcal{O}_{X_2}}(Lg^*\NL_{X_1/S_1}, \mathcal{G}_2)$,
+$k = 0, 1$ in the rest of the proof. We first argue that we can reduce
+to the case where the underlying topological spaces of all ringed
+spaces in the lemma is the same.
+
+\medskip\noindent
+To do this, observe that $g^{-1}\NL_{X_1/S_1}$ is equal to the naive
+cotangent complex of the homomorphism of sheaves of rings
+$g^{-1}f_1^{-1}\mathcal{O}_{S_1} \to g^{-1}\mathcal{O}_{X_1}$, see
+Modules, Lemma \ref{modules-lemma-pullback-NL}.
+Moreover, the degree $0$ term of $\NL_{X_1/S_1}$ is a flat
+$\mathcal{O}_{X_1}$-module, hence the canonical map
+$$
+Lg^*\NL_{X_1/S_1}
+\longrightarrow
+g^{-1}\NL_{X_1/S_1} \otimes_{g^{-1}\mathcal{O}_{X_1}} \mathcal{O}_{X_2}
+$$
+induces an isomorphism on cohomology sheaves in degrees $0$ and $-1$.
+Thus we may replace the Ext groups of the lemma with
+$$
+\Ext^k_{g^{-1}\mathcal{O}_{X_1}}(g^{-1}\NL_{X_1/S_1}, \mathcal{G}_2) =
+\Ext^k_{g^{-1}\mathcal{O}_{X_1}}(
+\NL_{g^{-1}\mathcal{O}_{X_1}/g^{-1}f_1^{-1}\mathcal{O}_{S_1}}, \mathcal{G}_2)
+$$
+The set of morphism of ringed spaces $X'_2 \to X'_1$ fitting into
+(\ref{equation-huge-1}) compatibly with $\nu$
+is in one-to-one bijection with
+the set of homomorphisms of $g^{-1}f_1^{-1}\mathcal{O}_{S'_1}$-algebras
+$g^{-1}\mathcal{O}_{X'_1} \to \mathcal{O}_{X'_2}$ which are compatible with
+$f^\sharp$ and $\nu$. In this way we see that we may assume we have a
+diagram (\ref{equation-huge-2}) of sheaves on $X$ and we are looking to
+find a homomorphism of sheaves of rings
+$\mathcal{O}_{X'_1} \to \mathcal{O}_{X'_2}$ fitting into it.
+
+\medskip\noindent
+In the rest of the proof of the lemma we assume
+all underlying topological spaces are the
+same, i.e., we have a diagram (\ref{equation-huge-2}) of sheaves on
+a space $X$ and we are looking for homomorphisms of sheaves of rings
+$\mathcal{O}_{X'_1} \to \mathcal{O}_{X'_2}$ fitting into it.
+As ext groups we will use
+$\Ext^k_{\mathcal{O}_{X_1}}(
+\NL_{\mathcal{O}_{X_1}/\mathcal{O}_{S_1}}, \mathcal{G}_2)$, $k = 0, 1$.
+
+\medskip\noindent
+Step 1. Construction of the obstruction class. Consider the sheaf
+of sets
+$$
+\mathcal{E} = \mathcal{O}_{X'_1} \times_{\mathcal{O}_{X_2}} \mathcal{O}_{X'_2}
+$$
+This comes with a surjective map $\alpha : \mathcal{E} \to \mathcal{O}_{X_1}$
+and hence we can use $\NL(\alpha)$ instead of
+$\NL_{\mathcal{O}_{X_1}/\mathcal{O}_{S_1}}$, see
+Modules, Lemma \ref{modules-lemma-NL-up-to-qis}.
+Set
+$$
+\mathcal{I}' =
+\Ker(\mathcal{O}_{S'_1}[\mathcal{E}] \to \mathcal{O}_{X_1})
+\quad\text{and}\quad
+\mathcal{I} =
+\Ker(\mathcal{O}_{S_1}[\mathcal{E}] \to \mathcal{O}_{X_1})
+$$
+There is a surjection $\mathcal{I}' \to \mathcal{I}$ whose kernel
+is $\mathcal{J}_1\mathcal{O}_{S'_1}[\mathcal{E}]$.
+We obtain two homomorphisms of $\mathcal{O}_{S'_2}$-algebras
+$$
+a : \mathcal{O}_{S'_1}[\mathcal{E}] \to \mathcal{O}_{X'_1}
+\quad\text{and}\quad
+b : \mathcal{O}_{S'_1}[\mathcal{E}] \to \mathcal{O}_{X'_2}
+$$
+which induce maps $a|_{\mathcal{I}'} : \mathcal{I}' \to \mathcal{G}_1$ and
+$b|_{\mathcal{I}'} : \mathcal{I}' \to \mathcal{G}_2$. Both $a$ and $b$
+annihilate $(\mathcal{I}')^2$. Moreover $a$ and $b$ agree on
+$\mathcal{J}_1\mathcal{O}_{S'_1}[\mathcal{E}]$ as maps into $\mathcal{G}_2$
+because the left hand square of (\ref{equation-huge-2}) is commutative.
+Thus the difference
+$b|_{\mathcal{I}'} - \nu \circ a|_{\mathcal{I}'}$
+induces a well defined $\mathcal{O}_{X_1}$-linear map
+$$
+\xi : \mathcal{I}/\mathcal{I}^2 \longrightarrow \mathcal{G}_2
+$$
+which sends the class of a local section $f$ of $\mathcal{I}$ to
+$a(f') - \nu(b(f'))$ where $f'$ is a lift of $f$ to a local
+section of $\mathcal{I}'$. We let
+$[\xi] \in \Ext^1_{\mathcal{O}_{X_1}}(\NL(\alpha), \mathcal{G}_2)$
+be the image (see below).
+
+\medskip\noindent
+Step 2. Vanishing of $[\xi]$ is necessary. Let us write
+$\Omega = \Omega_{\mathcal{O}_{S_1}[\mathcal{E}]/\mathcal{O}_{S_1}}
+\otimes_{\mathcal{O}_{S_1}[\mathcal{E}]} \mathcal{O}_{X_1}$.
+Observe that $\NL(\alpha) = (\mathcal{I}/\mathcal{I}^2 \to \Omega)$
+fits into a distinguished triangle
+$$
+\Omega[0] \to
+\NL(\alpha) \to
+\mathcal{I}/\mathcal{I}^2[1] \to
+\Omega[1]
+$$
+Thus we see that $[\xi]$ is zero if and only if $\xi$
+is a composition $\mathcal{I}/\mathcal{I}^2 \to \Omega \to \mathcal{G}_2$
+for some map $\Omega \to \mathcal{G}_2$. Suppose there exists a
+homomorphisms of sheaves of rings
+$\varphi : \mathcal{O}_{X'_1} \to \mathcal{O}_{X'_2}$ fitting into
+(\ref{equation-huge-2}). In this case consider the map
+$\mathcal{O}_{S'_1}[\mathcal{E}] \to \mathcal{G}_2$,
+$f' \mapsto b(f') - \varphi(a(f'))$. A calculation
+shows this annihilates $\mathcal{J}_1\mathcal{O}_{S'_1}[\mathcal{E}]$
+and induces a derivation $\mathcal{O}_{S_1}[\mathcal{E}] \to \mathcal{G}_2$.
+The resulting linear map $\Omega \to \mathcal{G}_2$ witnesses the
+fact that $[\xi] = 0$ in this case.
+
+\medskip\noindent
+Step 3. Vanishing of $[\xi]$ is sufficient. Let
+$\theta : \Omega \to \mathcal{G}_2$ be a $\mathcal{O}_{X_1}$-linear map
+such that $\xi$ is equal to
+$\theta \circ (\mathcal{I}/\mathcal{I}^2 \to \Omega)$.
+Then a calculation shows that
+$$
+b + \theta \circ d : \mathcal{O}_{S'_1}[\mathcal{E}] \to \mathcal{O}_{X'_2}
+$$
+annihilates $\mathcal{I}'$ and hence defines a map
+$\mathcal{O}_{X'_1} \to \mathcal{O}_{X'_2}$ fitting into
+(\ref{equation-huge-2}).
+
+\medskip\noindent
+Proof of (2) in the special case above. Omitted. Hint:
+This is exactly the same as the proof of (2) of Lemma \ref{lemma-huge-diagram}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-NL-represent-ext-class}
+Let $X$ be a topological space. Let $\mathcal{A} \to \mathcal{B}$ be a
+homomorphism of sheaves of rings. Let $\mathcal{G}$ be a $\mathcal{B}$-module.
+Let
+$\xi \in \Ext^1_\mathcal{B}(\NL_{\mathcal{B}/\mathcal{A}}, \mathcal{G})$. 
+There exists a map of sheaves of sets $\alpha : \mathcal{E} \to \mathcal{B}$
+such that $\xi \in \Ext^1_\mathcal{B}(\NL(\alpha), \mathcal{G})$
+is the class of a map $\mathcal{I}/\mathcal{I}^2 \to \mathcal{G}$
+(see proof for notation).
+\end{lemma}
+
+\begin{proof}
+Recall that given $\alpha : \mathcal{E} \to \mathcal{B}$
+such that $\mathcal{A}[\mathcal{E}] \to \mathcal{B}$ is surjective
+with kernel $\mathcal{I}$ the complex
+$\NL(\alpha) = (\mathcal{I}/\mathcal{I}^2 \to 
+\Omega_{\mathcal{A}[\mathcal{E}]/\mathcal{A}}
+\otimes_{\mathcal{A}[\mathcal{E}]} \mathcal{B})$ is canonically
+isomorphic to $\NL_{\mathcal{B}/\mathcal{A}}$, see
+Modules, Lemma \ref{modules-lemma-NL-up-to-qis}.
+Observe moreover, that
+$\Omega = \Omega_{\mathcal{A}[\mathcal{E}]/\mathcal{A}}
+\otimes_{\mathcal{A}[\mathcal{E}]} \mathcal{B}$ is the sheaf
+associated to the presheaf
+$U \mapsto \bigoplus_{e \in \mathcal{E}(U)} \mathcal{B}(U)$.
+In other words, $\Omega$ is the free $\mathcal{B}$-module on the
+sheaf of sets $\mathcal{E}$ and in particular there is a canonical
+map $\mathcal{E} \to \Omega$.
+
+\medskip\noindent
+Having said this, pick some $\mathcal{E}$ (for example
+$\mathcal{E} = \mathcal{B}$ as in the definition of the naive cotangent
+complex). The obstruction to writing $\xi$ as the class of a map
+$\mathcal{I}/\mathcal{I}^2 \to \mathcal{G}$ is an element in
+$\Ext^1_\mathcal{B}(\Omega, \mathcal{G})$. Say this is represented
+by the extension $0 \to \mathcal{G} \to \mathcal{H} \to \Omega \to 0$
+of $\mathcal{B}$-modules. Consider the sheaf of sets
+$\mathcal{E}' = \mathcal{E} \times_\Omega \mathcal{H}$
+which comes with an induced map $\alpha' : \mathcal{E}' \to \mathcal{B}$.
+Let $\mathcal{I}' = \Ker(\mathcal{A}[\mathcal{E}'] \to \mathcal{B})$
+and $\Omega' = \Omega_{\mathcal{A}[\mathcal{E}']/\mathcal{A}}
+\otimes_{\mathcal{A}[\mathcal{E}']} \mathcal{B}$.
+The pullback of $\xi$ under the quasi-isomorphism
+$\NL(\alpha') \to \NL(\alpha)$ maps to zero in
+$\Ext^1_\mathcal{B}(\Omega', \mathcal{G})$
+because the pullback of the extension $\mathcal{H}$
+by the map $\Omega' \to \Omega$ is split as $\Omega'$ is the free
+$\mathcal{B}$-module on the sheaf of sets $\mathcal{E}'$ and since
+by construction there is a commutative diagram
+$$
+\xymatrix{
+\mathcal{E}' \ar[r] \ar[d] & \mathcal{E} \ar[d] \\
+\mathcal{H} \ar[r] & \Omega
+}
+$$
+This finishes the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-choices-ringed-spaces}
+If there exists a solution to (\ref{equation-to-solve-ringed-spaces}),
+then the set of isomorphism classes of solutions is principal homogeneous
+under $\Ext^1_{\mathcal{O}_X}(\NL_{X/S}, \mathcal{G})$.
+\end{lemma}
+
+\begin{proof}
+We observe right away that given two solutions $X'_1$ and $X'_2$
+to (\ref{equation-to-solve-ringed-spaces}) we obtain by
+Lemma \ref{lemma-huge-diagram-ringed-spaces} an obstruction element
+$o(X'_1, X'_2) \in \Ext^1_{\mathcal{O}_X}(\NL_{X/S}, \mathcal{G})$
+to the existence of a map $X'_1 \to X'_2$. Clearly, this element
+is the obstruction to the existence of an isomorphism, hence separates
+the isomorphism classes. To finish the proof it therefore suffices to
+show that given a solution $X'$ and an element
+$\xi \in \Ext^1_{\mathcal{O}_X}(\NL_{X/S}, \mathcal{G})$
+we can find a second solution $X'_\xi$ such that
+$o(X', X'_\xi) = \xi$.
+
+\medskip\noindent
+Pick $\alpha : \mathcal{E} \to \mathcal{O}_X$ as in
+Lemma \ref{lemma-NL-represent-ext-class}
+for the class $\xi$. Consider the surjection
+$f^{-1}\mathcal{O}_S[\mathcal{E}] \to \mathcal{O}_X$
+with kernel $\mathcal{I}$ and corresponding naive cotangent complex
+$\NL(\alpha) = (\mathcal{I}/\mathcal{I}^2 \to
+\Omega_{f^{-1}\mathcal{O}_S[\mathcal{E}]/f^{-1}\mathcal{O}_S}
+\otimes_{f^{-1}\mathcal{O}_S[\mathcal{E}]} \mathcal{O}_X)$.
+By the lemma $\xi$ is the class of a morphism
+$\delta : \mathcal{I}/\mathcal{I}^2 \to \mathcal{G}$.
+After replacing $\mathcal{E}$ by
+$\mathcal{E} \times_{\mathcal{O}_X} \mathcal{O}_{X'}$ we may also assume
+that $\alpha$ factors through a map
+$\alpha' : \mathcal{E} \to \mathcal{O}_{X'}$.
+
+\medskip\noindent
+These choices determine an $f^{-1}\mathcal{O}_{S'}$-algebra map
+$\varphi : \mathcal{O}_{S'}[\mathcal{E}] \to \mathcal{O}_{X'}$.
+Let $\mathcal{I}' = \Ker(\varphi)$.
+Observe that $\varphi$ induces a map
+$\varphi|_{\mathcal{I}'} : \mathcal{I}' \to \mathcal{G}$
+and that $\mathcal{O}_{X'}$ is the pushout, as in the following
+diagram
+$$
+\xymatrix{
+0 \ar[r] & \mathcal{G} \ar[r] & \mathcal{O}_{X'} \ar[r] &
+\mathcal{O}_X \ar[r] & 0 \\
+0 \ar[r] & \mathcal{I}' \ar[u]^{\varphi|_{\mathcal{I}'}} \ar[r] &
+f^{-1}\mathcal{O}_{S'}[\mathcal{E}] \ar[u] \ar[r] &
+\mathcal{O}_X \ar[u]_{=} \ar[r] & 0
+}
+$$
+Let $\psi : \mathcal{I}' \to \mathcal{G}$ be the sum of the map
+$\varphi|_{\mathcal{I}'}$ and the composition
+$$
+\mathcal{I}' \to \mathcal{I}'/(\mathcal{I}')^2 \to
+\mathcal{I}/\mathcal{I}^2 \xrightarrow{\delta} \mathcal{G}.
+$$
+Then the pushout along $\psi$ is an other ring extension
+$\mathcal{O}_{X'_\xi}$ fitting into a diagram as above.
+A calculation (omitted) shows that $o(X', X'_\xi) = \xi$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extensions-of-ringed-spaces}
+Let $(S, \mathcal{O}_S)$ be a ringed space and let $\mathcal{J}$
+be an $\mathcal{O}_S$-module.
+\begin{enumerate}
+\item The set of extensions of sheaves of rings
+$0 \to \mathcal{J} \to \mathcal{O}_{S'} \to \mathcal{O}_S \to 0$
+where $\mathcal{J}$ is an ideal of square zero is canonically bijective to
+$\Ext^1_{\mathcal{O}_S}(\NL_{S/\mathbf{Z}}, \mathcal{J})$.
+\item Given a morphism of ringed spaces
+$f : (X, \mathcal{O}_X) \to (S, \mathcal{O}_S)$, an $\mathcal{O}_X$-module
+$\mathcal{G}$, an $f$-map $c : \mathcal{J} \to \mathcal{G}$, and
+given extensions of sheaves of rings with square zero kernels:
+\begin{enumerate}
+\item[(a)] $0 \to \mathcal{J} \to \mathcal{O}_{S'} \to \mathcal{O}_S \to 0$
+corresponding to
+$\alpha \in \Ext^1_{\mathcal{O}_S}(\NL_{S/\mathbf{Z}}, \mathcal{J})$,
+\item[(b)] $0 \to \mathcal{G} \to \mathcal{O}_{X'} \to \mathcal{O}_X \to 0$
+corresponding to
+$\beta \in \Ext^1_{\mathcal{O}_X}(\NL_{X/\mathbf{Z}}, \mathcal{G})$
+\end{enumerate}
+then there is a morphism $X' \to S'$ fitting into a diagram
+(\ref{equation-to-solve-ringed-spaces}) if and only if $\beta$ and $\alpha$
+map to the same element of
+$\Ext^1_{\mathcal{O}_X}(Lf^*\NL_{S/\mathbf{Z}}, \mathcal{G})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+To prove this we apply the previous results where we work over
+the base ringed space $(*, \mathbf{Z})$ with trivial thickening.
+Part (1) follows from Lemma \ref{lemma-choices-ringed-spaces}
+and the fact that there exists a solution, namely
+$\mathcal{J} \oplus \mathcal{O}_S$.
+Part (2) follows from Lemma \ref{lemma-huge-diagram-ringed-spaces}
+and a compatibility between the constructions in the proofs
+of Lemmas \ref{lemma-choices-ringed-spaces} and
+\ref{lemma-huge-diagram-ringed-spaces}
+whose statement and proof we omit.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Deformations of schemes}
+\label{section-deformations-schemes}
+
+\noindent
+In this section we spell out what the results in
+Section \ref{section-deformations-ringed-spaces}
+mean for deformations of schemes.
+
+\begin{lemma}
+\label{lemma-deform}
+Let $S \subset S'$ be a first order thickening of schemes.
+Let $f : X \to S$ be a flat morphism of schemes.
+If there exists a flat morphism $f' : X' \to S'$ of schemes
+and an isomorphsm $a : X \to X' \times_{S'} S$ over $S$, then
+\begin{enumerate}
+\item the set of isomorphism classes of pairs $(f' : X' \to S', a)$ is
+principal homogeneous under
+$\Ext^1_{\mathcal{O}_X}(\NL_{X/S}, f^*\mathcal{C}_{S/S'})$, and
+\item the set of automorphisms of $\varphi : X' \to X'$
+over $S'$ which reduce to the identity on $X' \times_{S'} S$
+is $\Ext^0_{\mathcal{O}_X}(\NL_{X/S}, f^*\mathcal{C}_{S/S'})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+First we observe that thickenings of schemes as defined in
+More on Morphisms, Section \ref{more-morphisms-section-thickenings}
+are the same things as morphisms of schemes which
+are thickenings in the sense of
+Section \ref{section-thickenings-spaces}.
+We may think of $X$ as a closed subscheme of $X'$
+so that $(f, f') : (X \subset X') \to (S \subset S')$
+is a morphism of first order thickenings. Then we see
+from More on Morphisms, Lemma \ref{more-morphisms-lemma-deform}
+(or from the more general Lemma \ref{lemma-deform-module})
+that the ideal sheaf of $X$ in $X'$ is equal to $f^*\mathcal{C}_{S'/S}$.
+Hence we have a commutative diagram
+$$
+\xymatrix{
+0 \ar[r] & f^*\mathcal{C}_{S/S'} \ar[r] &
+\mathcal{O}_{X'} \ar[r] &
+\mathcal{O}_X \ar[r] & 0 \\
+0 \ar[r] & \mathcal{C}_{S/S'} \ar[u] \ar[r] &
+\mathcal{O}_{S'} \ar[u] \ar[r] &
+\mathcal{O}_S \ar[u] \ar[r] & 0
+}
+$$
+where the vertical arrows are $f$-maps; please compare with
+(\ref{equation-to-solve-ringed-spaces}).
+Thus part (1) follows from
+Lemma \ref{lemma-choices-ringed-spaces}
+and part (2) from part (2) of
+Lemma \ref{lemma-huge-diagram-ringed-spaces}.
+(Note that $\NL_{X/S}$ as defined for a morphism of schemes in
+More on Morphisms, Section \ref{more-morphisms-section-netherlander}
+agrees with $\NL_{X/S}$ as used in
+Section \ref{section-deformations-ringed-spaces}.)
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{Thickenings of ringed topoi}
+\label{section-thickenings-ringed-topoi}
+
+\noindent
+This section is the analogue of Section \ref{section-thickenings-spaces}
+for ringed topoi.
+In the following few sections we will use the following notions:
+\begin{enumerate}
+\item A sheaf of ideals $\mathcal{I} \subset \mathcal{O}'$ on
+a ringed topos $(\Sh(\mathcal{D}), \mathcal{O}')$ is {\it locally nilpotent}
+if any local section of $\mathcal{I}$ is locally nilpotent.
+\item A {\it thickening} of ringed topoi is a morphism
+$i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}), \mathcal{O}')$
+of ringed topoi such that
+\begin{enumerate}
+\item $i_*$ is an equivalence $\Sh(\mathcal{C}) \to \Sh(\mathcal{D})$,
+\item the map $i^\sharp : \mathcal{O}' \to i_*\mathcal{O}$
+is surjective, and
+\item the kernel of $i^\sharp$ is a locally nilpotent sheaf of ideals.
+\end{enumerate}
+\item A {\it first order thickening} of ringed topoi is a thickening
+$i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}), \mathcal{O}')$
+of ringed topoi such that $\Ker(i^\sharp)$ has square zero.
+\item It is clear how to define
+{\it morphisms of thickenings of ringed topoi},
+{\it morphisms of thickenings of ringed topoi over a base ringed topos}, etc.
+\end{enumerate}
+If
+$i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}), \mathcal{O}')$
+is a thickening of ringed topoi then we identify the underlying topoi
+and think of $\mathcal{O}$, $\mathcal{O}'$, and
+$\mathcal{I} = \Ker(i^\sharp)$ as sheaves on $\mathcal{C}$.
+We obtain a short exact sequence
+$$
+0 \to \mathcal{I} \to \mathcal{O}' \to \mathcal{O} \to 0
+$$
+of $\mathcal{O}'$-modules. By
+Modules on Sites, Lemma \ref{sites-modules-lemma-i-star-equivalence}
+the category of $\mathcal{O}$-modules is equivalent to the category
+of $\mathcal{O}'$-modules annihilated by $\mathcal{I}$. In particular,
+if $i$ is a first order thickening, then
+$\mathcal{I}$ is a $\mathcal{O}$-module.
+
+\begin{situation}
+\label{situation-morphism-thickenings-ringed-topoi}
+A morphism of thickenings of ringed topoi $(f, f')$
+is given by a commutative diagram
+\begin{equation}
+\label{equation-morphism-thickenings-ringed-topoi}
+\vcenter{
+\xymatrix{
+(\Sh(\mathcal{C}), \mathcal{O}) \ar[r]_i \ar[d]_f &
+(\Sh(\mathcal{D}), \mathcal{O}') \ar[d]^{f'} \\
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B}) \ar[r]^t &
+(\Sh(\mathcal{B}'), \mathcal{O}_{\mathcal{B}'})
+}
+}
+\end{equation}
+of ringed topoi whose horizontal arrows are thickenings. In this
+situation we set
+$\mathcal{I} = \Ker(i^\sharp) \subset \mathcal{O}'$ and
+$\mathcal{J} = \Ker(t^\sharp) \subset \mathcal{O}_{\mathcal{B}'}$.
+As $f = f'$ on underlying topoi we will identify
+the pullback functors $f^{-1}$ and $(f')^{-1}$.
+Observe that
+$(f')^\sharp : f^{-1}\mathcal{O}_{\mathcal{B}'} \to \mathcal{O}'$
+induces in particular a map $f^{-1}\mathcal{J} \to \mathcal{I}$
+and therefore a map of $\mathcal{O}'$-modules
+$$
+(f')^*\mathcal{J} \longrightarrow \mathcal{I}
+$$
+If $i$ and $t$ are first order thickenings, then
+$(f')^*\mathcal{J} = f^*\mathcal{J}$ and the map above becomes a
+map $f^*\mathcal{J} \to \mathcal{I}$.
+\end{situation}
+
+\begin{definition}
+\label{definition-strict-morphism-thickenings-ringed-topoi}
+In Situation \ref{situation-morphism-thickenings-ringed-topoi}
+we say that $(f, f')$ is a {\it strict morphism of thickenings}
+if the map $(f')^*\mathcal{J} \longrightarrow \mathcal{I}$ is surjective.
+\end{definition}
+
+
+
+
+
+
+
+
+\section{Modules on first order thickenings of ringed topoi}
+\label{section-modules-thickenings-ringed-topoi}
+
+\noindent
+In this section we discuss some preliminaries to the deformation theory
+of modules. Let
+$i : (\Sh(\mathcal{C}, \mathcal{O}) \to (\Sh(\mathcal{D}), \mathcal{O}')$
+be a first order thickening of ringed topoi. We will freely use the notation
+introduced in Section \ref{section-thickenings-ringed-topoi},
+in particular we will identify the underlying topological topoi.
+In this section we consider short exact sequences
+\begin{equation}
+\label{equation-extension-ringed-topoi}
+0 \to \mathcal{K} \to \mathcal{F}' \to \mathcal{F} \to 0
+\end{equation}
+of $\mathcal{O}'$-modules, where $\mathcal{F}$, $\mathcal{K}$ are
+$\mathcal{O}$-modules and $\mathcal{F}'$ is an $\mathcal{O}'$-module.
+In this situation we have a canonical $\mathcal{O}$-module map
+$$
+c_{\mathcal{F}'} :
+\mathcal{I} \otimes_\mathcal{O} \mathcal{F}
+\longrightarrow
+\mathcal{K}
+$$
+where $\mathcal{I} = \Ker(i^\sharp)$.
+Namely, given local sections $f$ of $\mathcal{I}$ and $s$
+of $\mathcal{F}$ we set $c_{\mathcal{F}'}(f \otimes s) = fs'$
+where $s'$ is a local section of $\mathcal{F}'$ lifting $s$.
+
+\begin{lemma}
+\label{lemma-inf-map-ringed-topoi}
+Let $i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}), \mathcal{O}')$
+be a first order thickening of ringed topoi. Assume given
+extensions
+$$
+0 \to \mathcal{K} \to \mathcal{F}' \to \mathcal{F} \to 0
+\quad\text{and}\quad
+0 \to \mathcal{L} \to \mathcal{G}' \to \mathcal{G} \to 0
+$$
+as in (\ref{equation-extension-ringed-topoi})
+and maps $\varphi : \mathcal{F} \to \mathcal{G}$ and
+$\psi : \mathcal{K} \to \mathcal{L}$.
+\begin{enumerate}
+\item If there exists an $\mathcal{O}'$-module
+map $\varphi' : \mathcal{F}' \to \mathcal{G}'$ compatible with $\varphi$
+and $\psi$, then the diagram
+$$
+\xymatrix{
+\mathcal{I} \otimes_\mathcal{O} \mathcal{F}
+\ar[r]_-{c_{\mathcal{F}'}} \ar[d]_{1 \otimes \varphi} &
+\mathcal{K} \ar[d]^\psi \\
+\mathcal{I} \otimes_\mathcal{O} \mathcal{G}
+\ar[r]^-{c_{\mathcal{G}'}} &
+\mathcal{L}
+}
+$$
+is commutative.
+\item The set of $\mathcal{O}'$-module
+maps $\varphi' : \mathcal{F}' \to \mathcal{G}'$ compatible with $\varphi$
+and $\psi$ is, if nonempty, a principal homogeneous space under
+$\Hom_\mathcal{O}(\mathcal{F}, \mathcal{L})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) is immediate from the description of the maps.
+For (2), if $\varphi'$ and $\varphi''$ are two maps
+$\mathcal{F}' \to \mathcal{G}'$ compatible with $\varphi$
+and $\psi$, then $\varphi' - \varphi''$ factors as
+$$
+\mathcal{F}' \to \mathcal{F} \to \mathcal{L} \to \mathcal{G}'
+$$
+The map in the middle comes from a unique element of
+$\Hom_\mathcal{O}(\mathcal{F}, \mathcal{L})$ by
+Modules on Sites, Lemma \ref{sites-modules-lemma-i-star-equivalence}.
+Conversely, given an element $\alpha$ of this group we can add the
+composition (as displayed above with $\alpha$ in the middle)
+to $\varphi'$. Some details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-obs-map-ringed-topoi}
+Let $i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}), \mathcal{O}')$
+be a first order thickening of ringed topoi. Assume given extensions
+$$
+0 \to \mathcal{K} \to \mathcal{F}' \to \mathcal{F} \to 0
+\quad\text{and}\quad
+0 \to \mathcal{L} \to \mathcal{G}' \to \mathcal{G} \to 0
+$$
+as in (\ref{equation-extension-ringed-topoi})
+and maps $\varphi : \mathcal{F} \to \mathcal{G}$ and
+$\psi : \mathcal{K} \to \mathcal{L}$. Assume the diagram
+$$
+\xymatrix{
+\mathcal{I} \otimes_\mathcal{O} \mathcal{F}
+\ar[r]_-{c_{\mathcal{F}'}} \ar[d]_{1 \otimes \varphi} &
+\mathcal{K} \ar[d]^\psi \\
+\mathcal{I} \otimes_\mathcal{O} \mathcal{G}
+\ar[r]^-{c_{\mathcal{G}'}} &
+\mathcal{L}
+}
+$$
+is commutative. Then there exists an element
+$$
+o(\varphi, \psi) \in
+\Ext^1_\mathcal{O}(\mathcal{F}, \mathcal{L})
+$$
+whose vanishing is a necessary and sufficient condition for the existence
+of a map $\varphi' : \mathcal{F}' \to \mathcal{G}'$ compatible with
+$\varphi$ and $\psi$.
+\end{lemma}
+
+\begin{proof}
+We can construct explicitly an extension
+$$
+0 \to \mathcal{L} \to \mathcal{H} \to \mathcal{F} \to 0
+$$
+by taking $\mathcal{H}$ to be the cohomology of the complex
+$$
+\mathcal{K}
+\xrightarrow{1, - \psi}
+\mathcal{F}' \oplus \mathcal{G}' \xrightarrow{\varphi, 1}
+\mathcal{G}
+$$
+in the middle (with obvious notation). A calculation with local sections
+using the assumption that the diagram of the lemma commutes
+shows that $\mathcal{H}$ is annihilated by $\mathcal{I}$. Hence
+$\mathcal{H}$ defines a class in
+$$
+\Ext^1_\mathcal{O}(\mathcal{F}, \mathcal{L})
+\subset
+\Ext^1_{\mathcal{O}'}(\mathcal{F}, \mathcal{L})
+$$
+Finally, the class of $\mathcal{H}$ is the difference of the pushout
+of the extension $\mathcal{F}'$ via $\psi$ and the pullback
+of the extension $\mathcal{G}'$ via $\varphi$ (calculations omitted).
+Thus the vanishing of the class of $\mathcal{H}$ is equivalent to the
+existence of a commutative diagram
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{K} \ar[r] \ar[d]_{\psi} &
+\mathcal{F}' \ar[r] \ar[d]_{\varphi'} &
+\mathcal{F} \ar[r] \ar[d]_\varphi & 0\\
+0 \ar[r] &
+\mathcal{L} \ar[r] &
+\mathcal{G}' \ar[r] &
+\mathcal{G} \ar[r] & 0
+}
+$$
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-ext-ringed-topoi}
+Let $i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}), \mathcal{O}')$
+be a first order thickening of ringed topoi. Assume given
+$\mathcal{O}$-modules $\mathcal{F}$, $\mathcal{K}$
+and an $\mathcal{O}$-linear map
+$c : \mathcal{I} \otimes_\mathcal{O} \mathcal{F} \to \mathcal{K}$.
+If there exists a sequence (\ref{equation-extension-ringed-topoi}) with
+$c_{\mathcal{F}'} = c$ then the set of isomorphism classes of these
+extensions is principal homogeneous under
+$\Ext^1_\mathcal{O}(\mathcal{F}, \mathcal{K})$.
+\end{lemma}
+
+\begin{proof}
+Assume given extensions
+$$
+0 \to \mathcal{K} \to \mathcal{F}'_1 \to \mathcal{F} \to 0
+\quad\text{and}\quad
+0 \to \mathcal{K} \to \mathcal{F}'_2 \to \mathcal{F} \to 0
+$$
+with $c_{\mathcal{F}'_1} = c_{\mathcal{F}'_2} = c$. Then the difference
+(in the extension group, see
+Homology, Section \ref{homology-section-extensions})
+is an extension
+$$
+0 \to \mathcal{K} \to \mathcal{E} \to \mathcal{F} \to 0
+$$
+where $\mathcal{E}$ is annihilated by $\mathcal{I}$ (local computation
+omitted). Hence the sequence is an extension of $\mathcal{O}$-modules,
+see Modules on Sites, Lemma \ref{sites-modules-lemma-i-star-equivalence}.
+Conversely, given such an extension $\mathcal{E}$ we can add the extension
+$\mathcal{E}$ to the $\mathcal{O}'$-extension $\mathcal{F}'$ without
+affecting the map $c_{\mathcal{F}'}$. Some details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-obs-ext-ringed-topoi}
+Let $i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}), \mathcal{O}')$
+be a first order thickening of ringed topoi. Assume given
+$\mathcal{O}$-modules $\mathcal{F}$, $\mathcal{K}$
+and an $\mathcal{O}$-linear map
+$c : \mathcal{I} \otimes_\mathcal{O} \mathcal{F} \to \mathcal{K}$.
+Then there exists an element
+$$
+o(\mathcal{F}, \mathcal{K}, c) \in
+\Ext^2_\mathcal{O}(\mathcal{F}, \mathcal{K})
+$$
+whose vanishing is a necessary and sufficient condition for the existence
+of a sequence (\ref{equation-extension-ringed-topoi})
+with $c_{\mathcal{F}'} = c$.
+\end{lemma}
+
+\begin{proof}
+We first show that if $\mathcal{K}$ is an injective $\mathcal{O}$-module,
+then there does exist a sequence (\ref{equation-extension-ringed-topoi}) with
+$c_{\mathcal{F}'} = c$. To do this, choose a flat
+$\mathcal{O}'$-module $\mathcal{H}'$ and a surjection
+$\mathcal{H}' \to \mathcal{F}$
+(Modules on Sites, Lemma \ref{sites-modules-lemma-module-quotient-flat}).
+Let $\mathcal{J} \subset \mathcal{H}'$ be the kernel. Since $\mathcal{H}'$
+is flat we have
+$$
+\mathcal{I} \otimes_{\mathcal{O}'} \mathcal{H}' =
+\mathcal{I}\mathcal{H}'
+\subset \mathcal{J} \subset \mathcal{H}'
+$$
+Observe that the map
+$$
+\mathcal{I}\mathcal{H}' =
+\mathcal{I} \otimes_{\mathcal{O}'} \mathcal{H}'
+\longrightarrow
+\mathcal{I} \otimes_{\mathcal{O}'} \mathcal{F} =
+\mathcal{I} \otimes_\mathcal{O} \mathcal{F}
+$$
+annihilates $\mathcal{I}\mathcal{J}$. Namely, if $f$ is a local section
+of $\mathcal{I}$ and $s$ is a local section of $\mathcal{H}$, then
+$fs$ is mapped to $f \otimes \overline{s}$ where $\overline{s}$ is
+the image of $s$ in $\mathcal{F}$. Thus we obtain
+$$
+\xymatrix{
+\mathcal{I}\mathcal{H}'/\mathcal{I}\mathcal{J}
+\ar@{^{(}->}[r] \ar[d] &
+\mathcal{J}/\mathcal{I}\mathcal{J} \ar@{..>}[d]_\gamma \\
+\mathcal{I} \otimes_\mathcal{O} \mathcal{F} \ar[r]^-c &
+\mathcal{K}
+}
+$$
+a diagram of $\mathcal{O}$-modules. If $\mathcal{K}$ is injective
+as an $\mathcal{O}$-module, then we obtain the dotted arrow.
+Denote $\gamma' : \mathcal{J} \to \mathcal{K}$ the composition
+of $\gamma$ with $\mathcal{J} \to \mathcal{J}/\mathcal{I}\mathcal{J}$.
+A local calculation shows the pushout
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{J} \ar[r] \ar[d]_{\gamma'} &
+\mathcal{H}' \ar[r] \ar[d] &
+\mathcal{F} \ar[r] \ar@{=}[d] &
+0 \\
+0 \ar[r] &
+\mathcal{K} \ar[r] &
+\mathcal{F}' \ar[r] &
+\mathcal{F} \ar[r] &
+0
+}
+$$
+is a solution to the problem posed by the lemma.
+
+\medskip\noindent
+General case. Choose an embedding $\mathcal{K} \subset \mathcal{K}'$
+with $\mathcal{K}'$ an injective $\mathcal{O}$-module. Let $\mathcal{Q}$
+be the quotient, so that we have an exact sequence
+$$
+0 \to \mathcal{K} \to \mathcal{K}' \to \mathcal{Q} \to 0
+$$
+Denote
+$c' : \mathcal{I} \otimes_\mathcal{O} \mathcal{F} \to \mathcal{K}'$
+be the composition. By the paragraph above there exists a sequence
+$$
+0 \to \mathcal{K}' \to \mathcal{E}' \to \mathcal{F} \to 0
+$$
+as in (\ref{equation-extension-ringed-topoi}) with $c_{\mathcal{E}'} = c'$.
+Note that $c'$ composed with the map $\mathcal{K}' \to \mathcal{Q}$
+is zero, hence the pushout of $\mathcal{E}'$ by
+$\mathcal{K}' \to \mathcal{Q}$ is an extension
+$$
+0 \to \mathcal{Q} \to \mathcal{D}' \to \mathcal{F} \to 0
+$$
+as in (\ref{equation-extension-ringed-topoi}) with $c_{\mathcal{D}'} = 0$.
+This means exactly that $\mathcal{D}'$ is annihilated by
+$\mathcal{I}$, in other words, the $\mathcal{D}'$ is an extension
+of $\mathcal{O}$-modules, i.e., defines an element
+$$
+o(\mathcal{F}, \mathcal{K}, c) \in
+\Ext^1_\mathcal{O}(\mathcal{F}, \mathcal{Q}) =
+\Ext^2_\mathcal{O}(\mathcal{F}, \mathcal{K})
+$$
+(the equality holds by the long exact cohomology sequence associated
+to the exact sequence above and the vanishing of higher ext groups
+into the injective module $\mathcal{K}'$). If
+$o(\mathcal{F}, \mathcal{K}, c) = 0$, then we can choose a splitting
+$s : \mathcal{F} \to \mathcal{D}'$ and we can set
+$$
+\mathcal{F}' = \Ker(\mathcal{E}' \to \mathcal{D}'/s(\mathcal{F}))
+$$
+so that we obtain the following diagram
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{K} \ar[r] \ar[d] &
+\mathcal{F}' \ar[r] \ar[d] &
+\mathcal{F} \ar[r] \ar@{=}[d] &
+0 \\
+0 \ar[r] &
+\mathcal{K}' \ar[r] &
+\mathcal{E}' \ar[r] &
+\mathcal{F} \ar[r] & 0
+}
+$$
+with exact rows which shows that $c_{\mathcal{F}'} = c$. Conversely, if
+$\mathcal{F}'$ exists, then the pushout of $\mathcal{F}'$ by the map
+$\mathcal{K} \to \mathcal{K}'$ is isomorphic to $\mathcal{E}'$ by
+Lemma \ref{lemma-inf-ext-ringed-topoi} and the vanishing of higher ext groups
+into the injective module $\mathcal{K}'$. This gives a diagram
+as above, which implies that $\mathcal{D}'$ is split as an extension, i.e.,
+the class $o(\mathcal{F}, \mathcal{K}, c)$ is zero.
+\end{proof}
+
+\begin{remark}
+\label{remark-trivial-thickening-ringed-topoi}
+Let $(\Sh(\mathcal{C}), \mathcal{O})$ be a ringed topos. A first order
+thickening $i : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{D}), \mathcal{O}')$ is said
+to be {\it trivial} if there exists a morphism of ringed topoi
+$\pi : (\Sh(\mathcal{D}), \mathcal{O}') \to (\Sh(\mathcal{C}), \mathcal{O})$
+which is a left inverse to $i$. The choice of such a morphism
+$\pi$ is called a {\it trivialization} of the first order thickening.
+Given $\pi$ we obtain a splitting
+\begin{equation}
+\label{equation-splitting-ringed-topoi}
+\mathcal{O}' = \mathcal{O} \oplus \mathcal{I}
+\end{equation}
+as sheaves of algebras on $\mathcal{C}$ by using $\pi^\sharp$
+to split the surjection $\mathcal{O}' \to \mathcal{O}$.
+Conversely, such a splitting determines
+a morphism $\pi$. The category of trivialized first order thickenings of
+$(\Sh(\mathcal{C}), \mathcal{O})$ is equivalent to the category of 
+$\mathcal{O}$-modules.
+\end{remark}
+
+\begin{remark}
+\label{remark-trivial-extension-ringed-topoi}
+Let $i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}), \mathcal{O}')$
+be a trivial first order thickening of ringed topoi
+and let $\pi : (\Sh(\mathcal{D}), \mathcal{O}') \to
+(\Sh(\mathcal{C}), \mathcal{O})$ be a trivialization. Then given any triple
+$(\mathcal{F}, \mathcal{K}, c)$ consisting of a pair of
+$\mathcal{O}$-modules and a map
+$c : \mathcal{I} \otimes_\mathcal{O} \mathcal{F} \to \mathcal{K}$
+we may set
+$$
+\mathcal{F}'_{c, triv} = \mathcal{F} \oplus \mathcal{K}
+$$
+and use the splitting (\ref{equation-splitting-ringed-topoi})
+associated to $\pi$ and the map $c$ to define the $\mathcal{O}'$-module
+structure and obtain an extension (\ref{equation-extension-ringed-topoi}).
+We will call $\mathcal{F}'_{c, triv}$ the {\it trivial extension} of
+$\mathcal{F}$ by $\mathcal{K}$ corresponding
+to $c$ and the trivialization $\pi$. Given any extension
+$\mathcal{F}'$ as in (\ref{equation-extension-ringed-topoi}) we can use
+$\pi^\sharp : \mathcal{O} \to \mathcal{O}'$ to think of $\mathcal{F}'$
+as an $\mathcal{O}$-module extension, hence a class $\xi_{\mathcal{F}'}$
+in $\Ext^1_\mathcal{O}(\mathcal{F}, \mathcal{K})$.
+Lemma \ref{lemma-inf-ext-ringed-topoi} assures that
+$\mathcal{F}' \mapsto \xi_{\mathcal{F}'}$
+induces a bijection
+$$
+\left\{
+\begin{matrix}
+\text{isomorphism classes of extensions}\\
+\mathcal{F}'\text{ as in (\ref{equation-extension-ringed-topoi}) with }
+c = c_{\mathcal{F}'}
+\end{matrix}
+\right\}
+\longrightarrow
+\Ext^1_\mathcal{O}(\mathcal{F}, \mathcal{K})
+$$
+Moreover, the trivial extension $\mathcal{F}'_{c, triv}$ maps to the zero class.
+\end{remark}
+
+\begin{remark}
+\label{remark-extension-functorial-ringed-topoi}
+Let $(\Sh(\mathcal{C}), \mathcal{O})$ be a ringed topos. Let
+$(\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}_i), \mathcal{O}'_i)$,
+$i = 1, 2$ be first order thickenings with ideal sheaves $\mathcal{I}_i$.
+Let $h : (\Sh(\mathcal{D}_1), \mathcal{O}'_1) \to
+(\Sh(\mathcal{D}_2), \mathcal{O}'_2)$
+be a morphism of first order thickenings of $(\Sh(\mathcal{C}), \mathcal{O})$.
+Picture
+$$
+\xymatrix{
+& (\Sh(\mathcal{C}), \mathcal{O}) \ar[ld] \ar[rd] & \\
+(\Sh(\mathcal{D}_1), \mathcal{O}'_1) \ar[rr]^h & & 
+(\Sh(\mathcal{D}_2), \mathcal{O}'_2)
+}
+$$
+Observe that $h^\sharp : \mathcal{O}'_2 \to \mathcal{O}'_1$
+in particular induces an $\mathcal{O}$-module map
+$\mathcal{I}_2 \to \mathcal{I}_1$.
+Let $\mathcal{F}$ be an $\mathcal{O}$-module.
+Let $(\mathcal{K}_i, c_i)$, $i = 1, 2$ be a pair
+consisting of an $\mathcal{O}$-module $\mathcal{K}_i$ and a map
+$c_i : \mathcal{I}_i \otimes_\mathcal{O} \mathcal{F} \to
+\mathcal{K}_i$. Assume furthermore given a map
+of $\mathcal{O}$-modules $\mathcal{K}_2 \to \mathcal{K}_1$
+such that
+$$
+\xymatrix{
+\mathcal{I}_2 \otimes_\mathcal{O} \mathcal{F}
+\ar[r]_-{c_2} \ar[d] &
+\mathcal{K}_2 \ar[d] \\
+\mathcal{I}_1 \otimes_\mathcal{O} \mathcal{F}
+\ar[r]^-{c_1} &
+\mathcal{K}_1
+}
+$$
+is commutative. Then there is a canonical functoriality
+$$
+\left\{
+\begin{matrix}
+\mathcal{F}'_2\text{ as in (\ref{equation-extension-ringed-topoi}) with }\\
+c_2 = c_{\mathcal{F}'_2}\text{ and }\mathcal{K} = \mathcal{K}_2
+\end{matrix}
+\right\}
+\longrightarrow
+\left\{
+\begin{matrix}
+\mathcal{F}'_1\text{ as in (\ref{equation-extension-ringed-topoi}) with }\\
+c_1 = c_{\mathcal{F}'_1}\text{ and }\mathcal{K} = \mathcal{K}_1
+\end{matrix}
+\right\}
+$$
+Namely, thinking of all sheaves $\mathcal{O}$, $\mathcal{O}'_i$,
+$\mathcal{F}$, $\mathcal{K}_i$, etc as sheaves on $\mathcal{C}$, we set
+given $\mathcal{F}'_2$ the sheaf $\mathcal{F}'_1$ equal to the
+pushout, i.e., fitting into the following diagram of extensions
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{K}_2 \ar[r] \ar[d] &
+\mathcal{F}'_2 \ar[r] \ar[d] &
+\mathcal{F} \ar@{=}[d] \ar[r] & 0 \\
+0 \ar[r] &
+\mathcal{K}_1 \ar[r] &
+\mathcal{F}'_1 \ar[r] &
+\mathcal{F} \ar[r] & 0
+}
+$$
+We omit the construction of the $\mathcal{O}'_1$-module structure
+on the pushout (this uses the commutativity of the diagram
+involving $c_1$ and $c_2$).
+\end{remark}
+
+\begin{remark}
+\label{remark-trivial-extension-functorial-ringed-topoi}
+Let $(\Sh(\mathcal{C}), \mathcal{O})$,
+$(\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}_i), \mathcal{O}'_i)$,
+$\mathcal{I}_i$, and $h : (\Sh(\mathcal{D}_1), \mathcal{O}'_1) \to
+(\Sh(\mathcal{D}_2), \mathcal{O}'_2)$ be as in
+Remark \ref{remark-extension-functorial-ringed-topoi}.
+Assume that we are given given trivializations
+$\pi_i : (\Sh(\mathcal{D}_i), \mathcal{O}'_i) \to
+(\Sh(\mathcal{C}), \mathcal{O})$ such that
+$\pi_1 = h \circ \pi_2$. In other words, assume $h$ is a morphism
+of trivialized first order thickenings of $(\Sh(\mathcal{C}), \mathcal{O})$.
+Let $(\mathcal{K}_i, c_i)$, $i = 1, 2$ be a pair consisting of an
+$\mathcal{O}$-module $\mathcal{K}_i$ and a map
+$c_i : \mathcal{I}_i \otimes_\mathcal{O} \mathcal{F} \to
+\mathcal{K}_i$. Assume furthermore given a map
+of $\mathcal{O}$-modules $\mathcal{K}_2 \to \mathcal{K}_1$
+such that
+$$
+\xymatrix{
+\mathcal{I}_2 \otimes_\mathcal{O} \mathcal{F}
+\ar[r]_-{c_2} \ar[d] &
+\mathcal{K}_2 \ar[d] \\
+\mathcal{I}_1 \otimes_\mathcal{O} \mathcal{F}
+\ar[r]^-{c_1} &
+\mathcal{K}_1
+}
+$$
+is commutative. In this situation the construction of
+Remark \ref{remark-trivial-extension-ringed-topoi} induces
+a commutative diagram
+$$
+\xymatrix{
+\{\mathcal{F}'_2\text{ as in (\ref{equation-extension-ringed-topoi}) with }
+c_2 = c_{\mathcal{F}'_2}\text{ and }\mathcal{K} = \mathcal{K}_2\}
+\ar[d] \ar[rr] & &
+\Ext^1_\mathcal{O}(\mathcal{F}, \mathcal{K}_2) \ar[d] \\
+\{\mathcal{F}'_1\text{ as in (\ref{equation-extension-ringed-topoi}) with }
+c_1 = c_{\mathcal{F}'_1}\text{ and }\mathcal{K} = \mathcal{K}_1\}
+\ar[rr] & &
+\Ext^1_\mathcal{O}(\mathcal{F}, \mathcal{K}_1)
+}
+$$
+where the vertical map on the right is given by functoriality of $\Ext$
+and the map $\mathcal{K}_2 \to \mathcal{K}_1$ and the vertical map on the left
+is the one from Remark \ref{remark-extension-functorial-ringed-topoi}.
+\end{remark}
+
+\begin{remark}
+\label{remark-obstruction-extension-functorial-ringed-topoi}
+Let $(\Sh(\mathcal{C}), \mathcal{O})$,
+$(\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}_i), \mathcal{O}'_i)$,
+$\mathcal{I}_i$, and $h : (\Sh(\mathcal{D}_1), \mathcal{O}'_1) \to
+(\Sh(\mathcal{D}_2), \mathcal{O}'_2)$ be as in
+Remark \ref{remark-extension-functorial-ringed-topoi}.
+Observe that $h^\sharp : \mathcal{O}'_2 \to \mathcal{O}'_1$
+in particular induces an $\mathcal{O}$-module map
+$\mathcal{I}_2 \to \mathcal{I}_1$.
+Let $\mathcal{F}$ be an $\mathcal{O}$-module.
+Let $(\mathcal{K}_i, c_i)$, $i = 1, 2$ be a pair
+consisting of an $\mathcal{O}$-module $\mathcal{K}_i$ and a map
+$c_i : \mathcal{I}_i \otimes_\mathcal{O} \mathcal{F} \to
+\mathcal{K}_i$. Assume furthermore given a map
+of $\mathcal{O}$-modules $\mathcal{K}_2 \to \mathcal{K}_1$
+such that
+$$
+\xymatrix{
+\mathcal{I}_2 \otimes_\mathcal{O} \mathcal{F}
+\ar[r]_-{c_2} \ar[d] &
+\mathcal{K}_2 \ar[d] \\
+\mathcal{I}_1 \otimes_\mathcal{O} \mathcal{F}
+\ar[r]^-{c_1} &
+\mathcal{K}_1
+}
+$$
+is commutative. Then we {\bf claim} the map
+$$
+\Ext^2_\mathcal{O}(\mathcal{F}, \mathcal{K}_2)
+\longrightarrow
+\Ext^2_\mathcal{O}(\mathcal{F}, \mathcal{K}_1)
+$$
+sends $o(\mathcal{F}, \mathcal{K}_2, c_2)$ to
+$o(\mathcal{F}, \mathcal{K}_1, c_1)$.
+
+\medskip\noindent
+To prove this claim choose an embedding
+$j_2 : \mathcal{K}_2 \to \mathcal{K}_2'$
+where $\mathcal{K}_2'$ is an injective $\mathcal{O}$-module.
+As in the proof of Lemma \ref{lemma-inf-obs-ext-ringed-topoi}
+we can choose an extension of $\mathcal{O}_2$-modules
+$$
+0 \to \mathcal{K}_2' \to \mathcal{E}_2 \to \mathcal{F} \to 0
+$$
+such that $c_{\mathcal{E}_2} = j_2 \circ c_2$.
+The proof of Lemma \ref{lemma-inf-obs-ext-ringed-topoi} constructs
+$o(\mathcal{F}, \mathcal{K}_2, c_2)$
+as the Yoneda extension class (in the sense of
+Derived Categories, Section \ref{derived-section-ext})
+of the exact sequence of $\mathcal{O}$-modules
+$$
+0 \to
+\mathcal{K}_2 \to \mathcal{K}_2' \to
+\mathcal{E}_2/\mathcal{K}_2 \to
+\mathcal{F} \to 0
+$$
+Let $\mathcal{K}_1'$ be the cokernel of
+$\mathcal{K}_2 \to \mathcal{K}_1 \oplus \mathcal{K}_2'$.
+There is an injection $j_1 : \mathcal{K}_1 \to \mathcal{K}_1'$
+and a map $\mathcal{K}_2' \to \mathcal{K}_1'$ forming
+a commutative square. We form the pushout:
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{K}_2' \ar[r] \ar[d] &
+\mathcal{E}_2 \ar[r] \ar[d] &
+\mathcal{F} \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+\mathcal{K}_1' \ar[r] &
+\mathcal{E}_1 \ar[r] &
+\mathcal{F} \ar[r] & 0
+}
+$$
+There is a canonical $\mathcal{O}_1$-module structure on
+$\mathcal{E}_1$ and for this structure we have
+$c_{\mathcal{E}_1} = j_1 \circ c_1$ (this uses the commutativity
+of the diagram involving $c_1$ and $c_2$ above).
+The procedure of Lemma \ref{lemma-inf-obs-ext-ringed-topoi}
+tells us that $o(\mathcal{F}, \mathcal{K}_1, c_1)$
+is the Yoneda extension class of the exact sequence
+of $\mathcal{O}$-modules
+$$
+0 \to
+\mathcal{K}_1 \to
+\mathcal{K}_1' \to
+\mathcal{E}_1/\mathcal{K}_1 \to
+\mathcal{F} \to 0
+$$
+Since we have maps of exact sequences
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{K}_2 \ar[d] \ar[r] &
+\mathcal{K}_2' \ar[d] \ar[r] &
+\mathcal{E}_2/\mathcal{K}_2 \ar[r] \ar[d] &
+\mathcal{F} \ar[r] \ar@{=}[d] &
+0 \\
+0 \ar[r] &
+\mathcal{K}_2 \ar[r] &
+\mathcal{K}_2' \ar[r] &
+\mathcal{E}_2/\mathcal{K}_2 \ar[r] &
+\mathcal{F} \ar[r] &
+0
+}
+$$
+we conclude that the claim is true.
+\end{remark}
+
+\begin{remark}
+\label{remark-short-exact-sequence-thickenings-ringed-topoi}
+Let $(\Sh(\mathcal{C}), \mathcal{O})$ be a ringed topos.
+We define a sequence of morphisms of first order thickenings
+$$
+(\Sh(\mathcal{D}_1), \mathcal{O}'_1) \to
+(\Sh(\mathcal{D}_2), \mathcal{O}'_2) \to
+(\Sh(\mathcal{D}_3), \mathcal{O}'_3)
+$$
+of $(\Sh(\mathcal{C}), \mathcal{O})$ to be a {\it complex}
+if the corresponding maps between
+the ideal sheaves $\mathcal{I}_i$
+give a complex of $\mathcal{O}$-modules
+$\mathcal{I}_3 \to \mathcal{I}_2 \to \mathcal{I}_1$
+(i.e., the composition is zero). In this case the composition
+$(\Sh(\mathcal{D}_1), \mathcal{O}'_1) \to
+(\Sh(\mathcal{D}_3), \mathcal{O}'_3)$ factors through
+$(\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{D}_3), \mathcal{O}'_3)$, i.e.,
+the first order thickening
+$(\Sh(\mathcal{D}_1), \mathcal{O}'_1)$ of
+$(\Sh(\mathcal{C}), \mathcal{O})$ is trivial and comes with
+a canonical trivialization
+$\pi : (\Sh(\mathcal{D}_1), \mathcal{O}'_1) \to
+(\Sh(\mathcal{C}), \mathcal{O})$.
+
+\medskip\noindent
+We say a sequence of morphisms of first order thickenings
+$$
+(\Sh(\mathcal{D}_1), \mathcal{O}'_1) \to
+(\Sh(\mathcal{D}_2), \mathcal{O}'_2) \to
+(\Sh(\mathcal{D}_3), \mathcal{O}'_3)
+$$
+of $(\Sh(\mathcal{C}), \mathcal{O})$ is {\it a short exact sequence} if the
+corresponding maps between ideal sheaves is a short exact sequence
+$$
+0 \to \mathcal{I}_3 \to \mathcal{I}_2 \to \mathcal{I}_1 \to 0
+$$
+of $\mathcal{O}$-modules.
+\end{remark}
+
+\begin{remark}
+\label{remark-complex-thickenings-and-ses-modules-ringed-topoi}
+Let $(\Sh(\mathcal{C}), \mathcal{O})$ be a ringed topos.
+Let $\mathcal{F}$ be an $\mathcal{O}$-module. Let
+$$
+(\Sh(\mathcal{D}_1), \mathcal{O}'_1) \to
+(\Sh(\mathcal{D}_2), \mathcal{O}'_2) \to
+(\Sh(\mathcal{D}_3), \mathcal{O}'_3)
+$$
+be a complex first order thickenings of $(\Sh(\mathcal{C}), \mathcal{O})$, see
+Remark \ref{remark-short-exact-sequence-thickenings-ringed-topoi}.
+Let $(\mathcal{K}_i, c_i)$, $i = 1, 2, 3$ be pairs consisting of
+an $\mathcal{O}$-module $\mathcal{K}_i$ and a map
+$c_i : \mathcal{I}_i \otimes_\mathcal{O} \mathcal{F} \to
+\mathcal{K}_i$. Assume given a short exact sequence
+of $\mathcal{O}$-modules
+$$
+0 \to \mathcal{K}_3 \to \mathcal{K}_2 \to \mathcal{K}_1 \to 0
+$$
+such that
+$$
+\vcenter{
+\xymatrix{
+\mathcal{I}_2 \otimes_\mathcal{O} \mathcal{F}
+\ar[r]_-{c_2} \ar[d] &
+\mathcal{K}_2 \ar[d] \\
+\mathcal{I}_1 \otimes_\mathcal{O} \mathcal{F}
+\ar[r]^-{c_1} &
+\mathcal{K}_1
+}
+}
+\quad\text{and}\quad
+\vcenter{
+\xymatrix{
+\mathcal{I}_3 \otimes_\mathcal{O} \mathcal{F}
+\ar[r]_-{c_3} \ar[d] &
+\mathcal{K}_3 \ar[d] \\
+\mathcal{I}_2 \otimes_\mathcal{O} \mathcal{F}
+\ar[r]^-{c_2} &
+\mathcal{K}_2
+}
+}
+$$
+are commutative. Finally, assume given an extension
+$$
+0 \to \mathcal{K}_2 \to \mathcal{F}'_2 \to \mathcal{F} \to 0
+$$
+as in (\ref{equation-extension-ringed-topoi})
+with $\mathcal{K} = \mathcal{K}_2$
+of $\mathcal{O}'_2$-modules with $c_{\mathcal{F}'_2} = c_2$.
+In this situation we can apply the functoriality of
+Remark \ref{remark-extension-functorial-ringed-topoi}
+to obtain an extension $\mathcal{F}'_1$ of $\mathcal{O}'_1$-modules
+(we'll describe $\mathcal{F}'_1$ in this special case below). By
+Remark \ref{remark-trivial-extension-ringed-topoi}
+using the canonical splitting
+$\pi : (\Sh(\mathcal{D}_1), \mathcal{O}'_1) \to
+(\Sh(\mathcal{C}), \mathcal{O})$ of
+Remark \ref{remark-short-exact-sequence-thickenings-ringed-topoi}
+we obtain
+$\xi_{\mathcal{F}'_1} \in
+\Ext^1_\mathcal{O}(\mathcal{F}, \mathcal{K}_1)$.
+Finally, we have the obstruction
+$$
+o(\mathcal{F}, \mathcal{K}_3, c_3) \in
+\Ext^2_\mathcal{O}(\mathcal{F}, \mathcal{K}_3)
+$$
+see Lemma \ref{lemma-inf-obs-ext-ringed-topoi}.
+In this situation we {\bf claim} that the canonical map
+$$
+\partial :
+\Ext^1_\mathcal{O}(\mathcal{F}, \mathcal{K}_1)
+\longrightarrow
+\Ext^2_\mathcal{O}(\mathcal{F}, \mathcal{K}_3)
+$$
+coming from the short exact sequence
+$0 \to \mathcal{K}_3 \to \mathcal{K}_2 \to \mathcal{K}_1 \to 0$
+sends $\xi_{\mathcal{F}'_1}$
+to the obstruction class $o(\mathcal{F}, \mathcal{K}_3, c_3)$.
+
+\medskip\noindent
+To prove this claim choose an embedding $j : \mathcal{K}_3 \to \mathcal{K}$
+where $\mathcal{K}$ is an injective $\mathcal{O}$-module.
+We can lift $j$ to a map $j' : \mathcal{K}_2 \to \mathcal{K}$.
+Set $\mathcal{E}'_2 = j'_*\mathcal{F}'_2$ equal to the pushout
+of $\mathcal{F}'_2$ by $j'$ so that $c_{\mathcal{E}'_2} = j' \circ c_2$.
+Picture:
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{K}_2 \ar[r] \ar[d]_{j'} &
+\mathcal{F}'_2 \ar[r] \ar[d] &
+\mathcal{F} \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+\mathcal{K} \ar[r] &
+\mathcal{E}'_2 \ar[r] &
+\mathcal{F} \ar[r] & 0
+}
+$$
+Set $\mathcal{E}'_3 = \mathcal{E}'_2$ but viewed as an
+$\mathcal{O}'_3$-module via $\mathcal{O}'_3 \to \mathcal{O}'_2$.
+Then $c_{\mathcal{E}'_3} = j \circ c_3$.
+The proof of Lemma \ref{lemma-inf-obs-ext-ringed-topoi} constructs
+$o(\mathcal{F}, \mathcal{K}_3, c_3)$
+as the boundary of the class of the extension of $\mathcal{O}$-modules
+$$
+0 \to
+\mathcal{K}/\mathcal{K}_3 \to
+\mathcal{E}'_3/\mathcal{K}_3 \to
+\mathcal{F} \to 0
+$$
+On the other hand, note that $\mathcal{F}'_1 = \mathcal{F}'_2/\mathcal{K}_3$
+hence the class $\xi_{\mathcal{F}'_1}$ is the class
+of the extension
+$$
+0 \to \mathcal{K}_2/\mathcal{K}_3 \to \mathcal{F}'_2/\mathcal{K}_3
+\to \mathcal{F} \to 0
+$$
+seen as a sequence of $\mathcal{O}$-modules using $\pi^\sharp$
+where $\pi : (\Sh(\mathcal{D}_1), \mathcal{O}'_1) \to
+(\Sh(\mathcal{C}), \mathcal{O})$ is the canonical splitting.
+Thus finally, the claim follows from the fact that we have
+a commutative diagram
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{K}_2/\mathcal{K}_3 \ar[r] \ar[d] &
+\mathcal{F}'_2/\mathcal{K}_3 \ar[r] \ar[d] &
+\mathcal{F} \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+\mathcal{K}/\mathcal{K}_3 \ar[r] &
+\mathcal{E}'_3/\mathcal{K}_3 \ar[r] &
+\mathcal{F} \ar[r] & 0
+}
+$$
+which is $\mathcal{O}$-linear (with the $\mathcal{O}$-module
+structures given above).
+\end{remark}
+
+
+
+
+
+
+
+\section{Infinitesimal deformations of modules on ringed topi}
+\label{section-deformation-modules-ringed-topoi}
+
+\noindent
+Let $i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}), \mathcal{O}')$
+be a first order thickening of ringed topoi. We freely use the notation
+introduced in Section \ref{section-thickenings-ringed-topoi}.
+Let $\mathcal{F}'$ be an $\mathcal{O}'$-module
+and set $\mathcal{F} = i^*\mathcal{F}'$.
+In this situation we have a short exact sequence
+$$
+0 \to \mathcal{I}\mathcal{F}' \to \mathcal{F}' \to \mathcal{F} \to 0
+$$
+of $\mathcal{O}'$-modules. Since $\mathcal{I}^2 = 0$ the
+$\mathcal{O}'$-module structure on $\mathcal{I}\mathcal{F}'$
+comes from a unique $\mathcal{O}$-module structure.
+Thus the sequence above is an extension as in
+(\ref{equation-extension-ringed-topoi}).
+As a special case, if $\mathcal{F}' = \mathcal{O}'$ we have
+$i^*\mathcal{O}' = \mathcal{O}$ and
+$\mathcal{I}\mathcal{O}' = \mathcal{I}$ and we recover the
+sequence of structure sheaves
+$$
+0 \to \mathcal{I} \to \mathcal{O}' \to \mathcal{O} \to 0
+$$
+
+\begin{lemma}
+\label{lemma-inf-map-special-ringed-topoi}
+Let $i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}), \mathcal{O}')$
+be a first order thickening of ringed topoi.
+Let $\mathcal{F}'$, $\mathcal{G}'$ be $\mathcal{O}'$-modules.
+Set $\mathcal{F} = i^*\mathcal{F}'$ and $\mathcal{G} = i^*\mathcal{G}'$.
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be an $\mathcal{O}$-linear map.
+The set of lifts of $\varphi$ to an $\mathcal{O}'$-linear map
+$\varphi' : \mathcal{F}' \to \mathcal{G}'$ is, if nonempty, a principal
+homogeneous space under
+$\Hom_\mathcal{O}(\mathcal{F}, \mathcal{I}\mathcal{G}')$.
+\end{lemma}
+
+\begin{proof}
+This is a special case of Lemma \ref{lemma-inf-map-ringed-topoi} but we also
+give a direct proof. We have short exact sequences of modules
+$$
+0 \to \mathcal{I} \to \mathcal{O}' \to \mathcal{O} \to 0
+\quad\text{and}\quad
+0 \to \mathcal{I}\mathcal{G}' \to \mathcal{G}' \to \mathcal{G} \to 0
+$$
+and similarly for $\mathcal{F}'$.
+Since $\mathcal{I}$ has square zero the $\mathcal{O}'$-module
+structure on $\mathcal{I}$ and $\mathcal{I}\mathcal{G}'$ comes from
+a unique $\mathcal{O}$-module structure. It follows that
+$$
+\Hom_{\mathcal{O}'}(\mathcal{F}', \mathcal{I}\mathcal{G}') =
+\Hom_\mathcal{O}(\mathcal{F}, \mathcal{I}\mathcal{G}')
+\quad\text{and}\quad
+\Hom_{\mathcal{O}'}(\mathcal{F}', \mathcal{G}) =
+\Hom_\mathcal{O}(\mathcal{F}, \mathcal{G})
+$$
+The lemma now follows from the exact sequence
+$$
+0 \to \Hom_{\mathcal{O}'}(\mathcal{F}', \mathcal{I}\mathcal{G}') \to
+\Hom_{\mathcal{O}'}(\mathcal{F}', \mathcal{G}') \to
+\Hom_{\mathcal{O}'}(\mathcal{F}', \mathcal{G})
+$$
+see Homology, Lemma \ref{homology-lemma-check-exactness}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-deform-module-ringed-topoi}
+Let $(f, f')$ be a morphism of first order thickenings of ringed topoi
+as in Situation \ref{situation-morphism-thickenings-ringed-topoi}.
+Let $\mathcal{F}'$ be an $\mathcal{O}'$-module
+and set $\mathcal{F} = i^*\mathcal{F}'$.
+Assume that $\mathcal{F}$ is flat over $\mathcal{O}_\mathcal{B}$
+and that $(f, f')$ is a strict morphism of thickenings
+(Definition \ref{definition-strict-morphism-thickenings-ringed-topoi}).
+Then the following are equivalent
+\begin{enumerate}
+\item $\mathcal{F}'$ is flat over $\mathcal{O}_{\mathcal{B}'}$, and
+\item the canonical map
+$f^*\mathcal{J} \otimes_\mathcal{O} \mathcal{F} \to
+\mathcal{I}\mathcal{F}'$
+is an isomorphism.
+\end{enumerate}
+Moreover, in this case the maps
+$$
+f^*\mathcal{J} \otimes_\mathcal{O} \mathcal{F} \to
+\mathcal{I} \otimes_\mathcal{O} \mathcal{F} \to
+\mathcal{I}\mathcal{F}'
+$$
+are isomorphisms.
+\end{lemma}
+
+\begin{proof}
+The map $f^*\mathcal{J} \to \mathcal{I}$ is surjective
+as $(f, f')$ is a strict morphism of thickenings.
+Hence the final statement is a consequence of (2).
+
+\medskip\noindent
+Proof of the equivalence of (1) and (2). By definition flatness over
+$\mathcal{O}_\mathcal{B}$ means flatness over $f^{-1}\mathcal{O}_\mathcal{B}$.
+Similarly for flatness over $f^{-1}\mathcal{O}_{\mathcal{B}'}$.
+Note that the strictness of $(f, f')$ and the assumption that
+$\mathcal{F} = i^*\mathcal{F}'$ imply that
+$$
+\mathcal{F} = \mathcal{F}'/(f^{-1}\mathcal{J})\mathcal{F}'
+$$
+as sheaves on $\mathcal{C}$. Moreover, observe that
+$f^*\mathcal{J} \otimes_\mathcal{O} \mathcal{F} =
+f^{-1}\mathcal{J} \otimes_{f^{-1}\mathcal{O}_\mathcal{B}} \mathcal{F}$.
+Hence the equivalence of (1) and (2) follows from
+Modules on Sites, Lemma \ref{sites-modules-lemma-flat-over-thickening}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-deform-fp-module-ringed-topoi}
+Let $(f, f')$ be a morphism of first order thickenings of ringed topoi
+as in Situation \ref{situation-morphism-thickenings-ringed-topoi}.
+Let $\mathcal{F}'$ be an $\mathcal{O}'$-module
+and set $\mathcal{F} = i^*\mathcal{F}'$.
+Assume that $\mathcal{F}'$ is flat over $\mathcal{O}_{\mathcal{B}'}$
+and that $(f, f')$ is a strict morphism of thickenings.
+Then the following are equivalent
+\begin{enumerate}
+\item $\mathcal{F}'$ is an $\mathcal{O}'$-module of finite presentation, and
+\item $\mathcal{F}$ is an $\mathcal{O}$-module of finite presentation.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implication (1) $\Rightarrow$ (2) follows from
+Modules on Sites, Lemma \ref{sites-modules-lemma-local-pullback}.
+For the converse, assume $\mathcal{F}$ of finite presentation.
+We may and do assume that $\mathcal{C} = \mathcal{C}'$.
+By Lemma \ref{lemma-deform-module-ringed-topoi} we have a short exact sequence
+$$
+0 \to \mathcal{I} \otimes_{\mathcal{O}_X} \mathcal{F} \to
+\mathcal{F}' \to \mathcal{F} \to 0
+$$
+Let $U$ be an object of $\mathcal{C}$ such that $\mathcal{F}|_U$ has a
+presentation
+$$
+\mathcal{O}_U^{\oplus m} \to \mathcal{O}_U^{\oplus n} \to \mathcal{F}|_U \to 0
+$$
+After replacing $U$ by the members of a covering we may assume the
+map $\mathcal{O}_U^{\oplus n} \to \mathcal{F}|_U$ lifts to a map
+$(\mathcal{O}'_U)^{\oplus n} \to \mathcal{F}'|_U$. The induced map
+$\mathcal{I}^{\oplus n} \to \mathcal{I} \otimes \mathcal{F}$ is
+surjective by right exactness of $\otimes$. Thus after replacing $U$
+by the members of a covering we can find a lift
+$(\mathcal{O}'|_U)^{\oplus m} \to (\mathcal{O}'|_U)^{\oplus n}$
+of the given map $\mathcal{O}_U^{\oplus m} \to \mathcal{O}_U^{\oplus n}$
+such that
+$$
+(\mathcal{O}'_U)^{\oplus m} \to (\mathcal{O}'_U)^{\oplus n} \to
+\mathcal{F}'|_U \to 0
+$$
+is a complex. Using right exactness of $\otimes$ once more it is seen
+that this complex is exact.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-map-rel-ringed-topoi}
+Let $(f, f')$ be a morphism of first order thickenings as in
+Situation \ref{situation-morphism-thickenings-ringed-topoi}.
+Let $\mathcal{F}'$, $\mathcal{G}'$ be $\mathcal{O}'$-modules and set
+$\mathcal{F} = i^*\mathcal{F}'$ and $\mathcal{G} = i^*\mathcal{G}'$.
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be an $\mathcal{O}$-linear map.
+Assume that $\mathcal{G}'$ is flat over $\mathcal{O}_{\mathcal{B}'}$ and that
+$(f, f')$ is a strict morphism of thickenings.
+The set of lifts of $\varphi$ to an $\mathcal{O}'$-linear map
+$\varphi' : \mathcal{F}' \to \mathcal{G}'$ is, if nonempty, a principal
+homogeneous space under
+$$
+\Hom_\mathcal{O}(\mathcal{F},
+\mathcal{G} \otimes_\mathcal{O} f^*\mathcal{J})
+$$
+\end{lemma}
+
+\begin{proof}
+Combine Lemmas \ref{lemma-inf-map-special-ringed-topoi} and
+\ref{lemma-deform-module-ringed-topoi}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-obs-map-special-ringed-topoi}
+Let $i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{D}), \mathcal{O}')$
+be a first order thickening of ringed topoi.
+Let $\mathcal{F}'$, $\mathcal{G}'$ be $\mathcal{O}'$-modules and set
+$\mathcal{F} = i^*\mathcal{F}'$ and $\mathcal{G} = i^*\mathcal{G}'$.
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be an $\mathcal{O}$-linear map.
+There exists an element
+$$
+o(\varphi) \in
+\Ext^1_\mathcal{O}(Li^*\mathcal{F}', \mathcal{I}\mathcal{G}')
+$$
+whose vanishing is a necessary and sufficient condition for the
+existence of a lift of $\varphi$ to an $\mathcal{O}'$-linear map
+$\varphi' : \mathcal{F}' \to \mathcal{G}'$.
+\end{lemma}
+
+\begin{proof}
+It is clear from the proof of Lemma \ref{lemma-inf-map-special-ringed-topoi}
+that the vanishing of the boundary of $\varphi$ via the map
+$$
+\Hom_\mathcal{O}(\mathcal{F}, \mathcal{G}) =
+\Hom_{\mathcal{O}'}(\mathcal{F}', \mathcal{G}) \longrightarrow
+\Ext^1_{\mathcal{O}'}(\mathcal{F}', \mathcal{I}\mathcal{G}')
+$$
+is a necessary and sufficient condition for the existence of a lift. We
+conclude as
+$$
+\Ext^1_{\mathcal{O}'}(\mathcal{F}', \mathcal{I}\mathcal{G}') =
+\Ext^1_\mathcal{O}(Li^*\mathcal{F}', \mathcal{I}\mathcal{G}')
+$$
+the adjointness of $i_* = Ri_*$ and $Li^*$ on the derived category
+(Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-adjoint}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-obs-map-rel-ringed-topoi}
+Let $(f, f')$ be a morphism of first order thickenings as in
+Situation \ref{situation-morphism-thickenings-ringed-topoi}.
+Let $\mathcal{F}'$, $\mathcal{G}'$ be $\mathcal{O}'$-modules and set
+$\mathcal{F} = i^*\mathcal{F}'$ and $\mathcal{G} = i^*\mathcal{G}'$.
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be an $\mathcal{O}$-linear map.
+Assume that $\mathcal{F}'$ and $\mathcal{G}'$ are flat over
+$\mathcal{O}_{\mathcal{B}'}$ and
+that $(f, f')$ is a strict morphism of thickenings. There exists an element
+$$
+o(\varphi) \in
+\Ext^1_\mathcal{O}(\mathcal{F},
+\mathcal{G} \otimes_\mathcal{O} f^*\mathcal{J})
+$$
+whose vanishing is a necessary and sufficient condition for the
+existence of a lift of $\varphi$ to an $\mathcal{O}'$-linear map
+$\varphi' : \mathcal{F}' \to \mathcal{G}'$.
+\end{lemma}
+
+\begin{proof}[First proof]
+This follows from Lemma \ref{lemma-inf-obs-map-special-ringed-topoi}
+as we claim that under the assumptions of the lemma we have
+$$
+\Ext^1_\mathcal{O}(Li^*\mathcal{F}', \mathcal{I}\mathcal{G}') =
+\Ext^1_\mathcal{O}(\mathcal{F},
+\mathcal{G} \otimes_\mathcal{O} f^*\mathcal{J})
+$$
+Namely, we have
+$\mathcal{I}\mathcal{G}' =
+\mathcal{G} \otimes_\mathcal{O} f^*\mathcal{J}$
+by Lemma \ref{lemma-deform-module-ringed-topoi}.
+On the other hand, observe that
+$$
+H^{-1}(Li^*\mathcal{F}') =
+\text{Tor}_1^{\mathcal{O}'}(\mathcal{F}', \mathcal{O})
+$$
+(local computation omitted). Using the short exact sequence
+$$
+0 \to \mathcal{I} \to \mathcal{O}' \to \mathcal{O} \to 0
+$$
+we see that this $\text{Tor}_1$ is computed by the kernel of the map
+$\mathcal{I} \otimes_\mathcal{O} \mathcal{F} \to \mathcal{I}\mathcal{F}'$
+which is zero by the final assertion of
+Lemma \ref{lemma-deform-module-ringed-topoi}.
+Thus $\tau_{\geq -1}Li^*\mathcal{F}' = \mathcal{F}$.
+On the other hand, we have
+$$
+\Ext^1_\mathcal{O}(Li^*\mathcal{F}',
+\mathcal{I}\mathcal{G}') =
+\Ext^1_\mathcal{O}(\tau_{\geq -1}Li^*\mathcal{F}',
+\mathcal{I}\mathcal{G}')
+$$
+by the dual of
+Derived Categories, Lemma \ref{derived-lemma-negative-vanishing}.
+\end{proof}
+
+\begin{proof}[Second proof]
+We can apply Lemma \ref{lemma-inf-obs-map-ringed-topoi} as follows. Note that
+$\mathcal{K} = \mathcal{I} \otimes_\mathcal{O} \mathcal{F}$ and
+$\mathcal{L} = \mathcal{I} \otimes_\mathcal{O} \mathcal{G}$
+by Lemma \ref{lemma-deform-module-ringed-topoi}, that
+$c_{\mathcal{F}'} = 1 \otimes 1$ and $c_{\mathcal{G}'} = 1 \otimes 1$
+and taking $\psi = 1 \otimes \varphi$ the diagram of the lemma
+commutes. Thus $o(\varphi) = o(\varphi, 1 \otimes \varphi)$
+works.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-ext-rel-ringed-topoi}
+Let $(f, f')$ be a morphism of first order thickenings as in
+Situation \ref{situation-morphism-thickenings-ringed-topoi}.
+Let $\mathcal{F}$ be an $\mathcal{O}$-module.
+Assume $(f, f')$ is a strict morphism of thickenings and
+$\mathcal{F}$ flat over $\mathcal{O}_\mathcal{B}$. If there exists a pair
+$(\mathcal{F}', \alpha)$ consisting of an
+$\mathcal{O}'$-module $\mathcal{F}'$ flat over $\mathcal{O}_{\mathcal{B}'}$
+and an isomorphism
+$\alpha : i^*\mathcal{F}' \to \mathcal{F}$, then the set of
+isomorphism classes of such pairs is principal homogeneous
+under
+$\Ext^1_\mathcal{O}(
+\mathcal{F}, \mathcal{I} \otimes_\mathcal{O} \mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+If we assume there exists one such module, then the canonical map
+$$
+f^*\mathcal{J} \otimes_\mathcal{O} \mathcal{F} \to
+\mathcal{I} \otimes_\mathcal{O} \mathcal{F}
+$$
+is an isomorphism by Lemma \ref{lemma-deform-module-ringed-topoi}. Apply
+Lemma \ref{lemma-inf-ext-ringed-topoi} with $\mathcal{K} = 
+\mathcal{I} \otimes_\mathcal{O} \mathcal{F}$
+and $c = 1$. By Lemma \ref{lemma-deform-module-ringed-topoi}
+the corresponding extensions
+$\mathcal{F}'$ are all flat over $\mathcal{O}_{\mathcal{B}'}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-obs-ext-rel-ringed-topoi}
+Let $(f, f')$ be a morphism of first order thickenings as in
+Situation \ref{situation-morphism-thickenings-ringed-topoi}.
+Let $\mathcal{F}$ be an $\mathcal{O}$-module. Assume
+$(f, f')$ is a strict morphism of thickenings
+and $\mathcal{F}$ flat over $\mathcal{O}_\mathcal{B}$. There exists an
+$\mathcal{O}'$-module $\mathcal{F}'$ flat over $\mathcal{O}_{\mathcal{B}'}$
+with $i^*\mathcal{F}' \cong \mathcal{F}$, if and only if
+\begin{enumerate}
+\item the canonical map
+$f^*\mathcal{J} \otimes_\mathcal{O} \mathcal{F} \to
+\mathcal{I} \otimes_\mathcal{O} \mathcal{F}$
+is an isomorphism, and
+\item the class
+$o(\mathcal{F}, \mathcal{I} \otimes_\mathcal{O} \mathcal{F}, 1)
+\in \Ext^2_\mathcal{O}(
+\mathcal{F}, \mathcal{I} \otimes_\mathcal{O} \mathcal{F})$
+of Lemma \ref{lemma-inf-obs-ext-ringed-topoi} is zero.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This follows immediately from the characterization of
+$\mathcal{O}'$-modules flat over $\mathcal{O}_{\mathcal{B}'}$ of 
+Lemma \ref{lemma-deform-module-ringed-topoi} and
+Lemma \ref{lemma-inf-obs-ext-ringed-topoi}.
+\end{proof}
+
+
+
+
+
+
+\section{Application to flat modules on flat thickenings of ringed topoi}
+\label{section-flat-ringed-topoi}
+
+\noindent
+Consider a commutative diagram
+$$
+\xymatrix{
+(\Sh(\mathcal{C}), \mathcal{O}) \ar[r]_i \ar[d]_f &
+(\Sh(\mathcal{D}), \mathcal{O}') \ar[d]^{f'} \\
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B}) \ar[r]^t &
+(\Sh(\mathcal{B}'), \mathcal{O}_{\mathcal{B}'})
+}
+$$
+of ringed topoi whose horizontal arrows are first order thickenings
+as in Situation \ref{situation-morphism-thickenings-ringed-topoi}. Set
+$\mathcal{I} = \Ker(i^\sharp) \subset \mathcal{O}'$ and
+$\mathcal{J} = \Ker(t^\sharp) \subset \mathcal{O}_{\mathcal{B}'}$.
+Let $\mathcal{F}$ be an $\mathcal{O}$-module. Assume that
+\begin{enumerate}
+\item $(f, f')$ is a strict morphism of thickenings,
+\item $f'$ is flat, and
+\item $\mathcal{F}$ is flat over $\mathcal{O}_\mathcal{B}$.
+\end{enumerate}
+Note that (1) $+$ (2) imply that $\mathcal{I} = f^*\mathcal{J}$
+(apply Lemma \ref{lemma-deform-module-ringed-topoi} to $\mathcal{O}'$).
+The theory of the preceding section is especially nice
+under these assumptions. We summarize the results already obtained
+in the following lemma.
+
+\begin{lemma}
+\label{lemma-flat-ringed-topoi}
+In the situation above.
+\begin{enumerate}
+\item There exists an $\mathcal{O}'$-module $\mathcal{F}'$ flat over
+$\mathcal{O}_{\mathcal{B}'}$ with $i^*\mathcal{F}' \cong \mathcal{F}$,
+if and only if
+the class $o(\mathcal{F}, f^*\mathcal{J} \otimes_\mathcal{O} \mathcal{F}, 1)
+\in \Ext^2_\mathcal{O}(
+\mathcal{F}, f^*\mathcal{J} \otimes_\mathcal{O} \mathcal{F})$
+of Lemma \ref{lemma-inf-obs-ext-ringed-topoi} is zero.
+\item If such a module exists, then the set of isomorphism classes
+of lifts is principal homogeneous under
+$\Ext^1_\mathcal{O}(
+\mathcal{F}, f^*\mathcal{J} \otimes_\mathcal{O} \mathcal{F})$.
+\item Given a lift $\mathcal{F}'$, the set of automorphisms of
+$\mathcal{F}'$ which pull back to $\text{id}_\mathcal{F}$ is canonically
+isomorphic to $\Ext^0_\mathcal{O}(
+\mathcal{F}, f^*\mathcal{J} \otimes_\mathcal{O} \mathcal{F})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) follows from Lemma \ref{lemma-inf-obs-ext-rel-ringed-topoi}
+as we have seen above that $\mathcal{I} = f^*\mathcal{J}$.
+Part (2) follows from Lemma \ref{lemma-inf-ext-rel-ringed-topoi}.
+Part (3) follows from Lemma \ref{lemma-inf-map-rel-ringed-topoi}.
+\end{proof}
+
+\begin{situation}
+\label{situation-morphism-flat-thickenings-ringed-topoi}
+Let $f : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$ be a morphism of
+ringed topoi. Consider a commutative diagram
+$$
+\xymatrix{
+(\Sh(\mathcal{C}'_1), \mathcal{O}'_1) \ar[r]_h \ar[d]_{f'_1} &
+(\Sh(\mathcal{C}'_2), \mathcal{O}'_2) \ar[d]_{f'_2} \\
+(\Sh(\mathcal{B}'_1), \mathcal{O}_{\mathcal{B}'_1}) \ar[r] &
+(\Sh(\mathcal{B}'_2), \mathcal{O}_{\mathcal{B}'_2})
+}
+$$
+where $h$ is a morphism of first order thickenings
+of $(\Sh(\mathcal{C}), \mathcal{O})$, the lower horizontal arrow
+is a morphism of first order thickenings of
+$(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$, each $f'_i$ restricts
+to $f$, both pairs $(f, f_i')$ are strict morphisms of thickenings, and
+both $f'_i$ are flat. Finally, let $\mathcal{F}$ be an
+$\mathcal{O}$-module flat over $\mathcal{O}_\mathcal{B}$.
+\end{situation}
+
+\begin{lemma}
+\label{lemma-functorial-ringed-topoi}
+In Situation \ref{situation-morphism-flat-thickenings-ringed-topoi}
+the obstruction class
+$o(\mathcal{F}, f^*\mathcal{J}_2 \otimes_\mathcal{O} \mathcal{F}, 1)$
+maps to the obstruction class
+$o(\mathcal{F}, f^*\mathcal{J}_1 \otimes_\mathcal{O} \mathcal{F}, 1)$
+under the canonical map
+$$
+\Ext^2_\mathcal{O}(
+\mathcal{F}, f^*\mathcal{J}_2 \otimes_\mathcal{O} \mathcal{F})
+\to \Ext^2_\mathcal{O}(
+\mathcal{F}, f^*\mathcal{J}_1 \otimes_\mathcal{O} \mathcal{F})
+$$
+\end{lemma}
+
+\begin{proof}
+Follows from Remark \ref{remark-obstruction-extension-functorial-ringed-topoi}.
+\end{proof}
+
+\begin{situation}
+\label{situation-ses-flat-thickenings-ringed-topoi}
+Let $f : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$ be a morphism of
+ringed topoi. Consider a commutative diagram
+$$
+\xymatrix{
+(\Sh(\mathcal{C}'_1), \mathcal{O}'_1) \ar[r]_h \ar[d]_{f'_1} &
+(\Sh(\mathcal{C}'_2), \mathcal{O}'_2) \ar[r] \ar[d]_{f'_2} &
+(\Sh(\mathcal{C}'_3), \mathcal{O}'_3) \ar[d]_{f'_3} \\
+(\Sh(\mathcal{B}'_1), \mathcal{O}_{\mathcal{B}'_1}) \ar[r] &
+(\Sh(\mathcal{B}'_2), \mathcal{O}_{\mathcal{B}'_2}) \ar[r] &
+(\Sh(\mathcal{B}'_3), \mathcal{O}_{\mathcal{B}'_3})
+}
+$$
+where (a) the top row is a short exact sequence of first order thickenings
+of $(\Sh(\mathcal{C}), \mathcal{O})$, (b) the lower row is a short exact
+sequence of first order thickenings of
+$(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$, (c) each $f'_i$ restricts
+to $f$, (d) each pair $(f, f_i')$ is a strict morphism of thickenings, and
+(e) each $f'_i$ is flat. Finally, let $\mathcal{F}'_2$ be an
+$\mathcal{O}'_2$-module flat over $\mathcal{O}_{\mathcal{B}'_2}$ and
+set $\mathcal{F} = \mathcal{F}'_2 \otimes \mathcal{O}$. Let
+$\pi : (\Sh(\mathcal{C}'_1), \mathcal{O}'_1) \to
+(\Sh(\mathcal{C}), \mathcal{O})$ be the canonical splitting
+(Remark \ref{remark-short-exact-sequence-thickenings-ringed-topoi}).
+\end{situation}
+
+\begin{lemma}
+\label{lemma-verify-iv-ringed-topoi}
+In Situation \ref{situation-ses-flat-thickenings-ringed-topoi} the modules
+$\pi^*\mathcal{F}$ and $h^*\mathcal{F}'_2$ are $\mathcal{O}'_1$-modules
+flat over $\mathcal{O}_{\mathcal{B}'_1}$ restricting to $\mathcal{F}$ on
+$(\Sh(\mathcal{C}), \mathcal{O})$.
+Their difference (Lemma \ref{lemma-flat-ringed-topoi}) is an element
+$\theta$ of
+$\Ext^1_\mathcal{O}(\mathcal{F},
+f^*\mathcal{J}_1 \otimes_\mathcal{O} \mathcal{F})$
+whose boundary in
+$\Ext^2_\mathcal{O}(\mathcal{F},
+f^*\mathcal{J}_3 \otimes_\mathcal{O} \mathcal{F})$
+equals the obstruction (Lemma \ref{lemma-flat-ringed-topoi})
+to lifting $\mathcal{F}$ to an $\mathcal{O}'_3$-module flat over
+$\mathcal{O}_{\mathcal{B}'_3}$.
+\end{lemma}
+
+\begin{proof}
+Note that both $\pi^*\mathcal{F}$ and $h^*\mathcal{F}'_2$
+restrict to $\mathcal{F}$ on $(\Sh(\mathcal{C}), \mathcal{O})$
+and that the kernels of
+$\pi^*\mathcal{F} \to \mathcal{F}$ and $h^*\mathcal{F}'_2 \to \mathcal{F}$
+are given by $f^*\mathcal{J}_1 \otimes_\mathcal{O} \mathcal{F}$.
+Hence flatness by Lemma \ref{lemma-deform-module-ringed-topoi}.
+Taking the boundary makes sense as the sequence of modules
+$$
+0 \to f^*\mathcal{J}_3 \otimes_\mathcal{O} \mathcal{F} \to
+f^*\mathcal{J}_2 \otimes_\mathcal{O} \mathcal{F} \to
+f^*\mathcal{J}_1 \otimes_\mathcal{O} \mathcal{F} \to 0
+$$
+is short exact due to the assumptions in
+Situation \ref{situation-ses-flat-thickenings-ringed-topoi}
+and the fact that $\mathcal{F}$ is flat over $\mathcal{O}_\mathcal{B}$.
+The statement on the obstruction class is a direct translation
+of the result of
+Remark \ref{remark-complex-thickenings-and-ses-modules-ringed-topoi}
+to this particular situation.
+\end{proof}
+
+
+
+
+
+
+
+\section{Deformations of ringed topoi and the naive cotangent complex}
+\label{section-deformations-ringed-topoi}
+
+\noindent
+In this section we use the naive cotangent complex to do a little bit
+of deformation theory. We start with a first order thickening
+$t : (\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B}) \to
+(\Sh(\mathcal{B}'), \mathcal{O}_{\mathcal{B}'})$ of ringed topoi.
+We denote $\mathcal{J} = \Ker(t^\sharp)$ and we
+identify the underlying topoi of $\mathcal{B}$ and $\mathcal{B}'$.
+Moreover we assume given a morphism of ringed topoi
+$f : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$, an $\mathcal{O}$-module
+$\mathcal{G}$, and a map $f^{-1}\mathcal{J} \to \mathcal{G}$
+of sheaves of $f^{-1}\mathcal{O}_\mathcal{B}$-modules.
+In this section we ask ourselves whether we can find
+the question mark fitting into the following diagram
+\begin{equation}
+\label{equation-to-solve-ringed-topoi}
+\vcenter{
+\xymatrix{
+0 \ar[r] & \mathcal{G} \ar[r] & {?} \ar[r] & \mathcal{O} \ar[r] & 0 \\
+0 \ar[r] & f^{-1}\mathcal{J} \ar[u]^c \ar[r] &
+f^{-1}\mathcal{O}_{\mathcal{B}'} \ar[u] \ar[r] &
+f^{-1}\mathcal{O}_\mathcal{B} \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+and moreover how unique the solution is (if it exists). More precisely,
+we look for a first order thickening
+$i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{C}'), \mathcal{O}')$
+and a morphism of thickenings $(f, f')$ as in
+(\ref{equation-morphism-thickenings-ringed-topoi})
+where $\Ker(i^\sharp)$ is identified with $\mathcal{G}$
+such that $(f')^\sharp$ induces the given map $c$.
+We will say $(\Sh(\mathcal{C}'), \mathcal{O}')$ is a {\it solution} to
+(\ref{equation-to-solve-ringed-topoi}).
+
+
+\begin{lemma}
+\label{lemma-huge-diagram-ringed-topoi}
+Assume given a commutative diagram of morphisms ringed topoi
+\begin{equation}
+\label{equation-huge-1-ringed-topoi}
+\vcenter{
+\xymatrix{
+& (\Sh(\mathcal{C}_2), \mathcal{O}_2) \ar[r]_{i_2} \ar[d]_{f_2} \ar[ddl]_g &
+(\Sh(\mathcal{C}'_2), \mathcal{O}'_2) \ar[d]^{f'_2} \\
+&
+(\Sh(\mathcal{B}_2), \mathcal{O}_{\mathcal{B}_2}) \ar[r]^{t_2} \ar[ddl]|\hole &
+(\Sh(\mathcal{B}'_2), \mathcal{O}_{\mathcal{B}'_2}) \ar[ddl] \\
+(\Sh(\mathcal{C}_1), \mathcal{O}_1) \ar[r]_{i_1} \ar[d]_{f_1} &
+(\Sh(\mathcal{C}'_1), \mathcal{O}'_1) \ar[d]^{f'_1} \\
+(\Sh(\mathcal{B}_1), \mathcal{O}_{\mathcal{B}_1}) \ar[r]^{t_1} &
+(\Sh(\mathcal{B}'_1), \mathcal{O}_{\mathcal{B}'_1})
+}
+}
+\end{equation}
+whose horizontal arrows are first order thickenings. Set
+$\mathcal{G}_j = \Ker(i_j^\sharp)$ and assume given a
+map of $g^{-1}\mathcal{O}_1$-modules
+$\nu : g^{-1}\mathcal{G}_1 \to \mathcal{G}_2$
+giving rise to the commutative diagram
+\begin{equation}
+\label{equation-huge-2-ringed-topoi}
+\vcenter{
+\xymatrix{
+& 0 \ar[r] & \mathcal{G}_2 \ar[r] &
+\mathcal{O}'_2 \ar[r] &
+\mathcal{O}_2 \ar[r] & 0 \\
+& 0 \ar[r]|\hole &
+f_2^{-1}\mathcal{J}_2 \ar[u]_{c_2} \ar[r] &
+f_2^{-1}\mathcal{O}_{\mathcal{B}'_2} \ar[u] \ar[r]|\hole &
+f_2^{-1}\mathcal{O}_{\mathcal{B}_2} \ar[u] \ar[r] & 0 \\
+0 \ar[r] &
+\mathcal{G}_1 \ar[ruu] \ar[r] &
+\mathcal{O}'_1 \ar[r] &
+\mathcal{O}_1 \ar[ruu] \ar[r] & 0 \\
+0 \ar[r] &
+f_1^{-1}\mathcal{J}_1 \ar[ruu]|\hole \ar[u]^{c_1} \ar[r] &
+f_1^{-1}\mathcal{O}_{\mathcal{B}'_1} \ar[ruu]|\hole \ar[u] \ar[r] &
+f_1^{-1}\mathcal{O}_{\mathcal{B}_1} \ar[ruu]|\hole \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+with front and back solutions to (\ref{equation-to-solve-ringed-topoi}).
+(The north-north-west arrows are maps on $\mathcal{C}_2$ after applying
+$g^{-1}$ to the source.)
+\begin{enumerate}
+\item There exist a canonical element in
+$\Ext^1_{\mathcal{O}_2}(
+Lg^*\NL_{\mathcal{O}_1/\mathcal{O}_{\mathcal{B}_1}}, \mathcal{G}_2)$
+whose vanishing is a necessary and sufficient condition for the existence
+of a morphism of ringed topoi
+$(\Sh(\mathcal{C}'_2), \mathcal{O}'_2) \to
+(\Sh(\mathcal{C}'_1), \mathcal{O}'_1)$ fitting into
+(\ref{equation-huge-1-ringed-topoi}) compatibly with $\nu$.
+\item If there exists a morphism
+$(\Sh(\mathcal{C}'_2), \mathcal{O}'_2) \to
+(\Sh(\mathcal{C}'_1), \mathcal{O}'_1)$
+fitting into
+(\ref{equation-huge-1-ringed-topoi}) compatibly with $\nu$ the set
+of all such morphisms is a principal homogeneous space under
+$$
+\Hom_{\mathcal{O}_1}(
+\Omega_{\mathcal{O}_1/\mathcal{O}_{\mathcal{B}_1}}, g_*\mathcal{G}_2) =
+\Hom_{\mathcal{O}_2}(
+g^*\Omega_{\mathcal{O}_1/\mathcal{O}_{\mathcal{B}_1}}, \mathcal{G}_2) =
+\Ext^0_{\mathcal{O}_2}(
+Lg^*\NL_{\mathcal{O}_1/\mathcal{O}_{\mathcal{B}_1}}, \mathcal{G}_2).
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The proof of this lemma is identical to the proof of
+Lemma \ref{lemma-huge-diagram-ringed-spaces}.
+We urge the reader to read that proof instead of this one.
+We will identify the underlying topoi for every
+thickening in sight (we have already used this convention
+in the statement). The equalities in the last statement of the
+lemma are immediate from the definitions. Thus we will work with the groups
+$\Ext^k_{\mathcal{O}_2}(
+Lg^*\NL_{\mathcal{O}_1/\mathcal{O}_{\mathcal{B}_1}}, \mathcal{G}_2)$,
+$k = 0, 1$ in the rest of the proof. We first argue that we can reduce
+to the case where the underlying topos of all ringed topoi in the lemma
+is the same.
+
+\medskip\noindent
+To do this, observe that
+$g^{-1}\NL_{\mathcal{O}_1/\mathcal{O}_{\mathcal{B}_1}}$ is equal to the naive
+cotangent complex of the homomorphism of sheaves of rings
+$g^{-1}f_1^{-1}\mathcal{O}_{\mathcal{B}_1} \to g^{-1}\mathcal{O}_1$, see
+Modules on Sites, Lemma \ref{sites-modules-lemma-pullback-differentials}.
+Moreover, the degree $0$ term of
+$\NL_{\mathcal{O}_1/\mathcal{O}_{\mathcal{B}_1}}$ is a flat
+$\mathcal{O}_1$-module, hence the canonical map
+$$
+Lg^*\NL_{\mathcal{O}_1/\mathcal{O}_{\mathcal{B}_1}}
+\longrightarrow
+g^{-1}\NL_{\mathcal{O}_1/\mathcal{O}_{\mathcal{B}_1}}
+\otimes_{g^{-1}\mathcal{O}_1} \mathcal{O}_2
+$$
+induces an isomorphism on cohomology sheaves in degrees $0$ and $-1$.
+Thus we may replace the Ext groups of the lemma with
+$$
+\Ext^k_{g^{-1}\mathcal{O}_1}(
+g^{-1}\NL_{\mathcal{O}_1/\mathcal{O}_{\mathcal{B}_1}}, \mathcal{G}_2) =
+\Ext^k_{g^{-1}\mathcal{O}_1}(
+\NL_{g^{-1}\mathcal{O}_1/g^{-1}f_1^{-1}\mathcal{O}_{\mathcal{B}_1}},
+\mathcal{G}_2)
+$$
+The set of morphism of ringed topoi
+$(\Sh(\mathcal{C}'_2), \mathcal{O}'_2) \to
+(\Sh(\mathcal{C}'_1), \mathcal{O}'_1)$ fitting into
+(\ref{equation-huge-1-ringed-topoi}) compatibly with $\nu$ is in
+one-to-one bijection with the set of homomorphisms of
+$g^{-1}f_1^{-1}\mathcal{O}_{\mathcal{B}'_1}$-algebras
+$g^{-1}\mathcal{O}'_1 \to \mathcal{O}'_2$ which are compatible with
+$f^\sharp$ and $\nu$. In this way we see that we may assume we have a
+diagram (\ref{equation-huge-2-ringed-topoi}) of sheaves on a site
+$\mathcal{C}$ (with $f_1 = f_2 = \text{id}$ on underlying topoi)
+and we are looking to find a homomorphism of sheaves of rings
+$\mathcal{O}'_1 \to \mathcal{O}'_2$ fitting into it.
+
+\medskip\noindent
+In the rest of the proof of the lemma we assume
+all underlying topological spaces are the
+same, i.e., we have a diagram (\ref{equation-huge-2-ringed-topoi})
+of sheaves on a site $\mathcal{C}$ (with $f_1 = f_2 = \text{id}$
+on underlying topoi) and we are looking for
+homomorphisms of sheaves of rings
+$\mathcal{O}'_1 \to \mathcal{O}'_2$ fitting into it.
+As ext groups we will use
+$\Ext^k_{\mathcal{O}_1}(
+\NL_{\mathcal{O}_1/\mathcal{O}_{\mathcal{B}_1}}, \mathcal{G}_2)$, $k = 0, 1$.
+
+\medskip\noindent
+Step 1. Construction of the obstruction class. Consider the sheaf
+of sets
+$$
+\mathcal{E} = \mathcal{O}'_1 \times_{\mathcal{O}_2} \mathcal{O}'_2
+$$
+This comes with a surjective map $\alpha : \mathcal{E} \to \mathcal{O}_1$
+and hence we can use $\NL(\alpha)$ instead of
+$\NL_{\mathcal{O}_1/\mathcal{O}_{\mathcal{B}_1}}$, see
+Modules on Sites, Lemma \ref{sites-modules-lemma-NL-up-to-qis}.
+Set
+$$
+\mathcal{I}' =
+\Ker(\mathcal{O}_{\mathcal{B}'_1}[\mathcal{E}] \to \mathcal{O}_1)
+\quad\text{and}\quad
+\mathcal{I} =
+\Ker(\mathcal{O}_{\mathcal{B}_1}[\mathcal{E}] \to \mathcal{O}_1)
+$$
+There is a surjection $\mathcal{I}' \to \mathcal{I}$ whose kernel
+is $\mathcal{J}_1\mathcal{O}_{\mathcal{B}'_1}[\mathcal{E}]$.
+We obtain two homomorphisms of $\mathcal{O}_{\mathcal{B}'_2}$-algebras
+$$
+a : \mathcal{O}_{\mathcal{B}'_1}[\mathcal{E}] \to \mathcal{O}'_1
+\quad\text{and}\quad
+b : \mathcal{O}_{\mathcal{B}'_1}[\mathcal{E}] \to \mathcal{O}'_2
+$$
+which induce maps $a|_{\mathcal{I}'} : \mathcal{I}' \to \mathcal{G}_1$ and
+$b|_{\mathcal{I}'} : \mathcal{I}' \to \mathcal{G}_2$. Both $a$ and $b$
+annihilate $(\mathcal{I}')^2$. Moreover $a$ and $b$ agree on
+$\mathcal{J}_1\mathcal{O}_{\mathcal{B}'_1}[\mathcal{E}]$
+as maps into $\mathcal{G}_2$
+because the left hand square of (\ref{equation-huge-2-ringed-topoi})
+is commutative. Thus the difference
+$b|_{\mathcal{I}'} - \nu \circ a|_{\mathcal{I}'}$
+induces a well defined $\mathcal{O}_1$-linear map
+$$
+\xi : \mathcal{I}/\mathcal{I}^2 \longrightarrow \mathcal{G}_2
+$$
+which sends the class of a local section $f$ of $\mathcal{I}$ to
+$a(f') - \nu(b(f'))$ where $f'$ is a lift of $f$ to a local
+section of $\mathcal{I}'$. We let
+$[\xi] \in \Ext^1_{\mathcal{O}_1}(\NL(\alpha), \mathcal{G}_2)$
+be the image (see below).
+
+\medskip\noindent
+Step 2. Vanishing of $[\xi]$ is necessary. Let us write $\Omega =
+\Omega_{\mathcal{O}_{\mathcal{B}_1}[\mathcal{E}]/\mathcal{O}_{\mathcal{B}_1}}
+\otimes_{\mathcal{O}_{\mathcal{B}_1}[\mathcal{E}]} \mathcal{O}_1$.
+Observe that $\NL(\alpha) = (\mathcal{I}/\mathcal{I}^2 \to \Omega)$
+fits into a distinguished triangle
+$$
+\Omega[0] \to
+\NL(\alpha) \to
+\mathcal{I}/\mathcal{I}^2[1] \to
+\Omega[1]
+$$
+Thus we see that $[\xi]$ is zero if and only if $\xi$
+is a composition $\mathcal{I}/\mathcal{I}^2 \to \Omega \to \mathcal{G}_2$
+for some map $\Omega \to \mathcal{G}_2$. Suppose there exists a
+homomorphisms of sheaves of rings
+$\varphi : \mathcal{O}'_1 \to \mathcal{O}'_2$ fitting into
+(\ref{equation-huge-2-ringed-topoi}). In this case consider the map
+$\mathcal{O}'_1[\mathcal{E}] \to \mathcal{G}_2$,
+$f' \mapsto b(f') - \varphi(a(f'))$. A calculation
+shows this annihilates $\mathcal{J}_1\mathcal{O}_{\mathcal{B}'_1}[\mathcal{E}]$
+and induces a derivation
+$\mathcal{O}_{\mathcal{B}_1}[\mathcal{E}] \to \mathcal{G}_2$.
+The resulting linear map $\Omega \to \mathcal{G}_2$ witnesses the
+fact that $[\xi] = 0$ in this case.
+
+\medskip\noindent
+Step 3. Vanishing of $[\xi]$ is sufficient. Let
+$\theta : \Omega \to \mathcal{G}_2$ be a $\mathcal{O}_1$-linear map
+such that $\xi$ is equal to
+$\theta \circ (\mathcal{I}/\mathcal{I}^2 \to \Omega)$.
+Then a calculation shows that
+$$
+b + \theta \circ d :
+\mathcal{O}_{\mathcal{B}'_1}[\mathcal{E}]
+\longrightarrow
+\mathcal{O}'_2
+$$
+annihilates $\mathcal{I}'$ and hence defines a map
+$\mathcal{O}'_1 \to \mathcal{O}'_2$ fitting into
+(\ref{equation-huge-2-ringed-topoi}).
+
+\medskip\noindent
+Proof of (2) in the special case above. Omitted. Hint:
+This is exactly the same as the proof of (2) of
+Lemma \ref{lemma-huge-diagram}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-NL-represent-ext-class-ringed-topoi}
+Let $\mathcal{C}$ be a site. Let $\mathcal{A} \to \mathcal{B}$ be a
+homomorphism of sheaves of rings on $\mathcal{C}$.
+Let $\mathcal{G}$ be a $\mathcal{B}$-module.
+Let
+$\xi \in \Ext^1_\mathcal{B}(\NL_{\mathcal{B}/\mathcal{A}}, \mathcal{G})$. 
+There exists a map of sheaves of sets $\alpha : \mathcal{E} \to \mathcal{B}$
+such that $\xi \in \Ext^1_\mathcal{B}(\NL(\alpha), \mathcal{G})$
+is the class of a map $\mathcal{I}/\mathcal{I}^2 \to \mathcal{G}$
+(see proof for notation).
+\end{lemma}
+
+\begin{proof}
+Recall that given $\alpha : \mathcal{E} \to \mathcal{B}$
+such that $\mathcal{A}[\mathcal{E}] \to \mathcal{B}$ is surjective
+with kernel $\mathcal{I}$ the complex
+$\NL(\alpha) = (\mathcal{I}/\mathcal{I}^2 \to 
+\Omega_{\mathcal{A}[\mathcal{E}]/\mathcal{A}}
+\otimes_{\mathcal{A}[\mathcal{E}]} \mathcal{B})$ is canonically
+isomorphic to $\NL_{\mathcal{B}/\mathcal{A}}$, see
+Modules on Sites, Lemma \ref{sites-modules-lemma-NL-up-to-qis}.
+Observe moreover, that
+$\Omega = \Omega_{\mathcal{A}[\mathcal{E}]/\mathcal{A}}
+\otimes_{\mathcal{A}[\mathcal{E}]} \mathcal{B}$ is the sheaf
+associated to the presheaf
+$U \mapsto \bigoplus_{e \in \mathcal{E}(U)} \mathcal{B}(U)$.
+In other words, $\Omega$ is the free $\mathcal{B}$-module on the
+sheaf of sets $\mathcal{E}$ and in particular there is a canonical
+map $\mathcal{E} \to \Omega$.
+
+\medskip\noindent
+Having said this, pick some $\mathcal{E}$ (for example
+$\mathcal{E} = \mathcal{B}$ as in the definition of the naive cotangent
+complex). The obstruction to writing $\xi$ as the class of a map
+$\mathcal{I}/\mathcal{I}^2 \to \mathcal{G}$ is an element in
+$\Ext^1_\mathcal{B}(\Omega, \mathcal{G})$. Say this is represented
+by the extension $0 \to \mathcal{G} \to \mathcal{H} \to \Omega \to 0$
+of $\mathcal{B}$-modules. Consider the sheaf of sets
+$\mathcal{E}' = \mathcal{E} \times_\Omega \mathcal{H}$
+which comes with an induced map $\alpha' : \mathcal{E}' \to \mathcal{B}$.
+Let $\mathcal{I}' = \Ker(\mathcal{A}[\mathcal{E}'] \to \mathcal{B})$
+and $\Omega' = \Omega_{\mathcal{A}[\mathcal{E}']/\mathcal{A}}
+\otimes_{\mathcal{A}[\mathcal{E}']} \mathcal{B}$.
+The pullback of $\xi$ under the quasi-isomorphism
+$\NL(\alpha') \to \NL(\alpha)$ maps to zero in
+$\Ext^1_\mathcal{B}(\Omega', \mathcal{G})$
+because the pullback of the extension $\mathcal{H}$
+by the map $\Omega' \to \Omega$ is split as $\Omega'$ is the free
+$\mathcal{B}$-module on the sheaf of sets $\mathcal{E}'$ and since
+by construction there is a commutative diagram
+$$
+\xymatrix{
+\mathcal{E}' \ar[r] \ar[d] & \mathcal{E} \ar[d] \\
+\mathcal{H} \ar[r] & \Omega
+}
+$$
+This finishes the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-choices-ringed-topoi}
+If there exists a solution to (\ref{equation-to-solve-ringed-topoi}),
+then the set of isomorphism classes of solutions is principal homogeneous
+under $\Ext^1_\mathcal{O}(
+\NL_{\mathcal{O}/\mathcal{O}_\mathcal{B}}, \mathcal{G})$.
+\end{lemma}
+
+\begin{proof}
+We observe right away that given two solutions $\mathcal{O}'_1$ and
+$\mathcal{O}'_2$ to (\ref{equation-to-solve-ringed-topoi}) we obtain by
+Lemma \ref{lemma-huge-diagram-ringed-topoi} an obstruction element
+$o(\mathcal{O}'_1, \mathcal{O}'_2) \in \Ext^1_\mathcal{O}(
+\NL_{\mathcal{O}/\mathcal{O}_\mathcal{B}}, \mathcal{G})$
+to the existence of a map $\mathcal{O}'_1 \to \mathcal{O}'_2$.
+Clearly, this element
+is the obstruction to the existence of an isomorphism, hence separates
+the isomorphism classes. To finish the proof it therefore suffices to
+show that given a solution $\mathcal{O}'$ and an element
+$\xi \in \Ext^1_\mathcal{O}(
+\NL_{\mathcal{O}/\mathcal{O}_\mathcal{B}}, \mathcal{G})$
+we can find a second solution $\mathcal{O}'_\xi$ such that
+$o(\mathcal{O}', \mathcal{O}'_\xi) = \xi$.
+
+\medskip\noindent
+Pick $\alpha : \mathcal{E} \to \mathcal{O}$ as in
+Lemma \ref{lemma-NL-represent-ext-class-ringed-topoi}
+for the class $\xi$. Consider the surjection
+$f^{-1}\mathcal{O}_\mathcal{B}[\mathcal{E}] \to \mathcal{O}$
+with kernel $\mathcal{I}$ and corresponding naive cotangent complex
+$\NL(\alpha) = (\mathcal{I}/\mathcal{I}^2 \to
+\Omega_{f^{-1}\mathcal{O}_\mathcal{B}[\mathcal{E}]/
+f^{-1}\mathcal{O}_\mathcal{B}}
+\otimes_{f^{-1}\mathcal{O}_\mathcal{B}[\mathcal{E}]} \mathcal{O})$.
+By the lemma $\xi$ is the class of a morphism
+$\delta : \mathcal{I}/\mathcal{I}^2 \to \mathcal{G}$.
+After replacing $\mathcal{E}$ by
+$\mathcal{E} \times_\mathcal{O} \mathcal{O}'$ we may also assume
+that $\alpha$ factors through a map
+$\alpha' : \mathcal{E} \to \mathcal{O}'$.
+
+\medskip\noindent
+These choices determine an $f^{-1}\mathcal{O}_{\mathcal{B}'}$-algebra map
+$\varphi : \mathcal{O}_{\mathcal{B}'}[\mathcal{E}] \to \mathcal{O}'$.
+Let $\mathcal{I}' = \Ker(\varphi)$.
+Observe that $\varphi$ induces a map
+$\varphi|_{\mathcal{I}'} : \mathcal{I}' \to \mathcal{G}$
+and that $\mathcal{O}'$ is the pushout, as in the following
+diagram
+$$
+\xymatrix{
+0 \ar[r] & \mathcal{G} \ar[r] & \mathcal{O}' \ar[r] &
+\mathcal{O} \ar[r] & 0 \\
+0 \ar[r] & \mathcal{I}' \ar[u]^{\varphi|_{\mathcal{I}'}} \ar[r] &
+f^{-1}\mathcal{O}_{\mathcal{B}'}[\mathcal{E}] \ar[u] \ar[r] &
+\mathcal{O} \ar[u]_{=} \ar[r] & 0
+}
+$$
+Let $\psi : \mathcal{I}' \to \mathcal{G}$ be the sum of the map
+$\varphi|_{\mathcal{I}'}$ and the composition
+$$
+\mathcal{I}' \to \mathcal{I}'/(\mathcal{I}')^2 \to
+\mathcal{I}/\mathcal{I}^2 \xrightarrow{\delta} \mathcal{G}.
+$$
+Then the pushout along $\psi$ is an other ring extension
+$\mathcal{O}'_\xi$ fitting into a diagram as above.
+A calculation (omitted) shows that $o(\mathcal{O}', \mathcal{O}'_\xi) = \xi$
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extensions-of-ringed-topoi}
+Let $(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$ be a ringed topos
+and let $\mathcal{J}$ be an $\mathcal{O}_\mathcal{B}$-module.
+\begin{enumerate}
+\item The set of extensions of sheaves of rings
+$0 \to \mathcal{J} \to \mathcal{O}_{\mathcal{B}'} \to
+\mathcal{O}_\mathcal{B} \to 0$
+where $\mathcal{J}$ is an ideal of square zero is canonically bijective to
+$\Ext^1_{\mathcal{O}_\mathcal{B}}(
+\NL_{\mathcal{O}_\mathcal{B}/\mathbf{Z}}, \mathcal{J})$.
+\item Given a morphism of ringed topoi
+$f : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$, an $\mathcal{O}$-module
+$\mathcal{G}$, an $f^{-1}\mathcal{O}_\mathcal{B}$-module map
+$c : f^{-1}\mathcal{J} \to \mathcal{G}$, and
+given extensions of sheaves of rings with square zero kernels:
+\begin{enumerate}
+\item[(a)] $0 \to \mathcal{J} \to \mathcal{O}_{\mathcal{B}'} \to
+\mathcal{O}_\mathcal{B} \to 0$ corresponding to
+$\alpha \in \Ext^1_{\mathcal{O}_\mathcal{B}}(
+\NL_{\mathcal{O}_\mathcal{B}/\mathbf{Z}}, \mathcal{J})$,
+\item[(b)] $0 \to \mathcal{G} \to \mathcal{O}' \to \mathcal{O} \to 0$
+corresponding to
+$\beta \in \Ext^1_\mathcal{O}(\NL_{\mathcal{O}/\mathbf{Z}}, \mathcal{G})$
+\end{enumerate}
+then there is a morphism $(\Sh(\mathcal{C}), \mathcal{O}') \to
+(\Sh(\mathcal{B}, \mathcal{O}_{\mathcal{B}'})$ fitting into a diagram
+(\ref{equation-to-solve-ringed-topoi}) if and only if $\beta$ and $\alpha$
+map to the same element of
+$\Ext^1_\mathcal{O}(
+Lf^*\NL_{\mathcal{O}_\mathcal{B}/\mathbf{Z}}, \mathcal{G})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+To prove this we apply the previous results where we work over
+the base ringed topos $(\Sh(*), \mathbf{Z})$ with trivial thickening.
+Part (1) follows from Lemma \ref{lemma-choices-ringed-topoi}
+and the fact that there exists a solution, namely
+$\mathcal{J} \oplus \mathcal{O}_\mathcal{B}$.
+Part (2) follows from Lemma \ref{lemma-huge-diagram-ringed-topoi}
+and a compatibility between the constructions in the proofs
+of Lemmas \ref{lemma-choices-ringed-topoi} and
+\ref{lemma-huge-diagram-ringed-topoi}
+whose statement and proof we omit.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Deformations of algebraic spaces}
+\label{section-deformations-spaces}
+
+\noindent
+In this section we spell out what the results in
+Section \ref{section-deformations-ringed-topoi}
+mean for deformations of algebraic spaces.
+
+\begin{lemma}
+\label{lemma-match-thickenings}
+Let $S$ be a scheme. Let $i : Z \to Z'$ be a morphism of algebraic spaces
+over $S$. The following are equivalent
+\begin{enumerate}
+\item $i$ is a thickening of algebraic spaces as defined
+in More on Morphisms of Spaces, Section
+\ref{spaces-more-morphisms-section-thickenings}, and
+\item the associated morphism
+$i_{small} : (\Sh(Z_\etale), \mathcal{O}_Z) \to
+(\Sh(Z'_\etale), \mathcal{O}_{Z'})$
+of ringed topoi (Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-morphism-ringed-topoi})
+is a thickening in the sense of
+Section \ref{section-thickenings-ringed-topoi}.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We stress that this is not a triviality.
+
+\medskip\noindent
+Assume (1). By More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-thickening-equivalence}
+the morphism $i$ induces an equivalence of small \'etale
+sites and in particular of topoi. Of course $i^\sharp$
+is surjective with locally nilpotent kernel by definition
+of thickenings.
+
+\medskip\noindent
+Assume (2). (This direction is less important and more of
+a curiosity.) For any \'etale morphism $Y' \to Z'$ we see
+that $Y = Z \times_{Z'} Y'$ has the same \'etale topos
+as $Y'$. In particular, $Y'$ is quasi-compact if and only if
+$Y$ is quasi-compact because being quasi-compact
+is a topos theoretic notion (Sites, Lemma \ref{sites-lemma-quasi-compact}).
+Having said this we see that $Y'$ is quasi-compact and quasi-separated
+if and only if $Y$ is quasi-compact and quasi-separated
+(because you can characterize $Y'$ being quasi-separated by saying
+that for all $Y'_1, Y'_2$ quasi-compact algebraic spaces \'etale over $Y'$
+we have that $Y'_1 \times_{Y'} Y'_2$ is quasi-compact).
+Take $Y'$ affine. Then the algebraic space $Y$ is
+quasi-compact and quasi-separated. For any
+quasi-coherent $\mathcal{O}_Y$-module $\mathcal{F}$ we have
+$H^q(Y, \mathcal{F}) = H^q(Y', (Y \to Y')_*\mathcal{F})$
+because the \'etale topoi are the same.
+Then $H^q(Y', (Y \to Y')_*\mathcal{F}) = 0$
+because the pushforward is quasi-coherent
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-pushforward})
+and $Y$ is affine. It follows that $Y'$ is affine by
+Cohomology of Spaces, Proposition
+\ref{spaces-cohomology-proposition-vanishing-affine}
+(there surely is a proof of this direction of the lemma
+avoiding this reference).
+Hence $i$ is an affine morphism. In the affine case it
+follows easily from the conditions in
+Section \ref{section-thickenings-ringed-topoi}
+that $i$ is a thickening of algebraic spaces.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-deform-spaces}
+Let $S$ be a scheme.
+Let $Y \subset Y'$ be a first order thickening of algebraic spaces
+over $S$.
+Let $f : X \to Y$ be a flat morphism of algebraic spaces over $S$.
+If there exists a flat morphism $f' : X' \to Y'$ of algebraic spaces over $S$
+and an isomorphsm $a : X \to X' \times_{Y'} Y$ over $Y$, then
+\begin{enumerate}
+\item the set of isomorphism classes of pairs $(f' : X' \to Y', a)$ is
+principal homogeneous under
+$\Ext^1_{\mathcal{O}_X}(\NL_{X/Y}, f^*\mathcal{C}_{Y/Y'})$, and
+\item the set of automorphisms of $\varphi : X' \to X'$
+over $Y'$ which reduce to the identity on $X' \times_{Y'} Y$
+is $\Ext^0_{\mathcal{O}_X}(\NL_{X/Y}, f^*\mathcal{C}_{Y/Y'})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We will apply the material on deformations of ringed topoi
+to the small \'etale topoi of the algebraic spaces in the lemma.
+We may think of $X$ as a closed subspace of $X'$
+so that $(f, f') : (X \subset X') \to (Y \subset Y')$
+is a morphism of first order thickenings.
+By Lemma \ref{lemma-match-thickenings}
+this translates into a morphism of thickenings of ringed topoi.
+Then we see from More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-deform}
+(or from the more general Lemma \ref{lemma-deform-module-ringed-topoi})
+that the ideal sheaf of $X$ in $X'$ is equal to $f^*\mathcal{C}_{Y'/Y}$
+and this is in fact equivalent to flatness of $X'$ over $Y'$.
+Hence we have a commutative diagram
+$$
+\xymatrix{
+0 \ar[r] & f^*\mathcal{C}_{Y/Y'} \ar[r] &
+\mathcal{O}_{X'} \ar[r] &
+\mathcal{O}_X \ar[r] & 0 \\
+0 \ar[r] &
+f_{small}^{-1}\mathcal{C}_{Y/Y'} \ar[u] \ar[r] &
+f_{small}^{-1}\mathcal{O}_{Y'} \ar[u] \ar[r] &
+f_{small}^{-1}\mathcal{O}_Y \ar[u] \ar[r] & 0
+}
+$$
+Please compare with (\ref{equation-to-solve-ringed-topoi}).
+Observe that automorphisms $\varphi$ as in (2)
+give automorphisms $\varphi^\sharp : \mathcal{O}_{X'} \to \mathcal{O}_{X'}$
+fitting in the diagram above. Conversely, an automorphism
+$\alpha : \mathcal{O}_{X'} \to \mathcal{O}_{X'}$
+fitting into the diagram of sheaves above is equal to $\varphi^\sharp$
+for some automorphism $\varphi$ as in (2)
+by More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-first-order-thickening-maps}.
+Finally, by More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-first-order-thickening}
+if we find another sheaf of rings $\mathcal{A}$ on $X_\etale$
+fitting into the diagram
+$$
+\xymatrix{
+0 \ar[r] & f^*\mathcal{C}_{Y/Y'} \ar[r] &
+\mathcal{A} \ar[r] &
+\mathcal{O}_X \ar[r] & 0 \\
+0 \ar[r] &
+f_{small}^{-1}\mathcal{C}_{Y/Y'} \ar[u] \ar[r] &
+f_{small}^{-1}\mathcal{O}_{Y'} \ar[u] \ar[r] &
+f_{small}^{-1}\mathcal{O}_Y \ar[u] \ar[r] & 0
+}
+$$
+then there exists a first order thickening $X \subset X''$
+with $\mathcal{O}_{X''} = \mathcal{A}$ and applying 
+More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-first-order-thickening-maps}
+once more, we obtain a morphism
+$(f, f'') : (X \subset X'') \to (Y \subset Y')$ with all the
+desired properties.
+Thus part (1) follows from
+Lemma \ref{lemma-choices-ringed-topoi}
+and part (2) from part (2) of
+Lemma \ref{lemma-huge-diagram-ringed-topoi}.
+(Note that $\NL_{X/Y}$ as defined for a morphism of algebraic spaces in
+More on Morphisms of Spaces, Section
+\ref{spaces-more-morphisms-section-netherlander}
+agrees with $\NL_{X/Y}$ as used in
+Section \ref{section-deformations-ringed-topoi}.)
+\end{proof}
+
+\noindent
+Let $S$ be a scheme. Let $f : X \to B$
+be a morphism of algebraic spaces over $S$.
+Let $\mathcal{F} \to \mathcal{G}$ be a homomorphism of $\mathcal{O}_X$-modules
+(not necessarily quasi-coherent).
+Consider the functor
+$$
+F :
+\left\{
+\begin{matrix}
+\text{extensions of }f^{-1}\mathcal{O}_B\text{ algebras}\\
+0 \to \mathcal{F} \to \mathcal{O}' \to \mathcal{O}_X \to 0\\
+\text{where }\mathcal{F}\text{ is an ideal of square zero}
+\end{matrix}
+\right\}
+\longrightarrow
+\left\{
+\begin{matrix}
+\text{extensions of }f^{-1}\mathcal{O}_B\text{ algebras}\\
+0 \to \mathcal{G} \to \mathcal{O}' \to \mathcal{O}_X \to 0\\
+\text{where }\mathcal{G}\text{ is an ideal of square zero}
+\end{matrix}
+\right\}
+$$
+given by pushout.
+
+\begin{lemma}
+\label{lemma-thickening-space-quasi-coherent}
+In the situation above assume that $X$ is quasi-compact and quasi-separated
+and that $DQ_X(\mathcal{F}) \to DQ_X(\mathcal{G})$
+(Derived Categories of Spaces, Section
+\ref{spaces-perfect-section-better-coherator})
+is an isomorphism. Then the functor $F$ is an equivalence of categories.
+\end{lemma}
+
+\begin{proof}
+Recall that $\NL_{X/B}$ is an object of $D_\QCoh(\mathcal{O}_X)$, see
+More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-netherlander-quasi-coherent}.
+Hence our assumption implies the maps
+$$
+\Ext^i_X(\NL_{X/B}, \mathcal{F}) \longrightarrow
+\Ext^i_X(\NL_{X/B}, \mathcal{G})
+$$
+are isomorphisms for all $i$. This implies our functor is fully
+faithful by Lemma \ref{lemma-huge-diagram-ringed-topoi}.
+On the other hand, the functor is essentially surjective by
+Lemma \ref{lemma-choices-ringed-topoi} because
+we have the solutions $\mathcal{O}_X \oplus \mathcal{F}$
+and $\mathcal{O}_X \oplus \mathcal{G}$ in both categories.
+\end{proof}
+
+\noindent
+Let $S$ be a scheme. Let $B \subset B'$ be a first order thickening of
+algebraic spaces over $S$ with ideal sheaf $\mathcal{J}$
+which we view either as a quasi-coherent $\mathcal{O}_B$-module
+or as a quasi-coherent sheaf of ideals on $B'$, see
+More on Morphisms of Spaces, Section
+\ref{spaces-more-morphisms-section-thickenings}.
+Let $f : X \to B$ be a morphism of algebraic spaces over $S$.
+Let $\mathcal{F} \to \mathcal{G}$ be a homomorphism of
+$\mathcal{O}_X$-modules (not necessarily quasi-coherent).
+Let $c : f^{-1}\mathcal{J} \to \mathcal{F}$ be a map
+of $f^{-1}\mathcal{O}_B$-modules and denote
+$c' : f^{-1}\mathcal{J} \to \mathcal{G}$ the composition.
+Consider the functor
+$$
+FT :
+\{\text{solutions to }(\ref{equation-to-solve-ringed-topoi})
+\text{ for }\mathcal{F}\text{ and }c\}
+\longrightarrow
+\{\text{solutions to }(\ref{equation-to-solve-ringed-topoi})
+\text{ for }\mathcal{G}\text{ and }c'\}
+$$
+given by pushout.
+
+\begin{lemma}
+\label{lemma-thickening-over-thickening-space-quasi-coherent}
+In the situation above assume that $X$ is quasi-compact and quasi-separated
+and that $DQ_X(\mathcal{F}) \to DQ_X(\mathcal{G})$
+(Derived Categories of Spaces, Section
+\ref{spaces-perfect-section-better-coherator})
+is an isomorphism. Then the functor $FT$ is an equivalence of categories.
+\end{lemma}
+
+\begin{proof}
+A solution of (\ref{equation-to-solve-ringed-topoi}) for $\mathcal{F}$
+in particular gives an extension of $f^{-1}\mathcal{O}_{B'}$-algebras
+$$
+0 \to \mathcal{F} \to \mathcal{O}' \to \mathcal{O}_X \to 0
+$$
+where $\mathcal{F}$ is an ideal of square zero. Similarly for $\mathcal{G}$.
+Moreover, given such an extension, we obtain a map
+$c_{\mathcal{O}'} : f^{-1}\mathcal{J} \to \mathcal{F}$.
+Thus we are looking at the full subcategory of such extensions
+of $f^{-1}\mathcal{O}_{B'}$-algebras with $c = c_{\mathcal{O}'}$.
+Clearly, if $\mathcal{O}'' = F(\mathcal{O}')$ where
+$F$ is the equivalence of Lemma \ref{lemma-thickening-space-quasi-coherent}
+(applied to $X \to B'$ this time),
+then $c_{\mathcal{O}''}$ is the composition of
+$c_{\mathcal{O}'}$ and the map $\mathcal{F} \to \mathcal{G}$.
+This proves the lemma.
+\end{proof}
+
+
+
+
+
+\section{Deformations of complexes}
+\label{section-deformations-complexes}
+
+\noindent
+This section is a warmup for the next one.
+We will use as much as possible the material
+in the chapters on commutative algebra.
+
+\begin{lemma}
+\label{lemma-canonical-class-algebra}
+Let $R' \to R$ be a surjection of rings whose kernel is an ideal
+$I$ of square zero. For every $K \in D^-(R)$ there is a canonical
+map
+$$
+\omega(K) : K \longrightarrow K \otimes_R^\mathbf{L} I[2]
+$$
+in $D(R)$ with the following properties
+\begin{enumerate}
+\item $\omega(K) = 0$ if and only if there exists
+$K' \in D(R')$ with $K' \otimes_{R'}^\mathbf{L} R = K$,
+\item given $K \to L$ in $D^-(R)$ the diagram
+$$
+\xymatrix{
+K \ar[d] \ar[rr]_-{\omega(K)} & &
+K \otimes^\mathbf{L}_R I[2] \ar[d] \\
+L \ar[rr]^-{\omega(L)} & &
+L \otimes^\mathbf{L}_R I[2]
+}
+$$
+commutes, and
+\item formation of $\omega(K)$ is compatible with ring maps $R' \to S'$
+(see proof for a precise statement).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choose a bounded above complex $K^\bullet$ of free $R$-modules representing
+$K$. Then we can choose free $R'$-modules $(K')^n$ lifting $K^n$.
+We can choose $R'$-module maps $(d')^n_K : (K')^n \to (K')^{n + 1}$
+lifting the differentials $d^n_K : K^n \to K^{n + 1}$ of $K^\bullet$.
+Although the compositions
+$$
+(d')^{n + 1}_K \circ (d')^n_K : (K')^n \to (K')^{n + 2}
+$$
+may not be zero, they do factor as
+$$
+(K')^n \to K^n \xrightarrow{\omega^n_K}
+K^{n + 2} \otimes_R I = I(K')^{n + 2} \to (K')^{n + 2}
+$$
+because $d^{n + 1} \circ d^n = 0$.
+A calculation shows that $\omega^n_K$ defines a map of complexes.
+This map of complexes defines $\omega(K)$.
+
+\medskip\noindent
+Let us prove this construction is compatible with a map of complexes
+$\alpha^\bullet : K^\bullet \to L^\bullet$ of bounded above free $R$-modules
+and given choices of lifts $(K')^n, (L')^n, (d')^n_K, (d')^n_L$.
+Namely, choose $(\alpha')^n : (K')^n \to (L')^n$ lifting the
+components $\alpha^n : K^n \to L^n$. As before we get a
+factorization
+$$
+(K')^n \to K^n \xrightarrow{h^n}
+L^{n + 1} \otimes_R I = I(L')^{n + 1} \to (L')^{n + 2}
+$$
+of $(d')^n_L \circ (\alpha')^n - (\alpha')^{n + 1} \circ (d')_K^n$.
+Then it is an pleasant calculation to show that
+$$
+\omega^n_L \circ \alpha^n =
+(d_L^{n + 1} \otimes \text{id}_I) \circ h^n + h^{n + 1} \circ d_K^n +
+(\alpha^{n + 2} \otimes \text{id}_I) \circ \omega^n_K
+$$
+This proves the commutativity of the diagram in (2) of the lemma
+in this particular case. Using this for two different choices
+of bounded above free complexes representing $K$, we find that
+$\omega(K)$ is well defined! And of course (2) holds in general as well.
+
+\medskip\noindent
+If $K$ lifts to $K'$ in $D^-(R')$, then we can represent
+$K'$ by a bounded above complex of free $R'$-modules
+and we see immediately that $\omega(K) = 0$.
+Conversely, going back to our choices $K^\bullet$,
+$(K')^n$, $(d')^n_K$, if $\omega(K) = 0$, then we can find
+$g^n : K^n \to K^{n + 1} \otimes_R I$ with
+$$
+\omega^n = (d_K^{n + 1} \otimes \text{id}_I) \circ g^n +
+g^{n + 1} \circ d_K^n
+$$
+This means that with differentials
+$(d')^n_K + g^n : (K')^n \to (K')^{n + 1}$
+we obtain a complex of free $R'$-modules lifting $K^\bullet$.
+This proves (1).
+
+\medskip\noindent
+Finally, part (3) means the following: Let $R' \to S'$ be a map of
+rings. Set $S = S' \otimes_{R'} R$ and denote $J = IS' \subset S'$
+the square zero kernel of $S' \to S$. Then given $K \in D^-(R)$
+the statement is that we get a commutative diagram
+$$
+\xymatrix{
+K \otimes_R^\mathbf{L} S \ar[d] \ar[rr]_-{\omega(K) \otimes \text{id}} & &
+(K \otimes^\mathbf{L}_R I[2]) \otimes_R^\mathbf{L} S \ar[d] \\
+K \otimes_R^\mathbf{L} S \ar[rr]^-{\omega(K \otimes_R^\mathbf{L} S)} & &
+(K \otimes_R^\mathbf{L} S) \otimes^\mathbf{L}_S J[2]
+}
+$$
+Here the right vertical arrow comes from
+$$
+(K \otimes^\mathbf{L}_R I[2]) \otimes_R^\mathbf{L} S =
+(K \otimes_R^\mathbf{L} S) \otimes_S^\mathbf{L}
+(I \otimes_R^\mathbf{L} S)[2] \longrightarrow
+(K \otimes_R^\mathbf{L} S) \otimes_S^\mathbf{L} J[2]
+$$
+Choose $K^\bullet$, $(K')^n$, and $(d')^n_K$ as above.
+Then we can use $K^\bullet \otimes_R S$, $(K')^n \otimes_{R'} S'$, and
+$(d')^n_K \otimes \text{id}_{S'}$ for the construction of
+$\omega(K \otimes_R^\mathbf{L} S)$.
+With these choices commutativity
+is immediately verified on the level of maps of complexes.
+\end{proof}
+
+
+
+
+
+
+
+\section{Deformations of complexes on ringed topoi}
+\label{section-thickenings-complexes}
+
+\noindent
+This material is taken from \cite{lieblich-complexes}.
+
+\medskip\noindent
+The material in this section works in the setting of a first order thickening
+of ringed topoi as defined in Section \ref{section-thickenings-ringed-topoi}.
+However, in order to simplify the notation we will assume the underlying
+sites $\mathcal{C}$ and $\mathcal{D}$ are the same.
+Moreover, the surjective homomorphism $\mathcal{O}' \to \mathcal{O}$
+of sheaves of rings will be denoted $\mathcal{O} \to \mathcal{O}_0$
+as is perhaps more customary in the literature.
+
+\begin{lemma}
+\label{lemma-lift-complex}
+Let $\mathcal{C}$ be a site. Let $\mathcal{O} \to \mathcal{O}_0$
+be a surjection of sheaves of rings. Assume given the following data
+\begin{enumerate}
+\item flat $\mathcal{O}$-modules $\mathcal{G}^n$,
+\item maps of $\mathcal{O}$-modules $\mathcal{G}^n \to \mathcal{G}^{n + 1}$,
+\item a complex $\mathcal{K}_0^\bullet$ of $\mathcal{O}_0$-modules,
+\item maps of $\mathcal{O}$-modules $\mathcal{G}^n \to \mathcal{K}_0^n$
+\end{enumerate}
+such that
+\begin{enumerate}
+\item[(a)] $H^n(\mathcal{K}_0^\bullet) = 0$ for $n \gg 0$,
+\item[(b)] $\mathcal{G}^n = 0$ for $n \gg 0$,
+\item[(c)] with
+$\mathcal{G}^n_0 = \mathcal{G}^n \otimes_\mathcal{O} \mathcal{O}_0$
+the induced maps determine a complex $\mathcal{G}_0^\bullet$ and a map
+of complexes $\mathcal{G}_0^\bullet \to \mathcal{K}_0^\bullet$.
+\end{enumerate}
+Then there exist
+\begin{enumerate}
+\item[(\romannumeral1)]
+flat $\mathcal{O}$-modules $\mathcal{F}^n$,
+\item[(\romannumeral2)]
+maps of $\mathcal{O}$-modules $\mathcal{F}^n \to \mathcal{F}^{n + 1}$,
+\item[(\romannumeral3)]
+maps of $\mathcal{O}$-modules $\mathcal{F}^n \to \mathcal{K}_0^n$,
+\item[(\romannumeral4)]
+maps of $\mathcal{O}$-modules $\mathcal{G}^n \to \mathcal{F}^n$,
+\end{enumerate}
+such that $\mathcal{F}^n = 0$ for $n \gg 0$, such that the diagrams
+$$
+\xymatrix{
+\mathcal{G}^n \ar[r] \ar[d] & \mathcal{G}^{n + 1} \ar[d] \\
+\mathcal{F}^n \ar[r] & \mathcal{F}^{n + 1}
+}
+$$
+commute for all $n$, such that the composition
+$\mathcal{G}^n \to \mathcal{F}^n \to \mathcal{K}_0^n$
+is the given map $\mathcal{G}^n \to \mathcal{K}_0^n$, and such that with
+$\mathcal{F}^n_0 = \mathcal{F}^n \otimes_\mathcal{O} \mathcal{O}_0$
+we obtain a complex $\mathcal{F}_0^\bullet$ and map of complexes
+$\mathcal{F}_0^\bullet \to \mathcal{K}_0^\bullet$ which is a
+quasi-isomorphism.
+\end{lemma}
+
+\begin{proof}
+We will prove by descending induction on $e$ that we can find $\mathcal{F}^n$,
+$\mathcal{G}^n \to \mathcal{F}^n$, and
+$\mathcal{F}^n \to \mathcal{F}^{n + 1}$ for $n \geq e$
+fitting into a commutative diagram
+$$
+\xymatrix{
+\ldots \ar[r] &
+\mathcal{G}^{e - 1} \ar[r] \ar@/_2pc/[dd] &
+\mathcal{G}^e \ar[d] \ar[r] \ar@/_2pc/[dd] &
+\mathcal{G}^{e + 1} \ar[d] \ar[r] \ar@/_2pc/[dd]|\hole &
+\ldots \\
+& &
+\mathcal{F}^e \ar[d] \ar[r] &
+\mathcal{F}^{e + 1} \ar[d] \ar[r] & \ldots \\
+\ldots  \ar[r] &
+\mathcal{K}_0^{e - 1} \ar[r] &
+\mathcal{K}_0^e \ar[r] &
+\mathcal{K}_0^{e + 1} \ar[r] & \ldots
+}
+$$
+such that $\mathcal{F}_0^\bullet$ is a complex,
+the induced map $\mathcal{F}_0^\bullet \to \mathcal{K}_0^\bullet$
+induces an isomorphism on $H^n$ for $n > e$ and a surjection
+for $n = e$. For $e \gg 0$ this is true because we can take
+$\mathcal{F}^n = 0$ for $n \geq e$ in that case by assumptions
+(a) and (b).
+
+\medskip\noindent
+Induction step. We have to construct $\mathcal{F}^{e - 1}$
+and the maps $\mathcal{G}^{e - 1} \to \mathcal{F}^{e - 1}$,
+$\mathcal{F}^{e - 1} \to \mathcal{F}^e$, and
+$\mathcal{F}^{e - 1} \to \mathcal{K}_0^{e - 1}$.
+We will choose $\mathcal{F}^{e - 1} = A \oplus B \oplus C$
+as a direct sum of three pieces.
+
+\medskip\noindent
+For the first we take $A = \mathcal{G}^{e - 1}$ and we choose our map
+$\mathcal{G}^{e - 1} \to \mathcal{F}^{e - 1}$ to be the inclusion of
+the first summand. The maps $A \to \mathcal{K}^{e - 1}_0$
+and $A \to \mathcal{F}^e$ will be the obvious ones.
+
+\medskip\noindent
+To choose $B$ we consider the surjection (by induction hypothesis)
+$$
+\gamma :
+\Ker(\mathcal{F}^e_0 \to \mathcal{F}^{e + 1}_0)
+\longrightarrow
+\Ker(\mathcal{K}^e_0 \to \mathcal{K}^{e + 1}_0)/
+\Im(\mathcal{K}^{e - 1}_0 \to \mathcal{K}^e_0)
+$$
+We can choose a set $I$, for each $i \in I$
+an object $U_i$ of $\mathcal{C}$, and sections
+$s_i \in \mathcal{F}^e(U_i)$, $t_i \in \mathcal{K}^{e - 1}_0(U_i)$
+such that
+\begin{enumerate}
+\item $s_i$ maps to a section of $\Ker(\gamma) \subset
+\Ker(\mathcal{F}^e_0 \to \mathcal{F}^{e + 1}_0)$,
+\item $s_i$ and $t_i$ map to the same section of
+$\mathcal{K}^e_0$,
+\item the sections $s_i$ generate $\Ker(\gamma)$ as an $\mathcal{O}_0$-module.
+\end{enumerate}
+We omit giving the full justification for this;
+one uses that $\mathcal{F}^e \to \mathcal{F}^e_0$
+is a surjective maps of sheaves of sets. Then we set
+to put
+$$
+B = \bigoplus\nolimits_{i \in I} j_{U_i!}\mathcal{O}_{U_i}
+$$
+and define the maps $B \to \mathcal{F}^e$ and $B \to \mathcal{K}_0^{e - 1}$
+by using $s_i$ and $t_i$ to determine where to send the summand
+$j_{U_i!}\mathcal{O}_{U_i}$.
+
+\medskip\noindent
+With $\mathcal{F}^{e - 1} = A \oplus B$ and maps as above,
+this produces a diagram as above for $e - 1$ such that
+$\mathcal{F}_0^\bullet \to \mathcal{K}_0^\bullet$
+induces an isomorphism on $H^n$ for $n \geq e$.
+To get the map to be surjective on $H^{e - 1}$ we choose
+the summand $C$ as follows.
+Choose a set $J$, for each $j \in J$ an object $U_j$ of $\mathcal{C}$
+and a section $t_j$ of $\Ker(\mathcal{K}^{e - 1}_0 \to \mathcal{K}^e_0)$
+over $U_j$ such that these sections generate this kernel over
+$\mathcal{O}_0$. Then we put
+$$
+C = \bigoplus\nolimits_{j \in J} j_{U_j!}\mathcal{O}_{U_j}
+$$
+and the zero map $C \to \mathcal{F}^e$ and the map
+$C \to \mathcal{K}_0^{e - 1}$ by using $s_j$ to determine where to the summand
+$j_{U_j!}\mathcal{O}_{U_j}$. This finishes the induction step
+by taking $\mathcal{F}^{e - 1} = A \oplus B \oplus C$ and
+maps as indicated.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-canonical-class}
+Let $\mathcal{C}$ be a site. Let $\mathcal{O} \to \mathcal{O}_0$
+be a surjection of sheaves of rings whose kernel is an ideal sheaf
+$\mathcal{I}$ of square zero. For every object
+$K_0$ in $D^-(\mathcal{O}_0)$ there is a canonical map
+$$
+\omega(K_0) :
+K_0 \longrightarrow
+K_0 \otimes_{\mathcal{O}_0}^\mathbf{L} \mathcal{I}[2]
+$$
+in $D(\mathcal{O}_0)$ such that for any map
+$K_0 \to L_0$ in $D^-(\mathcal{O}_0)$ the diagram
+$$
+\xymatrix{
+K_0 \ar[d] \ar[rr]_-{\omega(K_0)} & &
+(K_0 \otimes^\mathbf{L}_{\mathcal{O}_0} \mathcal{I})[2] \ar[d] \\
+L_0 \ar[rr]^-{\omega(L_0)} & &
+(L_0 \otimes^\mathbf{L}_{\mathcal{O}_0} \mathcal{I})[2]
+}
+$$
+commutes.
+\end{lemma}
+
+\begin{proof}
+Represent $K_0$ by any complex
+$\mathcal{K}_0^\bullet$ of $\mathcal{O}_0$-modules.
+Apply Lemma \ref{lemma-lift-complex}
+with $\mathcal{G}^n = 0$ for all $n$.
+Denote $d : \mathcal{F}^n \to \mathcal{F}^{n + 1}$
+the maps produced by the lemma. Then we see that
+$d \circ d : \mathcal{F}^n \to \mathcal{F}^{n + 2}$
+is zero modulo $\mathcal{I}$. Since $\mathcal{F}^n$ is flat,
+we see that
+$\mathcal{I}\mathcal{F}^n =
+\mathcal{F}^n \otimes_{\mathcal{O}} \mathcal{I} =
+\mathcal{F}^n_0 \otimes_{\mathcal{O}_0} \mathcal{I}$.
+Hence we obtain a canonical map of complexes
+$$
+d \circ d : \mathcal{F}_0^\bullet
+\longrightarrow
+(\mathcal{F}_0^\bullet \otimes_{\mathcal{O}_0} \mathcal{I})[2]
+$$
+Since $\mathcal{F}_0^\bullet$ is a bounded above complex
+of flat $\mathcal{O}_0$-modules, it is K-flat and may be used
+to compute derived tensor product. Moreover, the map of
+complexes $\mathcal{F}_0^\bullet \to \mathcal{K}_0^\bullet$
+is a quasi-isomorphism by construction. Therefore the source and
+target of the map just constructed represent $K_0$ and
+$K_0 \otimes_{\mathcal{O}_0}^\mathbf{L} \mathcal{I}[2]$
+and we obtain our map $\omega(K_0)$.
+
+\medskip\noindent
+Let us show that this procedure is compatible with maps of complexes.
+Namely, let $\mathcal{L}_0^\bullet$ represent another object of
+$D^-(\mathcal{O}_0)$ and suppose that
+$$
+\mathcal{K}_0^\bullet \longrightarrow \mathcal{L}_0^\bullet
+$$
+is a map of complexes. Apply Lemma \ref{lemma-lift-complex}
+for the complex $\mathcal{L}_0^\bullet$, the flat modules
+$\mathcal{F}^n$, the maps $\mathcal{F}^n \to \mathcal{F}^{n + 1}$,
+and the compositions
+$\mathcal{F}^n \to \mathcal{K}_0^n \to \mathcal{L}_0^n$
+(we apologize for the reversal of letters used).
+We obtain flat modules $\mathcal{G}^n$, maps
+$\mathcal{F}^n \to \mathcal{G}^n$, maps
+$\mathcal{G}^n \to \mathcal{G}^{n + 1}$, and maps
+$\mathcal{G}^n \to \mathcal{L}_0^n$ with all properties
+as in the lemma. Then it is clear that
+$$
+\xymatrix{
+\mathcal{F}_0^\bullet \ar[d] \ar[r] &
+(\mathcal{F}_0^\bullet \otimes_{\mathcal{O}_0} \mathcal{I})[2] \ar[d] \\
+\mathcal{G}_0^\bullet \ar[r] &
+(\mathcal{G}_0^\bullet \otimes_{\mathcal{O}_0} \mathcal{I})[2]
+}
+$$
+is a commutative diagram of complexes.
+
+\medskip\noindent
+To see that $\omega(K_0)$ is well defined, suppose that we have two complexes
+$\mathcal{K}_0^\bullet$ and $(\mathcal{K}'_0)^\bullet$
+of $\mathcal{O}_0$-modules representing $K_0$ and two systems
+$(\mathcal{F}^n, d : \mathcal{F}^n \to \mathcal{F}^{n + 1},
+\mathcal{F}^n \to \mathcal{K}_0^n)$
+and
+$((\mathcal{F}')^n, d : (\mathcal{F}')^n \to (\mathcal{F}')^{n + 1},
+(\mathcal{F}')^n \to \mathcal{K}_0^n)$
+as above. Then we can choose a complex $(\mathcal{K}''_0)^\bullet$
+and quasi-isomorphisms
+$\mathcal{K}_0^\bullet  \to (\mathcal{K}''_0)^\bullet$
+and
+$(\mathcal{K}'_0)^\bullet  \to (\mathcal{K}''_0)^\bullet$
+realizing the fact that both complexes represent $K_0$ in the
+derived category. Next, we apply the result of the previous paragraph
+to
+$$
+(\mathcal{K}_0)^\bullet \oplus (\mathcal{K}'_0)^\bullet
+\longrightarrow
+(\mathcal{K}''_0)^\bullet
+$$
+This produces a commutative diagram
+$$
+\xymatrix{
+\mathcal{F}_0^\bullet \oplus (\mathcal{F}'_0)^\bullet
+\ar[d] \ar[r] &
+(\mathcal{F}_0^\bullet \otimes_{\mathcal{O}_0} \mathcal{I})[2] \oplus
+((\mathcal{F}'_0)^\bullet \otimes_{\mathcal{O}_0} \mathcal{I})[2] \ar[d] \\
+\mathcal{G}_0^\bullet \ar[r] &
+(\mathcal{G}_0^\bullet \otimes_{\mathcal{O}_0} \mathcal{I})[2]
+}
+$$
+Since the vertical arrows give quasi-isomorphisms on the summands
+we conclude the desired commutativity in $D(\mathcal{O}_0)$.
+
+\medskip\noindent
+Having established well-definedness, the statement on compatibility
+with maps is a consequence of the result in the second
+paragraph.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-induced-map}
+Let $(\mathcal{C}, \mathcal{O})$ be a ringed site.
+Let $\alpha : K \to L$ be a map of $D^-(\mathcal{O})$.
+Let $\mathcal{F}$ be a sheaf of $\mathcal{O}$-modules.
+Let $n \in \mathbf{Z}$.
+\begin{enumerate}
+\item If $H^i(\alpha)$ is an isomorphism for $i \geq n$,
+then $H^i(\alpha \otimes_\mathcal{O}^\mathbf{L} \text{id}_\mathcal{F})$
+is an isomorphism for $i \geq n$.
+\item If $H^i(\alpha)$ is an isomorphism for $i > n$ 
+and surjective for $i = n$,
+then $H^i(\alpha \otimes_\mathcal{O}^\mathbf{L} \text{id}_\mathcal{F})$
+is an isomorphism for $i > n$ and surjective for $i = n$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choose a distinguished triangle
+$$
+K \to L \to C \to K[1]
+$$
+In case (2) we see that $H^i(C) = 0$ for $i \geq n$.
+Hence $H^i(C \otimes_\mathcal{O}^\mathbf{L} \mathcal{F}) = 0$
+for $i \geq n$ by (the dual of)
+Derived Categories, Lemma \ref{derived-lemma-negative-vanishing}.
+This in turn shows that
+$H^i(\alpha \otimes_\mathcal{O}^\mathbf{L} \text{id}_\mathcal{F})$
+is an isomorphism for $i > n$ and surjective for $i = n$.
+In case (1) we moreover see that $H^{n - 1}(L) \to H^{n - 1}(C)$
+is surjective. Considering the diagram
+$$
+\xymatrix{
+H^{n - 1}(L) \otimes_\mathcal{O} \mathcal{F} \ar[r] \ar[d] &
+H^{n - 1}(C) \otimes_\mathcal{O} \mathcal{F} \ar@{=}[d] \\
+H^{n - 1}(L \otimes_\mathcal{O}^\mathbf{L} \mathcal{F}) \ar[r] &
+H^{n - 1}(C \otimes_\mathcal{O}^\mathbf{L} \mathcal{F})
+}
+$$
+we conclude the lower horizontal arrow is surjective. Combined with what
+was said before this implies that
+$H^n(\alpha \otimes_\mathcal{O}^\mathbf{L} \text{id}_\mathcal{F})$
+is an isomorphism.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-canonical-class-obstruction}
+Let $\mathcal{C}$ be a site. Let $\mathcal{O} \to \mathcal{O}_0$
+be a surjection of sheaves of rings whose kernel is an ideal sheaf
+$\mathcal{I}$ of square zero. For every object
+$K_0$ in $D^-(\mathcal{O}_0)$ the following are equivalent
+\begin{enumerate}
+\item  the class
+$\omega(K_0) \in
+\Ext^2_{\mathcal{O}_0}(K_0, K_0 \otimes_{\mathcal{O}_0} \mathcal{I})$
+constructed in Lemma \ref{lemma-canonical-class} is zero,
+\item there exists $K \in D^-(\mathcal{O})$ with
+$K \otimes_\mathcal{O}^\mathbf{L} \mathcal{O}_0 = K_0$
+in $D(\mathcal{O}_0)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $K$ be as in (2). Then we can represent $K$ by a bounded above
+complex $\mathcal{F}^\bullet$ of flat $\mathcal{O}$-modules.
+Then $\mathcal{F}_0^\bullet =
+\mathcal{F}^\bullet \otimes_{\mathcal{O}} \mathcal{O}_0$
+represents $K_0$ in $D(\mathcal{O}_0)$.
+Since $d_{\mathcal{F}^\bullet} \circ d_{\mathcal{F}^\bullet} = 0$
+as $\mathcal{F}^\bullet$ is a complex, we see from the very construction
+of $\omega(K_0)$ that it is zero.
+
+\medskip\noindent
+Assume (1). Let $\mathcal{F}^n$, $d : \mathcal{F}^n \to \mathcal{F}^{n + 1}$
+be as in the construction of $\omega(K_0)$. The nullity of
+$\omega(K_0)$ implies that the map
+$$
+\omega = d \circ d : \mathcal{F}_0^\bullet
+\longrightarrow
+(\mathcal{F}_0^\bullet \otimes_{\mathcal{O}_0} \mathcal{I})[2]
+$$
+is zero in $D(\mathcal{O}_0)$. By definition of the derived category
+as the localization of the homotopy category of complexes
+of $\mathcal{O}_0$-modules, there exists a quasi-isomorphism
+$\alpha : \mathcal{G}_0^\bullet \to \mathcal{F}_0^\bullet$
+such that there exist $\mathcal{O}_0$-modules maps
+$h^n : \mathcal{G}_0^n \to
+\mathcal{F}_0^{n + 1} \otimes_\mathcal{O} \mathcal{I}$
+with
+$$
+\omega \circ \alpha =
+d_{\mathcal{F}_0^\bullet \otimes \mathcal{I}} \circ h +
+h \circ d_{\mathcal{G}_0^\bullet}
+$$
+We set
+$$
+\mathcal{H}^n = \mathcal{F}^n \times_{\mathcal{F}^n_0} \mathcal{G}_0^n
+$$
+and we define
+$$
+d' : \mathcal{H}^n \longrightarrow \mathcal{H}^{n + 1},\quad
+(f^n, g_0^n) \longmapsto (d(f^n) - h^n(g_0^n), d(g_0^n))
+$$
+with obvious notation using that
+$\mathcal{F}_0^{n + 1} \otimes_{\mathcal{O}_0} \mathcal{I} =
+\mathcal{F}^{n + 1} \otimes_\mathcal{O} \mathcal{I} =
+\mathcal{I}\mathcal{F}^{n + 1} \subset \mathcal{F}^{n + 1}$.
+Then one checks $d' \circ d' = 0$ by our choice of $h^n$
+and definition of $\omega$.
+Hence $\mathcal{H}^\bullet$ defines an object in $D(\mathcal{O})$.
+On the other hand, there is a short exact sequence of complexes
+of $\mathcal{O}$-modules
+$$
+0 \to \mathcal{F}_0^\bullet \otimes_{\mathcal{O}_0} \mathcal{I} \to
+\mathcal{H}^\bullet \to \mathcal{G}_0^\bullet \to 0
+$$
+We still have to show that
+$\mathcal{H}^\bullet \otimes_\mathcal{O}^\mathbf{L} \mathcal{O}_0$
+is isomorphic to $K_0$.
+Choose a quasi-isomorphism
+$\mathcal{E}^\bullet \to \mathcal{H}^\bullet$
+where $\mathcal{E}^\bullet$ is a bounded above complex of flat
+$\mathcal{O}$-modules. We obtain a commutative diagram
+$$
+\xymatrix{
+0 \ar[r] &
+\mathcal{E}^\bullet \otimes_\mathcal{O} \mathcal{I} \ar[d]^\beta \ar[r] &
+\mathcal{E}^\bullet \ar[d]^\gamma \ar[r] &
+\mathcal{E}_0^\bullet \ar[d]^\delta \ar[r] &
+0 \\
+0 \ar[r] &
+\mathcal{F}_0^\bullet \otimes_{\mathcal{O}_0} \mathcal{I} \ar[r] &
+\mathcal{H}^\bullet \ar[r] &
+\mathcal{G}_0^\bullet \ar[r] &
+0
+}
+$$
+We claim that $\delta$ is a quasi-isomorphism. Since $H^i(\delta)$
+is an isomorphism for $i \gg 0$, we can use descending induction
+on $n$ such that $H^i(\delta)$ is an isomorphism for $i \geq n$.
+Observe that
+$\mathcal{E}^\bullet \otimes_\mathcal{O} \mathcal{I}$
+represents
+$\mathcal{E}_0^\bullet \otimes_{\mathcal{O}_0}^\mathbf{L} \mathcal{I}$,
+that
+$\mathcal{F}_0^\bullet \otimes_{\mathcal{O}_0} \mathcal{I}$
+represents
+$\mathcal{G}_0^\bullet \otimes_{\mathcal{O}_0}^\mathbf{L} \mathcal{I}$,
+and that
+$\beta = \delta \otimes_{\mathcal{O}_0}^\mathbf{L} \text{id}_\mathcal{I}$
+as maps in $D(\mathcal{O}_0)$. This is true because
+$\beta =
+(\alpha \otimes \text{id}_\mathcal{I})
+\circ
+(\delta \otimes \text{id}_\mathcal{I})$.
+Suppose that $H^i(\delta)$ is an isomorphism in degrees $\geq n$.
+Then the same is true for $\beta$ by what we just said
+and Lemma \ref{lemma-induced-map}.
+Then we can look at the diagram
+$$
+\xymatrix{
+H^{n - 1}(\mathcal{E}^\bullet \otimes_\mathcal{O} \mathcal{I})
+\ar[r] \ar[d]^{H^{n - 1}(\beta)} &
+H^{n - 1}(\mathcal{E}^\bullet) \ar[r] \ar[d] &
+H^{n - 1}(\mathcal{E}_0^\bullet) \ar[r] \ar[d]^{H^{n - 1}(\delta)} &
+H^n(\mathcal{E}^\bullet \otimes_\mathcal{O} \mathcal{I})
+\ar[r] \ar[d]^{H^n(\beta)} &
+H^n(\mathcal{E}^\bullet) \ar[d] \\
+H^{n - 1}(\mathcal{F}_0^\bullet \otimes_\mathcal{O} \mathcal{I}) \ar[r] &
+H^{n - 1}(\mathcal{H}^\bullet) \ar[r] &
+H^{n - 1}(\mathcal{G}_0^\bullet) \ar[r] &
+H^n(\mathcal{F}_0^\bullet \otimes_\mathcal{O} \mathcal{I}) \ar[r] &
+H^n(\mathcal{H}^\bullet)
+}
+$$
+Using Homology, Lemma \ref{homology-lemma-four-lemma}
+we see that $H^{n - 1}(\delta)$ is surjective.
+This in turn implies that $H^{n - 1}(\beta)$ is surjective
+by Lemma \ref{lemma-induced-map}.
+Using Homology, Lemma \ref{homology-lemma-four-lemma}
+again we see that $H^{n - 1}(\delta)$ is an isomorphism.
+The claim holds by induction, so $\delta$ is a quasi-isomorphism
+which is what we wanted to show.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lift-map-complexes}
+Let $\mathcal{C}$ be a site. Let $\mathcal{O} \to \mathcal{O}_0$
+be a surjection of sheaves of rings. Assume given the following data
+\begin{enumerate}
+\item a complex of $\mathcal{O}$-modules $\mathcal{F}^\bullet$,
+\item a complex $\mathcal{K}_0^\bullet$ of $\mathcal{O}_0$-modules,
+\item a quasi-isomorphism $\mathcal{K}_0^\bullet \to
+\mathcal{F}^\bullet \otimes_\mathcal{O} \mathcal{O}_0$,
+\end{enumerate}
+Then there exist a quasi-isomorphism
+$\mathcal{G}^\bullet \to \mathcal{F}^\bullet$ such that the map
+of complexes
+$\mathcal{G}^\bullet  \otimes_\mathcal{O} \mathcal{O}_0 \to
+\mathcal{F}^\bullet \otimes_\mathcal{O} \mathcal{O}_0$ factors
+through $\mathcal{K}_0^\bullet$ in the homotopy category
+of complexes of $\mathcal{O}_0$-modules.
+\end{lemma}
+
+\begin{proof}
+Set $\mathcal{F}_0^\bullet =
+\mathcal{F}^\bullet \otimes_\mathcal{O} \mathcal{O}_0$.
+By Derived Categories, Lemma \ref{derived-lemma-make-surjective}
+there exists a factorization
+$$
+\mathcal{K}_0^\bullet \to \mathcal{L}_0^\bullet \to \mathcal{F}_0^\bullet
+$$
+of the given map such that the first arrow has an inverse up
+to homotopy and the second arrow is termwise split surjective.
+Hence we may assume that $\mathcal{K}_0^\bullet \to \mathcal{F}_0^\bullet$
+is termwise surjective.
+In that case we take
+$$
+\mathcal{G}^n = \mathcal{F}^n \times_{\mathcal{F}^n_0} \mathcal{K}_0^n
+$$
+and everything is clear.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-inf-obs-map-defo-complex}
+Let $\mathcal{C}$ be a site. Let $\mathcal{O} \to \mathcal{O}_0$
+be a surjection of sheaves of rings whose kernel is an ideal sheaf
+$\mathcal{I}$ of square zero. Let $K, L \in D^-(\mathcal{O})$.
+Set $K_0 = K \otimes_\mathcal{O}^\mathbf{L} \mathcal{O}_0$
+and $L_0 = L \otimes_\mathcal{O}^\mathbf{L} \mathcal{O}_0$
+in $D^-(\mathcal{O}_0)$. Given $\alpha_0 : K_0 \to L_0$ in $D(\mathcal{O}_0)$
+there is a canonical element
+$$
+o(\alpha_0) \in \Ext^1_{\mathcal{O}_0}(K_0,
+L_0 \otimes_{\mathcal{O}_0}^\mathbf{L} \mathcal{I})
+$$
+whose vanishing is necessary and sufficient for the
+existence of a map $\alpha : K \to L$ in $D(\mathcal{O})$
+with $\alpha_0 = \alpha \otimes_\mathcal{O}^\mathbf{L} \text{id}$.
+\end{lemma}
+
+\begin{proof}
+Finding $\alpha : K \to L$ lifing $\alpha_0$ is the same as finding
+$\alpha : K \to L$ such that the composition $K \xrightarrow{\alpha} L \to L_0$
+is equal to the composition $K \to K_0 \xrightarrow{\alpha_0} L_0$.
+The short exact sequence
+$0 \to \mathcal{I} \to \mathcal{O} \to \mathcal{O}_0 \to 0$
+gives rise to a canonical distinguished triangle
+$$
+L \otimes_\mathcal{O}^\mathbf{L} \mathcal{I} \to
+L \to
+L_0 \to
+(L \otimes_\mathcal{O}^\mathbf{L} \mathcal{I})[1]
+$$
+in $D(\mathcal{O})$.
+By Derived Categories, Lemma \ref{derived-lemma-representable-homological}
+the composition
+$$
+K \to K_0 \xrightarrow{\alpha_0} L_0 \to
+(L \otimes_\mathcal{O}^\mathbf{L} \mathcal{I})[1]
+$$
+is zero if and only if we can find $\alpha : K \to L$
+lifting $\alpha_0$. The composition is an element in
+$$
+\Hom_{D(\mathcal{O})}(K, (L \otimes_\mathcal{O}^\mathbf{L} \mathcal{I})[1]) =
+\Hom_{D(\mathcal{O}_0)}(K_0,
+(L \otimes_\mathcal{O}^\mathbf{L} \mathcal{I})[1]) =
+\Ext^1_{\mathcal{O}_0}(K_0,
+L_0 \otimes_{\mathcal{O}_0}^\mathbf{L} \mathcal{I})
+$$
+by adjunction.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-first-order-defos-complex}
+Let $\mathcal{C}$ be a site. Let $\mathcal{O} \to \mathcal{O}_0$
+be a surjection of sheaves of rings whose kernel is an ideal sheaf
+$\mathcal{I}$ of square zero. Let $K_0 \in D^-(\mathcal{O})$.
+A lift of $K_0$ is a pair $(K, \alpha_0)$ consisting of an object
+$K$ in $D^-(\mathcal{O})$ and an isomorphism
+$\alpha_0 : K \otimes_\mathcal{O}^\mathbf{L} \mathcal{O}_0 \to K_0$
+in $D(\mathcal{O}_0)$.
+\begin{enumerate}
+\item Given a lift $(K, \alpha)$ the group of automorphism of the pair
+is canonically the cokernel of a map
+$$
+\Ext^{-1}_{\mathcal{O}_0}(K_0, K_0)
+\longrightarrow
+\Hom_{\mathcal{O}_0}(K_0, K_0 \otimes_{\mathcal{O}_0}^\mathbf{L} \mathcal{I})
+$$
+\item If there is a lift, then the set of isomorphism classes of lifts
+is principal homogenenous under
+$\Ext^1_{\mathcal{O}_0}(K_0,
+K_0 \otimes_{\mathcal{O}_0}^\mathbf{L} \mathcal{I})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+An automorphism of $(K, \alpha)$ is a map $\varphi : K \to K$
+in $D(\mathcal{O})$ with
+$\varphi \otimes_\mathcal{O} \text{id}_{\mathcal{O}_0} = \text{id}$.
+This is the same thing as saying that
+$$
+K \xrightarrow{\varphi - \text{id}} K \to
+K \otimes_\mathcal{O}^\mathbf{L} \mathcal{O}_0
+$$
+is zero. We conclude the group of automorphisms is
+the cokernel of a map
+$$
+\Hom_\mathcal{O}(K, K_0[-1])
+\longrightarrow
+\Hom_\mathcal{O}(K, K_0 \otimes_{\mathcal{O}_0}^\mathbf{L} \mathcal{I})
+$$
+by the distinguished triangle
+$$
+K \otimes_\mathcal{O}^\mathbf{L} \mathcal{I} \to
+K \to
+K \otimes_\mathcal{O}^\mathbf{L} \mathcal{O}_0 \to
+(K \otimes_\mathcal{O}^\mathbf{L} \mathcal{I})[1]
+$$
+in $D(\mathcal{O})$ and 
+Derived Categories, Lemma \ref{derived-lemma-representable-homological}.
+To translate into the groups in the lemma use adjunction
+of the restriction functor $D(\mathcal{O}_0) \to D(\mathcal{O})$ and
+$- \otimes_\mathcal{O} \mathcal{O}_0 : D(\mathcal{O}) \to D(\mathcal{O}_0)$.
+This proves (1).
+
+\medskip\noindent
+Proof of (2).
+Assume that $K_0 = K \otimes_\mathcal{O}^\mathbf{L} \mathcal{O}_0$
+in $D(\mathcal{O})$. By Lemma \ref{lemma-inf-obs-map-defo-complex}
+the map sending a lift $(K', \alpha_0)$ to the obstruction $o(\alpha_0)$
+to lifting $\alpha_0$ defines a canonical injective map
+from the set of isomomorphism classes of pairs
+to $\Ext^1_{\mathcal{O}_0}(K_0,
+K_0 \otimes_{\mathcal{O}_0}^\mathbf{L} \mathcal{I})$.
+To finish the proof we show that it is surjective.
+Pick $\xi : K_0 \to (K_0 \otimes_{\mathcal{O}_0}^\mathbf{L} \mathcal{I})[1]$
+in the $\Ext^1$ of the lemma.
+Choose a bounded above complex $\mathcal{F}^\bullet$
+of flat $\mathcal{O}$-modules representing $K$.
+The map $\xi$ can be represented as $t \circ s^{-1}$
+where $s : \mathcal{K}_0^\bullet \to \mathcal{F}_0^\bullet$
+is a quasi-isomorphism and
+$t : \mathcal{K}_0^\bullet \to
+\mathcal{F}_0^\bullet \otimes_{\mathcal{O}_0} \mathcal{I}[1]$
+is a map of complexes.
+By Lemma \ref{lemma-lift-map-complexes}
+we can assume there exists a quasi-isomorphism
+$\mathcal{G}^\bullet \to \mathcal{F}^\bullet$
+of complexes of $\mathcal{O}$-modules
+such that $\mathcal{G}_0^\bullet \to \mathcal{F}_0^\bullet$
+factors through $s$ up to homotopy.
+We may and do replace $\mathcal{G}^\bullet$ by a bounded
+above complex of flat $\mathcal{O}$-modules (by picking a qis
+from such to $\mathcal{G}^\bullet$ and replacing).
+Then we see that $\xi$ is represented by
+a map of complexes
+$t : \mathcal{G}_0^\bullet \to
+\mathcal{F}_0^\bullet \otimes_{\mathcal{O}_0} \mathcal{I}[1]$
+and the quasi-isomorphism $\mathcal{G}_0^\bullet \to \mathcal{F}_0^\bullet$.
+Set
+$$
+\mathcal{H}^n = \mathcal{F}^n \times_{\mathcal{F}_0^n} \mathcal{G}_0^n
+$$
+with differentials
+$$
+\mathcal{H}^n \to \mathcal{H}^{n + 1},\quad
+(f^n, g_0^n) \mapsto (d(f^n) + t(g_0^n), d(g_0^n))
+$$
+This makes sense as
+$\mathcal{F}_0^{n + 1} \otimes_{\mathcal{O}_0} \mathcal{I} =
+\mathcal{F}^{n + 1} \otimes_\mathcal{O} \mathcal{I} =
+\mathcal{I}\mathcal{F}^{n + 1} \subset \mathcal{F}^{n + 1}$.
+We omit the computation that shows that $\mathcal{H}^\bullet$
+is a complex of $\mathcal{O}$-modules. By construction there is
+a short exact sequence
+$$
+0 \to \mathcal{F}_0^\bullet \otimes_{\mathcal{O}_0} \mathcal{I} \to
+\mathcal{H}^\bullet \to \mathcal{G}_0^\bullet \to 0
+$$
+of complexes of $\mathcal{O}$-modules.
+Exactly as in the proof of Lemma \ref{lemma-canonical-class-obstruction}
+one shows that this sequence induces an isomorphism
+$\alpha_0 :
+\mathcal{H}^\bullet \otimes_\mathcal{O}^\mathbf{L} \mathcal{O}_0 \to
+\mathcal{G}_0^\bullet$ in $D(\mathcal{O}_0)$.
+In other words, we have produced a pair $(\mathcal{H}^\bullet, \alpha_0)$.
+We omit the verification that $o(\alpha_0) = \xi$; hint: $o(\alpha_0)$
+can be computed explitly in this case as we have maps
+$\mathcal{H}^n \to \mathcal{F}^n$ (not compatible with differentials)
+lifting the components of $\alpha_0$. This finishes the proof.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

@@ -1,0 +1,4806 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Groupoid Schemes}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+This chapter is devoted to generalities concerning groupoid schemes.
+See for example the beautiful paper \cite{K-M} by Keel and Mori.
+
+
+
+
+
+\section{Notation}
+\label{section-notation}
+
+\noindent
+Let $S$ be a scheme. If $U$, $T$ are schemes over $S$ we denote
+$U(T)$ for the set of $T$-valued points of $U$ {\it over} $S$. In a formula:
+$U(T) = \Mor_S(T, U)$. We try to reserve the letter $T$ to denote
+a ``test scheme'' over $S$, as in the discussion that follows.
+Suppose we are given schemes $X$, $Y$ over
+$S$ and a morphism of schemes $f : X \to Y$ over $S$.
+For any scheme $T$ over $S$ we get an induced map of sets
+$$
+f : X(T) \longrightarrow Y(T)
+$$
+which as indicated we denote by $f$ also. In fact this construction
+is functorial in the scheme $T/S$. Yoneda's Lemma, see Categories,
+Lemma \ref{categories-lemma-yoneda}, says that $f$ determines and is
+determined by this transformation of functors $f : h_X \to h_Y$.
+More generally, we use the same notation for maps between fibre
+products. For example, if
+$X$, $Y$, $Z$ are schemes over $S$, and if
+$m : X \times_S Y \to Z \times_S Z$ is
+a morphism of schemes over $S$, then we think of $m$ as corresponding
+to a collection of maps between $T$-valued points
+$$
+X(T) \times Y(T) \longrightarrow Z(T) \times Z(T).
+$$
+And so on and so forth.
+
+\medskip\noindent
+We continue our convention to label projection maps starting with
+index $0$, so we have $\text{pr}_0 : X \times_S Y \to X$ and
+$\text{pr}_1 : X \times_S Y \to Y$.
+
+
+
+
+
+
+\section{Equivalence relations}
+\label{section-equivalence-relations}
+
+\noindent
+Recall that a {\it relation} $R$ on a set $A$ is just a subset
+of $R \subset A \times A$. We usually write $a R b$ to indicate
+$(a, b) \in R$. We say the relation is {\it transitive} if
+$a R b, b R c \Rightarrow a R c$. We say the relation is
+{\it reflexive} if $a R a$ for all $a \in A$. We say the relation is
+{\it symmetric} if $a R b \Rightarrow b R a$.
+A relation is called an {\it equivalence relation} if
+it is transitive, reflexive and symmetric.
+
+\medskip\noindent
+In the setting of schemes we are going to relax the notion of a
+relation a little bit and just require $R \to A \times A$ to
+be a map. Here is the definition.
+
+\begin{definition}
+\label{definition-equivalence-relation}
+Let $S$ be a scheme. Let $U$ be a scheme over $S$.
+\begin{enumerate}
+\item A {\it pre-relation} on $U$ over $S$ is any morphism
+of schemes $j : R \to U \times_S U$. In this case we set
+$t = \text{pr}_0 \circ j$ and $s = \text{pr}_1 \circ j$, so
+that $j = (t, s)$.
+\item A {\it relation} on $U$ over $S$ is a monomorphism
+of schemes $j : R \to U \times_S U$.
+\item A {\it pre-equivalence relation} is a pre-relation
+$j : R \to U \times_S U$ such that the image of
+$j : R(T) \to U(T) \times U(T)$ is an equivalence relation for
+all $T/S$.
+\item We say a morphism $R \to U \times_S U$ of schemes is
+an {\it equivalence relation on $U$ over $S$}
+if and only if for every scheme $T$ over $S$ the $T$-valued
+points of $R$ define an equivalence relation
+on the set of $T$-valued points of $U$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+In other words, an equivalence relation is a pre-equivalence relation
+such that $j$ is a relation.
+
+\begin{lemma}
+\label{lemma-restrict-relation}
+Let $S$ be a scheme.
+Let $U$ be a scheme over $S$.
+Let $j : R \to U \times_S U$ be a pre-relation.
+Let $g : U' \to U$ be a morphism of schemes.
+Finally, set
+$$
+R' = (U' \times_S U')\times_{U \times_S U} R
+\xrightarrow{j'}
+U' \times_S U'
+$$
+Then $j'$ is a pre-relation on $U'$ over $S$.
+If $j$ is a relation, then $j'$ is a relation.
+If $j$ is a pre-equivalence relation, then $j'$ is a pre-equivalence relation.
+If $j$ is an equivalence relation, then $j'$ is an equivalence relation.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{definition}
+\label{definition-restrict-relation}
+Let $S$ be a scheme.
+Let $U$ be a scheme over $S$.
+Let $j : R \to U \times_S U$ be a pre-relation.
+Let $g : U' \to U$ be a morphism of schemes.
+The pre-relation $j' : R' \to U' \times_S U'$ is called
+the {\it restriction}, or {\it pullback} of the pre-relation $j$ to $U'$.
+In this situation we sometimes write $R' = R|_{U'}$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-pre-equivalence-equivalence-relation-points}
+Let $j : R \to U \times_S U$ be a pre-relation.
+Consider the relation on points of the scheme $U$ defined by
+the rule
+$$
+x \sim y
+\Leftrightarrow
+\exists\ r \in R :
+t(r) = x,
+s(r) = y.
+$$
+If $j$ is a pre-equivalence relation then this is an
+equivalence relation.
+\end{lemma}
+
+\begin{proof}
+Suppose that $x \sim y$ and $y \sim z$.
+Pick $r \in R$ with $t(r) = x$, $s(r) = y$ and
+pick $r' \in R$ with $t(r') = y$, $s(r') = z$.
+Pick a field $K$ fitting into the following commutative
+diagram
+$$
+\xymatrix{
+\kappa(r) \ar[r] & K \\
+\kappa(y) \ar[u] \ar[r] & \kappa(r') \ar[u]
+}
+$$
+Denote $x_K, y_K, z_K : \Spec(K) \to U$
+the morphisms
+$$
+\begin{matrix}
+\Spec(K) \to \Spec(\kappa(r))
+\to
+\Spec(\kappa(x)) \to U \\
+\Spec(K) \to \Spec(\kappa(r))
+\to
+\Spec(\kappa(y)) \to U \\
+\Spec(K) \to \Spec(\kappa(r'))
+\to
+\Spec(\kappa(z)) \to U
+\end{matrix}
+$$
+By construction $(x_K, y_K) \in j(R(K))$ and
+$(y_K, z_K) \in j(R(K))$. Since $j$ is a pre-equivalence relation
+we see that also $(x_K, z_K) \in j(R(K))$.
+This clearly implies that $x \sim z$.
+
+\medskip\noindent
+The proof that $\sim$ is reflexive and symmetric is omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-equivalence-relation}
+Let $j : R \to U \times_S U$ be a pre-relation. Assume
+\begin{enumerate}
+\item $s, t$ are unramified,
+\item for any algebraically closed field $k$ over $S$
+the map $R(k) \to U(k) \times U(k)$ is an equivalence relation,
+\item there are morphisms $e : U \to R$, $i : R \to R$,
+$c : R \times_{s, U, t} R \to R$ such that
+$$
+\xymatrix{
+U \ar[r]_e \ar[d]_\Delta &
+R \ar[d]_j &
+R \ar[d]^j \ar[r]_i &
+R \ar[d]^j &
+R \times_{s, U, t} R \ar[d]^{j \times j} \ar[r]_c &
+R \ar[d]^j \\
+U \times_S U \ar[r] &
+U \times_S U &
+U \times_S U \ar[r]^{flip} &
+U \times_S U &
+U \times_S U \times_S U \ar[r]^{\text{pr}_{02}} &
+U \times_S U
+}
+$$
+are commutative.
+\end{enumerate}
+Then $j$ is an equivalence relation.
+\end{lemma}
+
+\begin{proof}
+By condition (1) and
+Morphisms, Lemma \ref{morphisms-lemma-unramified-permanence}
+we see that $j$ is a unramified. Then
+$\Delta_j : R \to R \times_{U \times_S U} R$ is an open immersion by
+Morphisms, Lemma \ref{morphisms-lemma-diagonal-unramified-morphism}.
+However, then condition (2) says $\Delta_j$ is bijective on
+$k$-valued points, hence $\Delta_j$ is an isomorphism, hence $j$
+is a monomorphism. Then it easily follows from the commutative
+diagrams that $R(T) \subset U(T) \times U(T)$ is an equivalence
+relation for all schemes $T$ over $S$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Group schemes}
+\label{section-group-schemes}
+
+\noindent
+Let us recall that a {\it group} is a pair
+$(G, m)$ where $G$ is a set, and $m : G \times G \to G$ is
+a map of sets with the following properties:
+\begin{enumerate}
+\item (associativity) $m(g, m(g', g'')) = m(m(g, g'), g'')$
+for all $g, g', g'' \in G$,
+\item (identity) there exists a unique element $e \in G$
+(called the {\it identity}, {\it unit}, or $1$ of $G$) such that
+$m(g, e) = m(e, g) = g$ for all $g \in G$, and
+\item (inverse) for all $g \in G$ there exists a $i(g) \in G$
+such that $m(g, i(g)) = m(i(g), g) = e$, where $e$ is the
+identity.
+\end{enumerate}
+Thus we obtain a map $e : \{*\} \to G$ and a map
+$i : G \to G$ so that the quadruple $(G, m, e, i)$
+satisfies the axioms listed above.
+
+\medskip\noindent
+A {\it homomorphism of groups} $\psi : (G, m) \to (G', m')$
+is a map of sets $\psi : G \to G'$ such that
+$m'(\psi(g), \psi(g')) = \psi(m(g, g'))$. This automatically
+insures that $\psi(e) = e'$ and $i'(\psi(g)) = \psi(i(g))$.
+(Obvious notation.) We will use this below.
+
+\begin{definition}
+\label{definition-group-scheme}
+Let $S$ be a scheme.
+\begin{enumerate}
+\item A {\it group scheme over $S$} is a pair $(G, m)$, where
+$G$ is a scheme over $S$ and $m : G \times_S G \to G$ is
+a morphism of schemes over $S$ with the following property:
+For every scheme $T$ over $S$ the pair $(G(T), m)$
+is a group.
+\item A {\it morphism $\psi : (G, m) \to (G', m')$ of group schemes over $S$}
+is a morphism $\psi : G \to G'$ of schemes over $S$ such that for
+every $T/S$ the induced map $\psi : G(T) \to G'(T)$ is a homomorphism
+of groups.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Let $(G, m)$ be a group scheme over the scheme $S$.
+By the discussion above (and the discussion in Section \ref{section-notation})
+we obtain morphisms of schemes over $S$:
+(identity) $e : S \to G$ and (inverse) $i : G \to G$ such that
+for every $T$ the quadruple $(G(T), m, e, i)$ satisfies the
+axioms of a group listed above.
+
+\medskip\noindent
+Let $(G, m)$, $(G', m')$ be group schemes over $S$.
+Let $f : G \to G'$ be a morphism of schemes over $S$.
+It follows from the definition that $f$ is a morphism
+of group schemes over $S$ if and only if the following diagram
+is commutative:
+$$
+\xymatrix{
+G \times_S G \ar[r]_-{f \times f} \ar[d]_m &
+G' \times_S G' \ar[d]^m \\
+G \ar[r]^f & G'
+}
+$$
+
+\begin{lemma}
+\label{lemma-base-change-group-scheme}
+Let $(G, m)$ be a group scheme over $S$.
+Let $S' \to S$ be a morphism of schemes.
+The pullback $(G_{S'}, m_{S'})$ is a group scheme over $S'$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{definition}
+\label{definition-closed-subgroup-scheme}
+Let $S$ be a scheme. Let $(G, m)$ be a group scheme over $S$.
+\begin{enumerate}
+\item A {\it closed subgroup scheme} of $G$ is a closed subscheme
+$H \subset G$ such that $m|_{H \times_S H}$ factors through $H$ and induces a
+group scheme structure on $H$ over $S$.
+\item An {\it open subgroup scheme} of $G$ is an open subscheme
+$G' \subset G$ such that $m|_{G' \times_S G'}$ factors through $G'$
+and induces a group scheme structure on $G'$ over $S$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Alternatively, we could say that $H$ is a closed subgroup scheme of $G$
+if it is a group scheme over $S$ endowed with a morphism of group schemes
+$i : H \to G$ over $S$ which identifies $H$ with a closed subscheme of $G$.
+
+\begin{definition}
+\label{definition-smooth-group-scheme}
+Let $S$ be a scheme. Let $(G, m)$ be a group scheme over $S$.
+\begin{enumerate}
+\item We say $G$ is a {\it smooth group scheme} if the structure
+morphism $G \to S$ is smooth.
+\item We say $G$ is a {\it flat group scheme} if the structure
+morphism $G \to S$ is flat.
+\item We say $G$ is a {\it separated group scheme} if the structure
+morphism $G \to S$ is separated.
+\end{enumerate}
+Add more as needed.
+\end{definition}
+
+
+
+
+
+
+\section{Examples of group schemes}
+\label{section-examples-group-schemes}
+
+\begin{example}[Multiplicative group scheme]
+\label{example-multiplicative-group}
+Consider the functor which associates
+to any scheme $T$ the group $\Gamma(T, \mathcal{O}_T^*)$
+of units in the global sections of the structure sheaf.
+This is representable by the scheme
+$$
+\mathbf{G}_m = \Spec(\mathbf{Z}[x, x^{-1}])
+$$
+The morphism giving the group structure is the morphism
+\begin{eqnarray*}
+\mathbf{G}_m \times \mathbf{G}_m & \to & \mathbf{G}_m \\
+\Spec(\mathbf{Z}[x, x^{-1}] \otimes_{\mathbf{Z}} \mathbf{Z}[x, x^{-1}])
+& \to &
+\Spec(\mathbf{Z}[x, x^{-1}]) \\
+\mathbf{Z}[x, x^{-1}] \otimes_{\mathbf{Z}} \mathbf{Z}[x, x^{-1}]
+& \leftarrow &
+\mathbf{Z}[x, x^{-1}] \\
+x \otimes x & \leftarrow & x
+\end{eqnarray*}
+Hence we see that $\mathbf{G}_m$ is a group scheme over $\mathbf{Z}$.
+For any scheme $S$ the base change $\mathbf{G}_{m, S}$ is a
+group scheme over $S$ whose functor of points is
+$$
+T/S
+\longmapsto
+\mathbf{G}_{m, S}(T) = \mathbf{G}_m(T) = \Gamma(T, \mathcal{O}_T^*)
+$$
+as before.
+\end{example}
+
+\begin{example}[Roots of unity]
+\label{example-roots-of-unity}
+Let $n \in \mathbf{N}$.
+Consider the functor which associates
+to any scheme $T$ the subgroup of $\Gamma(T, \mathcal{O}_T^*)$
+consisting of $n$th roots of unity.
+This is representable by the scheme
+$$
+\mu_n = \Spec(\mathbf{Z}[x]/(x^n - 1)).
+$$
+The morphism giving the group structure is the morphism
+\begin{eqnarray*}
+\mu_n \times \mu_n & \to & \mu_n \\
+\Spec(
+\mathbf{Z}[x]/(x^n - 1)
+\otimes_{\mathbf{Z}}
+\mathbf{Z}[x]/(x^n - 1))
+& \to &
+\Spec(\mathbf{Z}[x]/(x^n - 1)) \\
+\mathbf{Z}[x]/(x^n - 1) \otimes_{\mathbf{Z}} \mathbf{Z}[x]/(x^n - 1)
+& \leftarrow &
+\mathbf{Z}[x]/(x^n - 1) \\
+x \otimes x & \leftarrow & x
+\end{eqnarray*}
+Hence we see that $\mu_n$ is a group scheme over $\mathbf{Z}$.
+For any scheme $S$ the base change $\mu_{n, S}$ is a
+group scheme over $S$ whose functor of points is
+$$
+T/S
+\longmapsto
+\mu_{n, S}(T) = \mu_n(T) = \{f \in \Gamma(T, \mathcal{O}_T^*) \mid f^n = 1\}
+$$
+as before.
+\end{example}
+
+
+\begin{example}[Additive group scheme]
+\label{example-additive-group}
+Consider the functor which associates
+to any scheme $T$ the group $\Gamma(T, \mathcal{O}_T)$
+of global sections of the structure sheaf.
+This is representable by the scheme
+$$
+\mathbf{G}_a = \Spec(\mathbf{Z}[x])
+$$
+The morphism giving the group structure is the morphism
+\begin{eqnarray*}
+\mathbf{G}_a \times \mathbf{G}_a & \to & \mathbf{G}_a \\
+\Spec(\mathbf{Z}[x] \otimes_{\mathbf{Z}} \mathbf{Z}[x])
+& \to &
+\Spec(\mathbf{Z}[x]) \\
+\mathbf{Z}[x] \otimes_{\mathbf{Z}} \mathbf{Z}[x]
+& \leftarrow &
+\mathbf{Z}[x] \\
+x \otimes 1 + 1 \otimes x & \leftarrow & x
+\end{eqnarray*}
+Hence we see that $\mathbf{G}_a$ is a group scheme over $\mathbf{Z}$.
+For any scheme $S$ the base change $\mathbf{G}_{a, S}$ is a
+group scheme over $S$ whose functor of points is
+$$
+T/S
+\longmapsto
+\mathbf{G}_{a, S}(T) = \mathbf{G}_a(T) = \Gamma(T, \mathcal{O}_T)
+$$
+as before.
+\end{example}
+
+\begin{example}[General linear group scheme]
+\label{example-general-linear-group}
+Let $n \geq 1$.
+Consider the functor which associates
+to any scheme $T$ the group
+$$
+\text{GL}_n(\Gamma(T, \mathcal{O}_T))
+$$
+of invertible $n \times n$ matrices over
+the global sections of the structure sheaf.
+This is representable by the scheme
+$$
+\text{GL}_n = \Spec(\mathbf{Z}[\{x_{ij}\}_{1 \leq i, j \leq n}][1/d])
+$$
+where $d = \det((x_{ij}))$ with $(x_{ij})$ the $n \times n$ matrix
+with entry $x_{ij}$ in the $(i, j)$-spot.
+The morphism giving the group structure is the morphism
+\begin{eqnarray*}
+\text{GL}_n \times \text{GL}_n & \to & \text{GL}_n \\
+\Spec(\mathbf{Z}[x_{ij}, 1/d] \otimes_{\mathbf{Z}}
+\mathbf{Z}[x_{ij}, 1/d])
+& \to &
+\Spec(\mathbf{Z}[x_{ij}, 1/d]) \\
+\mathbf{Z}[x_{ij}, 1/d] \otimes_{\mathbf{Z}} \mathbf{Z}[x_{ij}, 1/d]
+& \leftarrow &
+\mathbf{Z}[x_{ij}, 1/d] \\
+\sum x_{ik} \otimes x_{kj} & \leftarrow & x_{ij}
+\end{eqnarray*}
+Hence we see that $\text{GL}_n$ is a group scheme over $\mathbf{Z}$.
+For any scheme $S$ the base change $\text{GL}_{n, S}$ is a
+group scheme over $S$ whose functor of points is
+$$
+T/S
+\longmapsto
+\text{GL}_{n, S}(T) = \text{GL}_n(T) =\text{GL}_n(\Gamma(T, \mathcal{O}_T))
+$$
+as before.
+\end{example}
+
+\begin{example}
+\label{example-determinant}
+The determinant defines a morphism of group schemes
+$$
+\det : \text{GL}_n \longrightarrow \mathbf{G}_m
+$$
+over $\mathbf{Z}$. By base change it gives a morphism
+of group schemes $\text{GL}_{n, S} \to \mathbf{G}_{m, S}$
+over any base scheme $S$.
+\end{example}
+
+\begin{example}[Constant group]
+\label{example-constant-group}
+Let $G$ be an abstract group. Consider the functor
+which associates to any scheme $T$ the group
+of locally constant maps $T \to G$ (where $T$ has the Zariski topology
+and $G$ the discrete topology). This is representable by the scheme
+$$
+G_{\Spec(\mathbf{Z})} =
+\coprod\nolimits_{g \in G} \Spec(\mathbf{Z}).
+$$
+The morphism giving the group structure is the morphism
+$$
+G_{\Spec(\mathbf{Z})}
+\times_{\Spec(\mathbf{Z})}
+G_{\Spec(\mathbf{Z})}
+\longrightarrow
+G_{\Spec(\mathbf{Z})}
+$$
+which maps the component corresponding to the pair $(g, g')$ to the
+component corresponding to $gg'$. For any scheme $S$ the base change
+$G_S$ is a group scheme over $S$ whose functor of points is
+$$
+T/S
+\longmapsto
+G_S(T) = \{f : T \to G \text{ locally constant}\}
+$$
+as before.
+\end{example}
+
+
+
+
+
+\section{Properties of group schemes}
+\label{section-properties-group-schemes}
+
+\noindent
+In this section we collect some simple properties of group schemes which
+hold over any base.
+
+\begin{lemma}
+\label{lemma-group-scheme-separated}
+Let $S$ be a scheme.
+Let $G$ be a group scheme over $S$.
+Then $G \to S$ is separated (resp.\ quasi-separated) if and only if
+the identity morphism $e : S \to G$ is a closed immersion
+(resp.\ quasi-compact).
+\end{lemma}
+
+\begin{proof}
+We recall that by
+Schemes, Lemma \ref{schemes-lemma-section-immersion}
+we have that $e$ is an immersion which is a closed immersion
+(resp.\ quasi-compact) if $G \to S$ is separated (resp.\ quasi-separated).
+For the converse, consider the diagram
+$$
+\xymatrix{
+G \ar[r]_-{\Delta_{G/S}} \ar[d] &
+G \times_S G \ar[d]^{(g, g') \mapsto m(i(g), g')} \\
+S \ar[r]^e & G
+}
+$$
+It is an exercise in the functorial point of view in algebraic geometry
+to show that this diagram is cartesian. In other words, we see that
+$\Delta_{G/S}$ is a base change of $e$. Hence if $e$ is a
+closed immersion (resp.\ quasi-compact) so is $\Delta_{G/S}$, see
+Schemes, Lemma \ref{schemes-lemma-base-change-immersion}
+(resp.\ Schemes, Lemma
+\ref{schemes-lemma-quasi-compact-preserved-base-change}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-action-on-group-scheme}
+Let $S$ be a scheme.
+Let $G$ be a group scheme over $S$.
+Let $T$ be a scheme over $S$ and let $\psi : T \to G$ be a morphism over $S$.
+If $T$ is flat over $S$, then the morphism
+$$
+T \times_S G \longrightarrow G, \quad
+(t, g) \longmapsto m(\psi(t), g)
+$$
+is flat. In particular, if $G$ is flat over $S$, then
+$m : G \times_S G \to G$ is flat.
+\end{lemma}
+
+\begin{proof}
+Consider the diagram
+$$
+\xymatrix{
+T \times_S G \ar[rrr]_{(t, g) \mapsto (t, m(\psi(t), g))} & & &
+T \times_S G \ar[r]_{\text{pr}} \ar[d] &
+G \ar[d] \\
+& & &
+T \ar[r] &
+S
+}
+$$
+The left top horizontal arrow is an isomorphism and the
+square is cartesian. Hence the lemma follows from
+Morphisms, Lemma \ref{morphisms-lemma-base-change-flat}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-group-scheme-module-differentials}
+Let $(G, m, e, i)$ be a group scheme over the scheme $S$.
+Denote $f : G \to S$ the structure morphism. Assume $f$ is flat.
+Then there exist canonical isomorphisms
+$$
+\Omega_{G/S} \cong f^*\mathcal{C}_{S/G} \cong f^*e^*\Omega_{G/S}
+$$
+where $\mathcal{C}_{S/G}$ denotes the conormal sheaf of the
+immersion $e$. In particular, if $S$ is the spectrum of a field, then
+$\Omega_{G/S}$ is a free $\mathcal{O}_G$-module.
+\end{lemma}
+
+\begin{proof}
+In
+Morphisms, Lemma \ref{morphisms-lemma-differentials-diagonal}
+we identified $\Omega_{G/S}$ with the conormal sheaf of the
+diagonal morphism $\Delta_{G/S}$. In the proof of
+Lemma \ref{lemma-group-scheme-separated}
+we showed that $\Delta_{G/S}$ is a base change of the immersion $e$
+by the morphism $(g, g') \mapsto m(i(g), g')$. This morphism
+is isomorphic to the morphism $(g, g') \mapsto m(g, g')$
+hence is flat by
+Lemma \ref{lemma-flat-action-on-group-scheme}.
+Hence we get the first isomorphism by
+Morphisms, Lemma \ref{morphisms-lemma-conormal-functorial-flat}.
+By
+Morphisms, Lemma \ref{morphisms-lemma-differentials-relative-immersion-section}
+we have $\mathcal{C}_{S/G} \cong e^*\Omega_{G/S}$.
+
+\medskip\noindent
+If $S$ is the spectrum of a field, then $G \to S$ is flat, and
+any $\mathcal{O}_S$-module on $S$ is free.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-group-scheme-addition-tangent-vectors}
+Let $S$ be a scheme. Let $G$ be a group scheme over $S$.
+Let $s \in S$. Then the composition
+$$
+T_{G/S, e(s)} \oplus T_{G/S, e(s)} = T_{G \times_S G/S, (e(s), e(s))}
+\rightarrow T_{G/S, e(s)}
+$$
+is addition of tangent vectors. Here the $=$ comes from
+Varieties, Lemma \ref{varieties-lemma-tangent-space-product}
+and the right arrow is induced from $m : G \times_S G \to G$ via
+Varieties, Lemma \ref{varieties-lemma-map-tangent-spaces}.
+\end{lemma}
+
+\begin{proof}
+We will use Varieties, Equation (\ref{varieties-equation-tangent-space-fibre})
+and work with tangent vectors in fibres.
+An element $\theta$ in the first factor $T_{G_s/s, e(s)}$
+is the image of $\theta$ via the map
+$T_{G_s/s, e(s)} \to T_{G_s \times G_s/s, (e(s), e(s))}$
+coming from $(1, e) : G_s \to G_s \times G_s$.
+Since $m \circ (1, e) = 1$ we see that $\theta$ maps to $\theta$
+by functoriality. Since the map is linear we see that
+$(\theta_1, \theta_2)$ maps to $\theta_1 + \theta_2$.
+\end{proof}
+
+
+
+
+
+\section{Properties of group schemes over a field}
+\label{section-properties-group-schemes-field}
+
+\noindent
+In this section we collect some properties of group schemes over a
+field. In the case of group schemes which are (locally) algebraic
+over a field we can say a lot more, see
+Section \ref{section-algebraic-group-schemes}.
+
+\begin{lemma}
+\label{lemma-group-scheme-over-field-open-multiplication}
+If $(G, m)$ is a group scheme over a field $k$, then the
+multiplication map $m : G \times_k G \to G$ is open.
+\end{lemma}
+
+\begin{proof}
+The multiplication map is isomorphic to the projection map
+$\text{pr}_0 : G \times_k G \to G$
+because the diagram
+$$
+\xymatrix{
+G \times_k G \ar[d]^m \ar[rrr]_{(g, g') \mapsto (m(g, g'), g')} & & &
+G \times_k G \ar[d]^{(g, g') \mapsto g} \\
+G \ar[rrr]^{\text{id}} & & & G
+}
+$$
+is commutative with isomorphisms as horizontal arrows. The projection
+is open by
+Morphisms, Lemma \ref{morphisms-lemma-scheme-over-field-universally-open}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-group-scheme-over-field-translate-open}
+If $(G, m)$ is a group scheme over a field $k$. Let $U \subset G$
+open and $T \to G$ a morphism of schemes. Then the image of the
+composition $T \times_k U \to G \times_k G \to G$ is open.
+\end{lemma}
+
+\begin{proof}
+For any field extension $k \subset K$ the morphism $G_K \to G$ is open
+(Morphisms, Lemma \ref{morphisms-lemma-scheme-over-field-universally-open}).
+Every point $\xi$ of $T \times_k U$ is the image of a morphism
+$(t, u) : \Spec(K) \to T \times_k U$ for some $K$. Then the image of
+$T_K \times_K U_K = (T \times_k U)_K \to G_K$ contains the translate
+$t \cdot U_K$ which is open. Combining these facts we see that the
+image of $T \times_k U \to G$ contains an open neighbourhood of
+the image of $\xi$. Since $\xi$ was arbitrary we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-group-scheme-over-field-separated}
+Let $G$ be a group scheme over a field.
+Then $G$ is a separated scheme.
+\end{lemma}
+
+\begin{proof}
+Say $S = \Spec(k)$ with $k$ a field, and let $G$ be a group scheme
+over $S$. By
+Lemma \ref{lemma-group-scheme-separated}
+we have to show that $e : S \to G$ is a closed immersion. By
+Morphisms, Lemma
+\ref{morphisms-lemma-algebraic-residue-field-extension-closed-point-fibre}
+the image of $e : S \to G$ is a closed point of $G$.
+It is clear that $\mathcal{O}_G \to e_*\mathcal{O}_S$ is surjective,
+since $e_*\mathcal{O}_S$ is a skyscraper sheaf supported at the neutral
+element of $G$ with value $k$. We conclude that $e$ is a closed immersion by
+Schemes, Lemma \ref{schemes-lemma-characterize-closed-immersions}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-group-scheme-field-geometrically-irreducible}
+Let $G$ be a group scheme over a field $k$.
+Then
+\begin{enumerate}
+\item every local ring $\mathcal{O}_{G, g}$ of $G$ has a unique
+minimal prime ideal,
+\item there is exactly one irreducible component $Z$ of $G$
+passing through $e$, and
+\item $Z$ is geometrically irreducible over $k$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For any point $g \in G$ there exists a field extension
+$k \subset K$ and a $K$-valued point $g' \in G(K)$ mapping to
+$g$. If we think of $g'$ as a $K$-rational point of the
+group scheme $G_K$, then we see that
+$\mathcal{O}_{G, g} \to \mathcal{O}_{G_K, g'}$ is a faithfully flat
+local ring map (as $G_K \to G$ is flat, and a local flat ring map
+is faithfully flat, see
+Algebra, Lemma \ref{algebra-lemma-local-flat-ff}).
+The result for $\mathcal{O}_{G_K, g'}$ implies the
+result for $\mathcal{O}_{G, g}$, see
+Algebra, Lemma \ref{algebra-lemma-injective-minimal-primes-in-image}.
+Hence in order to prove (1) it suffices to
+prove it for $k$-rational points $g$ of $G$. In this case
+translation by $g$ defines an automorphism $G \to G$
+which maps $e$ to $g$. Hence $\mathcal{O}_{G, g} \cong \mathcal{O}_{G, e}$.
+In this way we see that (2) implies (1), since irreducible components
+passing through $e$ correspond one to one with minimal prime ideals
+of $\mathcal{O}_{G, e}$.
+
+\medskip\noindent
+In order to prove (2) and (3) it suffices to prove (2) when $k$
+is algebraically closed. In this case, let $Z_1$, $Z_2$ be two
+irreducible components of $G$ passing through $e$.
+Since $k$ is algebraically closed the closed subscheme
+$Z_1 \times_k Z_2 \subset G \times_k G$ is irreducible too, see
+Varieties, Lemma \ref{varieties-lemma-bijection-irreducible-components}.
+Hence $m(Z_1 \times_k Z_2)$ is contained in an irreducible
+component of $G$. On the other hand it contains
+$Z_1$ and $Z_2$ since $m|_{e \times G} = \text{id}_G$ and
+$m|_{G \times e} = \text{id}_G$. We conclude $Z_1 = Z_2$ as desired.
+\end{proof}
+
+\begin{remark}
+\label{remark-warning-group-scheme-geometrically-irreducible}
+Warning: The result of
+Lemma \ref{lemma-group-scheme-field-geometrically-irreducible}
+does not mean that every irreducible component of $G/k$ is
+geometrically irreducible. For example the group scheme
+$\mu_{3, \mathbf{Q}} = \Spec(\mathbf{Q}[x]/(x^3 - 1))$
+over $\mathbf{Q}$ has two irreducible components corresponding
+to the factorization $x^3 - 1 = (x - 1)(x^2 + x + 1)$.
+The first factor corresponds to the irreducible component
+passing through the identity, and the second irreducible component
+is not geometrically irreducible over $\Spec(\mathbf{Q})$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-reduced-subgroup-scheme-perfect}
+Let $G$ be a group scheme over a perfect field $k$.
+Then the reduction $G_{red}$ of $G$ is a closed subgroup scheme of $G$.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Use that $G_{red} \times_k G_{red}$ is reduced by
+Varieties, Lemmas \ref{varieties-lemma-perfect-reduced} and
+\ref{varieties-lemma-geometrically-reduced-any-base-change}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-subgroup-closed-over-field}
+Let $k$ be a field. Let $\psi : G' \to G$ be a morphism of group schemes
+over $k$. If $\psi(G')$ is open in $G$, then $\psi(G')$ is closed in $G$.
+\end{lemma}
+
+\begin{proof}
+Let $U = \psi(G') \subset G$. Let $Z = G \setminus \psi(G') = G \setminus U$
+with the reduced induced closed subscheme structure. By
+Lemma \ref{lemma-group-scheme-over-field-translate-open}
+the image of
+$$
+Z \times_k G' \longrightarrow
+Z \times_k U \longrightarrow G
+$$
+is open (the first arrow is surjective). On the other hand, since $\psi$
+is a homomorphism of group schemes, the image of $Z \times_k G' \to G$
+is contained in $Z$ (because translation by $\psi(g')$ preserves
+$U$ for all points $g'$ of $G'$; small detail omitted).
+Hence $Z \subset G$ is an open subset (although not
+necessarily an open subscheme). Thus $U = \psi(G')$ is closed.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-immersion-group-schemes-closed-over-field}
+Let $i : G' \to G$ be an immersion of group schemes over a field $k$.
+Then $i$ is a closed immersion, i.e., $i(G')$ is a closed subgroup scheme
+of $G$.
+\end{lemma}
+
+\begin{proof}
+To show that $i$ is a closed immersion it suffices to show that
+$i(G')$ is a closed subset of $G$. Let $k \subset k'$ be a perfect
+extension of $k$. If $i(G'_{k'}) \subset G_{k'}$ is closed, then
+$i(G') \subset G$ is closed by
+Morphisms, Lemma \ref{morphisms-lemma-fpqc-quotient-topology}
+(as $G_{k'} \to G$ is flat, quasi-compact and surjective).
+Hence we may and do assume $k$ is perfect. We will use without further
+mention that products of reduced schemes over $k$ are reduced.
+We may replace $G'$ and $G$ by their reductions, see
+Lemma \ref{lemma-reduced-subgroup-scheme-perfect}.
+Let $\overline{G'} \subset G$ be the closure of $i(G')$ viewed
+as a reduced closed subscheme. By
+Varieties, Lemma \ref{varieties-lemma-closure-of-product}
+we conclude that $\overline{G'} \times_k \overline{G'}$
+is the closure of the image of $G' \times_k G' \to G \times_k G$. Hence
+$$
+m\Big(\overline{G'} \times_k \overline{G'}\Big)
+\subset \overline{G'}
+$$
+as $m$ is continuous. It follows that $\overline{G'} \subset G$
+is a (reduced) closed subgroup scheme. By
+Lemma \ref{lemma-open-subgroup-closed-over-field}
+we see that $i(G') \subset \overline{G'}$ is also closed
+which implies that $i(G') = \overline{G'}$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-irreducible-group-scheme-over-field-qc}
+Let $G$ be a group scheme over a field $k$. If $G$ is irreducible,
+then $G$ is quasi-compact.
+\end{lemma}
+
+\begin{proof}
+Suppose that $k \subset K$ is a field extension. If $G_K$
+is quasi-compact, then $G$ is too as $G_K \to G$ is surjective.
+By Lemma \ref{lemma-group-scheme-field-geometrically-irreducible}
+we see that $G_K$ is irreducible. Hence it suffices to prove the lemma
+after replacing $k$ by some extension. Choose $K$ to be an algebraically
+closed field extension of very large cardinality. Then by
+Varieties, Lemma \ref{varieties-lemma-make-Jacobson},
+we see that $G_K$ is a Jacobson scheme all of whose closed points have residue
+field equal to $K$. In other words we may assume $G$ is a Jacobson
+scheme all of whose closed points have residue field $k$.
+
+\medskip\noindent
+Let $U \subset G$ be a nonempty affine open. Let $g \in G(k)$. Then
+$gU \cap U \not = \emptyset$. Hence we see that $g$ is in the image
+of the morphism
+$$
+U \times_{\Spec(k)} U \longrightarrow G, \quad
+(u_1, u_2) \longmapsto u_1u_2^{-1}
+$$
+Since the image of this morphism is open
+(Lemma \ref{lemma-group-scheme-over-field-open-multiplication})
+we see that the image is all of $G$ (because $G$ is Jacobson
+and closed points are $k$-rational).
+Since $U$ is affine, so is $U \times_{\Spec(k)} U$. Hence $G$ is the
+image of a quasi-compact scheme, hence quasi-compact.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-connected-group-scheme-over-field-irreducible}
+Let $G$ be a group scheme over a field $k$. If $G$ is connected,
+then $G$ is irreducible.
+\end{lemma}
+
+\begin{proof}
+By Varieties, Lemma \ref{varieties-lemma-geometrically-connected-criterion}
+we see that $G$ is geometrically connected. If we show that $G_K$
+is irreducible for some field extension $k \subset K$, then
+the lemma follows. Hence we may apply
+Varieties, Lemma \ref{varieties-lemma-make-Jacobson}
+to reduce to the case where $k$ is algebraically closed,
+$G$ is a Jacobson scheme, and all the closed points are $k$-rational.
+
+\medskip\noindent
+Let $Z \subset G$ be the unique irreducible component of $G$ passing
+through the neutral element, see
+Lemma \ref{lemma-group-scheme-field-geometrically-irreducible}.
+Endowing $Z$ with the reduced induced closed subscheme structure,
+we see that $Z \times_k Z$ is reduced and irreducible
+(Varieties, Lemmas
+\ref{varieties-lemma-geometrically-reduced-any-base-change} and
+\ref{varieties-lemma-bijection-irreducible-components}).
+We conclude that $m|_{Z \times_k Z} : Z \times_k Z \to G$ factors
+through $Z$. Hence $Z$ becomes a closed subgroup scheme of $G$.
+
+\medskip\noindent
+To get a contradiction, assume there exists another irreducible
+component $Z' \subset G$. Then $Z \cap Z' = \emptyset$ by
+Lemma \ref{lemma-group-scheme-field-geometrically-irreducible}.
+By Lemma \ref{lemma-irreducible-group-scheme-over-field-qc}
+we see that $Z$ is quasi-compact. Thus we may choose a quasi-compact open
+$U \subset G$ with $Z \subset U$ and $U \cap Z' = \emptyset$.
+The image $W$ of $Z \times_k U \to G$ is open in $G$ by
+Lemma \ref{lemma-group-scheme-over-field-translate-open}.
+On the other hand, $W$ is quasi-compact as the image of a
+quasi-compact space. We claim that $W$ is closed.
+If the claim is true, then $W \subset G \setminus Z'$ is a proper open
+and closed subset of $G$, which contradicts the assumption that
+$G$ is connected.
+
+\medskip\noindent
+Proof of the claim. Since $W$ is quasi-compact, we see that
+points in the closure of $W$ are specializations of points of $W$
+(Morphisms, Lemma \ref{morphisms-lemma-reach-points-scheme-theoretic-image}).
+Thus we have to show that any irreducible
+component $Z'' \subset G$ of $G$ which meets $W$ is contained in $W$.
+As $G$ is Jacobson and closed points are rational,
+$Z'' \cap W$ has a rational point
+$g \in Z''(k) \cap W(k)$ and hence $Z'' = Zg$. But $W = m(Z \times_k W)$
+by construction, so $Z'' \cap W \not = \emptyset$ implies
+$Z'' \subset W$.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-connected-component}
+Let $G$ be a group scheme over a field $k$. There exists a canonical closed
+subgroup scheme $G^0 \subset G$ with the following properties
+\begin{enumerate}
+\item $G^0 \to G$ is a flat closed immersion,
+\item $G^0 \subset G$ is the connected component of the identity,
+\item $G^0$ is geometrically irreducible, and
+\item $G^0$ is quasi-compact.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Let $G^0$ be the connected component of the identity with its canonical
+scheme structure (Morphisms, Definition
+\ref{morphisms-definition-scheme-structure-connected-component}).
+By Varieties, Lemma \ref{varieties-lemma-geometrically-connected-criterion}
+we see that $G^0$ is geometrically connected. Thus
+$G^0 \times_k G^0$ is connected
+(Varieties, Lemma \ref{varieties-lemma-bijection-connected-components}).
+Thus $m(G^0 \times_k G^0) \subset G^0$ set theoretically.
+To see that this holds scheme theoretically, note that
+$G^0 \times_k G^0 \to G \times_k G$ is a flat closed immersion.
+By Morphisms, Lemma \ref{morphisms-lemma-characterize-flat-closed-immersions}
+it follows that $G^0 \times_k G^0$ is a closed subscheme of
+$(G \times_k G) \times_{m, G} G^0$. Thus we see that
+$m|_{G^0 \times_k G^0} : G^0 \times_k G^0 \to G$ factors through
+$G^0$. Hence $G^0$ becomes a closed subgroup scheme of $G$.
+By Lemma \ref{lemma-connected-group-scheme-over-field-irreducible}
+we see that $G^0$ is irreducible. By
+Lemma \ref{lemma-group-scheme-field-geometrically-irreducible}
+we see that $G^0$ is geometrically irreducible. By
+Lemma \ref{lemma-irreducible-group-scheme-over-field-qc}
+we see that $G^0$ is quasi-compact.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-profinite-product-over-field}
+Let $k$ be a field. Let $T = \Spec(A)$ where $A$ is a directed colimit of
+algebras which are finite products of copies of $k$. For any scheme $X$
+over $k$ we have $|T \times_k X| = |T| \times |X|$ as topological spaces.
+\end{lemma}
+
+\begin{proof}
+By taking an affine open covering we reduce to the case of an affine $X$.
+Say $X = \Spec(B)$.
+Write $A = \colim A_i$ with $A_i = \prod_{t \in T_i} k$ and $T_i$ finite.
+Then $T_i = |\Spec(A_i)|$ with the discrete topology and the transition
+morphisms $A_i \to A_{i'}$ are given by set maps $T_{i'} \to T_i$. Thus
+$|T| = \lim T_i$ as a topological space, see
+Limits, Lemma \ref{limits-lemma-topology-limit}. Similarly we have
+\begin{align*}
+|T \times_k X| & =
+|\Spec(A \otimes_k B)| \\
+& =
+|\Spec(\colim A_i \otimes_k B)| \\
+& =
+\lim |\Spec(A_i \otimes_k B)| \\
+& =
+\lim |\Spec(\prod\nolimits_{t \in T_i} B)| \\
+& =
+\lim T_i \times |X| \\
+& =
+(\lim T_i) \times |X| \\
+& =
+|T| \times |X|
+\end{align*}
+by the lemma above and the fact that limits commute with limits.
+\end{proof}
+
+\noindent
+The following lemma says that in fact we can put a
+``algebraic profinite family of points'' in an affine open.
+We urge the reader to read Lemma \ref{lemma-points-in-affine} first.
+
+\begin{lemma}
+\label{lemma-compact-set-in-affine}
+Let $k$ be an algebraically closed field. Let $G$ be a group scheme over $k$.
+Assume that $G$ is Jacobson and that all closed points are $k$-rational.
+Let $T = \Spec(A)$ where $A$ is a directed colimit of algebras which
+are finite products of copies of $k$. For any morphism $f : T \to G$
+there exists an affine open $U \subset G$ containing $f(T)$.
+\end{lemma}
+
+\begin{proof}
+Let $G^0 \subset G$ be the closed subgroup scheme found in
+Proposition \ref{proposition-connected-component}. The first two paragraphs
+serve to reduce to the case $G = G^0$.
+
+\medskip\noindent
+Observe that $T$ is a directed inverse limit of finite topological spaces
+(Limits, Lemma \ref{limits-lemma-topology-limit}), hence profinite as a
+topological space (Topology, Definition \ref{topology-definition-profinite}).
+Let $W \subset G$ be a quasi-compact open containing the image of $T \to G$.
+After replacing $W$ by the image of $G^0 \times W \to G \times G \to G$ we may
+assume that $W$ is invariant under the action of left translation by $G^0$, see
+Lemma \ref{lemma-group-scheme-over-field-translate-open}.
+Consider the composition
+$$
+\psi = \pi \circ f : T \xrightarrow{f} W \xrightarrow{\pi} \pi_0(W)
+$$
+The space $\pi_0(W)$ is profinite
+(Topology, Lemma \ref{topology-lemma-spectral-pi0} and
+Properties, Lemma
+\ref{properties-lemma-quasi-compact-quasi-separated-spectral}).
+Let $F_\xi \subset T$ be the fibre of $T \to \pi_0(W)$ over $\xi \in \pi_0(W)$.
+Assume that for all $\xi$ we can find an affine open $U_\xi \subset W$ with
+$F \subset U$. Since $\psi : T \to \pi_0(W)$ is proper as a map of
+topological spaces (Topology, Lemma \ref{topology-lemma-closed-map}),
+we can find a quasi-compact open $V_\xi \subset \pi_0(W)$ such that
+$\psi^{-1}(V_\xi) \subset f^{-1}(U_\xi)$ (easy topological argument omitted).
+After replacing $U_\xi$ by $U_\xi \cap \pi^{-1}(V_\xi)$, which is open and
+closed in $U_\xi$ hence affine, we see that $U_\xi \subset \pi^{-1}(V_\xi)$
+and $U_\xi \cap T = \psi^{-1}(V_\xi)$.
+By Topology, Lemma \ref{topology-lemma-profinite-refine-open-covering}
+we can find a finite disjoint union decomposition
+$\pi_0(W) = \bigcup_{i = 1, \ldots, n} V_i$ by quasi-compact opens such that
+$V_i \subset V_{\xi_i}$ for some $i$. Then we see that
+$$
+f(T) \subset \bigcup\nolimits_{i = 1, \ldots, n} U_{\xi_i} \cap \pi^{-1}(V_i)
+$$
+the right hand side of which is a finite disjoint union of affines, therefore
+affine.
+
+\medskip\noindent
+Let $Z$ be a connected component of $G$ which meets $f(T)$. Then $Z$
+has a $k$-rational point $z$ (because all residue fields of the scheme $T$
+are isomorphic to $k$). Hence $Z = G^0 z$. By our choice of $W$, we see
+that $Z \subset W$. The argument in the preceding paragraph reduces us to
+the problem of finding an affine open neighbourhood of $f(T) \cap Z$ in $W$.
+After translation by a rational point we may assume that $Z = G^0$
+(details omitted). Observe that the scheme theoretic inverse image
+$T' = f^{-1}(G^0) \subset T$ is a closed subscheme, which has the same type.
+After replacing $T$ by $T'$ we may assume that $f(T) \subset G^0$.
+Choose an affine open neighbourhood $U \subset G$
+of $e \in G$, so that in particular $U \cap G^0$ is nonempty. We will show
+there exists a $g \in G^0(k)$ such that $f(T) \subset g^{-1}U$.
+This will finish the proof as $g^{-1}U \subset W$ by the left
+$G^0$-invariance of $W$.
+
+\medskip\noindent
+The arguments in the preceding two paragraphs allow us to pass to $G^0$
+and reduce the problem to the following:
+Assume $G$ is irreducible and $U \subset G$ an affine
+open neighbourhood of $e$. Show that $f(T) \subset g^{-1}U$
+for some $g \in G(k)$. Consider the morphism
+$$
+U \times_k T \longrightarrow G \times_k T,\quad
+(t, u) \longrightarrow (uf(t)^{-1}, t)
+$$
+which is an open immersion (because the extension of this morphism to
+$G \times_k T \to G \times_k T$ is an isomorphism).
+By our assumption on $T$ we see that we have $|U \times_k T| = |U| \times |T|$
+and similarly for $G \times_k T$, see
+Lemma \ref{lemma-profinite-product-over-field}.
+Hence the image of the displayed open immersion is a finite union
+of boxes $\bigcup_{i = 1, \ldots, n} U_i \times V_i$ with
+$V_i \subset T$ and $U_i \subset G$ quasi-compact open. This means that
+the possible opens $Uf(t)^{-1}$, $t \in T$ are finite in number, say
+$Uf(t_1)^{-1}, \ldots, Uf(t_r)^{-1}$. Since $G$ is irreducible the
+intersection
+$$
+Uf(t_1)^{-1} \cap \ldots \cap Uf(t_r)^{-1}
+$$
+is nonempty and since $G$ is Jacobson with closed points $k$-rational,
+we can choose a $k$-valued point $g \in G(k)$ of this intersection.
+Then we see that $g \in Uf(t)^{-1}$ for all $t \in T$ which
+means that $f(t) \in g^{-1}U$ as desired.
+\end{proof}
+
+\begin{remark}
+\label{remark-easy}
+If $G$ is a group scheme over a field, is there always a quasi-compact
+open and closed subgroup scheme? By
+Proposition \ref{proposition-connected-component}
+this question is only interesting if $G$ has infinitely many connected
+components (geometrically).
+\end{remark}
+
+\begin{lemma}
+\label{lemma-group-scheme-field-countable-affine}
+Let $G$ be a group scheme over a field.
+There exists an open and closed subscheme $G' \subset G$
+which is a countable union of affines.
+\end{lemma}
+
+\begin{proof}
+Let $e \in U(k)$ be a quasi-compact open neighbourhood of the identity
+element. By replacing $U$ by $U \cap i(U)$ we may assume that
+$U$ is invariant under the inverse map. As $G$ is separated this is
+still a quasi-compact set. Set
+$$
+G' = \bigcup\nolimits_{n \geq 1} m_n(U \times_k \ldots \times_k U)
+$$
+where $m_n : G \times_k \ldots \times_k G \to G$ is the $n$-slot
+multiplication map
+$(g_1, \ldots, g_n) \mapsto m(m(\ldots (m(g_1, g_2), g_3), \ldots ), g_n)$.
+Each of these maps are open (see
+Lemma \ref{lemma-group-scheme-over-field-open-multiplication})
+hence $G'$ is an open subgroup scheme. By
+Lemma \ref{lemma-open-subgroup-closed-over-field}
+it is also a closed subgroup scheme.
+\end{proof}
+
+
+
+
+
+
+\section{Properties of algebraic group schemes}
+\label{section-algebraic-group-schemes}
+
+\noindent
+Recall that a scheme over a field $k$ is (locally) algebraic if it is
+(locally) of finite type over $\Spec(k)$, see
+Varieties, Definition \ref{varieties-definition-algebraic-scheme}.
+This is the sense of algebraic we are using in the title of this section.
+
+\begin{lemma}
+\label{lemma-group-scheme-finite-type-field}
+Let $k$ be a field. Let $G$ be a locally algebraic group scheme over $k$.
+Then $G$ is equidimensional and $\dim(G) = \dim_g(G)$ for all $g \in G$.
+For any closed point $g \in G$ we have $\dim(G) = \dim(\mathcal{O}_{G, g})$.
+\end{lemma}
+
+\begin{proof}
+Let us first prove that $\dim_g(G) = \dim_{g'}(G)$ for any
+pair of points $g, g' \in G$. By
+Morphisms, Lemma \ref{morphisms-lemma-dimension-fibre-after-base-change}
+we may extend the ground field at will. Hence we may assume that
+both $g$ and $g'$ are defined over $k$. Hence there exists an
+automorphism of $G$ mapping $g$ to $g'$, whence the equality.
+By
+Morphisms, Lemma \ref{morphisms-lemma-dimension-fibre-at-a-point}
+we have
+$\dim_g(G) = \dim(\mathcal{O}_{G, g}) +
+\text{trdeg}_k(\kappa(g))$.
+On the other hand, the dimension of $G$ (or any open subset of $G$)
+is the supremum of the dimensions of the local rings of of $G$, see
+Properties, Lemma \ref{properties-lemma-codimension-local-ring}.
+Clearly this is maximal for closed points $g$ in which case
+$\text{trdeg}_k(\kappa(g)) = 0$ (by the Hilbert Nullstellensatz, see
+Morphisms, Section \ref{morphisms-section-points-finite-type}).
+Hence the lemma follows.
+\end{proof}
+
+\noindent
+The following result is sometimes referred to as Cartier's theorem.
+
+\begin{lemma}
+\label{lemma-group-scheme-characteristic-zero-smooth}
+Let $k$ be a field of characteristic $0$. Let $G$ be a
+locally algebraic group scheme over $k$. Then the structure
+morphism $G \to \Spec(k)$ is smooth, i.e., $G$ is a smooth
+group scheme.
+\end{lemma}
+
+\begin{proof}
+By
+Lemma \ref{lemma-group-scheme-module-differentials}
+the module of differentials of $G$ over $k$ is free.
+Hence smoothness follows from
+Varieties, Lemma \ref{varieties-lemma-char-zero-differentials-free-smooth}.
+\end{proof}
+
+\begin{remark}
+\label{remark-when-reduced}
+Any group scheme over a field of characteristic $0$ is reduced, see
+\cite[I, Theorem 1.1 and I, Corollary 3.9, and II, Theorem 2.4]{Perrin-thesis}
+and also
+\cite[Proposition 4.2.8]{Perrin}.
+This was a question raised in
+\cite[page 80]{Oort}.
+We have seen in
+Lemma \ref{lemma-group-scheme-characteristic-zero-smooth}
+that this holds when the group scheme is locally of finite type.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-reduced-group-scheme-prefect-field-characteristic-p-smooth}
+Let $k$ be a perfect field of characteristic $p > 0$ (see
+Lemma \ref{lemma-group-scheme-characteristic-zero-smooth}
+for the characteristic zero case).
+Let $G$ be a locally algebraic group scheme over $k$.
+If $G$ is reduced then the structure
+morphism $G \to \Spec(k)$ is smooth, i.e., $G$ is a smooth
+group scheme.
+\end{lemma}
+
+\begin{proof}
+By
+Lemma \ref{lemma-group-scheme-module-differentials}
+the sheaf $\Omega_{G/k}$ is free. Hence the lemma follows from
+Varieties, Lemma \ref{varieties-lemma-char-p-differentials-free-smooth}.
+\end{proof}
+
+\begin{remark}
+\label{remark-reduced-smooth-not-true-general}
+Let $k$ be a field of characteristic $p > 0$.
+Let $\alpha \in k$ be an element which is not a $p$th power.
+The closed subgroup scheme
+$$
+G = V(x^p + \alpha y^p) \subset \mathbf{G}_{a, k}^2
+$$
+is reduced and irreducible but not smooth (not even normal).
+\end{remark}
+
+\noindent
+The following lemma is a special case of
+Lemma \ref{lemma-compact-set-in-affine}
+with a somewhat easier proof.
+
+\begin{lemma}
+\label{lemma-points-in-affine}
+Let $k$ be an algebraically closed field.
+Let $G$ be a locally algebraic group scheme over $k$.
+Let $g_1, \ldots, g_n \in G(k)$ be $k$-rational points.
+Then there exists an affine open $U \subset G$ containing $g_1, \ldots, g_n$.
+\end{lemma}
+
+\begin{proof}
+We first argue by induction on $n$ that we may assume all $g_i$ are
+on the same connected component of $G$. Namely, if not, then we can
+find a decomposition $G = W_1 \amalg W_2$ with $W_i$ open in $G$ and
+(after possibly renumbering) $g_1, \ldots, g_r \in W_1$ and
+$g_{r + 1}, \ldots, g_n \in W_2$ for some $0 < r < n$. By
+induction we can find affine opens $U_1$ and $U_2$ of $G$ with
+$g_1, \ldots, g_r \in U_1$ and $g_{r + 1}, \ldots, g_n \in U_2$.
+Then
+$$
+g_1, \ldots, g_n \in (U_1 \cap W_1) \cup (U_2 \cap W_2)
+$$
+is a solution to the problem. Thus we may assume $g_1, \ldots, g_n$
+are all on the same connected component of $G$. Translating by $g_1^{-1}$
+we may assume $g_1, \ldots, g_n \in G^0$ where $G^0 \subset G$ is as in
+Proposition \ref{proposition-connected-component}. Choose an affine
+open neighbourhood $U$ of $e$, in particular $U \cap G^0$ is nonempty.
+Since $G^0$ is irreducible we see that
+$$
+G^0 \cap (Ug_1^{-1} \cap \ldots \cap Ug_n^{-1})
+$$
+is nonempty. Since $G \to \Spec(k)$ is locally of finite type, also
+$G^0 \to \Spec(k)$ is locally of finite type, hence any nonempty
+open has a $k$-rational point. Thus we can pick $g \in G^0(k)$ with
+$g \in Ug_i^{-1}$ for all $i$. Then $g_i \in g^{-1}U$ for all $i$
+and $g^{-1}U$ is the affine open we were looking for.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-algebraic-quasi-projective}
+Let $k$ be a field. Let $G$ be an algebraic group scheme over $k$.
+Then $G$ is quasi-projective over $k$.
+\end{lemma}
+
+\begin{proof}
+By Varieties, Lemma \ref{varieties-lemma-ample-after-field-extension}
+we may assume that $k$ is algebraically closed. Let $G^0 \subset G$
+be the connected component of $G$ as in
+Proposition \ref{proposition-connected-component}.
+Then every other connected component of $G$ has a $k$-rational
+point and hence is isomorphic to $G^0$ as a scheme.
+Since $G$ is quasi-compact and Noetherian, there are finitely many of these
+connected components. Thus we reduce to the case discussed in
+the next paragraph.
+
+\medskip\noindent
+Let $G$ be a connected algebraic group scheme over an algebraically closed
+field $k$. If the characteristic of $k$ is zero, then $G$ is smooth over
+$k$ by Lemma \ref{lemma-group-scheme-characteristic-zero-smooth}.
+If the characteristic of $k$ is $p > 0$, then we let $H = G_{red}$
+be the reduction of $G$. By
+Divisors, Proposition \ref{divisors-proposition-push-down-ample}
+it suffices to show that $H$ has an ample invertible sheaf.
+(For an algebraic scheme over $k$ having an ample invertible
+sheaf is equivalent to being quasi-projective over $k$, see
+for example the very general
+More on Morphisms, Lemma \ref{more-morphisms-lemma-quasi-projective}.)
+By Lemma \ref{lemma-reduced-subgroup-scheme-perfect}
+we see that $H$ is a group scheme over $k$.
+By Lemma \ref{lemma-reduced-group-scheme-prefect-field-characteristic-p-smooth}
+we see that $H$ is smooth over $k$.
+This reduces us to the situation discussed in the next
+paragraph.
+
+\medskip\noindent
+Let $G$ be a quasi-compact irreducible smooth group scheme over an
+algebraically closed field $k$. Observe that the local rings of $G$
+are regular and hence UFDs
+(Varieties, Lemma \ref{varieties-lemma-smooth-regular} and
+More on Algebra, Lemma \ref{more-algebra-lemma-regular-local-UFD}).
+The complement of a nonempty affine open of $G$
+is the support of an effective Cartier divisor $D$.
+This follows from Divisors, Lemma
+\ref{divisors-lemma-complement-open-affine-effective-cartier-divisor}.
+(Observe that $G$ is separated by
+Lemma \ref{lemma-group-scheme-over-field-separated}.)
+We conclude there exists an effective Cartier divisor $D \subset G$
+such that $G \setminus D$ is affine. We will use below that
+for any $n \geq 1$ and $g_1, \ldots, g_n \in G(k)$ the complement
+$G \setminus \bigcup D g_i$ is affine. Namely, it is the intersection
+of the affine opens $G \setminus Dg_i \cong G \setminus D$
+in the separated scheme $G$.
+
+\medskip\noindent
+We may choose the top row of the diagram
+$$
+\xymatrix{
+G & U \ar[l]_j \ar[r]^\pi & \mathbf{A}^d_k \\
+& W \ar[r]^{\pi'} \ar[u] & V \ar[u]
+}
+$$
+such that $U \not = \emptyset$, $j : U \to G$ is an open immersion, and
+$\pi$ is \'etale, see
+Morphisms, Lemma \ref{morphisms-lemma-smooth-etale-over-affine-space}.
+There is a nonempty affine open $V \subset \mathbf{A}^d_k$ such that
+with $W = \pi^{-1}(V)$ the morphism $\pi' = \pi|_W : W \to V$ is finite \'etale.
+In particular $\pi'$ is finite locally free, say of degree $n$.
+Consider the effective Cartier divisor
+$$
+\mathcal{D} = \{(g, w) \mid m(g, j(w)) \in D\} \subset G \times W
+$$
+(This is the restriction to $G \times W$ of the pullback of $D \subset G$
+under the flat morphism $m : G \times G \to G$.)
+Consider the closed subset\footnote{Using the material
+in Divisors, Section \ref{divisors-section-norms}
+we could take as effective Cartier
+divisor $E$ the norm of the effective Cartier divisor $\mathcal{D}$
+along the finite locally free morphism $1 \times \pi'$ bypassing
+some of the arguments.}
+$T = (1 \times \pi')(\mathcal{D}) \subset G \times V$.
+Since $\pi'$ is finite locally free, every irreducible component
+of $T$ has codimension $1$ in $G \times V$. Since $G \times V$
+is smooth over $k$ we conclude these components are effective Cartier
+divisors (Divisors, Lemma \ref{divisors-lemma-weil-divisor-is-cartier-UFD}
+and lemmas cited above)
+and hence $T$ is the support of an effective Cartier divisor
+$E$ in $G \times V$. If $v \in V(k)$, then
+$(\pi')^{-1}(v) = \{w_1, \ldots, w_n\} \subset W(k)$ and we see that
+$$
+E_v = \bigcup\nolimits_{i = 1, \ldots, n} D j(w_i)^{-1}
+$$
+in $G$ set theoretically. In particular we see that $G \setminus E_v$
+is affine open (see above).
+Moreover, if $g \in G(k)$, then there exists a $v \in V$
+such that $g \not \in E_v$. Namely, the set $W'$ of $w \in W$ such that
+$g \not \in Dj(w)^{-1}$ is nonempty open and it suffices to pick $v$
+such that the fibre of $W' \to V$ over $v$ has $n$ elements.
+
+\medskip\noindent
+Consider the invertible sheaf
+$\mathcal{M} = \mathcal{O}_{G \times V}(E)$ on $G \times V$.
+By Varieties, Lemma \ref{varieties-lemma-rational-equivalence-for-Pic}
+the isomorphism class $\mathcal{L}$ of the restriction
+$\mathcal{M}_v = \mathcal{O}_G(E_v)$ is independent of $v \in V(k)$.
+On the other hand, for every $g \in G(k)$ we can find a $v$
+such that $g \not \in E_v$ and such that $G \setminus E_v$
+is affine. Thus the canonical section
+(Divisors, Definition
+\ref{divisors-definition-invertible-sheaf-effective-Cartier-divisor})
+of $\mathcal{O}_G(E_v)$
+corresponds to a section $s_v$ of $\mathcal{L}$ which does not
+vanish at $g$ and such that $G_{s_v}$ is affine.
+This means that $\mathcal{L}$ is ample by definition
+(Properties, Definition \ref{properties-definition-ample}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-algebraic-center}
+Let $k$ be a field. Let $G$ be a locally algebraic group scheme over $k$.
+Then the center of $G$ is a closed subgroup scheme of $G$.
+\end{lemma}
+
+\begin{proof}
+Let $\text{Aut}(G)$ denote the contravariant functor on the category of
+schemes over $k$ which associates to $S/k$ the set of automorphisms
+of the base change $G_S$ as a group scheme over $S$. There is a natural
+transformation
+$$
+G \longrightarrow \text{Aut}(G),\quad
+g \longmapsto \text{inn}_g
+$$
+sending an $S$-valued point $g$ of $G$ to the inner automorphism of $G$
+determined by $g$. The center $C$ of $G$ is by definition the kernel of
+this transformation, i.e., the functor which to $S$ associates those
+$g \in G(S)$ whose associated inner automorphism is trivial. The statement
+of the lemma is that this functor is representable by a closed subgroup
+scheme of $G$.
+
+\medskip\noindent
+Choose an integer $n \geq 1$. Let $G_n \subset G$ be the $n$th infinitesimal
+neighbourhood of the identity element $e$ of $G$. For every scheme $S/k$
+the base change $G_{n, S}$ is the $n$th infinitesimal neighbourhood of
+$e_S : S \to G_S$. Thus we see that there is a natural transformation
+$\text{Aut}(G) \to \text{Aut}(G_n)$ where the right hand side is the
+functor of automorphisms of $G_n$ as a scheme ($G_n$ isn't in general
+a group scheme). Observe that $G_n$ is the spectrum of an artinian
+local ring $A_n$ with residue field $k$ which has finite dimension
+as a $k$-vector space
+(Varieties, Lemma \ref{varieties-lemma-algebraic-scheme-dim-0}).
+Since every automorphism of $G_n$ induces in particular an invertible
+linear map $A_n \to A_n$, we obtain transformations of functors
+$$
+G \to \text{Aut}(G) \to \text{Aut}(G_n) \to \text{GL}(A_n)
+$$
+The final group valued functor is representable, see
+Example \ref{example-general-linear-group}, and the
+last arrow is visibly injective.
+Thus for every $n$ we obtain a closed subgroup scheme
+$$
+H_n = \Ker(G \to \text{Aut}(G_n)) = \Ker(G \to \text{GL}(A_n)).
+$$
+As a first approximation we set $H = \bigcap_{n \geq 1} H_n$
+(scheme theoretic intersection). This is a closed subgroup scheme
+which contains the center $C$.
+
+\medskip\noindent
+Let $h$ be an $S$-valued point of $H$ with $S$ locally Noetherian.
+Then the automorphism $\text{inn}_h$ induces the identity on all
+the closed subschemes $G_{n, S}$. Consider the kernel
+$K = \Ker(\text{inn}_h : G_S \to G_S)$.
+This is a closed subgroup scheme of $G_S$ over $S$ containing the
+closed subschemes $G_{n, S}$ for $n \geq 1$.
+This implies that $K$ contains an open neighbourhood of
+$e(S) \subset G_S$, see
+Algebra, Remark \ref{algebra-remark-intersection-powers-ideal}.
+Let $G^0 \subset G$ be as in Proposition \ref{proposition-connected-component}.
+Since $G^0$ is geometrically irreducible, we conclude that $K$ contains
+$G^0_S$ (for any nonempty open $U \subset G^0_{k'}$ and any field extension
+$k'/k$ we have $U \cdot U^{-1} = G^0_{k'}$, see proof of
+Lemma \ref{lemma-irreducible-group-scheme-over-field-qc}).
+Applying this with $S = H$ we find that $G^0$ and $H$
+are subgroup schemes of $G$ whose points commute: for any scheme $S$
+and any $S$-valued points $g \in G^0(S)$, $h \in H(S)$ we have
+$gh = hg$ in $G(S)$.
+
+\medskip\noindent
+Assume that $k$ is algebraically closed. Then we can pick a $k$-valued
+point $g_i$ in each irreducible component $G_i$ of $G$. Observe that in
+this case the connected components of $G$ are the irreducible components
+of $G$ are the translates of $G^0$ by our $g_i$. We claim that
+$$
+C = H \cap \bigcap\nolimits_i \Ker(\text{inn}_{g_i} : G \to G)
+\quad (\text{scheme theoretic intersection})
+$$
+Namely, $C$ is contained in the right hand side. On the other hand, every
+$S$-valued point $h$ of the right hand side commutes with $G^0$
+and with $g_i$ hence with everything in $G = \bigcup G^0g_i$.
+
+\medskip\noindent
+The case of a general base field $k$ follows from the result for the
+algebraic closure $\overline{k}$ by descent. Namely, let
+$A \subset G_{\overline{k}}$ the closed subgroup scheme representing
+the center of $G_{\overline{k}}$. Then we have
+$$
+A \times_{\Spec(k)} \Spec(\overline{k}) =
+\Spec(\overline{k}) \times_{\Spec(k)} A
+$$
+as closed subschemes of $G_{\overline{k} \otimes_k \overline{k}}$ by
+the functorial nature of the center. Hence we see that $A$ descends
+to a closed subgroup scheme $Z \subset G$ by
+Descent, Lemma \ref{descent-lemma-closed-immersion}
+(and Descent, Lemma \ref{descent-lemma-descending-property-closed-immersion}).
+Then $Z$ represents $C$ (small argument omitted) and the proof is complete.
+\end{proof}
+
+
+
+
+
+
+
+\section{Abelian varieties}
+\label{section-abelian-varieties}
+
+\noindent
+An excellent reference for this material is Mumford's book on
+abelian varieties, see \cite{AVar}. We encourage the reader to
+look there. There are many equivalent definitions; here is one.
+
+\begin{definition}
+\label{definition-abelian-variety}
+Let $k$ be a field. An {\it abelian variety} is a group scheme over
+$k$ which is also a proper, geometrically integral variety over $k$.
+\end{definition}
+
+\noindent
+We prove a few lemmas about this notion and then we collect
+all the results together in
+Proposition \ref{proposition-review-abelian-varieties}.
+
+\begin{lemma}
+\label{lemma-abelian-variety-projective}
+Let $k$ be a field. Let $A$ be an abelian variety over $k$.
+Then $A$ is projective.
+\end{lemma}
+
+\begin{proof}
+This follows from
+Lemma \ref{lemma-algebraic-quasi-projective} and
+More on Morphisms, Lemma \ref{more-morphisms-lemma-projective}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-abelian-variety-change-field}
+Let $k$ be a field. Let $A$ be an abelian variety over $k$.
+For any field extension $K/k$ the base change $A_K$ is an
+abelian variety over $K$.
+\end{lemma}
+
+\begin{proof}
+Omitted. Note that this is why we insisted on $A$ being
+geometrically integral; without that condition this lemma
+(and many others below) would be wrong.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-abelian-variety-smooth}
+Let $k$ be a field. Let $A$ be an abelian variety over $k$.
+Then $A$ is smooth over $k$.
+\end{lemma}
+
+\begin{proof}
+If $k$ is perfect then this follows from
+Lemma \ref{lemma-group-scheme-characteristic-zero-smooth}
+(characteristic zero) and
+Lemma \ref{lemma-reduced-group-scheme-prefect-field-characteristic-p-smooth}
+(positive characteristic).
+We can reduce the general case to this case by descent for smoothness
+(Descent, Lemma \ref{descent-lemma-descending-property-smooth})
+and going to the perfect closure using
+Lemma \ref{lemma-abelian-variety-change-field}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-abelian-variety-abelian}
+An abelian variety is an abelian group scheme, i.e., the group
+law is commutative.
+\end{lemma}
+
+\begin{proof}
+Let $k$ be a field. Let $A$ be an abelian variety over $k$.
+By Lemma \ref{lemma-abelian-variety-change-field} we may replace
+$k$ by its algebraic closure. Consider the morphism
+$$
+h : A \times_k A \longrightarrow A \times_k A,\quad
+(x, y) \longmapsto (x, xyx^{-1}y^{-1})
+$$
+This is a morphism over $A$ via the first projection on either side.
+Let $e \in A(k)$ be the unit. Then we see that $h|_{e \times A}$ is
+constant with value $(e, e)$. By More on Morphisms, Lemma
+\ref{more-morphisms-lemma-flat-proper-family-cannot-collapse-fibre}
+there exists an open neighbourhood $U \subset A$ of $e$
+such that $h|_{U \times A}$ factors through some $Z \subset U \times A$
+finite over $U$. This means that for $x \in U(k)$ the morphism
+$A \to A$, $y \mapsto xyx^{-1}y^{-1}$ takes finitely many values.
+Of course this means it is constant with value $e$. Thus
+$(x, y) \mapsto xyx^{-1}y^{-1}$ is
+constant with value $e$ on $U \times A$ which implies
+that the group law on $A$ is abelian.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-apply-cube}
+Let $k$ be a field. Let $A$ be an abelian variety over $k$.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_A$-module.
+Then there is an isomorphism
+$$
+m_{1, 2, 3}^*\mathcal{L} \otimes
+m_1^*\mathcal{L} \otimes
+m_2^*\mathcal{L} \otimes
+m_3^*\mathcal{L} \cong
+m_{1, 2}^*\mathcal{L} \otimes
+m_{1, 3}^*\mathcal{L} \otimes
+m_{2, 3}^*\mathcal{L}
+$$
+of invertible modules on $A \times_k A \times_k A$
+where $m_{i_1, \ldots, i_t} : A \times_k A \times_k A \to A$
+is the morphism $(x_1, x_2, x_3) \mapsto \sum x_{i_j}$.
+\end{lemma}
+
+\begin{proof}
+Apply the theorem of the cube
+(More on Morphisms, Theorem \ref{more-morphisms-theorem-of-the-cube})
+to the difference
+$$
+\mathcal{M} =
+m_{1, 2, 3}^*\mathcal{L} \otimes
+m_1^*\mathcal{L} \otimes
+m_2^*\mathcal{L} \otimes
+m_3^*\mathcal{L} \otimes
+m_{1, 2}^*\mathcal{L}^{\otimes -1} \otimes
+m_{1, 3}^*\mathcal{L}^{\otimes -1} \otimes
+m_{2, 3}^*\mathcal{L}^{\otimes -1}
+$$
+This works because the restriction of $\mathcal{M}$
+to $A \times A \times e = A \times A$ is equal to
+$$
+n_{1, 2}^*\mathcal{L} \otimes
+n_1^*\mathcal{L} \otimes
+n_2^*\mathcal{L} \otimes
+n_{1, 2}^*\mathcal{L}^{\otimes -1} \otimes
+n_1^*\mathcal{L}^{\otimes -1} \otimes
+n_2^*\mathcal{L}^{\otimes -1} \cong \mathcal{O}_{A \times_k A}
+$$
+where $n_{i_1, \ldots, i_t} : A \times_k A \to A$
+is the morphism $(x_1, x_2) \mapsto \sum x_{i_j}$.
+Similarly for $A \times e \times A$ and $e \times A \times A$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullbacks-by-n}
+Let $k$ be a field. Let $A$ be an abelian variety over $k$.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_A$-module.
+Then
+$$
+[n]^*\mathcal{L} \cong
+\mathcal{L}^{\otimes n(n + 1)/2} \otimes
+([-1]^*\mathcal{L})^{\otimes n(n - 1)/2}
+$$
+where $[n] : A \to A$ sends $x$ to $x + x + \ldots + x$ with $n$ summands
+and where $[-1] : A \to A$ is the inverse of $A$.
+\end{lemma}
+
+\begin{proof}
+Consider the morphism $A \to A \times_k A \times_k A$,
+$x \mapsto (x, x, -x)$ where $-x = [-1](x)$. Pulling back
+the relation of Lemma \ref{lemma-apply-cube} we obtain
+$$
+\mathcal{L} \otimes
+\mathcal{L} \otimes
+\mathcal{L} \otimes
+[-1]^*\mathcal{L} \cong
+[2]^*\mathcal{L}
+$$
+which proves the result for $n = 2$. By induction assume the result holds
+for $1, 2, \ldots, n$. Then consider the morphism
+$A \to A \times_k A \times_k A$, $x \mapsto (x, x, [n - 1]x)$.
+Pulling back
+the relation of Lemma \ref{lemma-apply-cube} we obtain
+$$
+[n + 1]^*\mathcal{L} \otimes
+\mathcal{L} \otimes
+\mathcal{L} \otimes
+[n - 1]^*\mathcal{L} \cong
+[2]^*\mathcal{L} \otimes
+[n]^*\mathcal{L} \otimes
+[n]^*\mathcal{L}
+$$
+and the result follows by elementary arithmetic.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-degree-multiplication-by-d}
+Let $k$ be a field. Let $A$ be an abelian variety over $k$.
+Let $[d] : A \to A$ be the multiplication by $d$.
+Then $[d]$ is finite locally free of degree $d^{2\dim(A)}$.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-abelian-variety-projective}
+(and More on Morphisms, Lemma \ref{more-morphisms-lemma-projective})
+we see that $A$ has an ample invertible module $\mathcal{L}$.
+Since $[-1] : A \to A$ is an automorphism, we see that
+$[-1]^*\mathcal{L}$ is an ample invertible $\mathcal{O}_X$-module
+as well. Thus $\mathcal{N} = \mathcal{L} \otimes [-1]^*\mathcal{L}$
+is ample, see
+Properties, Lemma \ref{properties-lemma-ample-tensor-globally-generated}.
+Since $\mathcal{N} \cong [-1]^*\mathcal{N}$ we see that
+$[d]^*\mathcal{N} \cong \mathcal{N}^{\otimes n^2}$ by
+Lemma \ref{lemma-pullbacks-by-n}.
+
+\medskip\noindent
+To get a contradiction $C \subset X$ be a proper curve contained in a
+fibre of $[d]$. Then $\mathcal{N}^{\otimes d^2}|_C \cong \mathcal{O}_C$
+is an ample invertible $\mathcal{O}_C$-module of degree $0$ which
+contradicts Varieties, Lemma \ref{varieties-lemma-ample-curve} for example.
+(You can also use Varieties, Lemma \ref{varieties-lemma-ample-positive}.)
+Thus every fibre of $[d]$ has dimension $0$ and hence $[d]$ is finite
+for example by Cohomology of Schemes, Lemma
+\ref{coherent-lemma-characterize-finite}.
+Moreover, since $A$ is smooth over $k$ by
+Lemma \ref{lemma-abelian-variety-smooth}
+we see that $[d] : A \to A$ is flat by
+Algebra, Lemma \ref{algebra-lemma-CM-over-regular-flat}
+(we also use that schemes smooth over fields are regular and that
+regular rings are Cohen-Macaulay, see
+Varieties, Lemma \ref{varieties-lemma-smooth-regular} and
+Algebra, Lemma \ref{algebra-lemma-regular-ring-CM}).
+Thus $[d]$ is finite flat hence finite locally free by
+Morphisms, Lemma \ref{morphisms-lemma-finite-flat}.
+
+\medskip\noindent
+Finally, we come to the formula for the degree. By
+Varieties, Lemma \ref{varieties-lemma-degree-finite-morphism-in-terms-degrees}
+we see that
+$$
+\deg_{\mathcal{N}^{\otimes d^2}}(A) = \deg([d]) \deg_\mathcal{N}(A)
+$$
+Since the degree of $A$ with respect to
+$\mathcal{N}^{\otimes d^2}$, respectively $\mathcal{N}$
+is the coefficient of $n^{\dim(A)}$ in the polynomial
+$$
+n \longmapsto \chi(A, \mathcal{N}^{\otimes nd^2}),\quad
+\text{respectively}\quad n \longmapsto \chi(A, \mathcal{N}^{\otimes n})
+$$
+we see that $\deg([d]) = d^{2 \dim(A)}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-abelian-variety-multiplication-by-d-etale}
+Let $k$ be a field. Let $A$ be an abelian variety over $k$.
+Then $[d] : A \to A$ is \'etale if and only if $d$ is invertible in $k$.
+\end{lemma}
+
+\begin{proof}
+Observe that $[d](x + y) = [d](x) + [d](y)$. Since translation by a
+point is an automorphism of $A$, we see that the set of points where
+$[d] : A \to A$ is \'etale is either empty or equal to $A$ (some details
+omitted). Thus it suffices to check whether $[d]$ is \'etale at
+the unit $e \in A(k)$. Since we know that $[d]$ is finite locally free
+(Lemma \ref{lemma-degree-multiplication-by-d})
+to see that it is \'etale at $e$ is equivalent to
+proving that $\text{d}[d] : T_{A/k, e} \to T_{A/k, e}$ is injective. See
+Varieties, Lemma \ref{varieties-lemma-injective-tangent-spaces-unramified} and
+Morphisms, Lemma \ref{morphisms-lemma-flat-unramified-etale}.
+By Lemma \ref{lemma-group-scheme-addition-tangent-vectors} we see that
+$\text{d}[d]$ is given by multiplication by $d$ on $T_{A/k, e}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-abelian-variety-multiplication-by-p}
+Let $k$ be a field of characteristic $p > 0$. Let $A$ be an abelian variety
+over $k$. The fibre of $[p] : A \to A$ over $0$ has at most
+$p^g$ distinct points.
+\end{lemma}
+
+\begin{proof}
+To prove this, we may and do replace $k$ by the algebraic closure.
+By Lemma \ref{lemma-group-scheme-addition-tangent-vectors}
+the derivative of $[p]$ is multiplication by $p$ as a map
+$T_{A/k, e} \to T_{A/k, e}$ and hence is zero (compare
+with proof of Lemma \ref{lemma-abelian-variety-multiplication-by-d-etale}).
+Since $[p]$ commutes with translation we conclude that the derivative of $[p]$
+is everywhere zero, i.e., that the induced map
+$[p]^*\Omega_{A/k} \to \Omega_{A/k}$ is zero.
+Looking at generic points, we find that
+the corresponding map $[p]^* : k(A) \to k(A)$
+of function fields induces the zero map on $\Omega_{k(A)/k}$.
+Let $t_1, \ldots, t_g$ be a p-basis of $k(A)$ over $k$
+(More on Algebra, Definition \ref{more-algebra-definition-p-basis} and
+Lemma \ref{more-algebra-lemma-p-basis}). Then $[p]^*(t_i)$
+has a $p$th root by
+Algebra, Lemma \ref{algebra-lemma-derivative-zero-pth-power}.
+We conclude that
+$k(A)[x_1, \ldots, x_g]/(x_1^p - t_1, \ldots, x_g^p - t_g)$ is a subextension
+of $[p]^* : k(A) \to k(A)$.
+Thus we can find an affine open $U \subset A$ such that
+$t_i \in \mathcal{O}_A(U)$ and $x_i \in \mathcal{O}_A([p]^{-1}(U))$.
+We obtain a factorization
+$$
+[p]^{-1}(U)
+\xrightarrow{\pi_1}
+\Spec(\mathcal{O}(U)[x_1, \ldots, x_g]/(x_1^p - t_1, \ldots, x_g^p - t_g))
+\xrightarrow{\pi_2}
+U
+$$
+of $[p]$ over $U$. After shrinking $U$ we may assume that $\pi_1$
+is finite locally free (for example by generic flatness -- actually it is
+already finite locally free in our case).
+By Lemma \ref{lemma-degree-multiplication-by-d} we see that
+$[p]$ has degree $p^{2g}$. Since $\pi_2$
+has degree $p^g$ we see that $\pi_1$ has degree $p^g$ as well.
+The morphism $\pi_2$ is a universal homeomorphism hence the fibres are
+singletons. We conclude that the (set theoretic) fibres of $[p]^{-1}(U) \to U$
+are the fibres of $\pi_1$. Hence they
+have at most $p^g$ elements. Since $[p]$ is a homomorphism of group
+schemes over $k$, the fibre of $[p] : A(k) \to A(k)$ has the
+same cardinality for every $a \in A(k)$ and the proof is complete.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-review-abelian-varieties}
+\begin{reference}
+Wonderfully explained in \cite{AVar}.
+\end{reference}
+Let $A$ be an abelian variety over a field $k$. Then
+\begin{enumerate}
+\item $A$ is projective over $k$,
+\item $A$ is a commutative group scheme,
+\item the morphism $[n] : A \to A$ is surjective for all $n \geq 1$,
+\item if $k$ is algebraically closed, then $A(k)$ is a divisible abelian group,
+\item $A[n] = \Ker([n] : A \to A)$ is a finite group scheme of degree
+$n^{2\dim A}$ over $k$,
+\item $A[n]$ is \'etale over $k$ if and only if $n \in k^*$,
+\item if $n \in k^*$ and $k$ is algebraically closed,
+then $A(k)[n] \cong (\mathbf{Z}/n\mathbf{Z})^{\oplus 2\dim(A)}$,
+\item if $k$ is algebraically closed of characteristic $p > 0$, then
+there exists an integer $0 \leq f \leq \dim(A)$ such that
+$A(k)[p^m] \cong (\mathbf{Z}/p^m\mathbf{Z})^{\oplus f}$
+for all $m \geq 1$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Part (1) follows from Lemma \ref{lemma-abelian-variety-projective}.
+Part (2) follows from Lemma \ref{lemma-abelian-variety-abelian}.
+Part (3) follows from Lemma \ref{lemma-degree-multiplication-by-d}.
+If $k$ is algebraically closed then surjective morphisms of varieties
+over $k$ induce surjective maps on $k$-rational points, hence
+(4) follows from (3).
+Part (5) follows from Lemma \ref{lemma-degree-multiplication-by-d}
+and the fact that a base change of a finite locally free morphism
+of degree $N$ is a finite locally free morphism of degree $N$.
+Part (6) follows from 
+Lemma \ref{lemma-abelian-variety-multiplication-by-d-etale}.
+Namely, if $n$ is invertible in $k$, then $[n]$ is \'etale
+and hence $A[n]$ is \'etale over $k$.
+On the other hand, if $n$ is not invertible in $k$, then
+$[n]$ is not \'etale at $e$ and it follows that $A[n]$
+is not \'etale over $k$ at $e$ (use
+Morphisms, Lemmas \ref{morphisms-lemma-flat-unramified-etale} and
+\ref{morphisms-lemma-set-points-where-fibres-unramified}).
+
+\medskip\noindent
+Assume $k$ is algebraically closed. Set $g = \dim(A)$. Proof of (7).
+Let $\ell$ be a prime number which is invertible in $k$. Then we see that
+$$
+A[\ell](k) = A(k)[\ell]
+$$
+is a finite abelian group, annihilated by $\ell$, of order $\ell^{2g}$.
+It follows that it is isomorphic to $(\mathbf{Z}/\ell\mathbf{Z})^{2g}$
+by the structure theory for finite abelian groups. Next, we consider
+the short exact sequence
+$$
+0 \to A(k)[\ell] \to A(k)[\ell^2] \xrightarrow{\ell} A(k)[\ell] \to 0
+$$
+Arguing similarly as above we conclude that 
+$A(k)[\ell^2] \cong (\mathbf{Z}/\ell^2\mathbf{Z})^{2g}$.
+By induction on the exponent we find that
+$A(k)[\ell^m] \cong (\mathbf{Z}/\ell^m\mathbf{Z})^{2g}$.
+For composite integers $n$ prime to the characteristic of $k$
+we take primary parts and we find the correct shape of the
+$n$-torsion in $A(k)$.
+The proof of (8) proceeds in exactly the same way, using that
+Lemma \ref{lemma-abelian-variety-multiplication-by-p} gives
+$A(k)[p] \cong (\mathbf{Z}/p\mathbf{Z})^{\oplus f}$ for some $0 \leq f \leq g$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Actions of group schemes}
+\label{section-action-group-scheme}
+
+\noindent
+Let $(G, m)$ be a group and let $V$ be a set.
+Recall that a {\it (left) action} of $G$ on $V$ is given
+by a map $a : G \times V \to V$ such that
+\begin{enumerate}
+\item (associativity) $a(m(g, g'), v) = a(g, a(g', v))$ for all
+$g, g' \in G$ and $v \in V$, and
+\item (identity) $a(e, v) = v$ for all $v \in V$.
+\end{enumerate}
+We also say that $V$ is a {\it $G$-set} (this usually means we
+drop the $a$ from the notation -- which is abuse of notation).
+A {\it map of $G$-sets} $\psi : V \to V'$ is any set map
+such that $\psi(a(g, v)) = a(g, \psi(v))$ for all $v \in V$.
+
+\begin{definition}
+\label{definition-action-group-scheme}
+Let $S$ be a scheme. Let $(G, m)$ be a group scheme over $S$.
+\begin{enumerate}
+\item An {\it action of $G$ on the scheme $X/S$} is
+a morphism $a : G \times_S X \to X$ over $S$ such that
+for every $T/S$ the map $a : G(T) \times X(T) \to X(T)$
+defines the structure of a $G(T)$-set on $X(T)$.
+\item Suppose that $X$, $Y$ are schemes over $S$ each endowed
+with an action of $G$. An {\it equivariant} or more precisely
+a {\it $G$-equivariant} morphism $\psi : X \to Y$
+is a morphism of schemes over $S$ such
+that for every $T/S$ the map $\psi : X(T) \to Y(T)$ is
+a morphism of $G(T)$-sets.
+\end{enumerate}
+\end{definition}
+
+\noindent
+In situation (1) this means that the diagrams
+\begin{equation}
+\label{equation-action}
+\xymatrix{
+G \times_S G \times_S X \ar[r]_-{1_G \times a} \ar[d]_{m \times 1_X} &
+G \times_S X \ar[d]^a \\
+G \times_S X \ar[r]^a & X
+}
+\quad
+\xymatrix{
+G \times_S X \ar[r]_-a & X \\
+X\ar[u]^{e \times 1_X} \ar[ru]_{1_X}
+}
+\end{equation}
+are commutative. In situation (2) this just means that the diagram
+$$
+\xymatrix{
+G \times_S X \ar[r]_-{\text{id} \times f} \ar[d]_a &
+G \times_S Y \ar[d]^a \\
+X \ar[r]^f & Y
+}
+$$
+commutes.
+
+\begin{definition}
+\label{definition-free-action}
+Let $S$, $G \to S$, and $X \to S$ as in
+Definition \ref{definition-action-group-scheme}.
+Let $a : G \times_S X \to X$ be an action of $G$ on $X/S$.
+We say the action is {\it free} if for every scheme $T$ over $S$
+the action $a : G(T) \times X(T) \to X(T)$ is a free action of
+the group $G(T)$ on the set $X(T)$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-free-action}
+Situation as in Definition \ref{definition-free-action},
+The action $a$ is free if and only if
+$$
+G \times_S X \to X \times_S X, \quad (g, x) \mapsto (a(g, x), x)
+$$
+is a monomorphism.
+\end{lemma}
+
+\begin{proof}
+Immediate from the definitions.
+\end{proof}
+
+
+
+
+
+
+\section{Principal homogeneous spaces}
+\label{section-principal-homogeneous}
+
+\noindent
+In
+Cohomology on Sites, Definition \ref{sites-cohomology-definition-torsor}
+we have defined a torsor for a sheaf of groups on a site.
+Suppose $\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$ is a
+topology and $(G, m)$ is a group scheme over $S$. Since $\tau$ is stronger than
+the canonical topology (see
+Descent, Lemma \ref{descent-lemma-fpqc-universal-effective-epimorphisms})
+we see that $\underline{G}$ (see
+Sites, Definition \ref{sites-definition-representable-sheaf})
+is a sheaf of groups on $(\Sch/S)_\tau$.
+Hence we already know what it means to have a
+torsor for $\underline{G}$ on $(\Sch/S)_\tau$. A special situation
+arises if this sheaf is representable. In the following definitions
+we define directly what it means for the representing scheme to be a
+$G$-torsor.
+
+\begin{definition}
+\label{definition-pseudo-torsor}
+Let $S$ be a scheme.
+Let $(G, m)$ be a group scheme over $S$.
+Let $X$ be a scheme over $S$, and let
+$a : G \times_S X \to X$ be an action of $G$ on $X$.
+\begin{enumerate}
+\item We say $X$ is a {\it pseudo $G$-torsor} or that $X$ is
+{\it formally principally homogeneous under $G$} if the induced
+morphism of schemes $G \times_S X \to X \times_S X$,
+$(g, x) \mapsto (a(g, x), x)$ is an isomorphism of schemes over $S$.
+\item A pseudo $G$-torsor $X$ is called {\it trivial} if there exists
+an $G$-equivariant isomorphism $G \to X$ over $S$ where $G$ acts on
+$G$ by left multiplication.
+\end{enumerate}
+\end{definition}
+
+\noindent
+It is clear that if $S' \to S$ is a morphism of schemes then
+the pullback $X_{S'}$ of a pseudo $G$-torsor over $S$ is a
+pseudo $G_{S'}$-torsor over $S'$.
+
+\begin{lemma}
+\label{lemma-characterize-trivial-pseudo-torsors}
+In the situation of
+Definition \ref{definition-pseudo-torsor}.
+\begin{enumerate}
+\item The scheme $X$ is a pseudo $G$-torsor if and only if for every scheme
+$T$ over $S$ the set $X(T)$ is either empty or the action of the group $G(T)$
+on $X(T)$ is simply transitive.
+\item A pseudo $G$-torsor $X$ is trivial if and only if the morphism
+$X \to S$ has a section.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{definition}
+\label{definition-principal-homogeneous-space}
+Let $S$ be a scheme.
+Let $(G, m)$ be a group scheme over $S$.
+Let $X$ be a pseudo $G$-torsor over $S$.
+\begin{enumerate}
+\item We say $X$ is a {\it principal homogeneous space}
+or a {\it $G$-torsor} if there exists a fpqc covering\footnote{This means
+that the default type of torsor is a pseudo torsor which is trivial on an
+fpqc covering. This is the definition in \cite[Expos\'e IV, 6.5]{SGA3}.
+It is a little bit inconvenient for us as we most often work in the fppf
+topology.}
+$\{S_i \to S\}_{i \in I}$ such that each
+$X_{S_i} \to S_i$ has a section (i.e., is a trivial pseudo $G_{S_i}$-torsor).
+\item Let $\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$.
+We say $X$ is a {\it $G$-torsor in the $\tau$ topology}, or a
+{\it $\tau$ $G$-torsor}, or simply a {\it $\tau$ torsor}
+if there exists a $\tau$ covering $\{S_i \to S\}_{i \in I}$
+such that each $X_{S_i} \to S_i$ has a section.
+\item If $X$ is a $G$-torsor, then we say that it is
+{\it quasi-isotrivial} if it is a torsor for the \'etale topology.
+\item If $X$ is a $G$-torsor, then we say that it is
+{\it locally trivial} if it is a torsor for the Zariski topology.
+\end{enumerate}
+\end{definition}
+
+\noindent
+We sometimes say ``let $X$ be a $G$-torsor over $S$'' to indicate that
+$X$ is a scheme over $S$ equipped with an action of $G$ which turns it
+into a principal homogeneous space over $S$.
+Next we show that this agrees with the notation introduced earlier
+when both apply.
+
+\begin{lemma}
+\label{lemma-torsor}
+Let $S$ be a scheme.
+Let $(G, m)$ be a group scheme over $S$.
+Let $X$ be a scheme over $S$, and let
+$a : G \times_S X \to X$ be an action of $G$ on $X$.
+Let $\tau \in \{Zariski, \etale, smooth, syntomic, fppf\}$.
+Then $X$ is a $G$-torsor in the $\tau$-topology if and only if
+$\underline{X}$ is a $\underline{G}$-torsor on $(\Sch/S)_\tau$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{remark}
+\label{remark-fun-with-torsors}
+Let $(G, m)$ be a group scheme over the scheme $S$.
+In this situation we have the following natural types of questions:
+\begin{enumerate}
+\item If $X \to S$ is a pseudo $G$-torsor and $X \to S$ is surjective,
+then is $X$ necessarily a $G$-torsor?
+\item Is every $\underline{G}$-torsor on $(\Sch/S)_{fppf}$
+representable? In other words, does every $\underline{G}$-torsor
+come from a fppf $G$-torsor?
+\item Is every $G$-torsor an
+fppf (resp.\ smooth, resp.\ \'etale, resp.\ Zariski) torsor?
+\end{enumerate}
+In general the answers to these questions is no. To get a positive answer
+we need to impose additional conditions on $G \to S$.
+For example:
+If $S$ is the spectrum of a field, then the answer to (1) is yes
+because then $\{X \to S\}$ is a fpqc covering trivializing $X$.
+If $G \to S$ is affine, then the answer to (2) is yes
+(insert future reference here).
+If $G = \text{GL}_{n, S}$ then the answer to (3) is yes
+and in fact any $\text{GL}_{n, S}$-torsor is locally trivial
+(insert future reference here).
+\end{remark}
+
+
+
+\section{Equivariant quasi-coherent sheaves}
+\label{section-equivariant}
+
+\noindent
+We think of ``functions'' as dual to ``space''. Thus for a morphism of spaces
+the map on functions goes the other way. Moreover, we think of the
+sections of a sheaf of modules as ``functions''. This leads us naturally
+to the direction of the arrows chosen in the following definition.
+
+\begin{definition}
+\label{definition-equivariant-module}
+Let $S$ be a scheme, let $(G, m)$ be a group scheme over $S$, and
+let $a : G \times_S X \to X$ be an action of the group scheme $G$
+on $X/S$. An {\it $G$-equivariant quasi-coherent $\mathcal{O}_X$-module},
+or simply a {\it equivariant quasi-coherent $\mathcal{O}_X$-module},
+is a pair $(\mathcal{F}, \alpha)$, where $\mathcal{F}$ is a quasi-coherent
+$\mathcal{O}_X$-module, and $\alpha$ is a $\mathcal{O}_{G \times_S X}$-module
+map
+$$
+\alpha : a^*\mathcal{F} \longrightarrow \text{pr}_1^*\mathcal{F}
+$$
+where $\text{pr}_1 : G \times_S X \to X$ is the projection
+such that
+\begin{enumerate}
+\item the diagram
+$$
+\xymatrix{
+(1_G \times a)^*\text{pr}_1^*\mathcal{F} \ar[r]_-{\text{pr}_{12}^*\alpha} &
+\text{pr}_2^*\mathcal{F} \\
+(1_G \times a)^*a^*\mathcal{F} \ar[u]^{(1_G \times a)^*\alpha} \ar@{=}[r] &
+(m \times 1_X)^*a^*\mathcal{F} \ar[u]_{(m \times 1_X)^*\alpha}
+}
+$$
+is a commutative in the category of
+$\mathcal{O}_{G \times_S G \times_S X}$-modules, and
+\item the pullback
+$$
+(e \times 1_X)^*\alpha : \mathcal{F} \longrightarrow \mathcal{F}
+$$
+is the identity map.
+\end{enumerate}
+For explanation compare with the relevant diagrams of
+Equation (\ref{equation-action}).
+\end{definition}
+
+\noindent
+Note that the commutativity of the first diagram guarantees that
+$(e \times 1_X)^*\alpha$ is an idempotent operator on $\mathcal{F}$,
+and hence condition (2) is just the condition that it is an isomorphism.
+
+\begin{lemma}
+\label{lemma-pullback-equivariant}
+Let $S$ be a scheme. Let $G$ be a group scheme over $S$.
+Let $f : X \to Y$ be a $G$-equivariant morphism between $S$-schemes
+endowed with $G$-actions. Then pullback $f^*$ given by
+$(\mathcal{F}, \alpha) \mapsto (f^*\mathcal{F}, (1_G \times f)^*\alpha)$
+defines a functor from the category of $G$-equivariant sheaves on
+$X$ to the category of quasi-coherent $G$-equivariant sheaves on $Y$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+
+
+
+
+\section{Groupoids}
+\label{section-groupoids}
+
+\noindent
+Recall that a groupoid is a category in which every morphism
+is an isomorphism, see
+Categories, Definition \ref{categories-definition-groupoid}.
+Hence a groupoid has a set of objects $\text{Ob}$,
+a set of arrows $\text{Arrows}$, a {\it source} and {\it target}
+map $s, t : \text{Arrows} \to \text{Ob}$, and a {\it composition law}
+$c : \text{Arrows} \times_{s, \text{Ob}, t} \text{Arrows}
+\to \text{Arrows}$.
+These maps satisfy exactly the following axioms
+\begin{enumerate}
+\item (associativity) $c \circ (1, c) = c \circ (c, 1)$ as maps
+$\text{Arrows} \times_{s, \text{Ob}, t}
+\text{Arrows} \times_{s, \text{Ob}, t}
+\text{Arrows} \to \text{Arrows}$,
+\item (identity) there exists a map $e : \text{Ob} \to \text{Arrows}$
+such that
+\begin{enumerate}
+\item $s \circ e = t \circ e = \text{id}$ as maps $\text{Ob} \to \text{Ob}$,
+\item $c \circ (1, e \circ s) = c \circ (e \circ t, 1) = 1$
+as maps $\text{Arrows} \to \text{Arrows}$,
+\end{enumerate}
+\item (inverse) there exists a map $i : \text{Arrows} \to \text{Arrows}$
+such that
+\begin{enumerate}
+\item $s \circ i = t$, $t \circ i = s$ as maps $\text{Arrows} \to \text{Ob}$,
+and
+\item $c \circ (1, i) = e \circ t$ and $c \circ (i, 1) = e \circ s$
+as maps $\text{Arrows} \to \text{Arrows}$.
+\end{enumerate}
+\end{enumerate}
+If this is the case the maps $e$ and $i$ are uniquely determined and
+$i$ is a bijection. Note that if $(\text{Ob}', \text{Arrows}', s', t', c')$
+is a second groupoid category, then a functor
+$f : (\text{Ob}, \text{Arrows}, s, t, c) \to
+(\text{Ob}', \text{Arrows}', s', t', c')$
+is given by a pair of set maps $f : \text{Ob} \to \text{Ob}'$ and
+$f : \text{Arrows} \to \text{Arrows}'$ such that
+$s' \circ f = f \circ s$, $t' \circ f = f \circ t$, and
+$c' \circ (f, f) = f \circ c$. The compatibility with identity and
+inverse is automatic. We will use this below.
+(Warning: The compatibility with identity
+has to be imposed in the case of general categories.)
+
+\begin{definition}
+\label{definition-groupoid}
+Let $S$ be a scheme.
+\begin{enumerate}
+\item A {\it groupoid scheme over $S$}, or simply a
+{\it groupoid over $S$} is a
+quintuple $(U, R, s, t, c)$ where
+$U$ and $R$ are schemes over $S$, and
+$s, t : R \to U$ and $c : R \times_{s, U, t} R \to R$
+are morphisms of schemes over $S$ with the
+following property: For any scheme
+$T$ over $S$ the quintuple
+$$
+(U(T), R(T), s, t, c)
+$$
+is a groupoid category in the sense described above.
+\item A {\it morphism
+$f : (U, R, s, t, c) \to (U', R', s', t', c')$
+of groupoid schemes over $S$} is given by morphisms
+of schemes $f : U \to U'$ and $f : R \to R'$ with the
+following property:  For any scheme
+$T$ over $S$ the maps $f$ define a functor from the
+groupoid category $(U(T), R(T), s, t, c)$ to the
+groupoid category $(U'(T), R'(T), s', t', c')$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Let $(U, R, s, t, c)$ be a groupoid over $S$.
+Note that, by the remarks preceding the definition and the Yoneda lemma,
+there are unique morphisms of schemes
+$e : U \to R$ and
+$i : R \to R$ over $S$ such that for every scheme $T$ over $S$
+the induced map $e : U(T) \to R(T)$ is the identity, and
+$i : R(T) \to R(T)$ is the inverse of
+the groupoid category. The septuple $(U, R, s, t, c, e, i)$
+satisfies commutative diagrams corresponding to each of the
+axioms (1), (2)(a), (2)(b), (3)(a) and (3)(b) above, and conversely
+given a septuple with this property the quintuple $(U, R, s, t, c)$
+is a groupoid scheme. Note that $i$ is an isomorphism,
+and $e$ is a section of both $s$ and $t$.
+Moreover, given a groupoid scheme over $S$ we denote
+$$
+j = (t, s) : R \longrightarrow U \times_S U
+$$
+which is compatible with our conventions in Section
+\ref{section-equivalence-relations} above.
+We sometimes say ``let $(U, R, s, t, c, e, i)$ be a
+groupoid over $S$'' to stress the existence of identity and
+inverse.
+
+\begin{lemma}
+\label{lemma-groupoid-pre-equivalence}
+Given a groupoid scheme $(U, R, s, t, c)$ over $S$
+the morphism $j : R \to U \times_S U$ is a pre-equivalence
+relation.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+This is a nice exercise in the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-equivalence-groupoid}
+Given an equivalence relation $j : R \to U$ over $S$
+there is a unique way to extend it to a groupoid
+$(U, R, s, t, c)$ over $S$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+This is a nice exercise in the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagram}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid over $S$.
+In the commutative diagram
+$$
+\xymatrix{
+& U & \\
+R \ar[d]_s \ar[ru]^t &
+R \times_{s, U, t} R
+\ar[l]^-{\text{pr}_0} \ar[d]^{\text{pr}_1} \ar[r]_-c &
+R \ar[d]^s \ar[lu]_t \\
+U & R \ar[l]_t \ar[r]^s & U
+}
+$$
+the two lower squares are fibre product squares.
+Moreover, the triangle on top (which is really a square)
+is also cartesian.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+Exercise in the definitions and the functorial point of
+view in algebraic geometry.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagram-pull}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c, e, i)$ be a groupoid over $S$.
+The diagram
+\begin{equation}
+\label{equation-pull}
+\xymatrix{
+R \times_{t, U, t} R
+\ar@<1ex>[r]^-{\text{pr}_1} \ar@<-1ex>[r]_-{\text{pr}_0}
+\ar[d]_{(\text{pr}_0, c \circ (i, 1))} &
+R \ar[r]^t \ar[d]^{\text{id}_R} &
+U \ar[d]^{\text{id}_U} \\
+R \times_{s, U, t} R
+\ar@<1ex>[r]^-c \ar@<-1ex>[r]_-{\text{pr}_0} \ar[d]_{\text{pr}_1} &
+R \ar[r]^t \ar[d]^s &
+U \\
+R \ar@<1ex>[r]^s \ar@<-1ex>[r]_t &
+U
+}
+\end{equation}
+is commutative. The two top rows are isomorphic via the vertical maps given.
+The two lower left squares are cartesian.
+\end{lemma}
+
+\begin{proof}
+The commutativity of the diagram follows from the axioms of a groupoid.
+Note that, in terms of groupoids, the top left vertical arrow assigns to
+a pair of morphisms $(\alpha, \beta)$ with the same target, the pair
+of morphisms $(\alpha, \alpha^{-1} \circ \beta)$. In any groupoid
+this defines a bijection between
+$\text{Arrows} \times_{t, \text{Ob}, t} \text{Arrows}$
+and
+$\text{Arrows} \times_{s, \text{Ob}, t} \text{Arrows}$. Hence the second
+assertion of the lemma.
+The last assertion follows from Lemma \ref{lemma-diagram}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-groupoid}
+Let $(U, R, s, t, c)$ be a groupoid over a scheme $S$.
+Let $S' \to S$ be a morphism. Then the base changes $U' = S' \times_S U$,
+$R' = S' \times_S R$ endowed with the base changes $s'$, $t'$, $c'$
+of the morphisms $s, t, c$ form a groupoid scheme
+$(U', R', s', t', c')$ over $S'$ and the projections
+determine a morphism
+$(U', R', s', t', c') \to (U, R, s, t, c)$
+of groupoid schemes over $S$.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint:
+$R' \times_{s', U', t'} R' = S' \times_S (R \times_{s, U, t} R)$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Quasi-coherent sheaves on groupoids}
+\label{section-groupoids-quasi-coherent}
+
+\noindent
+See the introduction of Section \ref{section-equivariant} for our
+choices in direction of arrows.
+
+\begin{definition}
+\label{definition-groupoid-module}
+Let $S$ be a scheme, let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+A {\it quasi-coherent module on $(U, R, s, t, c)$}
+is a pair $(\mathcal{F}, \alpha)$, where $\mathcal{F}$ is a quasi-coherent
+$\mathcal{O}_U$-module, and $\alpha$ is a $\mathcal{O}_R$-module
+map
+$$
+\alpha : t^*\mathcal{F} \longrightarrow s^*\mathcal{F}
+$$
+such that
+\begin{enumerate}
+\item the diagram
+$$
+\xymatrix{
+& \text{pr}_1^*t^*\mathcal{F} \ar[r]_-{\text{pr}_1^*\alpha} &
+\text{pr}_1^*s^*\mathcal{F} \ar@{=}[rd] & \\
+\text{pr}_0^*s^*\mathcal{F} \ar@{=}[ru] & & & c^*s^*\mathcal{F} \\
+& \text{pr}_0^*t^*\mathcal{F} \ar[lu]^{\text{pr}_0^*\alpha} \ar@{=}[r] &
+c^*t^*\mathcal{F} \ar[ru]_{c^*\alpha}
+}
+$$
+is a commutative in the category of
+$\mathcal{O}_{R \times_{s, U, t} R}$-modules, and
+\item the pullback
+$$
+e^*\alpha : \mathcal{F} \longrightarrow \mathcal{F}
+$$
+is the identity map.
+\end{enumerate}
+Compare with the commutative diagrams of Lemma \ref{lemma-diagram}.
+\end{definition}
+
+\noindent
+The commutativity of the first diagram forces the operator $e^*\alpha$
+to be idempotent. Hence the second condition can be reformulated as saying
+that $e^*\alpha$ is an isomorphism. In fact, the condition implies that
+$\alpha$ is an isomorphism.
+
+\begin{lemma}
+\label{lemma-isomorphism}
+Let $S$ be a scheme, let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+If $(\mathcal{F}, \alpha)$ is a quasi-coherent module on $(U, R, s, t, c)$
+then $\alpha$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+Pull back the commutative diagram of
+Definition \ref{definition-groupoid-module}
+by the morphism $(i, 1) : R \to R \times_{s, U, t} R$.
+Then we see that $i^*\alpha \circ \alpha = s^*e^*\alpha$.
+Pulling back by the morphism $(1, i)$ we obtain the relation
+$\alpha \circ i^*\alpha = t^*e^*\alpha$. By the second assumption 
+these morphisms are the identity. Hence $i^*\alpha$ is an inverse of
+$\alpha$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullback}
+Let $S$ be a scheme. Consider a morphism
+$f : (U, R, s, t, c) \to (U', R', s', t', c')$
+of groupoid schemes over $S$. Then pullback $f^*$ given by
+$$
+(\mathcal{F}, \alpha) \mapsto (f^*\mathcal{F}, f^*\alpha)
+$$
+defines a functor from the category of quasi-coherent sheaves on
+$(U', R', s', t', c')$ to the category of quasi-coherent sheaves on
+$(U, R, s, t, c)$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pushforward}
+Let $S$ be a scheme. Consider a morphism
+$f : (U, R, s, t, c) \to (U', R', s', t', c')$
+of groupoid schemes over $S$. Assume that
+\begin{enumerate}
+\item $f : U \to U'$ is quasi-compact and quasi-separated,
+\item the square
+$$
+\xymatrix{
+R \ar[d]_t \ar[r]_f & R' \ar[d]^{t'} \\
+U \ar[r]^f & U'
+}
+$$
+is cartesian, and
+\item $s'$ and $t'$ are flat.
+\end{enumerate}
+Then pushforward $f_*$ given by
+$$
+(\mathcal{F}, \alpha) \mapsto (f_*\mathcal{F}, f_*\alpha)
+$$
+defines a functor from the category of quasi-coherent sheaves on
+$(U, R, s, t, c)$ to the category of quasi-coherent sheaves on
+$(U', R', s', t', c')$ which is right adjoint to pullback as defined in
+Lemma \ref{lemma-pullback}.
+\end{lemma}
+
+\begin{proof}
+Since $U \to U'$ is quasi-compact and quasi-separated we see that
+$f_*$ transforms quasi-coherent sheaves into quasi-coherent sheaves
+(Schemes, Lemma \ref{schemes-lemma-push-forward-quasi-coherent}).
+Moreover, since the squares
+$$
+\vcenter{
+\xymatrix{
+R \ar[d]_t \ar[r]_f & R' \ar[d]^{t'} \\
+U \ar[r]^f & U'
+}
+}
+\quad\text{and}\quad
+\vcenter{
+\xymatrix{
+R \ar[d]_s \ar[r]_f & R' \ar[d]^{s'} \\
+U \ar[r]^f & U'
+}
+}
+$$
+are cartesian we find that $(t')^*f_*\mathcal{F} = f_*t^*\mathcal{F}$
+and $(s')^*f_*\mathcal{F} = f_*s^*\mathcal{F}$ , see
+Cohomology of Schemes, Lemma
+\ref{coherent-lemma-flat-base-change-cohomology}.
+Thus it makes sense to think of $f_*\alpha$ as a map
+$(t')^*f_*\mathcal{F} \to (s')^*f_*\mathcal{F}$. A similar argument
+shows that $f_*\alpha$ satisfies the cocycle condition.
+The functor is adjoint to the pullback functor since pullback
+and pushforward on modules on ringed spaces are adjoint.
+Some details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-colimits}
+Let $S$ be a scheme. Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+The category of quasi-coherent modules on $(U, R, s, t, c)$ has colimits.
+\end{lemma}
+
+\begin{proof}
+Let $i \mapsto (\mathcal{F}_i, \alpha_i)$ be a diagram over the index
+category $\mathcal{I}$. We can form the colimit
+$\mathcal{F} = \colim \mathcal{F}_i$
+which is a quasi-coherent sheaf on $U$, see
+Schemes, Section \ref{schemes-section-quasi-coherent}.
+Since colimits commute with pullback we see that
+$s^*\mathcal{F} = \colim s^*\mathcal{F}_i$ and similarly
+$t^*\mathcal{F} = \colim t^*\mathcal{F}_i$. Hence we can set
+$\alpha = \colim \alpha_i$. We omit the proof that $(\mathcal{F}, \alpha)$
+is the colimit of the diagram in the category of quasi-coherent modules
+on $(U, R, s, t, c)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-abelian}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+If $s$, $t$ are flat, then the category of quasi-coherent modules on
+$(U, R, s, t, c)$ is abelian.
+\end{lemma}
+
+\begin{proof}
+Let $\varphi : (\mathcal{F}, \alpha) \to (\mathcal{G}, \beta)$ be a
+homomorphism of quasi-coherent modules on $(U, R, s, t, c)$. Since
+$s$ is flat we see that
+$$
+0 \to s^*\Ker(\varphi)
+\to s^*\mathcal{F} \to s^*\mathcal{G} \to s^*\Coker(\varphi) \to 0
+$$
+is exact and similarly for pullback by $t$. Hence $\alpha$ and $\beta$
+induce isomorphisms
+$\kappa : t^*\Ker(\varphi) \to s^*\Ker(\varphi)$ and
+$\lambda : t^*\Coker(\varphi) \to s^*\Coker(\varphi)$
+which satisfy the cocycle condition. Then it is straightforward to
+verify that $(\Ker(\varphi), \kappa)$ and
+$(\Coker(\varphi), \lambda)$ are a kernel and cokernel in the
+category of quasi-coherent modules on $(U, R, s, t, c)$. Moreover,
+the condition $\Coim(\varphi) = \Im(\varphi)$ follows
+because it holds over $U$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Colimits of quasi-coherent modules}
+\label{section-colimits}
+
+\noindent
+In this section we prove some technical results saying that under
+suitable assumptions every quasi-coherent module on a groupoid is
+a filtered colimit of ``small'' quasi-coherent modules.
+
+\begin{lemma}
+\label{lemma-construct-quasi-coherent}
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume $s, t$ are flat, quasi-compact, and quasi-separated.
+For any quasi-coherent module $\mathcal{G}$ on $U$, there exists
+a canonical isomorphism
+$\alpha : t^*t_*s^*\mathcal{G} \to s^*t_*s^*\mathcal{G}$
+which turns $(t_*s^*\mathcal{G}, \alpha)$ into a quasi-coherent module
+on $(U, R, s, t, c)$. This construction defines a functor
+$$
+\QCoh(\mathcal{O}_U) \longrightarrow \QCoh(U, R, s, t, c)
+$$
+which is a right adjoint to the forgetful functor
+$(\mathcal{F}, \beta) \mapsto \mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+The pushforward of a quasi-coherent module along a quasi-compact and
+quasi-separated morphism is quasi-coherent, see Schemes, Lemma
+\ref{schemes-lemma-push-forward-quasi-coherent}. Hence $t_*s^*\mathcal{G}$
+is quasi-coherent. With notation as in Lemma \ref{lemma-diagram} we have
+$$
+t^*t_*s^*\mathcal{G} =
+\text{pr}_{0, *}c^* s^*\mathcal{G} =
+\text{pr}_{0, *}\text{pr}_1^*s^*\mathcal{G} =
+s^*t_*s^*\mathcal{G}
+$$
+The middle equality because $s \circ c = s \circ \text{pr}_1$ as
+morphisms $R \times_{s, U, t} R \to U$, and the first and the last
+equality because we know that base change and pushforward commute in
+these steps by Cohomology of Schemes, Lemma
+\ref{coherent-lemma-flat-base-change-cohomology}.
+
+\medskip\noindent
+To verify the cocycle condition of Definition \ref{definition-groupoid-module}
+for $\alpha$ and the adjointness property we describe the construction
+$\mathcal{G} \mapsto (\mathcal{G}, \alpha)$ in another way.
+Consider the groupoid scheme
+$(R, R \times_{s, U, s} R, \text{pr}_0, \text{pr}_1, \text{pr}_{02})$
+associated to the equivalence relation $R \times_{s, U, s} R$
+on $R$, see Lemma \ref{lemma-equivalence-groupoid}.
+There is a morphism
+$$
+f :
+(R, R \times_{s, U, s} R, \text{pr}_1, \text{pr}_0, \text{pr}_{02})
+\longrightarrow
+(U, R, s, t, c)
+$$
+of groupoid schemes given by $t : R \to U$ and $R \times_{t, U, t} R \to R$
+given by $(r_0, r_1) \mapsto r_0 \circ r_1^{-1}$ (we omit the verification
+of the commutativity of the required diagrams). Since
+$t, s : R \to U$ are quasi-compact, quasi-separated, and flat,
+and since we have a cartesian square
+$$
+\xymatrix{
+R \times_{s, U, s} R \ar[d]_{\text{pr}_0}
+\ar[rr]_-{(r_0, r_1) \mapsto r_0 \circ r_1^{-1}} & & R \ar[d]^t \\
+R \ar[rr]^t & & U
+}
+$$
+by Lemma \ref{lemma-diagram-pull} it follows that
+Lemma \ref{lemma-pushforward} applies to $f$. Note that
+$$
+\QCoh(R, R \times_{s, U, s} R, \text{pr}_1, \text{pr}_0, \text{pr}_{02})
+= \QCoh(\mathcal{O}_U)
+$$
+by the theory of descent of quasi-coherent sheaves as $\{t : R \to U\}$
+is an fpqc covering, see
+Descent, Proposition \ref{descent-proposition-fpqc-descent-quasi-coherent}.
+Observe that pullback along $f$ agrees with the forgetful functor and
+that pushforward agrees with the construction that assigns to
+$\mathcal{G}$ the pair $(\mathcal{G}, \alpha)$. We omit the precise
+verifications. Thus the lemma follows from Lemma \ref{lemma-pushforward}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-push-pull}
+Let $f : Y \to X$ be a morphism of schemes. Let $\mathcal{F}$
+be a quasi-coherent $\mathcal{O}_X$-module, let $\mathcal{G}$
+be a quasi-coherent $\mathcal{O}_Y$-module, and let
+$\varphi : \mathcal{G} \to f^*\mathcal{F}$ be a module map. Assume
+\begin{enumerate}
+\item $\varphi$ is injective,
+\item $f$ is quasi-compact, quasi-separated, flat, and surjective,
+\item $X$, $Y$ are locally Noetherian, and
+\item $\mathcal{G}$ is a coherent $\mathcal{O}_Y$-module.
+\end{enumerate}
+Then $\mathcal{F} \cap f_*\mathcal{G}$ defined as the pullback
+$$
+\xymatrix{
+\mathcal{F} \ar[r] & f_*f^*\mathcal{F} \\
+\mathcal{F} \cap f_*\mathcal{G} \ar[u] \ar[r] &
+f_*\mathcal{G} \ar[u]
+}
+$$
+is a coherent $\mathcal{O}_X$-module.
+\end{lemma}
+
+\begin{proof}
+We will freely use the characterization of coherent modules of
+Cohomology of Schemes, Lemma \ref{coherent-lemma-coherent-Noetherian}
+as well as the fact that coherent modules form a Serre subcategory
+of $\QCoh(\mathcal{O}_X)$, see
+Cohomology of Schemes,
+Lemma \ref{coherent-lemma-coherent-Noetherian-quasi-coherent-sub-quotient}.
+If $f$ has a section $\sigma$, then we see that
+$\mathcal{F} \cap f_*\mathcal{G}$ is contained in the image of
+$\sigma^*\mathcal{G} \to \sigma^*f^*\mathcal{F} = \mathcal{F}$,
+hence coherent. In general, to show that $\mathcal{F} \cap f_*\mathcal{G}$
+is coherent, it suffices the show that
+$f^*(\mathcal{F} \cap f_*\mathcal{G})$ is coherent (see
+Descent, Lemma \ref{descent-lemma-finite-type-descends}).
+Since $f$ is flat this is equal to $f^*\mathcal{F} \cap f^*f_*\mathcal{G}$.
+Since $f$ is flat, quasi-compact, and quasi-separated we see
+$f^*f_*\mathcal{G} = p_*q^*\mathcal{G}$ where $p, q : Y \times_X Y \to Y$
+are the projections, see
+Cohomology of Schemes, Lemma \ref{coherent-lemma-flat-base-change-cohomology}.
+Since $p$ has a section we win.
+\end{proof}
+
+\noindent
+Let $S$ be a scheme. Let $(U, R, s, t, c)$ be a groupoid in schemes over $S$.
+Assume that $U$ is locally Noetherian. In the lemma below we say that a
+quasi-coherent sheaf $(\mathcal{F}, \alpha)$ on $(U, R, s, t, c)$ is
+{\it coherent} if $\mathcal{F}$ is a coherent $\mathcal{O}_U$-module.
+
+\begin{lemma}
+\label{lemma-colimit-coherent}
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume that
+\begin{enumerate}
+\item $U$, $R$ are Noetherian,
+\item $s, t$ are flat, quasi-compact, and quasi-separated.
+\end{enumerate}
+Then every quasi-coherent module $(\mathcal{F}, \alpha)$ on $(U, R, s, t, c)$
+is a filtered colimit of coherent modules.
+\end{lemma}
+
+\begin{proof}
+We will use the characterization of Cohomology of Schemes, Lemma
+\ref{coherent-lemma-coherent-Noetherian} of coherent modules on locally
+Noetherian scheme without further mention. Write
+$\mathcal{F} = \colim \mathcal{H}_i$ with $\mathcal{H}_i$ coherent, see
+Properties, Lemma \ref{properties-lemma-directed-colimit-finite-presentation}.
+Given a quasi-coherent sheaf $\mathcal{H}$ on $U$ we denote $t_*s^*\mathcal{H}$
+the quasi-coherent sheaf on $(U, R, s, t, c)$ of
+Lemma \ref{lemma-construct-quasi-coherent}. There is an adjunction map
+$\mathcal{F} \to t_*s^*\mathcal{F}$ in $\QCoh(U, R, s, t, c)$.
+Consider the pullback diagram
+$$
+\xymatrix{
+\mathcal{F} \ar[r] & t_*s^*\mathcal{F} \\
+\mathcal{F}_i \ar[r] \ar[u] & t_*s^*\mathcal{H}_i \ar[u]
+}
+$$
+in other words $\mathcal{F}_i = \mathcal{F} \cap t_*s^*\mathcal{H}_i$.
+Then $\mathcal{F}_i$ is coherent by Lemma \ref{lemma-push-pull}.
+On the other hand, the diagram above is a pullback diagram in
+$\QCoh(U, R, s, t, c)$ also as restriction to $U$ is an
+exact functor by (the proof of) Lemma \ref{lemma-abelian}. Finally,
+because $t$ is quasi-compact and quasi-separated we see that
+$t_*$ commutes with colimits (see
+Cohomology of Schemes, Lemma \ref{coherent-lemma-colimit-cohomology}).
+Hence $t_*s^*\mathcal{F} = \colim t_*\mathcal{H}_i$ and hence
+$\mathcal{F} = \colim \mathcal{F}_i$ as desired.
+\end{proof}
+
+\noindent
+Here is a curious lemma that is useful when working with groupoids
+on fields. In fact, this is the standard argument to prove that any
+representation of an algebraic group is a colimit of finite dimensional
+representations.
+
+\begin{lemma}
+\label{lemma-colimit-finite-type}
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume that
+\begin{enumerate}
+\item $U$, $R$ are affine,
+\item there exist $e_i \in \mathcal{O}_R(R)$ such that
+every element $g \in \mathcal{O}_R(R)$ can be uniquely written as
+$\sum s^*(f_i)e_i$ for some $f_i \in \mathcal{O}_U(U)$.
+\end{enumerate}
+Then every quasi-coherent module $(\mathcal{F}, \alpha)$ on $(U, R, s, t, c)$
+is a filtered colimit of finite type quasi-coherent modules.
+\end{lemma}
+
+\begin{proof}
+The assumption means that $\mathcal{O}_R(R)$ is a free
+$\mathcal{O}_U(U)$-module via $s$ with basis $e_i$. Hence
+for any quasi-coherent $\mathcal{O}_U$-module $\mathcal{G}$
+we see that $s^*\mathcal{G}(R) = \bigoplus_i \mathcal{G}(U)e_i$.
+We will write $s(-)$ to indicate pullback of sections by $s$ and
+similarly for other morphisms.
+Let $(\mathcal{F}, \alpha)$ be a quasi-coherent module on
+$(U, R, s, t, c)$. Let $\sigma \in \mathcal{F}(U)$. By the above
+we can write
+$$
+\alpha(t(\sigma)) = \sum s(\sigma_i) e_i
+$$
+for some unique $\sigma_i \in \mathcal{F}(U)$ (all but finitely many
+are zero of course). We can also write
+$$
+c(e_i) = \sum \text{pr}_1(f_{ij}) \text{pr}_0(e_j)
+$$
+as functions on $R \times_{s, U, t}R$. Then the commutativity of the diagram
+in Definition \ref{definition-groupoid-module} means that
+$$
+\sum \text{pr}_1(\alpha(t(\sigma_i))) \text{pr}_0(e_i)
+=
+\sum \text{pr}_1(s(\sigma_i)f_{ij}) \text{pr}_0(e_j)
+$$
+(calculation omitted). Picking off the coefficients of $\text{pr}_0(e_l)$
+we see that $\alpha(t(\sigma_l)) = \sum s(\sigma_i)f_{il}$. Hence
+the submodule $\mathcal{G} \subset \mathcal{F}$ generated by the
+elements $\sigma_i$ defines a finite type quasi-coherent module
+preserved by $\alpha$. Hence it is a subobject of $\mathcal{F}$ in
+$\QCoh(U, R, s, t, c)$. This submodule contains $\sigma$
+(as one sees by pulling back the first relation by $e$). Hence we win.
+\end{proof}
+
+\noindent
+We suggest the reader skip the rest of this section. Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid in schemes over $S$. Let $\kappa$ be a
+cardinal. In the following we will say that a quasi-coherent sheaf
+$(\mathcal{F}, \alpha)$ on $(U, R, s, t, c)$ is $\kappa$-generated if
+$\mathcal{F}$ is a $\kappa$-generated $\mathcal{O}_U$-module, see
+Properties, Definition \ref{properties-definition-kappa-generated}.
+
+\begin{lemma}
+\label{lemma-set-of-iso-classes}
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Let $\kappa$ be a cardinal.
+There exists a set $T$ and a family $(\mathcal{F}_t, \alpha_t)_{t \in T}$ of
+$\kappa$-generated quasi-coherent modules on $(U, R, s, t, c)$
+such that every $\kappa$-generated quasi-coherent module on
+$(U, R, s, t, c)$ is isomorphic to one of the $(\mathcal{F}_t, \alpha_t)$.
+\end{lemma}
+
+\begin{proof}
+For each quasi-coherent module $\mathcal{F}$ on $U$ there is a
+(possibly empty) set of maps $\alpha : t^*\mathcal{F} \to s^*\mathcal{F}$
+such that $(\mathcal{F}, \alpha)$ is a quasi-coherent modules on
+$(U, R, s, t, c)$. By
+Properties, Lemma \ref{properties-lemma-set-of-iso-classes}
+there exists a set of isomorphism classes of $\kappa$-generated
+quasi-coherent $\mathcal{O}_U$-modules.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-colimit-kappa}
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume that $s, t$ are flat. There exists a
+cardinal $\kappa$ such that every quasi-coherent module
+$(\mathcal{F}, \alpha)$ on $(U, R, s, t, c)$
+is the directed colimit of its $\kappa$-generated
+quasi-coherent submodules.
+\end{lemma}
+
+\begin{proof}
+In the statement of the lemma and in this proof
+a {\it submodule} of a quasi-coherent module $(\mathcal{F}, \alpha)$
+is a quasi-coherent submodule $\mathcal{G} \subset \mathcal{F}$
+such that $\alpha(t^*\mathcal{G}) = s^*\mathcal{G}$ as subsheaves of
+$s^*\mathcal{F}$. This makes sense because since $s, t$ are flat the
+pullbacks $s^*$ and $t^*$ are exact, i.e., preserve subsheaves.
+The proof will be a repeat of the proof of
+Properties, Lemma \ref{properties-lemma-colimit-kappa}.
+We urge the reader to read that proof first.
+
+\medskip\noindent
+Choose an affine open covering $U = \bigcup_{i \in I} U_i$.
+For each pair $i, j$ choose affine open coverings
+$$
+U_i \cap U_j = \bigcup\nolimits_{k \in I_{ij}} U_{ijk}
+\quad\text{and}\quad
+s^{-1}(U_i) \cap t^{-1}(U_j) = \bigcup\nolimits_{k \in J_{ij}} W_{ijk}.
+$$
+Write $U_i = \Spec(A_i)$, $U_{ijk} = \Spec(A_{ijk})$,
+$W_{ijk} = \Spec(B_{ijk})$.
+Let $\kappa$ be any infinite cardinal $\geq$ than the cardinality
+of any of the sets $I$, $I_{ij}$, $J_{ij}$.
+
+\medskip\noindent
+Let $(\mathcal{F}, \alpha)$ be a quasi-coherent module on $(U, R, s, t, c)$.
+Set $M_i = \mathcal{F}(U_i)$, $M_{ijk} = \mathcal{F}(U_{ijk})$.
+Note that
+$$
+M_i \otimes_{A_i} A_{ijk} = M_{ijk} = M_j \otimes_{A_j} A_{ijk}
+$$
+and that $\alpha$ gives isomorphisms
+$$
+\alpha|_{W_{ijk}} :
+M_i \otimes_{A_i, t} B_{ijk}
+\longrightarrow
+M_j \otimes_{A_j, s} B_{ijk}
+$$
+see
+Schemes, Lemma \ref{schemes-lemma-widetilde-pullback}.
+Using the axiom of choice we choose a map
+$$
+(i, j, k, m) \mapsto S(i, j, k, m)
+$$
+which associates to every $i, j \in I$, $k \in I_{ij}$ or $k \in J_{ij}$
+and $m \in M_i$ a finite subset $S(i, j, k, m) \subset M_j$
+such that we have
+$$
+m \otimes 1 = \sum\nolimits_{m' \in S(i, j, k, m)} m' \otimes a_{m'}
+\quad\text{or}\quad
+\alpha(m \otimes 1) = \sum\nolimits_{m' \in S(i, j, k, m)} m' \otimes b_{m'}
+$$
+in $M_{ijk}$ for some $a_{m'} \in A_{ijk}$ or $b_{m'} \in B_{ijk}$.
+Moreover, let's agree that $S(i, i, k, m) = \{m\}$ for all
+$i, j = i, k, m$ when $k \in I_{ij}$. Fix such a collection $S(i, j, k, m)$
+
+\medskip\noindent
+Given a family $\mathcal{S} = (S_i)_{i \in I}$ of subsets
+$S_i \subset M_i$ of cardinality at most $\kappa$ we set
+$\mathcal{S}' = (S'_i)$ where
+$$
+S'_j = \bigcup\nolimits_{(i, j, k, m)\text{ such that }m \in S_i}
+S(i, j, k, m)
+$$
+Note that $S_i \subset S'_i$. Note that $S'_i$ has cardinality at most
+$\kappa$ because it is a union over a set of cardinality at most $\kappa$
+of finite sets. Set $\mathcal{S}^{(0)} = \mathcal{S}$,
+$\mathcal{S}^{(1)} = \mathcal{S}'$ and by induction
+$\mathcal{S}^{(n + 1)} = (\mathcal{S}^{(n)})'$. Then set
+$\mathcal{S}^{(\infty)} = \bigcup_{n \geq 0} \mathcal{S}^{(n)}$.
+Writing $\mathcal{S}^{(\infty)} = (S^{(\infty)}_i)$ we see that
+for any element $m \in S^{(\infty)}_i$ the image of $m$ in
+$M_{ijk}$ can be written as a finite sum $\sum m' \otimes a_{m'}$
+with $m' \in S_j^{(\infty)}$. In this way we see that setting
+$$
+N_i = A_i\text{-submodule of }M_i\text{ generated by }S^{(\infty)}_i
+$$
+we have
+$$
+N_i \otimes_{A_i} A_{ijk} = N_j \otimes_{A_j} A_{ijk}
+\quad\text{and}\quad
+\alpha(N_i \otimes_{A_i, t} B_{ijk}) = N_j \otimes_{A_j, s} B_{ijk}
+$$
+as submodules of $M_{ijk}$ or $M_j \otimes_{A_j, s} B_{ijk}$.
+Thus there exists a quasi-coherent submodule
+$\mathcal{G} \subset \mathcal{F}$ with $\mathcal{G}(U_i) = N_i$
+such that $\alpha(t^*\mathcal{G}) = s^*\mathcal{G}$ as submodules
+of $s^*\mathcal{F}$. In other words,
+$(\mathcal{G}, \alpha|_{t^*\mathcal{G}})$ is a submodule of
+$(\mathcal{F}, \alpha)$.
+Moreover, by construction $\mathcal{G}$ is $\kappa$-generated.
+
+\medskip\noindent
+Let $\{(\mathcal{G}_t, \alpha_t)\}_{t \in T}$ be the set of
+$\kappa$-generated quasi-coherent submodules of $(\mathcal{F}, \alpha)$.
+If $t, t' \in T$ then $\mathcal{G}_t + \mathcal{G}_{t'}$ is also a
+$\kappa$-generated quasi-coherent submodule as it is the image of the map
+$\mathcal{G}_t \oplus \mathcal{G}_{t'} \to \mathcal{F}$.
+Hence the system (ordered by inclusion) is directed.
+The arguments above show that every section of $\mathcal{F}$ over $U_i$
+is in one of the $\mathcal{G}_t$ (because we can start with $\mathcal{S}$
+such that the given section is an element of $S_i$). Hence
+$\colim_t \mathcal{G}_t \to \mathcal{F}$ is both injective and surjective
+as desired.
+\end{proof}
+
+
+
+
+
+\section{Groupoids and group schemes}
+\label{section-groupoids-group-schemes}
+
+\noindent
+There are many ways to construct a groupoid out of an action $a$
+of a group $G$ on a set $V$. We choose the one where we think
+of an element $g \in G$ as an arrow with source $v$ and target $a(g, v)$.
+This leads to the following construction for group actions of
+schemes.
+
+\begin{lemma}
+\label{lemma-groupoid-from-action}
+Let $S$ be a scheme.
+Let $Y$ be a scheme over $S$.
+Let $(G, m)$ be a group scheme over $Y$ with
+identity $e_G$ and inverse $i_G$.
+Let $X/Y$ be a scheme over $Y$ and let $a : G \times_Y X \to X$
+be an action of $G$ on $X/Y$.
+Then we get a groupoid scheme $(U, R, s, t, c, e, i)$ over $S$
+in the following manner:
+\begin{enumerate}
+\item We set $U = X$, and $R = G \times_Y X$.
+\item We set $s : R \to U$ equal to $(g, x) \mapsto x$.
+\item We set $t : R \to U$ equal to $(g, x) \mapsto a(g, x)$.
+\item We set $c : R \times_{s, U, t} R \to R$ equal to
+$((g, x), (g', x')) \mapsto (m(g, g'), x')$.
+\item We set $e : U \to R$ equal to $x \mapsto (e_G(x), x)$.
+\item We set $i : R \to R$ equal to $(g, x) \mapsto (i_G(g), a(g, x))$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: It is enough to show that this works on the set
+level. For this use the description above the lemma describing
+$g$ as an arrow from $v$ to $a(g, v)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-action-groupoid-modules}
+Let $S$ be a scheme.
+Let $Y$ be a scheme over $S$.
+Let $(G, m)$ be a group scheme over $Y$.
+Let $X$ be a scheme over $Y$ and let $a : G \times_Y X \to X$
+be an action of $G$ on $X$ over $Y$. Let $(U, R, s, t, c)$ be
+the groupoid scheme constructed in Lemma \ref{lemma-groupoid-from-action}.
+The rule
+$(\mathcal{F}, \alpha) \mapsto (\mathcal{F}, \alpha)$ defines
+an equivalence of categories between $G$-equivariant
+$\mathcal{O}_X$-modules and the category of quasi-coherent
+modules on $(U, R, s, t, c)$.
+\end{lemma}
+
+\begin{proof}
+The assertion makes sense because $t = a$ and $s = \text{pr}_1$
+as morphisms $R = G \times_Y X \to X$, see
+Definitions \ref{definition-equivariant-module} and
+\ref{definition-groupoid-module}.
+Using the translation in Lemma \ref{lemma-groupoid-from-action}
+the commutativity requirements
+of the two definitions match up exactly.
+\end{proof}
+
+
+
+
+
+\section{The stabilizer group scheme}
+\label{section-stabilizer}
+
+\noindent
+Given a groupoid scheme we get a group scheme as follows.
+
+\begin{lemma}
+\label{lemma-groupoid-stabilizer}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid over $S$.
+The scheme $G$ defined by the cartesian square
+$$
+\xymatrix{
+G \ar[r] \ar[d] & R \ar[d]^{j = (t, s)} \\
+U \ar[r]^-{\Delta} & U \times_S U
+}
+$$
+is a group scheme over $U$ with composition law
+$m$ induced by the composition law $c$.
+\end{lemma}
+
+\begin{proof}
+This is true because in a groupoid category the
+set of self maps of any object forms a group.
+\end{proof}
+
+\noindent
+Since $\Delta$ is an immersion we see that $G = j^{-1}(\Delta_{U/S})$
+is a locally closed subscheme of $R$. Thinking of it in this way,
+the structure morphism $j^{-1}(\Delta_{U/S}) \to U$ is induced by
+either $s$ or $t$ (it is the same), and $m$ is induced by $c$.
+
+\begin{definition}
+\label{definition-stabilizer-groupoid}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid over $S$.
+The group scheme $j^{-1}(\Delta_{U/S})\to U$
+is called the {\it stabilizer of the groupoid scheme
+$(U, R, s, t, c)$}.
+\end{definition}
+
+\noindent
+In the literature the stabilizer group scheme is often denoted $S$
+(because the word stabilizer starts with an ``s'' presumably);
+we cannot do this since we have already used $S$ for the base scheme.
+
+\begin{lemma}
+\label{lemma-groupoid-action-stabilizer}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid over $S$, and let $G/U$ be its stabilizer.
+Denote $R_t/U$ the scheme $R$ seen as a scheme over $U$ via the
+morphism $t : R \to U$.
+There is a canonical left action
+$$
+a : G \times_U R_t \longrightarrow R_t
+$$
+induced by the composition law $c$.
+\end{lemma}
+
+\begin{proof}
+In terms of points over $T/S$ we define $a(g, r) = c(g, r)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-groupoid-action-stabilizer-pseudo-torsor}
+Let $S$ be a scheme. Let $(U, R, s, t, c)$ be a groupoid scheme
+over $S$. Let $G$ be the stabilizer group scheme of $R$.
+Let
+$$
+G_0 = G \times_{U, \text{pr}_0} (U \times_S U) = G \times_S U
+$$
+as a group scheme over $U \times_S U$. The action of $G$ on $R$ of
+Lemma \ref{lemma-groupoid-action-stabilizer}
+induces an action of $G_0$ on $R$ over $U \times_S U$
+which turns $R$ into a pseudo $G_0$-torsor over $U \times_S U$.
+\end{lemma}
+
+\begin{proof}
+This is true because in a groupoid category $\mathcal{C}$ the set
+$\Mor_\mathcal{C}(x, y)$ is a principal homogeneous set
+under the group $\Mor_\mathcal{C}(y, y)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fibres-j}
+Let $S$ be a scheme. Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Let $p \in U \times_S U$ be a point. Denote
+$R_p$ the scheme theoretic fibre of $j = (t, s) : R \to U \times_S U$.
+If $R_p \not = \emptyset$, then the action
+$$
+G_{0, \kappa(p)} \times_{\kappa(p)} R_p \longrightarrow R_p
+$$
+(see
+Lemma \ref{lemma-groupoid-action-stabilizer-pseudo-torsor})
+which turns $R_p$ into a $G_{\kappa(p)}$-torsor over $\kappa(p)$.
+\end{lemma}
+
+\begin{proof}
+The action is a pseudo-torsor by the lemma cited in the statement.
+And if $R_p$ is not the empty scheme, then $\{R_p \to p\}$
+is an fpqc covering which trivializes the pseudo-torsor.
+\end{proof}
+
+
+
+
+
+
+
+\section{Restricting groupoids}
+\label{section-restrict-groupoid}
+
+\noindent
+Consider a (usual) groupoid
+$\mathcal{C} = (\text{Ob}, \text{Arrows}, s, t, c)$.
+Suppose we have a map of sets $g : \text{Ob}' \to \text{Ob}$.
+Then we can construct a groupoid
+$\mathcal{C}' = (\text{Ob}', \text{Arrows}', s', t', c')$
+by thinking of a morphism between elements $x', y'$ of $\text{Ob}'$
+as a morphism in $\mathcal{C}$ between $g(x'), g(y')$.
+In other words we set
+$$
+\text{Arrows}' =
+\text{Ob}'
+\times_{g, \text{Ob}, t}
+\text{Arrows}
+\times_{s, \text{Ob}, g}
+\text{Ob}'.
+$$
+with obvious choices for $s'$, $t'$, and $c'$. There is a canonical
+functor $\mathcal{C}' \to \mathcal{C}$ which is fully faithful,
+but not necessarily essentially surjective. This groupoid $\mathcal{C}'$
+endowed with the functor $\mathcal{C}' \to \mathcal{C}$
+is called the {\it restriction} of the groupoid
+$\mathcal{C}$ to $\text{Ob}'$.
+
+\begin{lemma}
+\label{lemma-restrict-groupoid}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Let $g : U' \to U$ be a morphism of schemes.
+Consider the following diagram
+$$
+\xymatrix{
+R' \ar[d] \ar[r] \ar@/_3pc/[dd]_{t'} \ar@/^1pc/[rr]^{s'}&
+R \times_{s, U} U' \ar[r] \ar[d] &
+U' \ar[d]^g \\
+U' \times_{U, t} R \ar[d] \ar[r] &
+R \ar[r]^s \ar[d]_t &
+U \\
+U' \ar[r]^g &
+U
+}
+$$
+where all the squares are fibre product squares. Then there is a
+canonical composition law $c' : R' \times_{s', U', t'} R' \to R'$
+such that $(U', R', s', t', c')$ is a groupoid scheme over
+$S$ and such that $U' \to U$, $R' \to R$ defines a morphism
+$(U', R', s', t', c') \to (U, R, s, t, c)$ of groupoid schemes over $S$.
+Moreover, for any scheme $T$ over $S$ the functor of groupoids
+$$
+(U'(T), R'(T), s', t', c') \to (U(T), R(T), s, t, c)
+$$
+is the restriction (see above) of $(U(T), R(T), s, t, c)$ via the map
+$U'(T) \to U(T)$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{definition}
+\label{definition-restrict-groupoid}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Let $g : U' \to U$ be a morphism of schemes.
+The morphism of groupoids
+$(U', R', s', t', c') \to (U, R, s, t, c)$
+constructed in Lemma \ref{lemma-restrict-groupoid} is called
+the {\it restriction of $(U, R, s, t, c)$ to $U'$}.
+We sometime use the notation $R' = R|_{U'}$ in this case.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-restrict-groupoid-relation}
+The notions of restricting groupoids and
+(pre-)equivalence relations defined in Definitions
+\ref{definition-restrict-groupoid} and \ref{definition-restrict-relation}
+agree via the constructions of
+Lemmas \ref{lemma-groupoid-pre-equivalence} and
+\ref{lemma-equivalence-groupoid}.
+\end{lemma}
+
+\begin{proof}
+What we are saying here is that $R'$ of
+Lemma \ref{lemma-restrict-groupoid} is also
+equal to
+$$
+R' = (U' \times_S U')\times_{U \times_S U} R
+\longrightarrow
+U' \times_S U'
+$$
+In fact this might have been a clearer way to state that lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-restrict-stabilizer}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Let $g : U' \to U$ be a morphism of schemes.
+Let $(U', R', s', t', c')$ be the restriction of $(U, R, s, t, c)$ via $g$.
+Let $G$ be the stabilizer of $(U, R, s, t, c)$ and let
+$G'$ be the stabilizer of $(U', R', s', t', c')$.
+Then $G'$ is the base change of $G$ by $g$, i.e.,
+there is a canonical identification $G' = U' \times_{g, U} G$.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+
+
+
+
+
+\section{Invariant subschemes}
+\label{section-invariant}
+
+\noindent
+In this section we discuss briefly the notion of an invariant subscheme.
+
+\begin{definition}
+\label{definition-invariant-open}
+Let $(U, R, s, t, c)$ be a groupoid scheme over the base scheme $S$.
+\begin{enumerate}
+\item A subset $W \subset U$ is {\it set-theoretically $R$-invariant}
+if $t(s^{-1}(W)) \subset W$.
+\item An open $W \subset U$ is {\it $R$-invariant} if
+$t(s^{-1}(W)) \subset W$.
+\item A closed subscheme $Z \subset U$ is called {\it $R$-invariant}
+if $t^{-1}(Z) = s^{-1}(Z)$. Here we use the scheme theoretic inverse image, see
+Schemes, Definition \ref{schemes-definition-inverse-image-closed-subscheme}.
+\item A monomorphism of schemes $T \to U$ is {\it $R$-invariant} if
+$T \times_{U, t} R = R \times_{s, U} T$ as schemes over $R$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+For subsets and open subschemes $W \subset U$ the $R$-invariance
+is also equivalent to requiring that $s^{-1}(W) = t^{-1}(W)$
+as subsets of $R$. If $W \subset U$ is an $R$-equivariant open subscheme
+then the restriction of $R$ to $W$ is just $R_W = s^{-1}(W) = t^{-1}(W)$.
+Similarly, if $Z \subset U$ is an $R$-invariant closed subscheme, then
+the restriction of $R$ to $Z$ is just $R_Z = s^{-1}(Z) = t^{-1}(Z)$.
+
+\begin{lemma}
+\label{lemma-constructing-invariant-opens}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+\begin{enumerate}
+\item For any subset $W \subset U$ the subset $t(s^{-1}(W))$
+is set-theoretically $R$-invariant.
+\item If $s$ and $t$ are open, then for every open $W \subset U$
+the open $t(s^{-1}(W))$ is an $R$-invariant open subscheme.
+\item If $s$ and $t$ are open and quasi-compact, then $U$ has an open
+covering consisting of $R$-invariant quasi-compact open subschemes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) follows from
+Lemmas \ref{lemma-pre-equivalence-equivalence-relation-points} and
+\ref{lemma-groupoid-pre-equivalence}, namely, $t(s^{-1}(W))$
+is the set of points of $U$ equivalent to a point of $W$.
+Next, assume $s$ and $t$ open and $W \subset U$ open.
+Since $s$ is open the set $W' = t(s^{-1}(W))$ is an open subset of $U$.
+Finally, assume that $s$, $t$ are both open and quasi-compact.
+Then, if $W \subset U$ is a quasi-compact open, then also
+$W' = t(s^{-1}(W))$ is a quasi-compact open, and invariant by the
+discussion above. Letting $W$ range over all affine opens of $U$
+we see (3).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-first-observation}
+Let $S$ be a scheme. Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume $s$ and $t$ quasi-compact and flat and $U$ quasi-separated.
+Let $W \subset U$ be quasi-compact open. Then $t(s^{-1}(W))$
+is an intersection of a nonempty family of quasi-compact open subsets of $U$.
+\end{lemma}
+
+\begin{proof}
+Note that $s^{-1}(W)$ is quasi-compact open in $R$.
+As a continuous map $t$ maps the quasi-compact subset
+$s^{-1}(W)$ to a quasi-compact subset $t(s^{-1}(W))$.
+As $t$ is flat and $s^{-1}(W)$ is closed under generalization,
+so is $t(s^{-1}(W))$, see
+(Morphisms, Lemma \ref{morphisms-lemma-generalizations-lift-flat} and
+Topology, Lemma \ref{topology-lemma-lift-specializations-images}).
+Pick a quasi-compact open $W' \subset U$ containing $t(s^{-1}(W))$. By
+Properties, Lemma \ref{properties-lemma-quasi-compact-quasi-separated-spectral}
+we see that $W'$ is a spectral space (here we use that $U$ is quasi-separated).
+Then the lemma follows from
+Topology, Lemma \ref{topology-lemma-make-spectral-space}
+applied to $t(s^{-1}(W)) \subset W'$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-second-observation}
+Assumptions and notation as in Lemma \ref{lemma-first-observation}.
+There exists an $R$-invariant open $V \subset U$ and a quasi-compact
+open $W'$ such that $W \subset V \subset W' \subset U$.
+\end{lemma}
+
+\begin{proof}
+Set $E = t(s^{-1}(W))$. Recall that $E$ is set-theoretically $R$-invariant
+(Lemma \ref{lemma-constructing-invariant-opens}).
+By Lemma \ref{lemma-first-observation} there exists a quasi-compact
+open $W'$ containing $E$. Let $Z = U \setminus W'$ and consider
+$T = t(s^{-1}(Z))$. Observe that $Z \subset T$ and that
+$E \cap T = \emptyset$ because $s^{-1}(E) = t^{-1}(E)$ is disjoint
+from $s^{-1}(Z)$. Since $T$ is the image of the closed subset
+$s^{-1}(Z) \subset R$ under the quasi-compact morphism $t : R \to U$
+we see that any point $\xi$ in the closure $\overline{T}$
+is the specialization of a point of $T$, see
+Morphisms, Lemma \ref{morphisms-lemma-reach-points-scheme-theoretic-image} (and
+Morphisms, Lemma \ref{morphisms-lemma-quasi-compact-scheme-theoretic-image}
+to see that the scheme theoretic image is the closure of the image).
+Say $\xi' \leadsto \xi$ with $\xi' \in T$. Suppose that $r \in R$ and
+$s(r) = \xi$. Since $s$ is flat we can find a specialization $r' \leadsto r$
+in $R$ such that $s(r') = \xi'$
+(Morphisms, Lemma \ref{morphisms-lemma-generalizations-lift-flat}).
+Then $t(r') \leadsto t(r)$. We conclude that $t(r') \in T$ as $T$
+is set-theoretically invariant by
+Lemma \ref{lemma-constructing-invariant-opens}.
+Thus $\overline{T}$ is a set-theoretically $R$-invariant closed subset
+and $V = U \setminus \overline{T}$ is the open we are
+looking for. It is contained in $W'$ which finishes the proof.
+\end{proof}
+
+
+
+
+\section{Quotient sheaves}
+\label{section-quotient-sheaves}
+
+\noindent
+Let $\tau \in \{Zariski, \etale, fppf, smooth, syntomic\}$.
+Let $S$ be a scheme.
+Let $j : R \to U \times_S U$ be a pre-relation over $S$.
+Say $U, R, S$ are objects of a $\tau$-site $\Sch_\tau$
+(see Topologies, Section \ref{topologies-section-procedure}).
+Then we can consider the functors
+$$
+h_U, h_R :
+(\Sch/S)_\tau^{opp}
+\longrightarrow
+\textit{Sets}.
+$$
+These are sheaves, see
+Descent, Lemma \ref{descent-lemma-fpqc-universal-effective-epimorphisms}.
+The morphism $j$ induces a map $j : h_R \to h_U \times h_U$.
+For each object $T \in \Ob((\Sch/S)_\tau)$
+we can take the equivalence relation $\sim_T$ generated by
+$j(T) : R(T) \to U(T) \times U(T)$ and consider the quotient.
+Hence we get a presheaf
+\begin{equation}
+\label{equation-quotient-presheaf}
+(\Sch/S)_\tau^{opp}
+\longrightarrow
+\textit{Sets}, \quad
+T \longmapsto U(T)/\sim_T
+\end{equation}
+
+\begin{definition}
+\label{definition-quotient-sheaf}
+Let $\tau$, $S$, and the pre-relation $j : R \to U \times_S U$ be as above.
+In this setting the {\it quotient sheaf $U/R$} associated
+to $j$ is the sheafification of the presheaf
+(\ref{equation-quotient-presheaf}) in the $\tau$-topology.
+If $j : R \to U \times_S U$ comes from the action of a group scheme
+$G/S$ on $U$ as in Lemma \ref{lemma-groupoid-from-action} then we
+sometimes denote the quotient sheaf $U/G$.
+\end{definition}
+
+\noindent
+This means exactly that the diagram
+$$
+\xymatrix{
+h_R \ar@<1ex>[r] \ar@<-1ex>[r] &
+h_U \ar[r] &
+U/R
+}
+$$
+is a coequalizer diagram in the category of sheaves of sets
+on $(\Sch/S)_\tau$. Using the Yoneda embedding we
+may view $(\Sch/S)_\tau$ as a full subcategory of
+sheaves on $(\Sch/S)_\tau$ and hence identify schemes
+with representable functors. Using this abuse of notation
+we will often depict the diagram above simply
+$$
+\xymatrix{
+R \ar@<1ex>[r]^s \ar@<-1ex>[r]_t &
+U \ar[r] &
+U/R
+}
+$$
+We will mostly work with the fppf topology when considering
+quotient sheaves of groupoids/equivalence relations.
+
+\begin{definition}
+\label{definition-representable-quotient}
+In the situation of Definition \ref{definition-quotient-sheaf}.
+We say that the pre-relation $j$ has a
+{\it representable quotient} if the sheaf $U/R$ is representable.
+We will say a groupoid $(U, R, s, t, c)$ has a
+{\it representable quotient}
+if the quotient $U/R$ with $j = (t, s)$ is representable.
+\end{definition}
+
+\noindent
+The following lemma characterizes schemes $M$ representing the quotient.
+It applies for example if $\tau = fppf$, $U \to M$ is flat,
+of finite presentation and surjective, and $R \cong U \times_M U$.
+
+\begin{lemma}
+\label{lemma-criterion-quotient-representable}
+In the situation of Definition \ref{definition-quotient-sheaf}.
+Assume there is a scheme $M$, and a morphism $U \to M$ such that
+\begin{enumerate}
+\item the morphism $U \to M$ equalizes $s, t$,
+\item the morphism $U \to M$ induces a surjection of sheaves
+$h_U \to h_M$ in the $\tau$-topology, and
+\item the induced map $(t, s) : R \to U \times_M U$ induces a
+surjection of sheaves $h_R \to h_{U \times_M U}$ in the $\tau$-topology.
+\end{enumerate}
+In this case $M$ represents the quotient sheaf $U/R$.
+\end{lemma}
+
+\begin{proof}
+Condition (1) says that $h_U \to h_M$ factors through $U/R$.
+Condition (2) says that $U/R \to h_M$ is surjective as a map of sheaves.
+Condition (3) says that $U/R \to h_M$ is injective as a map of sheaves.
+Hence the lemma follows.
+\end{proof}
+
+\noindent
+The following lemma is wrong if we do not require $j$ to be a
+pre-equivalence relation (but just a pre-relation say).
+
+\begin{lemma}
+\label{lemma-quotient-pre-equivalence}
+Let $\tau \in \{Zariski, \etale, fppf, smooth, syntomic\}$.
+Let $S$ be a scheme.
+Let $j : R \to U \times_S U$ be a pre-equivalence relation over $S$.
+Assume $U, R, S$ are objects of a $\tau$-site $\Sch_\tau$.
+For $T \in \Ob((\Sch/S)_\tau)$ and
+$a, b \in U(T)$ the following are equivalent:
+\begin{enumerate}
+\item $a$ and $b$ map to the same element of $(U/R)(T)$, and
+\item there exists a $\tau$-covering $\{f_i : T_i \to T\}$ of $T$
+and morphisms $r_i : T_i \to R$ such that
+$a \circ f_i = s \circ r_i$ and $b \circ f_i = t \circ r_i$.
+\end{enumerate}
+In other words, in this case the map of $\tau$-sheaves
+$$
+h_R \longrightarrow h_U \times_{U/R} h_U
+$$
+is surjective.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: The reason this works is that the presheaf
+(\ref{equation-quotient-presheaf}) in this case is really given
+by $T \mapsto U(T)/j(R(T))$ as $j(R(T)) \subset U(T) \times U(T)$
+is an equivalence relation, see
+Definition \ref{definition-equivalence-relation}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-pre-equivalence-relation-restrict}
+Let $\tau \in \{Zariski, \etale, fppf, smooth, syntomic\}$.
+Let $S$ be a scheme.
+Let $j : R \to U \times_S U$ be a pre-equivalence relation over $S$
+and $g : U' \to U$ a morphism of schemes over $S$.
+Let $j' : R' \to U' \times_S U'$ be the restriction of $j$ to $U'$.
+Assume  $U, U', R, S$ are objects of a $\tau$-site $\Sch_\tau$.
+The map of quotient sheaves
+$$
+U'/R' \longrightarrow U/R
+$$
+is injective. If $g$ defines a surjection $h_{U'} \to h_U$ of sheaves
+in the $\tau$-topology (for example if $\{g : U' \to U\}$ is a
+$\tau$-covering), then $U'/R' \to U/R$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+Suppose $\xi, \xi' \in (U'/R')(T)$ are sections which
+map to the same section of $U/R$.
+Then we can find a $\tau$-covering $\mathcal{T} = \{T_i \to T\}$ of $T$
+such that $\xi|_{T_i}, \xi'|_{T_i}$ are given by $a_i, a_i' \in U'(T_i)$. By
+Lemma \ref{lemma-quotient-pre-equivalence}
+and the axioms of a site we may after refining
+$\mathcal{T}$ assume there exist morphisms $r_i : T_i \to R$
+such that $g \circ a_i = s \circ r_i$, $g \circ a_i' = t \circ r_i$.
+Since by construction
+$R' = R \times_{U \times_S U} (U' \times_S U')$
+we see that $(r_i, (a_i, a_i')) \in R'(T_i)$ and this
+shows that $a_i$ and $a_i'$ define the same section
+of $U'/R'$ over $T_i$. By the sheaf condition this implies
+$\xi = \xi'$.
+
+\medskip\noindent
+If $h_{U'} \to h_U$ is a surjection
+of sheaves, then of course $U'/R' \to U/R$ is surjective also.
+If $\{g : U' \to U\}$ is a $\tau$-covering, then
+the map of sheaves $h_{U'} \to h_U$ is surjective, see
+Sites, Lemma \ref{sites-lemma-covering-surjective-after-sheafification}.
+Hence $U'/R' \to U/R$ is surjective also in this case.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quotient-groupoid-restrict}
+Let $\tau \in \{Zariski, \etale, fppf, smooth, syntomic\}$.
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Let $g : U' \to U$ a morphism of schemes over $S$.
+Let $(U', R', s', t', c')$ be the restriction of $(U, R, s, t, c)$ to $U'$.
+Assume  $U, U', R, S$ are objects of a $\tau$-site $\Sch_\tau$.
+The map of quotient sheaves
+$$
+U'/R' \longrightarrow U/R
+$$
+is injective. If the composition
+$$
+\xymatrix{
+U' \times_{g, U, t} R \ar[r]_-{\text{pr}_1} \ar@/^3ex/[rr]^h
+& R \ar[r]_s & U
+}
+$$
+defines a surjection of sheaves in the $\tau$-topology  then
+the map is bijective. This holds for example if
+$\{h : U' \times_{g, U, t} R \to U\}$ is a $\tau$-covering, or
+if $U' \to U$ defines a surjection of sheaves in the $\tau$-topology, or if
+$\{g : U' \to U\}$ is a covering in the $\tau$-topology.
+\end{lemma}
+
+\begin{proof}
+Injectivity follows on combining
+Lemmas \ref{lemma-groupoid-pre-equivalence} and
+\ref{lemma-quotient-pre-equivalence-relation-restrict}.
+To see surjectivity (see
+Sites, Section \ref{sites-section-sheaves-injective}
+for a characterization of surjective maps of sheaves) we argue as follows.
+Suppose that $T$ is a scheme and $\sigma \in U/R(T)$.
+There exists a covering $\{T_i \to T\}$ such that $\sigma|_{T_i}$
+is the image of some element $f_i \in U(T_i)$. Hence we
+may assume that $\sigma$ is the image of $f \in U(T)$.
+By the assumption that $h$ is a surjection of sheaves, we
+can find a $\tau$-covering $\{\varphi_i : T_i \to T\}$ and morphisms
+$f_i : T_i \to U' \times_{g, U, t} R$ such that
+$f \circ \varphi_i = h \circ f_i$. Denote
+$f'_i = \text{pr}_0 \circ f_i : T_i \to U'$. Then we see that
+$f'_i \in U'(T_i)$ maps to $g \circ f'_i \in U(T_i)$ and
+that $g \circ f'_i \sim_{T_i} h \circ f_i = f \circ \varphi_i$
+notation as in (\ref{equation-quotient-presheaf}). Namely, the
+element of $R(T_i)$ giving the relation is $\text{pr}_1 \circ f_i$.
+This means that the restriction
+of $\sigma$ to $T_i$ is in the image of $U'/R'(T_i) \to U/R(T_i)$
+as desired.
+
+\medskip\noindent
+If $\{h\}$ is a $\tau$-covering, then it induces a surjection of sheaves, see
+Sites, Lemma \ref{sites-lemma-covering-surjective-after-sheafification}.
+If $U' \to U$ is surjective, then also $h$ is surjective as $s$ has a section
+(namely the neutral element $e$ of the groupoid scheme).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-criterion-fibre-product}
+Let $S$ be a scheme. Let $f : (U, R, j) \to (U', R', j')$ be a morphism
+between equivalence relations over $S$. Assume that
+$$
+\xymatrix{
+R \ar[d]_s \ar[r]_f & R' \ar[d]^{s'} \\
+U \ar[r]^f & U'
+}
+$$
+is cartesian. For any
+$\tau \in  \{Zariski, \etale, fppf, smooth, syntomic\}$
+the diagram
+$$
+\xymatrix{
+U \ar[d] \ar[r] & U/R \ar[d]^f \\
+U' \ar[r] & U'/R'
+}
+$$
+is a fibre product square of $\tau$-sheaves.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-quotient-pre-equivalence} the quotient sheaves
+have a simple description which we will use below without further mention.
+We first show that
+$$
+U \longrightarrow U' \times_{U'/R'} U/R
+$$
+is injective. Namely, assume $a, b \in U(T)$ map to the same element
+on the right hand side. Then $f(a) = f(b)$. After replacing $T$ by the
+members of a $\tau$-covering we may assume that there exists an
+$r \in R(T)$ such that $a = s(r)$ and $b = t(r)$. Then $r' = f(r)$
+is a $T$-valued point of $R'$ with $s'(r') = t'(r')$. Hence
+$r' = e'(f(a))$ (where $e'$ is the identity of the groupoid
+scheme associated to $j'$, see Lemma \ref{lemma-equivalence-groupoid}).
+Because the first diagram of the lemma is cartesian this implies
+that $r$ has to equal $e(a)$. Thus $a = b$.
+
+\medskip\noindent
+Finally, we show that the displayed arrow is surjective. Let
+$T$ be a scheme over $S$ and let $(a', \overline{b})$ be a section
+of the sheaf $U' \times_{U'/R'} U/R$ over $T$. After replacing $T$
+by the members of a $\tau$-covering we may assume that $\overline{b}$
+is the class of an element $b \in U(T)$. After replacing $T$
+by the members of a $\tau$-covering we may assume that there exists
+an $r' \in R'(T)$ such that $a' = t(r')$ and $s'(r') = f(b)$.
+Because the first diagram of the lemma is cartesian we can find
+$r \in R(T)$ such that $s(r) = b$ and $f(r) = r'$. Then it is clear
+that $a = t(r) \in U(T)$ is a section which maps to
+$(a', \overline{b})$.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Descent in terms of groupoids}
+\label{section-groupoids-descent}
+
+\noindent
+Cartesian morphisms are defined as follows.
+
+\begin{definition}
+\label{definition-cartesian-morphism}
+Let $S$ be a scheme. Let $f : (U', R', s', t', c') \to (U, R, s, t, c)$ be
+a morphism of groupoid schemes over $S$. We say $f$ is {\it cartesian}, or
+that {\it $(U', R', s', t', c')$ is cartesian over $(U, R, s, t, c)$},
+if the diagram
+$$
+\xymatrix{
+R' \ar[r]_f \ar[d]_{s'} & R \ar[d]^s \\
+U' \ar[r]^f & U
+}
+$$
+is a fibre square in the category of schemes. A {\it morphism of groupoid
+schemes cartesian over $(U, R, s, t, c)$} is a morphism of groupoid
+schemes compatible with the structure morphisms towards $(U, R, s, t, c)$.
+\end{definition}
+
+\noindent
+Cartesian morphisms are related to descent data. First we prove a general
+lemma describing the category of cartesian groupoid schemes over a
+fixed groupoid scheme.
+
+\begin{lemma}
+\label{lemma-characterize-cartesian-schemes}
+Let $S$ be a scheme. Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+The category of groupoid schemes cartesian over $(U, R, s, t, c)$
+is equivalent to the category of pairs $(V, \varphi)$ where $V$ is a
+scheme over $U$ and
+$$
+\varphi :
+V \times_{U, t} R
+\longrightarrow
+R \times_{s, U} V
+$$
+is an isomorphism over $R$ such that $e^*\varphi = \text{id}_V$ and such that
+$$
+c^*\varphi = \text{pr}_1^*\varphi \circ \text{pr}_0^*\varphi
+$$
+as morphisms of schemes over $R \times_{s, U, t} R$.
+\end{lemma}
+
+\begin{proof}
+The pullback notation in the lemma signifies base change. The displayed
+formula makes sense because
+$$
+(R \times_{s, U, t} R) \times_{\text{pr}_1, R, \text{pr}_1} (V \times_{U, t} R)
+=
+(R \times_{s, U, t} R) \times_{\text{pr}_0, R, \text{pr}_0} (R \times_{s, U} V)
+$$
+as schemes over $R \times_{s, U, t} R$.
+
+\medskip\noindent
+Given $(V, \varphi)$ we set $U' = V$ and $R' = V \times_{U, t} R$.
+We set $t' : R' \to U'$ equal to the projection $V \times_{U, t} R \to V$.
+We set $s'$ equal to $\varphi$ followed by the projection
+$R \times_{s, U} V \to V$. We set $c'$ equal to the composition
+\begin{align*}
+R' \times_{s', U', t'} R'
+& \xrightarrow{\varphi, 1}
+(R \times_{s, U} V) \times_V (V \times_{U, t} R) \\
+& \xrightarrow{}
+R \times_{s, U} V \times_{U, t} R \\
+& \xrightarrow{\varphi^{-1}, 1}
+V \times_{U, t} (R \times_{s, U, t} R) \\
+& \xrightarrow{1, c}
+V \times_{U, t} R = R'
+\end{align*}
+A computation, which we omit shows that we obtain a groupoid scheme
+over $(U, R, s, t, c)$. It is clear that this groupoid scheme is
+cartesian over $(U, R, s, t, c)$.
+
+\medskip\noindent
+Conversely, given $f : (U', R', s', t', c') \to (U, R, s, t, c)$
+cartesian then the morphisms
+$$
+U' \times_{U, t} R \xleftarrow{t', f} R' \xrightarrow{f, s'} R \times_{s, U} U'
+$$
+are isomorphisms and we can set $V = U'$ and $\varphi$ equal to the
+composition $(f, s') \circ (t', f)^{-1}$. We omit the proof that
+$\varphi$ satisfies the conditions in the lemma. We omit the proof that
+these constructions are mutually inverse.
+\end{proof}
+
+\noindent
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of schemes over $S$. Then
+we obtain a groupoid scheme $(X, X \times_Y X, \text{pr}_1, \text{pr}_0, c)$
+over $S$. Namely, $j : X \times_Y X \to X \times_S X$ is an equivalence
+relation and we can take the associated groupoid, see
+Lemma \ref{lemma-equivalence-groupoid}.
+
+\begin{lemma}
+\label{lemma-cartesian-equivalent-descent-datum}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of schemes over $S$.
+The construction of Lemma \ref{lemma-characterize-cartesian-schemes}
+determines an equivalence
+$$
+\begin{matrix}
+\text{category of groupoid schemes} \\
+\text{cartesian over } (X, X \times_Y X, \ldots)
+\end{matrix}
+\longrightarrow
+\begin{matrix}
+\text{ category of descent data} \\
+\text{ relative to } X/Y
+\end{matrix}
+$$
+\end{lemma}
+
+\begin{proof}
+This is clear from
+Lemma \ref{lemma-characterize-cartesian-schemes}
+and the definition of descent data on schemes in
+Descent, Definition \ref{descent-definition-descent-datum}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Separation conditions}
+\label{section-separation}
+
+\noindent
+This really means conditions on the morphism $j : R \to U \times_S U$
+when given a groupoid $(U, R, s, t, c)$ over $S$. As in the previous
+section we first formulate the corresponding diagram.
+
+\begin{lemma}
+\label{lemma-diagram-diagonal}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid over $S$.
+Let $G \to U$ be the stabilizer group scheme.
+The commutative diagram
+$$
+\xymatrix{
+R \ar[d]^{\Delta_{R/U \times_S U}} \ar[rrr]_{f \mapsto (f, s(f))} & & &
+R \times_{s, U} U \ar[d] \ar[r] & U \ar[d] \\
+R \times_{(U \times_S U)} R \ar[rrr]^{(f, g) \mapsto (f, f^{-1} \circ g)} & & &
+R \times_{s, U} G \ar[r] & G
+}
+$$
+the two left horizontal arrows are isomorphisms
+and the right square is a fibre product square.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+Exercise in the definitions and the functorial point of
+view in algebraic geometry.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-diagonal}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid over $S$.
+Let $G \to U$ be the stabilizer group scheme.
+\begin{enumerate}
+\item The following are equivalent
+\begin{enumerate}
+\item $j : R \to U \times_S U$ is separated,
+\item $G \to U$ is separated, and
+\item $e : U \to G$ is a closed immersion.
+\end{enumerate}
+\item The following are equivalent
+\begin{enumerate}
+\item $j : R \to U \times_S U$ is quasi-separated,
+\item $G \to U$ is quasi-separated, and
+\item $e : U \to G$ is quasi-compact.
+\end{enumerate}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The group scheme $G \to U$ is the base change of $R \to U \times_S U$
+by the diagonal morphism $U \to U \times_S U$, see
+Lemma \ref{lemma-groupoid-stabilizer}. Hence if
+$j$ is separated (resp.\ quasi-separated),
+then $G \to U$ is separated (resp.\ quasi-separated).
+(See Schemes, Lemma
+\ref{schemes-lemma-separated-permanence}).
+Thus (a) $\Rightarrow$ (b) in both (1) and (2).
+
+\medskip\noindent
+If $G \to U$ is separated (resp.\ quasi-separated), then the morphism
+$U \to G$, as a section of the structure morphism $G \to U$ is a closed
+immersion (resp.\ quasi-compact), see
+Schemes, Lemma \ref{schemes-lemma-section-immersion}.
+Thus (b) $\Rightarrow$ (a) in both (1) and (2).
+
+\medskip\noindent
+By the result of
+Lemma \ref{lemma-diagram-diagonal}
+(and Schemes, Lemmas \ref{schemes-lemma-base-change-immersion}
+and \ref{schemes-lemma-quasi-compact-preserved-base-change})
+we see that if $e$ is a closed immersion (resp.\ quasi-compact)
+$\Delta_{R/U \times_S U}$ is a closed
+immersion (resp.\ quasi-compact).
+Thus (c) $\Rightarrow$ (a) in both (1) and (2).
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Finite flat groupoids, affine case}
+\label{section-finite-flat}
+
+\noindent
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume $U = \Spec(A)$, and $R = \Spec(B)$ are affine.
+In this case we get two ring maps
+$s^\sharp, t^\sharp : A \longrightarrow B$.
+Let $C$ be the equalizer of $s^\sharp$ and $t^\sharp$. In a formula
+\begin{equation}
+\label{equation-invariants}
+C = \{a \in A \mid t^\sharp(a) = s^\sharp(a) \}.
+\end{equation}
+We will sometimes call this the {\it ring of $R$-invariant functions on $U$}.
+What properties does $M = \Spec(C)$ have? The first observation is
+that the diagram
+$$
+\xymatrix{
+R \ar[r]_s \ar[d]_t & U \ar[d] \\
+U \ar[r] & M
+}
+$$
+is commutative, i.e., the morphism $U \to M$ equalizes $s, t$.
+Moreover, if $T$ is any affine scheme, and if $U \to T$ is
+a morphism which equalizes $s, t$, then $U \to T$ factors through $U \to M$.
+In other words, $U \to M$ is a coequalizer in the category of affine schemes.
+
+\medskip\noindent
+We would like to find conditions that guarantee the morphism $U \to M$ is
+really a ``quotient'' in the category of schemes. We will discuss this at
+length elsewhere (insert future reference here); here we just discuss some
+special cases. Namely, we will focus on the case where $s, t$ are finite
+locally free.
+
+\begin{example}
+\label{example-quotient-projective-line}
+Let $k$ be a field. Let $U = \text{GL}_{2, k}$. Let $B \subset \text{GL}_2$
+be the closed subgroup scheme of upper triangular matrices.
+Then the quotient sheaf $\text{GL}_{2, k}/B$ (in the Zariski, \'etale or
+fppf topology, see Definition \ref{definition-quotient-sheaf}) is
+representable by the projective line: $\mathbf{P}^1 = \text{GL}_{2, k}/B$.
+(Details omitted.)
+On the other hand, the ring of invariant functions in this case is just $k$.
+Note that in this case the morphisms
+$s, t : R = \text{GL}_{2, k} \times_k B \to \text{GL}_{2, k} = U$ are smooth
+of relative dimension $3$.
+\end{example}
+
+\noindent
+Recall that in Exercises, Exercises \ref{exercises-exercise-trace-det} and
+\ref{exercises-exercise-trace-det-rings} we have defined the determinant
+and the norm for finitely locally free modules and finite locally free ring
+extensions. If $\varphi : A \to B$ is a finite locally free ring map, then
+we will denote $\text{Norm}_\varphi(b) \in A$ the norm of $b \in B$. In the
+case of a finite locally free morphism of schemes, the norm was constructed
+in Divisors, Lemma \ref{divisors-lemma-finite-locally-free-has-norm}.
+
+\begin{lemma}
+\label{lemma-determinant-trick}
+Let $S$ be a scheme. Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume $U = \Spec(A)$ and $R = \Spec(B)$ are affine and
+$s, t : R \to U$ finite locally free.
+Let $C$ be as in (\ref{equation-invariants}).
+Let $f \in A$. Then $\text{Norm}_{s^\sharp}(t^\sharp(f)) \in C$.
+\end{lemma}
+
+\begin{proof}
+Consider the commutative diagram
+$$
+\xymatrix{
+& U & \\
+R \ar[d]_s \ar[ru]^t &
+R \times_{s, U, t} R
+\ar[l]^-{\text{pr}_0} \ar[d]^{\text{pr}_1} \ar[r]_-c &
+R \ar[d]^s \ar[lu]_t \\
+U & R \ar[l]_t \ar[r]^s & U
+}
+$$
+of Lemma \ref{lemma-diagram}.
+Think of $f \in \Gamma(U, \mathcal{O}_U)$. The commutativity of the
+top part of the diagram shows that
+$pr_0^\sharp(t^\sharp(f)) = c^\sharp(t^\sharp(f))$ as elements of
+$\Gamma(R \times_{S, U, t} R, \mathcal{O})$.
+Looking at the right lower cartesian square
+the compatibility of the norm construction with base change shows that
+$s^\sharp(\text{Norm}_{s^\sharp}(t^\sharp(f))) =
+\text{Norm}_{\text{pr}_1}(c^\sharp(t^\sharp(f)))$.
+Similarly we get
+$t^\sharp(\text{Norm}_{s^\sharp}(t^\sharp(f))) =
+\text{Norm}_{\text{pr}_1}(\text{pr}_0^\sharp(t^\sharp(f)))$.
+Hence by the first equality of this proof we see that
+$s^\sharp(\text{Norm}_{s^\sharp}(t^\sharp(f))) =
+t^\sharp(\text{Norm}_{s^\sharp}(t^\sharp(f)))$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-locally-free-disjoint-free}
+Let $S$ be a scheme. Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume $s, t : R \to U$ finite locally free.
+Then
+$$
+U = \coprod\nolimits_{r \geq 1} U_r
+$$
+is a disjoint union of $R$-invariant opens such that the restriction $R_r$ of
+$R$ to $U_r$ has the property that $s, t : R_r \to U_r$ are finite locally
+free of rank $r$.
+\end{lemma}
+
+\begin{proof}
+By
+Morphisms, Lemma \ref{morphisms-lemma-finite-locally-free}
+there exists a decomposition
+$U = \coprod\nolimits_{r \geq 0} U_r$
+such that $s : s^{-1}(U_r) \to U_r$ is finite locally free of rank $r$.
+As $s$ is surjective we see that $U_0 = \emptyset$.
+Note that $u \in U_r \Leftrightarrow$ if and only if the scheme theoretic fibre
+$s^{-1}(u)$ has degree $r$ over $\kappa(u)$. Now, if $z \in R$ with $s(z) = u$
+and $t(z) = u'$ then using notation as in Lemma \ref{lemma-diagram}
+$$
+\text{pr}_1^{-1}(z) \to \Spec(\kappa(z))
+$$
+is the base change of both
+$s^{-1}(u) \to \Spec(\kappa(u))$ and $s^{-1}(u') \to \Spec(\kappa(u'))$
+by the lemma cited. Hence $u \in U_r \Leftrightarrow u' \in U_r$,
+in other words, the open subsets $U_r$ are $R$-invariant.
+In particular the restriction of $R$ to $U_r$ is just
+$s^{-1}(U_r)$ and $s : R_r \to U_r$ is finite locally free of rank $r$.
+As $t : R_r \to U_r$ is isomorphic to $s$ by the inverse of $R_r$
+we see that it has also rank $r$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-integral-over-invariants}
+Let $S$ be a scheme. Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume $U = \Spec(A)$ and $R = \Spec(B)$ are affine and
+$s, t : R \to U$ finite locally free.
+Let $C \subset A$ be as in (\ref{equation-invariants}).
+Then $A$ is integral over $C$.
+\end{lemma}
+
+\begin{proof}
+First, by Lemma \ref{lemma-finite-locally-free-disjoint-free}
+we know that $(U, R, s, t, c)$ is a disjoint union
+of groupoid schemes $(U_r, R_r, s, t, c)$ such that each $s, t : R_r \to U_r$
+has constant rank $r$. As $U$ is quasi-compact, we have $U_r = \emptyset$ for
+almost all $r$. It suffices to prove the lemma for each $(U_r, R_r, s, t, c)$
+and hence we may assume that $s, t$ are finite locally free of rank $r$.
+
+\medskip\noindent
+Assume that $s, t$ are finite locally free of rank $r$.
+Let $f \in A$. Consider the element $x - f \in A[x]$, where we think
+of $x$ as the coordinate on $\mathbf{A}^1$.
+Since
+$$
+(U \times \mathbf{A}^1, R \times \mathbf{A}^1,
+s \times \text{id}_{\mathbf{A}^1},
+t \times \text{id}_{\mathbf{A}^1},
+c \times \text{id}_{\mathbf{A}^1})
+$$
+is also a groupoid scheme with finite source and target, we may apply
+Lemma \ref{lemma-determinant-trick} to it and we see that
+$P(x) = \text{Norm}_{s^\sharp}(t^\sharp(x - f))$
+is an element of $C[x]$. Because $s^\sharp : A \to B$ is finite locally
+free of rank $r$ we see that $P$ is monic of degree $r$.
+Moreover $P(f) = 0$ by Cayley-Hamilton
+(Algebra, Lemma \ref{algebra-lemma-charpoly}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-invariants-base-change}
+Let $S$ be a scheme. Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume $U = \Spec(A)$ and $R = \Spec(B)$ are affine and
+$s, t : R \to U$ finite locally free. Let $C \subset A$ be as in
+(\ref{equation-invariants}). Let $C \to C'$ be a ring map, and set
+$U' = \Spec(A \otimes_C C')$,
+$R' = \Spec(B \otimes_C C')$.
+Then
+\begin{enumerate}
+\item The maps $s, t, c$ induce maps $s', t', c'$ such that
+$(U', R', s', t', c')$ is a groupoid scheme. Let $C^1 \subset A'$
+be the $R'$-invariant functions on $U'$.
+\item The canonical map $\varphi : C' \to C^1$ satisfies
+\begin{enumerate}
+\item for every $f \in C^1$ there exists an $n > 0$ and a
+polynomial $P \in C'[x]$ whose image in $C^1[x]$ is
+$(x - f)^n$, and
+\item for every $f \in \Ker(\varphi)$ there exists
+an $n > 0$ such that $f^n = 0$.
+\end{enumerate}
+\item If $C \to C'$ is flat then $\varphi$ is an isomorphism.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The proof of part (1) is omitted. Let us denote $A' = A \otimes_C C'$ and
+$B' = B \otimes_C C'$. Then we have
+$$
+C^1
+= \{a \in A' \mid (t')^\sharp(a) = (s')^\sharp(a) \}
+= \{a \in A \otimes_C C' \mid t^\sharp \otimes 1(a) = s^\sharp \otimes 1(a) \}.
+$$
+In other words, $C^1$ is the kernel of the difference map
+$(t^\sharp - s^\sharp) \otimes 1$ which is just the base change
+of the $C$-linear map $t^\sharp - s^\sharp : A \to B$ by $C \to C'$.
+Hence (3) follows.
+
+\medskip\noindent
+Proof of part (2)(b). Since $C \to A$ is integral
+(Lemma \ref{lemma-integral-over-invariants}) and injective we see that
+$\Spec(A) \to \Spec(C)$ is surjective, see
+Algebra, Lemma \ref{algebra-lemma-integral-overring-surjective}.
+Thus also $\Spec(A') \to \Spec(C')$ is surjective
+as a base change of a surjective morphism
+(Morphisms, Lemma \ref{morphisms-lemma-base-change-surjective}).
+Hence $\Spec(C^1) \to \Spec(C')$ is surjective also.
+This implies that the kernel of $\varphi$ is contained in the
+radical of the ring $C'$, i.e., (2)(b) holds.
+
+\medskip\noindent
+Proof of part (2)(a). By Lemma \ref{lemma-finite-locally-free-disjoint-free}
+our groupoid scheme $(U, R, s, t, c)$ decomposes as a finite disjoint union
+of groupoid schemes $(U_r, R_r, s, t, c)$ such that $s, t : R_r \to U_r$
+are finite locally free of rank $r$. Pulling back by $U' = \Spec(C') \to U$
+we obtain a similar decomposition of $U'$ and $U^1 = \Spec(C^1)$.
+We will show in the next paragraph that (2)(a) holds for the corresponding
+system of rings $A_r, B_r, C_r, C'_r, C^1_r$ with $n = r$.
+Then given $f \in C^1$ let $P_r \in C_r[x]$ be the polynomial
+whose image in $C^1_r[x]$ is the image of $(x - f)^r$.
+Choosing a sufficiently divisible integer $n$ we see that
+there is a polynomial $P \in C'[x]$ whose image in $C^1[x]$ is
+$(x - f)^n$; namely, we take $P$ to be the unique element of
+$C'[x]$ whose image in $C'_r[x]$ is $P_r^{n/r}$.
+
+\medskip\noindent
+In this paragraph we prove (2)(a) in case the ring maps
+$s^\sharp, t^\sharp : A \to B$ are finite locally free of a fixed rank $r$.
+Let $f \in C^1 \subset A' = A \otimes_C C'$. Choose a flat
+$C$-algebra $D$ and a surjection $D \to C'$. Choose a lift
+$g \in A \otimes_C D$ of $f$.
+Consider the polynomial
+$$
+P = \text{Norm}_{s^\sharp \otimes 1}(t^\sharp \otimes 1(x - g))
+$$
+in $(A \otimes_C D)[x]$. By Lemma \ref{lemma-determinant-trick}
+and part (3) of the current lemma the coefficients of $P$ are in $D$
+(compare with the proof of Lemma \ref{lemma-integral-over-invariants}).
+On the other hand, the image of $P$ in $(A \otimes_C C')[x]$ is
+$(x - f)^r$ because $t^\sharp \otimes 1(x - f) = s^\sharp(x - f)$
+and $s^\sharp$ is finite locally free of rank $r$.
+This proves what we want with $P$ as in the statement (2)(a)
+given by the image of our $P$ under the map $D[x] \to C'[x]$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-points}
+Let $S$ be a scheme. Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume $U = \Spec(A)$ and $R = \Spec(B)$ are affine and
+$s, t : R \to U$ finite locally free. Let $C \subset A$ be as in
+(\ref{equation-invariants}). Then $U \to M = \Spec(C)$ has
+the following properties:
+\begin{enumerate}
+\item the map on points $|U| \to |M|$ is surjective and
+$u_0, u_1 \in |U|$ map to the same point if and only if
+there exists a $r \in |R|$ with $t(r) = u_0$ and $s(r) = u_1$, in
+a formula
+$$
+|M| = |U|/|R|
+$$
+\item for any algebraically closed field $k$ we have
+$$
+M(k) = U(k)/R(k)
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $k$ be an algebraically closed field.
+Since $C \to A$ is integral (Lemma \ref{lemma-integral-over-invariants})
+and injective we see that
+$\Spec(A) \to \Spec(C)$ is surjective, see
+Algebra, Lemma \ref{algebra-lemma-integral-overring-surjective}.
+Thus $|U| \to |M|$ is surjective.
+Let $C \to k$ be a ring map. Since surjective morphisms are
+preserved under base change
+(Morphisms, Lemma \ref{morphisms-lemma-base-change-surjective}) we see that
+$A \otimes_C k$ is not zero. Now $k \subset A \otimes_C k$ is a
+nonzero integral extension. Hence any residue field of $A \otimes_C k$
+is an algebraic extension of $k$, hence equal to $k$. Thus we see that
+$U(k) \to M(k)$ is surjective.
+
+\medskip\noindent
+Let $a_0, a_1 : A \to k$ be ring maps. If there exists a ring map
+$b : B \to k$ such that $a_0 = b \circ t^\sharp$ and $a_1 = b \circ s^\sharp$
+then we see that $a_0|_C = a_1|_C$ by definition.
+Conversely, suppose that $a_0|_C = a_1|_C$. Let us name this algebra
+map $c : C \to k$. Consider the diagram
+$$
+\xymatrix{
+& &
+B \ar@{-->}[lld] \\
+k & &
+A
+\ar@<0.5ex>[ll]^{a_0}
+\ar@<-0.5ex>[ll]_{a_1}
+\ar@<1ex>[u]
+\ar@<-1ex>[u] \\
+& &
+C \ar[u] \ar[llu]^c
+}
+$$
+We are trying to construct the dotted arrow, and if we do then
+part (2) follows, which in turn implies part (1).
+Since $A \to B$ is finite and faithfully flat
+there exist finitely many ring maps
+$b_1, \ldots, b_n : B \to k$ such that $b_i \circ s^\sharp = a_1$.
+If the dotted arrow does not exist, then we see that none of the
+$a'_i = b_i \circ t^\sharp$, $i = 1, \ldots, n$ is equal to $a_0$.
+Hence the maximal ideals
+$$
+\mathfrak m'_i = \Ker(a_i' \otimes 1 : A \otimes_C k \to k)
+$$
+of $A \otimes_C k$ are distinct from
+$\mathfrak m = \Ker(a_0 \otimes 1 : A \otimes_C k \to k)$.
+By Algebra, Lemma \ref{algebra-lemma-silly} we would get an element
+$f \in A \otimes_C k$ with $f \in \mathfrak m$, but
+$f \not \in \mathfrak m_i'$ for $i = 1, \ldots, n$.
+Consider the norm
+$$
+g = \text{Norm}_{s^\sharp \otimes 1}(t^\sharp \otimes 1(f))
+\in
+A \otimes_C k
+$$
+By Lemma \ref{lemma-determinant-trick} this lies in the invariants
+$C^1 \subset A \otimes_C k$ of the base change
+groupoid (base change via the map $c : C \to k$). On the one hand,
+$a_1(g) \in k^*$ since
+the value of $t^\sharp(f)$ at all the points (which correspond to
+$b_1, \ldots, b_n$) lying over $a_1$ is
+invertible (insert future reference on property determinant here).
+On the other hand, since $f \in \mathfrak m$, we see that
+$f$ is not a unit, hence $t^\sharp(f)$ is not a unit
+(as $t^\sharp \otimes 1$ is faithfully flat),
+hence its norm is not a unit (insert future reference
+on property determinant here). We conclude that $C^1$ contains
+an element which is not nilpotent
+and not a unit. We will now show that this leads to a contradiction.
+Namely, apply Lemma \ref{lemma-invariants-base-change}
+to the map $c : C \to C' = k$, then
+we see that the map of $k$ into the invariants $C^1$ is injective
+and moreover, that for any element $x \in C^1$ there exists an integer
+$n > 0$ such that $x^n \in k$. Hence every element of $C^1$ is
+either a unit or nilpotent.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale}
+Let $S$ be a scheme. Let $f : (U', R', s', t') \to (U, R, s, t, c)$ be a
+morphism of groupoid schemes over $S$.
+\begin{enumerate}
+\item $U$, $R$, $U'$, $R'$ are affine,
+\item $s, t, s', t'$ are finite locally free,
+\item the diagrams
+$$
+\xymatrix{
+R' \ar[d]_{s'} \ar[r]_f & R \ar[d]^s \\
+U' \ar[r]^f & U
+}
+\quad
+\quad
+\xymatrix{
+R' \ar[d]_{t'} \ar[r]_f & R \ar[d]^t \\
+U' \ar[r]^f & U
+}
+\quad
+\quad
+\xymatrix{
+G' \ar[d] \ar[r]_f & G \ar[d] \\
+U' \ar[r]^f & U
+}
+$$
+are cartesian where $G$ and $G'$ are the stabilizer group schemes, and
+\item $f : U' \to U$ is \'etale.
+\end{enumerate}
+Then the map $C \to C'$ from the $R$-invariant functions on $U$
+to the $R'$-invariant functions on $U'$ is \'etale and
+$U' = \Spec(C') \times_{\Spec(C)} U$.
+\end{lemma}
+
+\begin{proof}
+Set $M = \Spec(C)$ and $M' = \Spec(C')$.
+Write $U = \Spec(A)$, $U' = \Spec(A')$, $R = \Spec(B)$, and
+$R' = \Spec(B')$. We will use the results of
+Lemmas \ref{lemma-integral-over-invariants},
+\ref{lemma-invariants-base-change}, and
+\ref{lemma-points}
+without further mention.
+
+\medskip\noindent
+Assume $C$ is a strictly henselian local ring. Let $p \in M$
+be the closed point and let $p' \in M'$ map to $p$.
+Claim: in this case there is a disjoint union decomposition
+$(U', R', s', t', c') = (U, R, s, t, c) \amalg (U'', R'', s'', t'', c'')$
+over $(U, R, s, t, c)$ such that for the corresponding
+disjoint union decomposition $M' = M \amalg M''$ over $M$
+the point $p'$ corresponds to $p \in M$.
+
+\medskip\noindent
+The claim implies the lemma. Suppose that $M_1 \to M$ is a flat morphism
+of affine schemes. Then we can base change everything to $M_1$
+without affecting the hypotheses (1) -- (4).
+From Lemma \ref{lemma-invariants-base-change}
+we see $M_1$, resp.\ $M_1'$ is the spectrum of the
+$R_1$-invariant functions on $U_1$,
+resp.\ the $R'_1$-invariant functions on $U'_1$.
+Suppose that $p' \in M'$ maps to $p \in M$.
+Let $M_1$ be the spectrum of the strict henselization of
+$\mathcal{O}_{M, p}$ with closed point $p_1 \in M_1$.
+Choose a point $p'_1 \in M'_1$ mapping to $p_1$ and $p'$.
+From the claim we get
+$$
+(U'_1, R'_1, s'_1, t'_1, c'_1) =
+(U_1, R_1, s_1, t_1, c_1) \amalg
+(U''_1, R''_1, s''_1, t''_1, c''_1)
+$$
+and correspondingly $M'_1 = M_1 \amalg M''_1$ as a scheme over $M_1$.
+Write $M_1 = \Spec(C_1)$ and write $C_1 = \colim C_i$ as a filtered
+colimit of \'etale $C$-algebras. Set $M_i = \Spec(C_i)$.
+The $M_1 = \lim M_i$ and similarly for the other schemes.
+By Limits, Lemmas \ref{limits-lemma-descend-opens} and
+\ref{limits-lemma-descend-isomorphism}
+we can find an $i$ such that
+$$
+(U'_i, R'_i, s'_i, t'_i, c'_i) =
+(U_i, R_i, s_i, t_i, c_i) \amalg
+(U''_i, R''_i, s''_i, t''_i, c''_i)
+$$
+We conclude that $M'_i = M_i \amalg M''_i$. In particular
+$M' \to M$ becomes \'etale at a point over $p'$ after an
+\'etale base change. This implies that $M' \to M$ is \'etale at $p'$
+(for example by Morphisms, Lemma
+\ref{morphisms-lemma-set-points-where-fibres-etale}).
+We will prove $U' \cong M' \times_M U$ after we prove the claim.
+
+\medskip\noindent
+Proof of the claim. Observe that $U_p$ and $U'_{p'}$ have finitely many points.
+For $u \in U_p$ we have $\kappa(u)/\kappa(p)$ is algebraic,
+hence $\kappa(u)$ is separably closed.
+As $U' \to U$ is \'etale, we conclude the morphism $U'_{p'} \to U_p$
+induces isomorphisms on residue field extensions.
+Let $u' \in U'_{p'}$ with image $u \in U_p$.
+By assumption (3) the morphism of scheme theoretic fibres
+$(s')^{-1}(u') \to s^{-1}(u)$,
+$(t')^{-1}(u') \to t^{-1}(u)$, and
+$G'_{u'} \to G_u$ are isomorphisms. Observing that $U_p = t(s^{-1}(u))$
+(set theoretically) we conclude that the points of $U'_{p'}$
+surject onto the points of $U_p$.
+Suppose that $u'_1$ and $u'_2$ are points of $U'_{p'}$ mapping
+to the same point $u$ of $U_p$. Then there exists a point
+$r' \in R'_{p'}$ with $s'(r') = u'_1$ and $t'(r') = u'_2$.
+Consider the two towers of fields
+$$
+\kappa(r')/\kappa(u'_1)/\kappa(u)/\kappa(p) \quad
+\kappa(r')/\kappa(u'_2)/\kappa(u)/\kappa(p)
+$$
+whose ``ends'' are the same as the two ``ends'' of the two towers
+$$
+\kappa(r')/\kappa(u'_1)/\kappa(p')/\kappa(p) \quad
+\kappa(r')/\kappa(u'_2)/\kappa(p')/\kappa(p)
+$$
+These two induce the same maps $\kappa(p') \to \kappa(r')$ as
+$(U'_{p'}, R'_{p'}, s', t', c')$ is a groupoid over $p'$.
+Since $\kappa(u)/\kappa(p)$ is purely inseparable,
+we conclude that the two induced maps
+$\kappa(u) \to \kappa(r')$ are the same.
+Therefore $r'$ maps to a point of the fibre $G_u$.
+By assumption (3) we conclude that $r' \in (G')_{u'_1}$.
+Namely, we may think of $G$ as a closed subscheme of $R$
+viewed as a scheme over $U$ via $s$ and use that
+the base change to $U'$ gives $G' \subset R'$.
+In particular we have $u'_1 = u'_2$.
+We conclude that $U'_{p'} \to U_p$ is a bijective
+map on points inducing isomorphisms on residue fields.
+It follows that $U'_{p'}$ is a finite set of closed points
+(Algebra, Lemma \ref{algebra-lemma-finite-residue-extension-closed})
+and hence $U'_{p'}$ is closed in $U'$.
+Let $J' \subset A'$ be the radical ideal cutting out $U'_{p'}$
+set theoretically.
+
+\medskip\noindent
+Second part proof of the claim.
+Let $\mathfrak m \subset C$ be the maximal ideal.
+Observe that $(A, \mathfrak m A)$ is a henselian pair by
+More on Algebra, Lemma \ref{more-algebra-lemma-integral-over-henselian-pair}.
+Let $J = \sqrt{\mathfrak m A}$.
+Then $(A, J)$ is a henselian pair
+(More on Algebra, Lemma \ref{more-algebra-lemma-change-ideal-henselian-pair})
+and the \'etale ring map
+$A \to A'$ induces an isomorphism $A/J \to A'/J'$
+by our deliberations above.
+We conclude that $A' = A \times A''$ by
+More on Algebra, Lemma \ref{more-algebra-lemma-characterize-henselian-pair}.
+Consider the corresponding disjoint union
+decomposition $U' = U \amalg U''$. The open $(s')^{-1}(U)$ is the
+set of points of $R'$ specializing to a point of $R'_{p'}$.
+Similarly for $(t')^{-1}(U)$. Similarly we have
+$(s')^{-1}(U'') = (t')^{-1}(U'')$ as this is the set of
+points which do not specialize to $R'_{p'}$.
+Hence we obtain a disjoint union decomposition
+$$
+(U', R', s', t', c') =
+(U, R, s, t, c) \amalg
+(U'', R'', s'', t'', c'')
+$$
+This immediately gives $M' = M \amalg M''$ and the proof of the claim
+is complete.
+
+\medskip\noindent
+We still have to prove that the canonical map $U' \to M' \times_M U$
+is an isomorphism. It is an \'etale morphism
+(Morphisms, Lemma \ref{morphisms-lemma-etale-permanence}).
+On the other hand, by base changing to strictly henselian local rings
+(as in the third paragraph of the proof) and using the bijectivity
+$U'_{p'} \to U_p$ esthablished in the course of the proof of the claim,
+we see that $U' \to M' \times_M U$ is universally bijective
+(some details omitted). However, a universally bijective
+\'etale morphism is an isomorphism
+(Descent, Lemma \ref{descent-lemma-universally-injective-etale-open-immersion})
+and the proof is complete.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-basis}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume
+\begin{enumerate}
+\item $U = \Spec(A)$, and $R = \Spec(B)$ are affine, and
+\item there exist elements $x_i \in A$, $i \in I$ such that
+$B = \bigoplus_{i \in I} s^\sharp(A)t^\sharp(x_i)$.
+\end{enumerate}
+Then $A = \bigoplus_{i\in I} Cx_i$, and $B \cong A \otimes_C A$
+where $C \subset A$ is the $R$-invariant
+functions on $U$ as in (\ref{equation-invariants}).
+\end{lemma}
+
+\begin{proof}
+During this proof we will write $s, t : A \to B$ instead of
+$s^\sharp, t^\sharp$, and similarly $c : B \to B \otimes_{s, A, t} B$.
+We write $p_0 : B \to B \otimes_{s, A, t} B$, $b \mapsto b \otimes 1$ and
+$p_1 : B \to B \otimes_{s, A, t} B$, $b \mapsto 1 \otimes b$. By
+Lemma \ref{lemma-diagram-pull}
+and the definition of $C$ we have the following
+commutative diagram
+$$
+\xymatrix{
+B \otimes_{s, A, t} B &
+B \ar@<-1ex>[l]_-c \ar@<1ex>[l]^-{p_0} &
+A \ar[l]^t \\
+B \ar[u]^{p_1} &
+A \ar@<-1ex>[l]_s \ar@<1ex>[l]^t \ar[u]_s &
+C \ar[u] \ar[l]
+}
+$$
+Moreover the tow left squares are cocartesian in the category of rings, and
+the top row is isomorphic to the diagram
+$$
+\xymatrix{
+B \otimes_{t, A, t} B &
+B \ar@<-1ex>[l]_-{p_1} \ar@<1ex>[l]^-{p_0} &
+A \ar[l]^t
+}
+$$
+which is an equalizer diagram according to
+Descent, Lemma \ref{descent-lemma-ff-exact} because condition (2) implies
+in particular that $s$ (and hence also then isomorphic arrow $t$)
+is faithfully flat.
+The lower row is an equalizer diagram by definition of $C$.
+We can use the $x_i$ and get a commutative diagram
+$$
+\xymatrix{
+B \otimes_{s, A, t} B &
+B \ar@<-1ex>[l]_-c \ar@<1ex>[l]^-{p_0} &
+A \ar[l]^t \\
+\bigoplus_{i \in I} B x_i \ar[u]^{p_1} &
+\bigoplus_{i \in I} A x_i \ar@<-1ex>[l]_s \ar@<1ex>[l]^t \ar[u]_s &
+\bigoplus_{i \in I} C x_i \ar[u] \ar[l]
+}
+$$
+where in the right vertical arrow we map $x_i$ to $x_i$,
+in the middle vertical arrow we map $x_i$ to $t(x_i)$ and
+in the left vertical arrow we map $x_i$ to
+$c(t(x_i)) = t(x_i) \otimes 1 = p_0(t(x_i))$ (equality by the commutativity
+of the top part of the diagram in Lemma \ref{lemma-diagram}). Then the diagram
+commutes. Moreover the middle vertical arrow is an isomorphism
+by assumption. Since the left two squares are cocartesian we
+conclude that also the left vertical arrow is an isomorphism.
+On the other hand, the horizontal rows are exact (i.e., they are
+equalizers). Hence we conclude that also the right vertical arrow
+is an isomorphism.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-finite-flat-equivalence}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume
+\begin{enumerate}
+\item $U = \Spec(A)$, and $R = \Spec(B)$ are affine,
+\item $s, t : R \to U$ finite locally free, and
+\item $j = (t, s)$ is an equivalence.
+\end{enumerate}
+In this case, let $C \subset A$ be as in
+(\ref{equation-invariants}). Then $U \to M = \Spec(C)$
+is finite locally free and $R = U \times_M U$.
+Moreover, $M$ represents the quotient sheaf $U/R$
+in the fppf topology (see Definition \ref{definition-quotient-sheaf}).
+\end{proposition}
+
+\begin{proof}
+During this proof we use the notation $s, t : A \to B$
+instead of the notation $s^\sharp, t^\sharp$.
+By Lemma \ref{lemma-criterion-quotient-representable}
+it suffices to show that $C \to A$ is finite locally free
+and that the map
+$$
+t \otimes s : A \otimes_C A \longrightarrow B
+$$
+is an isomorphism. First, note that $j$ is a monomorphism, and
+also finite (since already $s$ and $t$ are finite). Hence we see
+that $j$ is a closed immersion by
+Morphisms, Lemma \ref{morphisms-lemma-finite-monomorphism-closed}.
+Hence $A \otimes_C A \to B$ is surjective.
+
+\medskip\noindent
+We will perform base change by flat ring maps $C \to C'$ as in
+Lemma \ref{lemma-invariants-base-change}, and we will use that
+formation of invariants commutes with flat base change, see
+part (3) of the lemma cited.
+We will show below that for every prime $\mathfrak p \subset C$, there exists
+a local flat ring map $C_{\mathfrak p} \to C_{\mathfrak p}'$
+such that the result holds after a base change to $C_{\mathfrak p}'$.
+This implies immediately
+that $A \otimes_C A \to B$ is injective (use
+Algebra, Lemma \ref{algebra-lemma-characterize-zero-local}).
+It also implies that $C \to A$ is flat, by combining
+Algebra, Lemmas \ref{algebra-lemma-local-flat-ff},
+\ref{algebra-lemma-flat-localization}, and
+\ref{algebra-lemma-flatness-descends}. Then since $U \to \Spec(C)$
+is surjective also (Lemma \ref{lemma-points}) we conclude that $C \to A$
+is faithfully flat. Then the isomorphism $B \cong A \otimes_C A$
+implies that $A$ is a finitely presented $C$-module, see
+Algebra, Lemma \ref{algebra-lemma-descend-properties-modules}.
+Hence $A$ is finite locally free over $C$, see
+Algebra, Lemma \ref{algebra-lemma-finite-projective}.
+
+\medskip\noindent
+By Lemma \ref{lemma-finite-locally-free-disjoint-free}
+we know that $A$ is a finite
+product of rings $A_r$ and $B$ is a finite product of rings $B_r$
+such that the groupoid scheme decomposes accordingly (see the proof
+of Lemma \ref{lemma-integral-over-invariants}).
+Then also $C$ is a product of rings $C_r$ and
+correspondingly $C'$ decomposes as a product. Hence we may and do
+assume that the ring maps $s, t : A \to B$ are finite
+locally free of a fixed rank $r$.
+
+\medskip\noindent
+The local ring maps $C_{\mathfrak p} \to C_{\mathfrak p}'$ we are going
+to use are any local flat ring maps such that the residue field of
+$C_{\mathfrak p}'$ is infinite.
+By Algebra, Lemma \ref{algebra-lemma-flat-local-given-residue-field}
+such local ring maps exist.
+
+\medskip\noindent
+Assume $C$ is a local ring with maximal ideal $\mathfrak m$ and
+infinite residue field, and assume that $s, t : A \to B$ is
+finite locally free of constant rank $r > 0$.
+Since $C \subset A$ is integral (Lemma \ref{lemma-integral-over-invariants})
+all primes lying over $\mathfrak m$ are maximal, and all maximal
+ideals of $A$ lie over $\mathfrak m$. Similarly for $C \subset B$.
+Pick a maximal ideal $\mathfrak m'$
+of $A$ lying over $\mathfrak m$ (exists by Lemma \ref{lemma-points}).
+Since $t : A \to B$ is finite locally free there exist at most finitely
+many maximal ideals of $B$ lying over $\mathfrak m'$. Hence we conclude
+(by Lemma \ref{lemma-points} again)
+that $A$ has finitely many maximal ideals, i.e.,
+$A$ is semi-local. This in turn implies that $B$ is semi-local as
+well. OK, and now, because $t \otimes s : A \otimes_C A \to B$ is surjective,
+we can apply
+Algebra, Lemma \ref{algebra-lemma-semi-local-module-basis-in-submodule}
+to the ring map $C \to A$, the $A$-module $M = B$ (seen as an $A$-module
+via $t$) and the $C$-submodule $s(A) \subset B$. This lemma implies that there
+exist $x_1, \ldots, x_r \in A$ such that $M$ is free over $A$
+on the basis $s(x_1), \ldots, s(x_r)$. Hence we conclude that $C \to A$
+is finite free and $B \cong A \otimes_C A$ by applying
+Lemma \ref{lemma-basis}.
+\end{proof}
+
+
+
+\section{Finite flat groupoids}
+\label{section-finite-flat-general}
+
+\noindent
+In this section we prove a lemma that will help to show that the quotient
+of a scheme by a finite flat equivalence relation is a scheme, provided that
+each equivalence class is contained in an affine. See
+Properties of Spaces,
+Proposition \ref{spaces-properties-proposition-finite-flat-equivalence-global}.
+
+\begin{lemma}
+\label{lemma-find-invariant-affine}
+Let $S$ be a scheme.
+Let $(U, R, s, t, c)$ be a groupoid scheme over $S$.
+Assume $s$, $t$ are finite locally free.
+Let $u \in U$ be a point such that $t(s^{-1}(\{u\}))$
+is contained in an affine open of $U$.
+Then there exists an $R$-invariant affine open neighbourhood
+of $u$ in $U$.
+\end{lemma}
+
+\begin{proof}
+Since $s$ is finite locally free it has finite fibres. Hence
+$t(s^{-1}(\{u\})) = \{u_1, \ldots, u_n\}$ is a finite set.
+Note that $u \in \{u_1, \ldots, u_n\}$.
+Let $W \subset U$ be an affine open containing $\{u_1, \ldots, u_n\}$,
+in particular $u \in W$. Consider
+$Z = R \setminus s^{-1}(W) \cap t^{-1}(W)$. This is a closed subset
+of $R$. The image $t(Z)$ is a closed subset of $U$ which can be loosely
+described as the set of points of $U$ which are $R$-equivalent to a point
+of $U \setminus W$. Hence $W' = U \setminus t(Z)$ is an $R$-invariant, open
+subscheme of $U$ contained in $W$, and $\{u_1, \ldots, u_n\} \subset W'$.
+Picture
+$$
+\{u_1, \ldots, u_n\} \subset W' \subset W \subset U.
+$$
+Let $f \in \Gamma(W, \mathcal{O}_W)$ be an element such that
+$\{u_1, \ldots, u_n\} \subset D(f) \subset W'$. Such an $f$ exists by
+Algebra, Lemma \ref{algebra-lemma-silly}. By our choice of $W'$ we
+have $s^{-1}(W') \subset t^{-1}(W)$, and hence we get a diagram
+$$
+\xymatrix{
+s^{-1}(W') \ar[d]_s \ar[r]_-t & W \\
+W'
+}
+$$
+The vertical arrow is finite locally free by assumption. Set
+$$
+g = \text{Norm}_s(t^\sharp f) \in \Gamma(W', \mathcal{O}_{W'})
+$$
+By construction $g$ is a function on $W'$ which is
+nonzero in $u$, as $t^\sharp(f)$ is nonzero in each of the points of
+$R$ lying over $u$, since $f$ is nonzero in $u_1, \ldots, u_n$.
+Similarly, $D(g) \subset W'$ is equal to the
+set of points $w$ such that $f$ is not zero in any of the points
+equivalent to $w$. This means that $D(g)$ is an
+$R$-invariant affine open of $W'$. The final picture is
+$$
+\{u_1, \ldots, u_n\} \subset D(g) \subset D(f) \subset W' \subset W \subset U
+$$
+and hence we win.
+\end{proof}
+
+
+
+
+
+
+
+\section{Descending quasi-projective schemes}
+\label{section-quasi-projective}
+
+\noindent
+We can use Lemma \ref{lemma-find-invariant-affine}
+to show that a certain type of descent datum is effective.
+
+\begin{lemma}
+\label{lemma-descend-along-finite}
+Let $X \to Y$ be a surjective finite locally free morphism.
+Let $V$ be a scheme over $X$ such that for all
+$(y, v_1, \ldots, v_d)$ where $y \in Y$ and
+$v_1, \ldots, v_d \in V_y$ there exists an affine open
+$U \subset V$ with $v_1, \ldots, v_d \in U$.
+Then any descent datum on $V/X/Y$ is effective.
+\end{lemma}
+
+\begin{proof}
+Let $\varphi$ be a descent datum as in
+Descent, Definition \ref{descent-definition-descent-datum}.
+Recall that the functor from schemes over $Y$ to descent data
+relative to $\{X \to Y\}$ is fully faithful, see
+Descent, Lemma \ref{descent-lemma-refine-coverings-fully-faithful}.
+Thus using Constructions, Lemma \ref{constructions-lemma-relative-glueing}
+it suffices to prove the lemma in the case that $Y$ is affine.
+Some details omitted (this argument can be avoided if $Y$ is
+separated or has affine diagonal, because then every morphism from
+an affine scheme to $X$ is affine).
+
+\medskip\noindent
+Assume $Y$ is affine. If $V$ is also affine, then we have effectivity by
+Descent, Lemma \ref{descent-lemma-affine}. Hence by
+Descent, Lemma \ref{descent-lemma-effective-for-fpqc-is-local-upstairs}
+it suffices to prove that every point $v$ of $V$ has a $\varphi$-invariant
+affine open neighbourhood. Consider the groupoid
+$(X, X \times_Y X, \text{pr}_1, \text{pr}_0, \text{pr}_{02})$.
+By Lemma \ref{lemma-cartesian-equivalent-descent-datum}
+the descent datum $\varphi$ determines and is determined by
+a cartesian morphism of groupoid schemes
+$$
+(V, R, s, t, c)
+\longrightarrow
+(X, X \times_Y X, \text{pr}_1, \text{pr}_0, \text{pr}_{02})
+$$
+over $\Spec(\mathbf{Z})$.
+Since $X \to Y$ is finite locally free, we see that
+$\text{pr}_i : X \times_Y X \to X$ and hence $s$ and $t$
+are finite locally free. In particular the $R$-orbit
+$t(s^{-1}(\{v\}))$ of our point $v \in V$
+is finite. Using the equivalence of categories of
+Lemma \ref{lemma-cartesian-equivalent-descent-datum}
+once more we see that $\varphi$-invariant opens of $V$
+are the same thing as $R$-invariant opens of $V$.
+Our assumption shows there exists an affine open of $V$
+containing the orbit $t(s^{-1}(\{v\}))$ as all the points
+in this orbit map to the same point of $Y$.
+Thus Lemma \ref{lemma-find-invariant-affine}
+provides an $R$-invariant affine open containing $v$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descend-along-finite-quasi-projective}
+Let $X \to Y$ be a surjective finite locally free morphism.
+Let $V$ be a scheme over $X$ such that one of the following holds
+\begin{enumerate}
+\item $V \to X$ is projective,
+\item $V \to X$ is quasi-projective,
+\item there exists an ample invertible sheaf on $V$,
+\item there exists an $X$-ample invertible sheaf on $V$,
+\item there exists an $X$-very ample invertible sheaf on $V$.
+\end{enumerate}
+Then any descent datum on $V/X/Y$ is effective.
+\end{lemma}
+
+\begin{proof}
+We check the condition in Lemma \ref{lemma-descend-along-finite}.
+Let $y \in Y$ and $v_1, \ldots, v_d \in V$ points over $y$.
+Case (1) is a special case of (2), see
+Morphisms, Lemma \ref{morphisms-lemma-projective-quasi-projective}.
+Case (2) is a special case of (4), see
+Morphisms, Definition \ref{morphisms-definition-quasi-projective}.
+If there exists an ample invertible sheaf on $V$, then
+there exists an affine open containing $v_1, \ldots, v_d$ by
+Properties, Lemma \ref{properties-lemma-ample-finite-set-in-affine}.
+Thus (3) is true.
+In cases (4) and (5) it is harmless to replace $Y$ by an
+affine open neighbourhood of $y$.
+Then $X$ is affine too.
+In case (4) we see that $V$ has an ample invertible sheaf
+by Morphisms, Definition \ref{morphisms-definition-relatively-ample}
+and the result follows from case (3).
+In case (5) we can replace $V$ by a quasi-compact open containing
+$v_1, \ldots, v_d$ and we reduce to case (4) by
+Morphisms, Lemma \ref{morphisms-lemma-ample-very-ample}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

@@ -1,0 +1,2664 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Algebraic Stacks}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+This is where we define algebraic stacks and make some very elementary
+observations. The general philosophy will be to have no separation
+conditions whatsoever and add those conditions necessary to make lemmas,
+propositions, theorems true/provable. Thus the notions discussed here
+differ slightly from those in other places in the literature, e.g.,
+\cite{LM-B}.
+
+\medskip\noindent
+This chapter is not an introduction to algebraic stacks.
+For an informal discussion of algebraic stacks, please take a look at
+Introducing Algebraic Stacks, Section
+\ref{stacks-introduction-section-introduction}.
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+The conventions we use in this chapter are the same as those in the
+chapter on algebraic spaces. For convenience we repeat them here.
+
+\medskip\noindent
+We work in a suitable big fppf site $\Sch_{fppf}$
+as in Topologies, Definition \ref{topologies-definition-big-fppf-site}.
+So, if not explicitly stated otherwise all schemes will be objects
+of $\Sch_{fppf}$. We discuss what changes if you change the big
+fppf site in
+Section \ref{section-change-big-site}.
+
+\medskip\noindent
+We will always work relative to a base $S$ contained in $\Sch_{fppf}$.
+And we will then work with the big fppf site $(\Sch/S)_{fppf}$, see
+Topologies, Definition \ref{topologies-definition-big-small-fppf}.
+The absolute case can be recovered by taking
+$S = \Spec(\mathbf{Z})$.
+
+\medskip\noindent
+If $U, T$ are schemes over $S$, then we denote
+$U(T)$ for the set of $T$-valued points {\it over} $S$.
+In a formula: $U(T) = \Mor_S(T, U)$.
+
+\medskip\noindent
+Note that any fpqc covering is a universal effective
+epimorphism, see
+Descent, Lemma \ref{descent-lemma-fpqc-universal-effective-epimorphisms}.
+Hence the topology on $\Sch_{fppf}$
+is weaker than the canonical topology and all representable presheaves
+are sheaves.
+
+
+
+
+
+
+
+
+\section{Notation}
+\label{section-notation}
+
+\noindent
+We use the letters $S, T, U, V, X, Y$ to indicate schemes.
+We use the letters $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$ to indicate
+categories (fibred, fibred in groupoids, stacks, ...)
+over $(\Sch/S)_{fppf}$. We use small case letters
+$f$, $g$ for functors such as $f : \mathcal{X} \to \mathcal{Y}$
+over $(\Sch/S)_{fppf}$.
+We use capital $F$, $G$, $H$ for algebraic spaces over $S$, and more
+generally for presheaves of sets on $(\Sch/S)_{fppf}$.
+(In future chapters we will revert to using also $X$, $Y$, etc
+for algebraic spaces.)
+
+\medskip\noindent
+The reason for these choices is that we want to clearly distinguish between
+the different types of objects in this chapter, to build the foundations.
+
+
+
+
+
+
+
+
+
+\section{Representable categories fibred in groupoids}
+\label{section-representable}
+
+\noindent
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+The basic object of study in this chapter will be a
+category fibred in groupoids
+$p : \mathcal{X} \to (\Sch/S)_{fppf}$, see
+Categories, Definition \ref{categories-definition-fibred-groupoids}.
+We will often simply say ``let $\mathcal{X}$ be a category fibred
+in groupoids over $(\Sch/S)_{fppf}$'' to indicate
+this situation. A $1$-morphism $\mathcal{X} \to \mathcal{Y}$ of categories
+in groupoids over $(\Sch/S)_{fppf}$ will be a $1$-morphism
+in the $2$-category of categories fibred in groupoids over
+$(\Sch/S)_{fppf}$, see
+Categories,
+Definition \ref{categories-definition-categories-fibred-in-groupoids-over-C}.
+It is simply a functor $\mathcal{X} \to \mathcal{Y}$ over
+$(\Sch/S)_{fppf}$.
+We recall this is really a $(2, 1)$-category and that all $2$-fibre products
+exist.
+
+\medskip\noindent
+Let $\mathcal{X}$ be a category fibred in groupoids over
+$(\Sch/S)_{fppf}$. Recall that $\mathcal{X}$
+is said to be {\it representable} if there exists a
+scheme $U \in \Ob((\Sch/S)_{fppf})$ and an
+equivalence
+$$
+j : \mathcal{X} \longrightarrow (\Sch/U)_{fppf}
+$$
+of categories over $(\Sch/S)_{fppf}$, see
+Categories,
+Definition \ref{categories-definition-representable-fibred-category}.
+We will sometimes say that $\mathcal{X}$ is
+{\it representable by a scheme} to distinguish from the case
+where $\mathcal{X}$ is representable by an algebraic space (see
+below).
+
+\medskip\noindent
+If $\mathcal{X}, \mathcal{Y}$ are fibred in groupoids and
+representable by $U, V$, then we have
+\begin{equation}
+\label{equation-morphisms-schemes}
+\Mor_{\textit{Cat}/(\Sch/S)_{fppf}}(\mathcal{X}, \mathcal{Y})
+\Big/
+2\text{-isomorphism}
+=
+\Mor_{\Sch/S}(U, V)
+\end{equation}
+see
+Categories,
+Lemma \ref{categories-lemma-morphisms-representable-fibred-categories}.
+More precisely, any $1$-morphism $\mathcal{X} \to \mathcal{Y}$
+gives rise to a morphism $U \to V$. Conversely, given a morphism
+of schemes $U \to V$ over $S$ there exists a $1$-morphism
+$\phi : \mathcal{X} \to \mathcal{Y}$ which gives rise to $U \to V$
+and which is unique up to unique $2$-isomorphism.
+
+
+
+
+
+
+\section{The 2-Yoneda lemma}
+\label{section-2-yoneda}
+
+\noindent
+Let $U \in \Ob((\Sch/S)_{fppf})$, and let $\mathcal{X}$ be a
+category fibred in groupoids over $(\Sch/S)_{fppf}$.
+We will frequently use the $2$-Yoneda lemma, see
+Categories, Lemma \ref{categories-lemma-yoneda-2category}.
+Technically it says that there is an equivalence of categories
+$$
+\Mor_{\textit{Cat}/(\Sch/S)_{fppf}}(
+(\Sch/U)_{fppf}, \mathcal{X})
+\longrightarrow
+\mathcal{X}_U, \quad
+f \longmapsto f(U/U).
+$$
+It says that $1$-morphisms $(\Sch/U)_{fppf} \to \mathcal{X}$
+correspond to objects $x$ of the fibre category $\mathcal{X}_U$.
+Namely, given a $1$-morphism $f : (\Sch/U)_{fppf} \to \mathcal{X}$
+we obtain the object $x = f(U/U) \in \Ob(\mathcal{X}_U)$.
+Conversely, given a choice of pullbacks for $\mathcal{X}$ as in
+Categories,
+Definition \ref{categories-definition-pullback-functor-fibred-category},
+and an object $x$ of $\mathcal{X}_U$, we obtain a functor
+$(\Sch/U)_{fppf} \to \mathcal{X}$ defined by the rule
+$$
+(\varphi : V \to U) \longmapsto \varphi^*x
+$$
+on objects. By abuse of notation we use
+$x : (\Sch/U)_{fppf} \to \mathcal{X}$
+to indicate this functor. It indeed has the property that $x(U/U) = x$
+and moreover, given any other functor $f$ with $f(U/U) = x$ there exists
+a unique $2$-isomorphism $x \to f$. In other words the functor $x$
+is well determined by the object $x$ up to unique $2$-isomorphism.
+
+\medskip\noindent
+We will use this without further mention in the following.
+
+
+
+
+
+\section{Representable morphisms of categories fibred in groupoids}
+\label{section-representable-morphism}
+
+
+\noindent
+Let $\mathcal{X}$, $\mathcal{Y}$ be categories fibred in groupoids
+over $(\Sch/S)_{fppf}$. Let $f : \mathcal{X} \to \mathcal{Y}$
+be a {\it representable $1$-morphism}, see
+Categories, Definition
+\ref{categories-definition-representable-map-categories-fibred-in-groupoids}.
+This means that for every $U \in \Ob((\Sch/S)_{fppf})$ and
+any $y \in \Ob(\mathcal{Y}_U)$ the $2$-fibre product
+$(\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$
+is representable. Choose a representing object $V_y$ and an equivalence
+$$
+(\Sch/V_y)_{fppf}
+\longrightarrow
+(\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}.
+$$
+The projection
+$(\Sch/V_y)_{fppf} \to
+(\Sch/U)_{fppf} \times_\mathcal{Y} \mathcal{Y}
+\to (\Sch/U)_{fppf}$
+comes from a morphism of schemes $f_y : V_y \to U$, see
+Section \ref{section-representable}. We represent this by the diagram
+\begin{equation}
+\label{equation-representable}
+\vcenter{
+\xymatrix{
+V_y \ar@{~>}[r] \ar[d]_{f_y} &
+(\Sch/V_y)_{fppf} \ar[d] \ar[r] &
+\mathcal{X} \ar[d]^f \\
+U \ar@{~>}[r] &
+(\Sch/U)_{fppf} \ar[r]^-y &
+\mathcal{Y}
+}
+}
+\end{equation}
+where the squiggly arrows represent the $2$-Yoneda embedding.
+Here are some lemmas about this notion that work in great generality
+(namely, they work for categories fibred in groupoids over any
+base category which has fibre products).
+
+\begin{lemma}
+\label{lemma-morphism-schemes-gives-representable-transformation}
+Let $S$, $X$, $Y$ be objects of $\Sch_{fppf}$.
+Let $f : X \to Y$ be a morphism of schemes.
+Then the $1$-morphism induced by $f$
+$$
+(\Sch/X)_{fppf} \longrightarrow (\Sch/Y)_{fppf}
+$$
+is a representable $1$-morphism.
+\end{lemma}
+
+\begin{proof}
+This is formal and relies only on the fact that
+the category $(\Sch/S)_{fppf}$ has fibre products.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-morphism-equivalent}
+Let $S$ be an object of $\Sch_{fppf}$.
+Consider a $2$-commutative diagram
+$$
+\xymatrix{
+\mathcal{X}' \ar[r] \ar[d]_{f'} & \mathcal{X} \ar[d]^f \\
+\mathcal{Y}' \ar[r] & \mathcal{Y}
+}
+$$
+of $1$-morphisms of categories fibred in groupoids over
+$(\Sch/S)_{fppf}$.
+Assume the horizontal arrows are equivalences.
+Then $f$ is representable if and only if $f'$ is representable.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-representable-transformations}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+be categories fibred in groupoids over $(\Sch/S)_{fppf}$
+Let $f : \mathcal{X} \to \mathcal{Y}$, $g : \mathcal{Y} \to \mathcal{Z}$
+be representable $1$-morphisms. Then
+$$
+g \circ f : \mathcal{X} \longrightarrow \mathcal{Z}
+$$
+is a representable $1$-morphism.
+\end{lemma}
+
+\begin{proof}
+This is entirely formal and works in any category.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-representable-transformations}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+be categories fibred in groupoids over $(\Sch/S)_{fppf}$
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a representable $1$-morphism.
+Let $g : \mathcal{Z} \to \mathcal{Y}$ be any $1$-morphism.
+Consider the fibre product diagram
+$$
+\xymatrix{
+\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \ar[r]_-{g'} \ar[d]_{f'} &
+\mathcal{X} \ar[d]^f \\
+\mathcal{Z} \ar[r]^g & \mathcal{Y}
+}
+$$
+Then the base change $f'$ is a representable $1$-morphism.
+\end{lemma}
+
+\begin{proof}
+This is entirely formal and works in any category.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-product-representable-transformations}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}_i, \mathcal{Y}_i$ be categories fibred in groupoids over
+$(\Sch/S)_{fppf}$, $i = 1, 2$.
+Let $f_i : \mathcal{X}_i \to \mathcal{Y}_i$, $i = 1, 2$
+be representable $1$-morphisms.
+Then
+$$
+f_1 \times f_2 :
+\mathcal{X}_1 \times \mathcal{X}_2
+\longrightarrow
+\mathcal{Y}_1 \times \mathcal{Y}_2
+$$
+is a representable $1$-morphism.
+\end{lemma}
+
+\begin{proof}
+Write $f_1 \times f_2$ as the composition
+$\mathcal{X}_1 \times \mathcal{X}_2 \to
+\mathcal{Y}_1 \times \mathcal{X}_2 \to
+\mathcal{Y}_1 \times \mathcal{Y}_2$.
+The first arrow is the base change of $f_1$ by the map
+$\mathcal{Y}_1 \times \mathcal{X}_2 \to \mathcal{Y}_1$, and the second arrow
+is the base change of $f_2$ by the map
+$\mathcal{Y}_1 \times \mathcal{Y}_2 \to \mathcal{Y}_2$.
+Hence this lemma is a formal
+consequence of Lemmas \ref{lemma-composition-representable-transformations}
+and \ref{lemma-base-change-representable-transformations}.
+\end{proof}
+
+
+
+\section{Split categories fibred in groupoids}
+\label{section-split}
+
+\noindent
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Recall that given a ``presheaf of groupoids''
+$$
+F : (\Sch/S)_{fppf}^{opp} \longrightarrow \textit{Groupoids}
+$$
+we get a category fibred in groupoids $\mathcal{S}_F$ over
+$(\Sch/S)_{fppf}$, see
+Categories, Example \ref{categories-example-functor-groupoids}.
+Any category fibred in groupoids isomorphic (!) to one of these
+is called a {\it split category fibred in groupoids}.
+Any category fibred in groupoids is equivalent to a split one.
+
+\medskip\noindent
+If $F$ is a presheaf of sets then $\mathcal{S}_F$ is
+fibred in sets, see
+Categories,
+Definition \ref{categories-definition-category-fibred-sets},
+and
+Categories, Example \ref{categories-example-presheaf}.
+The rule $F \mapsto \mathcal{S}_F$ is in some sense fully faithful
+on presheaves, see
+Categories, Lemma \ref{categories-lemma-2-category-fibred-sets}.
+If $F, G$ are presheaves, then
+$$
+\mathcal{S}_{F \times G}
+=
+\mathcal{S}_F \times_{(\Sch/S)_{fppf}} \mathcal{S}_G
+$$
+and if $F \to H$ and $G \to H$ are maps of presheaves of sets, then
+$$
+\mathcal{S}_{F \times_H G} =
+\mathcal{S}_F \times_{\mathcal{S}_H} \mathcal{S}_G
+$$
+where the right hand sides are $2$-fibre products. This is immediate
+from the definitions as the fibre categories of
+$\mathcal{S}_F, \mathcal{S}_G, \mathcal{S}_H$ have only identity morphisms.
+
+\medskip\noindent
+An even more special case is where $F = h_X$ is a representable
+presheaf. In this case we have
+$\mathcal{S}_{h_X} = (\Sch/X)_{fppf}$, see
+Categories,
+Example \ref{categories-example-fibred-category-from-functor-of-points}.
+
+\medskip\noindent
+We will use the notation $\mathcal{S}_F$ without further mention in the
+following.
+
+
+
+
+\section{Categories fibred in groupoids representable by algebraic spaces}
+\label{section-representable-by-algebraic-spaces}
+
+\noindent
+A slightly weaker notion than being representable is the notion of
+being representable by algebraic spaces which we discuss in this section.
+This discussion might have been avoided had we worked with some category
+$\textit{Spaces}_{fppf}$ of algebraic spaces instead of the category
+$\Sch_{fppf}$. However, it seems to us natural to consider the
+category of schemes as the natural collection of ``test objects'' over
+which the fibre categories of an algebraic stack are defined.
+
+\medskip\noindent
+In analogy with Categories, Definitions
+\ref{categories-definition-representable-fibred-category}
+we make the following definition.
+
+\begin{definition}
+\label{definition-representable-by-algebraic-space}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+A category fibred in groupoids $p : \mathcal{X} \to (\Sch/S)_{fppf}$
+is called {\it representable by an algebraic space over $S$}
+if there exists an algebraic space $F$ over $S$ and an equivalence
+$j : \mathcal{X} \to \mathcal{S}_F$
+of categories over $(\Sch/S)_{fppf}$.
+\end{definition}
+
+\noindent
+We continue our abuse of notation in suppressing the equivalence $j$
+whenever we encounter such a situation.
+It follows formally from the above that if $\mathcal{X}$ is
+representable (by a scheme), then it is representable by an
+algebraic space. Here is the analogue of
+Categories,
+Lemma \ref{categories-lemma-characterize-representable-fibred-category}.
+
+\begin{lemma}
+\label{lemma-characterize-representable-by-space}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $p : \mathcal{X} \to (\Sch/S)_{fppf}$
+be a category fibred in groupoids.
+Then $\mathcal{X}$ is representable by an algebraic space over $S$
+if and only if the following conditions are satisfied:
+\begin{enumerate}
+\item $\mathcal{X}$ is fibred in setoids\footnote{This means that
+it is fibred in groupoids and objects in the fibre categories
+have no nontrivial automorphisms, see Categories,
+Definition \ref{categories-definition-category-fibred-sets}.}, and
+\item the presheaf $U \mapsto \Ob(\mathcal{X}_U)/\!\!\cong$ is
+an algebraic space.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Omitted, but see Categories,
+Lemma \ref{categories-lemma-characterize-representable-fibred-category}.
+\end{proof}
+
+\noindent
+If $\mathcal{X}, \mathcal{Y}$ are fibred in groupoids and
+representable by algebraic spaces $F, G$ over $S$, then we have
+\begin{equation}
+\label{equation-morphisms-spaces}
+\Mor_{\textit{Cat}/(\Sch/S)_{fppf}}(\mathcal{X}, \mathcal{Y})
+\Big/
+2\text{-isomorphism}
+=
+\Mor_{\Sch/S}(F, G)
+\end{equation}
+see
+Categories, Lemma \ref{categories-lemma-2-category-fibred-setoids}.
+More precisely, any $1$-morphism $\mathcal{X} \to \mathcal{Y}$
+gives rise to a morphism $F \to G$. Conversely, give a morphism
+of sheaves $F \to G$ over $S$ there exists a $1$-morphism
+$\phi : \mathcal{X} \to \mathcal{Y}$ which gives rise to $F \to G$
+and which is unique up to unique $2$-isomorphism.
+
+
+
+\section{Morphisms representable by algebraic spaces}
+\label{section-morphisms-representable-by-algebraic-spaces}
+
+\noindent
+In analogy with Categories, Definition
+\ref{categories-definition-representable-map-categories-fibred-in-groupoids}
+we make the following definition.
+
+\begin{definition}
+\label{definition-representable-by-algebraic-spaces}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+A $1$-morphism $f : \mathcal{X} \to \mathcal{Y}$ of
+categories fibred in groupoids over $(\Sch/S)_{fppf}$
+is called {\it representable by algebraic spaces} if
+for any $U \in \Ob((\Sch/S)_{fppf})$
+and any $y : (\Sch/U)_{fppf} \to \mathcal{Y}$
+the category fibred in groupoids
+$$
+(\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}
+$$
+over $(\Sch/U)_{fppf}$
+is representable by an algebraic space over $U$.
+\end{definition}
+
+\noindent
+Choose an algebraic space $F_y$ over $U$ which represents
+$(\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$.
+We may think of $F_y$ as an algebraic space over $S$
+which comes equipped with a canonical morphism $f_y : F_y \to U$
+over $S$, see
+Spaces, Section \ref{spaces-section-change-base-scheme}.
+Here is the diagram
+\begin{equation}
+\label{equation-representable-by-algebraic-spaces}
+\vcenter{
+\xymatrix{
+F_y \ar[d]_{f_y} &
+(\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}
+\ar@{~>}[l] \ar[d]_{\text{pr}_0} \ar[r]_-{\text{pr}_1} &
+\mathcal{X} \ar[d]^f \\
+U &
+(\Sch/U)_{fppf} \ar@{~>}[l] \ar[r]^-y &
+\mathcal{Y}
+}
+}
+\end{equation}
+where the squiggly arrows represent the construction which associates
+to a stack fibred in setoids its associated sheaf of isomorphism classes
+of objects. The right square is
+$2$-commutative, and is a $2$-fibre product square.
+
+\medskip\noindent
+Here is the analogue of Categories,
+Lemma \ref{categories-lemma-criterion-representable-map-stack-in-groupoids}.
+
+\begin{lemma}
+\label{lemma-criterion-map-representable-spaces-fibred-in-groupoids}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism
+of categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+The following are necessary and sufficient conditions for
+$f$ to be representable by algebraic spaces:
+\begin{enumerate}
+\item for each scheme $U/S$ the
+functor $f_U : \mathcal{X}_U \longrightarrow \mathcal{Y}_U$
+between fibre categories is faithful, and
+\item for each $U$ and each $y \in \Ob(\mathcal{Y}_U)$ the presheaf
+$$
+(h : V \to U)
+\longmapsto
+\{(x, \phi) \mid x \in \Ob(\mathcal{X}_V), \phi : h^*y \to f(x)\}/\cong
+$$
+is an algebraic space over $U$.
+\end{enumerate}
+Here we have made a choice of pullbacks for $\mathcal{Y}$.
+\end{lemma}
+
+\begin{proof}
+This follows from the description of fibre categories of the $2$-fibre products
+$(\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}$ in
+Categories, Lemma \ref{categories-lemma-identify-fibre-product}
+combined with
+Lemma \ref{lemma-characterize-representable-by-space}.
+\end{proof}
+
+\noindent
+Here are some lemmas about this notion that work in great generality.
+
+\begin{lemma}
+\label{lemma-representable-by-spaces-morphism-equivalent}
+Let $S$ be an object of $\Sch_{fppf}$.
+Consider a $2$-commutative diagram
+$$
+\xymatrix{
+\mathcal{X}' \ar[r] \ar[d]_{f'} & \mathcal{X} \ar[d]^f \\
+\mathcal{Y}' \ar[r] & \mathcal{Y}
+}
+$$
+of $1$-morphisms of categories fibred in groupoids over
+$(\Sch/S)_{fppf}$.
+Assume the horizontal arrows are equivalences.
+Then $f$ is representable by algebraic spaces
+if and only if $f'$ is representable by algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-morphism-spaces-gives-representable-by-spaces}
+Let $S$ be an object of $\Sch_{fppf}$.
+Let $f : \mathcal{X} \to \mathcal{Y}$
+be a $1$-morphism of categories fibred in groupoids over $S$.
+If $\mathcal{X}$ and $\mathcal{Y}$ are representable by
+algebraic spaces over $S$, then the $1$-morphism $f$
+is representable by algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+Omitted. This relies only on the fact that
+the category of algebraic spaces over $S$ has fibre products,
+see Spaces, Lemma \ref{spaces-lemma-fibre-product-spaces}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-presheaves-representable-by-algebraic-spaces}
+Let $S$ be an object of $\Sch_{fppf}$.
+Let $a : F \to G$ be a map of presheaves of sets on $(\Sch/S)_{fppf}$.
+Denote $a' : \mathcal{S}_F  \to \mathcal{S}_G$ the associated
+map of categories fibred in sets.
+Then $a$ is representable by algebraic spaces (see
+Bootstrap,
+Definition \ref{bootstrap-definition-morphism-representable-by-spaces})
+if and only if $a'$ is representable by algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-fibred-setoids-representable-algebraic-spaces}
+Let $S$ be an object of $\Sch_{fppf}$.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of
+categories fibred in setoids over $(\Sch/S)_{fppf}$.
+Let $F$, resp.\ $G$ be the presheaf which to $T$ associates
+the set of isomorphism classes of objects of
+$\mathcal{X}_T$, resp.\ $\mathcal{Y}_T$.
+Let $a : F \to G$ be the map of presheaves corresponding to $f$.
+Then $a$ is representable by algebraic spaces (see
+Bootstrap,
+Definition \ref{bootstrap-definition-morphism-representable-by-spaces})
+if and only if $f$ is representable by algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: Combine
+Lemmas \ref{lemma-representable-by-spaces-morphism-equivalent}
+and \ref{lemma-map-presheaves-representable-by-algebraic-spaces}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-representable-by-spaces}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+be categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism
+representable by algebraic spaces.
+Let $g : \mathcal{Z} \to \mathcal{Y}$ be any $1$-morphism.
+Consider the fibre product diagram
+$$
+\xymatrix{
+\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \ar[r]_-{g'} \ar[d]_{f'} &
+\mathcal{X} \ar[d]^f \\
+\mathcal{Z} \ar[r]^g & \mathcal{Y}
+}
+$$
+Then the base change $f'$ is a $1$-morphism representable by
+algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+This is formal.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-by-space-representable-by-space}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+be categories fibred in groupoids over $(\Sch/S)_{fppf}$
+Let $f : \mathcal{X} \to \mathcal{Y}$,
+$g : \mathcal{Z} \to \mathcal{Y}$ be $1$-morphisms.
+Assume
+\begin{enumerate}
+\item $f$ is representable by algebraic spaces, and
+\item $\mathcal{Z}$ is representable by an algebraic space over $S$.
+\end{enumerate}
+Then the $2$-fibre product
+$\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X}$
+is representable by an algebraic space.
+\end{lemma}
+
+\begin{proof}
+This is a reformulation of
+Bootstrap, Lemma \ref{bootstrap-lemma-representable-by-spaces-over-space}.
+First note that
+$\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X}$
+is fibred in setoids over $(\Sch/S)_{fppf}$.
+Hence it is equivalent to $\mathcal{S}_F$ for some presheaf
+$F$ on $(\Sch/S)_{fppf}$, see
+Categories, Lemma \ref{categories-lemma-setoid-fibres}.
+Moreover, let $G$ be an algebraic space which represents
+$\mathcal{Z}$. The $1$-morphism
+$\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \to \mathcal{Z}$
+is representable by algebraic spaces by
+Lemma \ref{lemma-base-change-representable-by-spaces}.
+And $\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \to \mathcal{Z}$
+corresponds to a morphism $F \to G$ by
+Categories, Lemma \ref{categories-lemma-2-category-fibred-setoids}.
+Then $F \to G$ is representable by algebraic spaces by
+Lemma \ref{lemma-map-fibred-setoids-representable-algebraic-spaces}.
+Hence
+Bootstrap, Lemma \ref{bootstrap-lemma-representable-by-spaces-over-space}
+implies that $F$ is an algebraic space as desired.
+\end{proof}
+
+\noindent
+Let $S$, $\mathcal{X}$, $\mathcal{Y}$, $\mathcal{Z}$, $f$, $g$ be as in
+Lemma \ref{lemma-base-change-by-space-representable-by-space}.
+Let $F$ and $G$ be algebraic spaces over $S$ such that
+$F$ represents $\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X}$
+and $G$ represents $\mathcal{Z}$. The $1$-morphism
+$f' : \mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \to \mathcal{Z}$
+corresponds to a morphism $f' : F \to G$ of algebraic spaces
+by (\ref{equation-morphisms-spaces}).
+Thus we have the following diagram
+\begin{equation}
+\label{equation-representable-by-algebraic-spaces-on-space}
+\vcenter{
+\xymatrix{
+F \ar[d]_{f'} &
+\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X}
+\ar@{~>}[l] \ar[d] \ar[r] &
+\mathcal{X} \ar[d]^f \\
+G &
+\mathcal{Z} \ar@{~>}[l] \ar[r]^-g &
+\mathcal{Y}
+}
+}
+\end{equation}
+where the squiggly arrows represent the construction which associates
+to a stack fibred in setoids its associated sheaf of isomorphism classes
+of objects.
+
+\begin{lemma}
+\label{lemma-composition-representable-by-spaces}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+be categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+If $f : \mathcal{X} \to \mathcal{Y}$, $g : \mathcal{Y} \to \mathcal{Z}$
+are $1$-morphisms representable by algebraic spaces, then
+$$
+g \circ f : \mathcal{X} \longrightarrow \mathcal{Z}
+$$
+is a $1$-morphism representable by algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+This follows from
+Lemma \ref{lemma-base-change-by-space-representable-by-space}.
+Details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-product-representable-by-spaces}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}_i, \mathcal{Y}_i$ be categories fibred in groupoids over
+$(\Sch/S)_{fppf}$, $i = 1, 2$.
+Let $f_i : \mathcal{X}_i \to \mathcal{Y}_i$, $i = 1, 2$
+be $1$-morphisms representable by algebraic spaces.
+Then
+$$
+f_1 \times f_2 :
+\mathcal{X}_1 \times \mathcal{X}_2
+\longrightarrow
+\mathcal{Y}_1 \times \mathcal{Y}_2
+$$
+is a $1$-morphism representable by algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+Write $f_1 \times f_2$ as the composition
+$\mathcal{X}_1 \times \mathcal{X}_2 \to
+\mathcal{Y}_1 \times \mathcal{X}_2 \to
+\mathcal{Y}_1 \times \mathcal{Y}_2$.
+The first arrow is the base change of $f_1$ by the map
+$\mathcal{Y}_1 \times \mathcal{X}_2 \to \mathcal{Y}_1$, and the second arrow
+is the base change of $f_2$ by the map
+$\mathcal{Y}_1 \times \mathcal{Y}_2 \to \mathcal{Y}_2$.
+Hence this lemma is a formal
+consequence of Lemmas \ref{lemma-composition-representable-by-spaces}
+and \ref{lemma-base-change-representable-by-spaces}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-get-a-stack}
+\begin{reference}
+Lemma in an email of Matthew Emerton dated June 15, 2016
+\end{reference}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X} \to \mathcal{Z}$ and $\mathcal{Y} \to \mathcal{Z}$
+be $1$-morphisms of categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+If $\mathcal{X} \to \mathcal{Z}$ is representable by algebraic spaces
+and $\mathcal{Y}$ is a stack in groupoids, then
+$\mathcal{X} \times_\mathcal{Z} \mathcal{Y}$ is a stack in groupoids.
+\end{lemma}
+
+\begin{proof}
+The property of a morphism being representable by algebraic spaces
+is preserved under base-change
+(Lemma \ref{lemma-base-change-by-space-representable-by-space}),
+and so, passing to the base-change
+$\mathcal{X} \times_\mathcal{Z} \mathcal{Y}$ over $\mathcal{Y}$,
+we may reduce to the case of a morphism of categories
+fibred in groupoids $\mathcal{X} \to \mathcal{Y}$
+which is representable by algebraic spaces, and
+whose target is a stack in groupoids; our goal is then to prove
+that $\mathcal{X}$ is also a stack in groupoids.
+This follows from Stacks, Lemma
+\ref{stacks-lemma-relative-sheaf-over-stack-is-stack}
+whose assumptions are satisfied as a result of
+Lemma \ref{lemma-criterion-map-representable-spaces-fibred-in-groupoids}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Properties of morphisms representable by algebraic spaces}
+\label{section-representable-properties}
+
+\noindent
+Here is the definition that makes this work.
+
+\begin{definition}
+\label{definition-relative-representable-property}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism
+of categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+Assume $f$ is representable by algebraic spaces.
+Let $\mathcal{P}$ be a property of morphisms of algebraic spaces which
+\begin{enumerate}
+\item is preserved under any base change, and
+\item is fppf local on the base, see
+Descent on Spaces,
+Definition \ref{spaces-descent-definition-property-morphisms-local}.
+\end{enumerate}
+In this case we say that $f$ has {\it property $\mathcal{P}$} if for every
+$U \in \Ob((\Sch/S)_{fppf})$ and
+any $y \in \mathcal{Y}_U$ the resulting morphism of algebraic spaces
+$f_y : F_y \to U$, see
+diagram (\ref{equation-representable-by-algebraic-spaces}),
+has property $\mathcal{P}$.
+\end{definition}
+
+\noindent
+It is important to note that we will only use this definition for
+properties of morphisms that are stable under base change, and
+local in the fppf topology on the target. This is
+not because the definition doesn't make sense otherwise; rather it
+is because we may want to give a different definition which is
+better suited to the property we have in mind.
+
+\begin{lemma}
+\label{lemma-property-morphism-equivalent}
+Let $S$ be an object of $\Sch_{fppf}$.
+Let $\mathcal{P}$ be as in
+Definition \ref{definition-relative-representable-property}.
+Consider a $2$-commutative diagram
+$$
+\xymatrix{
+\mathcal{X}' \ar[r] \ar[d]_{f'} & \mathcal{X} \ar[d]^f \\
+\mathcal{Y}' \ar[r] & \mathcal{Y}
+}
+$$
+of $1$-morphisms of categories fibred in groupoids over
+$(\Sch/S)_{fppf}$.
+Assume the horizontal arrows are equivalences and $f$ (or equivalently $f'$)
+is representably by algebraic spaces.
+Then $f$ has $\mathcal{P}$ if and only if $f'$ has $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Note that this makes sense by
+Lemma \ref{lemma-representable-by-spaces-morphism-equivalent}.
+Proof omitted.
+\end{proof}
+
+\noindent
+Here is a sanity check.
+
+\begin{lemma}
+\label{lemma-map-presheaves-representable-by-spaces-transformation-property}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $a : F \to G$ be a map of presheaves on $(\Sch/S)_{fppf}$.
+Let $\mathcal{P}$ be as in
+Definition \ref{definition-relative-representable-property}.
+Assume $a$ is representable by algebraic spaces.
+Then $a : F \to G$ has property $\mathcal{P}$ (see
+Bootstrap, Definition \ref{bootstrap-definition-property-transformation})
+if and only if the corresponding morphism
+$\mathcal{S}_F \to \mathcal{S}_G$ of categories fibred in groupoids
+has property $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Note that the lemma makes sense by
+Lemma \ref{lemma-map-presheaves-representable-by-algebraic-spaces}.
+Proof omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-map-fibred-setoids-property}
+Let $S$ be an object of $\Sch_{fppf}$. Let $\mathcal{P}$ be as in
+Definition \ref{definition-relative-representable-property}.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of
+categories fibred in setoids over $(\Sch/S)_{fppf}$.
+Let $F$, resp.\ $G$ be the presheaf which to $T$ associates
+the set of isomorphism classes of objects of
+$\mathcal{X}_T$, resp.\ $\mathcal{Y}_T$.
+Let $a : F \to G$ be the map of presheaves corresponding to $f$.
+Then $a$ has $\mathcal{P}$ if and only if $f$ has $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+The lemma makes sense by
+Lemma \ref{lemma-map-fibred-setoids-representable-algebraic-spaces}.
+The lemma follows on combining
+Lemmas \ref{lemma-property-morphism-equivalent}
+and \ref{lemma-map-presheaves-representable-by-spaces-transformation-property}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-composition-representable-transformations-property}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}$, $\mathcal{Y}$, $\mathcal{Z}$ be categories fibred
+in groupoids over $(\Sch/S)_{fppf}$.
+Let $\mathcal{P}$ be a property as in
+Definition \ref{definition-relative-representable-property}
+which is stable under composition.
+Let $f : \mathcal{X} \to \mathcal{Y}$,
+$g : \mathcal{Y} \to \mathcal{Z}$ be $1$-morphisms which
+are representable by algebraic spaces.
+If $f$ and $g$ have property $\mathcal{P}$ so does
+$g \circ f : \mathcal{X} \to \mathcal{Z}$.
+\end{lemma}
+
+\begin{proof}
+Note that the lemma makes sense by
+Lemma \ref{lemma-composition-representable-by-spaces}.
+Proof omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-representable-transformations-property}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+be categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+Let $\mathcal{P}$ be a property as in
+Definition \ref{definition-relative-representable-property}.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism
+representable by algebraic spaces.
+Let $g : \mathcal{Z} \to \mathcal{Y}$ be any $1$-morphism.
+Consider the $2$-fibre product diagram
+$$
+\xymatrix{
+\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \ar[r]_-{g'} \ar[d]_{f'} &
+\mathcal{X} \ar[d]^f \\
+\mathcal{Z} \ar[r]^g & \mathcal{Y}
+}
+$$
+If $f$ has $\mathcal{P}$, then the base change $f'$
+has $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+The lemma makes sense by
+Lemma \ref{lemma-base-change-representable-by-spaces}.
+Proof omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-descent-representable-transformations-property}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$
+be categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+Let $\mathcal{P}$ be a property as in
+Definition \ref{definition-relative-representable-property}.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism
+representable by algebraic spaces.
+Let $g : \mathcal{Z} \to \mathcal{Y}$ be any $1$-morphism.
+Consider the fibre product diagram
+$$
+\xymatrix{
+\mathcal{Z} \times_{g, \mathcal{Y}, f} \mathcal{X} \ar[r]_-{g'} \ar[d]_{f'} &
+\mathcal{X} \ar[d]^f \\
+\mathcal{Z} \ar[r]^g & \mathcal{Y}
+}
+$$
+Assume that for every scheme $U$ and object $x$ of $\mathcal{Y}_U$,
+there exists an fppf covering $\{U_i \to U\}$ such that $x|_{U_i}$
+is in the essential image of the functor
+$g : \mathcal{Z}_{U_i} \to \mathcal{Y}_{U_i}$.
+In this case, if $f'$ has $\mathcal{P}$, then $f$ has $\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Proof omitted. Hint: Compare with the proof of
+Spaces,
+Lemma \ref{spaces-lemma-descent-representable-transformations-property}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-product-representable-transformations-property}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{P}$ be a property as in
+Definition \ref{definition-relative-representable-property}
+which is stable under composition.
+Let $\mathcal{X}_i, \mathcal{Y}_i$ be categories fibred in groupoids over
+$(\Sch/S)_{fppf}$, $i = 1, 2$.
+Let $f_i : \mathcal{X}_i \to \mathcal{Y}_i$, $i = 1, 2$
+be $1$-morphisms representable by algebraic spaces.
+If $f_1$ and $f_2$ have property $\mathcal{P}$ so does
+$
+f_1 \times f_2 :
+\mathcal{X}_1 \times \mathcal{X}_2
+\to
+\mathcal{Y}_1 \times \mathcal{Y}_2
+$.
+\end{lemma}
+
+\begin{proof}
+The lemma makes sense by
+Lemma \ref{lemma-product-representable-by-spaces}.
+Proof omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representable-transformations-property-implication}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}$, $\mathcal{Y}$ be categories fibred in groupoids
+over $(\Sch/S)_{fppf}$.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism representable
+by algebraic spaces.
+Let $\mathcal{P}$, $\mathcal{P}'$ be properties as in
+Definition \ref{definition-relative-representable-property}.
+Suppose that for any morphism of algebraic spaces $a : F \to G$
+we have $\mathcal{P}(a) \Rightarrow \mathcal{P}'(a)$.
+If $f$ has property $\mathcal{P}$ then
+$f$ has property $\mathcal{P}'$.
+\end{lemma}
+
+\begin{proof}
+Formal.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-fibred-category-is-full}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $j : \mathcal X \to \mathcal Y$ be a $1$-morphism of
+categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+Assume $j$ is representable by algebraic spaces and a monomorphism
+(see
+Definition \ref{definition-relative-representable-property}
+and
+Descent on Spaces, Lemma
+\ref{spaces-descent-lemma-descending-property-monomorphism}).
+Then $j$ is fully faithful on fibre categories.
+\end{lemma}
+
+\begin{proof}
+We have seen in
+Lemma \ref{lemma-criterion-map-representable-spaces-fibred-in-groupoids}
+that $j$ is faithful on fibre categories. Consider a scheme $U$,
+two objects $u, v$ of $\mathcal{X}_U$, and an isomorphism
+$t : j(u) \to j(v)$ in $\mathcal{Y}_U$. We have to construct an
+isomorphism in $\mathcal{X}_U$ between $u$ and $v$.
+By the $2$-Yoneda lemma (see Section \ref{section-2-yoneda})
+we think of $u$, $v$ as $1$-morphisms
+$u, v : (\Sch/U)_{fppf} \to \mathcal{X}$
+and we consider the $2$-fibre product
+$$
+(\Sch/U)_{fppf} \times_{j \circ v, \mathcal{Y}} \mathcal{X}.
+$$
+By assumption this is representable by an algebraic space
+$F_{j \circ v}$, over $U$ and the morphism
+$F_{j \circ v} \to U$ is a monomorphism.
+But since $(1_U, v, 1_{j(v)})$ gives a $1$-morphism of
+$(\Sch/U)_{fppf}$ into the displayed $2$-fibre product,
+we see that $F_{j \circ v} = U$ (here we use
+that if $V \to U$ is a monomorphism of algebraic spaces which has a
+section, then $V = U$). Therefore the $1$-morphism projecting to
+the first coordinate
+$$
+(\Sch/U)_{fppf} \times_{j \circ v, \mathcal{Y}} \mathcal{X}
+\to (\Sch/U)_{fppf}
+$$
+is an equivalence of fibre categories.
+Since $(1_U, u, t)$ and $(1_U, v, 1_{j(v)})$ give two
+objects in $((\Sch/U)_{fppf} \times_{j \circ v, \mathcal{Y}}
+\mathcal{X})_U$ which have the same first coordinate, there must
+be a $2$-morphism between them in the $2$-fibre product.
+This is by definition a morphism $\tilde t : u \to v$ such that
+$j(\tilde t) = t$.
+\end{proof}
+
+\noindent
+Here is a characterization of those categories fibred in groupoids
+for which the diagonal is representable by algebraic spaces.
+
+\begin{lemma}
+\label{lemma-representable-diagonal}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}$ be a category fibred in groupoids over
+$(\Sch/S)_{fppf}$. The following are equivalent:
+\begin{enumerate}
+\item the diagonal $\mathcal{X} \to \mathcal{X} \times \mathcal{X}$
+is representable by algebraic spaces,
+\item for every scheme $U$ over $S$, and any
+$x, y \in \Ob(\mathcal{X}_U)$ the sheaf
+$\mathit{Isom}(x, y)$ is an algebraic space over $U$,
+\item for every scheme $U$ over $S$, and any $x \in \Ob(\mathcal{X}_U)$
+the associated $1$-morphism $x : (\Sch/U)_{fppf} \to \mathcal{X}$
+is representable by algebraic spaces,
+\item for every pair of schemes $T_1, T_2$ over $S$, and any
+$x_i \in \Ob(\mathcal{X}_{T_i})$, $i = 1, 2$ the $2$-fibre product
+$(\Sch/T_1)_{fppf} \times_{x_1, \mathcal{X}, x_2}
+(\Sch/T_2)_{fppf}$
+is representable by an algebraic space,
+\item for every representable category fibred in groupoids $\mathcal{U}$
+over $(\Sch/S)_{fppf}$ every $1$-morphism
+$\mathcal{U} \to \mathcal{X}$ is representable by algebraic spaces,
+\item for every pair $\mathcal{T}_1, \mathcal{T}_2$ of representable
+categories fibred in groupoids over $(\Sch/S)_{fppf}$ and any
+$1$-morphisms $x_i : \mathcal{T}_i \to \mathcal{X}$, $i = 1, 2$ the
+$2$-fibre product $\mathcal{T}_1 \times_{x_1, \mathcal{X}, x_2} \mathcal{T}_2$
+is representable by an algebraic space,
+\item for every category fibred in groupoids $\mathcal{U}$
+over $(\Sch/S)_{fppf}$ which is
+representable by an algebraic space every $1$-morphism
+$\mathcal{U} \to \mathcal{X}$ is representable by algebraic spaces,
+\item for every pair $\mathcal{T}_1, \mathcal{T}_2$ of categories fibred
+in groupoids over $(\Sch/S)_{fppf}$ which are representable
+by algebraic spaces, and any $1$-morphisms
+$x_i : \mathcal{T}_i \to \mathcal{X}$ the
+$2$-fibre product $\mathcal{T}_1 \times_{x_1, \mathcal{X}, x_2} \mathcal{T}_2$
+is representable by an algebraic space.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (1) and (2) follows from
+Stacks, Lemma \ref{stacks-lemma-isom-as-2-fibre-product}
+and the definitions.
+Let us prove the equivalence of (1) and (3).
+Write $\mathcal{C} = (\Sch/S)_{fppf}$ for the base category.
+We will use some of the observations of the proof of the similar
+Categories, Lemma \ref{categories-lemma-representable-diagonal-groupoids}.
+We will use the symbol $\cong$ to mean ``equivalence of categories fibred
+in groupoids over $\mathcal{C} = (\Sch/S)_{fppf}$''.
+Assume (1). Suppose given $U$ and $x$ as in (3). For any scheme $V$
+and $y \in \Ob(\mathcal{X}_V)$ we see (compare reference above) that
+$$
+\mathcal{C}/U
+\times_{x, \mathcal{X}, y}
+\mathcal{C}/V
+\cong
+(\mathcal{C}/U \times_S V)
+\times_{(x, y), \mathcal{X} \times \mathcal{X}, \Delta}
+\mathcal{X}
+$$
+which is representable by an algebraic space by assumption. Conversely,
+assume (3). Consider any scheme $U$ over $S$ and a pair $(x, x')$
+of objects of $\mathcal{X}$ over $U$. We have to show that
+$\mathcal{X} \times_{\Delta, \mathcal{X} \times \mathcal{X}, (x, x')} U$
+is representable by an algebraic space. This is clear because
+(compare reference above)
+$$
+\mathcal{X}
+\times_{\Delta, \mathcal{X} \times \mathcal{X}, (x, x')}
+\mathcal{C}/U
+\cong
+(\mathcal{C}/U \times_{x, \mathcal{X}, x'} \mathcal{C}/U)
+\times_{\mathcal{C}/U \times_S U, \Delta}
+\mathcal{C}/U
+$$
+and the right hand side is representable by an algebraic space by assumption
+and the fact that the category of algebraic spaces over $S$ has fibre products
+and contains $U$ and $S$.
+
+\medskip\noindent
+The equivalences
+(3) $\Leftrightarrow$ (4),
+(5) $\Leftrightarrow$ (6),
+and
+(7) $\Leftrightarrow$ (8)
+are formal. The equivalences
+(3) $\Leftrightarrow$ (5) and
+(4) $\Leftrightarrow$ (6)
+follow from
+Lemma \ref{lemma-representable-by-spaces-morphism-equivalent}.
+Assume (3), and let $\mathcal{U} \to \mathcal{X}$ be as in (7).
+To prove (7) we have to show that for every scheme $V$ and $1$-morphism
+$y : (\Sch/V)_{fppf} \to \mathcal{X}$ the $2$-fibre product
+$(\Sch/V)_{fppf} \times_{y, \mathcal{X}} \mathcal{U}$
+is representable by an algebraic space. Property (3) tells us
+that $y$ is representable by algebraic spaces hence
+Lemma \ref{lemma-base-change-by-space-representable-by-space}
+implies what we want. Finally, (7) directly implies (3).
+\end{proof}
+
+\noindent
+In the situation of the lemma, for any $1$-morphism
+$x : (\Sch/U)_{fppf} \to \mathcal{X}$ as in the lemma, it makes sense
+to say that $x$ has property $\mathcal{P}$, for any property as in
+Definition \ref{definition-relative-representable-property}.
+In particular this holds for
+$\mathcal{P} = $ ``surjective'',
+$\mathcal{P} = $ ``smooth'', and
+$\mathcal{P} = $ ``\'etale'',
+see
+Descent on Spaces,
+Lemmas \ref{spaces-descent-lemma-descending-property-surjective},
+\ref{spaces-descent-lemma-descending-property-smooth}, and
+\ref{spaces-descent-lemma-descending-property-etale}.
+We will use these three cases in the definitions
+of algebraic stacks below.
+
+
+
+
+
+
+
+
+\section{Stacks in groupoids}
+\label{section-stacks}
+
+\noindent
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Recall that a category $p : \mathcal{X} \to (\Sch/S)_{fppf}$
+over $(\Sch/S)_{fppf}$ is said to be a
+{\it stack in groupoids} (see
+Stacks, Definition \ref{stacks-definition-stack-in-groupoids})
+if and only if
+\begin{enumerate}
+\item $p : \mathcal{X} \to \mathcal{C}$ is fibred
+in groupoids over $(\Sch/S)_{fppf}$,
+\item for all $U \in \Ob((\Sch/S)_{fppf})$,
+for all $x, y\in \Ob(\mathcal{X}_U)$ the presheaf
+$\mathit{Isom}(x, y)$ is a sheaf on the site $(\Sch/U)_{fppf}$, and
+\item for all coverings $\mathcal{U} = \{U_i \to U\}$ in
+$(\Sch/S)_{fppf}$, all descent data $(x_i, \phi_{ij})$
+for $\mathcal{U}$ are effective.
+\end{enumerate}
+For examples see
+Examples of Stacks,
+Section \ref{examples-stacks-section-examples-stacks-in-groupoids}
+ff.
+
+
+
+
+
+
+
+
+
+
+\section{Algebraic stacks}
+\label{section-algebraic-stacks}
+
+\noindent
+Here is the definition of an algebraic stack. We remark that condition
+(2) implies we can make sense out of the condition in part (3) that
+$(\Sch/U)_{fppf} \to \mathcal{X}$
+is smooth and surjective, see discussion following
+Lemma \ref{lemma-representable-diagonal}.
+
+\begin{definition}
+\label{definition-algebraic-stack}
+Let $S$ be a base scheme contained in $\Sch_{fppf}$.
+An {\it algebraic stack over $S$} is a category
+$$
+p : \mathcal{X} \to (\Sch/S)_{fppf}
+$$
+over $(\Sch/S)_{fppf}$ with the following properties:
+\begin{enumerate}
+\item The category $\mathcal{X}$ is a stack in groupoids over
+$(\Sch/S)_{fppf}$.
+\item The diagonal
+$\Delta : \mathcal{X} \to \mathcal{X} \times \mathcal{X}$
+is representable by algebraic spaces.
+\item There exists a scheme $U \in \Ob((\Sch/S)_{fppf})$
+and a $1$-morphism $(\Sch/U)_{fppf} \to \mathcal{X}$
+which is surjective and smooth\footnote{In future chapters we will denote
+this simply $U \to \mathcal{X}$ as is customary in the literature. Another
+good alternative would be to formulate this condition as the existence of a
+representable category fibred in groupoids $\mathcal{U}$ and a surjective
+smooth $1$-morphism $\mathcal{U} \to \mathcal{X}$.}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+There are some differences with other definitions found in the literature.
+
+\medskip\noindent
+The first is that we require $\mathcal{X}$ to be a stack in groupoids
+in the fppf topology, whereas in many references the \'etale topology is
+used. It somehow seems to us that the fppf topology is the natural topology
+to work with. In the end the resulting $2$-category of algebraic stacks
+ends up being the same. This is explained in
+Criteria for Representability, Section \ref{criteria-section-stacks-etale}.
+
+\medskip\noindent
+The second is that we only require the diagonal map of $\mathcal{X}$ to be
+representable by algebraic spaces, whereas in most references some other
+conditions are imposed. Our point of view is to try to prove a certain
+number of the results that follow only assuming that the diagonal
+of $\mathcal{X}$ be representable by algebraic spaces, and simply add
+an additional hypothesis wherever this is necessary. It has the added
+benefit that any algebraic space (as defined in
+Spaces, Definition \ref{spaces-definition-algebraic-space})
+gives rise to an algebraic stack.
+
+\medskip\noindent
+The third is that in some papers it is required that there exists a
+scheme $U$ and a surjective and \'etale morphism $U \to \mathcal{X}$.
+In the groundbreaking paper \cite{DM} where algebraic stacks were first
+introduced Deligne and Mumford used this definition and showed that
+the moduli stack of stable genus $g > 1$ curves is an algebraic stack
+which has an \'etale covering by a scheme. Michael Artin, see
+\cite{ArtinVersal}, realized that many
+natural results on algebraic stacks generalize to the case where one
+only assume a smooth covering by a scheme. Hence our choice above.
+To distinguish the two cases one sees the terms ``Deligne-Mumford stack''
+and ``Artin stack'' used in the literature. We will reserve the term
+``Artin stack'' for later use (insert future reference here), and continue
+to use ``algebraic stack'', but we will use ``Deligne-Mumford stack''
+to indicate those algebraic stacks which have an \'etale covering by a
+scheme.
+
+\begin{definition}
+\label{definition-deligne-mumford}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}$ be an algebraic stack over $S$.
+We say $\mathcal{X}$ is a {\it Deligne-Mumford stack} if there exists
+a scheme $U$ and a surjective \'etale morphism
+$(\Sch/U)_{fppf} \to \mathcal{X}$.
+\end{definition}
+
+\noindent
+We will compare our notion of a Deligne-Mumford stack with
+the notion as defined in the paper by Deligne and Mumford later
+(see insert future reference here).
+
+\medskip\noindent
+The category of algebraic stacks over $S$ forms a $2$-category.
+Here is the precise definition.
+
+\begin{definition}
+\label{definition-morphism-algebraic-stacks}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+The {\it $2$-category of algebraic stacks over $S$} is the
+sub $2$-category of the $2$-category of categories fibred in
+groupoids over $(\Sch/S)_{fppf}$ (see
+Categories,
+Definition \ref{categories-definition-categories-fibred-in-groupoids-over-C})
+defined as follows:
+\begin{enumerate}
+\item Its objects are those categories fibred in groupoids
+over $(\Sch/S)_{fppf}$ which are algebraic stacks over $S$.
+\item Its $1$-morphisms $f : \mathcal{X} \to \mathcal{Y}$ are
+any functors of categories over $(\Sch/S)_{fppf}$, as in
+Categories, Definition \ref{categories-definition-categories-over-C}.
+\item Its $2$-morphisms are transformations between functors
+over $(\Sch/S)_{fppf}$, as in
+Categories, Definition \ref{categories-definition-categories-over-C}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+In other words this $2$-category is the full sub $2$-category of
+$\textit{Cat}/(\Sch/S)_{fppf}$ whose objects are algebraic stacks.
+Note that every $2$-morphism is automatically an isomorphism.
+Hence this is actually a $(2, 1)$-category and not just a $2$-category.
+
+\medskip\noindent
+We will see later (insert future reference here) that this $2$-category
+has $2$-fibre products.
+
+\medskip\noindent
+Similar to the remark above the $2$-category of algebraic stacks over $S$ is a
+full sub $2$-category of the $2$-category of categories fibred in groupoids
+over $(\Sch/S)_{fppf}$. It turns out that it is closed under
+equivalences. Here is the precise statement.
+
+\begin{lemma}
+\label{lemma-equivalent}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}$, $\mathcal{Y}$ be categories over $(\Sch/S)_{fppf}$.
+Assume $\mathcal{X}$, $\mathcal{Y}$ are equivalent as categories over
+$(\Sch/S)_{fppf}$. Then $\mathcal{X}$ is an algebraic stack if and
+only if $\mathcal{Y}$ is an algebraic stack. Similarly, $\mathcal{X}$
+is a Deligne-Mumford stack if and only if $\mathcal{Y}$ is a Deligne-Mumford
+stack.
+\end{lemma}
+
+\begin{proof}
+Assume $\mathcal{X}$ is an algebraic stack (resp.\ a Deligne-Mumford stack). By
+Stacks, Lemma \ref{stacks-lemma-stack-in-groupoids-equivalent}
+this implies that $\mathcal{Y}$ is a stack in groupoids over
+$\Sch_{fppf}$. Choose an equivalence $f : \mathcal{X} \to \mathcal{Y}$
+over $\Sch_{fppf}$. This gives a $2$-commutative diagram
+$$
+\xymatrix{
+\mathcal{X} \ar[r]_f \ar[d]_{\Delta_\mathcal{X}} &
+\mathcal{Y} \ar[d]^{\Delta_\mathcal{Y}} \\
+\mathcal{X} \times \mathcal{X} \ar[r]^{f \times f} &
+\mathcal{Y} \times \mathcal{Y}
+}
+$$
+whose horizontal arrows are equivalences. This implies that
+$\Delta_\mathcal{Y}$ is representable by algebraic spaces according to
+Lemma \ref{lemma-representable-by-spaces-morphism-equivalent}.
+Finally, let $U$ be a scheme over $S$, and let
+$x : (\Sch/U)_{fppf} \to \mathcal{X}$ be a $1$-morphism which
+is surjective and smooth (resp.\ \'etale). Considering the diagram
+$$
+\xymatrix{
+(\Sch/U)_{fppf} \ar[r]_{\text{id}} \ar[d]_x &
+(\Sch/U)_{fppf} \ar[d]^{f \circ x} \\
+\mathcal{X} \ar[r]^f &
+\mathcal{Y}
+}
+$$
+and applying
+Lemma \ref{lemma-property-morphism-equivalent}
+we conclude that $x \circ f$ is surjective and smooth (resp.\ \'etale)
+as desired.
+\end{proof}
+
+
+
+
+\section{Algebraic stacks and algebraic spaces}
+\label{section-stacks-spaces}
+
+\noindent
+In this section we discuss some simple criteria which imply that an
+algebraic stack is an algebraic space. The main result is that this
+happens exactly when objects of fibre categories have no nontrivial
+automorphisms. This is not a triviality! Before we come to this
+we first do a sanity check.
+
+\begin{lemma}
+\label{lemma-representable-algebraic}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+\begin{enumerate}
+\item A category fibred in groupoids
+$p : \mathcal{X} \to (\Sch/S)_{fppf}$
+which is representable by an algebraic space is a Deligne-Mumford stack.
+\item If $F$ is an algebraic space over $S$, then the associated
+category fibred in groupoids
+$p : \mathcal{S}_F \to (\Sch/S)_{fppf}$
+is a Deligne-Mumford stack.
+\item If $X \in \Ob((\Sch/S)_{fppf})$, then
+$(\Sch/X)_{fppf} \to (\Sch/S)_{fppf}$ is
+a Deligne-Mumford stack.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+It is clear that (2) implies (3).
+Parts (1) and (2) are equivalent by Lemma \ref{lemma-equivalent}.
+Hence it suffices to prove (2).
+First, we note that $\mathcal{S}_F$ is stack in sets since
+$F$ is a sheaf (Stacks, Lemma
+\ref{stacks-lemma-stack-in-setoids-characterize}).
+A fortiori it is a stack in groupoids. Second the diagonal
+morphism $\mathcal{S}_F \to \mathcal{S}_F  \times \mathcal{S}_F$
+is the same as the morphism $\mathcal{S}_F \to \mathcal{S}_{F \times F}$
+which comes from the diagonal of $F$. Hence this is representable
+by algebraic spaces according to
+Lemma \ref{lemma-morphism-spaces-gives-representable-by-spaces}.
+Actually it is even representable (by schemes), as the diagonal of
+an algebraic space is representable, but we do not need this.
+Let $U$ be a scheme and let $h_U \to F$ be a surjective \'etale morphism.
+We may think of this a surjective \'etale morphism of algebraic spaces.
+Hence by
+Lemma
+\ref{lemma-map-presheaves-representable-by-spaces-transformation-property}
+the corresponding $1$-morphism $(\Sch/U)_{fppf} \to \mathcal{S}_F$
+is surjective and \'etale.
+\end{proof}
+
+\noindent
+The following result says that a Deligne-Mumford stack whose inertia
+is trivial ``is'' an algebraic space. This lemma will be obsoleted by
+the stronger
+Proposition \ref{proposition-algebraic-stack-no-automorphisms}
+below which says that this holds more generally for algebraic stacks...
+
+\begin{lemma}
+\label{lemma-algebraic-stack-no-automorphisms}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}$ be an algebraic stack over $S$.
+The following are equivalent
+\begin{enumerate}
+\item $\mathcal{X}$ is a Deligne-Mumford stack and is a stack in setoids,
+\item $\mathcal{X}$ is a Deligne-Mumford stack such that the
+canonical $1$-morphism $\mathcal{I}_\mathcal{X} \to \mathcal{X}$
+is an equivalence, and
+\item $\mathcal{X}$ is representable by an algebraic space.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (1) and (2) follows from
+Stacks, Lemma \ref{stacks-lemma-characterize-stack-in-setoids}.
+The implication (3) $\Rightarrow$ (1) follows from
+Lemma \ref{lemma-representable-algebraic}.
+Finally, assume (1). By
+Stacks, Lemma \ref{stacks-lemma-stack-in-setoids-characterize}
+there exists a sheaf $F$ on $(\Sch/S)_{fppf}$
+and an equivalence $j : \mathcal{X} \to \mathcal{S}_F$. By
+Lemma \ref{lemma-map-presheaves-representable-by-algebraic-spaces}
+the fact that $\Delta_\mathcal{X}$ is representable by algebraic
+spaces, means that $\Delta_F : F \to F \times F$
+is representable by algebraic spaces.
+Let $U$ be a scheme, and let $x : (\Sch/U)_{fppf} \to \mathcal{X}$
+be a surjective \'etale morphism. The composition
+$j \circ x : (\Sch/U)_{fppf} \to \mathcal{S}_F$
+corresponds to a morphism $h_U \to F$ of sheaves. By
+Bootstrap, Lemma \ref{bootstrap-lemma-representable-diagonal}
+this morphism is representable by algebraic spaces.
+Hence by
+Lemma \ref{lemma-map-fibred-setoids-property}
+we conclude that $h_U \to F$ is surjective and \'etale.
+Finally, we apply
+Bootstrap, Theorem \ref{bootstrap-theorem-bootstrap}
+to see that $F$ is an algebraic space.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-algebraic-stack-no-automorphisms}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}$ be an algebraic stack over $S$.
+The following are equivalent
+\begin{enumerate}
+\item $\mathcal{X}$ is a stack in setoids,
+\item the canonical $1$-morphism $\mathcal{I}_\mathcal{X} \to \mathcal{X}$
+is an equivalence, and
+\item $\mathcal{X}$ is representable by an algebraic space.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The equivalence of (1) and (2) follows from
+Stacks, Lemma \ref{stacks-lemma-characterize-stack-in-setoids}.
+The implication (3) $\Rightarrow$ (1) follows from
+Lemma \ref{lemma-algebraic-stack-no-automorphisms}.
+Finally, assume (1). By
+Stacks, Lemma \ref{stacks-lemma-stack-in-setoids-characterize}
+there exists an equivalence $j : \mathcal{X} \to \mathcal{S}_F$
+where $F$ is a sheaf on $(\Sch/S)_{fppf}$.  By
+Lemma \ref{lemma-map-presheaves-representable-by-algebraic-spaces}
+the fact that $\Delta_\mathcal{X}$ is representable by algebraic
+spaces, means that $\Delta_F : F \to F \times F$
+is representable by algebraic spaces.
+Let $U$ be a scheme and let $x : (\Sch/U)_{fppf} \to \mathcal{X}$
+be a surjective smooth morphism. The composition
+$j \circ x : (\Sch/U)_{fppf} \to \mathcal{S}_F$
+corresponds to a morphism $h_U \to F$ of sheaves. By
+Bootstrap, Lemma \ref{bootstrap-lemma-representable-diagonal}
+this morphism is representable by algebraic spaces.
+Hence by
+Lemma \ref{lemma-map-fibred-setoids-property}
+we conclude that $h_U \to F$ is surjective and smooth.
+In particular it is surjective, flat and locally of finite presentation
+(by
+Lemma \ref{lemma-representable-transformations-property-implication}
+and the fact that a smooth morphism of algebraic spaces is flat and
+locally of finite presentation, see
+Morphisms of Spaces,
+Lemmas \ref{spaces-morphisms-lemma-smooth-locally-finite-presentation} and
+\ref{spaces-morphisms-lemma-smooth-flat}).
+Finally, we apply
+Bootstrap, Theorem \ref{bootstrap-theorem-final-bootstrap}
+to see that $F$ is an algebraic space.
+\end{proof}
+
+
+
+
+
+
+\section{2-Fibre products of algebraic stacks}
+\label{section-2-fibre-products}
+
+\noindent
+The $2$-category of algebraic stacks has products and $2$-fibre products.
+The first lemma is really a special case of
+Lemma \ref{lemma-2-fibre-product}
+but its proof is slightly easier.
+
+\begin{lemma}
+\label{lemma-product-spaces}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}$, $\mathcal{Y}$ be algebraic stacks over $S$.
+Then $\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$
+is an algebraic stack, and is a product in the $2$-category of
+algebraic stacks over $S$.
+\end{lemma}
+
+\begin{proof}
+An object of $\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$
+over $T$ is just a pair $(x, y)$ where $x$ is an object of $\mathcal{X}_T$
+and $y$ is an object of $\mathcal{Y}_T$. Hence it is immediate from
+the definitions that
+$\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$ is a
+stack in groupoids. If $(x, y)$ and $(x', y')$ are
+two objects of $\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$
+over $T$, then
+$$
+\mathit{Isom}((x, y), (x', y')) =
+\mathit{Isom}(x, x') \times \mathit{Isom}(y, y').
+$$
+Hence it follows from the equivalences in
+Lemma \ref{lemma-representable-diagonal}
+and the fact that the category of algebraic spaces has products
+that the diagonal of $\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$
+is representable by algebraic spaces.
+Finally, suppose that $U, V \in \Ob((\Sch/S)_{fppf})$,
+and let $x, y$ be surjective smooth morphisms
+$x : (\Sch/U)_{fppf} \to \mathcal{X}$,
+$y : (\Sch/V)_{fppf} \to \mathcal{Y}$.
+Note that
+$$
+(\Sch/U \times_S V)_{fppf} =
+(\Sch/U)_{fppf}
+\times_{(\Sch/S)_{fppf}} (\Sch/V)_{fppf}.
+$$
+The object $(\text{pr}_U^*x, \text{pr}_V^*y)$ of
+$\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$ over
+$(\Sch/U \times_S V)_{fppf}$ thus defines a $1$-morphism
+$$
+(\Sch/U \times_S V)_{fppf}
+\longrightarrow
+\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}
+$$
+which is the composition of base changes of $x$ and $y$, hence
+is surjective and smooth, see
+Lemmas \ref{lemma-base-change-representable-transformations-property} and
+\ref{lemma-composition-representable-transformations-property}.
+We conclude that $\mathcal{X} \times_{(\Sch/S)_{fppf}} \mathcal{Y}$
+is indeed an algebraic stack. We omit the verification that it
+really is a product.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-2-fibre-product-general}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{Z}$ be a stack in groupoids over $(\Sch/S)_{fppf}$
+whose diagonal is representable by algebraic spaces.
+Let $\mathcal{X}$, $\mathcal{Y}$ be algebraic stacks over $S$.
+Let $f : \mathcal{X} \to \mathcal{Z}$, $g : \mathcal{Y} \to \mathcal{Z}$
+be $1$-morphisms of stacks in groupoids. Then the $2$-fibre product
+$\mathcal{X} \times_{f, \mathcal{Z}, g} \mathcal{Y}$ is an algebraic stack.
+\end{lemma}
+
+\begin{proof}
+We have to check conditions (1), (2), and (3) of
+Definition \ref{definition-algebraic-stack}.
+The first condition follows from
+Stacks, Lemma \ref{stacks-lemma-2-product-stacks-in-groupoids}.
+
+\medskip\noindent
+The second condition we have to check is that the $\mathit{Isom}$-sheaves
+are representable by algebraic spaces. To do this, suppose that
+$T$ is a scheme over $S$, and $u, v$ are objects of
+$(\mathcal{X} \times_{f, \mathcal{Z}, g} \mathcal{Y})_T$.
+By our construction of $2$-fibre products (which goes all the way
+back to
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C})
+we may write $u = (x, y, \alpha)$ and $v = (x', y', \alpha')$.
+Here $\alpha : f(x) \to g(y)$ and similarly for $\alpha'$.
+Then it is clear that
+$$
+\xymatrix{
+\mathit{Isom}(u, v) \ar[d] \ar[rr] & &
+\mathit{Isom}(y, y') \ar[d]^{\phi \mapsto g(\phi) \circ \alpha} \\
+\mathit{Isom}(x, x') \ar[rr]^-{\psi \mapsto \alpha' \circ f(\psi)} & &
+\mathit{Isom}(f(x), g(y'))
+}
+$$
+is a cartesian diagram of sheaves on $(\Sch/T)_{fppf}$.
+Since by assumption the sheaves
+$\mathit{Isom}(y, y')$, $\mathit{Isom}(x, x')$, $\mathit{Isom}(f(x), g(y'))$
+are algebraic spaces (see
+Lemma \ref{lemma-representable-diagonal})
+we see that $\mathit{Isom}(u, v)$
+is an algebraic space.
+
+\medskip\noindent
+Let $U, V \in \Ob((\Sch/S)_{fppf})$,
+and let $x, y$ be surjective smooth morphisms
+$x : (\Sch/U)_{fppf} \to \mathcal{X}$,
+$y : (\Sch/Y)_{fppf} \to \mathcal{Y}$.
+Consider the morphism
+$$
+(\Sch/U)_{fppf}
+\times_{f \circ x, \mathcal{Z}, g \circ y}
+(\Sch/V)_{fppf}
+\longrightarrow
+\mathcal{X} \times_{f, \mathcal{Z}, g} \mathcal{Y}.
+$$
+As the diagonal of $\mathcal{Z}$ is representable by algebraic spaces
+the source of this arrow is representable by an algebraic space $F$, see
+Lemma \ref{lemma-representable-diagonal}.
+Moreover, the morphism is the composition
+of base changes of $x$ and $y$, hence surjective and smooth, see
+Lemmas \ref{lemma-base-change-representable-transformations-property} and
+\ref{lemma-composition-representable-transformations-property}.
+Choosing a scheme $W$ and a surjective \'etale morphism $W \to F$
+we see that the composition of the displayed $1$-morphism
+with the corresponding $1$-morphism
+$$
+(\Sch/W)_{fppf}
+\longrightarrow
+(\Sch/U)_{fppf}
+\times_{f \circ x, \mathcal{Z}, g \circ y}
+(\Sch/V)_{fppf}
+$$
+is surjective and smooth which proves the last condition.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-2-fibre-product}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}, \mathcal{Y}, \mathcal{Z}$ be algebraic stacks over $S$.
+Let $f : \mathcal{X} \to \mathcal{Z}$, $g : \mathcal{Y} \to \mathcal{Z}$
+be $1$-morphisms of algebraic stacks. Then the $2$-fibre product
+$\mathcal{X} \times_{f, \mathcal{Z}, g} \mathcal{Y}$ is an algebraic stack.
+It is also the $2$-fibre product in the $2$-category of algebraic stacks
+over $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+The fact that $\mathcal{X} \times_{f, \mathcal{Z}, g} \mathcal{Y}$ is an
+algebraic stack follows from the stronger
+Lemma \ref{lemma-2-fibre-product-general}.
+The fact that $\mathcal{X} \times_{f, \mathcal{Z}, g} \mathcal{Y}$
+is a $2$-fibre product in the $2$-category of algebraic stacks over $S$
+follows formally from the fact that the $2$-category of algebraic stacks
+over $S$ is a full sub $2$-category of the $2$-category of stacks in
+groupoids over $(\Sch/S)_{fppf}$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Algebraic stacks, overhauled}
+\label{section-overhaul}
+
+\noindent
+Some basic results on algebraic stacks.
+
+\begin{lemma}
+\label{lemma-lift-morphism-presentations}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of algebraic
+stacks over $S$.
+Let $V \in \Ob((\Sch/S)_{fppf})$.
+Let $y : (\Sch/V)_{fppf} \to \mathcal{Y}$ be surjective and smooth.
+Then there exists an object $U \in \Ob((\Sch/S)_{fppf})$
+and a $2$-commutative diagram
+$$
+\xymatrix{
+(\Sch/U)_{fppf} \ar[r]_a \ar[d]_x &
+(\Sch/V)_{fppf} \ar[d]^y \\
+\mathcal{X} \ar[r]^f & \mathcal{Y}
+}
+$$
+with $x$ surjective and smooth.
+\end{lemma}
+
+\begin{proof}
+First choose $W \in \Ob((\Sch/S)_{fppf})$ and a surjective
+smooth $1$-morphism $z : (\Sch/W)_{fppf} \to \mathcal{X}$.
+As $\mathcal{Y}$ is an algebraic stack we may choose an equivalence
+$$
+j :
+\mathcal{S}_F
+\longrightarrow
+(\Sch/W)_{fppf}
+\times_{f \circ z, \mathcal{Y}, y}
+(\Sch/V)_{fppf}
+$$
+where $F$ is an algebraic space. By
+Lemma \ref{lemma-base-change-representable-transformations-property}
+the morphism
+$\mathcal{S}_F \to (\Sch/W)_{fppf}$ is surjective and smooth
+as a base change of $y$. Hence by
+Lemma \ref{lemma-composition-representable-transformations-property}
+we see that $\mathcal{S}_F \to \mathcal{X}$ is surjective and smooth.
+Choose an object $U \in \Ob((\Sch/S)_{fppf})$
+and a surjective \'etale morphism $U \to F$. Then applying
+Lemma \ref{lemma-composition-representable-transformations-property}
+once more we obtain the desired properties.
+\end{proof}
+
+\noindent
+This lemma is a generalization of
+Proposition \ref{proposition-algebraic-stack-no-automorphisms}.
+
+\begin{lemma}
+\label{lemma-characterize-representable-by-algebraic-spaces}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $f : \mathcal{X} \to \mathcal{Y}$ be a $1$-morphism of algebraic
+stacks over $S$. The following are equivalent:
+\begin{enumerate}
+\item for $U \in \Ob((\Sch/S)_{fppf})$
+the functor $f : \mathcal{X}_U \to \mathcal{Y}_U$ is faithful,
+\item the functor $f$ is faithful, and
+\item $f$ is representable by algebraic spaces.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Parts (1) and (2) are equivalent by general properties of $1$-morphisms
+of categories fibred in groupoids, see
+Categories, Lemma \ref{categories-lemma-equivalence-fibred-categories}.
+We see that (3) implies (2) by
+Lemma \ref{lemma-criterion-map-representable-spaces-fibred-in-groupoids}.
+Finally, assume (2).
+Let $U$ be a scheme. Let $y \in \Ob(\mathcal{Y}_U)$.
+We have to prove that
+$$
+\mathcal{W} = (\Sch/U)_{fppf} \times_{y, \mathcal{Y}} \mathcal{X}
+$$
+is representable by an algebraic space over $U$. Since
+$(\Sch/U)_{fppf}$ is an algebraic stack we see from
+Lemma \ref{lemma-2-fibre-product}
+that $\mathcal{W}$ is an algebraic stack.
+On the other hand the explicit description of objects of $\mathcal{W}$
+as triples $(V, x, \alpha : y(V) \to f(x))$ and the fact that $f$ is
+faithful, shows that the fibre categories of $\mathcal{W}$ are setoids. Hence
+Proposition \ref{proposition-algebraic-stack-no-automorphisms}
+guarantees that $\mathcal{W}$ is representable by an algebraic space.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-surjective-morphism-implies-algebraic}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $u : \mathcal{U} \to \mathcal{X}$ be a $1$-morphism of
+stacks in groupoids over $(\Sch/S)_{fppf}$. If
+\begin{enumerate}
+\item $\mathcal{U}$ is representable by an algebraic space, and
+\item $u$ is representable by algebraic spaces, surjective and smooth,
+\end{enumerate}
+then $\mathcal X$ is an algebraic stack over $S$.
+\end{lemma}
+
+\begin{proof}
+We have to show that $\Delta : \mathcal{X} \to \mathcal{X} \times \mathcal{X}$
+is representable by algebraic spaces, see
+Definition \ref{definition-algebraic-stack}.
+Given two schemes $T_1$, $T_2$ over $S$ denote
+$\mathcal{T}_i = (\Sch/T_i)_{fppf}$ the associated representable
+fibre categories. Suppose given $1$-morphisms
+$f_i : \mathcal{T}_i \to \mathcal{X}$.
+According to
+Lemma \ref{lemma-representable-diagonal}
+it suffices to prove that the $2$-fibered
+product $\mathcal{T}_1 \times_\mathcal{X} \mathcal{T}_2$
+is representable by an algebraic space. By
+Stacks, Lemma
+\ref{stacks-lemma-2-fibre-product-stacks-in-setoids-over-stack-in-groupoids}
+this is in any case a stack in setoids. Thus
+$\mathcal{T}_1 \times_\mathcal{X} \mathcal{T}_2$ corresponds
+to some sheaf $F$ on $(\Sch/S)_{fppf}$, see
+Stacks, Lemma \ref{stacks-lemma-stack-in-setoids-characterize}.
+Let $U$ be the algebraic space which represents $\mathcal{U}$.
+By assumption
+$$
+\mathcal{T}_i' = \mathcal{U} \times_{u, \mathcal{X}, f_i} \mathcal{T}_i
+$$
+is representable by an algebraic space $T'_i$ over $S$. Hence
+$\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2'$ is representable
+by the algebraic space $T'_1 \times_U T'_2$.
+Consider the commutative diagram
+$$
+\xymatrix{
+&
+\mathcal{T}_1 \times_{\mathcal X} \mathcal{T}_2 \ar[rr]\ar'[d][dd] & &
+\mathcal{T}_1 \ar[dd] \\
+\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2' \ar[ur]\ar[rr]\ar[dd] & &
+\mathcal{T}_1' \ar[ur]\ar[dd] \\
+&
+\mathcal{T}_2 \ar'[r][rr] & &
+\mathcal X \\
+\mathcal{T}_2' \ar[rr]\ar[ur] & &
+\mathcal{U} \ar[ur] }
+$$
+In this diagram the bottom square, the right square, the back square, and
+the front square are $2$-fibre products. A formal argument then shows
+that $\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2' \to
+\mathcal{T}_1 \times_{\mathcal X} \mathcal{T}_2$
+is the ``base change'' of $\mathcal{U} \to \mathcal{X}$, more precisely
+the diagram
+$$
+\xymatrix{
+\mathcal{T}_1' \times_\mathcal{U} \mathcal{T}_2' \ar[d] \ar[r] &
+\mathcal{U} \ar[d] \\
+\mathcal{T}_1 \times_{\mathcal X} \mathcal{T}_2 \ar[r] &
+\mathcal{X}
+}
+$$
+is a $2$-fibre square.
+Hence $T'_1 \times_U T'_2 \to F$ is representable by algebraic spaces,
+smooth, and surjective, see
+Lemmas \ref{lemma-map-fibred-setoids-representable-algebraic-spaces},
+\ref{lemma-base-change-representable-by-spaces},
+\ref{lemma-map-fibred-setoids-property}, and
+\ref{lemma-base-change-representable-transformations-property}.
+Therefore $F$ is an algebraic space by
+Bootstrap, Theorem \ref{bootstrap-theorem-final-bootstrap}
+and we win.
+\end{proof}
+
+\noindent
+An application of
+Lemma \ref{lemma-smooth-surjective-morphism-implies-algebraic}
+is that something which is an algebraic space over an algebraic stack
+is an algebraic stack. This is the analogue of
+Bootstrap, Lemma \ref{bootstrap-lemma-representable-by-spaces-over-space}.
+Actually, it suffices to assume the morphism
+$\mathcal{X} \to \mathcal{Y}$ is ``algebraic'', as we will see in
+Criteria for Representability,
+Lemma \ref{criteria-lemma-algebraic-morphism-to-algebraic}.
+
+\begin{lemma}
+\label{lemma-representable-morphism-to-algebraic}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X} \to \mathcal{Y}$ be a morphism of stacks in groupoids
+over $(\Sch/S)_{fppf}$. Assume that
+\begin{enumerate}
+\item $\mathcal{X} \to \mathcal{Y}$ is representable by algebraic spaces, and
+\item $\mathcal{Y}$ is an algebraic stack over $S$.
+\end{enumerate}
+Then $\mathcal{X}$ is an algebraic stack over $S$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{V} \to \mathcal{Y}$ be a surjective smooth $1$-morphism
+from a representable stack in groupoids to $\mathcal{Y}$. This exists by
+Definition \ref{definition-algebraic-stack}.
+Then the $2$-fibre product
+$\mathcal{U} = \mathcal{V} \times_{\mathcal Y} \mathcal X$
+is representable by an algebraic space by
+Lemma \ref{lemma-base-change-by-space-representable-by-space}.
+The $1$-morphism $\mathcal{U} \to \mathcal X$ is representable by algebraic
+spaces, smooth, and surjective, see
+Lemmas \ref{lemma-base-change-representable-by-spaces} and
+\ref{lemma-base-change-representable-transformations-property}.
+By
+Lemma \ref{lemma-smooth-surjective-morphism-implies-algebraic}
+we conclude that $\mathcal{X}$ is an algebraic stack.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open-fibred-category-is-algebraic}
+\begin{reference}
+Removing the hypothesis that $j$ is a monomorphism was observed
+in an email from Matthew Emerton dates June 15, 2016
+\end{reference}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $j : \mathcal X \to \mathcal Y$ be a $1$-morphism of
+categories fibred in groupoids over $(\Sch/S)_{fppf}$.
+Assume $j$ is representable by algebraic spaces.
+Then, if $\mathcal{Y}$ is a stack in groupoids
+(resp.\ an algebraic stack), so is $\mathcal{X}$.
+\end{lemma}
+
+\begin{proof}
+The statement on algebraic stacks will follow from the statement on
+stacks in groupoids by Lemma \ref{lemma-representable-morphism-to-algebraic}.
+If $j$ is representable by algebraic spaces, then $j$ is
+faithful on fibre categories and for each $U$ and each
+$y \in \Ob(\mathcal{Y}_U)$ the presheaf
+$$
+(h : V \to U)
+\longmapsto
+\{(x, \phi) \mid x \in \Ob(\mathcal{X}_V), \phi : h^*y \to f(x)\}/\cong
+$$
+is an algebraic space over $U$. See
+Lemma \ref{lemma-criterion-map-representable-spaces-fibred-in-groupoids}.
+In particular this presheaf is a sheaf and the conclusion follows
+from Stacks, Lemma \ref{stacks-lemma-relative-sheaf-over-stack-is-stack}.
+\end{proof}
+
+
+
+\section{From an algebraic stack to a presentation}
+\label{section-stack-to-presentation}
+
+\noindent
+Given an algebraic stack over $S$ we obtain a groupoid in algebraic spaces
+over $S$ whose associated quotient stack is the algebraic stack.
+
+\medskip\noindent
+Recall that if $(U, R, s, t, c)$ is a groupoid in algebraic spaces over $S$
+then $[U/R]$ denotes the quotient stack associated to this datum, see
+Groupoids in Spaces,
+Definition \ref{spaces-groupoids-definition-quotient-stack}.
+In general $[U/R]$ is {\bf not} an algebraic stack. In particular the
+stack $[U/R]$ occurring in the following lemma is in general not
+algebraic.
+
+\begin{lemma}
+\label{lemma-map-space-into-stack}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}$ be an algebraic stack over $S$.
+Let $\mathcal{U}$ be an algebraic stack over $S$ which
+is representable by an algebraic space.
+Let $f : \mathcal{U} \to \mathcal{X}$ be a 1-morphism. Then
+\begin{enumerate}
+\item the $2$-fibre product
+$\mathcal{R} = \mathcal{U} \times_{f, \mathcal{X}, f} \mathcal{U}$
+is representable by an algebraic space,
+\item there is a canonical equivalence
+$$
+\mathcal{U} \times_{f, \mathcal{X}, f} \mathcal{U}
+\times_{f, \mathcal{X}, f} \mathcal{U} =
+\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R},
+$$
+\item the projection $\text{pr}_{02}$ induces via (2) a $1$-morphism
+$$
+\text{pr}_{02} :
+\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R}
+\longrightarrow
+\mathcal{R}
+$$
+\item let $U$, $R$ be the algebraic spaces representing
+$\mathcal{U}, \mathcal{R}$ and $t, s : R \to U$ and
+$c : R \times_{s, U, t} R \to R$ are the morphisms corresponding
+to the $1$-morphisms
+$\text{pr}_0, \text{pr}_1 : \mathcal{R} \to \mathcal{U}$
+and
+$\text{pr}_{02} :
+\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R} \to
+\mathcal{R}$ above, then the quintuple $(U, R, s, t, c)$ is a groupoid in
+algebraic spaces over $S$,
+\item the morphism $f$ induces a canonical $1$-morphism
+$f_{can} : [U/R] \to \mathcal{X}$
+of stacks in groupoids over $(\Sch/S)_{fppf}$, and
+\item the $1$-morphism $f_{can} : [U/R] \to \mathcal{X}$ is fully faithful.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of (1). By definition $\Delta_\mathcal{X}$ is representable
+by algebraic spaces so
+Lemma \ref{lemma-representable-diagonal}
+applies to show that $\mathcal{U} \to \mathcal{X}$ is representable
+by algebraic spaces. Hence the result follows from
+Lemma \ref{lemma-base-change-by-space-representable-by-space}.
+
+\medskip\noindent
+Let $T$ be a scheme over $S$. By construction of the $2$-fibre product (see
+Categories, Lemma \ref{categories-lemma-2-product-categories-over-C})
+we see that the objects of the fibre category $\mathcal{R}_T$
+are triples $(a, b, \alpha)$ where $a, b \in \Ob(\mathcal{U}_T)$
+and $\alpha : f(a) \to f(b)$
+is a morphism in the fibre category $\mathcal{X}_T$.
+
+\medskip\noindent
+Proof of (2). The equivalence comes from repeatedly applying
+Categories, Lemmas \ref{categories-lemma-associativity-2-fibre-product} and
+\ref{categories-lemma-2-fibre-product-erase-factor}.
+Let us identify
+$\mathcal{U} \times_\mathcal{X} \mathcal{U} \times_\mathcal{X} \mathcal{U}$
+with
+$(\mathcal{U} \times_\mathcal{X} \mathcal{U})
+\times_\mathcal{X} \mathcal{U}$.
+If $T$ is a scheme over $S$, then on fibre categories over $T$
+this equivalence maps the object
+$((a, b, \alpha), c, \beta)$ on the left hand side
+to the object $((a, b, \alpha), (b, c, \beta))$ of the right hand side.
+
+\medskip\noindent
+Proof of (3). The $1$-morphism $\text{pr}_{02}$ is constructed in the proof of
+Categories, Lemma \ref{categories-lemma-triple-2-fibre-product-pr02}.
+In terms of the description of objects of the fibre category
+above we see that $((a, b, \alpha), (b, c, \beta))$
+maps to $(a, c, \beta \circ \alpha)$.
+
+\medskip\noindent
+Unfortunately, this is {\it not compatible} with our conventions on
+groupoids where we always have $j = (t, s) : R \to U$, and we ``think''
+of a $T$-valued point $r$ of $R$ as a morphism $r : s(r) \to t(r)$.
+However, this does not affect the proof of (4), since the opposite of
+a groupoid is a groupoid. But in the proof of (5) it is responsible
+for the inverses in the displayed formula below.
+
+\medskip\noindent
+Proof of (4). Recall that the sheaf $U$ is isomorphic to the sheaf
+$T \mapsto \Ob(\mathcal{U}_T)/\!\cong$, and
+similarly for $R$, see
+Lemma \ref{lemma-characterize-representable-by-space}.
+It follows from
+Categories,
+Lemma \ref{categories-lemma-category-fibred-setoids-presheaves-products}
+that this description is compatible with $2$-fibre products
+so we get a similar matching of
+$\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R}$
+and $R \times_{s, U, t} R$.
+The morphisms $t, s : R \to U$ and $c : R \times_{s, U, t} R \to R$
+we get from the general equality (\ref{equation-morphisms-spaces}).
+Explicitly these maps are the transformations of functors that come
+from letting $\text{pr}_0$, $\text{pr}_0$, $\text{pr}_{02}$
+act on isomorphism classes of objects of fibre categories.
+Hence to show that we obtain a groupoid in algebraic
+spaces it suffices to show that for every scheme $T$ over $S$
+the structure
+$$
+(\Ob(\mathcal{U}_T)/\!\cong,
+\Ob(\mathcal{R}_T)/\!\cong,
+\text{pr}_1, \text{pr}_0, \text{pr}_{02})
+$$
+is a groupoid which is clear from our description of objects of
+$\mathcal{R}_T$ above.
+
+\medskip\noindent
+Proof of (5). We will eventually apply
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-2-coequalizer}
+to obtain the functor $[U/R] \to \mathcal{X}$.
+Consider the $1$-morphism $f : \mathcal{U} \to \mathcal{X}$.
+We have a $2$-arrow $\tau : f \circ \text{pr}_1 \to f \circ \text{pr}_0$
+by definition of $\mathcal{R}$ as the $2$-fibre product.
+Namely, on an object $(a, b, \alpha)$ of $\mathcal{R}$ over $T$ it is
+the map $\alpha^{-1} : b \to a$. We claim that
+$$
+\tau \circ \text{id}_{\text{pr}_{02}} =
+(\tau \star \text{id}_{\text{pr}_0})
+\circ
+(\tau \star \text{id}_{\text{pr}_1}).
+$$
+This identity says that given an object
+$((a, b, \alpha), (b, c, \beta))$ of
+$\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R}$
+over $T$, then the composition of
+$$
+\xymatrix{
+c \ar[r]^{\beta^{-1}} & b \ar[r]^{\alpha^{-1}} & a
+}
+$$
+is the same as the arrow $(\beta \circ \alpha)^{-1} : a \to c$. This is
+clearly true, hence the claim holds. In this way we see that all the
+assumption of
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-2-coequalizer}
+are satisfied for the structure
+$(\mathcal{U}, \mathcal{R}, \text{pr}_0, \text{pr}_1, \text{pr}_{02})$
+and the $1$-morphism $f$ and the $2$-morphism $\tau$.
+Except, to apply the lemma we need to prove this holds
+for the structure $(\mathcal{S}_U, \mathcal{S}_R, s, t, c)$
+with suitable morphisms.
+
+\medskip\noindent
+Now there should be some general abstract nonsense
+argument which transfer these data between the two, but it seems to
+be quite long. Instead, we use the following trick.
+Pick a quasi-inverse $j^{-1} : \mathcal{S}_U \to \mathcal{U}$
+of the canonical equivalence $j : \mathcal{U} \to \mathcal{S}_U$ which comes
+from $U(T) = \Ob(\mathcal{U}_T)/\!\!\cong$.
+This just means that for every scheme $T/S$ and every
+object $a \in \mathcal{U}_T$ we have picked out a particular
+element of its isomorphism class, namely $j^{-1}(j(a))$.
+Using $j^{-1}$ we may therefore see $\mathcal{S}_U$
+as a subcategory of $\mathcal{U}$. Having chosen this subcategory
+we can consider those objects $(a, b, \alpha)$ of $\mathcal{R}_T$
+such that $a, b$ are objects of $(\mathcal{S}_U)_T$, i.e., such
+that $j^{-1}(j(a)) = a$ and $j^{-1}(j(b)) = b$. Then it is clear that
+this forms a subcategory of $\mathcal{R}$ which maps isomorphically
+to $\mathcal{S}_R$ via the canonical equivalence
+$\mathcal{R} \to \mathcal{S}_R$. Moreover, this is clearly compatible
+with forming the $2$-fibre product
+$\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R}$.
+Hence we see that we may simply restrict
+$f$ to $\mathcal{S}_U$ and restrict $\tau$ to a transformation
+between functors $\mathcal{S}_R \to \mathcal{X}$. Hence it is clear that
+the displayed equality of
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-2-coequalizer}
+holds since it holds even as an equality of transformations of functors
+$\mathcal{R} \times_{\text{pr}_1, \mathcal{U}, \text{pr}_0} \mathcal{R}
+\to \mathcal{X}$ before restricting to the subcategory
+$\mathcal{S}_{R \times_{s, U, t} R}$.
+
+\medskip\noindent
+This proves that
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-2-coequalizer}
+applies and we get our desired morphism of stacks
+$f_{can} : [U/R] \to \mathcal{X}$. We briefly spell out how
+$f_{can}$ is defined in this special case.
+On an object $a$ of $\mathcal{S}_U$ over $T$
+we have $f_{can}(a) = f(a)$, where we think of
+$\mathcal{S}_U \subset \mathcal{U}$ by the chosen embedding above.
+If $a, b$ are objects of $\mathcal{S}_U$ over $T$, then a morphism
+$\varphi : a \to b$ in $[U/R]$ is by definition an object of the
+form $\varphi = (b, a, \alpha)$ of $\mathcal{R}$ over $T$. (Note
+switch.) And the rule in the proof of
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-2-coequalizer}
+is that
+\begin{equation}
+\label{equation-on-morphisms}
+f_{can}(\varphi) = \Big(f(a) \xrightarrow{\alpha^{-1}} f(b)\Big).
+\end{equation}
+Proof of (6). Both $[U/R]$ and $\mathcal{X}$ are stacks.
+Hence given a scheme $T/S$ and objects $a, b$ of $[U/R]$
+over $T$ we obtain a transformation of fppf sheaves
+$$
+\mathit{Isom}(a, b) \longrightarrow \mathit{Isom}(f_{can}(a), f_{can}(b))
+$$
+on $(\Sch/T)_{fppf}$. We have to show that this is an
+isomorphism. We may work fppf locally on $T$, hence we may assume that
+$a, b$ come from morphisms $a, b : T \to U$. By the embedding
+$\mathcal{S}_U \subset \mathcal{U}$ above we may also think of $a, b$ as
+objects of $\mathcal{U}$ over $T$. In
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-morphisms}
+we have seen that the left hand sheaf is represented by the algebraic space
+$$
+R \times_{(t, s), U \times_S U, (b, a)} T
+$$
+over $T$. On the other hand, the right hand side is by
+Stacks, Lemma \ref{stacks-lemma-isom-as-2-fibre-product}
+equal to the sheaf associated to the following stack in setoids:
+$$
+\mathcal{X}
+\times_{\mathcal{X} \times \mathcal{X}, (f \circ b, f \circ a)} T =
+\mathcal{X}
+\times_{\mathcal{X} \times \mathcal{X}, (f, f)}
+(\mathcal{U} \times \mathcal{U})
+\times_{\mathcal{U} \times \mathcal{U}, (b, a)} T =
+\mathcal{R}
+\times_{(\text{pr}_0, \text{pr}_1), \mathcal{U} \times \mathcal{U}, (b, a)} T
+$$
+which is representable by the fibre product displayed above.
+At this point we have shown that the two $\mathit{Isom}$-sheaves
+are isomorphic. Our $1$-morphism $f_{can} : [U/R] \to \mathcal{X}$ induces
+this isomorphism on $\mathit{Isom}$-sheaves by
+Equation (\ref{equation-on-morphisms}).
+\end{proof}
+
+\noindent
+We can use the previous very abstract lemma to produce
+presentations.
+
+\begin{lemma}
+\label{lemma-stack-presentation}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $\mathcal{X}$ be an algebraic stack over $S$.
+Let $U$ be an algebraic space over $S$.
+Let $f : \mathcal{S}_U \to \mathcal{X}$ be a surjective smooth morphism.
+Let $(U, R, s, t, c)$ be the groupoid in algebraic spaces
+and $f_{can} : [U/R] \to \mathcal{X}$ be the result of applying
+Lemma \ref{lemma-map-space-into-stack}
+to $U$ and $f$. Then
+\begin{enumerate}
+\item the morphisms $s$, $t$ are smooth, and
+\item the $1$-morphism $f_{can} : [U/R] \to \mathcal{X}$
+is an equivalence.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The morphisms $s, t$ are smooth by
+Lemmas \ref{lemma-property-morphism-equivalent} and
+\ref{lemma-map-presheaves-representable-by-spaces-transformation-property}.
+As the $1$-morphism $f$ is smooth and
+surjective it is clear that given any scheme $T$ and any object
+$a \in \Ob(\mathcal{X}_T)$ there exists a smooth and surjective
+morphism $T' \to T$ such that $a|_T'$ comes from an object of
+$[U/R]_{T'}$. Since $f_{can} : [U/R] \to \mathcal{X}$
+is fully faithful, we deduce that
+$[U/R] \to \mathcal{X}$ is essentially surjective as
+descent data on objects are effective on both sides, see
+Stacks, Lemma \ref{stacks-lemma-characterize-essentially-surjective-when-ff}.
+\end{proof}
+
+\begin{remark}
+\label{remark-flat-fp-presentation}
+If the morphism $f : \mathcal{S}_U \to \mathcal{X}$ of
+Lemma \ref{lemma-stack-presentation}
+is only assumed surjective, flat and locally of finite presentation, then
+it will still be the case that $f_{can} : [U/R] \to \mathcal{X}$ is an
+equivalence. In this case the morphisms $s$, $t$ will be flat and
+locally of finite presentation, but of course not smooth in general.
+\end{remark}
+
+\noindent
+Lemma \ref{lemma-stack-presentation}
+suggests the following definitions.
+
+\begin{definition}
+\label{definition-smooth-groupoid}
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $B$.
+We say $(U, R, s, t, c)$ is a {\it smooth groupoid}\footnote{This terminology
+might be a bit confusing: it does not imply that $[U/R]$ is smooth
+over anything.}
+if $s, t : R \to U$ are smooth morphisms of algebraic spaces.
+\end{definition}
+
+\begin{definition}
+\label{definition-presentation}
+Let $\mathcal{X}$ be an algebraic stack over $S$.
+A {\it presentation} of $\mathcal{X}$ is given by a smooth groupoid
+$(U, R, s, t, c)$ in algebraic spaces over $S$, and an
+equivalence $f : [U/R] \to \mathcal{X}$.
+\end{definition}
+
+\noindent
+We have seen above that every algebraic stack has a presentation.
+Our next task is to show that every smooth groupoid in algebraic
+spaces over $S$ gives rise to an algebraic stack.
+
+
+\section{The algebraic stack associated to a smooth groupoid}
+\label{section-smooth-groupoid-gives-algebraic-stack}
+
+\noindent
+In this section we start with a smooth groupoid in algebraic spaces
+and we show that the associated quotient stack is an algebraic stack.
+
+\begin{lemma}
+\label{lemma-diagonal-quotient-stack}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $(U, R, s, t, c)$ be a groupoid in algebraic spaces over $S$.
+Then the diagonal of $[U/R]$ is representable by algebraic spaces.
+\end{lemma}
+
+\begin{proof}
+It suffices to show that the $\mathit{Isom}$-sheaves are algebraic
+spaces, see
+Lemma \ref{lemma-representable-diagonal}.
+This follows from
+Bootstrap, Lemma \ref{bootstrap-lemma-quotient-stack-isom}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-quotient-smooth-presentation}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $(U, R, s, t, c)$ be a smooth groupoid in algebraic spaces over $S$.
+Then the morphism $\mathcal{S}_U \to [U/R]$ is smooth and surjective.
+\end{lemma}
+
+\begin{proof}
+Let $T$ be a scheme and let $x : (\Sch/T)_{fppf} \to [U/R]$
+be a $1$-morphism. We have to show that the projection
+$$
+\mathcal{S}_U \times_{[U/R]} (\Sch/T)_{fppf}
+\longrightarrow
+(\Sch/T)_{fppf}
+$$
+is surjective and smooth. We already know that the left hand side
+is representable by an algebraic space $F$, see
+Lemmas \ref{lemma-diagonal-quotient-stack} and
+\ref{lemma-representable-diagonal}.
+Hence we have to show the corresponding morphism $F \to T$ of
+algebraic spaces is surjective and smooth.
+Since we are working with properties of morphisms of algebraic
+spaces which are local on the target in the fppf topology we
+may check this fppf locally on $T$. By construction, there exists
+an fppf covering $\{T_i \to T\}$ of $T$ such that
+$x|_{(\Sch/T_i)_{fppf}}$ comes from a morphism
+$x_i : T_i \to U$. (Note that $F \times_T T_i$ represents the
+$2$-fibre product $\mathcal{S}_U \times_{[U/R]} (\Sch/T_i)_{fppf}$
+so everything is compatible with the base change via $T_i \to T$.)
+Hence we may assume that $x$ comes from $x : T \to U$.
+In this case we see that
+$$
+\mathcal{S}_U \times_{[U/R]} (\Sch/T)_{fppf}
+=
+(\mathcal{S}_U \times_{[U/R]} \mathcal{S}_U)
+\times_{\mathcal{S}_U} (\Sch/T)_{fppf}
+=
+\mathcal{S}_R \times_{\mathcal{S}_U} (\Sch/T)_{fppf}
+$$
+The first equality by
+Categories, Lemma \ref{categories-lemma-2-fibre-product-erase-factor}
+and the second equality by
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-2-cartesian}.
+Clearly the last $2$-fibre product is represented by the algebraic
+space $F = R \times_{s, U, x} T$ and the projection
+$R \times_{s, U, x} T \to T$ is smooth as the base change of
+the smooth morphism of algebraic spaces $s : R \to U$.
+It is also surjective as $s$ has a section (namely the identity
+$e : U \to R$ of the groupoid).
+This proves the lemma.
+\end{proof}
+
+\noindent
+Here is the main result of this section.
+
+\begin{theorem}
+\label{theorem-smooth-groupoid-gives-algebraic-stack}
+Let $S$ be a scheme contained in $\Sch_{fppf}$.
+Let $(U, R, s, t, c)$ be a smooth groupoid in algebraic spaces over $S$.
+Then the quotient stack $[U/R]$ is an algebraic stack over $S$.
+\end{theorem}
+
+\begin{proof}
+We check the three conditions of
+Definition \ref{definition-algebraic-stack}.
+By construction we have that $[U/R]$ is a stack in groupoids
+which is the first condition.
+
+\medskip\noindent
+The second condition follows from the stronger
+Lemma \ref{lemma-diagonal-quotient-stack}.
+
+\medskip\noindent
+Finally, we have to show there exists a scheme $W$ over $S$
+and a surjective smooth $1$-morphism
+$(\Sch/W)_{fppf} \longrightarrow \mathcal{X}$.
+First choose $W \in \Ob((\Sch/S)_{fppf})$ and a
+surjective \'etale morphism $W \to U$. Note that this
+gives a surjective \'etale morphism $\mathcal{S}_W \to \mathcal{S}_U$
+of categories fibred in sets, see
+Lemma
+\ref{lemma-map-presheaves-representable-by-spaces-transformation-property}.
+Of course then $\mathcal{S}_W \to \mathcal{S}_U$ is also surjective and
+smooth, see
+Lemma \ref{lemma-representable-transformations-property-implication}.
+Hence $\mathcal{S}_W \to \mathcal{S}_U \to [U/R]$ is surjective
+and smooth by a combination of
+Lemmas \ref{lemma-smooth-quotient-smooth-presentation} and
+\ref{lemma-composition-representable-transformations-property}.
+\end{proof}
+
+
+
+
+
+\section{Change of big site}
+\label{section-change-big-site}
+
+\noindent
+In this section we briefly discuss what happens when we change big sites.
+The upshot is that we can always enlarge the big site at will, hence we
+may assume any set of schemes we want to consider is contained in the big
+fppf site over which we consider our algebraic space.
+We encourage the reader to skip this section.
+
+\medskip\noindent
+Pullbacks of stacks is defined in
+Stacks, Section \ref{stacks-section-inverse-image}.
+
+\begin{lemma}
+\label{lemma-change-big-site}
+Suppose given big sites $\Sch_{fppf}$ and $\Sch'_{fppf}$.
+Assume that $\Sch_{fppf}$ is contained in $\Sch'_{fppf}$,
+see Topologies, Section \ref{topologies-section-change-alpha}.
+Let $S$ be an object of $\Sch_{fppf}$. Let
+Let $f : (\Sch'/S)_{fppf} \to (\Sch/S)_{fppf}$ the morphism
+of sites corresponding to the inclusion functor
+$u : (\Sch/S)_{fppf} \to (\Sch'/S)_{fppf}$.
+Let $\mathcal{X}$ be a stack in groupoids over $(\Sch/S)_{fppf}$.
+\begin{enumerate}
+\item if $\mathcal{X}$ is representable by some
+$X \in \Ob((\Sch/S)_{fppf})$, then
+$f^{-1}\mathcal{X}$ is representable too, in fact it is representable by the
+same scheme $X$, now viewed as an object of $(\Sch'/S)_{fppf}$,
+\item if $\mathcal{X}$ is representable by
+$F \in \Sh((\Sch/S)_{fppf})$ which is
+an algebraic space, then $f^{-1}\mathcal{X}$ is representable
+by the algebraic space $f^{-1}F$,
+\item if $\mathcal{X}$ is an algebraic stack, then $f^{-1}\mathcal{X}$
+is an algebraic stack, and
+\item if $\mathcal{X}$ is a Deligne-Mumford stack, then $f^{-1}\mathcal{X}$
+is a Deligne-Mumford stack too.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let us prove (3). By
+Lemma \ref{lemma-stack-presentation}
+we may write $\mathcal{X} = [U/R]$ for some smooth
+groupoid in algebraic spaces $(U, R, s, t, c)$. By
+Groupoids in Spaces,
+Lemma \ref{spaces-groupoids-lemma-quotient-stack-change-big-site}
+we see that $f^{-1}[U/R] = [f^{-1}U/f^{-1}R]$.
+Of course $(f^{-1}U, f^{-1}R, f^{-1}s, f^{-1}t, f^{-1}c)$
+is a smooth groupoid in algebraic spaces too. Hence (3) is proved.
+
+\medskip\noindent
+Now the other cases (1), (2), (4) each mean that $\mathcal{X}$ has
+a presentation $[U/R]$ of a particular kind, and hence translate into the
+same kind of presentation for $f^{-1}\mathcal{X} = [f^{-1}U/f^{-1}R]$.
+Whence the lemma is proved.
+\end{proof}
+
+\noindent
+It is not true (in general) that the restriction of an algebraic space
+over the bigger site is an algebraic space over the smaller site (simply
+by reasons of cardinality). Hence we can only ever use a simple lemma of this
+kind to enlarge the base category and never to shrink it.
+
+\begin{lemma}
+\label{lemma-fully-faithful}
+Suppose $\Sch_{fppf}$ is contained in $\Sch'_{fppf}$.
+Let $S$ be an object of $\Sch_{fppf}$. Denote
+$\textit{Algebraic-Stacks}/S$ the $2$-category of algebraic spaces over $S$
+defined using $\Sch_{fppf}$. Similarly, denote
+$\textit{Algebraic-Stacks}'/S$ the $2$-category of algebraic spaces over $S$
+defined using $\Sch'_{fppf}$. The rule
+$\mathcal{X} \mapsto f^{-1}\mathcal{X}$ of
+Lemma \ref{lemma-change-big-site}
+defines a functor of $2$-categories
+$$
+\textit{Algebraic-Stacks}/S \longrightarrow \textit{Algebraic-Stacks}'/S
+$$
+which defines equivalences of morphism categories
+$$
+\Mor_{\textit{Algebraic-Stacks}/S}(\mathcal{X}, \mathcal{Y})
+\longrightarrow
+\Mor_{\textit{Algebraic-Stacks}'/S}(f^{-1}\mathcal{X}, f^{-1}\mathcal{Y})
+$$
+for every objects $\mathcal{X}, \mathcal{Y}$ of
+$\textit{Algebraic-Stacks}/S$. An object
+$\mathcal{X}'$ of $\textit{Algebraic-Stacks}'/S$
+is equivalence to $f^{-1}\mathcal{X}$ for some
+$\mathcal{X}$ in $\textit{Algebraic-Stacks}/S$
+if and only if it has a presentation $\mathcal{X} = [U'/R']$
+with $U', R'$ isomorphic to $f^{-1}U$, $f^{-1}R$ for some
+$U, R \in \textit{Spaces}/S$.
+\end{lemma}
+
+\begin{proof}
+The statement on morphism categories is a consequence of the more general
+Stacks, Lemma \ref{stacks-lemma-bigger-site}.
+The characterization of the ``essential image'' follows from the description
+of $f^{-1}$ in the proof of
+Lemma \ref{lemma-change-big-site}.
+\end{proof}
+
+
+\section{Change of base scheme}
+\label{section-change-base-scheme}
+
+\noindent
+In this section we briefly discuss what happens when we change base schemes.
+The upshot is that given a morphism $S \to S'$ of base schemes, any algebraic
+stack over $S$ can be viewed as an algebraic stack over $S'$.
+
+\begin{lemma}
+\label{lemma-category-of-spaces-over-smaller-base-scheme}
+Let $\Sch_{fppf}$ be a big fppf site.
+Let $S \to S'$ be a morphism of this site.
+The constructions A and B of
+Stacks, Section \ref{stacks-section-localize}
+above give isomorphisms of $2$-categories
+$$
+\left\{
+\begin{matrix}
+2\text{-category of algebraic}\\
+\text{stacks }\mathcal{X}\text{ over }S
+\end{matrix}
+\right\}
+\leftrightarrow
+\left\{
+\begin{matrix}
+2\text{-category of pairs }(\mathcal{X}', f)\text{ consisting of an}\\
+\text{algebraic stack }\mathcal{X}'\text{ over }S'\text{ and a morphism}\\
+f : \mathcal{X}' \to (\Sch/S)_{fppf}\text{ of algebraic stacks over }S'
+\end{matrix}
+\right\}
+$$
+\end{lemma}
+
+\begin{proof}
+The statement makes sense as the functor
+$j : (\Sch/S)_{fppf} \to (\Sch/S')_{fppf}$
+is the localization functor associated to the object $S/S'$
+of $(\Sch/S')_{fppf}$. By
+Stacks, Lemma \ref{stacks-lemma-localize-stacks}
+the only thing to show is that the constructions A and B
+preserve the subcategories of algebraic stacks.
+For example, if $\mathcal{X} = [U/R]$ then construction A
+applied to $\mathcal{X}$ just produces
+$\mathcal{X}' = \mathcal{X}$. Conversely, if $\mathcal{X}' = [U'/R']$
+the morphism $p$ induces morphisms of algebraic spaces
+$U' \to S$ and $R' \to S$, and then $\mathcal{X} = [U'/R']$
+but now viewed as a stack over $S$. Hence the lemma is clear.
+\end{proof}
+
+\begin{definition}
+\label{definition-viewed-as}
+Let $\Sch_{fppf}$ be a big fppf site.
+Let $S \to S'$ be a morphism of this site.
+If $p : \mathcal{X} \to (\Sch/S)_{fppf}$
+is an algebraic stack over $S$, then
+$\mathcal{X}$ {\it viewed as an algebraic stack over $S'$}
+is the algebraic stack
+$$
+\mathcal{X} \longrightarrow (\Sch/S')_{fppf}
+$$
+gotten by applying construction A of
+Lemma \ref{lemma-category-of-spaces-over-smaller-base-scheme}
+to $\mathcal{X}$.
+\end{definition}
+
+\noindent
+Conversely, what if we start with an algebraic stack $\mathcal{X}'$
+over $S'$ and we want to get an algebraic stack over $S$?
+Well, then we consider the $2$-fibre product
+$$
+\mathcal{X}'_S
+=
+(\Sch/S)_{fppf} \times_{(\Sch/S')_{fppf}} \mathcal{X}'
+$$
+which is an algebraic stack over $S'$ according to
+Lemma \ref{lemma-2-fibre-product}.
+Moreover, it comes equipped with a natural $1$-morphism
+$p : \mathcal{X}'_S \to (\Sch/S)_{fppf}$ and hence by
+Lemma \ref{lemma-category-of-spaces-over-smaller-base-scheme}
+it corresponds in a canonical way to an algebraic stack over $S$.
+
+\begin{definition}
+\label{definition-change-of-base}
+Let $\Sch_{fppf}$ be a big fppf site.
+Let $S \to S'$ be a morphism of this site.
+Let $\mathcal{X}'$ be an algebraic stack over $S'$.
+The {\it change of base of $\mathcal{X}'$} is the
+algebraic space $\mathcal{X}'_S$ over $S$ described above.
+\end{definition}
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

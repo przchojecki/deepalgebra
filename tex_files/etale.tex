@@ -1,0 +1,2741 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{\'Etale Morphisms of Schemes}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+In this Chapter, we discuss \'etale morphisms of schemes. We illustrate
+some of the more important concepts by working with the Noetherian case.
+Our principal goal is to collect for the reader enough commutative
+algebra results to start reading a treatise on \'etale cohomology. An
+auxiliary goal is to provide enough evidence to ensure that the reader stops
+calling the phrase ``the \'etale topology of schemes'' an exercise in general
+nonsense, if (s)he does indulge in such blasphemy.
+
+\medskip\noindent
+We will refer to the other
+chapters of the Stacks project for standard results in algebraic geometry
+(on schemes and commutative algebra). We will provide detailed
+proofs of the new results that we state here.
+
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+In this chapter, frequently schemes will be assumed locally Noetherian
+and frequently rings will be assumed Noetherian. But in all the statements
+we will reiterate this when necessary, and make sure we list all the
+hypotheses! On the other hand, here are some general facts that we will use
+often and are useful to keep in mind:
+\begin{enumerate}
+\item A ring homomorphism $A \to B$ of finite type with $A$ Noetherian
+is of finite presentation. See Algebra,
+Lemma \ref{algebra-lemma-Noetherian-finite-type-is-finite-presentation}.
+\item A morphism (locally) of finite type between locally Noetherian schemes
+is automatically (locally) of finite presentation.
+See Morphisms,
+Lemma \ref{morphisms-lemma-noetherian-finite-type-finite-presentation}.
+\item Add more like this here.
+\end{enumerate}
+
+
+
+
+\section{Unramified morphisms}
+\label{section-unramified-definition}
+
+\noindent
+We first define ``unramified homomorphisms of local rings'' for Noetherian
+local rings. We cannot use the term ``unramified'' as there already is
+a notion of
+an unramified ring map (Algebra, Section \ref{algebra-section-unramified})
+and it is different. After discussing the notion a bit we
+globalize it to describe unramified morphisms of locally Noetherian schemes.
+
+\begin{definition}
+\label{definition-unramified-rings}
+Let $A$, $B$ be Noetherian local rings. A local homomorphism $A \to B$
+is said to be {\it unramified homomorphism of local rings} if
+\begin{enumerate}
+\item $\mathfrak m_AB = \mathfrak m_B$,
+\item $\kappa(\mathfrak m_B)$ is a finite separable extension of
+$\kappa(\mathfrak m_A)$, and
+\item $B$ is essentially of finite type over $A$ (this means
+that $B$ is the localization of a finite type $A$-algebra at a prime).
+\end{enumerate}
+\end{definition}
+
+\noindent
+This is the local version of the
+definition in Algebra, Section \ref{algebra-section-unramified}.
+In that section a ring map $R \to S$ is defined to be unramified if and
+only if it is of finite type, and $\Omega_{S/R} = 0$.
+We say $R \to S$ is unramified at a prime $\mathfrak q \subset S$
+if there exists a $g \in S$, $g \not \in \mathfrak q$ such that
+$R \to S_g$ is an unramified ring map. It is shown in
+Algebra, Lemmas \ref{algebra-lemma-unramified-at-prime} and
+\ref{algebra-lemma-characterize-unramified} that given a ring
+map $R \to S$ of finite type, and a prime $\mathfrak q$ of $S$
+lying over $\mathfrak p \subset R$, then we have
+$$
+R \to S\text{ is unramified at }\mathfrak q
+\Leftrightarrow
+\mathfrak pS_{\mathfrak q} = \mathfrak q S_{\mathfrak q}
+\text{ and }
+\kappa(\mathfrak p) \subset \kappa(\mathfrak q)\text{ finite separable}
+$$
+Thus we see that for a local homomorphism of local rings the properties
+of our definition above are closely related to the question of
+being unramified. In fact, we have proved the following lemma.
+
+\begin{lemma}
+\label{lemma-characterize-unramified-Noetherian}
+\begin{slogan}
+Unramifiedness is a stalk local condition.
+\end{slogan}
+Let $A \to B$ be of finite type with $A$ a Noetherian ring.
+Let $\mathfrak q$ be a prime of $B$ lying over $\mathfrak p \subset A$.
+Then $A \to B$ is unramified at $\mathfrak q$ if and only if
+$A_{\mathfrak p} \to B_{\mathfrak q}$ is an unramified homomorphism
+of local rings.
+\end{lemma}
+
+\begin{proof}
+See discussion above.
+\end{proof}
+
+\noindent
+We will characterize the property of being unramified in terms
+of completions. For a Noetherian local ring $A$
+we denote $A^\wedge$ the completion of $A$ with respect to the
+maximal ideal. It is also a Noetherian local ring, see
+Algebra, Lemma \ref{algebra-lemma-completion-Noetherian-Noetherian}.
+
+\begin{lemma}
+\label{lemma-unramified-completions}
+Let $A$, $B$ be Noetherian local rings.
+Let $A \to B$ be a local homomorphism.
+\begin{enumerate}
+\item if $A \to B$ is an unramified homomorphism of local rings,
+then $B^\wedge$ is a finite $A^\wedge$ module,
+\item if $A \to B$ is an unramified homomorphism of local rings and
+$\kappa(\mathfrak m_A) = \kappa(\mathfrak m_B)$,
+then $A^\wedge \to B^\wedge$ is surjective,
+\item if $A \to B$ is an unramified homomorphism of local rings
+and $\kappa(\mathfrak m_A)$
+is separably closed, then $A^\wedge \to B^\wedge$ is surjective,
+\item if $A$ and $B$ are complete discrete valuation rings, then
+$A \to B$ is an unramified homomorphism of local rings
+if and only the uniformizer for $A$ maps to a uniformizer for $B$,
+and the residue field extension is finite separable (and $B$ is
+essentially of finite type over $A$).
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) is a special case of
+Algebra, Lemma \ref{algebra-lemma-finite-after-completion}.
+For part (2), note that the $\kappa(\mathfrak m_A)$-vector space
+$B^\wedge/\mathfrak m_{A^\wedge}B^\wedge$
+is generated by $1$. Hence by Nakayama's lemma
+(Algebra, Lemma \ref{algebra-lemma-NAK}) the map
+$A^\wedge \to B^\wedge$ is surjective.
+Part (3) is a special case of part (2).
+Part (4) is immediate from the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-unramified-completions}
+Let $A$, $B$ be Noetherian local rings.
+Let $A \to B$ be a local homomorphism such that $B$ is
+essentially of finite type over $A$.
+The following are equivalent
+\begin{enumerate}
+\item $A \to B$ is an unramified homomorphism of local rings
+\item $A^\wedge \to B^\wedge$ is an unramified homomorphism of local rings, and
+\item $A^\wedge \to B^\wedge$ is unramified.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (1) and (2) follows from the fact that
+$\mathfrak m_AA^\wedge$ is the maximal ideal of $A^\wedge$
+(and similarly for $B$) and faithful flatness of $B \to B^\wedge$.
+For example if $A^\wedge \to B^\wedge$ is unramified, then
+$\mathfrak m_AB^\wedge = (\mathfrak m_AB)B^\wedge = \mathfrak m_BB^\wedge$
+and hence $\mathfrak m_AB = \mathfrak m_B$.
+
+\medskip\noindent
+Assume the equivalent conditions (1) and (2).
+By Lemma \ref{lemma-unramified-completions}
+we see that $A^\wedge \to B^\wedge$ is
+finite. Hence $A^\wedge \to B^\wedge$ is of finite presentation, and by
+Algebra, Lemma \ref{algebra-lemma-characterize-unramified}
+we conclude that $A^\wedge \to B^\wedge$ is unramified at
+$\mathfrak m_{B^\wedge}$. Since $B^\wedge$ is local we conclude
+that $A^\wedge \to B^\wedge$ is unramified.
+
+\medskip\noindent
+Assume (3). By Algebra, Lemma \ref{algebra-lemma-unramified-at-prime}
+we conclude that $A^\wedge \to B^\wedge$ is an unramified homomorphism
+of local rings, i.e., (2) holds.
+\end{proof}
+
+\begin{definition}
+\label{definition-unramified-schemes}
+(See Morphisms, Definition \ref{morphisms-definition-unramified}
+for the definition in the general case.)
+Let $Y$ be a locally Noetherian scheme.
+Let $f : X \to Y$ be locally of finite type.
+Let $x \in X$.
+\begin{enumerate}
+\item We say $f$ is {\it unramified at $x$} if
+$\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$
+is an unramified homomorphism of local rings.
+\item The morphism $f : X \to Y$ is said to be {\it unramified}
+if it is unramified at all points of $X$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Let us prove that this definition agrees with the definition in the
+chapter on morphisms of schemes. This in particular guarantees that the
+set of points where a morphism is unramified is open.
+
+\begin{lemma}
+\label{lemma-unramified-definition}
+Let $Y$ be a locally Noetherian scheme.
+Let $f : X \to Y$ be locally of finite type.
+Let $x \in X$. The morphism $f$ is unramified at $x$ in
+the sense of Definition \ref{definition-unramified-schemes}
+if and only if it is unramified in
+the sense of Morphisms, Definition \ref{morphisms-definition-unramified}.
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-characterize-unramified-Noetherian}
+and the definitions.
+\end{proof}
+
+\noindent
+Here are some results on unramified morphisms.
+The formulations as given in this list apply only to
+morphisms locally of finite type between locally Noetherian schemes.
+In each case we give a reference to the general result as
+proved earlier in the project, but in some cases one can
+prove the result more easily in the Noetherian case.
+Here is the list:
+\begin{enumerate}
+\item Unramifiedness is local on the source and the target in the Zariski
+topology.
+\item Unramified morphisms are stable under base change and composition.
+See Morphisms, Lemmas \ref{morphisms-lemma-base-change-unramified}
+and \ref{morphisms-lemma-composition-unramified}.
+\item Unramified morphisms of schemes are locally quasi-finite
+and quasi-compact unramified morphisms are quasi-finite.
+See Morphisms, Lemma \ref{morphisms-lemma-unramified-quasi-finite}
+\item Unramified morphisms have relative dimension $0$. See
+Morphisms, Definition \ref{morphisms-definition-relative-dimension-d}
+and
+Morphisms, Lemma \ref{morphisms-lemma-locally-quasi-finite-rel-dimension-0}.
+\item A morphism is unramified if and only if all its fibres are unramified.
+That is, unramifiedness can be checked on the scheme theoretic fibres. See
+Morphisms, Lemma \ref{morphisms-lemma-unramified-etale-fibres}.
+\item Let $X$ and $Y$ be unramified over a base scheme $S$.
+Any $S$-morphism from $X$ to $Y$ is unramified.
+See Morphisms, Lemma \ref{morphisms-lemma-unramified-permanence}.
+\end{enumerate}
+
+\section{Three other characterizations of unramified morphisms}
+\label{section-three-other}
+
+\noindent
+The following theorem gives three equivalent notions of being
+unramified at a point. See
+Morphisms, Lemma \ref{morphisms-lemma-unramified-at-point}
+for (part of) the statement for general schemes.
+
+\begin{theorem}
+\label{theorem-unramified-equivalence}
+Let $Y$ be a locally Noetherian scheme.
+Let $f : X \to Y$ be a morphism of schemes which is locally of finite type.
+Let $x$ be a point of $X$. The following are equivalent
+\begin{enumerate}
+\item $f$ is unramified at $x$,
+\item the stalk $\Omega_{X/Y, x}$ of the module of relative differentials
+at $x$ is trivial,
+\item there exist open neighbourhoods $U$ of $x$ and $V$ of $f(x)$, and a
+commutative diagram
+$$
+\xymatrix{
+U \ar[rr]_i \ar[rd] & & \mathbf{A}^n_V \ar[ld] \\
+& V
+}
+$$
+where $i$ is a closed immersion defined by a
+quasi-coherent sheaf of ideals $\mathcal{I}$ such that the differentials
+$\text{d}g$ for $g \in \mathcal{I}_{i(x)}$ generate
+$\Omega_{\mathbf{A}^n_V/V, i(x)}$, and
+\item the diagonal $\Delta_{X/Y} : X \to X \times_Y X$
+is a local isomorphism at $x$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The equivalence of (1) and (2) is proved in
+Morphisms, Lemma \ref{morphisms-lemma-unramified-at-point}.
+
+\medskip\noindent
+If $f$ is unramified at $x$, then $f$ is unramified in an open
+neighbourhood of $x$; this does not follow immediately
+from Definition \ref{definition-unramified-schemes} of this chapter
+but it does follow from
+Morphisms, Definition \ref{morphisms-definition-unramified} which we
+proved to be equivalent in
+Lemma \ref{lemma-unramified-definition}.
+Choose affine opens $V \subset Y$, $U \subset X$
+with $f(U) \subset V$ and $x \in U$, such that $f$ is
+unramified on $U$, i.e., $f|_U : U \to V$ is unramified.
+By Morphisms, Lemma \ref{morphisms-lemma-diagonal-unramified-morphism}
+the morphism $U \to U \times_V U$
+is an open immersion. This proves that (1) implies (4).
+
+\medskip\noindent
+If $\Delta_{X/Y}$ is a local isomorphism at $x$, then
+$\Omega_{X/Y, x} = 0$ by
+Morphisms, Lemma \ref{morphisms-lemma-differentials-diagonal}.
+Hence we see that (4) implies (2).
+At this point we know that (1), (2) and (4) are all equivalent.
+
+\medskip\noindent
+Assume (3). The assumption on the diagram combined with
+Morphisms, Lemma \ref{morphisms-lemma-differentials-relative-immersion}
+show that $\Omega_{U/V, x} = 0$. Since $\Omega_{U/V, x} = \Omega_{X/Y, x}$
+we conclude (2) holds.
+
+\medskip\noindent
+Finally, assume that (2) holds. To prove (3) we may localize on
+$X$ and $Y$ and assume that $X$ and $Y$ are affine.
+Say $X = \Spec(B)$ and $Y = \Spec(A)$.
+The point $x \in X$ corresponds to a prime $\mathfrak q \subset B$.
+Our assumption is that $\Omega_{B/A, \mathfrak q} = 0$
+(see Morphisms, Lemma \ref{morphisms-lemma-differentials-affine} for the
+relationship between differentials on schemes and modules
+of differentials in commutative algebra).
+Since $Y$ is locally Noetherian and $f$ locally of finite type
+we see that $A$ is Noetherian and
+$B \cong A[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$, see
+Properties, Lemma \ref{properties-lemma-locally-Noetherian} and
+Morphisms, Lemma \ref{morphisms-lemma-locally-finite-type-characterize}.
+In particular, $\Omega_{B/A}$ is a finite $B$-module. Hence we
+can find a single $g \in B$, $g \not \in \mathfrak q$ such that
+the principal localization $(\Omega_{B/A})_g$ is zero. Hence after
+replacing $B$ by $B_g$ we see that $\Omega_{B/A} = 0$ (formation
+of modules of differentials commutes with localization, see
+Algebra, Lemma \ref{algebra-lemma-differentials-localize}). This means that
+$\text{d}(f_j)$ generate the kernel of the canonical map
+$\Omega_{A[x_1, \ldots, x_n]/A} \otimes_A B \to \Omega_{B/A}$.
+Thus the surjection $A[x_1, \ldots, x_n] \to B$ of $A$-algebras gives the
+commutative diagram of (3), and the theorem is proved.
+\end{proof}
+
+\noindent
+How can we use this theorem? Well, here are a few remarks:
+\begin{enumerate}
+\item Suppose that
+$f : X \to Y$ and $g : Y \to Z$ are two morphisms locally of finite
+type between locally Noetherian schemes. There is a canonical short
+exact sequence
+$$
+f^*(\Omega_{Y/Z}) \to \Omega_{X/Z} \to \Omega_{X/Y} \to 0
+$$
+see Morphisms, Lemma \ref{morphisms-lemma-triangle-differentials}.
+The theorem therefore implies that if $g \circ f$ is unramified,
+then so is $f$. This is
+Morphisms, Lemma \ref{morphisms-lemma-unramified-permanence}.
+\item Since $\Omega_{X/Y}$ is isomorphic to the conormal sheaf
+of the diagonal morphism
+(Morphisms, Lemma \ref{morphisms-lemma-differentials-diagonal})
+we see that if $X \to Y$ is a monomorphism of
+locally Noetherian schemes and locally of finite type,
+then $X \to Y$ is unramified.
+In particular, open and closed immersions of locally Noetherian schemes
+are unramified. See
+Morphisms, Lemmas
+\ref{morphisms-lemma-open-immersion-unramified} and
+\ref{morphisms-lemma-closed-immersion-unramified}.
+\item The theorem also implies that the set of points
+where a morphism $f : X \to Y$ (locally of finite type of locally Noetherian
+schemes) is not unramified is
+the support of the coherent sheaf $\Omega_{X/Y}$.
+This allows one to give a scheme theoretic definition to the
+``ramification locus''.
+\end{enumerate}
+
+\section{The functorial characterization of unramified morphisms}
+\label{section-functorial-unramified}
+
+\noindent
+In basic algebraic geometry we learn that some classes of morphisms can be
+characterized functorially, and that such descriptions are quite useful.
+Unramified morphisms too have such a characterization.
+
+\begin{theorem}
+\label{theorem-formally-unramified}
+Let $f : X \to S$ be a morphism of schemes.
+Assume $S$ is a locally Noetherian scheme, and $f$ is locally of finite type.
+Then the following are equivalent:
+\begin{enumerate}
+\item $f$ is unramified,
+\item the morphism $f$ is formally unramified:
+for any affine $S$-scheme $T$ and subscheme $T_0$ of $T$
+defined by a square-zero ideal,
+the natural map
+$$
+\Hom_S(T, X) \longrightarrow \Hom_S(T_0, X)
+$$
+is injective.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+See More on Morphisms,
+Lemma \ref{more-morphisms-lemma-unramified-formally-unramified}
+for a more general statement and proof.
+What follows is a sketch of the proof in the current case.
+
+\medskip\noindent
+Firstly, one checks both properties are local on the source and the target.
+This we may assume that $S$ and $X$ are affine.
+Say $X = \Spec(B)$ and $S = \Spec(R)$.
+Say $T = \Spec(C)$. Let $J$ be the square-zero ideal of $C$
+with $T_0 = \Spec(C/J)$. Assume that we are given the diagram
+$$
+\xymatrix{
+& B \ar[d]^\phi \ar[rd]^{\bar{\phi}}
+& \\
+R \ar[r] \ar[ur] & C \ar[r]
+& C/J
+}
+$$
+Secondly, one checks that the association $\phi' \mapsto \phi' - \phi$
+gives a bijection between the set of liftings of $\bar{\phi}$ and the module
+$\text{Der}_R(B, J)$. Thus, we obtain the implication (1) $\Rightarrow$ (2)
+via the description of unramified morphisms having trivial module
+of differentials, see Theorem \ref{theorem-unramified-equivalence}.
+
+\medskip\noindent
+To obtain the reverse implication, consider the surjection
+$q : C = (B \otimes_R B)/I^2 \to B = C/J$ defined by the square zero ideal
+$J = I/I^2$ where $I$ is the kernel of the multiplication map
+$B \otimes_R B \to B$. We already have a lifting $B \to C$ defined by, say,
+$b \mapsto b \otimes 1$. Thus, by the same reasoning as above, we obtain a
+bijective correspondence between liftings of $\text{id} : B \to C/J$ and
+$\text{Der}_R(B, J)$. The hypothesis therefore implies that the latter module is
+trivial. But we know that $J \cong \Omega_{B/R}$. Thus, $B/R$ is unramified.
+\end{proof}
+
+
+
+\section{Topological properties of unramified morphisms}
+\label{section-topological-unramified}
+
+\noindent
+The first topological result that will be of utility to us is one which says
+that unramified and separated morphisms have ``nice'' sections.
+The material in this section does not require any Noetherian hypotheses.
+
+\begin{proposition}
+\label{proposition-properties-sections}
+Sections of unramified morphisms.
+\begin{enumerate}
+\item Any section of an unramified morphism is an open immersion.
+\item Any section of a separated morphism is a closed immersion.
+\item Any section of an unramified separated morphism is open and closed.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Fix a base scheme $S$.
+If $f : X' \to X$ is any $S$-morphism, then the graph
+$\Gamma_f : X' \to X' \times_S X$
+is obtained as the base change of the diagonal
+$\Delta_{X/S} : X \to X \times_S X$ via the projection
+$X' \times_S X \to X \times_S X$.
+If $g : X \to S$ is separated (resp. unramified)
+then the diagonal is a closed immersion (resp. open immersion)
+by Schemes, Definition \ref{schemes-definition-separated}
+(resp.\ Morphisms, Lemma \ref{morphisms-lemma-diagonal-unramified-morphism}).
+Hence so is the graph as a base change (by
+Schemes, Lemma \ref{schemes-lemma-base-change-immersion}).
+In the special case $X' = S$, we obtain (1), resp.\ (2).
+Part (3) follows on combining (1) and (2).
+\end{proof}
+
+\noindent
+We can now explicitly describe the sections of unramified morphisms.
+
+\begin{theorem}
+\label{theorem-sections-unramified-maps}
+Let $Y$ be a connected scheme.
+Let $f : X \to Y$ be unramified and separated.
+Every section of $f$ is an isomorphism onto a connected component.
+There exists a bijective correspondence
+$$
+\text{sections of }f
+\leftrightarrow
+\left\{
+\begin{matrix}
+\text{connected components }X'\text{ of }X\text{ such that}\\
+\text{the induced map }X' \to Y\text{ is an isomorphism}
+\end{matrix}
+\right\}
+$$
+In particular, given $x \in X$ there is at most one
+section passing through $x$.
+\end{theorem}
+
+\begin{proof}
+Direct from Proposition \ref{proposition-properties-sections} part (3).
+\end{proof}
+
+\noindent
+The preceding theorem gives us some idea of the ``rigidity'' of unramified
+morphisms. Further indication is provided by the following proposition
+which, besides being intrinsically interesting, is also useful in the
+theory of the algebraic fundamental group (see \cite[Expos\'e V]{SGA1}).
+See also the more general
+Morphisms, Lemma \ref{morphisms-lemma-value-at-one-point}.
+
+\begin{proposition}
+\label{proposition-equality}
+Let $S$ is be a scheme.
+Let $\pi : X \to S$ be unramified and separated.
+Let $Y$ be an $S$-scheme and $y \in Y$ a point.
+Let $f, g : Y \to X$ be two $S$-morphisms. Assume
+\begin{enumerate}
+\item $Y$ is connected
+\item $x = f(y) = g(y)$, and
+\item the induced maps $f^\sharp, g^\sharp : \kappa(x) \to \kappa(y)$
+on residue fields are equal.
+\end{enumerate}
+Then $f = g$.
+\end{proposition}
+
+\begin{proof}
+The maps $f, g : Y \to X$ define maps $f', g' : Y \to X_Y = Y \times_S X$
+which are sections of the structure map $X_Y \to Y$.
+Note that $f = g$ if and only if $f' = g'$.
+The structure map $X_Y \to Y$ is the base change of $\pi$ and hence
+unramified and separated also (see
+Morphisms, Lemmas \ref{morphisms-lemma-base-change-unramified} and
+Schemes, Lemma \ref{schemes-lemma-separated-permanence}).
+Thus according to Theorem \ref{theorem-sections-unramified-maps}
+it suffices to prove that $f'$ and $g'$ pass through the same
+point of $X_Y$. And this is exactly what the hypotheses (2) and (3)
+guarantee, namely $f'(y) = g'(y) \in X_Y$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finitely-many-maps-to-unramified}
+Let $S$ be a Noetherian scheme. Let $X \to S$ be a quasi-compact unramified
+morphism. Let $Y \to S$ be a morphism with $Y$ Noetherian. Then
+$\Mor_S(Y, X)$ is a finite set.
+\end{lemma}
+
+\begin{proof}
+Assume first $X \to S$ is separated (which is often the case in practice).
+Since $Y$ is Noetherian it has finitely many connected components. Thus we
+may assume $Y$ is connected. Choose a point $y \in Y$ with image $s \in S$.
+Since $X \to S$ is unramified and quasi-compact
+then fibre $X_s$ is finite, say $X_s = \{x_1, \ldots, x_n\}$
+and $\kappa(s) \subset \kappa(x_i)$ is a finite field extension.
+See Morphisms, Lemma \ref{morphisms-lemma-unramified-quasi-finite},
+\ref{morphisms-lemma-residue-field-quasi-finite}, and
+\ref{morphisms-lemma-quasi-finite}.
+For each $i$ there are at most finitely many $\kappa(s)$-algebra
+maps $\kappa(x_i) \to \kappa(y)$ (by elementary field theory).
+Thus $\Mor_S(Y, X)$ is finite by
+Proposition \ref{proposition-equality}.
+
+\medskip\noindent
+General case. There exists a nonempty open $U \subset X$ such
+that $X_U \to U$ is finite (in particular separated), see
+Morphisms, Lemma \ref{morphisms-lemma-generically-finite}
+(the lemma applies since we've already seen above that a quasi-compact
+unramified morphism is quasi-finite and since $X \to S$ is quasi-separated by
+Morphisms, Lemma \ref{morphisms-lemma-finite-type-Noetherian-quasi-separated}).
+Let $Z \subset S$ be the reduced closed subscheme supported on
+the complement of $U$. By Noetherian induction, we see that
+$\Mor_Z(Y_Z, X_Z)$ is finite (details omitted).
+By the result of the first paragraph the set
+$\Mor_U(Y_U, X_U)$ is finite. Thus it suffices to show that
+$$
+\Mor_S(Y, X) \longrightarrow \Mor_Z(Y_Z, X_Z) \times \Mor_U(Y_U, X_U)
+$$
+is injective. This follows from the fact that the set of points where
+two morphisms $a, b : Y \to X$ agree is open in $Y$, due to the fact
+that $\Delta : X \to X \times_S X$ is open, see
+Morphisms, Lemma \ref{morphisms-lemma-diagonal-unramified-morphism}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Universally injective, unramified morphisms}
+\label{section-universally-injective-unramified}
+
+\noindent
+Recall that a morphism of schemes $f : X \to Y$ is universally
+injective if any base change of $f$ is injective (on underlying
+topological spaces), see
+Morphisms, Definition \ref{morphisms-definition-universally-injective}.
+Universally injective and unramified morphisms can be
+characterized as follows.
+
+\begin{lemma}
+\label{lemma-universally-injective-unramified}
+Let $f : X \to S$ be a morphism of schemes.
+The following are equivalent:
+\begin{enumerate}
+\item $f$ is unramified and a monomorphism,
+\item $f$ is unramified and universally injective,
+\item $f$ is locally of finite type and a monomorphism,
+\item $f$ is universally injective, locally of finite type, and
+formally unramified,
+\item $f$ is locally of finite type and $X_y$ is either empty
+or $X_y \to y$ is an isomorphism for all $y \in Y$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We have seen in
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-unramified-formally-unramified}
+that being formally unramified and locally of finite type is the same thing
+as being unramified. Hence (4) is equivalent to (2).
+A monomorphism is certainly universally injective and
+formally unramified hence (3) implies (4).
+It is clear that (1) implies (3). Finally, if (2) holds, then
+$\Delta : X \to X \times_S X$ is both an open immersion
+(Morphisms, Lemma \ref{morphisms-lemma-diagonal-unramified-morphism})
+and surjective
+(Morphisms, Lemma \ref{morphisms-lemma-universally-injective})
+hence an isomorphism, i.e., $f$ is a monomorphism. In this way we see that
+(2) implies (1).
+
+\medskip\noindent
+Condition (3) implies (5) because monomorphisms are preserved under
+base change
+(Schemes, Lemma \ref{schemes-lemma-base-change-monomorphism})
+and because of the description of monomorphisms towards the spectra of fields
+in
+Schemes, Lemma \ref{schemes-lemma-mono-towards-spec-field}.
+Condition (5) implies (4) by
+Morphisms, Lemmas \ref{morphisms-lemma-universally-injective} and
+\ref{morphisms-lemma-unramified-etale-fibres}.
+\end{proof}
+
+\noindent
+This leads to the following useful characterization of closed immersions.
+
+\begin{lemma}
+\label{lemma-characterize-closed-immersion}
+Let $f : X \to S$ be a morphism of schemes.
+The following are equivalent:
+\begin{enumerate}
+\item $f$ is a closed immersion,
+\item $f$ is a proper monomorphism,
+\item $f$ is proper, unramified, and universally injective,
+\item $f$ is universally closed, unramified, and a monomorphism,
+\item $f$ is universally closed, unramified, and universally injective,
+\item $f$ is universally closed, locally of finite type, and a monomorphism,
+\item $f$ is universally closed, universally injective, locally of
+finite type, and formally unramified.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The equivalence of (4) -- (7) follows immediately from
+Lemma \ref{lemma-universally-injective-unramified}.
+
+\medskip\noindent
+Let $f : X \to S$ satisfy (6). Then $f$ is separated, see
+Schemes, Lemma \ref{schemes-lemma-monomorphism-separated}
+and has finite fibres. Hence
+More on Morphisms, Lemma \ref{more-morphisms-lemma-characterize-finite}
+shows $f$ is finite. Then
+Morphisms, Lemma \ref{morphisms-lemma-finite-monomorphism-closed}
+implies $f$ is a closed immersion, i.e., (1) holds.
+
+\medskip\noindent
+Note that (1) $\Rightarrow$ (2) because a closed immersion is
+proper and a monomorphism
+(Morphisms, Lemma \ref{morphisms-lemma-closed-immersion-proper}
+and
+Schemes, Lemma \ref{schemes-lemma-immersions-monomorphisms}).
+By
+Lemma \ref{lemma-universally-injective-unramified}
+we see that (2) implies (3). It is clear that (3) implies (5).
+\end{proof}
+
+\noindent
+Here is another result of a similar flavor.
+
+\begin{lemma}
+\label{lemma-finite-unramified-one-point}
+Let $\pi : X \to S$ be a morphism of schemes. Let $s \in S$.
+Assume that
+\begin{enumerate}
+\item $\pi$ is finite,
+\item $\pi$ is unramified,
+\item $\pi^{-1}(\{s\}) = \{x\}$, and
+\item $\kappa(s) \subset \kappa(x)$ is purely
+inseparable\footnote{In view of condition (2)
+this is equivalent to $\kappa(s) = \kappa(x)$.}.
+\end{enumerate}
+Then there exists an open neighbourhood $U$ of $s$ such that
+$\pi|_{\pi^{-1}(U)} : \pi^{-1}(U) \to U$ is a closed immersion.
+\end{lemma}
+
+\begin{proof}
+The question is local on $S$. Hence we may assume that $S = \Spec(A)$.
+By definition of a finite morphism this implies $X = \Spec(B)$.
+Note that the ring map $\varphi : A \to B$ defining $\pi$
+is a finite unramified ring map.
+Let $\mathfrak p \subset A$ be the prime corresponding to $s$.
+Let $\mathfrak q \subset B$ be the prime corresponding to $x$. By
+Conditions (2), (3) and (4) imply that
+$B_{\mathfrak q}/\mathfrak pB_{\mathfrak q} = \kappa(\mathfrak p)$.
+Algebra, Lemma \ref{algebra-lemma-unique-prime-over-localize-below}
+we have $B_{\mathfrak q} = B_{\mathfrak p}$
+(note that a finite ring map satisfies going up, see
+Algebra, Section \ref{algebra-section-going-up}.)
+Hence we see that
+$B_{\mathfrak p}/\mathfrak pB_{\mathfrak p} = \kappa(\mathfrak p)$.
+As $B$ is a finite $A$-module we see from Nakayama's lemma (see
+Algebra, Lemma \ref{algebra-lemma-NAK})
+that $B_{\mathfrak p} = \varphi(A_{\mathfrak p})$. Hence (using the finiteness
+of $B$ as an $A$-module again) there exists a
+$f \in A$, $f \not \in \mathfrak p$ such that $B_f = \varphi(A_f)$
+as desired.
+\end{proof}
+
+\noindent
+The topological results presented above will be used to give a functorial
+characterization of \'etale morphisms similar to Theorem
+\ref{theorem-formally-unramified}.
+
+
+
+
+\section{Examples of unramified morphisms}
+\label{section-examples}
+
+\noindent
+Here are a few examples.
+
+\begin{example}
+\label{example-etale-field-extensions}
+Let $k$ be a field.
+Unramified quasi-compact morphisms $X \to \Spec(k)$ are affine.
+This is true because $X$ has dimension $0$ and is Noetherian,
+hence is a finite discrete set, and each point gives an affine open,
+so $X$ is a finite disjoint union of affines hence affine.
+Noether normalization forces $X$ to be the spectrum of a finite
+$k$-algebra $A$.
+This algebra is a product of finite separable field extensions of $k$.
+Thus, an unramified quasi-compact morphism to $\Spec(k)$
+corresponds to a finite number of finite separable field extensions of $k$.
+In particular, an unramified morphism with a connected source and a one point
+target is forced to be a finite separable field extension.
+As we will see later, $X \to \Spec(k)$ is \'etale if and
+only if it is unramified. Thus, in this case at least, we obtain a very easy
+description of the \'etale topology of a scheme. Of course, the cohomology of
+this topology is another story.
+\end{example}
+
+\begin{example}
+\label{example-standard-etale}
+Property (3) in
+Theorem \ref{theorem-unramified-equivalence}
+gives us a canonical source of examples for unramified morphisms.
+Fix a ring $R$ and an integer $n$. Let $I = (g_1, \ldots, g_m)$ be an
+ideal in $R[x_1, \ldots, x_n]$. Let $\mathfrak q \subset R[x_1, \ldots, x_n]$
+be a prime. Assume $I \subset \mathfrak q$ and that the matrix
+$$
+\left(\frac{\partial g_i}{\partial x_j}\right) \bmod \mathfrak q
+\quad\in\quad
+\text{Mat}(n \times m, \kappa(\mathfrak q))
+$$
+has rank $n$. Then the morphism
+$f : Z = \Spec(R[x_1, \ldots, x_n]/I) \to \Spec(R)$
+is unramified at the point $x \in Z \subset \mathbf{A}^n_R$ corresponding
+to $\mathfrak q$. Clearly we must have $m \geq n$.
+In the extreme case $m = n$, i.e., the differential of the map
+$\mathbf{A}^n_R \to \mathbf{A}^n_R$ defined by the $g_i$'s
+is an isomorphism of the tangent spaces, then $f$ is also flat
+$x$ and, hence, is an \'etale map (see Algebra,
+Definition \ref{algebra-definition-standard-smooth},
+Lemma \ref{algebra-lemma-standard-smooth} and
+Example \ref{algebra-example-make-standard-smooth}).
+\end{example}
+
+\begin{example}
+\label{example-number-theory-etale}
+Fix an extension of number fields $L/K$ with rings of integers
+$\mathcal{O}_L$ and $\mathcal{O}_K$. The injection $K \to L$ defines a
+morphism $f : \Spec(\mathcal{O}_L) \to \Spec(\mathcal{O}_K)$.
+As discussed above, the points where $f$ is unramified in our sense
+correspond to the set of points where $f$ is unramified in the conventional
+sense. In the conventional sense, the locus of ramification in
+$\Spec(\mathcal{O}_L)$ can be defined by vanishing set of the
+different; this is an ideal in $\mathcal{O}_L$. In fact, the different is
+nothing but the annihilator of the module
+$\Omega_{\mathcal{O}_L/\mathcal{O}_K}$. Similarly, the
+discriminant is an ideal in $\mathcal{O}_K$, namely it is the
+norm of the different.
+The vanishing set of the discriminant is precisely the set
+of points of $K$ which ramify in $L$.
+Thus, denoting by $X$ the complement of the closed subset
+defined by the different in $\Spec(\mathcal{O}_L)$,
+we obtain a morphism $X \to \Spec(\mathcal{O}_L)$ which is unramified.
+Furthermore, this morphism is also flat, as any local homomorphism
+of discrete valuation rings is flat, and hence this morphism is
+actually \'etale. If $L/K$ is finite Galois, then denoting by
+$Y$ the complement of the closed subset defined by the discriminant in
+$\Spec(\mathcal{O}_K)$, we see that we get even a
+finite \'etale morphism $X \to Y$.
+Thus, this is an example of a finite \'etale covering.
+\end{example}
+
+
+
+
+
+\section{Flat morphisms}
+\label{section-flat-morphisms}
+
+\noindent
+This section simply exists to summarize the properties of flatness that will
+be useful to us. Thus, we will be content with stating the theorems precisely
+and giving references for the proofs.
+
+\medskip\noindent
+After briefly recalling the necessary facts about flat modules over Noetherian
+rings, we state a theorem of Grothendieck which gives sufficient conditions
+for ``hyperplane sections'' of certain modules to be flat.
+
+\begin{definition}
+\label{definition-flat-rings}
+Flatness of modules and rings.
+\begin{enumerate}
+\item A module $N$ over a ring $A$ is said to be {\it flat}
+if the functor $M \mapsto M \otimes_A N$ is exact.
+\item If this functor is also faithful, we say that
+$N$ is {\it faithfully flat} over $A$.
+\item A morphism of rings $f : A \to B$ is said to be
+{\it flat (resp. faithfully flat)}
+if the functor $M \mapsto M \otimes_A B$ is exact
+(resp. faithful and exact).
+\end{enumerate}
+\end{definition}
+
+\noindent
+Here is a list of facts with references to the algebra chapter.
+\begin{enumerate}
+\item Free and projective modules are flat. This is clear for free modules
+and follows for projective modules as they are direct summands of free
+modules and $\otimes$ commutes with direct sums.
+\item Flatness is a local property, that is, $M$ is flat over $A$
+if and only if $M_{\mathfrak p}$ is flat over $A_{\mathfrak p}$ for all
+$\mathfrak p \in \Spec(A)$.
+See Algebra, Lemma \ref{algebra-lemma-flat-localization}.
+\item If $M$ is a flat $A$-module and $A \to B$ is a ring map,
+then $M \otimes_A B$ is a flat $B$-module. See
+Algebra, Lemma \ref{algebra-lemma-flat-base-change}.
+\item Finite flat modules over local rings are free.
+See Algebra, Lemma \ref{algebra-lemma-finite-flat-local}.
+\item If $f : A \to B$ is a morphism of arbitrary rings,
+$f$ is flat if and only if the induced maps
+$A_{f^{-1}(\mathfrak q)} \to B_{\mathfrak q}$ are flat for all
+$\mathfrak q \in \Spec(B)$.
+See Algebra, Lemma \ref{algebra-lemma-flat-localization}
+\item If $f : A \to B$ is a local homomorphism of local rings,
+$f$ is flat if and only if it is faithfully flat.
+See Algebra, Lemma \ref{algebra-lemma-local-flat-ff}.
+\item A map $A \to B$ of rings is faithfully flat if and only if it is
+flat and the induced map on spectra is surjective.
+See Algebra, Lemma \ref{algebra-lemma-ff-rings}.
+\item If $A$ is a noetherian local ring, the completion
+$A^\wedge$ is faithfully flat over $A$.
+See Algebra, Lemma \ref{algebra-lemma-completion-faithfully-flat}.
+\item Let $A$ be a Noetherian local ring and $M$ an $A$-module.
+Then $M$ is flat over $A$ if and only if $M \otimes_A A^\wedge$
+is flat over $A^\wedge$. (Combine the previous statement with
+Algebra, Lemma \ref{algebra-lemma-flatness-descends}.)
+\end{enumerate}
+Before we move on to the geometric category, we present Grothendieck's
+theorem, which provides a convenient recipe for producing flat
+modules.
+
+\begin{theorem}
+\label{theorem-flatness-grothendieck}
+Let $A$, $B$ be Noetherian local rings.
+Let $f : A \to B$ be a local homomorphism.
+If $M$ is a finite $B$-module that is flat as an $A$-module,
+and $t \in \mathfrak m_B$ is an element such that multiplication
+by $t$ is injective on $M/\mathfrak m_AM$, then $M/tM$ is also $A$-flat.
+\end{theorem}
+
+\begin{proof}
+See Algebra, Lemma \ref{algebra-lemma-mod-injective}.
+See also \cite[Section 20]{MatCA}.
+\end{proof}
+
+\begin{definition}
+\label{definition-flat-schemes}
+(See Morphisms, Definition \ref{morphisms-definition-flat}).
+Let $f : X \to Y$ be a morphism of schemes.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+\begin{enumerate}
+\item Let $x \in X$. We say $\mathcal{F}$ is
+{\it flat over $Y$ at $x \in X$} if $\mathcal{F}_x$
+is a flat $\mathcal{O}_{Y, f(x)}$-module.
+This uses the map $\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$ to
+think of $\mathcal{F}_x$ as a $\mathcal{O}_{Y, f(x)}$-module.
+\item Let $x \in X$. We say $f$ is {\it flat at $x \in X$}
+if $\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$ is flat.
+\item We say $f$ is {\it flat} if it is flat at all points of $X$.
+\item A morphism $f : X \to Y$ that is flat and surjective is sometimes
+said to be {\it faithfully flat}.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Once again, here is a list of results:
+\begin{enumerate}
+\item The property (of a morphism) of being flat is, by fiat,
+local in the Zariski topology on the source and the target.
+\item Open immersions are flat. (This is clear because it induces isomorphisms
+on local rings.)
+\item Flat morphisms are stable under base change and composition.
+Morphisms, Lemmas \ref{morphisms-lemma-base-change-flat} and
+\ref{morphisms-lemma-composition-flat}.
+\item If $f : X \to Y$ is flat, then the pullback functor
+$\QCoh(\mathcal{O}_Y) \to \QCoh(\mathcal{O}_X)$ is exact.
+This is immediate by looking at stalks.
+\item Let $f : X \to Y$ be a morphism of schemes, and assume $Y$
+is quasi-compact and quasi-separated. In this case
+if the functor $f^*$ is exact then $f$ is flat.
+(Proof omitted. Hint: Use
+Properties, Lemma \ref{properties-lemma-extend-trivial} to see that
+$Y$ has ``enough'' ideal sheaves and use the characterization of
+flatness in Algebra, Lemma \ref{algebra-lemma-flat}.)
+\end{enumerate}
+
+
+
+\section{Topological properties of flat morphisms}
+\label{section-topological-flat}
+
+\noindent
+We ``recall'' below some openness properties that flat morphisms enjoy.
+
+\begin{theorem}
+\label{theorem-flat-open}
+Let $Y$ be a locally Noetherian scheme.
+Let $f : X \to Y$ be a morphism which is locally of finite type.
+Let $\mathcal{F}$ be a coherent $\mathcal{O}_X$-module.
+The set of points in $X$ where $\mathcal{F}$ is flat over $Y$ is an open set.
+In particular the set of points where $f$ is flat is open in $X$.
+\end{theorem}
+
+\begin{proof}
+See More on Morphisms, Theorem \ref{more-morphisms-theorem-openness-flatness}.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-flat-map-open}
+Let $Y$ be a locally Noetherian scheme.
+Let $f : X \to Y$ be a morphism which is flat and locally of finite type.
+Then $f$ is (universally) open.
+\end{theorem}
+
+\begin{proof}
+See Morphisms, Lemma \ref{morphisms-lemma-fppf-open}.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-flat-is-quotient}
+A faithfully flat quasi-compact morphism is a quotient map for
+the Zariski topology.
+\end{theorem}
+
+\begin{proof}
+See Morphisms, Lemma \ref{morphisms-lemma-fpqc-quotient-topology}.
+\end{proof}
+
+\noindent
+An important reason to study flat morphisms is that they provide the adequate
+framework for capturing the notion of a family of schemes parametrized by the
+points of another scheme. Naively one may think that any morphism $f : X \to S$
+should be thought of as a family parametrized by the points of $S$. However,
+without a flatness restriction on $f$, really bizarre things can happen in
+this so-called family. For instance, we aren't guaranteed that relative
+dimension (dimension of the fibres) is constant in a family. Other numerical
+invariants, such as the Hilbert polynomial, too may change from fibre to
+fibre. Flatness prevents such things from happening and, therefore, provides
+some ``continuity'' to the fibres.
+
+
+\section{\'Etale morphisms}
+\label{section-etale-morphisms}
+
+\noindent
+In this section, we will define \'etale morphisms and prove a number of
+important properties about them. The most important one, no doubt, is the
+functorial characterization presented in Theorem \ref{theorem-formally-etale}.
+Following this, we will also discuss a few properties of rings which are
+insensitive to an \'etale extension (properties which hold for a ring
+if and only if they hold for all its \'etale extensions) to motivate the basic
+tenet of \'etale cohomology -- \'etale morphisms are the algebraic analogue of
+local isomorphisms.
+
+\medskip\noindent
+As the title suggests, we will define the class of \'etale morphisms -- the
+class of morphisms (whose surjective families) we shall deem to be coverings
+in the category of schemes over a base scheme $S$ in order to define the
+\'etale site $S_\etale$. Intuitively, an \'etale morphism is supposed
+to capture the idea of a covering space and, therefore, should be close to a
+local isomorphism. If we're working with varieties over algebraically closed
+fields, this last statement can be made into a definition provided we replace
+``local isomorphism'' with ``formal local isomorphism'' (isomorphism after
+completion). One can then give a definition over any base field by asking
+that the base change to the algebraic closure be \'etale (in the
+aforementioned sense). But, rather than proceeding via such aesthetically
+displeasing constructions, we will adopt a cleaner, albeit slightly more
+abstract, algebraic approach.
+
+\medskip\noindent
+We first define ``\'etale homomorphisms of local rings'' for Noetherian
+local rings. We cannot use the term ``\'etale'', as there already
+is a notion of an \'etale ring map
+(Algebra, Section \ref{algebra-section-etale})
+and it is different.
+
+\begin{definition}
+\label{definition-etale-ring}
+Let $A$, $B$ be Noetherian local rings.
+A local homomorphism $f : A \to B$ is said to be a
+{\it \'etale homomorphism of local rings}
+if it is flat and an unramified homomorphism of local rings
+(please see Definition \ref{definition-unramified-rings}).
+\end{definition}
+
+\noindent
+This is the local version of the definition of an \'etale ring map in
+Algebra, Section \ref{algebra-section-etale}.
+The exact definition
+given in that section is that it is a smooth ring map of relative
+dimension $0$. It is shown (in
+Algebra, Lemma \ref{algebra-lemma-etale-standard-smooth})
+that an \'etale $R$-algebra $S$ always has a presentation
+$$
+S = R[x_1, \ldots, x_n]/(f_1, \ldots, f_n)
+$$
+such that
+$$
+g =
+\det
+\left(
+\begin{matrix}
+\partial f_1/\partial x_1 &
+\partial f_2/\partial x_1 &
+\ldots &
+\partial f_n/\partial x_1 \\
+\partial f_1/\partial x_2 &
+\partial f_2/\partial x_2 &
+\ldots &
+\partial f_n/\partial x_2 \\
+\ldots & \ldots & \ldots & \ldots \\
+\partial f_1/\partial x_n &
+\partial f_2/\partial x_n &
+\ldots &
+\partial f_n/\partial x_n
+\end{matrix}
+\right)
+$$
+maps to an invertible element in $S$. The following two lemmas link the two
+notions.
+
+\begin{lemma}
+\label{lemma-characterize-etale-Noetherian}
+Let $A \to B$ be of finite type with $A$ a Noetherian ring.
+Let $\mathfrak q$ be a prime of $B$ lying over $\mathfrak p \subset A$.
+Then $A \to B$ is \'etale at $\mathfrak q$ if and only if
+$A_{\mathfrak p} \to B_{\mathfrak q}$ is an \'etale homomorphism
+of local rings.
+\end{lemma}
+
+\begin{proof}
+See Algebra, Lemmas \ref{algebra-lemma-etale} (flatness of \'etale maps),
+\ref{algebra-lemma-etale-at-prime} (\'etale maps are unramified)
+and \ref{algebra-lemma-characterize-etale} (flat and unramified maps
+are \'etale).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-etale-completions}
+Let $A$, $B$ be Noetherian local rings.
+Let $A \to B$ be a local homomorphism such that $B$ is essentially of
+finite type over $A$.
+The following are equivalent
+\begin{enumerate}
+\item $A \to B$ is an \'etale homomorphism of local rings
+\item $A^\wedge \to B^\wedge$ is an \'etale homomorphism of local rings, and
+\item $A^\wedge \to B^\wedge$ is \'etale.
+\end{enumerate}
+Moreover, in this case $B^\wedge \cong (A^\wedge)^{\oplus n}$ as
+$A^\wedge$-modules for some $n \geq 1$.
+\end{lemma}
+
+\begin{proof}
+To see the equivalences of (1), (2) and (3), as we have the corresponding
+results for unramified ring maps
+(Lemma \ref{lemma-characterize-unramified-completions})
+it suffices to prove that
+$A \to B$ is flat if and only if $A^\wedge \to B^\wedge$ is flat.
+This is clear from our lists of properties of flat maps since
+the ring maps $A \to A^\wedge$ and $B \to B^\wedge$ are faithfully flat.
+For the final statement, by Lemma \ref{lemma-unramified-completions}
+we see that $B^\wedge$ is a finite flat $A^\wedge$ module.
+Hence it is finite free by our list
+of properties on flat modules in Section \ref{section-flat-morphisms}.
+\end{proof}
+
+\noindent
+The integer $n$ which occurs in the lemma above
+is nothing other than the degree
+$[\kappa(\mathfrak m_B) : \kappa(\mathfrak m_A)]$ of the residue field
+extension. In particular, if $\kappa(\mathfrak m_A)$
+is separably closed, we see that $A^\wedge \to B^\wedge$
+is an isomorphism, which vindicates our earlier claims.
+
+\begin{definition}
+\label{definition-etale-schemes-1}
+(See Morphisms, Definition \ref{morphisms-definition-etale}.)
+Let $Y$ be a locally Noetherian scheme.
+Let $f : X \to Y$ be a morphism of schemes which is locally of finite type.
+\begin{enumerate}
+\item Let $x \in X$. We say $f$ is {\it \'etale at $x \in X$} if
+$\mathcal{O}_{Y, f(x)} \to \mathcal{O}_{X, x}$ is an
+\'etale homomorphism of local rings.
+\item The morphism is said to be {\it \'etale} if it is \'etale at all its
+points.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Let us prove that this definition agrees with the definition in the
+chapter on morphisms of schemes. This in particular guarantees that the
+set of points where a morphism is \'etale is open.
+
+\begin{lemma}
+\label{lemma-etale-definition}
+Let $Y$ be a locally Noetherian scheme.
+Let $f : X \to Y$ be locally of finite type.
+Let $x \in X$. The morphism $f$ is \'etale at $x$ in
+the sense of Definition \ref{definition-etale-schemes-1}
+if and only if it is \'etale at $x$ in
+the sense of Morphisms, Definition \ref{morphisms-definition-etale}.
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-characterize-etale-Noetherian}
+and the definitions.
+\end{proof}
+
+\noindent
+Here are some results on \'etale morphisms.
+The formulations as given in this list apply only to
+morphisms locally of finite type between locally Noetherian schemes.
+In each case we give a reference to the general result as
+proved earlier in the project, but in some cases one can
+prove the result more easily in the Noetherian case.
+Here is the list:
+\begin{enumerate}
+\item An \'etale morphism is unramified. (Clear from our definitions.)
+\item \'Etaleness is local on the source and the target in the Zariski
+topology.
+\item \'Etale morphisms are stable under base change and composition.
+See Morphisms, Lemmas \ref{morphisms-lemma-base-change-etale}
+and \ref{morphisms-lemma-composition-etale}.
+\item \'Etale morphisms of schemes are locally quasi-finite
+and quasi-compact \'etale morphisms are quasi-finite. (This is
+true because it holds for unramified morphisms as seen earlier.)
+\item \'Etale morphisms have relative dimension $0$. See
+Morphisms, Definition \ref{morphisms-definition-relative-dimension-d}
+and
+Morphisms, Lemma \ref{morphisms-lemma-locally-quasi-finite-rel-dimension-0}.
+\item A morphism is \'etale if and only if it is flat and
+all its fibres are \'etale. See
+Morphisms, Lemma \ref{morphisms-lemma-etale-flat-etale-fibres}.
+\item \'Etale morphisms are open. This is true because an \'etale
+morphism is flat, and Theorem \ref{theorem-flat-map-open}.
+\item Let $X$ and $Y$ be \'etale over a base scheme $S$.
+Any $S$-morphism from $X$ to $Y$ is \'etale.
+See Morphisms, Lemma \ref{morphisms-lemma-etale-permanence}.
+\end{enumerate}
+
+
+
+
+
+
+\section{The structure theorem}
+\label{section-structure-etale-map}
+
+\noindent
+We present a theorem which describes the local structure of \'etale
+and unramified morphisms. Besides its obvious independent importance,
+this theorem also allows us to make the transition to another
+definition of \'etale morphisms that captures the geometric intuition better
+than the one we've used so far.
+
+\medskip\noindent
+To state it we need the notion of a {\it standard \'etale ring map}, see
+Algebra, Definition \ref{algebra-definition-standard-etale}.
+Namely, suppose that $R$ is a ring and $f, g \in R[t]$ are polynomials
+such that
+\begin{enumerate}
+\item[(a)] $f$ is a monic polynomial, and
+\item[(b)] $f' = \text{d}f/\text{d}t$ is invertible in the localization
+$R[t]_g/(f)$.
+\end{enumerate}
+Then the map
+$$
+R \longrightarrow R[t]_g/(f) = R[t, 1/g]/(f)
+$$
+is a standard \'etale algebra, and any standard \'etale algebra is isomorphic
+to one of these. It is a pleasant exercise to prove that such a ring map
+is flat, and unramified and hence \'etale (as expected of course).
+A special case of a standard \'etale ring map is any ring map
+$$
+R \longrightarrow R[t]_{f'}/(f) = R[t, 1/f']/(f)
+$$
+with $f$ a monic polynomial, and any standard \'etale algebra is (isomorphic to)
+a principal localization of one of these.
+
+\begin{theorem}
+\label{theorem-structure-etale}
+Let $f : A \to B$ be an \'etale homomorphism of local rings.
+Then there exist $f, g \in A[t]$ such that
+\begin{enumerate}
+\item $B' = A[t]_g/(f)$ is standard \'etale -- see (a) and (b) above, and
+\item $B$ is isomorphic to a localization of $B'$ at a prime.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Write $B = B'_{\mathfrak q}$ for some finite type $A$-algebra $B'$
+(we can do this because $B$ is essentially of finite type over $A$).
+By Lemma \ref{lemma-characterize-etale-Noetherian}
+we see that $A \to B'$ is \'etale at $\mathfrak q$.
+Hence we may apply
+Algebra, Proposition \ref{algebra-proposition-etale-locally-standard}
+to see that a principal localization of $B'$ is standard \'etale.
+\end{proof}
+
+\noindent
+Here is the version for unramified homomorphisms of local rings.
+
+\begin{theorem}
+\label{theorem-structure-unramified}
+Let $f : A \to B$ be an unramified morphism of local rings.
+Then there exist $f, g \in A[t]$ such that
+\begin{enumerate}
+\item $B' = A[t]_g/(f)$ is standard \'etale -- see (a) and (b) above, and
+\item $B$ is isomorphic to a quotient of a localization of $B'$ at a prime.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Write $B = B'_{\mathfrak q}$ for some finite type $A$-algebra $B'$
+(we can do this because $B$ is essentially of finite type over $A$).
+By Lemma \ref{lemma-characterize-unramified-Noetherian}
+we see that $A \to B'$ is unramified at $\mathfrak q$.
+Hence we may apply
+Algebra, Proposition \ref{algebra-proposition-unramified-locally-standard}
+to see that a principal localization of $B'$ is a quotient of a
+standard \'etale $A$-algebra.
+\end{proof}
+
+\noindent
+Via standard lifting arguments, one then obtains the following geometric
+statement which will be of essential use to us.
+
+\begin{theorem}
+\label{theorem-geometric-structure}
+Let $\varphi : X \to Y$ be a morphism of schemes. Let $x \in X$.
+Let $V \subset Y$ be an affine open neighbourhood of $\varphi(x)$.
+If $\varphi$ is \'etale at $x$, then there exist exists an affine open
+$U \subset X$ with $x \in U$ and $\varphi(U) \subset V$
+such that we have the following diagram
+$$
+\xymatrix{
+X \ar[d] & U \ar[l] \ar[d] \ar[r]_-j & \Spec(R[t]_{f'}/(f)) \ar[d] \\
+Y & V \ar[l] \ar@{=}[r] & \Spec(R)
+}
+$$
+where $j$ is an open immersion, and $f \in R[t]$ is monic.
+\end{theorem}
+
+\begin{proof}
+This is equivalent to
+Morphisms, Lemma \ref{morphisms-lemma-etale-locally-standard-etale}
+although the statements differ slightly.
+See also, Varieties, Lemma \ref{varieties-lemma-geometric-structure-unramified}
+for a variant for unramified morphisms.
+\end{proof}
+
+
+\section{\'Etale and smooth morphisms}
+\label{section-etale-smooth}
+
+\noindent
+An \'etale morphism is smooth of relative dimension zero.
+The projection $\mathbf{A}^n_S \to S$ is a standard example
+of a smooth morphism of relative dimension $n$.
+It turns out that any smooth morphism is \'etale locally
+of this form. Here is the precise statement.
+
+\begin{theorem}
+\label{theorem-smooth-etale-over-n-space}
+Let $\varphi : X \to Y$ be a morphism of schemes.
+Let $x \in X$.
+If $\varphi$ is smooth at $x$, then
+there exist exist and integer $n \geq 0$ and affine opens
+$V \subset Y$ and $U \subset X$ with $x \in U$ and $\varphi(U) \subset V$
+such that there exists a commutative diagram
+$$
+\xymatrix{
+X \ar[d] & U \ar[l] \ar[d] \ar[r]_-\pi &
+\mathbf{A}^n_R \ar[d] \ar@{=}[r] &  \Spec(R[x_1, \ldots, x_n]) \ar[dl] \\
+Y & V \ar[l] \ar@{=}[r] & \Spec(R)
+}
+$$
+where $\pi$ is \'etale.
+\end{theorem}
+
+\begin{proof}
+See
+Morphisms, Lemma \ref{morphisms-lemma-smooth-etale-over-affine-space}.
+\end{proof}
+
+
+
+
+\section{Topological properties of \'etale morphisms}
+\label{section-topological-etale}
+
+\noindent
+We present a few of the topological properties of \'etale and
+unramified morphisms. First, we give what Grothendieck
+calls the {\it fundamental property of \'etale morphisms}, see
+\cite[Expos\'e I.5]{SGA1}.
+
+\begin{theorem}
+\label{theorem-etale-radicial-open}
+Let $f : X \to Y$ be a morphism of schemes.
+The following are equivalent:
+\begin{enumerate}
+\item $f$ is an open immersion,
+\item $f$ is universally injective and \'etale, and
+\item $f$ is a flat monomorphism, locally of finite presentation.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+An open immersion is universally injective
+since any base change of an open immersion
+is an open immersion. Moreover, it is \'etale by
+Morphisms, Lemma \ref{morphisms-lemma-open-immersion-etale}.
+Hence (1) implies (2).
+
+\medskip\noindent
+Assume $f$ is universally injective and \'etale.
+Since $f$ is \'etale it is flat and locally of finite presentation, see
+Morphisms, Lemmas \ref{morphisms-lemma-etale-flat} and
+\ref{morphisms-lemma-etale-locally-finite-presentation}.
+By
+Lemma \ref{lemma-universally-injective-unramified}
+we see that $f$ is a monomorphism. Hence (2) implies (3).
+
+\medskip\noindent
+Assume $f$ is flat, locally of finite presentation, and a monomorphism.
+Then $f$ is open, see
+Morphisms, Lemma \ref{morphisms-lemma-fppf-open}.
+Thus we may replace $Y$ by $f(X)$ and we may assume $f$ is
+surjective. Then $f$ is open and bijective hence a homeomorphism.
+Hence $f$ is quasi-compact. Hence
+Descent, Lemma
+\ref{descent-lemma-flat-surjective-quasi-compact-monomorphism-isomorphism}
+shows that $f$ is an isomorphism and we win.
+\end{proof}
+
+\noindent
+Here is another result of a similar flavor.
+
+\begin{lemma}
+\label{lemma-finite-etale-one-point}
+Let $\pi : X \to S$ be a morphism of schemes. Let $s \in S$.
+Assume that
+\begin{enumerate}
+\item $\pi$ is finite,
+\item $\pi$ is \'etale,
+\item $\pi^{-1}(\{s\}) = \{x\}$, and
+\item $\kappa(s) \subset \kappa(x)$ is purely
+inseparable\footnote{In view of condition (2)
+this is equivalent to $\kappa(s) = \kappa(x)$.}.
+\end{enumerate}
+Then there exists an open neighbourhood $U$ of $s$ such that
+$\pi|_{\pi^{-1}(U)} : \pi^{-1}(U) \to U$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+By
+Lemma \ref{lemma-finite-unramified-one-point}
+there exists an open neighbourhood $U$ of $s$ such that
+$\pi|_{\pi^{-1}(U)} : \pi^{-1}(U) \to U$ is a closed immersion.
+But a morphism which is \'etale and a closed immersion is an
+open immersion (for example by
+Theorem \ref{theorem-etale-radicial-open}).
+Hence after shrinking $U$ we obtain an isomorphism.
+\end{proof}
+
+
+
+
+\section{Topological invariance of the \'etale topology}
+\label{section-topological-invariance}
+
+\noindent
+Next, we present an extremely crucial theorem which, roughly speaking, says
+that \'etaleness is a topological property.
+
+\begin{theorem}
+\label{theorem-etale-topological}
+Let $X$ and $Y$ be two schemes over a base scheme $S$. Let $S_0$ be a closed
+subscheme of $S$ with the same underlying topological space
+(for example if the ideal sheaf of $S_0$ in $S$ has square zero).
+Denote $X_0$ (resp.\ $Y_0$) the base change $S_0 \times_S X$
+(resp.\ $S_0 \times_S Y$).
+If $X$ is \'etale over $S$, then the map
+$$
+\Mor_S(Y, X) \longrightarrow \Mor_{S_0}(Y_0, X_0)
+$$
+is bijective.
+\end{theorem}
+
+\begin{proof}
+After base changing via $Y \to S$, we may assume that $Y = S$.
+In this case the theorem states that any $S$-morphism $\sigma_0 : S_0 \to X$
+actually factors uniquely through a section $S \to X$ of the
+\'etale structure morphism $f : X \to S$.
+
+\medskip\noindent
+Uniqueness. Suppose we have two sections $\sigma, \sigma'$
+through which $\sigma_0$ factors. Because $X \to S$ is \'etale
+we see that $\Delta : X \to X \times_S X$ is an open immersion
+(Morphisms, Lemma \ref{morphisms-lemma-diagonal-unramified-morphism}).
+The morphism $(\sigma, \sigma') : S \to X \times_S X$ factors
+through this open because for any $s \in S$ we have
+$(\sigma, \sigma')(s) = (\sigma_0(s), \sigma_0(s))$. Thus
+$\sigma = \sigma'$.
+
+\medskip\noindent
+To prove existence we first reduce to the affine case
+(we suggest the reader skip this step).
+Let $X = \bigcup X_i$ be an affine open covering such
+that each $X_i$ maps into an affine open $S_i$ of $S$.
+For every $s \in S$ we can choose an $i$ such that
+$\sigma_0(s) \in X_i$.
+Choose an affine open neighbourhood $U \subset S_i$ of $s$
+such that $\sigma_0(U_0) \subset X_{i, 0}$. Note that
+$X' = X_i \times_S U = X_i \times_{S_i} U$ is affine.
+If we can lift $\sigma_0|_{U_0} : U_0 \to X'_0$ to
+$U \to X'$, then by uniqueness these local lifts will glue
+to a global morphism $S \to X$. Thus we may assume $S$ and
+$X$ are affine.
+
+\medskip\noindent
+Existence when $S$ and $X$ are affine. Write $S = \Spec(A)$
+and $X = \Spec(B)$. Then $A \to B$ is \'etale and in particular
+smooth (of relative dimension $0$). As $|S_0| = |S|$ we see
+that $S_0 = \Spec(A/I)$ with $I \subset A$ locally nilpotent.
+Thus existence follows from
+Algebra, Lemma \ref{algebra-lemma-smooth-strong-lift}.
+\end{proof}
+
+\noindent
+From the proof of preceeding theorem, we also obtain one direction of the
+promised functorial characterization of \'etale morphisms. The following
+theorem will be strengthened in
+\'Etale Cohomology,
+Theorem \ref{etale-cohomology-theorem-topological-invariance}.
+
+\begin{theorem}[Une equivalence remarquable de cat\'egories]
+\label{theorem-remarkable-equivalence}
+Let $S$ be a scheme.
+Let $S_0 \subset S$ be a closed subscheme with the same underlying
+topological space (for example if the ideal sheaf of $S_0$ in $S$
+has square zero). The functor
+$$
+X \longmapsto X_0 = S_0 \times_S X
+$$
+defines an equivalence of categories
+$$
+\{
+\text{schemes }X\text{ \'etale over }S
+\}
+\leftrightarrow
+\{
+\text{schemes }X_0\text{ \'etale over }S_0
+\}
+$$
+\end{theorem}
+
+\begin{proof}
+By Theorem \ref{theorem-etale-topological}
+we see that this functor is fully faithful.
+It remains to show that the functor is essentially surjective.
+Let $Y \to S_0$ be an \'etale morphism of schemes.
+
+\medskip\noindent
+Suppose that the result holds if $S$ and $Y$ are affine.
+In that case, we choose an affine open covering
+$Y = \bigcup V_j$ such that each $V_j$ maps
+into an affine open of $S$. By assumption (affine case) we can
+find \'etale morphisms $W_j \to S$ such that $W_{j, 0} \cong V_j$
+(as schemes over $S_0$). Let $W_{j, j'} \subset W_j$
+be the open subscheme whose underlying topological space
+corresponds to $V_j \cap V_{j'}$. Because we have isomorphisms
+$$
+W_{j, j', 0} \cong V_j \cap V_{j'} \cong W_{j', j, 0}
+$$
+as schemes over $S_0$ we see by fully faithfulness that we
+obtain isomorphisms
+$\theta_{j, j'} : W_{j, j'} \to W_{j', j}$ of schemes over $S$.
+We omit the verification that these isomorphisms satisfy the
+cocycle condition of Schemes, Section \ref{schemes-section-glueing-schemes}.
+Applying Schemes, Lemma \ref{schemes-lemma-glue-schemes}
+we obtain a scheme $X \to S$ by
+glueing the schemes $W_j$ along the identifications $\theta_{j, j'}$.
+It is clear that $X \to S$ is \'etale and $X_0 \cong Y$ by construction.
+
+\medskip\noindent
+Thus it suffices to show the lemma in case $S$ and $Y$ are affine.
+Say $S = \Spec(R)$ and $S_0 = \Spec(R/I)$ with $I$ locally nilpotent.
+By Algebra, Lemma \ref{algebra-lemma-etale-standard-smooth} we know that
+$Y$ is the spectrum of a ring $\overline{A}$ with
+$$
+\overline{A} = (R/I)[x_1, \ldots, x_n]/(\overline{f}_1, \ldots, \overline{f}_n)
+$$
+such that
+$$
+\overline{g} =
+\det
+\left(
+\begin{matrix}
+\partial \overline{f}_1/\partial x_1 &
+\partial \overline{f}_2/\partial x_1 &
+\ldots &
+\partial \overline{f}_n/\partial x_1 \\
+\partial \overline{f}_1/\partial x_2 &
+\partial \overline{f}_2/\partial x_2 &
+\ldots &
+\partial \overline{f}_n/\partial x_2 \\
+\ldots & \ldots & \ldots & \ldots \\
+\partial \overline{f}_1/\partial x_n &
+\partial \overline{f}_2/\partial x_n &
+\ldots &
+\partial \overline{f}_n/\partial x_n
+\end{matrix}
+\right)
+$$
+maps to an invertible element in $\overline{A}$. Choose any lifts
+$f_i \in R[x_1, \ldots, x_n]$. Set
+$$
+A = R[x_1, \ldots, x_n]/(f_1, \ldots, f_n)
+$$
+Since $I$ is locally nilpotent the ideal $IA$ is locally nilpotent
+(Algebra, Lemma \ref{algebra-lemma-locally-nilpotent}).
+Observe that $\overline{A} = A/IA$.
+It follows that the determinant of the matrix of partials of the
+$f_i$ is invertible in the algebra $A$ by
+Algebra, Lemma \ref{algebra-lemma-locally-nilpotent-unit}.
+Hence $R \to A$ is \'etale and the proof is complete.
+\end{proof}
+
+
+
+\section{The functorial characterization}
+\label{section-functorial-etale}
+
+\noindent
+We finally present the promised functorial characterization.
+Thus there are four ways to think about \'etale morphisms of schemes:
+\begin{enumerate}
+\item as a smooth morphism of relative dimension $0$,
+\item as locally finitely presented, flat, and unramified morphisms,
+\item using the structure theorem, and
+\item using the functorial characterization.
+\end{enumerate}
+
+\begin{theorem}
+\label{theorem-formally-etale}
+Let $f : X \to S$ be a morphism that is locally of finite presentation.
+The following are equivalent
+\begin{enumerate}
+\item $f$ is \'etale,
+\item for all affine $S$-schemes $Y$, and closed subschemes $Y_0 \subset Y$
+defined by square-zero ideals, the natural map
+$$
+\Mor_S(Y, X) \longrightarrow \Mor_S(Y_0, X)
+$$
+is bijective.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+This is
+More on Morphisms, Lemma \ref{more-morphisms-lemma-etale-formally-etale}.
+\end{proof}
+
+\noindent
+This characterization says that solutions to the equations defining $X$ can
+be lifted uniquely through nilpotent thickenings.
+
+
+
+\section{\'Etale local structure of unramified morphisms}
+\label{section-unramified-etale-local}
+
+\noindent
+In the chapter
+More on Morphisms, Section \ref{more-morphisms-section-etale-localization}
+the reader can find some results on the \'etale local structure of
+quasi-finite morphisms. In this section we want to combine this
+with the topological properties of unramified morphisms we have seen
+in this chapter. The basic overall picture to keep in mind is
+$$
+\xymatrix{
+V \ar[r] \ar[dr] & X_U \ar[d] \ar[r] & X \ar[d]^f \\
+& U \ar[r] & S
+}
+$$
+see
+More on Morphisms, Equation (\ref{more-morphisms-equation-basic-diagram}).
+We start with a very general case.
+
+\begin{lemma}
+\label{lemma-unramified-etale-local}
+Let $f : X \to S$ be a morphism of schemes.
+Let $x_1, \ldots, x_n \in X$ be points having the same image $s$ in $S$.
+Assume $f$ is unramified at each $x_i$.
+Then there exists an \'etale neighbourhood $(U, u) \to (S, s)$
+and opens $V_{i, j} \subset X_U$, $i = 1, \ldots, n$, $j = 1, \ldots, m_i$
+such that
+\begin{enumerate}
+\item $V_{i, j} \to U$ is a closed immersion passing through $u$,
+\item $u$ is not in the image of $V_{i, j} \cap V_{i', j'}$ unless
+$i = i'$ and $j = j'$, and
+\item any point of $(X_U)_u$ mapping to $x_i$ is in some $V_{i, j}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By
+Morphisms, Definition \ref{morphisms-definition-unramified}
+there exists an open neighbourhood of each $x_i$ which is locally of finite
+type over $S$. Replacing $X$ by an open neighbourhood of $\{x_1, \ldots, x_n\}$
+we may assume $f$ is locally of finite type. Apply
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-etale-makes-quasi-finite-finite-multiple-points-var}
+to get the \'etale neighbourhood $(U, u)$ and the opens $V_{i, j}$ finite over
+$U$. By
+Lemma \ref{lemma-finite-unramified-one-point}
+after possibly shrinking $U$ we get that $V_{i, j} \to U$ is a closed
+immersion.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-unramified-etale-local-technical}
+Let $f : X \to S$ be a morphism of schemes.
+Let $x_1, \ldots, x_n \in X$ be points having the same image $s$ in $S$.
+Assume $f$ is separated and $f$ is unramified at each $x_i$.
+Then there exists an \'etale neighbourhood $(U, u) \to (S, s)$
+and a disjoint union decomposition
+$$
+X_U =
+W \amalg \coprod\nolimits_{i, j} V_{i, j}
+$$
+such that
+\begin{enumerate}
+\item $V_{i, j} \to U$ is a closed immersion passing through $u$,
+\item the fibre $W_u$ contains no point mapping to any $x_i$.
+\end{enumerate}
+In particular, if $f^{-1}(\{s\}) = \{x_1, \ldots, x_n\}$, then
+the fibre $W_u$ is empty.
+\end{lemma}
+
+\begin{proof}
+Apply
+Lemma \ref{lemma-unramified-etale-local}.
+We may assume $U$ is affine, so $X_U$ is separated.
+Then $V_{i, j} \to X_U$ is a closed map, see
+Morphisms, Lemma \ref{morphisms-lemma-image-proper-scheme-closed}.
+Suppose $(i, j) \not = (i', j')$.
+Then $V_{i, j} \cap V_{i', j'}$ is closed in $V_{i, j}$ and
+its image in $U$ does not contain $u$.
+Hence after shrinking $U$ we may assume that
+$V_{i, j} \cap V_{i', j'} = \emptyset$. Moreover, $\bigcup V_{i, j}$ is
+a closed and open subscheme of $X_U$ and hence has an open and closed
+complement $W$. This finishes the proof.
+\end{proof}
+
+\noindent
+The following lemma is in some sense much weaker than the preceding one
+but it may be useful to state it explicitly here. It says that a finite
+unramified morphism is \'etale locally on the base a closed immersion.
+
+\begin{lemma}
+\label{lemma-finite-unramified-etale-local}
+Let $f : X \to S$ be a finite unramified morphism of schemes.
+Let $s \in S$.
+There exists an \'etale neighbourhood $(U, u) \to (S, s)$
+and a disjoint union decomposition
+$$
+X_U = \coprod\nolimits_j V_j
+$$
+such that each $V_j \to U$ is a closed immersion.
+\end{lemma}
+
+\begin{proof}
+Since $X \to S$ is finite the fibre over $S$ is a finite set
+$\{x_1, \ldots, x_n\}$ of points of $X$. Apply
+Lemma \ref{lemma-unramified-etale-local-technical}
+to this set (a finite morphism is separated, see
+Morphisms, Section \ref{morphisms-section-integral}).
+The image of $W$ in $U$ is a closed
+subset (as $X_U \to U$ is finite, hence proper) which does not
+contain $u$. After removing this from $U$ we see that $W = \emptyset$
+as desired.
+\end{proof}
+
+
+
+
+\section{\'Etale local structure of \'etale morphisms}
+\label{section-etale-local-etale}
+
+\noindent
+This is a bit silly, but perhaps helps form intuition about \'etale
+morphisms. We simply copy over the results of
+Section \ref{section-unramified-etale-local}
+and change ``closed immersion'' into ``isomorphism''.
+
+\begin{lemma}
+\label{lemma-etale-etale-local}
+Let $f : X \to S$ be a morphism of schemes.
+Let $x_1, \ldots, x_n \in X$ be points having the same image $s$ in $S$.
+Assume $f$ is \'etale at each $x_i$.
+Then there exists an \'etale neighbourhood $(U, u) \to (S, s)$
+and opens $V_{i, j} \subset X_U$, $i = 1, \ldots, n$, $j = 1, \ldots, m_i$
+such that
+\begin{enumerate}
+\item $V_{i, j} \to U$ is an isomorphism,
+\item $u$ is not in the image of $V_{i, j} \cap V_{i', j'}$ unless
+$i = i'$ and $j = j'$, and
+\item any point of $(X_U)_u$ mapping to $x_i$ is in some $V_{i, j}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+An \'etale morphism is unramified, hence we may apply
+Lemma \ref{lemma-unramified-etale-local}.
+Now $V_{i, j} \to U$ is a closed immersion and \'etale.
+Hence it is an open immersion, for example by
+Theorem \ref{theorem-etale-radicial-open}.
+Replace $U$ by the intersection of the images of $V_{i, j} \to U$
+to get the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-etale-etale-local-technical}
+Let $f : X \to S$ be a morphism of schemes.
+Let $x_1, \ldots, x_n \in X$ be points having the same image $s$ in $S$.
+Assume $f$ is separated and $f$ is \'etale at each $x_i$.
+Then there exists an \'etale neighbourhood $(U, u) \to (S, s)$
+and a disjoint union decomposition
+$$
+X_U =
+W \amalg \coprod\nolimits_{i, j} V_{i, j}
+$$
+such that
+\begin{enumerate}
+\item $V_{i, j} \to U$ is an isomorphism,
+\item the fibre $W_u$ contains no point mapping to any $x_i$.
+\end{enumerate}
+In particular, if $f^{-1}(\{s\}) = \{x_1, \ldots, x_n\}$, then
+the fibre $W_u$ is empty.
+\end{lemma}
+
+\begin{proof}
+An \'etale morphism is unramified, hence we may apply
+Lemma \ref{lemma-unramified-etale-local-technical}.
+As in the proof of
+Lemma \ref{lemma-etale-etale-local}
+the morphisms $V_{i, j} \to U$ are open immersions and
+we win after replacing $U$ by the intersection of their
+images.
+\end{proof}
+
+\noindent
+The following lemma is in some sense much weaker than the preceding one
+but it may be useful to state it explicitly here. It says that a finite
+\'etale morphism is \'etale locally on the base a
+``topological covering space'', i.e., a finite product of copies of the base.
+
+\begin{lemma}
+\label{lemma-finite-etale-etale-local}
+Let $f : X \to S$ be a finite \'etale morphism of schemes.
+Let $s \in S$. There exists an \'etale neighbourhood $(U, u) \to (S, s)$
+and a disjoint union decomposition
+$$
+X_U = \coprod\nolimits_j V_j
+$$
+such that each $V_j \to U$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+An \'etale morphism is unramified, hence we may apply
+Lemma \ref{lemma-finite-unramified-etale-local}.
+As in the proof of
+Lemma \ref{lemma-etale-etale-local}
+we see that $V_{i, j} \to U$ is an open immersion and we win
+after replacing $U$ by the intersection of their images.
+\end{proof}
+
+
+
+
+\section{Permanence properties}
+\label{section-properties-permanence}
+
+\noindent
+In what follows, we present a few ``permanence''
+properties of \'etale homomorphisms of Noetherian local rings
+(as defined in Definition \ref{definition-etale-ring}). See
+More on Algebra, Sections \ref{more-algebra-section-permanence-completion} and
+\ref{more-algebra-section-permanence-henselization}
+for the analogue of this material for the completion and
+henselization of a Noetherian local ring.
+
+\begin{lemma}
+\label{lemma-etale-dimension}
+Let $A$, $B$ be Noetherian local rings.
+Let $A \to B$ be a \'etale homomorphism of local rings.
+Then $\dim(A) = \dim(B)$.
+\end{lemma}
+
+\begin{proof}
+See for example
+Algebra, Lemma \ref{algebra-lemma-dimension-base-fibre-equals-total}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-etale-depth}
+Let $A$, $B$ be Noetherian local rings.
+Let $f : A \to B$ be an \'etale homomorphism of local rings.
+Then $\text{depth}(A) = \text{depth}(B)$
+\end{proposition}
+
+\begin{proof}
+See Algebra, Lemma \ref{algebra-lemma-apply-grothendieck}.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-etale-CM}
+\begin{slogan}
+Being Cohen-Macaulay ascends and descends along \'etale maps.
+\end{slogan}
+Let $A$, $B$ be Noetherian local rings.
+Let $f : A \to B$ be an \'etale homomorphism of local rings.
+Then $A$ is Cohen-Macaulay if and only if $B$ is so.
+\end{proposition}
+
+\begin{proof}
+A local ring $A$ is Cohen-Macaulay if and only $\dim(A) = \text{depth}(A)$.
+As both of these invariants is preserved under an \'etale extension,
+the claim follows.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-etale-regular}
+Let $A$, $B$ be Noetherian local rings.
+Let $f : A \to B$ be an \'etale homomorphism of local rings.
+Then $A$ is regular if and only if $B$ is so.
+\end{proposition}
+
+\begin{proof}
+If $B$ is regular, then $A$ is regular by
+Algebra, Lemma \ref{algebra-lemma-flat-under-regular}.
+Assume $A$ is regular. Let $\mathfrak m$ be the maximal ideal
+of $A$. Then $\dim_{\kappa(\mathfrak m)} \mathfrak m/\mathfrak m^2 =
+\dim(A) = \dim(B)$ (see Lemma \ref{lemma-etale-dimension}).
+On the other hand, $\mathfrak mB$ is the maximal ideal of
+$B$ and hence $\mathfrak m_B/\mathfrak m_B = \mathfrak mB/\mathfrak m^2B$
+is generated by at most $\dim(B)$ elements. Thus $B$ is regular.
+(You can also use the slightly more general
+Algebra, Lemma \ref{algebra-lemma-flat-over-regular-with-regular-fibre}.)
+\end{proof}
+
+
+\begin{proposition}
+\label{proposition-etale-reduced}
+Let $A$, $B$ be Noetherian local rings.
+Let $f : A \to B$ be an \'etale homomorphism of local rings.
+Then $A$ is reduced if and only if $B$ is so.
+\end{proposition}
+
+\begin{proof}
+It is clear from the faithful flatness of $A \to B$ that if $B$ is reduced, so
+is $A$. See also Algebra, Lemma \ref{algebra-lemma-descent-reduced}.
+Conversely, assume $A$ is reduced. By assumption $B$ is a localization
+of a finite type $A$-algebra $B'$ at some prime $\mathfrak q$.
+After replacing $B'$ by a localization we may assume that $B'$
+is \'etale over $A$, see Lemma \ref{lemma-characterize-etale-Noetherian}.
+Then we see that Algebra, Lemma \ref{algebra-lemma-reduced-goes-up} applies to
+$A \to B'$ and $B'$ is reduced. Hence $B$ is reduced.
+\end{proof}
+
+\begin{remark}
+\label{remark-technicality-needed}
+The result on ``reducedness'' does not hold with a weaker
+definition of \'etale local ring maps $A \to B$ where one
+drops the assumption that $B$ is essentially of finite type over $A$.
+Namely, it can happen that a Noetherian local domain $A$ has nonreduced
+completion $A^\wedge$, see
+Examples, Section \ref{examples-section-local-completion-nonreduced}.
+But the ring map $A \to A^\wedge$ is flat, and $\mathfrak m_AA^\wedge$
+is the maximal ideal of $A^\wedge$ and of course $A$ and $A^\wedge$ have
+the same residue fields. This is why it is important to consider
+this notion only for ring extensions which are essentially of finite type
+(or essentially of finite presentation if $A$ is not Noetherian).
+\end{remark}
+
+\begin{proposition}
+\label{proposition-etale-normal}
+Let $A$, $B$ be Noetherian local rings.
+Let $f : A \to B$ be an \'etale homomorphism of local rings.
+Then $A$ is a normal domain if and only if $B$ is so.
+\end{proposition}
+
+\begin{proof}
+See
+Algebra, Lemma \ref{algebra-lemma-descent-normal}
+for descending normality. Conversely, assume $A$ is normal.
+By assumption $B$ is a localization of a finite type $A$-algebra
+$B'$ at some prime $\mathfrak q$. After replacing $B'$ by a localization
+we may assume that $B'$ is \'etale over $A$, see
+Lemma \ref{lemma-characterize-etale-Noetherian}.
+Then we see that
+Algebra, Lemma \ref{algebra-lemma-normal-goes-up}
+applies to $A \to B'$ and we conclude that $B'$ is normal.
+Hence $B$ is a normal domain.
+\end{proof}
+
+\noindent
+The preceeding propositions give some indication as to why we'd like to think
+of \'etale maps as ``local isomorphisms''. Another property that gives an
+excellent indication that we have the ``right'' definition is the fact that
+for $\mathbf{C}$-schemes of finite type, a morphism is \'etale if and only if
+the associated morphism on analytic spaces (the $\mathbf{C}$-valued points given
+the complex topology) is a local isomorphism in the analytic sense (open
+embedding locally on the source). This fact can be proven with the aid of the
+structure theorem and the fact that the analytification commutes with the
+formation of the completed local rings -- the details are left to the reader.
+
+
+
+
+
+
+
+
+\section{Descending \'etale morphisms}
+\label{section-descending-etale}
+
+\noindent
+In order to understand the language used in this section we encourage
+the reader to take a look at
+Descent, Section \ref{descent-section-descent-datum}.
+Let $f : X \to S$ be a morphism of schemes. Consider the
+pullback functor
+\begin{equation}
+\label{equation-descent-etale}
+\text{schemes }U\text{ \'etale over }S \longrightarrow
+\begin{matrix}
+\text{descent data }(V, \varphi)\text{ relative to }X/S \\
+\text{ with }V\text{ \'etale over }X
+\end{matrix}
+\end{equation}
+sending $U$ to the canonical descent datum $(X \times_S U, can)$.
+
+\begin{lemma}
+\label{lemma-faithful}
+If $f : X \to S$ is surjective, then the functor
+(\ref{equation-descent-etale}) is faithful.
+\end{lemma}
+
+\begin{proof}
+Let $a, b : U_1 \to U_2$ be two morphisms between schemes \'etale over $S$.
+Assume the base changes of $a$ and $b$ to $X$ agree.
+We have to show that $a = b$.
+By Proposition \ref{proposition-equality} it suffices to
+show that $a$ and $b$ agree on points and residue fields.
+This is clear because for every $u \in U_1$ we can find a point
+$v \in X \times_S U_1$ mapping to $u$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fully-faithful}
+Assume $f : X \to S$ is submersive and any \'etale base change
+of $f$ is submersive. Then the functor
+(\ref{equation-descent-etale}) is fully faithful.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-faithful} the functor is faithful.
+Let $U_1 \to S$ and $U_2 \to S$ be \'etale morphisms
+and let $a : X \times_S U_1 \to X \times_S U_2$ be a
+morphism compatible with canonical descent data.
+We will prove that $a$ is the base change of a morphism $U_1 \to U_2$.
+
+\medskip\noindent
+Let $U'_2 \subset U_2$ be an open subscheme. Consider
+$W = a^{-1}(X \times_S U'_2)$. This is an open subscheme
+of $X \times_S U_1$ which is compatible with the canonical
+descent datum on $V_1 = X \times_S U_1$. This means that the
+two inverse images of $W$ by the projections
+$V_1 \times_{U_1} V_1 \to V_1$ agree. Since $V_1 \to U_1$
+is surjective (as the base change of $X \to S$) we conclude
+that $W$ is the inverse image of some subset $U'_1 \subset U_1$.
+Since $W$ is open, our assumption on $f$ implies that $U'_1 \subset U_1$
+is open.
+
+\medskip\noindent
+Let $U_2 = \bigcup U_{2, i}$ be an affine open covering.
+By the result of the preceding paragraph we obtain an open
+covering $U_1 = \bigcup U_{1, i}$ such that
+$X \times_S U_{1, i} = a^{-1}(X \times_S U_{2, i})$.
+If we can prove there exists a morphism $U_{1, i} \to U_{2, i}$
+whose base change is the morphism
+$a_i : X \times_S U_{1, i} \to X \times_S U_{2, i}$
+then we can glue these morphisms to a morphism $U_1 \to U_2$
+(using faithfulness). In this way we reduce to the case that
+$U_2$ is affine. In particular $U_2 \to X$ is separated
+(Schemes, Lemma \ref{schemes-lemma-compose-after-separated}).
+
+\medskip\noindent
+Assume $U_2 \to S$ is separated. Then the graph $\Gamma_a$ of $a$
+is a closed subscheme of
+$$
+V = (X \times_S U_1) \times_X (X \times_S U_2) = X \times_S U_1 \times_S U_2
+$$
+by Schemes, Lemma \ref{schemes-lemma-semi-diagonal}.
+On the other hand the graph is open for example
+because it is a section of an \'etale morphism
+(Proposition \ref{proposition-properties-sections}).
+Since $a$ is a morphism of descent data, the two inverse images of
+$\Gamma_a \subset V$ under the projections
+$V \times_{U_1 \times_S U_2} V \to V$ are the same.
+Hence arguing as in the second paragraph of the proof we
+find an open and closed subscheme $\Gamma \subset U_1 \times_S U_2$
+whose base change to $X$ gives $\Gamma_a$. Then
+$\Gamma \to U_1$ is an \'etale morphism whose base change
+to $X$ is an isomorphism. This means that $\Gamma \to U_1$
+is universally bijective, hence an isomorphism
+by Theorem \ref{theorem-etale-radicial-open}.
+Thus $\Gamma$ is the graph of a morphism $U_1 \to U_2$
+and the base change of this morphism is $a$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-fully-faithful-cases}
+Let $f : X \to S$ be a morphism of schemes. In the following
+cases the functor (\ref{equation-descent-etale}) is fully faithful:
+\begin{enumerate}
+\item $f$ is surjective and universally closed
+(e.g., finite, integral, or proper),
+\item $f$ is surjective and universally open
+(e.g., locally of finite presentation and flat, smooth, or etale),
+\item $f$ is surjective, quasi-compact, and flat.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-fully-faithful}.
+For example a closed surjective map of topological spaces
+is submersive (Topology, Lemma
+\ref{topology-lemma-closed-morphism-quotient-topology}).
+Finite, integral, and proper morphisms are universally closed, see
+Morphisms, Lemmas \ref{morphisms-lemma-integral-universally-closed} and
+\ref{morphisms-lemma-finite-proper} and
+Definition \ref{morphisms-definition-proper}.
+On the other hand an open surjective map of topological spaces
+is submersive (Topology, Lemma
+\ref{topology-lemma-open-morphism-quotient-topology}).
+Flat locally finitely presented, smooth, and \'etale morphisms are
+universally open, see
+Morphisms, Lemmas \ref{morphisms-lemma-fppf-open},
+\ref{morphisms-lemma-smooth-open}, and
+\ref{morphisms-lemma-etale-open}.
+The case of surjective, quasi-compact, flat morphisms follows
+from Morphisms, Lemma \ref{morphisms-lemma-fpqc-quotient-topology}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-reduce-to-affine}
+Let $f : X \to S$ be a morphism of schemes.
+Let $(V, \varphi)$ be a descent datum relative to $X/S$
+with $V \to X$ \'etale. Let $S = \bigcup S_i$ be an
+open covering. Assume that
+\begin{enumerate}
+\item the pullback of the descent datum $(V, \varphi)$
+to $X \times_S S_i/S_i$ is effective,
+\item the functor (\ref{equation-descent-etale})
+for $X \times_S (S_i \cap S_j) \to (S_i \cap S_j)$ is fully faithful, and
+\item the functor (\ref{equation-descent-etale})
+for $X \times_S (S_i \cap S_j \cap S_k) \to (S_i \cap S_j \cap S_k)$
+is faithful.
+\end{enumerate}
+Then $(V, \varphi)$ is effective.
+\end{lemma}
+
+\begin{proof}
+(Recall that pullbacks of descent data are defined in
+Descent, Definition \ref{descent-definition-pullback-functor}.)
+Set $X_i = X \times_S S_i$. Denote $(V_i, \varphi_i)$ the pullback
+of $(V, \varphi)$ to $X_i/S_i$.
+By assumption (1) we can find an \'etale morphism $U_i \to S_i$
+which comes with an isomorphism $X_i \times_{S_i} U_i \to V_i$ compatible with
+$can$ and $\varphi_i$. By assumption (2) we obtain isomorphisms
+$\psi_{ij} : U_i \times_{S_i} (S_i \cap S_j) \to
+U_j \times_{S_j} (S_i \cap S_j)$.
+By assumption (3) these isomorphisms satisfy the cocycle condition
+so that $(U_i, \psi_{ij})$ is a descend datum for the
+Zariski covering $\{S_i \to S\}$. Then Descent, Lemma
+\ref{descent-lemma-Zariski-refinement-coverings-equivalence}
+(which is essentially just a reformulation of
+Schemes, Section \ref{schemes-section-glueing-schemes})
+tells us that there exists a morphism of schemes $U \to S$
+and isomorphisms $U \times_S S_i \to U_i$ compatible
+with $\psi_{ij}$. The isomorphisms $U \times_S S_i \to U_i$
+determine corresponding isomorphisms $X_i \times_S U \to V_i$
+which glue to a morphism $X \times_S U \to V$ compatible
+with the canonical descent datum and $\varphi$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-split-henselian}
+Let $(A, I)$ be a henselian pair. Let $U \to \Spec(A)$ be a
+quasi-compact, separated, \'etale morphism such that
+$U \times_{\Spec(A)} \Spec(A/I) \to \Spec(A/I)$ is finite.
+Then
+$$
+U = U_{fin} \amalg U_{away}
+$$
+where $U_{fin} \to \Spec(A)$ is finite and $U_{away}$ has
+no points lying over $Z$.
+\end{lemma}
+
+\begin{proof}
+By Zariski's main theorem, the scheme $U$ is quasi-affine.
+In fact, we can find an open immersion $U \to T$ with $T$ affine and
+$T \to \Spec(A)$ finite, see More on Morphisms, Lemma
+\ref{more-morphisms-lemma-quasi-finite-separated-pass-through-finite}.
+Write $Z = \Spec(A/I)$ and denote $U_Z \to T_Z$ the base change.
+Since $U_Z \to Z$ is finite, we see that $U_Z \to T_Z$ is closed
+as well as open. Hence by
+More on Algebra, Lemma \ref{more-algebra-lemma-characterize-henselian-pair}
+we obtain a unique decomposition $T = T' \amalg T''$ with $T'_Z = U_Z$.
+Set $U_{fin} = U \cap T'$ and $U_{away} = U \cap T''$. Since
+$T'_Z \subset U_Z$ we see that all closed points of $T'$ are in $U$
+hence $T' \subset U$, hence $U_{fin} = T'$, hence $U_{fin} \to \Spec(A)$
+is finite. We omit the proof
+of uniqueness of the decomposition.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-effective}
+Let $f : X \to S$ be a surjective integral morphism.
+The functor (\ref{equation-descent-etale}) induces an equivalence
+$$
+\begin{matrix}
+\text{schemes quasi-compact,}\\
+\text{separated, \'etale over }S
+\end{matrix}
+\longrightarrow
+\begin{matrix}
+\text{descent data }(V, \varphi)\text{ relative to }X/S\text{ with}\\
+V\text{ quasi-compact, separated, \'etale over }X
+\end{matrix}
+$$
+\end{proposition}
+
+\begin{proof}
+By Lemma \ref{lemma-fully-faithful-cases} the
+functor (\ref{equation-descent-etale})
+is fully faithful and the same remains the case after any
+base change $S \to S'$. Let $(V, \varphi)$ be a descent data
+relative to $X/S$ with $V \to X$ quasi-compact, separated, and \'etale.
+We can use Lemma \ref{lemma-reduce-to-affine}
+to see that it suffices to prove the effectivity 
+Zariski locally on $S$. In particular we may and do
+assume that $S$ is affine.
+
+\medskip\noindent
+If $S$ is affine we can find a directed set $\Lambda$ and
+an inverse system $X_\lambda \to S_\lambda$
+of finite morphisms of affine schemes of finite type over
+$\Spec(\mathbf{Z})$ such that $(X \to S) = \lim (X_\lambda \to S_\lambda)$.
+See Algebra, Lemma \ref{algebra-lemma-limit-integral}.
+Since limits commute with limits we deduce that
+$X \times_S X = \lim X_\lambda \times_{S_\lambda} X_\lambda$
+and 
+$X \times_S X \times_S X = \lim
+X_\lambda \times_{S_\lambda} X_\lambda \times_{S_\lambda} X_\lambda$.
+Observe that $V \to X$ is a morphism of finite presentation.
+Using Limits, Lemmas \ref{limits-lemma-descend-finite-presentation}
+we can find an $\lambda$ and a descent datum $(V_\lambda, \varphi_\lambda)$
+relative to $X_\lambda/S_\lambda$ whose pullback to $X/S$ is
+$(V, \varphi)$. Of course it is enough to show that
+$(V_\lambda, \varphi_\lambda)$ is effective. Note that $V_\lambda$
+is quasi-compact by construction.
+After possibly increasing $\lambda$ we may assume
+that $V_\lambda \to X_\lambda$ is separated and \'etale, see
+Limits, Lemma \ref{limits-lemma-descend-separated-finite-presentation} and
+\ref{limits-lemma-descend-etale}.
+Thus we may assume that $f$ is finite surjective and
+$S$ affine of finite type over $\mathbf{Z}$.
+
+\medskip\noindent
+Consider an open $S' \subset S$ such that the pullback $(V', \varphi')$
+of $(V, \varphi)$ to $X' = X \times_S S'$ is effective. Below we will
+prove, that $S' \not = S$ implies there is a strictly larger open over
+which the descent datum is effective. Since $S$ is Noetherian (and hence
+has a Noetherian underlying topological space) this will finish the proof.
+Let $\xi \in S$ be a generic point of an irreducible component of the
+closed subset $Z = S \setminus S'$.
+If $\xi \in S'' \subset S$ is an open over which the descent datum is
+effective, then the descent datum is effective over
+$S' \cup S''$ by the glueing argument of the first paragraph. Thus
+in the rest of the proof we may replace $S$ by an affine open
+neighbourhood of $\xi$.
+
+\medskip\noindent
+After a first such replacement we may assume that $Z$ is irreducible
+with generic point $Z$. Let us endow $Z$ with the reduced induced
+closed subscheme structure. After another shrinking we may assume
+$X_Z = X \times_S Z = f^{-1}(Z) \to Z$ is flat, see
+Morphisms, Proposition \ref{morphisms-proposition-generic-flatness}.
+Let $(V_Z, \varphi_Z)$ be the pullback of the descent datum to $X_Z/Z$.
+By More on Morphisms, Lemma
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend}
+this descent datum is effective and we obtain an \'etale morphism
+$U_Z \to Z$ whose base change is isomorphic to $V_Z$ in a manner
+compatible with descent data.
+Of course $U_Z \to Z$ is quasi-compact and separated
+(Descent, Lemmas \ref{descent-lemma-descending-property-quasi-compact} and
+\ref{descent-lemma-descending-property-separated}).
+Thus after shrinking once more we may assume
+that $U_Z \to Z$ is finite, see
+Morphisms, Lemma \ref{morphisms-lemma-generically-finite}.
+
+\medskip\noindent
+Let $S = \Spec(A)$ and let $I \subset A$ be the prime ideal corresponding
+to $Z \subset S$. Let $(A^h, IA^h)$ be the henselization of the pair
+$(A, I)$. Denote $S^h = \Spec(A^h)$ and $Z^h = V(IA^h) \cong Z$.
+We claim that it suffices to show effectivity after base change to
+$S^h$. Namely, $\{S^h \to S, S' \to S\}$ is an fpqc covering
+($A \to A^h$ is flat by More on Algebra, Lemma
+\ref{more-algebra-lemma-henselization-flat}) and
+by More on Morphisms, Lemma
+\ref{more-morphisms-lemma-separated-locally-quasi-finite-morphisms-fppf-descend}
+we have fpqc descent for separated \'etale morphisms.
+Namely, if $U^h \to S^h$ and $U' \to S'$ are the objects
+corresponding to the pullbacks $(V^h, \varphi^h)$ and
+$(V', \varphi')$, then the required isomorphisms
+$$
+U^h \times_S S^h \to S^h \times_S V^h
+\quad\text{and}\quad
+U^h \times_S S' \to S^h \times_S U'
+$$
+are obtained by the fully faithfulness pointed out in the first
+paragraph. In this way we reduce to the situation described in
+the next paragraph.
+
+\medskip\noindent
+Here $S = \Spec(A)$, $Z = V(I)$, $S' = S \setminus Z$ where
+$(A, I)$ is a henselian pair, we have $U' \to S'$ corresponding
+to the descent datum $(V', \varphi')$ and we have a finite \'etale
+morphism $U_Z \to Z$ corresponding to the descent datum
+$(V_Z, \varphi_Z)$. We no longer have that $A$ is of finite type
+over $\mathbf{Z}$; but the rest of the argument will not even use
+that $A$ is Noetherian.
+By More on Algebra, Lemma \ref{more-algebra-lemma-finite-etale-equivalence}
+we can find a finite \'etale morphism $U_{fin} \to S$ whose
+restriction to $Z$ is isomorphic to $U_Z \to Z$.
+Write $X = \Spec(B)$ and $Y = V(IB)$. Since $(B, IB)$ is a henselian pair
+(More on Algebra, Lemma \ref{more-algebra-lemma-integral-over-henselian-pair})
+and since the restriction $V \to X$ to $Y$
+is finite (as base change of $U_Z \to Z$) we see that
+there is a canonical disjoint union decomposition
+$$
+V = V_{fin} \amalg V_{away}
+$$
+were $V_{fin} \to X$ is finite and where $V_{away}$ has no
+points lying over $Y$. See Lemma \ref{lemma-split-henselian}.
+Using the uniqueness of this decomposition over $X \times_S X$
+we see that $\varphi$ preserves it and we obtain
+$$
+(V, \varphi) = (V_{fin}, \varphi_{fin}) \amalg (V_{away}, \varphi_{away})
+$$
+in the category of descent data.
+By More on Algebra, Lemma \ref{more-algebra-lemma-finite-etale-equivalence}
+there is a unique isomorphism
+$$
+X \times_S U_{fin} \longrightarrow V_{fin}
+$$
+compatible with the given isomorphism $Y \times_Z U_Z \to V \times_X Y$
+over $Y$.
+By the uniqueness we see that this isomorphism is compatible
+with descent data, i.e.,
+$(X \times_S U_{fin}, can) \cong (V_{fin}, \varphi_{fin})$.
+Denote $U'_{fin} = U_{fin} \times_S S'$. By fully faithfulness
+we obtain a morphism $U'_{fin} \to U'$ which is
+the inclusion of an open (and closed) subscheme.
+Then we set $U = U_{fin} \amalg_{U'_{fin}} U'$ (glueing of schemes as
+in Schemes, Section \ref{schemes-section-glueing-schemes}).
+The morphisms $X \times_S U_{fin} \to V$ and
+$X \times_S U' \to V$ glue to a morphism $X \times_S U \to V$
+which is the desired isomorphism.
+\end{proof}
+
+
+
+
+
+\section{Normal crossings divisors}
+\label{section-normal-crossings}
+
+\noindent
+Here is the definition.
+
+\begin{definition}
+\label{definition-strict-normal-crossings}
+Let $X$ be a locally Noetherian scheme. A
+{\it strict normal crossings divisor}
+on $X$ is an effective Cartier divisor $D \subset X$ such that
+for every $p \in D$ the local ring $\mathcal{O}_{X, p}$ is regular
+and there exists a regular system of parameters
+$x_1, \ldots, x_d \in \mathfrak m_p$ and $1 \leq r \leq d$
+such that $D$ is cut out by $x_1 \ldots x_r$ in $\mathcal{O}_{X, p}$.
+\end{definition}
+
+\noindent
+We often encounter effective Cartier divisors $E$ on locally Noetherian
+schemes $X$ such that there exists a strict normal crossings divisor $D$
+with $E \subset D$ set theoretically.
+In this case we have
+$E = \sum a_i D_i$ with $a_i \geq 0$ where $D = \bigcup_{i \in I} D_i$
+is the decomposition of $D$ into its irreducible components.
+Observe that $D' = \bigcup_{a_i > 0} D_i$ is a strict normal crossings
+divisor with $E = D'$ set theoretically.
+When the above happens we will say that
+$E$ is {\it supported on a strict normal crossings divisor}.
+
+\begin{lemma}
+\label{lemma-strict-normal-crossings}
+Let $X$ be a locally Noetherian scheme. Let $D \subset X$ be an
+effective Cartier divisor. Let $D_i \subset D$, $i \in I$ be its
+irreducible components viewed as reduced closed subschemes of $X$.
+The following are equivalent
+\begin{enumerate}
+\item $D$ is a strict normal crossings divisor, and
+\item $D$ is reduced, each $D_i$ is an effective Cartier divisor, and
+for $J \subset I$ finite the scheme theoretic
+intersection $D_J = \bigcap_{j \in J} D_j$ is a
+regular scheme each of whose irreducible components has
+codimension $|J|$ in $X$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Assume $D$ is a strict normal crossings divisor. Pick $p \in D$
+and choose a regular system of parameters $x_1, \ldots, x_d \in \mathfrak m_p$
+and $1 \leq r \leq d$ as in
+Definition \ref{definition-strict-normal-crossings}.
+Since $\mathcal{O}_{X, p}/(x_i)$ is a regular local ring
+(and in particular a domain) we see that the irreducible components
+$D_1, \ldots, D_r$ of $D$ passing through $p$ correspond $1$-to-$1$
+to the height one primes $(x_1), \ldots, (x_r)$ of $\mathcal{O}_{X, p}$.
+By Algebra, Lemma \ref{algebra-lemma-regular-ring-CM}
+we find that the intersections $D_{i_1} \cap \ldots \cap D_{i_s}$
+have codimension $s$ in an open neighbourhood of $p$
+and that this intersection has a regular local ring at $p$.
+Since this holds for all $p \in D$ we conclude that (2) holds.
+
+\medskip\noindent
+Assume (2). Let $p \in D$. Since $\mathcal{O}_{X, p}$ is finite
+dimensional we see that $p$ can be contained in at most
+$\dim(\mathcal{O}_{X, p})$ of the components $D_i$.
+Say $p \in D_1, \ldots, D_r$ for some $r \geq 1$.
+Let $x_1, \ldots, x_r \in \mathfrak m_p$ be local equations
+for $D_1, \ldots, D_r$. Then $x_1$ is a nonzerodivisor in $\mathcal{O}_{X, p}$
+and $\mathcal{O}_{X, p}/(x_1) = \mathcal{O}_{D_1, p}$ is regular.
+Hence $\mathcal{O}_{X, p}$ is regular, see
+Algebra, Lemma \ref{algebra-lemma-regular-mod-x}.
+Since $D_1 \cap \ldots \cap D_r$ is a regular (hence normal) scheme
+it is a disjoint union of its irreducible components
+(Properties, Lemma \ref{properties-lemma-normal-Noetherian}).
+Let $Z \subset D_1 \cap \ldots \cap D_r$
+be the irreducible component containing $p$.
+Then $\mathcal{O}_{Z, p} = \mathcal{O}_{X, p}/(x_1, \ldots, x_r)$
+is regular of codimension $r$ (note that since we already know
+that $\mathcal{O}_{X, p}$ is regular and hence Cohen-Macaulay,
+there is no ambiguity about codimension as the ring is catenary, see
+Algebra, Lemmas \ref{algebra-lemma-regular-ring-CM} and
+\ref{algebra-lemma-CM-dim-formula}).
+Hence $\dim(\mathcal{O}_{Z, p}) = \dim(\mathcal{O}_{X, p}) - r$.
+Choose additional $x_{r + 1}, \ldots, x_n \in \mathfrak m_p$
+which map to a minimal system of generators of $\mathfrak m_{Z, p}$.
+Then $\mathfrak m_p = (x_1, \ldots, x_n)$ by Nakayama's lemma
+and we see that $D$ is a normal crossings divisor.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-pullback-strict-normal-crossings}
+\begin{slogan}
+Pullback of a strict normal crossings divisor by a smooth
+morphism is a strict normal crossings divisor.
+\end{slogan}
+Let $X$ be a locally Noetherian scheme. Let $D \subset X$ be a
+strict normal crossings divisor. If $f : Y \to X$ is a smooth
+morphism of schemes, then the pullback $f^*D$ is a
+strict normal crossings divisor on $Y$.
+\end{lemma}
+
+\begin{proof}
+As $f$ is flat the pullback is defined by
+Divisors, Lemma \ref{divisors-lemma-pullback-effective-Cartier-defined}
+hence the statement makes sense.
+Let $q \in f^*D$ map to $p \in D$. Choose a regular system
+of parameters $x_1, \ldots, x_d \in \mathfrak m_p$
+and $1 \leq r \leq d$ as in
+Definition \ref{definition-strict-normal-crossings}.
+Since $f$ is smooth the local ring homomorphism
+$\mathcal{O}_{X, p} \to \mathcal{O}_{Y, q}$ is flat
+and the fibre ring
+$$
+\mathcal{O}_{Y, q}/\mathfrak m_p \mathcal{O}_{Y, q} =
+\mathcal{O}_{Y_p, q}
+$$
+is a regular local ring (see for example
+Algebra, Lemma \ref{algebra-lemma-characterize-smooth-over-field}).
+Pick $y_1, \ldots, y_n \in \mathfrak m_q$ which map to a regular
+system of parameters in $\mathcal{O}_{Y_p, q}$.
+Then $x_1, \ldots, x_d, y_1, \ldots, y_n$ generate the
+maximal ideal $\mathfrak m_q$. Hence $\mathcal{O}_{Y, q}$
+is a regular local ring of dimension
+$d + n$ by Algebra, Lemma \ref{algebra-lemma-dimension-base-fibre-equals-total}
+and $x_1, \ldots, x_d, y_1, \ldots, y_n$
+is a regular system of parameters. Since $f^*D$ is cut
+out by $x_1 \ldots x_r$ in $\mathcal{O}_{Y, q}$ we conclude
+that the lemma is true.
+\end{proof}
+
+\noindent
+Here is the definition of a normal crossings divisor.
+
+\begin{definition}
+\label{definition-normal-crossings}
+Let $X$ be a locally Noetherian scheme. A {\it normal crossings divisor}
+on $X$ is an effective Cartier divisor $D \subset X$ such that for
+every $p \in D$ there exists an \'etale morphism $U \to X$ with
+$p$ in the image and $D \times_X U$ a
+strict normal crossings divisor on $U$.
+\end{definition}
+
+\noindent
+For example $D = V(x^2 + y^2)$ is a normal crossings divisor
+(but not a strict one) on
+$\Spec(\mathbf{R}[x, y])$ because after pulling back to
+the \'etale cover $\Spec(\mathbf{C}[x, y])$ we obtain $(x - iy)(x + iy) = 0$.
+
+\begin{lemma}
+\label{lemma-smooth-pullback-normal-crossings}
+\begin{slogan}
+Pullback of a normal crossings divisor by a smooth
+morphism is a normal crossings divisor.
+\end{slogan}
+Let $X$ be a locally Noetherian scheme. Let $D \subset X$ be a
+normal crossings divisor. If $f : Y \to X$ is a smooth
+morphism of schemes, then the pullback $f^*D$ is a
+normal crossings divisor on $Y$.
+\end{lemma}
+
+\begin{proof}
+As $f$ is flat the pullback is defined by
+Divisors, Lemma \ref{divisors-lemma-pullback-effective-Cartier-defined}
+hence the statement makes sense.
+Let $q \in f^*D$ map to $p \in D$.
+Choose an \'etale morphism $U \to X$ whose image contains $p$
+such that $D \times_X U \subset U$ is a strict normal crossings
+divisor as in Definition \ref{definition-normal-crossings}.
+Set $V = Y \times_X U$. Then $V \to Y$ is \'etale as a base
+change of $U \to X$
+(Morphisms, Lemma \ref{morphisms-lemma-base-change-etale})
+and the pullback $D \times_X V$ is a strict normal crossings
+divisor on $V$ by Lemma \ref{lemma-smooth-pullback-strict-normal-crossings}.
+Thus we have checked the condition of
+Definition \ref{definition-normal-crossings}
+for $q \in f^*D$ and we conclude.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-normal-crossings-normalization}
+Let $X$ be a locally Noetherian scheme. Let $D \subset X$ be a closed
+subscheme. The following are equivalent
+\begin{enumerate}
+\item $D$ is a normal crossings divisor in $X$,
+\item $D$ is reduced, the normalization $\nu : D^\nu \to D$ is unramified,
+and for any $n \geq 1$ the scheme
+$$
+Z_n = D^\nu \times_D \ldots \times_D D^\nu
+\setminus \{(p_1, \ldots, p_n) \mid p_i = p_j\text{ for some }i\not = j\}
+$$
+is regular, the morphism $Z_n \to X$ is a local complete intersection
+morphism whose conormal sheaf is locally free of rank $n$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+First we explain how to think about condition (2).
+The diagonal of an unramified morphism is open
+(Morphisms, Lemma \ref{morphisms-lemma-diagonal-unramified-morphism}).
+On the other hand $D^\nu \to D$ is separated, hence the
+diagonal $D^\nu \to D^\nu \times_D D^\nu$ is closed.
+Thus $Z_n$ is an open and closed subscheme of
+$D^\nu \times_D \ldots \times_D D^\nu$. On the other hand,
+$Z_n \to X$ is unramified as it is the composition
+$$
+Z_n \to D^\nu \times_D \ldots \times_D D^\nu \to \ldots \to
+D^\nu \times_D D^\nu \to D^\nu \to D \to X
+$$
+and each of the arrows is unramified.
+Since an unramified morphism is formally unramified
+(More on Morphisms, Lemma
+\ref{more-morphisms-lemma-unramified-formally-unramified})
+we have a conormal sheaf
+$\mathcal{C}_n = \mathcal{C}_{Z_n/X}$ of $Z_n \to X$, see
+More on Morphisms, Definition
+\ref{more-morphisms-definition-universal-thickening}.
+
+\medskip\noindent
+Formation of normalization commutes with \'etale localization by
+More on Morphisms, Lemma \ref{more-morphisms-lemma-normalization-and-smooth}.
+Checking that local rings are regular, or that
+a morphism is unramified, or that a morphism is a
+local complete intersection or that a morphism is
+unramified and has a conormal sheaf which is
+locally free of a given rank, may be done \'etale locally (see
+More on Algebra, Lemma \ref{more-algebra-lemma-regular-etale-extension},
+Descent, Lemma \ref{descent-lemma-descending-property-unramified},
+More on Morphisms, Lemma \ref{more-morphisms-lemma-descending-property-lci}
+and
+Descent, Lemma \ref{descent-lemma-finite-locally-free-descends}).
+
+\medskip\noindent
+By the remark of the preceding paragraph and the definition
+of normal crossings divisor it suffices to prove that a
+strict normal crossings divisor $D = \bigcup_{i \in I} D_i$
+satisfies (2). In this case $D^\nu = \coprod D_i$
+and $D^\nu \to D$ is unramified (being unramified
+is local on the source and $D_i \to D$ is a closed
+immersion which is unramified). Similarly, $Z_1 = D^\nu \to X$
+is a local complete intersection morphism because we may
+check this locally on the source and each morphism $D_i \to X$
+is a regular immersion as it is the inclusion of a Cartier divisor
+(see Lemma \ref{lemma-strict-normal-crossings} and
+More on Morphisms, Lemma \ref{more-morphisms-lemma-regular-immersion-lci}).
+Since an effective Cartier divisor has an invertible
+conormal sheaf, we conclude that the requirement on the
+conormal sheaf is satisfied.
+Similarly, the scheme $Z_n$ for $n \geq 2$ is the disjoint union
+of the schemes $D_J = \bigcap_{j \in J} D_j$ where $J \subset I$
+runs over the subsets of order $n$. Since $D_J \to X$ is
+a regular immersion of codimension $n$
+(by the definition of strict normal crossings and the
+fact that we may check this on stalks by
+Divisors, Lemma \ref{divisors-lemma-Noetherian-scheme-regular-ideal})
+it follows in the same manner that $Z_n \to X$ has the required
+properties. Some details omitted.
+
+\medskip\noindent
+Assume (2). Let $p \in D$. Since $D^\nu \to D$ is unramified, it is
+finite (by Morphisms, Lemma \ref{morphisms-lemma-finite-integral}).
+Hence $D^\nu \to X$ is finite unramified.
+By Lemma \ref{lemma-finite-unramified-etale-local}
+and \'etale localization (permissible by the discussion
+in the second paragraph and the definition of normal
+crossings divisors) we reduce to the case where
+$D^\nu = \coprod_{i \in I} D_i$
+with $I$ finite and $D_i \to U$ a closed immersion.
+After shrinking $X$ if necessary, we may assume
+$p \in D_i$ for all $i \in I$. The condition that $Z_1 =  D^\nu \to X$ is an
+unramified local complete intersection morphism
+with conormal sheaf locally free of rank $1$
+implies that $D_i \subset X$ is an effective Cartier divisor, see
+More on Morphisms, Lemma \ref{more-morphisms-lemma-lci} and
+Divisors, Lemma \ref{divisors-lemma-regular-immersion-noetherian}.
+To finish the proof we may assume $X = \Spec(A)$ is affine
+and $D_i = V(f_i)$ with $f_i \in A$ a nonzerodivisor.
+If $I = \{1, \ldots, r\}$, then $p \in Z_r = V(f_1, \ldots, f_r)$.
+The same reference as above implies that
+$(f_1, \ldots, f_r)$ is a Koszul regular ideal in $A$.
+Since the conormal sheaf has rank $r$, we see that
+$f_1, \ldots, f_r$ is a minimal set of generators of
+the ideal defining $Z_r$ in $\mathcal{O}_{X, p}$.
+This implies that $f_1, \ldots, f_r$ is a regular sequence
+in $\mathcal{O}_{X, p}$ such that $\mathcal{O}_{X, p}/(f_1, \ldots, f_r)$
+is regular. Thus we conclude by
+Algebra, Lemma \ref{algebra-lemma-regular-mod-x}
+that $f_1, \ldots, f_r$ can be extended to a regular system of parameters
+in $\mathcal{O}_{X, p}$ and this finishes the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-normal-crossings}
+Let $X$ be a locally Noetherian scheme. Let $D \subset X$ be a closed
+subscheme. If $X$ is J-2 or Nagata, then following are equivalent
+\begin{enumerate}
+\item $D$ is a normal crossings divisor in $X$,
+\item for every $p \in D$ the pullback of $D$ to the spectrum of the
+strict henselization $\mathcal{O}_{X, p}^{sh}$
+is a strict normal crossings divisor.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implication (1) $\Rightarrow$ (2) is straightforward and
+does not need the assumption that $X$ is J-2 or Nagata.
+Namely, let $p \in D$ and choose an \'etale neighbourhood
+$(U, u) \to (X, p)$ such that the pullback of $D$ is
+a strict normal crossings divisor on $U$.
+Then $\mathcal{O}_{X, p}^{sh} = \mathcal{O}_{U, u}^{sh}$
+and we see that the trace of $D$ on $\Spec(\mathcal{O}_{U, u}^{sh})$
+is cut out by part of a regular system of parameters
+as this is already the case in $\mathcal{O}_{U, u}$.
+
+\medskip\noindent
+To prove the implication in the other direction
+we will use the criterion of
+Lemma \ref{lemma-characterize-normal-crossings-normalization}.
+Observe that formation of the normalization $D^\nu \to D$
+commutes with strict henselization, see
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-normalization-and-henselization}.
+If we can show that $D^\nu \to D$ is finite,
+then we see that $D^\nu \to D$ and the schemes
+$Z_n$ satisfy all desired properties because these
+can all be checked on the level of local rings
+(but the finiteness of the morphism $D^\nu \to D$
+is not something we can check on local rings).
+We omit the detailed verifications.
+
+\medskip\noindent
+If $X$ is Nagata, then $D^\nu \to D$ is finite by
+Morphisms, Lemma \ref{morphisms-lemma-nagata-normalization}.
+
+\medskip\noindent
+Assume $X$ is J-2. Choose a point $p \in D$. We will show
+that $D^\nu \to D$ is finite over a neighbourhood of $p$.
+By assumption there exists a regular system of
+parameters $f_1, \ldots, f_d$ of $\mathcal{O}_{X, p}^{sh}$
+and $1 \leq r \leq d$ such that the trace of $D$ on
+$\Spec(\mathcal{O}_{X, p}^{sh})$ is cut out by $f_1 \ldots f_r$.
+Then
+$$
+D^\nu \times_X \Spec(\mathcal{O}_{X, p}^{sh}) = 
+\coprod\nolimits_{i = 1, \ldots, r} V(f_i)
+$$
+Choose an affine \'etale neighbourhood
+$(U, u) \to (X, p)$ such that $f_i$ comes from
+$f_i \in \mathcal{O}_U(U)$. Set $D_i = V(f_i) \subset U$.
+The strict henselization of $\mathcal{O}_{D_i, u}$
+is $\mathcal{O}_{X, p}^{sh}/(f_i)$ which is regular.
+Hence $\mathcal{O}_{D_i, u}$ is regular (for example by
+More on Algebra, Lemma \ref{more-algebra-lemma-henselization-regular}).
+Because $X$ is J-2 the regular locus is open in $D_i$.
+Thus after replacing $U$ by a Zariski open we may assume
+that $D_i$ is regular for each $i$. It follows that
+$$
+\coprod\nolimits_{i = 1, \ldots, r} D_i = D^\nu \times_X U
+\longrightarrow D \times_X U
+$$
+is the normalization morphism and it is clearly finite.
+In other words, we have found
+an \'etale neighbourhood $(U, u)$ of $(X, p)$ such that
+the base change of $D^\nu \to D$ to this neighbourhood is finite.
+This implies $D^\nu \to D$ is finite by descent
+(Descent, Lemma \ref{descent-lemma-descending-property-finite})
+and the proof is complete.
+\end{proof}
+
+
+
+
+
+
+\input{chapters}
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

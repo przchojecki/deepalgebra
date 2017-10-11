@@ -1,0 +1,2978 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Adequate Modules}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+For any scheme $X$ the category $\QCoh(\mathcal{O}_X)$
+of quasi-coherent modules is abelian and a weak Serre subcategory
+of the abelian category of all $\mathcal{O}_X$-modules. The same
+thing works for the category of quasi-coherent modules on
+an algebraic space $X$ viewed as a subcategory of the category
+of all $\mathcal{O}_X$-modules on the small \'etale site of $X$.
+Moreover, for a quasi-compact and quasi-separated morphism
+$f : X \to Y$ the pushforward $f_*$ and higher direct images
+preserve quasi-coherence.
+
+\medskip\noindent
+Next, let $X$ be a scheme and let $\mathcal{O}$ be the structure
+sheaf on one of the big sites of $X$, say, the big fppf site.
+The category of quasi-coherent $\mathcal{O}$-modules is abelian
+(in fact it is equivalent to the category of usual quasi-coherent
+$\mathcal{O}_X$-modules on the scheme $X$ we mentioned above)
+but its imbedding into $\textit{Mod}(\mathcal{O})$ is not exact.
+An example is the map of quasi-coherent modules
+$$
+\mathcal{O}_{\mathbf{A}^1_k}
+\longrightarrow
+\mathcal{O}_{\mathbf{A}^1_k}
+$$
+on $\mathbf{A}^1_k = \Spec(k[x])$ given by multiplication by $x$.
+In the abelian category of quasi-coherent sheaves this map is injective,
+whereas in the abelian category of all $\mathcal{O}$-modules on the
+big site of $\mathbf{A}^1_k$ this map has a nontrivial kernel as we
+see by evaluating on sections over $\Spec(k[x]/(x)) = \Spec(k)$.
+Moreover, for a quasi-compact and quasi-separated morphism
+$f : X \to Y$ the functor $f_{big, *}$ does not preserve quasi-coherence.
+
+\medskip\noindent
+In this chapter we introduce a larger category of modules, closely related
+to quasi-coherent modules, which ``fixes'' the two problems mentioned above.
+
+
+
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+In this chapter we fix
+$\tau \in \{Zar, \etale, smooth, syntomic, fppf\}$
+and we fix a big $\tau$-site $\Sch_\tau$ as in
+Topologies, Section \ref{topologies-section-procedure}.
+All schemes will be objects of $\Sch_\tau$.
+In particular, given a scheme $S$ we obtain sites
+$(\textit{Aff}/S)_\tau \subset (\Sch/S)_\tau$.
+The structure sheaf $\mathcal{O}$ on these sites is defined by
+the rule $\mathcal{O}(T) = \Gamma(T, \mathcal{O}_T)$.
+
+\medskip\noindent
+All rings $A$ will be such that $\Spec(A)$ is (isomorphic to) an
+object of $\Sch_\tau$. Given a ring $A$ we denote
+$\textit{Alg}_A$ the category of $A$-algebras whose objects are the
+$A$-algebras $B$ of the form $B = \Gamma(U, \mathcal{O}_U)$
+where $S$ is an affine object of $\Sch_\tau$. Thus given an
+affine scheme $S = \Spec(A)$ the functor
+$$
+(\textit{Aff}/S)_\tau \longrightarrow \textit{Alg}_A,
+\quad
+U \longmapsto \mathcal{O}(U)
+$$
+is an equivalence.
+
+
+
+
+
+\section{Adequate functors}
+\label{section-quasi-coherent}
+
+\noindent
+In this section we discuss a topic closely related to
+direct images of quasi-coherent sheaves. Most of this material
+was taken from the paper \cite{Jaffe}.
+
+\begin{definition}
+\label{definition-module-valued-functor}
+Let $A$ be a ring. A {\it module-valued functor} is a functor
+$F : \textit{Alg}_A \to \textit{Ab}$ such that
+\begin{enumerate}
+\item for every object $B$ of $\textit{Alg}_A$ the group
+$F(B)$ is endowed with the structure of a $B$-module, and
+\item for any morphism $B \to B'$ of $\textit{Alg}_A$ the map
+$F(B) \to F(B')$ is $B$-linear.
+\end{enumerate}
+A {\it morphism of module-valued functors} is a transformation of
+functors $\varphi : F \to G$ such that $F(B) \to G(B)$ is $B$-linear
+for all $B \in \Ob(\textit{Alg}_A)$.
+\end{definition}
+
+\noindent
+Let $S = \Spec(A)$ be an affine scheme.
+The category of module-valued functors on $\textit{Alg}_A$ is
+equivalent to the category
+$\textit{PMod}((\textit{Aff}/S)_\tau, \mathcal{O})$
+of presheaves of $\mathcal{O}$-modules. The equivalence is given
+by the rule which assigns to the module-valued functor $F$ the
+presheaf $\mathcal{F}$ defined by the rule
+$\mathcal{F}(U) = F(\mathcal{O}(U))$.
+This is clear from the equivalence
+$(\textit{Aff}/S)_\tau \to \textit{Alg}_A$, $U \mapsto \mathcal{O}(U)$
+given in Section \ref{section-conventions}.
+The quasi-inverse sets $F(B) = \mathcal{F}(\Spec(B))$.
+
+\medskip\noindent
+An important special case of a module-valued functor comes about as follows.
+Let $M$ be an $A$-module. Then we will denote $\underline{M}$ the
+module-valued functor $B \mapsto M \otimes_A B$ (with obvious $B$-module
+structure). Note that if $M \to N$ is a map of $A$-modules then there is an
+associated morphism $\underline{M} \to \underline{N}$ of module-valued
+functors. Conversely, any morphism of module-valued functors
+$\underline{M} \to \underline{N}$ comes from an $A$-module map $M \to N$
+as the reader can see by evaluating on $B = A$. In other words
+$\text{Mod}_A$ is a full
+subcategory of the category of module-valued functors on $\textit{Alg}_A$.
+
+\medskip\noindent
+Given and $A$-module map $\varphi : M \to N$ then
+$\Coker(\underline{M} \to \underline{N}) =
+\underline{Q}$ where $Q = \Coker(M \to N)$ because $\otimes$
+is right exact. But this isn't the case
+for the kernel in general: for example an injective map of
+$A$-modules need not be injective after base change. Thus the following
+definition makes sense.
+
+\begin{definition}
+\label{definition-adequate-functor}
+Let $A$ be a ring. A module-valued functor $F$ on $\textit{Alg}_A$ is
+called
+\begin{enumerate}
+\item {\it adequate} if there exists a
+map of $A$-modules $M \to N$ such that $F$ is isomorphic to
+$\Ker(\underline{M} \to \underline{N})$.
+\item {\it linearly adequate} if $F$ is isomorphic to the
+kernel of a map $\underline{A^{\oplus n}} \to \underline{A^{\oplus m}}$.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Note that $F$ is adequate if and only if there exists an
+exact sequence $0 \to F \to \underline{M} \to \underline{N}$ and
+$F$ is linearly adequate if and only if there exists an exact sequence
+$0 \to F \to \underline{A^{\oplus n}} \to \underline{A^{\oplus m}}$.
+
+\medskip\noindent
+Let $A$ be a ring. In this section we will show the category of adequate
+functors on $\textit{Alg}_A$ is abelian
+(Lemmas \ref{lemma-cokernel-adequate} and \ref{lemma-kernel-adequate})
+and has a set of generators
+(Lemma \ref{lemma-adequate-surjection-from-linear}).
+We will also see that it is a weak Serre subcategory of the category
+of all module-valued functors on $\textit{Alg}_A$
+(Lemma \ref{lemma-extension-adequate})
+and that it has arbitrary colimits
+(Lemma \ref{lemma-colimit-adequate}).
+
+\begin{lemma}
+\label{lemma-adequate-finite-presentation}
+Let $A$ be a ring.
+Let $F$ be an adequate functor on $\textit{Alg}_A$.
+If $B = \colim B_i$ is a filtered
+colimit of $A$-algebras, then $F(B) = \colim F(B_i)$.
+\end{lemma}
+
+\begin{proof}
+This holds because for any $A$-module $M$ we have
+$M \otimes_A B = \colim M \otimes_A B_i$ (see
+Algebra, Lemma \ref{algebra-lemma-tensor-products-commute-with-limits})
+and because filtered colimits commute with exact sequences, see
+Algebra, Lemma \ref{algebra-lemma-directed-colimit-exact}.
+\end{proof}
+
+\begin{remark}
+\label{remark-settheoretic}
+Consider the category $\textit{Alg}_{fp, A}$ whose objects are $A$-algebras
+$B$ of the form $B = A[x_1, \ldots, x_n]/(f_1, \ldots, f_m)$ and whose
+morphisms are $A$-algebra maps. Every $A$-algebra $B$ is a filtered colimit
+of finitely presented $A$-algebra, i.e., a filtered colimit of objects of
+$\textit{Alg}_{fp, A}$. By
+Lemma \ref{lemma-adequate-finite-presentation}
+we conclude every adequate functor $F$ is determined by its restriction to
+$\textit{Alg}_{fp, A}$. For some questions we can therefore restrict to
+functors on $\textit{Alg}_{fp, A}$. For example, the category of adequate
+functors does not depend on the choice of the big $\tau$-site
+chosen in
+Section \ref{section-conventions}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-adequate-flat}
+Let $A$ be a ring.
+Let $F$ be an adequate functor on $\textit{Alg}_A$.
+If $B \to B'$ is flat, then $F(B) \otimes_B B' \to F(B')$
+is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+Choose an exact sequence $0 \to F \to \underline{M} \to \underline{N}$.
+This gives the diagram
+$$
+\xymatrix{
+0 \ar[r] & F(B) \otimes_B B' \ar[r] \ar[d] &
+(M \otimes_A B)\otimes_B B' \ar[r] \ar[d] &
+(N \otimes_A B)\otimes_B B' \ar[d] \\
+0 \ar[r] & F(B') \ar[r] &
+M \otimes_A B' \ar[r] &
+N \otimes_A B'
+}
+$$
+where the rows are exact (the top one because $B \to B'$ is flat).
+Since the right two vertical arrows are isomorphisms, so is the
+left one.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-adequate-surjection-from-linear}
+Let $A$ be a ring.
+Let $F$ be an adequate functor on $\textit{Alg}_A$. Then there exists a
+surjection $L \to F$ with $L$ a direct sum of linearly adequate functors.
+\end{lemma}
+
+\begin{proof}
+Choose an exact sequence $0 \to F \to \underline{M} \to \underline{N}$
+where $\underline{M} \to \underline{N}$ is given by
+$\varphi : M \to N$. By
+Lemma \ref{lemma-adequate-finite-presentation}
+it suffices to construct $L \to F$ such that $L(B) \to F(B)$ is surjective
+for every finitely presented $A$-algebra $B$. Hence it suffices to construct,
+given a finitely presented $A$-algebra $B$ and an element $\xi \in F(B)$
+a map $L \to F$ with $L$ linearly adequate such that $\xi$ is in the image
+of $L(B) \to F(B)$.
+(Because there is a set worth of such pairs $(B, \xi)$ up to isomorphism.)
+
+\medskip\noindent
+To do this write $\sum_{i = 1, \ldots, n} m_i \otimes b_i$ the image of
+$\xi$ in $\underline{M}(B) = M \otimes_A B$. We know that
+$\sum \varphi(m_i) \otimes b_i = 0$ in $N \otimes_A B$.
+As $N$ is a filtered colimit of finitely presented $A$-modules, we can
+find a finitely presented $A$-module $N'$, a commutative diagram
+of $A$-modules
+$$
+\xymatrix{
+A^{\oplus n} \ar[r] \ar[d]_{m_1, \ldots, m_n} & N' \ar[d] \\
+M \ar[r] & N
+}
+$$
+such that $(b_1, \ldots, b_n)$ maps to zero in $N' \otimes_A B$.
+Choose a presentation $A^{\oplus l} \to A^{\oplus k} \to N' \to 0$.
+Choose a lift $A^{\oplus n} \to A^{\oplus k}$ of the map
+$A^{\oplus n} \to N'$ of the diagram. Then we see that there exist
+$(c_1, \ldots, c_l) \in B^{\oplus l}$ such that
+$(b_1, \ldots, b_n, c_1, \ldots, c_l)$ maps to zero in $B^{\oplus k}$
+under the map $B^{\oplus n} \oplus B^{\oplus l} \to B^{\oplus k}$.
+Consider the commutative diagram
+$$
+\xymatrix{
+A^{\oplus n} \oplus A^{\oplus l} \ar[r] \ar[d] & A^{\oplus k} \ar[d] \\
+M \ar[r] & N
+}
+$$
+where the left vertical arrow is zero on the summand $A^{\oplus l}$.
+Then we see that $L$ equal to the kernel of $\underline{A^{\oplus n + l}}
+\to \underline{A^{\oplus k}}$ works because the element
+$(b_1, \ldots, b_n, c_1, \ldots, c_l) \in L(B)$ maps to $\xi$.
+\end{proof}
+
+\noindent
+Consider a graded $A$-algebra $B = \bigoplus_{d \geq 0} B_d$. Then there are
+two $A$-algebra maps $p, a : B \to B[t, t^{-1}]$, namely $p : b \mapsto b$ and
+$a : b \mapsto t^{\deg(b)} b$ where $b$ is homogeneous. If $F$ is a
+module-valued functor on $\textit{Alg}_A$, then we define
+\begin{equation}
+\label{equation-weight-k}
+F(B)^{(k)} = \{\xi \in F(B) \mid t^k F(p)(\xi) = F(a)(\xi)\}.
+\end{equation}
+For functors which behave well with respect to flat ring extensions
+this gives a direct sum decomposition. This amounts to the fact that
+representations of $\mathbf{G}_m$ are completely reducible.
+
+\begin{lemma}
+\label{lemma-flat-functor-split}
+Let $A$ be a ring.
+Let $F$ be a module-valued functor on $\textit{Alg}_A$.
+Assume that for $B \to B'$ flat the map
+$F(B) \otimes_B B' \to F(B')$ is an isomorphism.
+Let $B$ be a graded $A$-algebra. Then
+\begin{enumerate}
+\item $F(B) = \bigoplus_{k \in \mathbf{Z}} F(B)^{(k)}$, and
+\item the map $B \to B_0 \to B$ induces map $F(B) \to F(B)$
+whose image is contained in $F(B)^{(0)}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $x \in F(B)$. The map $p : B \to B[t, t^{-1}]$ is free
+hence we know that
+$$
+F(B[t, t^{-1}]) =
+\bigoplus\nolimits_{k \in \mathbf{Z}} F(p)(F(B)) \cdot t^k =
+\bigoplus\nolimits_{k \in \mathbf{Z}} F(B) \cdot t^k
+$$
+as indicated we drop the $F(p)$ in the rest of the proof.
+Write $F(a)(x) = \sum t^k x_k$ for some $x_k \in F(B)$.
+Denote $\epsilon : B[t, t^{-1}] \to B$
+the $B$-algebra map $t \mapsto 1$. Note that the compositions
+$\epsilon \circ p, \epsilon \circ a : B \to B[t, t^{-1}] \to B$ are
+the identity. Hence we see that
+$$
+x = F(\epsilon)(F(a)(x)) = F(\epsilon)(\sum t^k x_k) = \sum x_k.
+$$
+On the other hand, we claim that $x_k \in F(B)^{(k)}$. Namely, consider
+the commutative diagram
+$$
+\xymatrix{
+B \ar[r]_a \ar[d]_{a'} &
+B[t, t^{-1}] \ar[d]^f \\
+B[s, s^{-1}] \ar[r]^-g &
+B[t, s, t^{-1}, s^{-1}]
+}
+$$
+where $a'(b) = s^{\deg(b)}b$, $f(b) = b$, $f(t) = st$ and
+$g(b) = t^{\deg(b)}b$ and $g(s) = s$. Then
+$$
+F(g)(F(a'))(x) = F(g)(\sum s^k x_k) =
+\sum s^k F(a)(x_k)
+$$
+and going the other way we see
+$$
+F(f)(F(a))(x) = F(f)(\sum t^k x_k) = \sum (st)^k x_k.
+$$
+Since $B \to B[s, t, s^{-1}, t^{-1}]$ is free we see that
+$F(B[t, s, t^{-1}, s^{-1}]) =
+\bigoplus_{k, l \in \mathbf{Z}} F(B) \cdot t^ks^l$ and
+comparing coefficients in the expressions above we find
+$F(a)(x_k) = t^k x_k$ as desired.
+
+\medskip\noindent
+Finally, the image of $F(B_0) \to F(B)$ is contained in $F(B)^{(0)}$
+because $B_0 \to B \xrightarrow{a} B[t, t^{-1}]$ is equal to
+$B_0 \to B \xrightarrow{p} B[t, t^{-1}]$.
+\end{proof}
+
+\noindent
+As a particular case of
+Lemma \ref{lemma-flat-functor-split}
+note that
+$$
+\underline{M}(B)^{(k)} = M \otimes_A B_k
+$$
+where $B_k$ is the degree $k$ part of the graded $A$-algebra $B$.
+
+\begin{lemma}
+\label{lemma-lift-map}
+Let $A$ be a ring. Given a solid diagram
+$$
+\xymatrix{
+0 \ar[r] &
+L \ar[d]_\varphi \ar[r] &
+\underline{A^{\oplus n}} \ar[r] \ar@{..>}[ld] &
+\underline{A^{\oplus m}} \\
+& \underline{M}
+}
+$$
+of module-valued functors on $\textit{Alg}_A$
+with exact row there exists a dotted arrow making the diagram commute.
+\end{lemma}
+
+\begin{proof}
+Suppose that the map $A^{\oplus n} \to A^{\oplus m}$ is given by the
+$m \times n$-matrix $(a_{ij})$. Consider the ring
+$B = A[x_1, \ldots, x_n]/(\sum a_{ij}x_j)$. The element
+$(x_1, \ldots, x_n) \in \underline{A^{\oplus n}}(B)$ maps to zero in
+$\underline{A^{\oplus m}}(B)$ hence is the image of a unique element
+$\xi \in L(B)$. Note that $\xi$ has the following universal property:
+for any $A$-algebra $C$ and any $\xi' \in L(C)$ there exists an $A$-algebra
+map $B \to C$ such that $\xi$ maps to $\xi'$ via the map $L(B) \to L(C)$.
+
+\medskip\noindent
+Note that $B$ is a graded $A$-algebra, hence we can use
+Lemmas \ref{lemma-flat-functor-split} and \ref{lemma-adequate-flat}
+to decompose the values of our functors on $B$ into graded pieces.
+Note that $\xi \in L(B)^{(1)}$ as $(x_1, \ldots, x_n)$ is an element
+of degree one in $\underline{A^{\oplus n}}(B)$. Hence we see that
+$\varphi(\xi) \in \underline{M}(B)^{(1)} = M \otimes_A B_1$.
+Since $B_1$ is generated by $x_1, \ldots, x_n$ as an $A$-module we
+can write $\varphi(\xi) = \sum m_i \otimes x_i$. Consider the map
+$A^{\oplus n} \to M$ which maps the $i$th basis vector to $m_i$.
+By construction the associated map
+$\underline{A^{\oplus n}} \to \underline{M}$
+maps the element $\xi$ to $\varphi(\xi)$. It follows from the
+universal property mentioned above that the diagram commutes.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cokernel-into-module}
+Let $A$ be a ring.
+Let $\varphi : F \to \underline{M}$ be a map of module-valued functors
+on $\textit{Alg}_A$ with $F$ adequate.
+Then $\Coker(\varphi)$ is adequate.
+\end{lemma}
+
+\begin{proof}
+By
+Lemma \ref{lemma-adequate-surjection-from-linear}
+we may assume that $F = \bigoplus L_i$ is a direct sum of linearly adequate
+functors. Choose exact sequences
+$0 \to L_i \to \underline{A^{\oplus n_i}} \to \underline{A^{\oplus m_i}}$.
+For each $i$ choose a map $A^{\oplus n_i} \to M$ as in
+Lemma \ref{lemma-lift-map}.
+Consider the diagram
+$$
+\xymatrix{
+0 \ar[r] &
+\bigoplus L_i  \ar[r] \ar[d] &
+\bigoplus \underline{A^{\oplus n_i}} \ar[r] \ar[ld] &
+\bigoplus \underline{A^{\oplus m_i}} \\
+& \underline{M}
+}
+$$
+Consider the $A$-modules
+$$
+Q =
+\Coker(\bigoplus A^{\oplus n_i} \to M \oplus \bigoplus A^{\oplus m_i})
+\quad\text{and}\quad
+P = \Coker(\bigoplus A^{\oplus n_i} \to \bigoplus A^{\oplus m_i}).
+$$
+Then we see that $\Coker(\varphi)$ is isomorphic to the
+kernel of $\underline{Q} \to \underline{P}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cokernel-adequate}
+\begin{slogan}
+The cokernel of a map of adequate functors on the category of algebras
+over a ring is adequate.
+\end{slogan}
+Let $A$ be a ring.
+Let $\varphi : F \to G$ be a map of adequate functors on $\textit{Alg}_A$.
+Then $\Coker(\varphi)$ is adequate.
+\end{lemma}
+
+\begin{proof}
+Choose an injection $G \to \underline{M}$.
+Then we have an injection $G/F \to \underline{M}/F$. By
+Lemma \ref{lemma-cokernel-into-module}
+we see that $\underline{M}/F$ is adequate, hence we can find an injection
+$\underline{M}/F \to \underline{N}$.
+Composing we obtain an injection $G/F \to \underline{N}$. By
+Lemma \ref{lemma-cokernel-into-module}
+the cokernel of the induced map $G \to \underline{N}$ is adequate
+hence we can find an injection $\underline{N}/G \to \underline{K}$.
+Then $0 \to G/F \to \underline{N} \to \underline{K}$ is exact and
+we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-kernel-adequate}
+Let $A$ be a ring.
+Let $\varphi : F \to G$ be a map of adequate functors on $\textit{Alg}_A$.
+Then $\Ker(\varphi)$ is adequate.
+\end{lemma}
+
+\begin{proof}
+Choose an injection $F \to \underline{M}$ and an injection
+$G \to \underline{N}$. Denote $F \to \underline{M \oplus N}$
+the diagonal map so that
+$$
+\xymatrix{
+F \ar[d] \ar[r] & G \ar[d] \\
+\underline{M \oplus N} \ar[r] & \underline{N}
+}
+$$
+commutes. By
+Lemma \ref{lemma-cokernel-adequate}
+we can find a module map $M \oplus N \to K$ such that
+$F$ is the kernel of $\underline{M \oplus N} \to \underline{K}$.
+Then $\Ker(\varphi)$ is the kernel of
+$\underline{M \oplus N} \to \underline{K \oplus N}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-colimit-adequate}
+Let $A$ be a ring.
+An arbitrary direct sum of adequate functors on $\textit{Alg}_A$
+is adequate. A colimit of adequate functors is adequate.
+\end{lemma}
+
+\begin{proof}
+The statement on direct sums is immediate.
+A general colimit can be written as a kernel of a map between
+direct sums, see
+Categories, Lemma \ref{categories-lemma-colimits-coproducts-coequalizers}.
+Hence this follows from
+Lemma \ref{lemma-kernel-adequate}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-flat-linear-functor}
+Let $A$ be a ring.
+Let $F, G$ be module-valued functors on $\textit{Alg}_A$.
+Let $\varphi : F \to G$ be a transformation of functors. Assume
+\begin{enumerate}
+\item $\varphi$ is additive,
+\item for every $A$-algebra $B$ and $\xi \in F(B)$ and unit
+$u \in B^*$ we have $\varphi(u\xi) = u\varphi(\xi)$ in $G(B)$, and
+\item for any flat ring map $B \to B'$ we have
+$G(B) \otimes_B B' = G(B')$.
+\end{enumerate}
+Then $\varphi$ is a morphism of module-valued functors.
+\end{lemma}
+
+\begin{proof}
+Let $B$ be an $A$-algebra, $\xi \in F(B)$, and $b \in B$. We have to show
+that $\varphi(b \xi) = b \varphi(\xi)$. Consider the ring map
+$$
+B \to B' = B[x, y, x^{-1}, y^{-1}]/(x + y - b).
+$$
+This ring map is faithfully flat, hence $G(B) \subset G(B')$. On the
+other hand
+$$
+\varphi(b\xi) = \varphi((x + y)\xi) =
+\varphi(x\xi) + \varphi(y\xi) = x\varphi(\xi) + y\varphi(\xi)
+= (x + y)\varphi(\xi) = b\varphi(\xi)
+$$
+because $x, y$ are units in $B'$. Hence we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-extension-adequate-key}
+Let $A$ be a ring.
+Let $0 \to \underline{M} \to G \to L \to 0$ be a short exact sequence
+of module-valued functors on $\textit{Alg}_A$ with $L$ linearly adequate.
+Then $G$ is adequate.
+\end{lemma}
+
+\begin{proof}
+We first point out that for any flat $A$-algebra map
+$B \to B'$ the map $G(B) \otimes_B B' \to G(B')$ is an isomorphism.
+Namely, this holds for $\underline{M}$ and $L$, see
+Lemma \ref{lemma-adequate-flat}
+and hence follows for $G$ by the five lemma. In particular, by
+Lemma \ref{lemma-flat-functor-split}
+we see that $G(B) = \bigoplus_{k \in \mathbf{Z}} G(B)^{(k)}$
+for any graded $A$-algebra $B$.
+
+\medskip\noindent
+Choose an exact sequence
+$0 \to L \to \underline{A^{\oplus n}} \to \underline{A^{\oplus m}}$.
+Suppose that the map $A^{\oplus n} \to A^{\oplus m}$ is given by the
+$m \times n$-matrix $(a_{ij})$. Consider the graded $A$-algebra
+$B = A[x_1, \ldots, x_n]/(\sum a_{ij}x_j)$. The element
+$(x_1, \ldots, x_n) \in \underline{A^{\oplus n}}(B)$ maps to zero in
+$\underline{A^{\oplus m}}(B)$ hence is the image of a unique element
+$\xi \in L(B)$. Observe that $\xi \in L(B)^{(1)}$. The map
+$$
+\Hom_A(B, C) \longrightarrow L(C), \quad
+f \longmapsto L(f)(\xi)
+$$
+defines an isomorphism of functors. The reason is that $f$ is
+determined by the images $c_i = f(x_i) \in C$ which have to
+satisfy the relations $\sum a_{ij}c_j = 0$. And $L(C)$ is the
+set of $n$-tuples $(c_1, \ldots, c_n)$ satisfying the relations
+$\sum a_{ij} c_j = 0$.
+
+\medskip\noindent
+Since the value of each of the functors $\underline{M}$, $G$, $L$
+on $B$ is a direct sum of its weight spaces (by the lemma mentioned
+above) exactness of $0 \to \underline{M} \to G \to L \to 0$ implies
+the sequence $0 \to \underline{M}(B)^{(1)} \to G(B)^{(1)} \to L(B)^{(1)} \to 0$
+is exact. Thus we may choose an element $\theta \in G(B)^{(1)}$ mapping
+to $\xi$.
+
+\medskip\noindent
+Consider the graded $A$-algebra
+$$
+C = A[x_1, \ldots, x_n, y_1, \ldots, y_n]/
+(\sum a_{ij}x_j, \sum a_{ij}y_j)
+$$
+There are three graded $A$-algebra homomorphisms $p_1, p_2, m : B \to C$
+defined by the rules
+$$
+p_1(x_i) = x_i, \quad
+p_1(x_i) = y_i, \quad
+m(x_i) = x_i + y_i.
+$$
+We will show that the element
+$$
+\tau = G(m)(\theta) - G(p_1)(\theta) - G(p_2)(\theta) \in G(C)
+$$
+is zero. First, $\tau$ maps to zero in $L(C)$ by a direct calculation.
+Hence $\tau$ is an element of $\underline{M}(C)$.
+Moreover, since $m$, $p_1$, $p_2$ are graded algebra maps we see
+that $\tau \in G(C)^{(1)}$ and since $\underline{M} \subset G$
+we conclude
+$$
+\tau \in \underline{M}(C)^{(1)} = M \otimes_A C_1.
+$$
+We may write uniquely
+$\tau = \underline{M}(p_1)(\tau_1) + \underline{M}(p_2)(\tau_2)$ with
+$\tau_i \in M \otimes_A B_1 = \underline{M}(B)^{(1)}$ because
+$C_1 = p_1(B_1) \oplus p_2(B_1)$.
+Consider the ring map $q_1 : C \to B$ defined by $x_i \mapsto x_i$ and
+$y_i \mapsto 0$. Then
+$\underline{M}(q_1)(\tau) =
+\underline{M}(q_1)(\underline{M}(p_1)(\tau_1) + \underline{M}(p_2)(\tau_2)) =
+\tau_1$.
+On the other hand, because
+$q_1 \circ m = q_1 \circ p_1$ we see that
+$G(q_1)(\tau) = - G(q_1 \circ p_2)(\tau)$. Since $q_1 \circ p_2$ factors as
+$B \to A \to B$ we see that $G(q_1 \circ p_2)(\tau)$ is in
+$G(B)^{(0)}$, see
+Lemma \ref{lemma-flat-functor-split}.
+Hence $\tau_1 = 0$ because it is in
+$G(B)^{(0)} \cap \underline{M}(B)^{(1)} \subset
+G(B)^{(0)} \cap G(B)^{(1)} = 0$.
+Similarly $\tau_2 = 0$, whence $\tau = 0$.
+
+\medskip\noindent
+Since $\theta \in G(B)$ we obtain a transformation of functors
+$$
+\psi : L(-) = \Hom_A(B, - ) \longrightarrow G(-)
+$$
+by mapping $f : B \to C$ to $G(f)(\theta)$. Since $\theta$ is a lift of
+$\xi$ the map $\psi$ is a right inverse of $G \to L$. In terms of
+$\psi$ the statements proved above have the following meaning:
+$\tau = 0$ means that $\psi$ is additive and
+$\theta \in G(B)^{(1)}$ implies that for any $A$-algebra $D$ we have
+$\psi(ul) = u\psi(l)$ in $G(D)$ for $l \in L(D)$ and $u \in D^*$ a unit.
+This implies that $\psi$ is a morphism of module-valued functors, see
+Lemma \ref{lemma-flat-linear-functor}.
+Clearly this implies that $G \cong \underline{M} \oplus L$ and we win.
+\end{proof}
+
+\begin{remark}
+\label{remark-linearly-adequate}
+Let $A$ be a ring.
+The proof of
+Lemma \ref{lemma-extension-adequate-key}
+shows that any extension $0 \to \underline{M} \to E \to L \to 0$
+of module-valued functors on $\textit{Alg}_A$
+with $L$ linearly adequate splits. It uses only the following properties
+of the module-valued functor $F = \underline{M}$:
+\begin{enumerate}
+\item $F(B) \otimes_B B' \to F(B')$ is an isomorphism
+for a flat ring map $B \to B'$, and
+\item
+$F(C)^{(1)} = F(p_1)(F(B)^{(1)}) \oplus F(p_2)(F(B)^{(1)})$
+where $B = A[x_1, \ldots, x_n]/(\sum a_{ij}x_j)$ and
+$C = A[x_1, \ldots, x_n, y_1, \ldots, y_n]/
+(\sum a_{ij}x_j, \sum a_{ij}y_j)$.
+\end{enumerate}
+These two properties hold for any adequate functor $F$; details omitted.
+Hence we see that $L$ is a projective object of the abelian category of
+adequate functors.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-extension-adequate}
+Let $A$ be a ring.
+Let $0 \to F \to G \to H \to 0$ be a short exact sequence of
+module-valued functors on $\textit{Alg}_A$.
+If $F$ and $H$ are adequate, so is $G$.
+\end{lemma}
+
+\begin{proof}
+Choose an exact sequence $0 \to F \to \underline{M} \to \underline{N}$.
+If we can show that $(\underline{M} \oplus G)/F$ is adequate, then
+$G$ is the kernel of the map of adequate functors
+$(\underline{M} \oplus G)/F \to \underline{N}$, hence
+adequate by
+Lemma \ref{lemma-kernel-adequate}.
+Thus we may assume $F = \underline{M}$.
+
+\medskip\noindent
+We can choose a surjection $L \to H$ where $L$ is a direct sum of
+linearly adequate functors, see
+Lemma \ref{lemma-adequate-surjection-from-linear}.
+If we can show that the pullback $G \times_H L$ is adequate, then
+$G$ is the cokernel of the map $\Ker(L \to H) \to G \times_H L$
+hence adequate by
+Lemma \ref{lemma-cokernel-adequate}.
+Thus we may assume that $H = \bigoplus L_i$ is a direct sum of
+linearly adequate functors. By
+Lemma \ref{lemma-extension-adequate-key}
+each of the pullbacks $G \times_H L_i$ is adequate. By
+Lemma \ref{lemma-colimit-adequate}
+we see that $\bigoplus G \times_H L_i$ is adequate.
+Then $G$ is the cokernel of
+$$
+\bigoplus\nolimits_{i \not = i'} F \longrightarrow
+\bigoplus G \times_H L_i
+$$
+where $\xi$ in the summand $(i, i')$ maps to
+$(0, \ldots, 0, \xi, 0, \ldots, 0, -\xi, 0, \ldots, 0)$
+with nonzero entries in the summands $i$ and $i'$.
+Thus $G$ is adequate by
+Lemma \ref{lemma-cokernel-adequate}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-base-change-adequate}
+Let $A \to A'$ be a ring map. If $F$ is an adequate functor on
+$\textit{Alg}_A$, then its restriction $F'$ to
+$\textit{Alg}_{A'}$ is adequate too.
+\end{lemma}
+
+\begin{proof}
+Choose an exact sequence $0 \to F \to \underline{M} \to \underline{N}$.
+Then $F'(B') = F(B') = \Ker(M \otimes_A B' \to N \otimes_A B')$.
+Since $M \otimes_A B' = M \otimes_A A' \otimes_{A'} B'$ and similarly
+for $N$ we see that $F'$ is the kernel of
+$\underline{M \otimes_A A'} \to \underline{N \otimes_A A'}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pushforward-adequate}
+Let $A \to A'$ be a ring map. If $F'$ is an adequate functor on
+$\textit{Alg}_{A'}$, then the module-valued functor
+$F : B \mapsto F'(A' \otimes_A B)$ on $\textit{Alg}_A$ is adequate too.
+\end{lemma}
+
+\begin{proof}
+Choose an exact sequence $0 \to F' \to \underline{M'} \to \underline{N'}$.
+Then
+\begin{align*}
+F(B) & = F'(A' \otimes_A B) \\
+& = \Ker(M' \otimes_{A'} (
+A' \otimes_A B) \to N' \otimes_{A'} (A' \otimes_A B)) \\
+& = \Ker(M' \otimes_A B \to N' \otimes_A B)
+\end{align*}
+Thus $F$ is the kernel of
+$\underline{M} \to \underline{N}$
+where $M = M'$ and $N = N'$ viewed as $A$-modules.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-adequate-product}
+Let $A = A_1 \times \ldots \times A_n$ be a product of rings.
+An adequate functor over $A$ is the same thing as a sequence
+$F_1, \ldots, F_n$ of adequate functors $F_i$ over $A_i$.
+\end{lemma}
+
+\begin{proof}
+This is true because an $A$-algebra $B$ is canonically a product
+$B_1 \times \ldots \times B_n$ and the same thing holds for $A$-modules.
+Setting $F(B) = \coprod F_i(B_i)$ gives the correspondence.
+Details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-adequate-descent}
+Let $A \to A'$ be a ring map and let $F$ be a module-valued functor on
+$\textit{Alg}_A$ such that
+\begin{enumerate}
+\item the restriction $F'$ of $F$ to the category of $A'$-algebras is
+adequate, and
+\item for any $A$-algebra $B$ the sequence
+$$
+0 \to F(B) \to F(B \otimes_A A') \to F(B \otimes_A A' \otimes_A A')
+$$
+is exact.
+\end{enumerate}
+Then $F$ is adequate.
+\end{lemma}
+
+\begin{proof}
+The functors $B \to F(B \otimes_A A')$ and
+$B \mapsto F(B \otimes_A A' \otimes_A A')$ are adequate, see
+Lemmas \ref{lemma-pushforward-adequate} and
+\ref{lemma-base-change-adequate}.
+Hence $F$ as a kernel of a map of adequate functors is adequate, see
+Lemma \ref{lemma-kernel-adequate}.
+\end{proof}
+
+
+
+
+
+
+\section{Higher exts of adequate functors}
+\label{section-higher-ext}
+
+\noindent
+Let $A$ be a ring. In
+Lemma \ref{lemma-extension-adequate}
+we have seen that any extension of adequate functors in the category
+of module-valued functors on $\textit{Alg}_A$ is adequate. In this
+section we show that the same remains true for higher ext groups.
+
+\begin{lemma}
+\label{lemma-adjoint}
+Let $A$ be a ring.
+For every module-valued functor $F$ on $\textit{Alg}_A$
+there exists a morphism $Q(F) \to F$ of module-valued functors on
+$\textit{Alg}_A$ such that (1) $Q(F)$ is adequate and (2) for every
+adequate functor $G$ the map $\Hom(G, Q(F)) \to \Hom(G, F)$
+is a bijection.
+\end{lemma}
+
+\begin{proof}
+Choose a set $\{L_i\}_{i \in I}$ of linearly adequate functors such that
+every linearly adequate functor is isomorphic to one of the $L_i$.
+This is possible. Suppose that we can find $Q(F) \to F$ with (1) and
+(2)' or every $i \in I$ the map $\Hom(L_i, Q(F)) \to \Hom(L_i, F)$
+is a bijection. Then (2) holds. Namely, combining
+Lemmas \ref{lemma-adequate-surjection-from-linear} and
+\ref{lemma-kernel-adequate}
+we see that every adequate functor $G$ sits in an exact sequence
+$$
+K \to L \to G \to 0
+$$
+with $K$ and $L$ direct sums of linearly adequate functors. Hence (2)'
+implies that
+$\Hom(L, Q(F)) \to \Hom(L, F)$
+and
+$\Hom(K, Q(F)) \to \Hom(K, F)$
+are bijections, whence the same thing for $G$.
+
+\medskip\noindent
+Consider the category $\mathcal{I}$ whose objects are pairs
+$(i, \varphi)$ where $i \in I$ and $\varphi : L_i \to F$ is a morphism.
+A morphism $(i, \varphi) \to (i', \varphi')$ is a map
+$\psi : L_i \to L_{i'}$ such that $\varphi' \circ \psi = \varphi$.
+Set
+$$
+Q(F) = \colim_{(i, \varphi) \in \Ob(\mathcal{I})} L_i
+$$
+There is a natural map $Q(F) \to F$, by
+Lemma \ref{lemma-colimit-adequate}
+it is adequate, and by construction it has property (2)'.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-enough-injectives}
+Let $A$ be a ring. Denote $\mathcal{P}$ the category of module-valued
+functors on $\textit{Alg}_A$ and $\mathcal{A}$ the category of adequate
+functors on $\textit{Alg}_A$. Denote $i : \mathcal{A} \to \mathcal{P}$
+the inclusion functor. Denote $Q : \mathcal{P} \to \mathcal{A}$
+the construction of Lemma \ref{lemma-adjoint}.
+Then
+\begin{enumerate}
+\item $i$ is fully faithful, exact, and its image is a weak Serre subcategory,
+\item $\mathcal{P}$ has enough injectives,
+\item the functor $Q$ is a right adjoint to $i$ hence left exact,
+\item $Q$ transforms injectives into injectives,
+\item $\mathcal{A}$ has enough injectives.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This lemma just collects some facts we have already seen so far.
+Part (1) is clear from the definitions, the characterization of
+weak Serre subcategories (see
+Homology, Lemma \ref{homology-lemma-characterize-weak-serre-subcategory}),
+and
+Lemmas \ref{lemma-cokernel-adequate}, \ref{lemma-kernel-adequate},
+and \ref{lemma-extension-adequate}.
+Recall that $\mathcal{P}$ is equivalent to the category
+$\textit{PMod}((\textit{Aff}/\Spec(A))_\tau, \mathcal{O})$.
+Hence (2) by
+Injectives, Proposition \ref{injectives-proposition-presheaves-modules}.
+Part (3) follows from
+Lemma \ref{lemma-adjoint}
+and
+Categories, Lemma \ref{categories-lemma-adjoint-exact}.
+Parts (4) and (5) follow from
+Homology, Lemmas \ref{homology-lemma-adjoint-preserve-injectives} and
+\ref{homology-lemma-adjoint-enough-injectives}.
+\end{proof}
+
+\noindent
+Let $A$ be a ring. As in
+Formal Deformation Theory, Section
+\ref{formal-defos-section-tangent-spaces-functors}
+given an $A$-algebra $B$ and an $B$-module $N$ we set $B[N]$ equal to
+the $R$-algebra with underlying $B$-module $B \oplus N$ with multiplication
+given by $(b, m)(b', m ') = (bb', bm' + b'm)$. Note that this construction
+is functorial in the pair $(B, N)$ where morphism $(B, N) \to (B', N')$
+is given by an $A$-algebra map $B \to B'$ and an $B$-module map
+$N \to N'$. In some sense the functor $TF$ of pairs defined in the following
+lemma is the tangent space of $F$.
+Below we will only consider pairs $(B, N)$ such that
+$B[N]$ is an object of $\textit{Alg}_A$.
+
+\begin{lemma}
+\label{lemma-tangent-functor}
+Let $A$ be a ring. Let $F$ be a module valued functor.
+For every $B \in \Ob(\textit{Alg}_A)$ and $B$-module $N$
+there is a canonical decomposition
+$$
+F(B[N]) = F(B) \oplus TF(B, N)
+$$
+characterized by the following properties
+\begin{enumerate}
+\item $TF(B, N) = \Ker(F(B[N]) \to F(B))$,
+\item there is a $B$-module structure $TF(B, N)$
+compatible with $B[N]$-module structure on $F(B[N])$,
+\item $TF$ is a functor from the category of pairs $(B, N)$,
+\item
+\label{item-mult-map}
+there are canonical maps $N \otimes_B F(B) \to TF(B, N)$
+inducing a transformation between functors defined on the category
+of pairs $(B, N)$,
+\item $TF(B, 0) = 0$ and the map $TF(B, N) \to TF(B, N')$ is
+zero when $N \to N'$ is the zero map.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Since $B \to B[N] \to B$ is the identity we see that $F(B) \to F(B[N])$
+is a direct summand whose complement is $TF(N, B)$ as defined in (1).
+This construction is functorial in the pair $(B, N)$ simply because
+given a morphism of pairs $(B, N) \to (B', N')$ we obtain a commutative
+diagram
+$$
+\xymatrix{
+B' \ar[r] & B'[N'] \ar[r] & B' \\
+B \ar[r] \ar[u] & B[N] \ar[r] \ar[u] & B \ar[u]
+}
+$$
+in $\textit{Alg}_A$. The $B$-module structure comes from the $B[N]$-module
+structure and the ring map $B \to B[N]$. The map in (4) is the
+composition
+$$
+N \otimes_B F(B) \longrightarrow
+B[N] \otimes_{B[N]} F(B[N]) \longrightarrow F(B[N])
+$$
+whose image is contained in $TF(B, N)$. (The first arrow uses the inclusions
+$N \to B[N]$ and $F(B) \to F(B[N])$ and the second arrow is the multiplication
+map.) If $N = 0$, then $B = B[N]$
+hence $TF(B, 0) = 0$. If $N \to N'$ is zero then it factors as
+$N \to 0 \to N'$ hence the induced map is zero since $TF(B, 0) = 0$.
+\end{proof}
+
+\noindent
+Let $A$ be a ring. Let $M$ be an $A$-module. Then the module-valued functor
+$\underline{M}$ has tangent space $T\underline{M}$ given by the rule
+$T\underline{M}(B, N) = N \otimes_A M$. In particular, for $B$ given, the
+functor $N \mapsto T\underline{M}(B, N)$ is additive and right exact. It turns
+out this also holds for injective module-valued functors.
+
+\begin{lemma}
+\label{lemma-tangent-injective}
+Let $A$ be a ring. Let $I$ be an injective object of the category
+of module-valued functors. Then for any $B \in \Ob(\textit{Alg}_A)$
+and short exact sequence
+$0 \to N_1 \to N \to N_2 \to 0$
+of $B$-modules the sequence
+$$
+TI(B, N_1) \to TI(B, N) \to TI(B, N_2) \to 0
+$$
+is exact.
+\end{lemma}
+
+\begin{proof}
+We will use the results of
+Lemma \ref{lemma-tangent-functor}
+without further mention.
+Denote $h : \textit{Alg}_A \to \textit{Sets}$ the functor given by
+$h(C) = \Mor_A(B[N], C)$. Similarly for $h_1$ and $h_2$.
+The map $B[N] \to B[N_2]$ corresponding to the surjection $N \to N_2$
+is surjective. It corresponds to a map $h_2 \to h$ such that
+$h_2(C) \to h(C)$ is injective for all $A$-algebras $C$. On the other
+hand, there are two maps $p, q : h \to h_1$, corresponding to the
+zero map $N_1 \to N$ and the injection $N_1 \to N$. Note that
+$$
+\xymatrix{
+h_2 \ar[r] & h \ar@<1ex>[r] \ar@<-1ex>[r] & h_1
+}
+$$
+is an equalizer diagram. Denote $\mathcal{O}_h$ the module-valued functor
+$C \mapsto \bigoplus_{h(C)} C$. Similarly for $\mathcal{O}_{h_1}$ and
+$\mathcal{O}_{h_2}$. Note that
+$$
+\Hom_\mathcal{P}(\mathcal{O}_h, F) = F(B[N])
+$$
+where $\mathcal{P}$ is the category of of module-valued functors on
+$\textit{Alg}_A$. We claim there is an equalizer diagram
+$$
+\xymatrix{
+\mathcal{O}_{h_2} \ar[r] &
+\mathcal{O}_h \ar@<1ex>[r] \ar@<-1ex>[r] &
+\mathcal{O}_{h_1}
+}
+$$
+in $\mathcal{P}$. Namely, suppose that $C \in \Ob(\textit{Alg}_A)$
+and $\xi = \sum_{i = 1, \ldots, n} c_i \cdot f_i$ where $c_i \in C$ and
+$f_i : B[N] \to C$ is an element of
+$\mathcal{O}_h(C)$. If $p(\xi) = q(\xi)$, then
+we see that
+$$
+\sum c_i \cdot f_i \circ z = \sum c_i \cdot f_i \circ y
+$$
+where $z, y : B[N_1] \to B[N]$ are the maps $z : (b, m_1) \mapsto (b, 0)$
+and $y : (b, m_1) \mapsto (b, m_1)$. This means that for every $i$
+there exists a $j$ such that $f_j \circ z = f_i \circ y$. Clearly, this
+implies that $f_i(N_1) = 0$, i.e., $f_i$ factors through a unique map
+$\overline{f}_i : B[N_2] \to C$. Hence $\xi$ is the image of
+$\overline{\xi} = \sum c_i \cdot \overline{f}_i$.
+Since $I$ is injective, it transforms this equalizer diagram
+into a coequalizer diagram
+$$
+\xymatrix{
+I(B[N_1]) \ar@<1ex>[r] \ar@<-1ex>[r] &
+I(B[N]) \ar[r] &
+I(B[N_2])
+}
+$$
+This diagram is compatible with the direct sum decompositions
+$I(B[N]) = I(B) \oplus TI(B, N)$ and $I(B[N_i]) = I(B) \oplus TI(B, N_i)$.
+The zero map $N \to N_1$ induces the zero map $TI(B, N) \to TI(B, N_1)$.
+Thus we see that the coequalizer property
+above means we have an exact sequence
+$TI(B, N_1) \to TI(B, N) \to TI(B, N_2) \to 0$
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-exactness-implies}
+Let $A$ be a ring. Let $F$ be a module-valued functor
+such that for any $B \in \Ob(\textit{Alg}_A)$ the
+functor $TF(B, -)$ on $B$-modules transforms a short exact sequence
+of $B$-modules into a right exact sequence. Then
+\begin{enumerate}
+\item $TF(B, N_1 \oplus N_2) = TF(B, N_1) \oplus TF(B, N_2)$,
+\item there is a second functorial $B$-module structure on $TF(B, N)$
+defined by setting $x \cdot b = TF(B, b\cdot 1_N)(x)$ for $x \in TF(B, N)$
+and $b \in B$,
+\item
+\label{item-mult-map-linear}
+the canonical map $N \otimes_B F(B) \to TF(B, N)$ of
+Lemma \ref{lemma-tangent-functor}
+is $B$-linear also with respect to the second $B$-module structure,
+\item
+\label{item-tangent-right-exact}
+given a finitely presented $B$-module $N$ there is a canonical
+isomorphism $TF(B, B) \otimes_B N \to TF(B, N)$ where the tensor
+product uses the second $B$-module structure on $TF(B, B)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We will use the results of
+Lemma \ref{lemma-tangent-functor}
+without further mention.
+The maps $N_1 \to N_1 \oplus N_2$ and $N_2 \to N_1 \oplus N_2$ give
+a map $TF(B, N_1) \oplus TF(B, N_2) \to TF(B, N_1 \oplus N_2)$
+which is injective since the maps $N_1 \oplus N_2 \to N_1$ and
+$N_1 \oplus N_2 \to N_2$ induce an inverse.
+Since $TF$ is right exact we see that
+$TF(B, N_1) \to TF(B, N_1 \oplus N_2) \to TF(B, N_2) \to 0$ is exact.
+Hence $TF(B, N_1) \oplus TF(B, N_2) \to TF(B, N_1 \oplus N_2)$ is an
+isomorphism. This proves (1).
+
+\medskip\noindent
+To see (2) the only thing we need to show is that
+$x \cdot (b_1 + b_2) = x \cdot b_1 + x \cdot b_2$.
+(Associativity and additivity are clear.) To see this consider
+$$
+N \xrightarrow{(b_1, b_2)} N \oplus N \xrightarrow{+} N
+$$
+and apply $TF(B, -)$.
+
+\medskip\noindent
+Part (3) follows immediately from the fact that
+$N \otimes_B F(B) \to TF(B, N)$ is functorial in the pair $(B, N)$.
+
+\medskip\noindent
+Suppose $N$ is a finitely presented $B$-module. Choose a presentation
+$B^{\oplus m} \to B^{\oplus n} \to N \to 0$. This gives an exact
+sequence
+$$
+TF(B, B^{\oplus m}) \to TF(B, B^{\oplus n}) \to TF(B, N) \to 0
+$$
+by right exactness of $TF(B, -)$. By part (1) we can write
+$TF(B, B^{\oplus m}) = TF(B, B)^{\oplus m}$ and
+$TF(B, B^{\oplus n}) = TF(B, B)^{\oplus n}$. Next, suppose that
+$B^{\oplus m} \to B^{\oplus n}$ is given by the matrix $T = (b_{ij})$.
+Then the induced map $TF(B, B)^{\oplus m} \to TF(B, B)^{\oplus n}$
+is given by the matrix with entries $TF(B, b_{ij} \cdot 1_B)$.
+This combined with right exactness of $\otimes$ proves (4).
+\end{proof}
+
+\begin{example}
+\label{example-module-structure-different}
+Let $F$ be a module-valued functor as in
+Lemma \ref{lemma-exactness-implies}.
+It is not always the case that the two module structures on
+$TF(B, N)$ agree. Here is an example. Suppose $A = \mathbf{F}_p$
+where $p$ is a prime. Set $F(B) = B$ but with $B$-module structure
+given by $b \cdot x = b^px$. Then $TF(B, N) = N$ with $B$-module structure
+given by $b \cdot x = b^px$ for $x \in N$. However, the second $B$-module
+structure is given by $x \cdot b = bx$. Note that in this case the canonical
+map $N \otimes_B F(B) \to TF(B, N)$ is zero as raising an element
+$n \in B[N]$ to the $p$th power is zero.
+\end{example}
+
+\noindent
+In the following lemma we will frequently use the observation that
+if $0 \to F \to G \to H \to 0$ is an exact sequence of module-valued
+functors on $\textit{Alg}_A$, then for any pair $(B, N)$ the
+sequence $0 \to TF(B, N) \to TG(B, N) \to TH(B, N) \to 0$ is exact.
+This follows from the fact that $0 \to F(B[N]) \to G(B[N]) \to H(B[N]) \to 0$
+is exact.
+
+\begin{lemma}
+\label{lemma-exactness-permanence}
+Let $A$ be a ring. For $F$ a module-valued functor on $\textit{Alg}_A$
+say $(*)$ holds if for all $B \in \Ob(\textit{Alg}_A)$ the
+functor $TF(B, -)$ on $B$-modules transforms a short exact sequence
+of $B$-modules into a right exact sequence. Let
+$0 \to F \to G \to H \to 0$ be a short exact sequence of
+module-valued functors on $\textit{Alg}_A$.
+\begin{enumerate}
+\item If $(*)$ holds for $F, G$ then $(*)$ holds for $H$.
+\item If $(*)$ holds for $F, H$ then $(*)$ holds for $G$.
+\item If $H' \to H$ is morphism of module-valued functors on $\textit{Alg}_A$
+and $(*)$ holds for $F$, $G$, $H$, and $H'$, then $(*)$ holds for
+$G \times_H H'$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $B$ be given. Let $0 \to N_1 \to N_2 \to N_3 \to 0$ be a short exact
+sequence of $B$-modules. Part (1) follows from a diagram chase in
+the diagram
+$$
+\xymatrix{
+0 \ar[r] &
+TF(B, N_1) \ar[r] \ar[d] &
+TG(B, N_1) \ar[r] \ar[d] &
+TH(B, N_1) \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+TF(B, N_2) \ar[r] \ar[d] &
+TG(B, N_2) \ar[r] \ar[d] &
+TH(B, N_2) \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+TF(B, N_3) \ar[r] \ar[d] &
+TG(B, N_3) \ar[r] \ar[d] &
+TH(B, N_3) \ar[r] & 0 \\
+& 0 & 0
+}
+$$
+with exact horizontal rows and exact columns involving $TF$ and $TG$.
+To prove part (2) we do a diagram chase in the diagram
+$$
+\xymatrix{
+0 \ar[r] &
+TF(B, N_1) \ar[r] \ar[d] &
+TG(B, N_1) \ar[r] \ar[d] &
+TH(B, N_1) \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+TF(B, N_2) \ar[r] \ar[d] &
+TG(B, N_2) \ar[r] \ar[d] &
+TH(B, N_2) \ar[r] \ar[d] & 0 \\
+0 \ar[r] &
+TF(B, N_3) \ar[r] \ar[d] &
+TG(B, N_3) \ar[r] &
+TH(B, N_3) \ar[r] \ar[d] & 0 \\
+& 0 & & 0
+}
+$$
+with exact horizontal rows and exact columns involving $TF$ and $TH$.
+Part (3) follows from part (2) as $G \times_H H'$ sits in the exact
+sequence $0 \to F \to G \times_H H' \to H' \to 0$.
+\end{proof}
+
+\noindent
+Most of the work in this section was done in order to prove the
+following key vanishing result.
+
+\begin{lemma}
+\label{lemma-ext-group-zero-key}
+Let $A$ be a ring. Let $M$, $P$ be $A$-modules with $P$ of finite
+presentation. Then
+$\Ext^i_\mathcal{P}(\underline{P}, \underline{M}) = 0$
+for $i > 0$ where $\mathcal{P}$ is the category of module-valued
+functors on $\textit{Alg}_A$.
+\end{lemma}
+
+\begin{proof}
+Choose an injective resolution $\underline{M} \to I^\bullet$ in
+$\mathcal{P}$, see
+Lemma \ref{lemma-enough-injectives}.
+By
+Derived Categories, Lemma \ref{derived-lemma-compute-ext-resolutions}
+any element of $\Ext^i_\mathcal{P}(\underline{P}, \underline{M})$
+comes from a morphism $\varphi : \underline{P} \to I^i$ with
+$d^i \circ \varphi = 0$. We will prove that the
+Yoneda extension
+$$
+E : 0 \to \underline{M} \to I^0 \to \ldots \to
+I^{i - 1} \times_{\Ker(d^i)} \underline{P} \to \underline{P} \to 0
+$$
+of $\underline{P}$ by $\underline{M}$
+associated to $\varphi$ is trivial, which will prove the lemma by
+Derived Categories, Lemma \ref{derived-lemma-yoneda-extension}.
+
+\medskip\noindent
+For $F$ a module-valued functor on $\textit{Alg}_A$
+say $(*)$ holds if for all $B \in \Ob(\textit{Alg}_A)$ the
+functor $TF(B, -)$ on $B$-modules transforms a short exact sequence
+of $B$-modules into a right exact sequence.
+Recall that the module-valued functors $\underline{M}, I^n, \underline{P}$
+each have property $(*)$, see
+Lemma \ref{lemma-tangent-injective}
+and the remarks preceding it.
+By splitting $0 \to \underline{M} \to I^\bullet$ into short
+exact sequences we find that each of the functors
+$\Im(d^{n - 1}) = \Ker(d^n) \subset I^n$ has property $(*)$ by
+Lemma \ref{lemma-exactness-permanence}
+and also that $I^{i - 1} \times_{\Ker(d^i)} \underline{P}$ has property
+$(*)$.
+
+\medskip\noindent
+Thus we may assume the Yoneda extension is given as
+$$
+E : 0 \to \underline{M} \to F_{i - 1} \to \ldots \to
+F_0 \to \underline{P} \to 0
+$$
+where each of the module-valued functors $F_j$ has property $(*)$.
+Set $G_j(B) = TF_j(B, B)$ viewed as a $B$-module via the {\it second}
+$B$-module structure defined in
+Lemma \ref{lemma-exactness-implies}.
+Since $TF_j$ is a functor on pairs we see that $G_j$ is a module-valued
+functor on $\textit{Alg}_A$. Moreover, since $E$ is an exact sequence
+the sequence $G_{j + 1} \to G_j \to G_{j - 1}$ is exact (see remark
+preceding
+Lemma \ref{lemma-exactness-permanence}).
+Observe that $T\underline{M}(B, B) = M \otimes_A B = \underline{M}(B)$
+and that the two $B$-module structures agree on this.
+Thus we obtain a Yoneda extension
+$$
+E' :  0 \to \underline{M} \to G_{i - 1} \to \ldots \to
+G_0 \to \underline{P} \to 0
+$$
+Moreover, the canonical maps
+$$
+F_j(B) = B \otimes_B F_j(B) \longrightarrow TF_j(B, B) = G_j(B)
+$$
+of
+Lemma \ref{lemma-tangent-functor} (\ref{item-mult-map})
+are $B$-linear by
+Lemma \ref{lemma-exactness-implies} (\ref{item-mult-map-linear})
+and functorial in $B$. Hence a map
+$$
+\xymatrix{
+0 \ar[r] &
+\underline{M} \ar[r] \ar[d]^1 &
+F_{i - 1} \ar[r] \ar[d] &
+\ldots \ar[r] &
+F_0 \ar[r] \ar[d] &
+\underline{P} \ar[r] \ar[d]^1 & 0 \\
+0 \ar[r] &
+\underline{M} \ar[r] &
+G_{i - 1} \ar[r] &
+\ldots \ar[r] &
+G_0 \ar[r] &
+\underline{P} \ar[r] & 0
+}
+$$
+of Yoneda extensions. In particular we see that $E$ and $E'$ have the
+same class in $\Ext^i_\mathcal{P}(\underline{P}, \underline{M})$
+by the lemma on Yoneda Exts mentioned above. Finally, let $N$ be a
+$A$-module of finite presentation. Then we see that
+$$
+0 \to T\underline{M}(A, N) \to TF_{i - 1}(A, N) \to \ldots \to
+TF_0(A, N) \to T\underline{P}(A, N) \to 0
+$$
+is exact. By
+Lemma \ref{lemma-exactness-implies} (\ref{item-tangent-right-exact})
+with $B = A$ this translates into the exactness of the sequence of
+$A$-modules
+$$
+0 \to M \otimes_A N \to G_{i - 1}(A) \otimes_A N \to \ldots \to
+G_0(A) \otimes_A N \to P \otimes_A N \to 0
+$$
+Hence the sequence of $A$-modules
+$0 \to M \to G_{i - 1}(A) \to \ldots \to G_0(A) \to P \to 0$
+is universally exact, in the sense that it remains exact on tensoring
+with any finitely presented $A$-module $N$. Let
+$K = \Ker(G_0(A) \to P)$ so that we have exact sequences
+$$
+0 \to K \to G_0(A) \to P \to 0
+\quad\text{and}\quad
+G_2(A) \to G_1(A) \to K \to 0
+$$
+Tensoring the second sequence with $N$ we obtain that
+$K \otimes_A N = \Coker(G_2(A) \otimes_A N \to G_1(A) \otimes_A N)$.
+Exactness of $G_2(A) \otimes_A N \to G_1(A) \otimes_A N \to G_0(A) \otimes_A N$
+then implies that $K \otimes_A N \to G_0(A) \otimes_A N$ is injective.
+By
+Algebra, Theorem \ref{algebra-theorem-universally-exact-criteria}
+this means that the $A$-module extension $0 \to K \to G_0(A) \to P \to 0$
+is exact, and because $P$ is assumed of finite presentation this means
+the sequence is split, see
+Algebra, Lemma \ref{algebra-lemma-universally-exact-split}.
+Any splitting $P \to G_0(A)$ defines a map $\underline{P} \to G_0$
+which splits the surjection $G_0 \to \underline{P}$. Thus the
+Yoneda extension $E'$ is equivalent to the trivial Yoneda extension
+and we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ext-group-zero}
+Let $A$ be a ring. Let $M$ be an $A$-module. Let $L$ be a linearly
+adequate functor on $\textit{Alg}_A$. Then
+$\Ext^i_\mathcal{P}(L, \underline{M}) = 0$
+for $i > 0$ where $\mathcal{P}$ is the category of module-valued
+functors on $\textit{Alg}_A$.
+\end{lemma}
+
+\begin{proof}
+Since $L$ is linearly adequate there exists an exact sequence
+$$
+0 \to L \to \underline{A^{\oplus m}} \to \underline{A^{\oplus n}} \to
+\underline{P} \to 0
+$$
+Here $P = \Coker(A^{\oplus m} \to A^{\oplus n})$ is the cokernel
+of the map of finite free $A$-modules which is given by the definition
+of linearly adequate functors. By
+Lemma \ref{lemma-ext-group-zero-key}
+we have the vanishing of
+$\Ext^i_\mathcal{P}(\underline{P}, \underline{M})$
+and
+$\Ext^i_\mathcal{P}(\underline{A}, \underline{M})$
+for $i > 0$.
+Let $K = \Ker(\underline{A^{\oplus n}} \to \underline{P})$.
+By the long exact sequence of Ext groups associated to the exact sequence
+$0 \to K \to \underline{A^{\oplus n}} \to \underline{P} \to 0$
+we conclude that
+$\Ext^i_\mathcal{P}(K, \underline{M}) = 0$ for $i > 0$.
+Repeating with the sequence
+$0 \to L \to \underline{A^{\oplus m}} \to K \to 0$
+we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-RQ-zero}
+With notation as in
+Lemma \ref{lemma-enough-injectives}
+we have $R^pQ(F) = 0$ for all $p > 0$ and any adequate functor $F$.
+\end{lemma}
+
+\begin{proof}
+Choose an exact sequence $0 \to F \to \underline{M^0} \to \underline{M^1}$.
+Set $M^2 = \Coker(M^0 \to M^1)$ so that
+$0 \to F \to \underline{M^0} \to \underline{M^1}
+\to \underline{M^2} \to 0$ is a resolution. By
+Derived Categories, Lemma \ref{derived-lemma-two-ss-complex-functor}
+we obtain a spectral sequence
+$$
+R^pQ(\underline{M^q}) \Rightarrow R^{p + q}Q(F)
+$$
+Since $Q(\underline{M^q}) = \underline{M^q}$ it suffices to prove
+$R^pQ(\underline{M}) = 0$, $p > 0$ for any $A$-module $M$.
+
+\medskip\noindent
+Choose an injective resolution $\underline{M} \to I^\bullet$ in
+the category $\mathcal{P}$. Suppose that $R^iQ(\underline{M})$ is nonzero.
+Then $\Ker(Q(I^i) \to Q(I^{i + 1}))$ is strictly bigger
+than the image of $Q(I^{i - 1}) \to Q(I^i)$. Hence by
+Lemma \ref{lemma-adequate-surjection-from-linear}
+there exists a linearly adequate functor $L$ and a map
+$\varphi : L \to Q(I^i)$ mapping into the kernel of $Q(I^i) \to Q(I^{i + 1})$
+which does not factor through the image of $Q(I^{i - 1}) \to Q(I^i)$.
+Because $Q$ is a left adjoint to the inclusion functor the map
+$\varphi$ corresponds to a map $\varphi' : L \to I^i$ with the same properties.
+Thus $\varphi'$ gives a nonzero element of
+$\Ext^i_\mathcal{P}(L, \underline{M})$ contradicting
+Lemma \ref{lemma-ext-group-zero}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Adequate modules}
+\label{section-adequate}
+
+\noindent
+In
+Descent, Section \ref{descent-section-quasi-coherent-sheaves}
+we have seen that quasi-coherent modules on a scheme $S$
+are the same as quasi-coherent modules on any of the big
+sites $(\Sch/S)_\tau$ associated to $S$. We have seen that there
+are two issues with this identification:
+\begin{enumerate}
+\item $\QCoh(\mathcal{O}_S) \to
+\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$,
+$\mathcal{F} \mapsto \mathcal{F}^a$ is not exact in general, and
+\item given a quasi-compact and quasi-separated morphism $f : X \to S$
+the functor $f_*$ does not preserve quasi-coherent sheaves on the
+big sites in general.
+\end{enumerate}
+Part (1) means that we cannot define a triangulated subcategory
+of $D(\mathcal{O})$ consisting of complexes whose cohomology sheaves
+are quasi-coherent. Part (2) means that $Rf_*\mathcal{F}$ isn't a
+complex with quasi-coherent cohomology sheaves even when $\mathcal{F}$
+is quasi-coherent and $f$ is quasi-compact and quasi-separated.
+Moreover, the examples given in the proofs of
+Descent, Lemma
+\ref{descent-lemma-equivalence-quasi-coherent-limits}
+and
+Descent, Proposition
+\ref{descent-proposition-equivalence-quasi-coherent-functorial}
+are not of a pathological nature.
+
+\medskip\noindent
+In this section we discuss a slightly larger category
+of $\mathcal{O}$-modules on $(\Sch/S)_\tau$ with contains the
+quasi-coherent modules, is abelian, and is preserved under $f_*$ when
+$f$ is quasi-compact and quasi-separated.
+To do this, suppose that $S$ is a scheme. Let $\mathcal{F}$ be a presheaf
+of $\mathcal{O}$-modules on $(\Sch/S)_\tau$.
+For any affine object $U = \Spec(A)$ of $(\Sch/S)_\tau$
+we can restrict $\mathcal{F}$ to $(\textit{Aff}/U)_\tau$ to get
+a presheaf of $\mathcal{O}$-modules on this site. The corresponding
+module-valued functor, see
+Section \ref{section-quasi-coherent},
+will be denoted
+$$
+F = F_{\mathcal{F}, A} :
+\textit{Alg}_A \longrightarrow \textit{Ab},
+\quad
+B \longmapsto \mathcal{F}(\Spec(B))
+$$
+The assignment $\mathcal{F} \mapsto F_{\mathcal{F}, A}$ is an exact
+functor of abelian categories.
+
+\begin{definition}
+\label{definition-adequate}
+A sheaf of $\mathcal{O}$-modules $\mathcal{F}$ on $(\Sch/S)_\tau$ is
+{\it adequate} if there exists a $\tau$-covering
+$\{\Spec(A_i) \to S\}_{i \in I}$ such that $F_{\mathcal{F}, A_i}$ is
+adequate for all $i \in I$.
+\end{definition}
+
+\noindent
+We will see below that the category of adequate $\mathcal{O}$-modules
+is independent of the chosen topology $\tau$.
+
+\begin{lemma}
+\label{lemma-adequate-local}
+Let $S$ be a scheme. Let $\mathcal{F}$ be an adequate $\mathcal{O}$-module on
+$(\Sch/S)_\tau$. For any affine scheme $\Spec(A)$ over $S$
+the functor $F_{\mathcal{F}, A}$ is adequate.
+\end{lemma}
+
+\begin{proof}
+Let $\{\Spec(A_i) \to S\}_{i \in I}$ be a $\tau$-covering
+such that $F_{\mathcal{F}, A_i}$ is adequate for all $i \in I$.
+We can find a standard affine $\tau$-covering
+$\{\Spec(A'_j) \to \Spec(A)\}_{j = 1, \ldots, m}$
+such that $\Spec(A'_j) \to \Spec(A) \to S$ factors
+through $\Spec(A_{i(j)})$ for some $i(j) \in I$. Then we see that
+$F_{\mathcal{F}, A'_j}$ is the restriction of
+$F_{\mathcal{F}, A_{i(j)}}$ to the category of $A'_j$-algebras.
+Hence $F_{\mathcal{F}, A'_j}$ is adequate by
+Lemma \ref{lemma-base-change-adequate}.
+By
+Lemma \ref{lemma-adequate-product}
+the sequence
+$F_{\mathcal{F}, A'_j}$ corresponds to an adequate ``product'' functor
+$F'$ over $A' = A'_1 \times \ldots \times A'_m$. As $\mathcal{F}$ is a
+sheaf (for the Zariski topology) this product functor $F'$ is equal
+to $F_{\mathcal{F}, A'}$, i.e., is the restriction of $F$ to $A'$-algebras.
+Finally,  $\{\Spec(A') \to \Spec(A)\}$ is a $\tau$-covering.
+It follows from
+Lemma \ref{lemma-adequate-descent}
+that $F_{\mathcal{F}, A}$ is adequate.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-adequate-affine}
+Let $S = \Spec(A)$ be an affine scheme. The category of adequate
+$\mathcal{O}$-modules on $(\Sch/S)_\tau$ is equivalent to the
+category of adequate module-valued functors on $\textit{Alg}_A$.
+\end{lemma}
+
+\begin{proof}
+Given an adequate module $\mathcal{F}$ the functor $F_{\mathcal{F}, A}$
+is adequate by Lemma \ref{lemma-adequate-local}.
+Given an adequate functor $F$ we choose an exact sequence
+$0 \to F \to \underline{M} \to \underline{N}$ and we consider
+the $\mathcal{O}$-module $\mathcal{F} = \Ker(M^a \to N^a)$ where
+$M^a$ denotes the quasi-coherent $\mathcal{O}$-module on
+$(\Sch/S)_\tau$ associated to the quasi-coherent sheaf
+$\widetilde{M}$ on $S$. Note that $F = F_{\mathcal{F}, A}$, in particular
+the module $\mathcal{F}$ is adequate by definition.
+We omit the proof that the constructions define mutually inverse
+equivalences of categories.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pullback-adequate}
+Let $f : T \to S$ be a morphism of schemes.
+The pullback $f^*\mathcal{F}$ of an adequate $\mathcal{O}$-module
+$\mathcal{F}$ on $(\Sch/S)_\tau$ is an adequate
+$\mathcal{O}$-module on $(\Sch/T)_\tau$.
+\end{lemma}
+
+\begin{proof}
+The pullback map
+$f^* : \textit{Mod}((\Sch/S)_\tau, \mathcal{O}) \to
+\textit{Mod}((\Sch/T)_\tau, \mathcal{O})$
+is given by restriction, i.e., $f^*\mathcal{F}(V) = \mathcal{F}(V)$
+for any scheme $V$ over $T$. Hence this lemma follows immediately from
+Lemma \ref{lemma-adequate-local}
+and the definition.
+\end{proof}
+
+\noindent
+Here is a characterization of the category of adequate $\mathcal{O}$-modules.
+To understand the significance, consider a map $\mathcal{G} \to \mathcal{H}$
+of quasi-coherent $\mathcal{O}_S$-modules on a scheme $S$.
+The cokernel of the associated map $\mathcal{G}^a \to \mathcal{H}^a$
+of $\mathcal{O}$-modules is quasi-coherent because it is equal to
+$(\mathcal{H}/\mathcal{G})^a$. But the kernel of
+$\mathcal{G}^a \to \mathcal{H}^a$ in general isn't
+quasi-coherent. However, it is adequate.
+
+\begin{lemma}
+\label{lemma-adequate-characterize}
+Let $S$ be a scheme. Let $\mathcal{F}$ be an $\mathcal{O}$-module on
+$(\Sch/S)_\tau$. The following are equivalent
+\begin{enumerate}
+\item $\mathcal{F}$ is adequate,
+\item there exists an affine open covering $S = \bigcup S_i$ and
+maps of quasi-coherent $\mathcal{O}_{S_i}$-modules
+$\mathcal{G}_i \to \mathcal{H}_i$
+such that $\mathcal{F}|_{(\Sch/S_i)_\tau}$ is the
+kernel of $\mathcal{G}_i^a \to \mathcal{H}_i^a$
+\item there exists a $\tau$-covering $\{S_i \to S\}_{i \in I}$ and
+maps of $\mathcal{O}_{S_i}$-quasi-coherent modules
+$\mathcal{G}_i \to \mathcal{H}_i$
+such that $\mathcal{F}|_{(\Sch/S_i)_\tau}$ is the
+kernel of $\mathcal{G}_i^a \to \mathcal{H}_i^a$,
+\item there exists a $\tau$-covering $\{f_i : S_i \to S\}_{i \in I}$
+such that each $f_i^*\mathcal{F}$ is adequate,
+\item for any affine scheme $U$ over $S$ the restriction
+$\mathcal{F}|_{(\Sch/U)_\tau}$ is the kernel
+of a map $\mathcal{G}^a \to \mathcal{H}^a$ of quasi-coherent
+$\mathcal{O}_U$-modules.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $U = \Spec(A)$ be an affine scheme over $S$.
+Set $F = F_{\mathcal{F}, A}$. By definition, the functor
+$F$ is adequate if and only if there exists a map of $A$-modules
+$M \to N$ such that $F = \Ker(\underline{M} \to \underline{N})$.
+Combining with
+Lemmas \ref{lemma-adequate-local} and
+\ref{lemma-adequate-affine}
+we see that (1) and (5) are equivalent.
+
+\medskip\noindent
+It is clear that (5) implies (2) and (2) implies (3).
+If (3) holds then we can refine the covering
+$\{S_i \to S\}$ such that each $S_i = \Spec(A_i)$ is affine.
+Then we see, by the preliminary remarks of the proof, that
+$F_{\mathcal{F}, A_i}$ is adequate. Thus $\mathcal{F}$
+is adequate by definition. Hence (3) implies (1).
+
+\medskip\noindent
+Finally, (4) is equivalent to (1) using
+Lemma \ref{lemma-pullback-adequate}
+for one direction and that
+a composition of $\tau$-coverings is a $\tau$-covering for the other.
+\end{proof}
+
+\noindent
+Just like is true for quasi-coherent sheaves the category of
+adequate modules is independent of the topology.
+
+\begin{lemma}
+\label{lemma-adequate-fpqc}
+Let $\mathcal{F}$ be an adequate $\mathcal{O}$-module on
+$(\Sch/S)_\tau$. For any surjective flat morphism
+$\Spec(B) \to \Spec(A)$ of affines over $S$
+the extended {\v C}ech complex
+$$
+0 \to \mathcal{F}(\Spec(A)) \to
+\mathcal{F}(\Spec(B)) \to
+\mathcal{F}(\Spec(B \otimes_A B)) \to \ldots
+$$
+is exact. In particular $\mathcal{F}$ satisfies the sheaf condition
+for fpqc coverings, and is a sheaf of $\mathcal{O}$-modules
+on $(\Sch/S)_{fppf}$.
+\end{lemma}
+
+\begin{proof}
+With $A \to B$ as in the lemma let $F = F_{\mathcal{F}, A}$. This functor
+is adequate by
+Lemma \ref{lemma-adequate-local}.
+By
+Lemma \ref{lemma-adequate-flat}
+since $A \to B$, $A \to B \otimes_A B$, etc are flat we see that
+$F(B) = F(A) \otimes_A B$,
+$F(B \otimes_A B) = F(A) \otimes_A B \otimes_A B$, etc.
+Exactness follows from
+Descent, Lemma \ref{descent-lemma-ff-exact}.
+
+\medskip\noindent
+Thus $\mathcal{F}$ satisfies the sheaf condition for
+$\tau$-coverings (in particular Zariski coverings) and any faithfully
+flat covering of an affine by an affine. Arguing as in the proofs of
+Descent, Lemma \ref{descent-lemma-standard-fpqc-covering}
+and
+Descent, Proposition \ref{descent-proposition-fpqc-descent-quasi-coherent}
+we conclude that $\mathcal{F}$ satisfies the sheaf condition for all
+fpqc coverings (made out of objects of $(\Sch/S)_\tau$).
+Details omitted.
+\end{proof}
+
+\noindent
+Lemma \ref{lemma-adequate-fpqc} shows in particular that
+for any pair of topologies $\tau, \tau'$ the collection
+of adequate modules for the $\tau$-topology and the $\tau'$-topology
+are identical (as presheaves of modules on the underlying category $\Sch/S$).
+
+\begin{definition}
+\label{definition-category-adequate-modules}
+Let $S$ be a scheme. The category of adequate $\mathcal{O}$-modules on
+$(\Sch/S)_\tau$ is denoted {\it $\textit{Adeq}(\mathcal{O})$} or
+{\it $\textit{Adeq}((\Sch/S)_\tau, \mathcal{O})$}. If we want to think just
+about the abelian category of adequate modules without choosing a
+topology we simply write {\it $\textit{Adeq}(S)$}.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-same-cohomology-adequate}
+Let $S$ be a scheme. Let $\mathcal{F}$ be an adequate
+$\mathcal{O}$-module on $(\Sch/S)_\tau$.
+\begin{enumerate}
+\item The restriction $\mathcal{F}|_{S_{Zar}}$ is a quasi-coherent
+$\mathcal{O}_S$-module on the scheme $S$.
+\item The restriction $\mathcal{F}|_{S_\etale}$ is the
+quasi-coherent module associated to $\mathcal{F}|_{S_{Zar}}$.
+\item For any affine scheme $U$ over $S$ we have $H^q(U, \mathcal{F}) = 0$
+for all $q > 0$.
+\item There is a canonical isomorphism
+$$
+H^q(S, \mathcal{F}|_{S_{Zar}}) =
+H^q((\Sch/S)_\tau, \mathcal{F}).
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By
+Lemma \ref{lemma-adequate-flat}
+and
+Lemma \ref{lemma-adequate-local}
+we see that for any flat morphism of affines $U \to V$ over $S$
+we have
+$\mathcal{F}(U) = \mathcal{F}(V) \otimes_{\mathcal{O}(V)} \mathcal{O}(U)$.
+This works in particular if $U \subset V \subset S$ are affine opens of
+$S$, hence $\mathcal{F}|_{S_{Zar}}$ is quasi-coherent.
+Thus (1) holds.
+
+\medskip\noindent
+Let $S' \to S$ be an \'etale morphism of schemes.
+Then for $U \subset S'$ affine open mapping into an affine open
+$V \subset S$ we see that
+$\mathcal{F}(U) = \mathcal{F}(V) \otimes_{\mathcal{O}(V)} \mathcal{O}(U)$
+because $U \to V$ is \'etale, hence flat. Therefore
+$\mathcal{F}|_{S'_{Zar}}$ is the pullback of $\mathcal{F}|_{S_{Zar}}$.
+This proves (2).
+
+\medskip\noindent
+We are going to apply
+Cohomology on Sites,
+Lemma \ref{sites-cohomology-lemma-cech-vanish-collection}
+to the site $(\Sch/S)_\tau$ with
+$\mathcal{B}$ the set of affine schemes over $S$ and
+$\text{Cov}$ the set of standard affine $\tau$-coverings.
+Assumption (3) of the lemma is satisfied by
+Descent, Lemma \ref{descent-lemma-standard-covering-Cech}
+and
+Lemma \ref{lemma-adequate-fpqc}
+for the case of a covering by a single affine.
+Hence we conclude that $H^p(U, \mathcal{F}) = 0$ for every
+affine scheme $U$ over $S$. This proves (3).
+In exactly the same way as in the proof of
+Descent, Proposition \ref{descent-proposition-same-cohomology-quasi-coherent}
+this implies the equality of cohomologies (4).
+\end{proof}
+
+\begin{remark}
+\label{remark-compare}
+Let $S$ be a scheme. We have functors
+$u : \QCoh(\mathcal{O}_S) \to \textit{Adeq}(\mathcal{O})$
+and
+$v : \textit{Adeq}(\mathcal{O}) \to \QCoh(\mathcal{O}_S)$.
+Namely, the functor $u : \mathcal{F} \mapsto \mathcal{F}^a$
+comes from taking the associated $\mathcal{O}$-module which is
+adequate by
+Lemma \ref{lemma-adequate-characterize}.
+Conversely, the functor $v$ comes from restriction
+$v : \mathcal{G} \mapsto \mathcal{G}|_{S_{Zar}}$, see
+Lemma \ref{lemma-same-cohomology-adequate}.
+Since $\mathcal{F}^a$ can be described as the pullback of
+$\mathcal{F}$ under a morphism of ringed topoi
+$((\Sch/S)_\tau, \mathcal{O}) \to (S_{Zar}, \mathcal{O}_S)$, see
+Descent, Remark \ref{descent-remark-change-topologies-ringed-sites}
+and since restriction is the pushforward we see that $u$ and $v$
+are adjoint as follows
+$$
+\SheafHom_{\mathcal{O}_S}(\mathcal{F}, v\mathcal{G})
+=
+\SheafHom_\mathcal{O}(u\mathcal{F}, \mathcal{G})
+$$
+where $\mathcal{O}$ denotes the structure sheaf on the big site.
+It is immediate from the description that the adjunction mapping
+$\mathcal{F} \to vu\mathcal{F}$ is an isomorphism for all quasi-coherent
+sheaves.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-sheafification-adequate}
+Let $S$ be a scheme. Let $\mathcal{F}$ be a presheaf of $\mathcal{O}$-modules
+on $(\Sch/S)_\tau$. If for every affine scheme
+$\Spec(A)$ over $S$ the functor $F_{\mathcal{F}, A}$ is
+adequate, then the sheafification of $\mathcal{F}$ is an adequate
+$\mathcal{O}$-module.
+\end{lemma}
+
+\begin{proof}
+Let $U = \Spec(A)$ be an affine scheme over $S$.
+Set $F = F_{\mathcal{F}, A}$.
+The sheafification $\mathcal{F}^\# = (\mathcal{F}^+)^+$, see
+Sites, Section \ref{sites-section-sheafification}.
+By construction
+$$
+(\mathcal{F})^+(U) =
+\colim_\mathcal{U} \check{H}^0(\mathcal{U}, \mathcal{F})
+$$
+where the colimit is over coverings in the site $(\Sch/S)_\tau$.
+Since $U$ is affine it suffices to take the limit over standard
+affine $\tau$-coverings
+$\mathcal{U} = \{U_i \to U\}_{i \in I} =
+\{\Spec(A_i) \to \Spec(A)\}_{i \in I}$ of $U$.
+Since each $A \to A_i$ and $A \to A_i \otimes_A A_j$ is flat we see that
+$$
+\check{H}^0(\mathcal{U}, \mathcal{F}) =
+\Ker(\prod F(A) \otimes_A A_i \to \prod F(A) \otimes_A A_i \otimes_A A_j)
+$$
+by
+Lemma \ref{lemma-adequate-flat}.
+Since $A \to \prod A_i$ is faithfully flat we see that this always
+is canonically isomorphic to $F(A)$ by
+Descent, Lemma \ref{descent-lemma-ff-exact}.
+Thus the presheaf $(\mathcal{F})^+$ has the same value as
+$\mathcal{F}$ on all affine schemes over $S$. Repeating the argument
+once more we deduce the same thing for $\mathcal{F}^\# = ((\mathcal{F})^+)^+$.
+Thus $F_{\mathcal{F}, A} = F_{\mathcal{F}^\#, A}$ and we conclude
+that $\mathcal{F}^\#$ is adequate.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-abelian-adequate}
+Let $S$ be a scheme.
+\begin{enumerate}
+\item The category $\textit{Adeq}(\mathcal{O})$ is abelian.
+\item The functor
+$\textit{Adeq}(\mathcal{O}) \to
+\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$
+is exact.
+\item If $0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+is a short exact sequence of $\mathcal{O}$-modules and
+$\mathcal{F}_1$ and $\mathcal{F}_3$ are adequate, then
+$\mathcal{F}_2$ is adequate.
+\item The category $\textit{Adeq}(\mathcal{O})$ has colimits and
+$\textit{Adeq}(\mathcal{O}) \to
+\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$
+commutes with them.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $\varphi : \mathcal{F} \to \mathcal{G}$ be a map of adequate
+$\mathcal{O}$-modules. To prove (1) and (2) it suffices to show that
+$\mathcal{K} = \Ker(\varphi)$ and
+$\mathcal{Q} = \Coker(\varphi)$ computed in
+$\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$ are adequate.
+Let $U = \Spec(A)$ be an affine scheme over $S$.
+Let $F = F_{\mathcal{F}, A}$ and $G = F_{\mathcal{G}, A}$.
+By
+Lemmas \ref{lemma-kernel-adequate} and
+\ref{lemma-cokernel-adequate}
+the kernel $K$ and cokernel $Q$ of the induced map
+$F \to G$ are adequate functors.
+Because the kernel is computed on the level of presheaves, we see
+that $K = F_{\mathcal{K}, A}$ and we conclude $\mathcal{K}$ is adequate.
+To prove the result for the cokernel, denote $\mathcal{Q}'$ the presheaf
+cokernel of $\varphi$. Then $Q = F_{\mathcal{Q}', A}$ and
+$\mathcal{Q} = (\mathcal{Q}')^\#$. Hence $\mathcal{Q}$
+is adequate by
+Lemma \ref{lemma-sheafification-adequate}.
+
+\medskip\noindent
+Let $0 \to \mathcal{F}_1 \to \mathcal{F}_2 \to \mathcal{F}_3 \to 0$
+is a short exact sequence of $\mathcal{O}$-modules and
+$\mathcal{F}_1$ and $\mathcal{F}_3$ are adequate.
+Let $U = \Spec(A)$ be an affine scheme over $S$.
+Let $F_i = F_{\mathcal{F}_i, A}$. The sequence of functors
+$$
+0 \to F_1 \to F_2 \to F_3 \to 0
+$$
+is exact, because for $V = \Spec(B)$ affine over $U$ we have
+$H^1(V, \mathcal{F}_1) = 0$ by
+Lemma \ref{lemma-same-cohomology-adequate}.
+Since $F_1$ and $F_3$ are adequate functors by
+Lemma \ref{lemma-adequate-local}
+we see that $F_2$ is adequate by
+Lemma \ref{lemma-extension-adequate}.
+Thus $\mathcal{F}_2$ is adequate.
+
+\medskip\noindent
+Let $\mathcal{I} \to \textit{Adeq}(\mathcal{O})$, $i \mapsto \mathcal{F}_i$
+be a diagram. Denote $\mathcal{F} = \colim_i \mathcal{F}_i$
+the colimit computed in
+$\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$.
+To prove (4) it suffices to show that $\mathcal{F}$ is adequate.
+Let $\mathcal{F}' = \colim_i \mathcal{F}_i$ be the colimit computed
+in presheaves of $\mathcal{O}$-modules. Then
+$\mathcal{F} = (\mathcal{F}')^\#$.
+Let $U = \Spec(A)$ be an affine scheme over $S$.
+Let $F_i = F_{\mathcal{F}_i, A}$. By
+Lemma \ref{lemma-colimit-adequate}
+the functor $\colim_i F_i = F_{\mathcal{F}', A}$ is adequate.
+Lemma \ref{lemma-sheafification-adequate}
+shows that $\mathcal{F}$ is adequate.
+\end{proof}
+
+\noindent
+The following lemma tells us that the total direct image
+$Rf_*\mathcal{F}$ of an adequate module under a quasi-compact and
+quasi-separated morphism is a complex whose cohomology sheaves
+are adequate.
+
+\begin{lemma}
+\label{lemma-direct-image-adequate}
+Let $f : T \to S$ be a quasi-compact and quasi-separated morphism
+of schemes. For any adequate $\mathcal{O}_T$-module on
+$(\Sch/T)_\tau$ the pushforward
+$f_*\mathcal{F}$ and the higher direct images $R^if_*\mathcal{F}$
+are adequate $\mathcal{O}_S$-modules on $(\Sch/S)_\tau$.
+\end{lemma}
+
+\begin{proof}
+First we explain how to compute the higher direct images.
+Choose an injective resolution $\mathcal{F} \to \mathcal{I}^\bullet$.
+Then $R^if_*\mathcal{F}$ is the $i$th cohomology sheaf of the
+complex $f_*\mathcal{I}^\bullet$.
+Hence $R^if_*\mathcal{F}$ is the sheaf associated to the presheaf
+which associates to an object $U/S$ of $(\Sch/S)_\tau$
+the module
+\begin{align*}
+\frac{\Ker(f_*\mathcal{I}^i(U) \to f_*\mathcal{I}^{i + 1}(U))}
+{\Im(f_*\mathcal{I}^{i - 1}(U) \to f_*\mathcal{I}^i(U))}
+& =
+\frac{\Ker(\mathcal{I}^i(U \times_S T) \to
+\mathcal{I}^{i + 1}(U \times_S T))}
+{\Im(\mathcal{I}^{i - 1}(U \times_S T) \to \mathcal{I}^i(U \times_S T))}
+\\
+& =
+H^i(U \times_S T, \mathcal{F}) \\
+& = H^i((\Sch/U \times_S T)_\tau,
+\mathcal{F}|_{(\Sch/U \times_S T)_\tau}) \\
+& = H^i(U \times_S T, \mathcal{F}|_{(U \times_S T)_{Zar}})
+\end{align*}
+The first equality by
+Topologies, Lemma \ref{topologies-lemma-morphism-big-fppf}
+(and its analogues for other topologies),
+the second equality by definition of cohomology of $\mathcal{F}$
+over an object of $(\Sch/T)_\tau$,
+the third equality by
+Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-cohomology-of-open},
+and the last equality by
+Lemma \ref{lemma-same-cohomology-adequate}.
+Thus by
+Lemma \ref{lemma-sheafification-adequate}
+it suffices to prove the claim stated in the following paragraph.
+
+\medskip\noindent
+Let $A$ be a ring. Let $T$ be a scheme quasi-compact and quasi-separated
+over $A$. Let $\mathcal{F}$ be an adequate $\mathcal{O}_T$-module on
+$(\Sch/T)_\tau$. For an $A$-algebra $B$ set
+$T_B = T \times_{\Spec(A)} \Spec(B)$ and denote
+$\mathcal{F}_B = \mathcal{F}|_{(T_B)_{Zar}}$ the restriction of
+$\mathcal{F}$ to the small Zariski site of $T_B$.
+(Recall that this is a ``usual'' quasi-coherent sheaf on the scheme
+$T_B$, see
+Lemma \ref{lemma-same-cohomology-adequate}.)
+Claim: The functor
+$$
+B \longmapsto H^q(T_B, \mathcal{F}_B)
+$$
+is adequate. We will prove the lemma by the usual
+procedure of cutting $T$ into pieces.
+
+\medskip\noindent
+Case I: $T$ is affine. In this case the schemes $T_B$ are all affine
+and $H^q(T_B, \mathcal{F}_B) = 0$ for all $q \geq 1$.
+The functor $B \mapsto H^0(T_B, \mathcal{F}_B)$ is adequate by
+Lemma \ref{lemma-pushforward-adequate}.
+
+\medskip\noindent
+Case II: $T$ is separated. Let $n$ be the minimal number of affines needed
+to cover $T$. We argue by induction on $n$. The base case is Case I.
+Choose an affine open covering $T = V_1 \cup \ldots \cup V_n$.
+Set $V = V_1 \cup \ldots \cup V_{n - 1}$ and $U = V_n$. Observe that
+$$
+U \cap V = (V_1 \cap V_n) \cup \ldots \cup (V_{n - 1} \cap V_n)
+$$
+is also a union of $n - 1$ affine opens as $T$ is separated, see
+Schemes, Lemma \ref{schemes-lemma-characterize-separated}.
+Note that for each $B$ the base changes $U_B$, $V_B$ and
+$(U \cap V)_B = U_B \cap V_B$ behave in the same way. Hence we see that
+for each $B$ we have a long exact sequence
+$$
+0 \to
+H^0(T_B, \mathcal{F}_B) \to
+H^0(U_B, \mathcal{F}_B) \oplus H^0(V_B, \mathcal{F}_B) \to
+H^0((U \cap V)_B, \mathcal{F}_B) \to
+H^1(T_B, \mathcal{F}_B) \to \ldots
+$$
+functorial in $B$, see
+Cohomology, Lemma \ref{cohomology-lemma-mayer-vietoris}.
+By induction hypothesis the functors
+$B \mapsto H^q(U_B, \mathcal{F}_B)$,
+$B \mapsto H^q(V_B, \mathcal{F}_B)$, and
+$B \mapsto H^q((U \cap V)_B, \mathcal{F}_B)$
+are adequate. Using
+Lemmas \ref{lemma-kernel-adequate} and
+\ref{lemma-cokernel-adequate}
+we see that our functor $B \mapsto H^q(T_B, \mathcal{F}_B)$ sits in the
+middle of a short exact sequence whose outer terms are adequate.
+Thus the claim follows from
+Lemma \ref{lemma-extension-adequate}.
+
+\medskip\noindent
+Case III: General quasi-compact and quasi-separated case.
+The proof is again by induction on the number $n$ of affines needed to
+cover $T$. The base case $n = 1$ is Case I.
+Choose an affine open covering $T = V_1 \cup \ldots \cup V_n$.
+Set $V = V_1 \cup \ldots \cup V_{n - 1}$ and $U = V_n$. Note that
+since $T$ is quasi-separated $U \cap V$ is a quasi-compact open of an
+affine scheme, hence Case II applies to it. The rest of the argument
+proceeds in exactly the same manner as in the paragraph above and is
+omitted.
+\end{proof}
+
+
+
+
+
+
+
+\section{Parasitic adequate modules}
+\label{section-parasitic}
+
+\noindent
+In this section we start comparing adequate modules and quasi-coherent
+modules on a scheme $S$. Recall that there are functors
+$u : \QCoh(\mathcal{O}_S) \to \textit{Adeq}(\mathcal{O})$
+and
+$v : \textit{Adeq}(\mathcal{O}) \to \QCoh(\mathcal{O}_S)$
+satisfying the adjunction
+$$
+\SheafHom_{\QCoh(\mathcal{O}_S)}(\mathcal{F}, v\mathcal{G})
+=
+\SheafHom_{\textit{Adeq}(\mathcal{O})}(u\mathcal{F}, \mathcal{G})
+$$
+and such that $\mathcal{F} \to vu\mathcal{F}$ is an isomorphism for
+every quasi-coherent sheaf $\mathcal{F}$, see
+Remark \ref{remark-compare}.
+Hence $u$ is a fully faithful embedding and we can identify
+$\QCoh(\mathcal{O}_S)$ with a full subcategory of
+$\textit{Adeq}(\mathcal{O})$.
+The functor $v$ is exact but $u$ is not left exact in general.
+The kernel of $v$ is the subcategory of parasitic adequate modules.
+
+\medskip\noindent
+In Descent, Definition \ref{descent-definition-parasitic}
+we give the definition of a parasitic module.
+For adequate modules the notion does not depend
+on the chosen topology.
+
+\begin{lemma}
+\label{lemma-parasitic-adequate}
+Let $S$ be a scheme.
+Let $\mathcal{F}$ be an adequate $\mathcal{O}$-module on
+$(\Sch/S)_\tau$. The following are equivalent:
+\begin{enumerate}
+\item $v\mathcal{F} = 0$,
+\item $\mathcal{F}$ is parasitic,
+\item $\mathcal{F}$ is parasitic for the $\tau$-topology,
+\item $\mathcal{F}(U) = 0$ for all $U \subset S$ open, and
+\item there exists an affine open covering $S = \bigcup U_i$
+such that $\mathcal{F}(U_i) = 0$ for all $i$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The implications (2) $\Rightarrow$ (3) $\Rightarrow$ (4) $\Rightarrow$ (5)
+are immediate from the definitions. Assume (5). Suppose that
+$S = \bigcup U_i$ is an affine open covering such that $\mathcal{F}(U_i) = 0$
+for all $i$. Let $V \to S$ be a flat morphism. There exists an affine
+open covering $V = \bigcup V_j$ such that each $V_j$ maps into some
+$U_i$. As the morphism $V_j \to S$ is flat, also $V_j \to U_i$ is flat. 
+Hence the corresponding ring map
+$A_i = \mathcal{O}(U_i) \to \mathcal{O}(V_j) = B_j$ is flat. Thus by
+Lemma \ref{lemma-adequate-local}
+and
+Lemma \ref{lemma-adequate-flat}
+we see that $\mathcal{F}(U_i) \otimes_{A_i} B_j \to \mathcal{F}(V_j)$
+is an isomorphism. Hence $\mathcal{F}(V_j) = 0$. Since $\mathcal{F}$ is
+a sheaf for the Zariski topology we conclude that $\mathcal{F}(V) = 0$.
+In this way we see that (5) implies (2).
+
+\medskip\noindent
+This proves the equivalence of (2), (3), (4), and (5).
+As (1) is equivalent to (3) (see
+Remark \ref{remark-compare})
+we conclude that all five conditions are equivalent.
+\end{proof}
+
+\noindent
+Let $S$ be a scheme.
+The subcategory of parasitic adequate modules is a Serre subcategory of
+$\textit{Adeq}(\mathcal{O})$. The quotient is the category of
+quasi-coherent modules.
+
+\begin{lemma}
+\label{lemma-adequate-by-parasitic}
+Let $S$ be a scheme. The subcategory
+$\mathcal{C} \subset \textit{Adeq}(\mathcal{O})$ of parasitic adequate
+modules is a Serre subcategory. Moreover, the functor $v$ induces
+an equivalence of categories
+$$
+\textit{Adeq}(\mathcal{O}) / \mathcal{C} = \QCoh(\mathcal{O}_S).
+$$
+\end{lemma}
+
+\begin{proof}
+The category $\mathcal{C}$ is the kernel of the exact functor
+$v : \textit{Adeq}(\mathcal{O}) \to \QCoh(\mathcal{O}_S)$, see
+Lemma \ref{lemma-parasitic-adequate}.
+Hence it is a Serre subcategory by
+Homology, Lemma \ref{homology-lemma-kernel-exact-functor}.
+By
+Homology, Lemma \ref{homology-lemma-serre-subcategory-is-kernel}
+we obtain an induced exact functor
+$\overline{v} :
+\textit{Adeq}(\mathcal{O}) / \mathcal{C}
+\to
+\QCoh(\mathcal{O}_S)$.
+Because $u$ is a right inverse to $v$ we see right away that
+$\overline{v}$ is essentially surjective.
+We see that $\overline{v}$ is faithful by
+Homology, Lemma \ref{homology-lemma-quotient-by-kernel-exact-functor}.
+Because $u$ is a right inverse to $v$ we finally conclude that
+$\overline{v}$ is fully faithful.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-direct-image-parasitic-adequate}
+Let $f : T \to S$ be a quasi-compact and quasi-separated morphism
+of schemes. For any parasitic adequate $\mathcal{O}_T$-module on
+$(\Sch/T)_\tau$ the pushforward
+$f_*\mathcal{F}$ and the higher direct images $R^if_*\mathcal{F}$
+are parasitic adequate $\mathcal{O}_S$-modules on $(\Sch/S)_\tau$.
+\end{lemma}
+
+\begin{proof}
+We have already seen in
+Lemma \ref{lemma-direct-image-adequate}
+that these higher direct images are adequate.
+Hence it suffices to show that
+$(R^if_*\mathcal{F})(U_i) = 0$ for any $\tau$-covering
+$\{U_i \to S\}$ open. And $R^if_*\mathcal{F}$
+is parasitic by
+Descent, Lemma \ref{descent-lemma-direct-image-parasitic}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Derived categories of adequate modules, I}
+\label{section-comparison}
+
+
+\noindent
+Let $S$ be a scheme. We continue the discussion started in
+Section \ref{section-parasitic}.
+The exact functor $v$ induces a functor
+$$
+D(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D(\QCoh(\mathcal{O}_S))
+$$
+and similarly for bounded versions.
+
+\begin{lemma}
+\label{lemma-quotient-easy}
+Let $S$ be a scheme. Let
+$\mathcal{C} \subset \textit{Adeq}(\mathcal{O})$ denote the
+full subcategory consisting of parasitic adequate modules.
+Then
+$$
+D(\textit{Adeq}(\mathcal{O}))/D_\mathcal{C}(\textit{Adeq}(\mathcal{O}))
+= D(\QCoh(\mathcal{O}_S))
+$$
+and similarly for the bounded versions.
+\end{lemma}
+
+\begin{proof}
+Follows immediately from
+Derived Categories, Lemma \ref{derived-lemma-quotient-by-serre-easy}.
+\end{proof}
+
+\noindent
+Next, we look for a description the other way around by looking at
+the functors
+$$
+K^+(\QCoh(\mathcal{O}_S))
+\longrightarrow
+K^+(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D^+(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D^+(\QCoh(\mathcal{O}_S)).
+$$
+In some cases the derived category of adequate modules is a localization
+of the homotopy category of complexes of quasi-coherent modules at
+universal quasi-isomorphisms. Let $S$ be a scheme. A map of complexes
+$\varphi : \mathcal{F}^\bullet \to \mathcal{G}^\bullet$
+of quasi-coherent $\mathcal{O}_S$-modules is said to be a
+{\it universal quasi-isomorphism} if for every morphism of schemes
+$f : T \to S$ the pullback $f^*\varphi$ is a quasi-isomorphism.
+
+\begin{lemma}
+\label{lemma-describe-Dplus-adequate}
+Let $U = \Spec(A)$ be an affine scheme.
+The bounded below derived category
+$D^+(\textit{Adeq}(\mathcal{O}))$ is the localization
+of $K^+(\QCoh(\mathcal{O}_U))$ at the multiplicative subset of
+universal quasi-isomorphisms.
+\end{lemma}
+
+\begin{proof}
+If $\varphi : \mathcal{F}^\bullet \to \mathcal{G}^\bullet$
+is a morphism of complexes of quasi-coherent
+$\mathcal{O}_U$-modules, then $u\varphi : u\mathcal{F}^\bullet \to
+u\mathcal{G}^\bullet$ is a quasi-isomorphism if and only if $\varphi$ is
+a universal quasi-isomorphism. Hence the collection $S$
+of universal quasi-isomorphisms is a saturated multiplicative
+system compatible with the triangulated structure by
+Derived Categories, Lemma \ref{derived-lemma-triangle-functor-localize}.
+Hence $S^{-1}K^+(\QCoh(\mathcal{O}_U))$ exists and is a
+triangulated category, see
+Derived Categories, Proposition
+\ref{derived-proposition-construct-localization}.
+We obtain a canonical functor
+$can : S^{-1}K^+(\QCoh(\mathcal{O}_U)) \to
+D^{+}(\textit{Adeq}(\mathcal{O}))$ by
+Derived Categories, Lemma \ref{derived-lemma-universal-property-localization}.
+
+\medskip\noindent
+Note that, almost by definition, every adequate module on $U$ has an
+embedding into a quasi-coherent sheaf, see
+Lemma \ref{lemma-adequate-characterize}. Hence by
+Derived Categories, Lemma \ref{derived-lemma-subcategory-right-resolution}
+given $\mathcal{F}^\bullet \in \Ob(K^+(\textit{Adeq}(\mathcal{O})))$
+there exists a quasi-isomorphism
+$\mathcal{F}^\bullet \to u\mathcal{G}^\bullet$
+where $\mathcal{G}^\bullet \in \Ob(K^+(\QCoh(\mathcal{O}_U)))$.
+This proves that $can$ is essentially surjective.
+
+\medskip\noindent
+Similarly, suppose that $\mathcal{F}^\bullet$ and $\mathcal{G}^\bullet$
+are bounded below complexes of quasi-coherent $\mathcal{O}_U$-modules.
+A morphism in $D^+(\textit{Adeq}(\mathcal{O}))$ between these
+consists of a pair $f : u\mathcal{F}^\bullet \to \mathcal{H}^\bullet$
+and $s : u\mathcal{G}^\bullet \to \mathcal{H}^\bullet$ where $s$
+is a quasi-isomorphism. Pick a quasi-isomorphism
+$s' : \mathcal{H}^\bullet \to u\mathcal{E}^\bullet$. Then we see that
+$s' \circ f : \mathcal{F} \to \mathcal{E}^\bullet$ and the
+universal quasi-isomorphism
+$s' \circ s : \mathcal{G}^\bullet \to \mathcal{E}^\bullet$ give
+a morphism in $S^{-1}K^{+}(\QCoh(\mathcal{O}_U))$ mapping
+to the given morphism. This proves the "fully" part of full faithfulness.
+Faithfulness is proved similarly.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-right-adjoint-adequate}
+Let $U = \Spec(A)$ be an affine scheme.
+The inclusion functor
+$$
+\textit{Adeq}(\mathcal{O}) \to
+\textit{Mod}((\Sch/U)_\tau, \mathcal{O})
+$$
+has a right adjoint $A$\footnote{This is the ``adequator''.}.
+Moreover, the adjunction mapping
+$A(\mathcal{F}) \to \mathcal{F}$ is an isomorphism for every
+adequate module $\mathcal{F}$.
+\end{lemma}
+
+\begin{proof}
+By
+Topologies, Lemma \ref{topologies-lemma-affine-big-site-fppf}
+(and similarly for the other topologies)
+we may work with $\mathcal{O}$-modules on $(\textit{Aff}/U)_\tau$.
+Denote $\mathcal{P}$ the category of module-valued
+functors on $\textit{Alg}_A$ and $\mathcal{A}$ the category of adequate
+functors on $\textit{Alg}_A$. Denote $i : \mathcal{A} \to \mathcal{P}$
+the inclusion functor. Denote $Q : \mathcal{P} \to \mathcal{A}$
+the construction of Lemma \ref{lemma-adjoint}.
+We have the commutative diagram
+\begin{equation}
+\label{equation-categories}
+\vcenter{
+\xymatrix{
+\textit{Adeq}(\mathcal{O}) \ar[r]_-k \ar@{=}[d] &
+\textit{Mod}((\textit{Aff}/U)_\tau, \mathcal{O}) \ar[r]_-j &
+\textit{PMod}((\textit{Aff}/U)_\tau, \mathcal{O}) \ar@{=}[d] \\
+\mathcal{A} \ar[rr]^-i & & \mathcal{P}
+}
+}
+\end{equation}
+The left vertical equality is
+Lemma \ref{lemma-adequate-affine}
+and the right vertical equality was explained in
+Section \ref{section-quasi-coherent}.
+Define $A(\mathcal{F}) = Q(j(\mathcal{F}))$.
+Since $j$ is fully faithful it follows immediately that $A$
+is a right adjoint of the inclusion functor $k$. Also, since
+$k$ is fully faithful too, the final assertion follows formally.
+\end{proof}
+
+\noindent
+The functor $A$ is a right adjoint hence left exact. Since the inclusion
+functor is exact, see
+Lemma \ref{lemma-abelian-adequate}
+we conclude that $A$ transforms injectives into injectives, and that
+the category $\textit{Adeq}(\mathcal{O})$ has enough injectives, see
+Homology, Lemma \ref{homology-lemma-adjoint-enough-injectives}
+and
+Injectives, Theorem \ref{injectives-theorem-sheaves-modules-injectives}.
+This also follows from the equivalence in
+(\ref{equation-categories})
+and
+Lemma \ref{lemma-enough-injectives}.
+
+\begin{lemma}
+\label{lemma-RA-zero}
+Let $U = \Spec(A)$ be an affine scheme.
+For any object $\mathcal{F}$ of $\textit{Adeq}(\mathcal{O})$
+we have $R^pA(\mathcal{F}) = 0$ for all $p > 0$ where $A$ is
+as in
+Lemma \ref{lemma-right-adjoint-adequate}.
+\end{lemma}
+
+\begin{proof}
+With notation as in the proof of
+Lemma \ref{lemma-right-adjoint-adequate}
+choose an injective resolution $k(\mathcal{F}) \to \mathcal{I}^\bullet$
+in the category of $\mathcal{O}$-modules on $(\textit{Aff}/U)_\tau$.
+By
+Cohomology on Sites, Lemmas \ref{sites-cohomology-lemma-include-modules}
+and
+Lemma \ref{lemma-same-cohomology-adequate}
+the complex $j(\mathcal{I}^\bullet)$ is exact.
+On the other hand, each $j(\mathcal{I}^n)$ is an injective object
+of the category of presheaves of modules by
+Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-injective-module-injective-presheaf}.
+It follows that $R^pA(\mathcal{F}) = R^pQ(j(k(\mathcal{F})))$.
+Hence the result now follows from
+Lemma \ref{lemma-RQ-zero}.
+\end{proof}
+
+\noindent
+Let $S$ be a scheme. By the discussion in
+Section \ref{section-adequate}
+the embedding
+$\textit{Adeq}(\mathcal{O}) \subset
+\textit{Mod}((\Sch/S)_\tau, \mathcal{O})$
+exhibits $\textit{Adeq}(\mathcal{O})$ as a weak Serre subcategory of
+the category of all $\mathcal{O}$-modules. Denote
+$$
+D_{\textit{Adeq}}(\mathcal{O}) \subset
+D(\mathcal{O}) = D(\textit{Mod}((\Sch/S)_\tau, \mathcal{O}))
+$$
+the triangulated subcategory of complexes whose cohomology sheaves
+are adequate, see
+Derived Categories, Section \ref{derived-section-triangulated-sub}.
+We obtain a canonical functor
+$$
+D(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D_{\textit{Adeq}}(\mathcal{O})
+$$
+see
+Derived Categories, Equation (\ref{derived-equation-compare}).
+
+\begin{lemma}
+\label{lemma-bounded-below}
+If $U = \Spec(A)$ is an affine scheme, then the bounded
+below version
+\begin{equation}
+\label{equation-compare-bounded-adequate}
+D^+(\textit{Adeq}(\mathcal{O}))
+\longrightarrow
+D^+_{\textit{Adeq}}(\mathcal{O})
+\end{equation}
+of the functor above is an equivalence.
+\end{lemma}
+
+\begin{proof}
+Let $A : \textit{Mod}(\mathcal{O}) \to \textit{Adeq}(\mathcal{O})$
+be the right adjoint to the inclusion functor constructed in
+Lemma \ref{lemma-right-adjoint-adequate}.
+Since $A$ is left exact and since $\textit{Mod}(\mathcal{O})$
+has enough injectives, $A$ has a right derived functor
+$RA : D^+_{\textit{Adeq}}(\mathcal{O}) \to D^+(\textit{Adeq}(\mathcal{O}))$.
+We claim that $RA$ is a quasi-inverse to
+(\ref{equation-compare-bounded-adequate}).
+To see this the key fact is that if $\mathcal{F}$ is an adequate module, then
+the adjunction map $\mathcal{F} \to RA(\mathcal{F})$ is a
+quasi-isomorphism by Lemma \ref{lemma-RA-zero}.
+
+\medskip\noindent
+Namely, to prove the lemma in full it suffices to show:
+\begin{enumerate}
+\item Given $\mathcal{F}^\bullet \in K^+(\textit{Adeq}(\mathcal{O}))$
+the canonical map $\mathcal{F}^\bullet \to RA(\mathcal{F}^\bullet)$
+is a quasi-isomorphism, and
+\item given $\mathcal{G}^\bullet \in K^+(\textit{Mod}(\mathcal{O}))$
+the canonical map $RA(\mathcal{G}^\bullet) \to \mathcal{G}^\bullet$
+is a quasi-isomorphism.
+\end{enumerate}
+Both (1) and (2) follow from the key fact via a spectral sequence
+argument using one of the spectral sequences of
+Derived Categories, Lemma \ref{derived-lemma-two-ss-complex-functor}.
+Some details omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-ext-adequate}
+Let $U = \Spec(A)$ be an affine scheme.
+Let $\mathcal{F}$ and $\mathcal{G}$ be adequate $\mathcal{O}$-modules.
+For any $i \geq 0$ the natural map
+$$
+\Ext^i_{\textit{Adeq}(\mathcal{O})}(\mathcal{F}, \mathcal{G})
+\longrightarrow
+\Ext^i_{\textit{Mod}(\mathcal{O})}(\mathcal{F}, \mathcal{G})
+$$
+is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+By definition these ext groups are computed as hom sets in the
+derived category. Hence this follows immediately from
+Lemma \ref{lemma-bounded-below}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Pure extensions}
+\label{section-pure}
+
+\noindent
+We want to characterize extensions of quasi-coherent sheaves on
+the big site of an affine schemes in terms of algebra. To do this
+we introduce the following notion.
+
+\begin{definition}
+\label{definition-pure}
+Let $A$ be a ring.
+\begin{enumerate}
+\item An $A$-module $P$ is said to be {\it pure projective}
+if for every universally exact sequence
+$0 \to K \to M \to N \to 0$ of $A$-module the sequence
+$0 \to \Hom_A(P, K) \to \Hom_A(P, M) \to \Hom_A(P, N) \to 0$
+is exact.
+\item An $A$-module $I$ is said to be {\it pure injective}
+if for every universally exact sequence
+$0 \to K \to M \to N \to 0$ of $A$-module the sequence
+$0 \to \Hom_A(N, I) \to \Hom_A(M, I) \to \Hom_A(K, I) \to 0$
+is exact.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Let's characterize pure projectives.
+
+\begin{lemma}
+\label{lemma-pure-projective}
+Let $A$ be a ring.
+\begin{enumerate}
+\item A module is pure projective if and only if
+it is a direct summand of a direct sum of finitely presented $A$-modules.
+\item For any module $M$ there exists a universally exact sequence
+$0 \to N \to P \to M \to 0$ with $P$ pure projective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+First note that a finitely presented $A$-module is pure projective by
+Algebra, Theorem \ref{algebra-theorem-universally-exact-criteria}.
+Hence a direct summand of a direct sum of finitely presented $A$-modules
+is indeed pure projective. Let $M$ be any $A$-module.
+Write $M = \colim_{i \in I} P_i$ as a filtered colimit of
+finitely presented $A$-modules. Consider the sequence
+$$
+0 \to N \to \bigoplus P_i \to M \to 0.
+$$
+For any finitely presented $A$-module $P$ the map
+$\Hom_A(P, \bigoplus P_i) \to \Hom_A(P, M)$
+is surjective, as any map $P \to M$ factors through some $P_i$.
+Hence by
+Algebra, Theorem \ref{algebra-theorem-universally-exact-criteria}
+this sequence is universally exact. This proves (2).
+If now $M$ is pure projective, then the sequence is split and
+we see that $M$ is a direct summand of $\bigoplus P_i$.
+\end{proof}
+
+\noindent
+Let's characterize pure injectives.
+
+\begin{lemma}
+\label{lemma-pure-injective}
+Let $A$ be a ring. For any $A$-module $M$ set
+$M^\vee = \Hom_\mathbf{Z}(M, \mathbf{Q}/\mathbf{Z})$.
+\begin{enumerate}
+\item For any $A$-module $M$ the $A$-module $M^\vee$ is pure injective.
+\item An $A$-module $I$ is pure injective if and only if the map
+$I \to (I^\vee)^\vee$ splits.
+\item For any module $M$ there exists a universally exact sequence
+$0 \to M \to I \to N \to 0$ with $I$ pure injective.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We will use the properties of the functor $M \mapsto M^\vee$ found in
+More on Algebra, Section \ref{more-algebra-section-injectives-modules}
+without further mention. Part (1) holds because
+$\Hom_A(N, M^\vee) =
+\Hom_\mathbf{Z}(N \otimes_A M, \mathbf{Q}/\mathbf{Z})$
+and because $\mathbf{Q}/\mathbf{Z}$ is injective in the category of
+abelian groups. Hence if $I \to (I^\vee)^\vee$ is split, then
+$I$ is pure injective. We claim that for any $A$-module $M$ the
+evaluation map $ev : M \to (M^\vee)^\vee$ is universally injective.
+To see this note that $ev^\vee : ((M^\vee)^\vee)^\vee \to M^\vee$
+has a right inverse, namely $ev' : M^\vee \to ((M^\vee)^\vee)^\vee$.
+Then for any $A$-module $N$ applying the exact faithful functor
+${}^\vee$ to the map $N \otimes_A M \to N \otimes_A (M^\vee)^\vee$
+gives
+$$
+\Hom_A(N, ((M^\vee)^\vee)^\vee) =
+\Big(N \otimes_A (M^\vee)^\vee\Big)^\vee
+\to
+\Big(N \otimes_A M\Big)^\vee =
+\Hom_A(N, M^\vee)
+$$
+which is surjective by the existence of the right inverse. The claim follows.
+The claim implies (3) and the necessity of the condition in (2).
+\end{proof}
+
+\noindent
+Before we continue we make the following observation which we will
+use frequently in the rest of this section.
+
+\begin{lemma}
+\label{lemma-split-universally-exact-sequence}
+Let $A$ be a ring.
+\begin{enumerate}
+\item Let $L \to M \to N$ be a universally exact sequence
+of $A$-modules. Let $K = \Im(M \to N)$.
+Then $K \to N$ is universally injective.
+\item Any universally exact complex
+can be split into universally exact short exact sequences.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of (1). For any $A$-module $T$ the sequence
+$L \otimes_A T \to M \otimes_A T \to K \otimes_A T \to 0$ is exact
+by right exactness of $\otimes$. By assumption the sequence
+$L \otimes_A T \to M \otimes_A T \to N \otimes_A T$ is exact.
+Combined this shows that $K \otimes_A T \to N \otimes_A T$ is injective.
+
+\medskip\noindent
+Part (2) means the following: Suppose that $M^\bullet$ is a universally
+exact complex of $A$-modules. Set $K^i = \Ker(d^i) \subset M^i$.
+Then the short exact sequences $0 \to K^i \to M^i \to K^{i + 1} \to 0$
+are universally exact. This follows immediately from part (1).
+\end{proof}
+
+\begin{definition}
+\label{definition-pure-resolution}
+Let $A$ be a ring. Let $M$ be an $A$-module.
+\begin{enumerate}
+\item A {\it pure projective resolution} $P_\bullet \to M$
+is a universally exact sequence
+$$
+\ldots \to P_1 \to P_0 \to M \to 0
+$$
+with each $P_i$ pure projective.
+\item A {\it pure injective resolution} $M \to I^\bullet$ is a universally
+exact sequence
+$$
+0 \to M \to I^0 \to I^1 \to \ldots
+$$
+with each $I^i$ pure injective.
+\end{enumerate}
+\end{definition}
+
+\noindent
+These resolutions satisfy the usual uniqueness properties among the class
+of all universally exact left or right resolutions.
+
+\begin{lemma}
+\label{lemma-pure-projective-resolutions}
+Let $A$ be a ring.
+\begin{enumerate}
+\item Any $A$-module has a pure projective resolution.
+\end{enumerate}
+Let $M \to N$ be a map of $A$-modules.
+Let $P_\bullet \to M$ be a pure projective resolution and
+let $N_\bullet \to N$ be a universally exact resolution.
+\begin{enumerate}
+\item[(2)] There exists a map of complexes $P_\bullet \to N_\bullet$
+inducing the given map
+$$
+M = \Coker(P_1 \to P_0) \to \Coker(N_1 \to N_0) = N
+$$
+\item[(3)] two maps $\alpha, \beta : P_\bullet \to N_\bullet$
+inducing the same map $M \to N$ are homotopic.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (1) follows immediately from
+Lemma \ref{lemma-pure-projective}.
+Before we prove (2) and (3) note that by
+Lemma \ref{lemma-split-universally-exact-sequence}
+we can split the universally exact complex $N_\bullet \to N \to 0$
+into universally exact short exact sequences $0 \to K_0 \to N_0 \to N \to 0$
+and $0 \to K_i \to N_i \to K_{i - 1} \to 0$.
+
+\medskip\noindent
+Proof of (2). Because $P_0$ is pure projective
+we can find a map $P_0 \to N_0$ lifting the map $P_0 \to M \to N$.
+We obtain an induced map $P_1 \to F_0 \to N_0$ wich ends up in $K_0$.
+Since $P_1$ is pure projective we may lift this
+to a map $P_1 \to N_1$. This in turn induces a map
+$P_2 \to P_1 \to N_1$ which maps to zero into
+$N_0$, i.e., into $K_1$. Hence we may lift to get a map
+$P_2 \to N_2$. Repeat.
+
+\medskip\noindent
+Proof of (3). To show that $\alpha, \beta$ are homotopic it suffices
+to show the difference $\gamma = \alpha - \beta$ is homotopic
+to zero. Note that the image of $\gamma_0 : P_0 \to N_0$
+is contained in $K_0$. Hence we may lift
+$\gamma_0$ to a map $h_0 : P_0 \to N_1$. Consider the map
+$\gamma_1' = \gamma_1 - h_0 \circ d_{P, 1} : P_1 \to N_1$.
+By our choice of $h_0$ we see that the image of $\gamma_1'$
+is contained in $K_1$. Since $P_1$ is pure projective may lift
+$\gamma_1'$ to a map $h_1 : P_1 \to N_2$. At this point we have
+$\gamma_1 = h_0 \circ d_{F, 1} + d_{N, 2} \circ h_1$. Repeat.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pure-injective-resolutions}
+Let $A$ be a ring.
+\begin{enumerate}
+\item Any $A$-module has a pure injective resolution.
+\end{enumerate}
+Let $M \to N$ be a map of $A$-modules.
+Let $M \to M^\bullet$ be a universally exact resolution and
+let $N \to I^\bullet$ be a pure injective resolution.
+\begin{enumerate}
+\item[(2)] There exists a map of complexes $M^\bullet \to I^\bullet$
+inducing the given map
+$$
+M = \Ker(M^0 \to M^1) \to \Ker(I^0 \to I^1) = N
+$$
+\item[(3)] two maps $\alpha, \beta : M^\bullet \to I^\bullet$
+inducing the same map $M \to N$ are homotopic.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This lemma is dual to
+Lemma \ref{lemma-pure-projective-resolutions}.
+The proof is identical, except one has to reverse all the arrows.
+\end{proof}
+
+\noindent
+Using the material above we can define pure extension groups as
+follows. Let $A$ be a ring and let $M$, $N$ be $A$-modules.
+Choose a pure injective resolution $N \to I^\bullet$. By
+Lemma \ref{lemma-pure-injective-resolutions}
+the complex
+$$
+\Hom_A(M, I^\bullet)
+$$
+is well defined up to homotopy. Hence its $i$th cohomology module
+is a well defined invariant of $M$ and $N$.
+
+\begin{definition}
+\label{definition-pure-ext}
+Let $A$ be a ring and let $M$, $N$ be $A$-modules.
+The $i$th {\it pure extension module} $\text{Pext}^i_A(M, N)$
+is the $i$th cohomology module of the complex
+$\Hom_A(M, I^\bullet)$ where $I^\bullet$ is a pure injective
+resolution of $N$.
+\end{definition}
+
+\noindent
+Warning: It is not true that an exact sequence of $A$-modules gives
+rise to a long exact sequence of pure extensions groups. (You need
+a universally exact sequence for this.)
+We collect some facts which are obvious from the material above.
+
+\begin{lemma}
+\label{lemma-facts-pext}
+Let $A$ be a ring.
+\begin{enumerate}
+\item $\text{Pext}^i_A(M, N) = 0$ for $i > 0$ whenever $N$ is pure injective,
+\item $\text{Pext}^i_A(M, N) = 0$ for $i > 0$ whenever $M$ is pure projective,
+in particular if $M$ is an $A$-module of finite presentation,
+\item $\text{Pext}^i_A(M, N)$ is also the $i$th cohomology module
+of the complex $\Hom_A(P_\bullet, N)$ where $P_\bullet$
+is a pure projective resolution of $M$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+To see (3) consider the double complex
+$$
+A^{\bullet, \bullet} = \Hom_A(P_\bullet, I^\bullet)
+$$
+Each of its rows is exact except in degree $0$ where its cohomology
+is $\Hom_A(M, I^q)$. Each of its columns is exact except in degree $0$
+where its cohomology is $\Hom_A(P_p, N)$. Hence the two spectral
+sequences associated to this complex in
+Homology, Section \ref{homology-section-double-complex}
+degenerate, giving the equality.
+\end{proof}
+
+
+
+
+
+\section{Higher exts of quasi-coherent sheaves on the big site}
+\label{section-big}
+
+\noindent
+It turns out that the module-valued functor $\underline{I}$ associated to
+a pure injective module $I$ gives rise to an injective object in the
+category of adequate functors on $\textit{Alg}_A$.
+Warning: It is not true that a pure projective module gives rise to
+a projective object in the category of adequate functors. We do have
+plenty of projective objects, namely, the linearly adequate functors.
+
+\begin{lemma}
+\label{lemma-pure-injective-injective-adequate}
+Let $A$ be a ring.
+Let $\mathcal{A}$ be the category of adequate functors on $\textit{Alg}_A$.
+The injective objects of $\mathcal{A}$ are exactly the functors
+$\underline{I}$ where $I$ is a pure injective $A$-module.
+\end{lemma}
+
+\begin{proof}
+Let $I$ be an injective object of $\mathcal{A}$.
+Choose an embedding $I \to \underline{M}$ for some $A$-module $M$.
+As $I$ is injective we see that $\underline{M} = I \oplus F$ for some
+module-valued functor $F$. Then $M = I(A) \oplus F(A)$ and it follows
+that $I = \underline{I(A)}$. Thus we see that any injective object
+is of the form $\underline{I}$ for some $A$-module $I$.
+It is clear that the module $I$ has to be pure injective
+since any universally exact sequence $0 \to M \to N \to L \to 0$
+gives rise to an exact sequence
+$0 \to \underline{M} \to \underline{N} \to \underline{L} \to 0$
+of $\mathcal{A}$.
+
+\medskip\noindent
+Finally, suppose that $I$ is a pure injective
+$A$-module. Choose an embedding $\underline{I} \to J$
+into an injective object of $\mathcal{A}$ (see
+Lemma \ref{lemma-enough-injectives}).
+We have seen above that $J = \underline{I'}$
+for some $A$-module $I'$ which is pure injective. As
+$\underline{I} \to \underline{I'}$ is injective
+the map $I \to I'$ is universally injective. By assumption on $I$
+it splits. Hence $\underline{I}$ is a summand of $J = \underline{I'}$
+whence an injective object of the category $\mathcal{A}$.
+\end{proof}
+
+\noindent
+Let $U = \Spec(A)$ be an affine scheme. Let $M$ be an $A$-module.
+We will use the notation $M^a$ to denote the quasi-coherent sheaf
+of $\mathcal{O}$-modules on $(\Sch/U)_\tau$ associated to
+the quasi-coherent sheaf $\widetilde{M}$ on $U$.
+Now we have all the notation in place to formulate the following lemma.
+
+\begin{lemma}
+\label{lemma-big-ext}
+Let $U = \Spec(A)$ be an affine scheme. Let $M$, $N$ be $A$-modules.
+For all $i$ we have a canonical isomorphism
+$$
+\Ext^i_{\textit{Mod}(\mathcal{O})}(M^a, N^a) = \text{Pext}^i_A(M, N)
+$$
+functorial in $M$ and $N$.
+\end{lemma}
+
+\begin{proof}
+Let us construct a canonical arrow from right to left. Namely, if
+$N \to I^\bullet$ is a pure injective resolution, then
+$M^a \to (I^\bullet)^a$ is an exact complex of (adequate)
+$\mathcal{O}$-modules. Hence any element of $\text{Pext}^i_A(M, N)$
+gives rise to a map $N^a \to M^a[i]$ in $D(\mathcal{O})$, i.e.,
+an element of the group on the left.
+
+\medskip\noindent
+To prove this map is an isomorphism, note that we may replace
+$\Ext^i_{\textit{Mod}(\mathcal{O})}(M^a, N^a)$ by
+$\Ext^i_{\textit{Adeq}(\mathcal{O})}(M^a, N^a)$, see
+Lemma \ref{lemma-ext-adequate}.
+Let $\mathcal{A}$ be the category of adequate functors
+on $\textit{Alg}_A$. We have seen that $\mathcal{A}$ is
+equivalent to $\textit{Adeq}(\mathcal{O})$, see
+Lemma \ref{lemma-adequate-affine}; see also the proof of
+Lemma \ref{lemma-right-adjoint-adequate}.
+Hence now it suffices to prove that
+$$
+\Ext^i_\mathcal{A}(\underline{M}, \underline{N}) =
+\text{Pext}^i_A(M, N)
+$$
+However, this is clear from
+Lemma \ref{lemma-pure-injective-injective-adequate}
+as a pure injective resolution $N \to I^\bullet$ exactly corresponds
+to an injective resolution of $\underline{N}$ in $\mathcal{A}$.
+\end{proof}
+
+
+
+
+
+
+
+\section{Derived categories of adequate modules, II}
+\label{section-derived-categories}
+
+\noindent
+Let $S$ be a scheme. Denote $\mathcal{O}_S$ the structure sheaf of $S$
+and $\mathcal{O}$ the structure sheaf of the big site $(\Sch/S)_\tau$.
+In
+Descent, Remark \ref{descent-remark-change-topologies-ringed}
+we constructed a morphism of ringed sites
+\begin{equation}
+\label{equation-compare-big-small}
+f :
+((\Sch/S)_\tau, \mathcal{O})
+\longrightarrow
+(S_{Zar}, \mathcal{O}_S).
+\end{equation}
+In the previous sections have seen that the functor
+$f_* : \textit{Mod}(\mathcal{O}) \to \textit{Mod}(\mathcal{O}_S)$
+transforms adequate sheaves into quasi-coherent sheaves, and
+induces an exact functor
+$v : \textit{Adeq}(\mathcal{O}) \to \QCoh(\mathcal{O}_S)$, and
+in fact that $f_* = v$ induces an equivalence
+$\textit{Adeq}(\mathcal{O})/\mathcal{C} \to \QCoh(\mathcal{O}_S)$
+where $\mathcal{C}$ is the subcategory of parasitic adequate modules.
+Moreover, the functor $f^*$ transforms quasi-coherent modules
+into adequate modules, and induces a functor
+$u : \QCoh(\mathcal{O}_S) \to \textit{Adeq}(\mathcal{O})$
+which is a left adjoint to $v$.
+
+\medskip\noindent
+There is a very similar relationship between
+$D_{\textit{Adeq}}(\mathcal{O})$ and $D_\QCoh(S)$.
+First we explain why the category $D_{\textit{Adeq}}(\mathcal{O})$
+is independent of the chosen topology.
+
+\begin{remark}
+\label{remark-D-adeq-independence-topology}
+Let $S$ be a scheme.
+Let $\tau, \tau' \in \{Zar, \etale, smooth, syntomic, fppf\}$.
+Denote $\mathcal{O}_\tau$, resp.\ $\mathcal{O}_{\tau'}$
+the structure sheaf $\mathcal{O}$ viewed as a sheaf on
+$(\Sch/S)_\tau$, resp.\ $(\Sch/S)_{\tau'}$.
+Then $D_{\textit{Adeq}}(\mathcal{O}_\tau)$ and
+$D_{\textit{Adeq}}(\mathcal{O}_{\tau'})$ are canonically isomorphic.
+This follows from
+Simplicial Spaces, Lemma
+\ref{spaces-simplicial-lemma-compare-topologies-derived-adequate-modules}.
+Namely, assume $\tau$ is stronger than the topology $\tau'$, let
+$\mathcal{C} = (\Sch/S)_{fppf}$, and let $\mathcal{B}$ the collection
+of affine schemes over $S$. Assumptions (1) and (2) we've seen above.
+Assumption (3) is clear and assumption (4) follows from
+Lemma \ref{lemma-same-cohomology-adequate}.
+\end{remark}
+
+\begin{remark}
+\label{remark-D-adeq-and-D-QCoh}
+Let $S$ be a scheme. The morphism $f$ see
+(\ref{equation-compare-big-small}) induces
+adjoint functors
+$Rf_* : D_{\textit{Adeq}}(\mathcal{O}) \to D_\QCoh(S)$
+and
+$Lf^* : D_\QCoh(S) \to D_{\textit{Adeq}}(\mathcal{O})$.
+Moreover $Rf_* Lf^* \cong \text{id}_{D_\QCoh(S)}$.
+
+\medskip\noindent
+We sketch the proof. By
+Remark \ref{remark-D-adeq-independence-topology}
+we may assume the topology $\tau$ is the Zariski topology.
+We will use the existence of the unbounded total derived
+functors $Lf^*$ and $Rf_*$ on $\mathcal{O}$-modules and their
+adjointness, see
+Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-adjoint}.
+In this case $f_*$ is just the restriction to the subcategory
+$S_{Zar}$ of $(\Sch/S)_{Zar}$. Hence it is clear that
+$Rf_* = f_*$ induces
+$Rf_* : D_{\textit{Adeq}}(\mathcal{O}) \to D_\QCoh(S)$.
+Suppose that $\mathcal{G}^\bullet$ is an object of
+$D_\QCoh(S)$. We may choose a system
+$\mathcal{K}_1^\bullet \to \mathcal{K}_2^\bullet \to \ldots$
+of bounded above complexes of flat $\mathcal{O}_S$-modules whose
+transition maps are termwise split injectives and a diagram
+$$
+\xymatrix{
+\mathcal{K}_1^\bullet \ar[d] \ar[r] &
+\mathcal{K}_2^\bullet \ar[d] \ar[r] & \ldots \\
+\tau_{\leq 1}\mathcal{G}^\bullet \ar[r] &
+\tau_{\leq 2}\mathcal{G}^\bullet \ar[r] & \ldots
+}
+$$
+with the properties (1), (2), (3) listed in
+Derived Categories, Lemma \ref{derived-lemma-special-direct-system}
+where $\mathcal{P}$ is the collection of flat $\mathcal{O}_S$-modules.
+Then $Lf^*\mathcal{G}^\bullet$ is computed by
+$\colim f^*\mathcal{K}_n^\bullet$, see
+Cohomology on Sites, Lemmas \ref{sites-cohomology-lemma-pullback-K-flat} and
+\ref{sites-cohomology-lemma-derived-base-change}
+(note that our sites have enough points by
+\'Etale Cohomology, Lemma \ref{etale-cohomology-lemma-points-fppf}).
+We have to see that $H^i(Lf^*\mathcal{G}^\bullet) =
+\colim H^i(f^*\mathcal{K}_n^\bullet)$ is adequate for each $i$. By
+Lemma \ref{lemma-abelian-adequate}
+we conclude that it suffices to show that
+each $H^i(f^*\mathcal{K}_n^\bullet)$ is adequate.
+
+\medskip\noindent
+The adequacy of $H^i(f^*\mathcal{K}_n^\bullet)$ is local on $S$, hence
+we may assume that $S = \Spec(A)$ is affine. Because $S$ is affine
+$D_\QCoh(S) = D(\QCoh(\mathcal{O}_S))$, see
+the discussion in
+Derived Categories of Schemes, Section
+\ref{perfect-section-derived-quasi-coherent}.
+Hence there exists a quasi-isomorphism
+$\mathcal{F}^\bullet \to \mathcal{K}_n^\bullet$
+where $\mathcal{F}^\bullet$ is a bounded above complex of flat
+quasi-coherent modules.
+Then $f^*\mathcal{F}^\bullet \to f^*\mathcal{K}_n^\bullet$ is a
+quasi-isomorphism, and the cohomology sheaves of
+$f^*\mathcal{F}^\bullet$ are adequate.
+
+\medskip\noindent
+The final assertion
+$Rf_* Lf^* \cong \text{id}_{D_\QCoh(S)}$
+follows from the explicit description of the functors above.
+(In plain English: if $\mathcal{F}$ is quasi-coherent and $p > 0$, then
+$L_pf^*\mathcal{F}$ is a parasitic adequate module.)
+\end{remark}
+
+
+\begin{remark}
+\label{remark-conclusion}
+Remark \ref{remark-D-adeq-and-D-QCoh}
+above implies we have an equivalence of derived categories
+$$
+D_{\textit{Adeq}}(\mathcal{O})/D_\mathcal{C}(\mathcal{O})
+\longrightarrow
+D_\QCoh(S)
+$$
+where $\mathcal{C}$ is the category of parasitic adequate modules.
+Namely, it is clear that $D_\mathcal{C}(\mathcal{O})$ is the kernel
+of $Rf_*$, hence a functor as indicated. For any object $X$ of
+$D_{\textit{Adeq}}(\mathcal{O})$ the map $Lf^*Rf_*X \to X$ maps
+to a quasi-isomorphism in $D_\QCoh(S)$, hence
+$Lf^*Rf_*X \to X$ is an isomorphism in
+$D_{\textit{Adeq}}(\mathcal{O})/D_\mathcal{C}(\mathcal{O})$.
+Finally, for $X, Y$ objects of $D_{\textit{Adeq}}(\mathcal{O})$
+the map
+$$
+Rf_* :
+\Hom_{D_{\textit{Adeq}}(\mathcal{O})/D_\mathcal{C}(\mathcal{O})}(X, Y)
+\to
+\Hom_{D_\QCoh(S)}(Rf_*X, Rf_*Y)
+$$
+is bijective as $Lf^*$ gives an inverse (by the remarks above).
+\end{remark}
+
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

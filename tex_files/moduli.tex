@@ -1,0 +1,2074 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Moduli Stacks}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+
+
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+In this chapter we verify basic properties of moduli spaces
+and moduli stacks such as
+$\mathit{Hom}$, $\mathit{Isom}$, $\Cohstack_{X/B}$,
+$\Quotfunctor_{\mathcal{F}/X/B}$, $\Hilbfunctor_{X/B}$,
+$\Picardstack_{X/B}$, $\Picardfunctor_{X/B}$, $\mathit{Mor}_B(Z, X)$,
+$\Spacesstack'_{fp, flat, proper}$, $\Polarizedstack$, and
+$\Complexesstack_{X/B}$.
+We have already shown these algebraic spaces or algebraic stacks
+under suitable hypotheses, see Quot, Sections
+\ref{quot-section-hom},
+\ref{quot-section-isom},
+\ref{quot-section-stack-coherent-sheaves},
+\ref{quot-section-not-flat},
+\ref{quot-section-quot},
+\ref{quot-section-hilb},
+\ref{quot-section-picard-stack},
+\ref{quot-section-picard-functor},
+\ref{quot-section-relative-morphisms},
+\ref{quot-section-stack-of-spaces},
+\ref{quot-section-polarized}, and
+\ref{quot-section-moduli-complexes}.
+The stack of curves, denoted $\textit{Curves}$ and introduced
+in Quot, Section \ref{quot-section-curves}, is discussed in the
+chapter on moduli of curves, see
+Moduli of Curves, Section \ref{moduli-curves-section-stack-curves}.
+
+\medskip\noindent
+In some sense this chapter is following the footsteps of
+Grothendieck's lectures \cite{Gr-I},
+\cite{Gr-II},
+\cite{Gr-III},
+\cite{Gr-IV},
+\cite{Gr-V}, and
+\cite{Gr-VI}.
+
+
+
+
+
+
+
+\section{Conventions and abuse of language}
+\label{section-conventions}
+
+\noindent
+We continue to use the conventions and the abuse of language
+introduced in
+Properties of Stacks, Section \ref{stacks-properties-section-conventions}.
+Unless otherwise mentioned our base scheme will be $\Spec(\mathbf{Z})$.
+
+
+
+
+
+
+\section{Properties of Hom and Isom}
+\label{section-hom-isom}
+
+\noindent
+Let $f : X \to B$ be a morphism of algebraic spaces which is
+of finite presentation. Assume $\mathcal{F}$ and $\mathcal{G}$
+are quasi-coherent $\mathcal{O}_X$-modules.
+If $\mathcal{G}$ is of finite presentation, flat over $B$
+with support proper over $B$, then the functor
+$\mathit{Hom}(\mathcal{F}, \mathcal{G})$ defined by
+$$
+T/B \longmapsto \Hom_{\mathcal{O}_{X_T}}(\mathcal{F}_T, \mathcal{G}_T)
+$$
+is an algebraic space affine over $B$. If $\mathcal{F}$ is of
+finite presentation, then
+$\mathit{Hom}(\mathcal{F}, \mathcal{G}) \to B$
+is of finite presentation. See
+Quot, Proposition \ref{quot-proposition-hom}.
+
+\medskip\noindent
+If both $\mathcal{F}$ and $\mathcal{G}$ are of finite presentation,
+flat over $B$ with support proper over $B$, then the subfunctor
+$$
+\mathit{Isom}(\mathcal{F}, \mathcal{G}) \subset
+\mathit{Hom}(\mathcal{F}, \mathcal{G})
+$$
+is an algebraic space affine of finite presentation over $B$.
+See Quot, Proposition \ref{quot-proposition-isom}.
+
+
+
+
+\section{Properties of the stack of coherent sheaves}
+\label{section-stack-coherent-sheaves}
+
+\noindent
+Let $f : X \to B$ be a morphism of algebraic spaces which is
+separated and of finite presentation. Then the stack
+$\Cohstack_{X/B}$ parametrizing flat families of coherent
+modules with proper support is algebraic. See
+Quot, Theorem \ref{quot-theorem-coherent-algebraic-general}.
+
+\begin{lemma}
+\label{lemma-coherent-diagonal-affine-fp}
+The diagonal of $\Cohstack_{X/B}$ over $B$ is affine
+and of finite presentation.
+\end{lemma}
+
+\begin{proof}
+The representability of the diagonal (by algebraic spaces)
+was shown in Quot, Lemma \ref{quot-lemma-coherent-diagonal}.
+From the proof we find that we have to show
+$\mathit{Isom}(\mathcal{F}, \mathcal{G}) \to T$
+is affine and of finite presentation for a pair of
+finitely presented $\mathcal{O}_{X_T}$-modules
+$\mathcal{F}$, $\mathcal{G}$ flat over $T$ with support
+proper over $T$. This was discussed in Section \ref{section-hom-isom}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-coherent-qs-lfp}
+The morphism $\Cohstack_{X/B} \to B$ is quasi-separated and
+locally of finite presentation.
+\end{lemma}
+
+\begin{proof}
+To check $\Cohstack_{X/B} \to B$ is quasi-separated we have to
+show that its diagonal is quasi-compact and quasi-separated.
+This is immediate from Lemma \ref{lemma-coherent-diagonal-affine-fp}.
+To prove that $\Cohstack_{X/B} \to B$ is locally of finite
+presentation, we have to show that $\Cohstack_{X/B} \to B$
+is limit preserving, see
+Limits of Stacks, Proposition
+\ref{stacks-limits-proposition-characterize-locally-finite-presentation}.
+This follows from Quot, Lemma \ref{quot-lemma-coherent-limits}
+(small detail omitted).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-coherent-existence-part}
+Assume $X \to B$ is proper as well as of finite presentation.
+Then $\Cohstack_{X/B} \to B$ satisfies the existence part
+of the valuative criterion (Morphisms of Stacks, Definition
+\ref{stacks-morphisms-definition-existence}).
+\end{lemma}
+
+\begin{proof}
+Taking base change, this immediately reduces to the following
+problem: given a valuation ring $R$ with fraction field $K$ and
+an algebraic space $X$ proper over $R$ and a coherent
+$\mathcal{O}_{X_K}$-module $\mathcal{F}_K$, show there exists
+a finitely presented $\mathcal{O}_X$-module $\mathcal{F}$
+flat over $R$ whose generic fibre is $\mathcal{F}_K$.
+Observe that by Flatness on Spaces, Theorem
+\ref{spaces-flat-theorem-finite-type-flat}
+any finite type quasi-coherent $\mathcal{O}_X$-module
+$\mathcal{F}$ flat over $R$ is of finite presentation.
+Denote $j : X_K \to X$ the embedding of the generic fibre.
+As a base change of the affine morphism $\Spec(K) \to \Spec(R)$
+the morphism $j$ is affine. Thus $j_*\mathcal{F}_K$ is
+quasi-coherent. Write
+$$
+j_*\mathcal{F}_K = \colim \mathcal{F}_i
+$$
+as a filtered colimit of its finite type quasi-coherent
+$\mathcal{O}_X$-submodules, see
+Limits of Spaces, Lemma \ref{spaces-limits-lemma-directed-colimit-finite-type}.
+Since $j_*\mathcal{F}_K$ is a sheaf of $K$-vector spaces over $X$,
+it is flat over $\Spec(R)$. Thus each $\mathcal{F}_i$ is flat
+over $R$ as flatness over a valuation ring is the same as being
+torsion free
+(More on Algebra, Lemma
+\ref{more-algebra-lemma-valuation-ring-torsion-free-flat})
+and torsion freeness is inherited by submodules.
+Finally, we have to show that the map
+$j^*\mathcal{F}_i \to \mathcal{F}_K$
+is an isomorphism for some $i$.
+Since $j^*j_*\mathcal{F}_K = \mathcal{F}_K$ (small detail omitted)
+and since $j^*$ is exact, we see that $j^*\mathcal{F}_i \to \mathcal{F}_K$
+is injective for all $i$.
+Since $j^*$ commutes with colimits, we have
+$\mathcal{F}_K = j^*j_*\mathcal{F}_K = \colim j^*\mathcal{F}_i$.
+Since $\mathcal{F}_K$ is coherent (i.e., finitely presented),
+there is an $i$ such that $j^*\mathcal{F}_i$ contains all the
+(finitely many) generators over an affine \'etale cover of $X$.
+Thus we get surjectivity of $j^*\mathcal{F}_i \to \mathcal{F}_K$
+for $i$ large enough.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-coherent-functorial}
+Let $B$ be an algebraic space. Let $\pi : X \to Y$ be a quasi-finite
+morphism of algebraic spaces which are separated and of finite presentation
+over $B$. Then $\pi_*$ induces a morphism
+$\Cohstack_{X/B} \to \Cohstack_{Y/B}$.
+\end{lemma}
+
+\begin{proof}
+Let $(T \to B, \mathcal{F})$ be an object of $\Cohstack_{X/B}$.
+We claim
+\begin{enumerate}
+\item[(a)] $(T \to B, \pi_{T, *}\mathcal{F})$ is an object
+of $\Cohstack_{Y/B}$ and
+\item[(b)] for $T' \to T$ we have
+$\pi_{T', *}(X_{T'} \to X_T)^*\mathcal{F} =
+(Y_{T'} \to Y_T)^*\pi_{T, *}\mathcal{F}$.
+\end{enumerate}
+Part (b) guarantees that this construction defines a functor
+$\Cohstack_{X/B} \to \Cohstack_{Y/B}$ as desired.
+
+\medskip\noindent
+Let $i : Z \to X_T$ be the closed subspace cut out by the zeroth
+fitting ideal of $\mathcal{F}$
+(Divisors on Spaces, Section
+\ref{spaces-divisors-section-fitting-ideals}).
+Then $Z \to B$ is proper by assumption (see
+Derived Categories of Spaces, Section
+\ref{spaces-perfect-section-proper-over-base}).
+On the other hand $i$ is of finite presentation
+(Divisors on Spaces, Lemma
+\ref{spaces-divisors-lemma-fitting-ideal-of-finitely-presented} and
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-closed-immersion-finite-presentation}).
+There exists a quasi-coherent $\mathcal{O}_Z$-module
+$\mathcal{G}$ of finite type with $i_*\mathcal{G} = \mathcal{F}$
+(Divisors on Spaces, Lemma
+\ref{spaces-divisors-lemma-on-subscheme-cut-out-by-Fit-0}).
+In fact $\mathcal{G}$ is of finite presentation as an $\mathcal{O}_Z$-module
+by Descent on Spaces, Lemma
+\ref{spaces-descent-lemma-finite-finitely-presented-module}.
+Observe that $\mathcal{G}$ is flat over $B$, for example
+because the stalks of $\mathcal{G}$ and $\mathcal{F}$ agree
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-stalk-push-closed}).
+Observe that $\pi_T \circ i : Z \to Y_T$ is quasi-finite as a composition
+of quasi-finite morphisms and that
+$\pi_{T, *}\mathcal{F} = (\pi_T \circ i)_*\mathcal{G})$.
+Since $i$ is affine, formation of $i_*$ commutes with base change
+(Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-affine-base-change}).
+Therefore we may replace $B$ by $T$, $X$ by $Z$,
+$\mathcal{F}$ by $\mathcal{G}$, and $Y$ by $Y_T$
+to reduce to the case discussed in the next paragraph.
+
+\medskip\noindent
+Assume that $X \to B$ is proper. Then $\pi$ is proper
+by Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-universally-closed-permanence}
+and hence finite by
+More on Morphisms of Spaces,
+Lemma \ref{spaces-more-morphisms-lemma-characterize-finite}.
+Since a finite morphism is affine we see that (b) holds by
+Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-affine-base-change}.
+On the other hand, $\pi$ is of finite presentation by
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-finite-presentation-permanence}.
+Thus $\pi_{T, *}\mathcal{F}$ is of finite presentation by
+Descent on Spaces, Lemma
+\ref{spaces-descent-lemma-finite-finitely-presented-module}.
+Finally, $\pi_{T, *}\mathcal{F} $ is flat over $B$ for example
+by looking at stalks using
+Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-stalk-push-finite}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-coherent-open}
+Let $B$ be an algebraic space. Let $\pi : X \to Y$ be an open immersion
+of algebraic spaces which are separated and of finite presentation over $B$.
+Then the morphism $\Cohstack_{X/B} \to \Cohstack_{Y/B}$ of
+Lemma \ref{lemma-coherent-functorial} is an open immersion.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: If $\mathcal{F}$ is an object of $\Cohstack_{Y/B}$ over $T$
+and for $t \in T$ we have $\text{Supp}(\mathcal{F}_t) \subset |X_t|$,
+then the same is true for $t' \in T$ in a neighbourhood of $t$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-coherent-closed}
+Let $B$ be an algebraic space. Let $\pi : X \to Y$ be a closed immersion
+of algebraic spaces which are separated and of finite presentation over $B$.
+Then the morphism $\Cohstack_{X/B} \to \Cohstack_{Y/B}$ of
+Lemma \ref{lemma-coherent-functorial} is a closed immersion.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{I} \subset \mathcal{O}_Y$ be the sheaf of ideals cutting
+out $X$ as a closed subspace of $Y$. Recall that $\pi_*$ induces
+an equivalence between the category of quasi-coherent $\mathcal{O}_X$-modules
+and the category of quasi-coherent $\mathcal{O}_Y$-modules annihilated
+by $\mathcal{I}$, see Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-i-star-equivalence}.
+The same, mutatis mutandis, is true after base by $T \to B$ with
+$\mathcal{I}$ replaced by the ideal sheaf
+$\mathcal{I}_T = \Im((Y_T \to Y)^*\mathcal{I} \to \mathcal{O}_{Y_T})$.
+Analyzing the proof of Lemma \ref{lemma-coherent-functorial}
+we find that the essential image of
+$\Cohstack_{X/B} \to \Cohstack_{Y/B}$
+is exactly the objects $\xi = (T \to B, \mathcal{F})$
+where $\mathcal{F}$ is annihilated by $\mathcal{I}_T$.
+In other words, $\xi$ is in the essential image if and only if
+the multiplication map
+$$
+\mathcal{F} \otimes_{\mathcal{O}_{Y_T}} (Y_T \to Y)^*\mathcal{I}
+\longrightarrow
+\mathcal{F}
+$$
+is zero and similarly after any further base change $T' \to T$.
+Note that
+$$
+(Y_{T'} \to Y_T)^*(
+\mathcal{F} \otimes_{\mathcal{O}_{Y_T}} (Y_T \to Y)^*\mathcal{I}) =
+(Y_{T'} \to Y_T)^*\mathcal{F} \otimes_{\mathcal{O}_{Y_{T'}}}
+(Y_{T'} \to Y)^*\mathcal{I})
+$$
+Hence the vanishing of the multiplication map on $T'$
+is representable by a closed subspace of $T$ by
+Flatness on Spaces, Lemma \ref{spaces-flat-lemma-F-zero-closed-proper}.
+\end{proof}
+
+\begin{situation}[Numerical invariants]
+\label{situation-numerical}
+Let $f : X \to B$ be as in the introduction to this section. Let $I$
+be a set and for $i \in I$ let $E_i \in D(\mathcal{O}_X)$ be perfect.
+Given an object $(T \to B, \mathcal{F})$ of $\Cohstack_{X/B}$
+denote $E_{i, T}$ the derived pullback of $E_i$ to $X_T$.
+The object
+$$
+K_i = Rf_{T, *}(E_{i, T} \otimes_{\mathcal{O}_{X_T}}^\mathbf{L} \mathcal{F})
+$$
+of $D(\mathcal{O}_T)$ is perfect and its formation commutes with base change,
+see Derived Categories of Spaces, Lemma
+\ref{spaces-perfect-lemma-base-change-tensor-perfect}.
+Thus the function
+$$
+\chi_i : |T| \longrightarrow \mathbf{Z},\quad
+\chi_i(t) =
+\chi(X_t, E_{i, t} \otimes_{\mathcal{O}_{X_t}}^\mathbf{L} \mathcal{F}_t) =
+\chi(K_i \otimes_{\mathcal{O}_T}^\mathbf{L} \kappa(t))
+$$
+is locally constant by Derived Categories of Spaces, Lemma
+\ref{spaces-perfect-lemma-chi-locally-constant}.
+Let $P : I \to \mathbf{Z}$ be a map. Consider the substack
+$$
+\Cohstack^P_{X/B} \subset \Cohstack_{X/B}
+$$
+consisting of flat families of coherent sheaves with proper support
+whose numerical invariants agree with $P$. More precisely, an object
+$(T \to B, \mathcal{F})$ of $\Cohstack_{X/B}$ is in
+$\Cohstack^P_{X/B}$ if and only if $\chi_i(t) = P(i)$ for all $i \in I$
+and $t \in T$.
+\end{situation}
+
+\begin{lemma}
+\label{lemma-open-P}
+In Situation \ref{situation-numerical} the stack
+$\Cohstack^P_{X/B}$ is algebraic and
+$$
+\Cohstack^P_{X/B} \longrightarrow \Cohstack_{X/B}
+$$
+is a flat closed immersion. If $I$ is finite or $B$ is locally
+Noetherian, then $\Cohstack^P_{X/B}$ is an open and closed substack of
+$\Cohstack_{X/B}$.
+\end{lemma}
+
+\begin{proof}
+This is immediately clear if $I$ is finite, because the functions
+$t \mapsto \chi_i(t)$ are locally constant. If $I$ is infinite, then
+we write
+$$
+I = \bigcup\nolimits_{I' \subset I\text{ finite}} I'
+$$
+and we denote $P' = P|_{I'}$. Then we have
+$$
+\Cohstack^P_{X/B} = \bigcap\nolimits_{I' \subset I\text{ finite}}
+\Cohstack^{P'}_{X/B}
+$$
+Therefore, $\Cohstack^P_{X/B}$ is always an algebraic stack and the morphism
+$\Cohstack^P_{X/B} \subset \Cohstack_{X/B}$ is always a flat closed immersion,
+but it may no longer be an open substack. (We leave it to the reader to
+make examples). However, if $B$ is locally Noetherian, then so
+is $\Cohstack_{X/B}$ by Lemma \ref{lemma-coherent-qs-lfp} and
+Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-locally-finite-type-locally-noetherian}.
+Hence if $U \to \Cohstack_{X/B}$ is a smooth surjective morphism
+where $U$ is a locally Noetherian scheme, then the inverse images of
+the open and closed substacks $\Cohstack^{P'}_{X/B}$
+have an open intersection in $U$ (because connected components of
+locally Noetherian topological spaces are open).
+Thus the result in this case.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-list-perfect-objects}
+Let $f : X \to B$ be as in the introduction to this section.
+Let $E_1, \ldots, E_r \in D(\mathcal{O}_X)$ be perfect.
+Let $I = \mathbf{Z}^{\oplus r}$ and consider the map
+$$
+I \longrightarrow D(\mathcal{O}_X),\quad
+(n_1, \ldots, n_r) \longmapsto
+E_1^{\otimes n_1}
+\otimes \ldots \otimes
+E_1^{\otimes n_r}
+$$
+Let $P : I \to \mathbf{Z}$ be a map. Then
+$\Cohstack^P_{X/B} \subset \Cohstack_{X/B}$
+is an open and closed substack.
+\end{lemma}
+
+\begin{proof}
+We may work \'etale locally on $B$, hence we may assume that $B$ is affine.
+In this case we may perform absolute Noetherian reduction; we suggest
+the reader skip the proof. Namely, say $B = \Spec(\Lambda)$.
+Write $\Lambda = \colim \Lambda_i$ as a filtered colimit with each $\Lambda_i$
+of finite type over $\mathbf{Z}$. For some $i$ we can find
+a morphism of algebraic spaces $X_i \to \Spec(\Lambda_i)$
+which is separated and of finite presentation and whose base change
+to $\Lambda$ is $X$. See Limits of Spaces, Lemmas
+\ref{spaces-limits-lemma-descend-finite-presentation} and
+\ref{spaces-limits-lemma-descend-separated-morphism}.
+Then after increasing $i$ we may assume there exist
+perfect objects $E_{1, i}, \ldots, E_{r, i}$
+in $D(\mathcal{O}_{X_i})$ whose derived pullback to $X$
+are isomorphic to $E_1, \ldots, E_r$, see
+Derived Categories of Spaces, Lemma
+\ref{spaces-perfect-lemma-perfect-on-limit}.
+Clearly we have a cartesian square
+$$
+\xymatrix{
+\Cohstack^P_{X/B} \ar[r] \ar[d] &
+\Cohstack_{X/B} \ar[d] \\
+\Cohstack^P_{X_i/\Spec(\Lambda_i)} \ar[r] &
+\Cohstack_{X_i/\Spec(\Lambda_i)}
+}
+$$
+and hence we may appeal to Lemma \ref{lemma-open-P}
+to finish the proof.
+\end{proof}
+
+\begin{example}[Coherent sheaves with fixed Hilbert polynomial]
+\label{example-hilbert-polynomial}
+Let $f : X \to B$ be as in the introduction to this section.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Let $P : \mathbf{Z} \to \mathbf{Z}$ be a numerical polynomial.
+Then we can consider the open and closed algebraic substack
+$$
+\Cohstack^P_{X/B} =
+\Cohstack^{P, \mathcal{L}}_{X/B}
+\subset \Cohstack_{X/B}
+$$
+consisting of flat families of coherent sheaves with proper support
+whose numerical invariants agree with $P$: an object
+$(T \to B, \mathcal{F})$ of $\Cohstack_{X/B}$ lies in
+$\Cohstack^P_{X/B}$ if and only if
+$$
+P(n) =
+\chi(X_t, \mathcal{F}_t \otimes_{\mathcal{O}_{X_t}} \mathcal{L}_t^{\otimes n})
+$$
+for all $n \in \mathbf{Z}$ and $t \in T$. Of course this is a
+special case of Situation \ref{situation-numerical}
+where $I = \mathbf{Z} \to D(\mathcal{O}_X)$ is given by
+$n \mapsto \mathcal{L}^{\otimes n}$. It follows from
+Lemma \ref{lemma-finite-list-perfect-objects}
+that this is an open and closed substack. Since the functions
+$n \mapsto
+\chi(X_t, \mathcal{F}_t \otimes_{\mathcal{O}_{X_t}} \mathcal{L}_t^{\otimes n})$
+are always numerical polynomials (Spaces over Fields, Lemma
+\ref{spaces-over-fields-lemma-numerical-polynomial-from-euler})
+we conclude that
+$$
+\Cohstack_{X/B} = \coprod\nolimits_{P\text{ numerical polynomial}}
+\Cohstack^P_{X/B}
+$$
+is a disjoint union decomposition.
+\end{example}
+
+
+
+
+
+
+
+\section{Properties of Quot}
+\label{section-quot}
+
+\noindent
+Let $f : X \to B$ be a morphism of algebraic spaces which is
+separated and of finite presentation. Let $\mathcal{F}$ be a
+quasi-coherent $\mathcal{O}_X$-module. Then
+$\Quotfunctor_{\mathcal{F}/X/B}$ is an algebraic space.
+If $\mathcal{F}$ is of finite presentation, then
+$\Quotfunctor_{\mathcal{F}/X/B} \to B$ is locally of finite
+presentation. See Quot, Proposition \ref{quot-proposition-quot}.
+
+\begin{lemma}
+\label{lemma-quot-diagonal-closed}
+The diagonal of $\Quotfunctor_{\mathcal{F}/X/B} \to B$ is a closed immersion.
+If $\mathcal{F}$ is of finite type, then the diagonal is a closed
+immersion of finite presentation.
+\end{lemma}
+
+\begin{proof}
+Suppose we have a scheme $T/B$ and two quotients
+$\mathcal{F}_T \to \mathcal{Q}_i$, $i = 1, 2$ corresponding
+to $T$-valued points of $\Quotfunctor_{\mathcal{F}/X/B}$ over $B$.
+Denote $\mathcal{K}_1$ the kernel of the first one and set
+$u : \mathcal{K}_1 \to \mathcal{Q}_2$ the composition.
+By Flatness on Spaces, Lemma \ref{spaces-flat-lemma-F-zero-closed-proper}
+there is a closed subspace of $T$ such that $T' \to T$
+factors through it if and only if the pullback $u_{T'}$ is zero.
+This proves the diagonal is a closed immersion.
+Moreover, if $\mathcal{F}$ is of finite type, then
+$\mathcal{K}_1$ is of finite type
+(Modules on Sites, Lemma
+\ref{sites-modules-lemma-kernel-surjection-finite-onto-finite-presentation})
+and we see that the diagonal is of finite presentation by
+the same lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quot-s-lfp}
+The morphism $\Quotfunctor_{\mathcal{F}/X/B} \to B$ is separated.
+If $\mathcal{F}$ is of finite presentation, then it is also
+locally of finite presentation.
+\end{lemma}
+
+\begin{proof}
+To check $\Quotfunctor_{\mathcal{F}/X/B} \to B$ is separated we have to
+show that its diagonal is a closed immersion. This
+is true by Lemma \ref{lemma-quot-diagonal-closed}.
+The second statement is part of
+Quot, Proposition \ref{quot-proposition-quot}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quot-existence-part}
+Assume $X \to B$ is proper as well as of finite presentation
+and $\mathcal{F}$ quasi-coherent of finite type.
+Then $\Quotfunctor_{\mathcal{F}/X/B} \to B$ satisfies the existence part
+of the valuative criterion (Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-valuative-criterion}).
+\end{lemma}
+
+\begin{proof}
+Taking base change, this immediately reduces to the following
+problem: given a valuation ring $R$ with fraction field $K$,
+an algebraic space $X$ proper over $R$, a finite type quasi-coherent
+$\mathcal{O}_X$-module $\mathcal{F}$, and a coherent
+quotient $\mathcal{F}_K \to \mathcal{Q}_K$, show there exists
+a quotient $\mathcal{F} \to \mathcal{Q}$ where $\mathcal{Q}$ is a
+finitely presented $\mathcal{O}_X$-module
+flat over $R$ whose generic fibre is $\mathcal{Q}_K$.
+Observe that by Flatness on Spaces, Theorem
+\ref{spaces-flat-theorem-finite-type-flat}
+any finite type quasi-coherent $\mathcal{O}_X$-module
+$\mathcal{F}$ flat over $R$ is of finite presentation.
+We first solve the existence of $\mathcal{Q}$ affine locally.
+
+\medskip\noindent
+Affine locally we arrive at the following problem:
+let $R \to A$ be a finitely presented ring map,
+let $M$ be a finite $A$-module, let $\varphi : M_K \to N_K$ be
+an $A_K$-quotient module. Then we may consider
+$$
+L = \{x \in M \mid \varphi(x \otimes 1) = 0 \}
+$$
+The $M \to M/L$ is an $A$-module quotient which is
+torsion free as an $R$-module. Hence it is flat as an
+$R$-module (More on Algebra, Lemma
+\ref{more-algebra-lemma-valuation-ring-torsion-free-flat}).
+Since $M$ is finite as an $A$-module so is $L$ and we
+conclude that $L$ is of finite presentation as an $A$-module
+(by the reference above). Clearly $M/L$ is the unqiue such
+quotient with $(M/L)_K = N_K$.
+
+\medskip\noindent
+The uniqueness in the construction of the previous paragraph
+guarantees these quotients glue and give the desired $\mathcal{Q}$.
+Here is a bit more detail. Choose a surjective \'etale morphism
+$U \to X$ where $U$ is an affine scheme. Use the above construction
+to construct a quotient $\mathcal{F}|_U \to \mathcal{Q}_U$
+which is quasi-coherent, is flat over $R$, and recovers $\mathcal{Q}_K|U$
+on the generic fibre. Since $X$ is separated, we see that
+$U \times_X U$ is an affine scheme \'etale over $X$ as well.
+Then $\mathcal{F}|_{U \times_X U} \to \text{pr}_1^*\mathcal{Q}_U$ and
+$\mathcal{F}|_{U \times_X U} \to \text{pr}_2^*\mathcal{Q}_U$
+agree as quotients by the uniquess in the construction. Hence we may descend
+$\mathcal{F}|_U \to \mathcal{Q}_U$ to a surjection
+$\mathcal{F} \to \mathcal{Q}$ as desired (Properties of Spaces,
+Proposition \ref{spaces-properties-proposition-quasi-coherent}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quot-functorial}
+Let $B$ be an algebraic space. Let $\pi : X \to Y$ be an affine quasi-finite
+morphism of algebraic spaces which are separated and of finite presentation
+over $B$. Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Then $\pi_*$ induces a morphism
+$\Quotfunctor_{\mathcal{F}/X/B} \to \Quotfunctor_{\pi_*\mathcal{F}/Y/B}$.
+\end{lemma}
+
+\begin{proof}
+Set $\mathcal{G} = \pi_*\mathcal{F}$. Since $\pi$ is affine we see that for
+any scheme $T$ over $B$ we have $\mathcal{G}_T = \pi_{T, *}\mathcal{F}_T$ by
+Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-affine-base-change}.
+Moreover $\pi_T$ is affine, hence $\pi_{T, *}$ is exact and transforms
+quotients into quotients. Observe that a quasi-coherent quotient
+$\mathcal{F}_T \to \mathcal{Q}$ defines a point of $\Quotfunctor_{X/B}$
+if and only if $\mathcal{Q}$ defines an object of $\Cohstack_{X/B}$
+over $T$ (similarly for $\mathcal{G}$ and $Y$). Since we've seen in
+Lemma \ref{lemma-coherent-functorial}
+that $\pi_*$ induces a morphism $\Cohstack_{X/B} \to \Cohstack_{Y/B}$
+we see that if $\mathcal{F}_T \to \mathcal{Q}$ is in
+$\Quotfunctor_{\mathcal{F}/X/B}(T)$, then
+$\mathcal{G}_T \to \pi_{T, *}\mathcal{Q}$ is
+in $\Quotfunctor_{\mathcal{G}/Y/B}(T)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quot-open}
+Let $B$ be an algebraic space. Let $\pi : X \to Y$ be an affine open immersion
+of algebraic spaces which are separated and of finite presentation over $B$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module. Then the morphism
+$\Quotfunctor_{\mathcal{F}/X/B} \to \Quotfunctor_{\pi_*\mathcal{F}/Y/B}$ of
+Lemma \ref{lemma-quot-functorial} is an open immersion.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: If $(\pi_*\mathcal{F})_T \to \mathcal{Q}$ is an element of
+$\Quotfunctor_{\pi_*\mathcal{F}/Y/B}(T)$
+and for $t \in T$ we have $\text{Supp}(\mathcal{Q}_t) \subset |X_t|$,
+then the same is true for $t' \in T$ in a neighbourhood of $t$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quot-better-open}
+Let $B$ be an algebraic space. Let $j : X \to Y$ be an open immersion
+of algebraic spaces which are separated and of finite presentation over $B$.
+Let $\mathcal{G}$ be a quasi-coherent $\mathcal{O}_Y$-module and set
+$\mathcal{F} = j^*\mathcal{G}$. Then there is an open immersion
+$$
+\Quotfunctor_{\mathcal{F}/X/B}
+\longrightarrow
+\Quotfunctor_{\mathcal{G}/Y/B}
+$$
+of algebraic spaces over $B$.
+\end{lemma}
+
+\begin{proof}
+If $\mathcal{F}_T \to \mathcal{Q}$ is an element of
+$\Quotfunctor_{\mathcal{F}/X/B}(T)$ then we can consider
+$\mathcal{G}_T \to j_{T, *}\mathcal{F}_T \to j_{T, *}\mathcal{Q}$.
+Looking at stalks one finds that this is surjective.
+By Lemma \ref{lemma-coherent-functorial}
+we see that $j_{T, *}\mathcal{Q}$ is finitely presented, flat over $B$
+with support proper over $B$. Thus we obtain a $T$-valued
+point of $\Quotfunctor_{\mathcal{G}/Y/B}$.
+This defines the morphism of the lemma.
+We omit the proof that this is an open immersion. Hint:
+If $\mathcal{G}_T \to \mathcal{Q}$ is an element of
+$\Quotfunctor_{\mathcal{G}/Y/B}(T)$
+and for $t \in T$ we have $\text{Supp}(\mathcal{Q}_t) \subset |X_t|$,
+then the same is true for $t' \in T$ in a neighbourhood of $t$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quot-closed}
+Let $B$ be an algebraic space. Let $\pi : X \to Y$ be a closed immersion
+of algebraic spaces which are separated and of finite presentation over $B$.
+Let $\mathcal{F}$ be a quasi-coherent $\mathcal{O}_X$-module.
+Then the morphism
+$\Quotfunctor_{\mathcal{F}/X/B} \to \Quotfunctor_{\pi_*\mathcal{F}/Y/B}$ of
+Lemma \ref{lemma-quot-functorial} is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+For every scheme $T$ over $B$ the morphism $\pi_T : X_T \to Y_T$
+is a closed immersion. Then $\pi_{T, *}$ is an equivalence of
+categories between $\QCoh(\mathcal{O}_{X_T})$ and the full subcategory
+of $\QCoh(\mathcal{O}_{Y_T})$ whose objects are those quasi-coherent
+modules annihilated by the ideal sheaf of $X_T$, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-i-star-equivalence}.
+Since a qotient of
+$(\pi_*\mathcal{F})_T$ is annihilated by this ideal we obtain the
+bijectivity of the map
+$\Quotfunctor_{\mathcal{F}/X/B}(T) \to \Quotfunctor_{\pi_*\mathcal{F}/Y/B}(T)$
+for all $T$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quot-quotient}
+Let $X \to B$ be as in the introduction to this section. Let
+$\mathcal{F} \to \mathcal{G}$ be a surjection of quasi-coherent
+$\mathcal{O}_X$-modules. Then there is a canonical closed immersion
+$\Quotfunctor_{\mathcal{G}/X/B} \to \Quotfunctor_{\mathcal{F}/X/B}$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{K} = \Ker(\mathcal{F} \to \mathcal{G})$. By right
+exactness of pullbacks we find that
+$\mathcal{K}_T \to \mathcal{F}_T \to \mathcal{G}_T \to 0$
+is an exact sequecnce for all schemes $T$ over $B$.
+In particular, a quotient of $\mathcal{G}_T$
+determines a quotient of $\mathcal{F}_T$ and we obtain our transformation
+of functors
+$\Quotfunctor_{\mathcal{G}/X/B} \to \Quotfunctor_{\mathcal{F}/X/B}$.
+This transformation is a closed immersion by
+Flatness on Spaces, Lemma \ref{spaces-flat-lemma-F-zero-closed-proper}.
+Namely, given an element $\mathcal{F}_T \to \mathcal{Q}$ of
+$\Quotfunctor_{\mathcal{F}/X/B}(T)$, then we see that the pull
+back to $T'/T$ is in the image of the transformation if and
+only if $\mathcal{K}_{T'} \to \mathcal{Q}_{T'}$ is zero.
+\end{proof}
+
+\begin{remark}[Numerical invariants]
+\label{remark-quot-numerical}
+Let $f : X \to B$ and $\mathcal{F}$ be as in the introduction to this section.
+Let $I$ be a set and for $i \in I$ let $E_i \in D(\mathcal{O}_X)$ be perfect.
+Let $P : I \to \mathbf{Z}$ be a function. Recall that we have a morphism
+$$
+\Quotfunctor_{\mathcal{F}/X/B} \longrightarrow \Cohstack_{X/B}
+$$
+which sends the element $\mathcal{F}_T \to \mathcal{Q}$
+of $\Quotfunctor_{\mathcal{F}/X/B}(T)$ to the object $\mathcal{Q}$
+of $\Cohstack_{X/B}$ over $T$, see proof of
+Quot, Proposition \ref{quot-proposition-quot}. Hence we can form
+the fibre product diagram
+$$
+\xymatrix{
+\Quotfunctor^P_{\mathcal{F}/X/B} \ar[r] \ar[d] &
+\Cohstack^P_{X/B} \ar[d] \\
+\Quotfunctor_{\mathcal{F}/X/B} \ar[r] &
+\Cohstack_{X/B}
+}
+$$
+This is the defining diagram for the algebraic space in the
+upper left corner. The left vertical arrow is a
+flat closed immersion which is an open and closed immersion
+for example if $I$ is finite, or $B$ is locally Noetherian, or
+$I = \mathbf{Z}$ and $E_i = \mathcal{L}^{\otimes i}$ for some
+invertible $\mathcal{O}_X$-module $\mathcal{L}$ (in the last
+case we sometimes use the notation
+$\Quotfunctor^{P, \mathcal{L}}_{\mathcal{F}/X/B}$).
+See Situation \ref{situation-numerical} and
+Lemmas \ref{lemma-open-P} and \ref{lemma-finite-list-perfect-objects} and
+Example \ref{example-hilbert-polynomial}.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-quot-tensor-invertible}
+Let $f : X \to B$ and $\mathcal{F}$ be as in the introduction to this section.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Then tensoring with $\mathcal{L}$ defines an isomophism
+$$
+\Quotfunctor_{\mathcal{F}/X/B}
+\longrightarrow
+\Quotfunctor_{\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}/X/B}
+$$
+Given a numerical polynomial $P(t)$, then setting $P'(t) = P(t + 1)$
+this map induces an isomorphism
+$\Quotfunctor^P_{\mathcal{F}/X/B}
+\longrightarrow
+\Quotfunctor^{P'}_{\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}/X/B}$
+of open and closed substacks.
+\end{lemma}
+
+\begin{proof}
+Set $\mathcal{G} = \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}$.
+Observe that
+$\mathcal{G}_T = \mathcal{F}_T \otimes_{\mathcal{O}_{X_T}} \mathcal{L}_T$.
+If $\mathcal{F}_T \to \mathcal{Q}$ is an element of
+$\Quotfunctor_{\mathcal{F}/X/B}(T)$, then we send it
+to the element
+$\mathcal{G}_T \to \mathcal{Q} \otimes_{\mathcal{O}_{X_T}} \mathcal{L}_T$
+of
+$\Quotfunctor_{\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}/X/B}(T)$.
+This is compatible with pullbacks and hence
+defines a transformation of functors as desired.
+Since there is an obvious inverse transformation,
+it is an isomorphism. We omit the proof of the final statement.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quot-power-invertible}
+Let $f : X \to B$ and $\mathcal{F}$ be as in the introduction to this section.
+Let $\mathcal{L}$ be an invertible $\mathcal{O}_X$-module.
+Then
+$$
+\Quotfunctor^{P, \mathcal{L}}_{\mathcal{F}/X/B} =
+\Quotfunctor^{P', \mathcal{L}^{\otimes n}}_{\mathcal{F}/X/B}
+$$
+where $P'(t) = P(nt)$.
+\end{lemma}
+
+\begin{proof}
+Follows immediately after unwinding all the definitions.
+\end{proof}
+
+
+
+
+
+
+\section{Boundedness for Quot}
+\label{section-quot-bounded}
+
+\noindent
+Contrary to what happens classically, we already know the Quot
+functor is an algebraic space, but we don't know that it is
+ever represented by a finite type algebraic space.
+
+\begin{lemma}
+\label{lemma-quot-Pn}
+Let $n \geq 0$, $r \geq 1$, $P \in \mathbf{Q}[t]$.
+The algebraic space
+$$
+X = \Quotfunctor^P_{\mathcal{O}^{\oplus r}_{\mathbf{P}^n_\mathbf{Z}}/
+\mathbf{P}^n_\mathbf{Z}/\mathbf{Z}}
+$$
+parametrizing quotients of $\mathcal{O}_{\mathbf{}P^n_\mathbf{Z}}^{\oplus r}$
+with Hilbert polynomial $P$ is proper over $\Spec(\mathbf{Z})$.
+\end{lemma}
+
+\begin{proof}
+We already know that $X \to \Spec(\mathbf{Z})$ is separated and
+locally of finite presentation (Lemma \ref{lemma-quot-s-lfp}).
+We also know that $X \to \Spec(\mathbf{Z})$ satisfies the
+existence part of the valuative criterion, see
+Lemma \ref{lemma-quot-existence-part}.
+By the valuative criterion for properness, it suffices to
+prove our Quot space is quasi-compact, see
+Morphisms of Spaces,
+Lemma \ref{spaces-morphisms-lemma-characterize-proper}.
+Thus it suffices to find a quasi-compact scheme $T$ and a surjective
+morphism $T \to X$. Let $m$ be the integer found in
+Varieties, Lemma \ref{varieties-lemma-bound-quotients-free}.
+Let
+$$
+N = r{m + n \choose n} - P(m)
+$$
+We will write $\mathbf{P}^n$ for
+$\mathbf{P}^n_\mathbf{Z} = \text{Proj}(\mathbf{Z}[T_0, \ldots, T_n])$
+and unadorned products will mean products over $\Spec(\mathbf{Z})$.
+The idea of the proof is to construct a ``universal'' map
+$$
+\Psi :
+\mathcal{O}_{T \times \mathbf{P}^n}(-m)^{\oplus N}
+\longrightarrow
+\mathcal{O}_{T \times \mathbf{P}^n}^{\oplus r}
+$$
+over an affine scheme $T$ and show that every point of $X$
+corresponds to a cokernel of this in some point of $T$.
+
+\medskip\noindent
+Definition of $T$ and $\Psi$. We take $T = \Spec(A)$ where
+$$
+A = \mathbf{Z}[a_{i, j, E}]
+$$
+where $i \in \{1, \ldots, r\}$, $j \in \{1, \ldots, N\}$
+and $E = (e_0, \ldots, e_n)$ runs through the multi-indices
+of total degree $|E| = \sum_{k = 0, \ldots n} e_k = m$.
+Then we define $\Psi$ to be the map whose $(i, j)$ matrix
+entry is the map
+$$
+\sum\nolimits_{E = (e_0, \ldots, e_n)}
+a_{i, j, E} T_0^{e_0} \ldots T_n^{e_n} :
+\mathcal{O}_{T \times \mathbf{P}^n}(-m)
+\longrightarrow
+\mathcal{O}_{T \times \mathbf{P}^n}
+$$
+where the sum is over $E$ as above (but $i$ and $j$ are fixed of course).
+
+\medskip\noindent
+Consider the quotient $\mathcal{Q} = \Coker(\Psi)$ on $T \times \mathbf{P}^n$.
+By More on Flatness, Lemma \ref{flat-lemma-generic-flatness-stratification}
+there exists a $t \geq 0$ and  and closed subschemes
+$$
+T = T_0 \supset T_1 \supset \ldots \supset T_t = \emptyset
+$$
+such that the pullback $\mathcal{Q}_p$ of $\mathcal{Q}$ to
+$(T_p \setminus T_{p + 1}) \times \mathbf{P}^n$ is flat over
+$T_p \setminus T_{p + 1}$. Observe that we
+have an exact sequence
+$$
+\mathcal{O}_{(T_p \setminus T_{p + 1}) \times \mathbf{P}^n}(-m)^{\oplus N}
+\to
+\mathcal{O}_{(T_p \setminus T_{p + 1}) \times \mathbf{P}^n}^{\oplus r}
+\to
+\mathcal{Q}_p
+\to
+0
+$$
+by pulling back the exact sequence defining $\mathcal{Q} = \Coker(\Psi)$.
+Therefore we obtain a morphism
+$$
+\coprod (T_p \setminus T_{p + 1})
+\longrightarrow
+\Quotfunctor_{\mathcal{O}^{\oplus r}/\mathbf{P}/\mathbf{Z}}
+\supset
+\Quotfunctor^P_{\mathcal{O}^{\oplus r}/\mathbf{P}/\mathbf{Z}} = X
+$$
+Since the left hand side is a Noetherian scheme and the inclusion
+on the right hand side is open, it
+suffices to show that any point of $X$ is in the image of this morphism.
+
+\medskip\noindent
+Let $k$ be a field and let $x \in X(k)$. Then $x$ corresponds to
+a surjection $\mathcal{O}_{\mathbf{P}^n_k}^{\oplus r} \to \mathcal{F}$
+of coherent $\mathcal{O}_{\mathbf{P}^n_k}$-modules
+such that the Hilbert polynomial of $\mathcal{F}$ is $P$.
+Consider the short exact sequence
+$$
+0 \to \mathcal{K} \to
+\mathcal{O}_{\mathbf{P}^n_k}^{\oplus r} \to
+\mathcal{F} \to 0
+$$
+By Varieties, Lemma \ref{varieties-lemma-bound-quotients-free}
+and our choice of $m$ we see that $\mathcal{K}$ is $m$-regular.
+By Varieties, Lemma \ref{varieties-lemma-m-regular-globally-generated}
+we see that $\mathcal{K}(m)$ is globally generated.
+By Varieties, Lemma \ref{varieties-lemma-m-regular-up}
+and the definition of $m$-regularity we see that
+$H^i(\mathbf{P}^n_k, \mathcal{K}(m)) = 0$ for $i > 0$.
+Hence we see that
+$$
+\dim_k H^0(\mathbf{P}^n_k, \mathcal{K}(m)) =
+\chi(\mathcal{K}(m)) =
+\chi(\mathcal{O}_{\mathbf{P}^n_k}(m)^{\oplus r}) -
+\chi(\mathcal{F}(m)) = N
+$$
+by our choice of $N$. This gives a surjection
+$$
+\mathcal{O}_{\mathbf{P}^n_k}^{\oplus N}
+\longrightarrow
+\mathcal{K}(m)
+$$
+Twisting back down and using the short exact sequence above
+we see that $\mathcal{F}$ is the cokernel of a map
+$$
+\Psi_x :
+\mathcal{O}_{\mathbf{P}^n_k}(-m)^{\oplus N}
+\to
+\mathcal{O}_{\mathbf{P}^n_k}^{\oplus r}
+$$
+There is a unique ring map $\tau : A \to k$ such that the base change
+of $\Psi$ by the corresponding morphism $t = \Spec(\tau) : \Spec(k) \to T$
+is $\Psi_x$. This is true because the entries of the $N \times r$
+matrix defining $\Psi_x$ are homogeneous polynomials
+$\sum \lambda_{i, j, E} T_0^{e_0} \ldots T_n^{e_n}$
+of degree $m$ in $T_0, \ldots, T_n$ with coefficients
+$\lambda_{i, j, E} \in k$ and we can set
+$\tau(a_{i, j, E}) = \lambda_{i, j, E}$.
+Then $t \in T_p \setminus T_{p + 1}$ for some $p$ and
+the image of $t$ under the morphism above is $x$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quot-Pn-over-base}
+Let $B$ be an algebraic space. Let $X = B \times \mathbf{P}^n_\mathbf{Z}$.
+Let $\mathcal{L}$ be the pullback of $\mathcal{O}_{\mathbf{P}^n}(1)$ to $X$.
+Let $\mathcal{F}$ be an $\mathcal{O}_X$-module of finite
+presentation. The algebraic space $\Quotfunctor^P_{\mathcal{F}/X/B}$
+parametrizing quotients of $\mathcal{F}$
+having Hilbert polynomial $P$ with respect to $\mathcal{L}$
+is proper over $B$.
+\end{lemma}
+
+\begin{proof}
+The question is \'etale local over $B$, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-proper-local}.
+Thus we may assume $B$ is an affine scheme.
+In this case $\mathcal{L}$ is an ample invertible module on $X$
+(by Constructions, Lemma \ref{constructions-lemma-ample-on-proj}
+and the definition of ample invertible modules in
+Properties, Definition \ref{properties-definition-ample}).
+Thus we can find $r' \geq 0$ and $r \geq 0$ and a surjection
+$$
+\mathcal{O}_X^{\oplus r} \longrightarrow
+\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes r'}
+$$
+by Properties, Proposition \ref{properties-proposition-characterize-ample}.
+By Lemma \ref{lemma-quot-tensor-invertible}
+we may replace $\mathcal{F}$ by
+$\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes r'}$
+and $P(t)$ by $P(t + r')$.
+By Lemma \ref{lemma-quot-quotient}
+we obtain a closed immersion
+$$
+\Quotfunctor^P_{\mathcal{F}/X/B}
+\longrightarrow
+\Quotfunctor^P_{\mathcal{O}_X^{\oplus r}/X/B}
+$$
+Since we've shown that $\Quotfunctor^P_{\mathcal{O}_X^{\oplus r}/X/B} \to B$
+is proper in Lemma \ref{lemma-quot-Pn} we conclude.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quot-proper-over-base}
+Let $f : X \to B$ be a proper morphism of finite presentation
+of algebraic spaces. Let $\mathcal{F}$ be a finitely presented
+$\mathcal{O}_X$-module. Let $\mathcal{L}$ be an invertible
+$\mathcal{O}_X$-module ample on $X/B$, see
+Divisors on Spaces, Definition
+\ref{spaces-divisors-definition-relatively-ample}.
+The algebraic space $\Quotfunctor^P_{\mathcal{F}/X/B}$
+parametrizing quotients of $\mathcal{F}$
+having Hilbert polynomial $P$ with respect to $\mathcal{L}$
+is proper over $B$.
+\end{lemma}
+
+\begin{proof}
+The question is \'etale local over $B$, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-proper-local}.
+Thus we may assume $B$ is an affine scheme.
+Then we can find a closed immersion $i : X \to \mathbf{P}^n_B$
+such that $i^*\mathcal{O}_{\mathbf{P}^n_B}(1) \cong \mathcal{L}^{\otimes d}$
+for some $d \geq 1$. See
+Morphisms, Lemma \ref{morphisms-lemma-quasi-projective-finite-type-over-S}.
+Changing $\mathcal{L}$ into $\mathcal{L}^{\otimes d}$ and
+the numerical polynomial $P(t)$ into $P(dt)$ leaves
+$\Quotfunctor^P_{\mathcal{F}/X/B}$ unaffected; some details omitted.
+Hence we may assume $\mathcal{L} = i^*\mathcal{O}_{\mathbf{P}^n_B}(1)$.
+Then the isomorphism
+$\Quotfunctor_{\mathcal{F}/X/B} \to
+\Quotfunctor_{i_*\mathcal{F}/\mathbf{P}^n_B/B}$ of
+Lemma \ref{lemma-quot-closed} induces an isomorphism
+$\Quotfunctor^P_{\mathcal{F}/X/B} \cong
+\Quotfunctor^P_{i_*\mathcal{F}/\mathbf{P}^n_B/B}$.
+Since $\Quotfunctor^P_{i_*\mathcal{F}/\mathbf{P}^n_B/B}$
+is proper over $B$ by Lemma \ref{lemma-quot-Pn-over-base}
+we conclude.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quot-qc-over-base}
+Let $f : X \to B$ be a separated morphism of finite presentation
+of algebraic spaces. Let $\mathcal{F}$ be a finitely presented
+$\mathcal{O}_X$-module. Let $\mathcal{L}$ be an invertible
+$\mathcal{O}_X$-module ample on $X/B$, see
+Divisors on Spaces, Definition
+\ref{spaces-divisors-definition-relatively-ample}.
+The algebraic space $\Quotfunctor^P_{\mathcal{F}/X/B}$
+parametrizing quotients of $\mathcal{F}$
+having Hilbert polynomial $P$ with respect to $\mathcal{L}$
+is separated of finite presentation over $B$.
+\end{lemma}
+
+\begin{proof}
+We have already seen that $\Quotfunctor_{\mathcal{F}/X/B} \to B$
+is separated and locally of finite presentation, see
+Lemma \ref{lemma-quot-s-lfp}. Thus it suffices to show that
+the open subspace $\Quotfunctor^P_{\mathcal{F}/X/B}$
+of Remark \ref{remark-quot-numerical} is quasi-compact over $B$.
+
+\medskip\noindent
+The question is \'etale local on $B$
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-quasi-compact-local}).
+Thus we may assume $B$ is affine.
+
+\medskip\noindent
+Assume $B = \Spec(\Lambda)$. Write $\Lambda = \colim \Lambda_i$ as the
+colimit of its finite type $\mathbf{Z}$-subalgebras. Then
+we can find an $i$ and a a system $X_i, \mathcal{F}_i, \mathcal{L}_i$
+as in the lemma over $B_i = \Spec(\Lambda_i)$ whose base change to
+$B$ gives $X, \mathcal{F}, \mathcal{L}$.
+This follows from
+Limits of Spaces, Lemmas
+\ref{spaces-limits-lemma-descend-finite-presentation} (to find $X_i$),
+\ref{spaces-limits-lemma-descend-modules-finite-presentation} (to find
+$\mathcal{F}_i$), \ref{spaces-limits-lemma-descend-invertible-modules}
+(to find $\mathcal{L}_i$), and \ref{spaces-limits-lemma-descend-separated}
+(to make $X_i$ separated). Because
+$$
+\Quotfunctor_{\mathcal{F}/X/B} = B \times_{B_i}
+\Quotfunctor_{\mathcal{F}_i/X_i/B_i}
+$$
+and similarly for $\Quotfunctor^P_{\mathcal{F}/X/B}$ we reduce
+to the case discussed in the next paragraph.
+
+\medskip\noindent
+Assume $B$ is affine and Noetherian. We may replace $\mathcal{L}$
+by a positive power, see Lemma \ref{lemma-quot-power-invertible}.
+Thus we may assume there exists an immersion $i : X \to \mathbf{P}^n_B$
+such that $i^*\mathcal{O}_{\mathbf{P}^n}(1) = \mathcal{L}$. By
+Morphisms, Lemma \ref{morphisms-lemma-quasi-compact-immersion}
+there exists a closed subscheme $X' \subset \mathbf{P}^n_B$
+such that $i$ factors through an open immersion $j : X \to X'$.
+By Properties, Lemma \ref{properties-lemma-extend-finite-presentation}
+there exists a finitely presented $\mathcal{O}_{X'}$-module
+$\mathcal{G}$ such that $j^*\mathcal{G} = \mathcal{F}$.
+Thus we obtain an open immersion
+$$
+\Quotfunctor_{\mathcal{F}/X/B}
+\longrightarrow
+\Quotfunctor_{\mathcal{G}/X'/B}
+$$
+by Lemma \ref{lemma-quot-better-open}. Clearly this open immersion
+sends $\Quotfunctor^P_{\mathcal{F}/X/B}$ into
+$\Quotfunctor^P_{\mathcal{G}/X'/B}$. Now
+$\Quotfunctor^P_{\mathcal{G}/X'/B}$ is proper over $B$ by
+Lemma \ref{lemma-quot-proper-over-base}.
+Therefore it is Noetherian and since any open of a Noetherian
+algebraic space is quasi-compact we win.
+\end{proof}
+
+
+
+
+\section{Properties of the Hilbert functor}
+\label{section-hilb}
+
+\noindent
+Let $f : X \to B$ be a morphism of algebraic spaces which is
+separated and of finite presentation. Then
+$\Hilbfunctor_{X/B}$ is an algebraic space locally of finite
+presentation over $B$. See Quot, Proposition \ref{quot-proposition-hilb}.
+
+\begin{lemma}
+\label{lemma-hilb-diagonal-closed}
+The diagonal of $\Hilbfunctor_{X/B} \to B$ is a closed immersion
+of finite presentation.
+\end{lemma}
+
+\begin{proof}
+In Quot, Lemma \ref{quot-lemma-hilb-is-quot} we have seen that
+$\Hilbfunctor_{X/B} = \Quotfunctor_{\mathcal{O}_X/X/B}$.
+Hence this follows from Lemma \ref{lemma-quot-diagonal-closed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hilb-s-lfp}
+The morphism $\Hilbfunctor_{X/B} \to B$ is separated
+and locally of finite presentation.
+\end{lemma}
+
+\begin{proof}
+To check $\Hilbfunctor_{X/B} \to B$ is separated we have to
+show that its diagonal is a closed immersion. This
+is true by Lemma \ref{lemma-hilb-diagonal-closed}.
+The second statement is part of
+Quot, Proposition \ref{quot-proposition-hilb}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hilb-existence-part}
+Assume $X \to B$ is proper as well as of finite presentation.
+Then $\Hilbfunctor_{X/B} \to B$ satisfies the existence part
+of the valuative criterion (Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-valuative-criterion}).
+\end{lemma}
+
+\begin{proof}
+In Quot, Lemma \ref{quot-lemma-hilb-is-quot} we have seen that
+$\Hilbfunctor_{X/B} = \Quotfunctor_{\mathcal{O}_X/X/B}$.
+Hence this follows from Lemma \ref{lemma-quot-existence-part}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hilb-open}
+Let $B$ be an algebraic space. Let $\pi : X \to Y$ be an open immersion
+of algebraic spaces which are separated and of finite presentation over $B$.
+Then $\pi$ induces an open immersion
+$\Hilbfunctor_{X/B} \to \Hilbfunctor_{Y/B}$.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: If $Z \subset X_T$ is a closed subscheme which is
+proper over $T$, then $Z$ is also closed in $Y_T$. Thus we obtain
+the transformation $\Hilbfunctor_{X/B} \to \Hilbfunctor_{Y/B}$.
+If $Z \subset Y_T$ is an element of $\Hilbfunctor_{Y/B}(T)$
+and for $t \in T$ we have $|Z_t| \subset |X_t|$,
+then the same is true for $t' \in T$ in a neighbourhood of $t$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hilb-closed}
+Let $B$ be an algebraic space. Let $\pi : X \to Y$ be a closed immersion
+of algebraic spaces which are separated and of finite presentation
+over $B$. Then $\pi$ induces a closed immersion
+$\Hilbfunctor_{X/B} \to \Hilbfunctor_{Y/B}$.
+\end{lemma}
+
+\begin{proof}
+Since $\pi$ is a closed immersion, it is immediate that given a
+closed subscheme $Z \subset X_T$,
+we can view $Z$ as a closed subscheme of $X_T$. Thus we obtain
+the transformation $\Hilbfunctor_{X/B} \to \Hilbfunctor_{Y/B}$.
+This transformation is immediately seen to be a monomorphism.
+To prove that it is a closed immersion, you can use
+Lemma \ref{lemma-quot-quotient} for the map
+$\mathcal{O}_Y \to \mathcal{O}_X$ and the identifications
+$\Hilbfunctor_{X/B} = \Quotfunctor_{\mathcal{O}_X/X/B}$,
+$\Hilbfunctor_{Y/B} = \Quotfunctor_{\mathcal{O}_Y/Y/B}$
+of Quot, Lemma \ref{quot-lemma-hilb-is-quot}.
+\end{proof}
+
+\begin{remark}[Numerical invariants]
+\label{remark-hilb-numerical}
+Let $f : X \to B$ be as in the introduction to this section.
+Let $I$ be a set and for $i \in I$ let $E_i \in D(\mathcal{O}_X)$ be perfect.
+Let $P : I \to \mathbf{Z}$ be a function. Recall that
+$\Hilbfunctor_{X/B} = \Quotfunctor_{\mathcal{O}_X/X/B}$, see
+Quot, Lemma \ref{quot-lemma-hilb-is-quot}.
+Thus we can define
+$$
+\Hilbfunctor^P_{X/B} = \Quotfunctor^P_{\mathcal{O}_X/X/B}
+$$
+where $\Quotfunctor^P_{\mathcal{O}_X/X/B}$ is as in
+Remark \ref{remark-quot-numerical}. The morphism
+$$
+\Hilbfunctor^P_{X/B} \longrightarrow \Hilbfunctor_{X/B}
+$$
+is a flat closed immersion which is an open and closed immersion
+for example if $I$ is finite, or $B$ is locally Noetherian, or
+$I = \mathbf{Z}$ and $E_i = \mathcal{L}^{\otimes i}$ for some
+invertible $\mathcal{O}_X$-module $\mathcal{L}$. In the last case
+we sometimes use the notation $\Hilbfunctor^{P, \mathcal{L}}_{X/B}$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-hilb-proper-over-base}
+Let $f : X \to B$ be a proper morphism of finite presentation
+of algebraic spaces. Let $\mathcal{L}$ be an invertible
+$\mathcal{O}_X$-module ample on $X/B$, see
+Divisors on Spaces, Definition
+\ref{spaces-divisors-definition-relatively-ample}.
+The algebraic space $\Hilbfunctor^P_{X/B}$
+parametrizing closed subschemes
+having Hilbert polynomial $P$ with respect to $\mathcal{L}$
+is proper over $B$.
+\end{lemma}
+
+\begin{proof}
+Recall that $\Hilbfunctor_{X/B} = \Quotfunctor_{\mathcal{O}_X/X/B}$, see
+Quot, Lemma \ref{quot-lemma-hilb-is-quot}.
+Thus this lemma is an immediate consequence of
+Lemma \ref{lemma-quot-proper-over-base}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hilb-qc-over-base}
+Let $f : X \to B$ be a separated morphism of finite presentation
+of algebraic spaces. Let $\mathcal{L}$ be an invertible
+$\mathcal{O}_X$-module ample on $X/B$, see
+Divisors on Spaces, Definition
+\ref{spaces-divisors-definition-relatively-ample}.
+The algebraic space $\Hilbfunctor^P_{X/B}$
+parametrizing closed subschemes
+having Hilbert polynomial $P$ with respect to $\mathcal{L}$
+is separated of finite presentation over $B$.
+\end{lemma}
+
+\begin{proof}
+Recall that $\Hilbfunctor_{X/B} = \Quotfunctor_{\mathcal{O}_X/X/B}$, see
+Quot, Lemma \ref{quot-lemma-hilb-is-quot}.
+Thus this lemma is an immediate consequence of
+Lemma \ref{lemma-quot-qc-over-base}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Properties of the Picard stack}
+\label{section-picard-stack}
+
+\noindent
+Let $f : X \to B$ be a morphism of algebraic spaces which is flat,
+proper, and of finite presentation. Then the stack
+$\Picardstack_{X/B}$ parametrizing invertible sheaves on $X/B$
+is algebraic, see Quot, Proposition \ref{quot-proposition-pic}.
+
+\begin{lemma}
+\label{lemma-pic-diagonal-affine-fp}
+The diagonal of $\Picardstack_{X/B}$ over $B$ is affine
+and of finite presentation.
+\end{lemma}
+
+\begin{proof}
+In Quot, Lemma \ref{quot-lemma-picard-stack-open-in-coh} we have seen that
+$\Picardstack_{X/B}$ is an open substack of
+$\Cohstack_{X/B}$. Hence this follows from
+Lemma \ref{lemma-coherent-diagonal-affine-fp}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pic-qs-lfp}
+The morphism $\Picardstack_{X/B} \to B$ is quasi-separated and
+locally of finite presentation.
+\end{lemma}
+
+\begin{proof}
+In Quot, Lemma \ref{quot-lemma-picard-stack-open-in-coh} we have seen that
+$\Picardstack_{X/B}$ is an open substack of
+$\Cohstack_{X/B}$. Hence this follows from
+Lemma \ref{lemma-coherent-qs-lfp}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pic-existence-part}
+Assume $X \to B$ is smooth in addition to being proper.
+Then $\Picardstack_{X/B} \to B$ satisfies the existence part
+of the valuative criterion (Morphisms of Stacks, Definition
+\ref{stacks-morphisms-definition-existence}).
+\end{lemma}
+
+\begin{proof}
+Taking base change, this immediately reduces to the following
+problem: given a valuation ring $R$ with fraction field $K$ and
+an algebraic space $X$ proper and smooth over $R$ and an invertible
+$\mathcal{O}_{X_K}$-module $\mathcal{L}_K$, show there exists
+an invertible $\mathcal{O}_X$-module $\mathcal{L}$
+whose generic fibre is $\mathcal{L}_K$.
+Observe that $X_K$ is Noetherian, separated, and regular
+(use Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-finite-presentation-noetherian}
+and
+Spaces over Fields, Lemma \ref{spaces-over-fields-lemma-smooth-regular}).
+Thus we can write
+$\mathcal{L}_K$ as the difference in the Picard group of
+$\mathcal{O}_{X_K}(D_K)$ and $\mathcal{O}_{X_K}(D'_K)$
+for two effective Cartier divisors $D_K, D'_K$ in $X_K$, see
+Divisors on Spaces, Lemma
+\ref{spaces-divisors-lemma-Noetherian-regular-separated-pic-effective-Cartier}.
+Finally, we know that $D_K$ and $D'_K$ are restrictions of
+effective Cartier divisors $D, D' \subset X$, see
+Divisors on Spaces, Lemma
+\ref{spaces-divisors-lemma-smooth-over-valuation-ring-effective-Cartier}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pic-inertia}
+Assume $f_{T, *}\mathcal{O}_{X_T} \cong \mathcal{O}_T$ for all
+schemes $T$ over $B$. Then the inertia stack of $\Picardstack_{X/B}$
+is equal to $\mathbf{G}_m \times \Picardstack_{X/B}$.
+\end{lemma}
+
+\begin{proof}
+This is explained in Examples of Stacks, Example
+\ref{examples-stacks-example-inertia-stack-of-picard}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pic-curves-smooth}
+Assume $f : X \to B$ has relative dimension $\leq 1$ in addition to
+the other assumptions in this section. Then $\Picardstack_{X/B} \to B$
+is smooth.
+\end{lemma}
+
+\begin{proof}
+We already know that $\Picardstack_{X/B} \to B$ is
+locally of finite presentation, see Lemma \ref{lemma-pic-qs-lfp}.
+Thus it suffices to show that $\Picardstack_{X/B} \to B$ is
+formally smooth, see More on Morphisms of Stacks, Lemma
+\ref{stacks-more-morphisms-lemma-smooth-formally-smooth}.
+Taking base change, this immediately reduces to the following
+problem: given a first order thickening $T \subset T'$
+of affine schemes, given $X' \to T'$ proper, flat, of finite
+presentation and of relative dimension $\leq 1$, and
+for $X = T \times_{T'} X'$ given an invertible $\mathcal{O}_X$-module
+$\mathcal{L}$, prove that there exists an invertible
+$\mathcal{O}_{X'}$-module $\mathcal{L}'$ whose
+restriction to $X$ is $\mathcal{L}$.
+Since $T \subset T'$ is a first order thickening, the
+same is true for $X \subset X'$, see
+More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-base-change-thickening}.
+By More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-picard-group-first-order-thickening}
+we see that it suffices to show $H^2(X, \mathcal{I}) = 0$
+where $I$ is the quasi-coherent ideal cutting out $X$ in $X'$.
+Denote $f : X \to T$ the structure morphism.
+By Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-higher-direct-images-zero-above-dimension-fibre}
+we see that $R^pf_*\mathcal{I} = 0$ for $p > 1$.
+Hence we get the desired vanishing by
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-quasi-coherence-higher-direct-images-application}
+(here we finally use that $T$ is affine).
+\end{proof}
+
+
+
+
+\section{Properties of the Picard functor}
+\label{section-picard-functor}
+
+\noindent
+Let $f : X \to B$ be a morphism of algebraic spaces which is flat,
+proper, and of finite presentation such that moreover for every $T/B$
+the canonical map
+$$
+\mathcal{O}_T \longrightarrow f_{T, *}\mathcal{O}_{X_T}
+$$
+is an isomorphism. Then the Picard functor $\Picardfunctor_{X/B}$ is an
+algebraic space, see Quot, Proposition \ref{quot-proposition-pic-functor}.
+There is a closed relationship with the Picard stack.
+
+\begin{lemma}
+\label{lemma-pic-gerbe-over-pic-functor}
+The morphism $\Picardstack_{X/B} \to \Picardfunctor_{X/B}$
+turns the Picard stack into a gerbe over the Picard functor.
+\end{lemma}
+
+\begin{proof}
+The definition of $\Picardstack_{X/B} \to \Picardfunctor_{X/B}$ being
+a gerbe is given in Morphisms of Stacks, Definition
+\ref{stacks-morphisms-definition-gerbe}, which in turn refers to
+Stacks, Definition \ref{stacks-definition-gerbe-over-stack-in-groupoids}.
+To prove it, we will check conditions (2)(a) and (2)(b) of
+Stacks, Lemma \ref{stacks-lemma-when-gerbe}. This follows immediately from
+Quot, Lemma \ref{quot-lemma-pic-over-pic}; here is a detailed explanation.
+
+\medskip\noindent
+Condition (2)(a).
+Suppose that $\xi \in \Picardfunctor_{X/B}(U)$ for some scheme $U$ over $B$.
+Since $\Picardfunctor_{X/B}$ is the fppf sheafification of the rule
+$T \mapsto \Pic(X_T)$ on schemes over $B$
+(Quot, Situation \ref{quot-situation-pic}), we see that there exists an
+fppf covering $\{U_i \to U\}$ such that $\xi|_{U_i}$ corresponds
+to some invertible module $\mathcal{L}_i$ on $X_{U_i}$.
+Then $(U_i \to B, \mathcal{L}_i)$ is an object of
+$\Picardstack_{X/B}$ over $U_i$ mapping to $\xi|_{U_i}$.
+
+\medskip\noindent
+Condition (2)(b). Suppose that $U$ is a scheme over $B$ and
+$\mathcal{L}, \mathcal{N}$ are invertible modules on $X_U$
+which map to the same element of $\Picardfunctor_{X/B}(U)$.
+Then there exists an fppf covering $\{U_i \to U\}$
+such that $\mathcal{L}|_{X_{U_i}}$ is isomorphic to $\mathcal{N}|_{X_{U_i}}$.
+Thus we find isomorphisms between
+$(U \to B, \mathcal{L})|_{U_i} \to (U \to B, \mathcal{N})|_{U_i}$
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pic-functor-diagonal-qc-immersion}
+The diagonal of $\Picardfunctor_{X/B}$ over $B$ is a quasi-compact immersion.
+\end{lemma}
+
+\begin{proof}
+The diagonal is an immersion by Quot, Lemma \ref{quot-lemma-diagonal-pic}.
+To finish we show that the diagonal is quasi-compact.
+The diagonal of $\Picardstack_{X/B}$ is quasi-compact
+by Lemma \ref{lemma-pic-diagonal-affine-fp} and
+$\Picardstack_{X/B}$ is a gerbe over $\Picardfunctor_{X/B}$ by
+Lemma \ref{lemma-pic-gerbe-over-pic-functor}.
+We conclude by Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-gerbe-diagonal-quasi-compact}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pic-functor-qs-lfp}
+The morphism $\Picardfunctor_{X/B} \to B$ is quasi-separated and
+locally of finite presentation.
+\end{lemma}
+
+\begin{proof}
+To check $\Picardfunctor_{X/B} \to B$ is quasi-separated we have to
+show that its diagonal is quasi-compact. This is immediate from
+Lemma \ref{lemma-pic-functor-diagonal-qc-immersion}.
+Since the morphism $\Picardstack_{X/B} \to \Picardfunctor_{X/B}$
+is surjective, flat, and locally of finite presentation
+(by Lemma \ref{lemma-pic-gerbe-over-pic-functor} and
+Morphisms of Stacks, Lemma \ref{stacks-morphisms-lemma-gerbe-fppf})
+it suffices to prove that $\Picardstack_{X/B} \to B$
+is locally of finite presentation, see
+Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-flat-finite-presentation-permanence}.
+This follows
+from Lemma \ref{lemma-pic-qs-lfp}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pic-functor-uniqueness-part}
+Assume the geometric fibres of $X \to B$ are integral
+in addition to the other assumptions in this section.
+Then $\Picardfunctor_{X/B} \to B$ is separated.
+\end{lemma}
+
+\begin{proof}
+Since $\Picardfunctor_{X/B} \to B$ is quasi-separated, it suffices
+to check the uniqueness part of the valuative criterion, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-valuative-criterion-separatedness}.
+This immediately reduces to the following problem: given
+\begin{enumerate}
+\item a valuation ring $R$ with fraction field $K$,
+\item an algebraic space $X$ proper and flat over $R$
+with integral geometric fibre,
+\item an element $a \in \Picardfunctor_{X/R}(R)$ with
+$a|_{\Spec(K)} = 0$,
+\end{enumerate}
+then we have to prove $a = 0$. Applying
+Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-lift-valuation-ring-through-flat-morphism}
+to the surjective flat morphism
+$\Picardstack_{X/R} \to \Picardfunctor_{X/R}$
+(surjective and flat by Lemma \ref{lemma-pic-gerbe-over-pic-functor} and
+Morphisms of Stacks, Lemma \ref{stacks-morphisms-lemma-gerbe-fppf})
+after replacing $R$ by an extension we may assume
+$a$ is given by an invertible $\mathcal{O}_X$-module
+$\mathcal{L}$. Since $a|_{\Spec(K)} = 0$ we find
+$\mathcal{L}_K \cong \mathcal{O}_{X_K}$ by
+Quot, Lemma \ref{quot-lemma-flat-geometrically-connected-fibres}.
+
+\medskip\noindent
+Denote $f : X \to \Spec(R)$ the structure morphism.
+Let $\eta, 0 \in \Spec(R)$ be the generic and closed point.
+Consider the perfect complexes
+$K = Rf_*\mathcal{L}$ and $M = Rf_*(\mathcal{L}^{\otimes -1})$
+on $\Spec(R)$, see Derived Categories of Spaces, Lemma
+\ref{spaces-perfect-lemma-flat-proper-perfect-direct-image-general}.
+Consider the functions
+$\beta_{K, i}, \beta_{M, i} : \Spec(R) \to \mathbf{Z}$
+of Derived Categories of Spaces, Lemma
+\ref{spaces-perfect-lemma-jump-loci} associated to $K$ and $M$.
+Since the formation of $K$ amd $M$ commutes with
+base change (see lemma cited above) we find
+$\beta_{K, 0}(\eta) = \beta_{M, 0}(\beta) = 1$ by
+Spaces over Fields, Lemma
+\ref{spaces-over-fields-lemma-proper-geometrically-reduced-global-sections}
+and our assumption on the fibres of $f$.
+By upper semi-continuity we find
+$\beta_{K, 0}(0) \geq 1$ and $\beta_{M, 0} \geq 1$.
+By 
+Spaces over Fields, Lemma
+\ref{spaces-over-fields-lemma-characterize-trivial-pic-integral}
+we conclude that the restriction of $\mathcal{L}$
+to the special fibre $X_0$ is trivial. In turn this gives
+$\beta_{K, 0}(0) = \beta_{M, 0} = 1$ as above.
+Then by More on Algebra, Lemma
+\ref{more-algebra-lemma-lift-pseudo-coherent-from-residue-field}
+we can represent $K$ by a complex of the form
+$$
+\ldots \to 0 \to R \to R^{\oplus \beta_{K, 1}(0)} \to
+R^{\oplus \beta_{K, 2}(0)} \to \ldots
+$$
+Now $R \to R^{\oplus \beta_{K, 1}(0)}$ is zero
+because $\beta_{K, 0}(\eta) = 1$. In other words
+$K = R \oplus \tau_{\geq 1}(K)$ in $D(R)$ where $\tau_{\geq 1}(K)$
+has tor amplitude in $[1, b]$ for some $b \in \mathbf{Z}$.
+Hence there is a global section $s \in H^0(X, \mathcal{L})$
+whose restriction $s_0$
+to $X_0$ is nonvanishing (again because formation of $K$
+commutes with base change). Then $s : \mathcal{O}_X \to \mathcal{L}$
+is a map of invertible sheaves whose restriction to $X_0$
+is an isomorphism and hence is an isomorphism as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pic-functor-curves-smooth}
+Assume $f : X \to B$ has relative dimension $\leq 1$ in addition to
+the other assumptions in this section. Then $\Picardfunctor_{X/B} \to B$
+is smooth.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-pic-curves-smooth} we know that
+$\Picardstack_{X/B} \to B$ is smooth. The morphism
+$\Picardstack_{X/B} \to \Picardfunctor_{X/B}$ is surjective
+and smooth by combining Lemma \ref{lemma-pic-gerbe-over-pic-functor} with
+Morphisms of Stacks, Lemma \ref{stacks-morphisms-lemma-gerbe-smooth}.
+Thus if $U$ is a scheme and $U \to \Picardstack_{X/B}$ is surjective
+and smooth, then $U \to \Picardfunctor_{X/B}$ is surjective and smooth
+and $U \to B$ is surjective and smooth (because these properties
+are preserved by composition). Thus $\Picardfunctor_{X/B} \to B$
+is smooth for example by
+Descent on Spaces, Lemma
+\ref{spaces-descent-lemma-syntomic-smooth-etale-permanence}.
+\end{proof}
+
+
+
+
+
+
+\section{Properties of relative morphisms}
+\label{section-relative-morphisms}
+
+\noindent
+Let $B$ be an algebraic space. Let $X$ and $Y$ be algebraic spaces
+over $B$ such that $Y \to B$ is flat, proper, and of finite presentation
+and $X \to B$ is separated and of finite presentation.
+Then the functor $\mathit{Mor}_B(Y, X)$ of relative morphisms
+is an algebraic space locally of finite presentation over $B$.
+See Quot, Proposition \ref{quot-proposition-Mor}.
+
+\begin{lemma}
+\label{lemma-Mor-diagonal-closed}
+The diagonal of $\mathit{Mor}_B(Y, X) \to B$ is a closed immersion
+of finite presentation.
+\end{lemma}
+
+\begin{proof}
+There is an open immersion
+$\mathit{Mor}_B(Y, X) \to \Hilbfunctor_{Y \times_B X/B}$, see
+Quot, Lemma \ref{quot-lemma-Mor-into-Hilb-open}.
+Thus the lemma follows from
+Lemma \ref{lemma-hilb-diagonal-closed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-Mor-s-lfp}
+The morphism $\mathit{Mor}_B(Y, X) \to B$ is separated
+and locally of finite presentation.
+\end{lemma}
+
+\begin{proof}
+To check $\mathit{Mor}_B(Y, X) \to B$ is separated we have to
+show that its diagonal is a closed immersion. This
+is true by Lemma \ref{lemma-Mor-diagonal-closed}.
+The second statement is part of
+Quot, Proposition \ref{quot-proposition-Mor}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-Isom-in-Mor}
+With $B, X, Y$ as in the introduction of this section, in addition
+assume $X \to B$ is proper. Then the
+subfunctor $\mathit{Isom}_B(Y, X) \subset \mathit{Mor}_B(Y, X)$
+of isomorphisms is an open subspace.
+\end{lemma}
+
+\begin{proof}
+Follows immediately from More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-where-isomorphism}.
+\end{proof}
+
+\begin{remark}[Numerical invariants]
+\label{remark-Mor-numerical}
+Let $B, X, Y$ be as in the introduction to this section.
+Let $I$ be a set and for $i \in I$ let
+$E_i \in D(\mathcal{O}_{Y \times_B X})$ be perfect.
+Let $P : I \to \mathbf{Z}$ be a function. Recall that
+$$
+\mathit{Mor}_B(Y, X) \subset
+\Hilbfunctor_{Y \times_B X/B}
+$$
+is an open subspace, see Quot, Lemma \ref{quot-lemma-Mor-into-Hilb-open}.
+Thus we can define
+$$
+\mathit{Mor}^P_B(Y, X) =
+\mathit{Mor}_B(Y, X) \cap \Hilbfunctor^P_{Y \times_B X/B}
+$$
+where $\Hilbfunctor^P_{Y \times_B X/B}$ is as in
+Remark \ref{remark-hilb-numerical}. The morphism
+$$
+\mathit{Mor}^P_B(Y, X) \longrightarrow \mathit{Mor}_B(Y, X)
+$$
+is a flat closed immersion which is an open and closed immersion
+for example if $I$ is finite, or $B$ is locally Noetherian, or
+$I = \mathbf{Z}$, $E_i = \mathcal{L}^{\otimes i}$
+for some invertible $\mathcal{O}_{Y \times_B X}$-module $\mathcal{L}$.
+In the last case we sometimes use the notation
+$\mathit{Mor}^{P, \mathcal{L}}_B(Y, X)$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-Mor-qc-over-base}
+With $B, X, Y$ as in the introduction of this section, let
+$\mathcal{L}$ be ample on $X/B$ and let $\mathcal{N}$ be ample on $Y/B$.
+See Divisors on Spaces, Definition
+\ref{spaces-divisors-definition-relatively-ample}.
+Let $P$ be a numerical polynomial. Then
+$$
+\mathit{Mor}^{P, \mathcal{M}}_B(Y, X) \longrightarrow B
+$$
+is separated and of finite presentation where
+$\mathcal{M} = \text{pr}_1^*\mathcal{N}
+\otimes_{\mathcal{O}_{Y \times_B X}} \text{pr}_2^*\mathcal{L}$.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-Mor-s-lfp} the morphism $\mathit{Mor}_B(Y, X) \to B$
+is separated and locally of finite presentation. Thus it suffices to
+show that the open and closed subspace $\mathit{Mor}^{P, \mathcal{M}}_B(Y, X)$
+of Remark \ref{remark-Mor-numerical} is quasi-compact over $B$.
+
+\medskip\noindent
+The question is \'etale local on $B$
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-quasi-compact-local}).
+Thus we may assume $B$ is affine.
+
+\medskip\noindent
+Assume $B = \Spec(\Lambda)$. Note that $X$ and
+$Y$ are schemes and that $\mathcal{L}$ and $\mathcal{N}$ are ample
+invertible sheaves on $X$ and $Y$ (this follows immediately from the
+definitions). Write $\Lambda = \colim \Lambda_i$ as the
+colimit of its finite type $\mathbf{Z}$-subalgebras. Then
+we can find an $i$ and a a system $X_i, Y_i, \mathcal{L}_i, \mathcal{N}_i$
+as in the lemma over $B_i = \Spec(\Lambda_i)$ whose base change to
+$B$ gives $X, Y, \mathcal{L}, \mathcal{N}$. This follows from
+Limits, Lemmas
+\ref{limits-lemma-descend-finite-presentation} (to find $X_i$, $Y_i$),
+\ref{limits-lemma-descend-invertible-modules} (to find $\mathcal{L}_i$,
+$\mathcal{N}_i$), \ref{limits-lemma-descend-separated-finite-presentation}
+(to make $X_i \to B_i$ separated), \ref{limits-lemma-eventually-proper}
+(to make $Y_i \to B_i$ proper), and \ref{limits-lemma-limit-ample}
+(to make $\mathcal{L}_i$, $\mathcal{N}_i$ ample).
+Because
+$$
+\mathit{Mor}_B(Y, X) = B \times_{B_i} \mathit{Mor}_{B_i}(Y_i, X_i)
+$$
+and similarly for $\mathit{Mor}^P_B(Y, X)$ we reduce
+to the case discussed in the next paragraph.
+
+\medskip\noindent
+Assume $B$ is a Noetherian affine scheme. By
+Properties, Lemma \ref{properties-lemma-ample-on-product}
+we see that $\mathcal{M}$ is ample. By Lemma \ref{lemma-hilb-qc-over-base}
+we see that $\Hilbfunctor^{P, \mathcal{M}}_{Y \times_B X/B}$ is of
+finite presentation over $B$ and hence Noetherian.
+By construction
+$$
+\mathit{Mor}^{P, \mathcal{M}}_B(Y, X) =
+\mathit{Mor}_B(Y, X) \cap
+\Hilbfunctor^{P, \mathcal{M}}_{Y \times_B X/B}
+$$
+is an open subspace of $\Hilbfunctor^{P, \mathcal{M}}_{Y \times_B X/B}$ and
+hence quasi-compact (as an open of a Noetherian algebraic space
+is quasi-compact).
+\end{proof}
+
+
+
+
+
+
+\section{Properties of the stack of polarized proper schemes}
+\label{section-polarized}
+
+\noindent
+In this section we discuss properties of the moduli stack
+$$
+\Polarizedstack \longrightarrow \Spec(\mathbf{Z})
+$$
+whose category of sections over a scheme $S$ is the category of
+proper, flat, finitely presented scheme over $S$ endowed
+with a relatively ample invertible sheaf. This is an algebraic
+stack by Quot, Theorem \ref{quot-theorem-polarized-algebraic}.
+
+\begin{lemma}
+\label{lemma-polarized-diagonal-separated-fp}
+The diagonal of $\Polarizedstack$ is separated
+and of finite presentation.
+\end{lemma}
+
+\begin{proof}
+Recall that $\Polarizedstack$ is a limit preserving algebraic stack, see
+Quot, Lemma \ref{quot-lemma-polarized-limits}.
+By Limits of Stacks, Lemma \ref{stacks-limits-lemma-limit-preserving-diagonal}
+this implies that
+$\Delta : \Polarizedstack \to \Polarizedstack \times \Polarizedstack$
+is limit preserving. Hence $\Delta$ is locally of finite presentation
+by Limits of Stacks, Proposition
+\ref{stacks-limits-proposition-characterize-locally-finite-presentation}.
+
+\medskip\noindent
+Let us prove that $\Delta$ is separated. To see this, it suffices to show
+that given an affine scheme $U$ and two objects
+$\upsilon = (Y, \mathcal{N})$ and $\chi = (X, \mathcal{L})$
+of $\Polarizedstack$ over $U$, the algebraic
+space
+$$
+\mathit{Isom}_{\Polarizedstack}(\upsilon, \chi)
+$$
+is separated. The rule which to an isomorphism $\upsilon_T \to \chi_T$
+assigns the underlying isomorphism $Y_T \to X_T$ defines a morphism
+$$
+\mathit{Isom}_{\Polarizedstack}(\upsilon, \chi)
+\longrightarrow
+\mathit{Isom}_U(Y, X)
+$$
+Since we have seen in Lemmas \ref{lemma-Mor-s-lfp} and
+\ref{lemma-Isom-in-Mor} that the target is
+a separated algebraic space, it suffices to prove that this morphism
+is separated. Given an isomorphism $f : Y_T \to X_T$
+over some scheme $T/U$, then clearly
+$$
+\mathit{Isom}_{\Polarizedstack}(\upsilon, \chi)
+\times_{\mathit{Isom}_U(Y, X), [f]} T
+=
+\mathit{Isom}(\mathcal{N}_T, f^*\mathcal{L}_T)
+$$
+Here $[f] : T \to \mathit{Isom}_U(Y, X)$ indicates the $T$-valued
+point corresponding to $f$ and
+$\mathit{Isom}(\mathcal{N}_T, f^*\mathcal{L}_T)$
+is the algebraic space discussed in Section \ref{section-hom-isom}.
+Since this algebraic space is affine over $U$, the claim implies
+$\Delta$ is separated.
+
+\medskip\noindent
+To finish the proof we show that $\Delta$ is quasi-compact. Since
+$\Delta$ is representable by algebraic spaces, it suffice to check
+the base change of $\Delta$ by a surjective smooth morphism
+$U \to \Polarizedstack \times \Polarizedstack$ is quasi-compact
+(see for example Properties of Stacks, Lemma
+\ref{stacks-properties-lemma-check-property-covering}).
+We can assume $U = \coprod U_i$ is a disjoint union of affine opens.
+Since $\Polarizedstack$ is limit preserving (see above), we
+see that $\Polarizedstack \to \Spec(\mathbf{Z})$ is locally of
+finite presentation, hence $U_i \to \Spec(\mathbf{Z})$ is
+locally of finite presentation
+(Limits of Stacks, Proposition
+\ref{stacks-limits-proposition-characterize-locally-finite-presentation}
+and Morphisms of Stacks, Lemmas
+\ref{stacks-morphisms-lemma-composition-finite-presentation} and
+\ref{stacks-morphisms-lemma-smooth-locally-finite-presentation}).
+In particular, $U_i$ is Noetherian affine. This reduces us to the
+case discussed in the next paragraph.
+
+\medskip\noindent
+In this paragraph, given a Noetherian affine scheme $U$ and two objects
+$\upsilon = (Y, \mathcal{N})$ and $\chi = (X, \mathcal{L})$
+of $\Polarizedstack$ over $U$, we show the algebraic space
+$$
+\mathit{Isom}_{\Polarizedstack}(\upsilon, \chi)
+$$
+is quasi-compact. Since the connected components of $U$ are open and closed
+we may replace $U$ by these. Thus we may and do assume $U$ is connected.
+Let $u \in U$ be a point. Let $P$ be the Hilbert polynomial
+$n \mapsto \chi(Y_u, \mathcal{N}_u^{\otimes n})$, see
+Varieties, Lemma \ref{varieties-lemma-numerical-polynomial-from-euler}.
+Since $U$ is connected and since
+the functions $u \mapsto \chi(Y_u, \mathcal{N}_u^{\otimes n})$
+are locally constant (see 
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-chi-locally-constant-geometric})
+we see that we get the same Hilbert polynomial in every point of $U$.
+Set
+$\mathcal{M} = \text{pr}_1^*\mathcal{N}
+\otimes_{\mathcal{O}_{Y \times_U X}} \text{pr}_2^*\mathcal{L}$
+on $Y \times_U X$. Given
+$(f, \varphi) \in \mathit{Isom}_{\Polarizedstack}(\upsilon, \chi)(T)$
+for some scheme $T$ over $U$ then for every $t \in T$ we have
+$$
+\chi(Y_t, (\text{id} \times f)^*\mathcal{M}^{\otimes n}) =
+\chi(Y_t,
+\mathcal{N}_t^{\otimes n} \otimes_{\mathcal{O}_{Y_t}}
+f_t^*\mathcal{L}_t^{\otimes n}) =
+\chi(Y_t, \mathcal{N}_t^{\otimes 2n}) = P(2n)
+$$
+where in the middle equality we use the isomorphism
+$\varphi : f^*\mathcal{L}_T \to \mathcal{N}_T$.
+Setting $P'(t) = P(2t)$ we find that the morphism
+$$
+\mathit{Isom}_{\Polarizedstack}(\upsilon, \chi)
+\longrightarrow
+\mathit{Isom}_U(Y, X)
+$$
+(see earlier) has image contained in the intersection
+$$
+\mathit{Isom}_U(Y, X) \cap \mathit{Mor}^{P', \mathcal{M}}_U(Y, X)
+$$
+The intersection is an intersection of open subspaces of
+$\mathit{Mor}_U(Y, X)$ (see Lemma \ref{lemma-Isom-in-Mor} and
+Remark \ref{remark-Mor-numerical}).
+Now $\mathit{Mor}^{P', \mathcal{M}}_U(Y, X)$
+is a Noetherian algebraic space as it is of finite
+presentation over $U$ by Lemma \ref{lemma-Mor-qc-over-base}.
+Thus the intersection
+is a Noetherian algebraic space too. Since the morphism
+$$
+\mathit{Isom}_{\Polarizedstack}(\upsilon, \chi)
+\longrightarrow
+\mathit{Isom}_U(Y, X) \cap \mathit{Mor}^{P', \mathcal{M}}_U(Y, X)
+$$
+is affine (see above) we conclude.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-polarized-qs-lfp}
+The morphism $\Polarizedstack \to \Spec(\mathbf{Z})$ is quasi-separated and
+locally of finite presentation.
+\end{lemma}
+
+\begin{proof}
+To check $\Polarizedstack \to \Spec(\mathbf{Z})$ is quasi-separated we have to
+show that its diagonal is quasi-compact and quasi-separated.
+This is immediate from Lemma \ref{lemma-polarized-diagonal-separated-fp}.
+To prove that $\Polarizedstack \to \Spec(\mathbf{Z})$ is locally of finite
+presentation, it suffices to show that $\Polarizedstack$
+is limit preserving, see Limits of Stacks, Proposition
+\ref{stacks-limits-proposition-characterize-locally-finite-presentation}.
+This is Quot, Lemma \ref{quot-lemma-polarized-limits}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-bounded-polarized}
+Let $n \geq 1$ be an integer and let $P$ be a numerical polynomial.
+Let
+$$
+T \subset |\Polarizedstack|
+$$
+be a subset with the following property: for every $\xi \in T$
+there exists a field $k$ and an object $(X, \mathcal{L})$
+of $\Polarizedstack$ over $k$ representing $\xi$ such that
+\begin{enumerate}
+\item the Hilbert polynomial of $\mathcal{L}$ on $X$ is $P$, and
+\item there exists a closed immersion $i : X \to \mathbf{P}^n_k$
+such that $i^*\mathcal{O}_{\mathbf{P}^n}(1) \cong \mathcal{L}$.
+\end{enumerate}
+Then $T$ is a Noetherian topological space, in particular quasi-compact.
+\end{lemma}
+
+\begin{proof}
+Observe that $|\Polarizedstack|$ is a locally Noetherian topological
+space, see Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-Noetherian-topology}
+(this also uses that $\Spec(\mathbf{Z})$ is Noetherian and
+hence $\Polarizedstack$ is a locally Noetherian algebraic stack
+by Lemma \ref{lemma-polarized-qs-lfp} and
+Morphisms of Stacks, Lemma
+\ref{stacks-morphisms-lemma-locally-finite-type-locally-noetherian}).
+Thus any quasi-compact subset of $|\Polarizedstack|$ is
+a Noetherian topological space and any subset of such is
+also Noetherian, see
+Topology, Lemmas \ref{topology-lemma-finite-union-Noetherian} and
+\ref{topology-lemma-Noetherian}.
+Thus all we have to do is a find a quasi-compact subset
+containing $T$.
+
+\medskip\noindent
+By Lemma \ref{lemma-hilb-proper-over-base} the algebraic space
+$$
+H =
+\Hilbfunctor^{P, \mathcal{O}(1)}_{\mathbf{P}^n_\mathbf{Z}/\Spec(\mathbf{Z})}
+$$
+is proper over $\Spec(\mathbf{Z})$. By
+Quot, Lemma \ref{quot-lemma-extend-hilb-to-spaces}\footnote{We will see
+later (insert future reference here) that $H$ is a scheme and hence the
+use of this lemma and Quot, Lemma \ref{quot-lemma-extend-polarized-to-spaces}
+isn't necessary.} the identity morphism of $H$ corresponds
+to a closed subspace
+$$
+Z \subset \mathbf{P}^n_H
+$$
+which is proper, flat, and of finite presentation over $H$ and
+such that the restriction $\mathcal{N} = \mathcal{O}(1)|_Z$
+is relatively ample on $Z/H$ and has Hilbert polynomial $P$
+on the fibres of $Z \to H$. In particular, the pair $(Z \to H, \mathcal{N})$
+defines a morphism
+$$
+H \longrightarrow \Polarizedstack
+$$
+which sends a morphism of schemes $U \to H$ to the classifying morphism
+of the family $(Z_U \to U, \mathcal{N}_U)$, see
+Quot, Lemma \ref{quot-lemma-extend-polarized-to-spaces}.
+Since $H$ is a Noetherian algebraic space
+(as it is proper over $\mathbf{Z})$)
+we see that $|H|$ is Noetherian and hence quasi-compact. The map
+$$
+|H| \longrightarrow |\Polarizedstack|
+$$
+is continuous, hence the image is quasi-compact.
+Thus it suffices to prove $T$ is contained
+in the image of $|H| \to |\Polarizedstack|$.
+However, assumptions (1) and (2) exactly express the fact
+that this is the case: any choice of a closed immersion
+$i : X \to \mathbf{P}^n_k$ with
+$i^*\mathcal{O}_{\mathbf{P}^n}(1) \cong \mathcal{L}$ we get a
+$k$-valued point of $H$ by the moduli interpretation of $H$.
+This finishes the proof of the lemma.
+\end{proof}
+
+
+
+
+
+
+\section{Properties of moduli of complexes on a proper morphism}
+\label{section-complexes}
+
+\noindent
+Let $f : X \to B$ be a morphism of algebraic spaces which is proper,
+flat, and of finite presentation. Then the stack
+$\Complexesstack_{X/B}$ parametrizing relatively perfect complexes
+with vanishing negative self-exts is algebraic. See
+Quot, Theorem \ref{quot-theorem-complexes-algebraic}.
+
+\begin{lemma}
+\label{lemma-complexes-diagonal-affine-fp}
+The diagonal of $\Complexesstack_{X/B}$ over $B$ is affine
+and of finite presentation.
+\end{lemma}
+
+\begin{proof}
+The representability of the diagonal (by algebraic spaces)
+was shown in Quot, Lemma \ref{quot-lemma-complexes-diagonal}.
+From the proof we find that we have to show:
+given a scheme $T$ over $B$ and objects
+$E, E' \in D(\mathcal{O}_{X_T})$ such that
+$(T, E)$ and $(T, E')$ are objects of the fibre category
+of $\Complexesstack_{X/B}$ over $T$, then
+$\mathit{Isom}(E, E') \to T$
+is affine and of finite presentation.
+Here $\mathit{Isom}(E, E')$ is the functor
+$$
+(\Sch/T)^{opp} \to \textit{Sets},\quad
+T' \mapsto \{\varphi : E_{T'} \to E'_{T'}
+\text{ isomorphism in }D(\mathcal{O}_{X_{T'}})\}
+$$
+where $E_{T'}$ and $E'_{T'}$ are the derived pullbacks of $E$ and $E'$
+to $X_{T'}$. Consider the functor $H = \SheafHom(E, E')$ defined
+by the rule
+$$
+(\Sch/T)^{opp} \to \textit{Sets},\quad
+T' \mapsto \Hom_{\mathcal{O}_{X_{T'}}}(E_T, E'_T)
+$$
+By Quot, Lemma \ref{quot-lemma-complexes-open-neg-exts-vanishing}
+this is an algebraic space affine and of finite presentation over $T$.
+The same is true for $H' = \SheafHom(E', E)$, $I = \SheafHom(E, E)$, and
+$I' = \SheafHom(E', E')$. Therefore we see that
+$$
+\mathit{Isom}(E, E') = (H' \times_T H) \times_{c, I \times_T I', \sigma} T
+$$
+where $c(\varphi', \varphi) = (\varphi \circ \varphi', \varphi' \circ \varphi)$
+and $\sigma = (\text{id}, \text{id})$ (compare with the proof of
+Quot, Proposition \ref{quot-proposition-isom}). Thus
+$\mathit{Isom}(E, E')$ is affine over $T$ as a fibre product of
+schemes affine over $T$. Similarly, $\mathit{Isom}(E, E')$ is
+of finite presentation over $T$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-complexes-qs-lfp}
+The morphism $\Complexesstack_{X/B} \to B$ is quasi-separated and
+locally of finite presentation.
+\end{lemma}
+
+\begin{proof}
+To check $\Complexesstack_{X/B} \to B$ is quasi-separated we have to
+show that its diagonal is quasi-compact and quasi-separated.
+This is immediate from Lemma \ref{lemma-complexes-diagonal-affine-fp}.
+To prove that $\Complexesstack_{X/B} \to B$ is locally of finite
+presentation, we have to show that $\Cohstack_{X/B} \to B$
+is limit preserving, see
+Limits of Stacks, Proposition
+\ref{stacks-limits-proposition-characterize-locally-finite-presentation}.
+This follows from Quot, Lemma \ref{quot-lemma-complexes-limits}
+(small detail omitted).
+\end{proof}
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

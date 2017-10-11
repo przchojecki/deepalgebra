@@ -1,0 +1,313 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Desirables}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+This is basically just a list of things that we want to put in the stacks
+project. As we add material to the Stacks project continuously this is always
+somewhat behind the current state of the Stacks project. In fact, it may have
+been a mistake to try and list things we should add, because it seems
+impossible to keep it up to date.
+
+\medskip\noindent
+Last updated: Thursday, August 31, 2017.
+
+
+\section{Conventions}
+\label{section-conventions}
+
+\noindent
+We should have a chapter with a short list of conventions used in the document.
+This chapter already exists, see
+Conventions, Section \ref{conventions-section-comments},
+but a lot more could be added there. Especially useful would be to find
+``hidden'' conventions and tacit assumptions and put those there.
+
+
+\section{Sites and Topoi}
+\label{section-sites}
+
+\noindent
+We have a chapter on sites and sheaves, see
+Sites, Section \ref{sites-section-introduction}.
+We have a chapter on ringed sites (and topoi) and modules on them, see
+Modules on Sites, Section \ref{sites-modules-section-introduction}.
+We have a chapter on cohomology in this setting, see
+Cohomology on Sites, Section \ref{sites-cohomology-section-introduction}.
+But a lot more could be added, especially in the chapter on cohomology.
+
+
+\section{Stacks}
+\label{section-stacks}
+
+\noindent
+We have a chapter on (abstract) stacks, see
+Stacks, Section \ref{stacks-section-introduction}.
+It would be nice if
+\begin{enumerate}
+\item improve the discussion on ``stackyfication'',
+\item give examples of stackyfication,
+\item more examples in general,
+\item improve the discussion of gerbes.
+\end{enumerate}
+Example result which has not been added yet: Given a sheaf of abelian
+groups $\mathcal{F}$
+over $\mathcal{C}$ the set of equivalence classes of gerbes banded by
+$\mathcal{F}$ is bijective to $H^2(\mathcal{C}, \mathcal{F})$.
+
+
+\section{Simplicial methods}
+\label{section-simplicial}
+
+\noindent
+We have a chapter on simplicial methods, see
+Simplicial, Section \ref{simplicial-section-introduction}.
+This has to be reviewed and improved. The discussion of
+the relationship between simplicial homotopy (also known as
+combinatorial homotopy) and Kan complexes should be improved upon.
+There is a chapter on simplicial spaces, see
+Simplicial Spaces, Section \ref{spaces-simplicial-section-introduction}.
+This chapter briefly discusses
+simplicial topological spaces, simplicial sites, and simplicial topoi.
+We can further develop ``simplicial algebraic geometry'' to discuss
+simplicial schemes (or simplicial algebraic spaces, or
+simplicial algebraic stacks) and treat geometric questions, their cohomology,
+etc.
+
+
+\section{Cohomology of schemes}
+\label{section-schemes-cohomology}
+
+\noindent
+There is already a chapter on cohomology of quasi-coherent sheaves, see
+Cohomology of Schemes, Section \ref{coherent-section-introduction}.
+We have a chapter discussing the derived category of
+quasi-coherent sheaves on a scheme, see
+Derived Categories of Schemes, Section \ref{perfect-section-introduction}.
+We have a chapter discussing duality for Noetherian schemes
+and relative duality for morphisms of schemes, see
+Duality for Schemes, Section \ref{duality-section-introduction}.
+We also have chapters on \'etale cohomology of schemes and on
+crystalline cohomology of schemes. But most of the material in these
+chapters is very basic and a lot more could/should be added there.
+
+
+\section{Deformation theory \`a la Schlessinger}
+\label{section-deformation-schlessinger}
+
+\noindent
+We have a chapter on this material, see
+Formal Deformation Theory, Section \ref{formal-defos-section-introduction}.
+We have a chapter discussing examples of the general theory, see
+Deformation Problems, Section \ref{examples-defos-section-introduction}.
+We have a chapter, see
+Deformation Theory, Section \ref{defos-section-introduction}
+which discusses deformations of rings (and modules),
+deformations of ringed spaces (and sheaves of modules),
+deformations of ringed topoi (and sheaves of modules).
+In this chapter we use the naive cotangent complex
+to describe obstructions, first order deformations, and
+infinitesimal automorphisms. This material has found some
+applications to algebraicity of moduli stacks in later chapters.
+There is also a chapter discussing the full cotangent complex, see
+Cotangent, Section \ref{cotangent-section-introduction}.
+
+
+\section{Definition of algebraic stacks}
+\label{section-definition-algebraic-stacks}
+
+\noindent
+An algebraic stack is a stack in groupoids over the category of schemes
+with the fppf topology that has a diagonal representable by algebraic
+spaces and is the target of a surjective smooth morphism from a scheme.
+See Algebraic Stacks, Section \ref{algebraic-section-algebraic-stacks}.
+A ``Deligne-Mumford stack'' is an algebraic stack for which there exists
+a scheme and a surjective \'etale morphism from that scheme to it
+as in the paper \cite{DM} of Deligne and Mumford, see
+Algebraic Stacks, Definition \ref{algebraic-definition-deligne-mumford}.
+We will reserve the term ``Artin stack'' for a stack such as in the papers by
+Artin, see \cite{ArtinI}, \cite{ArtinII}, and \cite{ArtinVersal}.
+A possible definition is that an Artin stack is an algebraic stack
+$\mathcal{X}$ over a locally Noetherian scheme $S$ such that
+$\mathcal{X} \to S$ is
+locally of finite type\footnote{Namely, these are exactly the algebraic
+stacks over $S$ satisfying Artin's axioms [-1], [0], [1], [2], [3], [4], [5]
+of Artin's Axioms, Section \ref{artin-section-axioms}.}.
+
+
+\section{Examples of schemes, algebraic spaces, algebraic stacks}
+\label{section-examples-stacks}
+
+\noindent
+The Stacks project currently contains two chapters discussing
+moduli stacks and their properties, see
+Moduli Stacks, Section \ref{moduli-section-introduction} and
+Moduli of Curves, Section \ref{moduli-curves-section-introduction}.
+Over time we intend to add more, for example:
+\begin{enumerate}
+\item $\mathcal{A}_g$,
+i.e., principally polarized abelian schemes of genus $g$,
+\item $\mathcal{A}_1 = \mathcal{M}_{1, 1}$, i.e.,
+$1$-pointed smooth projective genus $1$ curves,
+\item $\mathcal{M}_{g, n}$, i.e., smooth projective genus $g$-curves
+with $n$ pairwise distinct labeled points,
+\item $\overline{\mathcal{M}}_{g, n}$, i.e.,
+stable $n$-pointed nodal projective genus $g$-curves,
+\item $\SheafHom_S(\mathcal{X}, \mathcal{Y})$, moduli of morphisms
+(with suitable conditions on the stacks $\mathcal{X}$, $\mathcal{Y}$
+and the base scheme $S$),
+\item $\textit{Bun}_G(X) = \SheafHom_S(X, BG)$, the stack of $G$-bundles
+of the geometric Langlands programme (with suitable conditions on the scheme
+$X$, the group scheme $G$, and the base scheme $S$),
+\item $\Picardstack_{\mathcal{X}/S}$, i.e., the Picard stack associated
+to an algebraic stack over a base scheme (or space).
+\end{enumerate}
+More generally, the Stacks project is somewhat
+lacking in geometrically meaningful examples.
+
+
+\section{Properties of algebraic stacks}
+\label{section-stacks-properties}
+
+\noindent
+This is perhaps one of the easier projects to work on, as most of the
+basic theory is there now. Of course these things are really properties
+of morphisms of stacks. We can define singularities (up to smooth factors)
+etc. Prove that a connected normal stack is irreducible, etc.
+
+
+\section{Lisse \'etale site of an algebraic stack}
+\label{section-lisse-etale}
+
+\noindent
+This has been introduced in
+Cohomology of Stacks, Section \ref{stacks-cohomology-section-lisse-etale}.
+An example to show that it is not functorial with respect to $1$-morphisms
+of algebraic stacks is discussed in
+Examples, Section \ref{examples-section-lisse-etale-not-functorial}.
+Of course a lot more could be said about this, but it turns out
+to be very useful to prove things using the ``big'' \'etale site
+as much as possible.
+
+
+
+\section{Things you always wanted to know but were afraid to ask}
+\label{section-stacks-fun-lemmas}
+
+\noindent
+There are going to be lots of lemmas that you use over and over again
+that are useful but aren't really mentioned specifically in the literature,
+or it isn't easy to find references for. Bag of tricks.
+
+\medskip\noindent
+Example: Given two groupoids in schemes $R\Rightarrow U$ and
+$R' \Rightarrow U'$ what does it mean to have a $1$-morphism
+$[U/R] \to [U'/R']$ purely in terms of groupoids in schemes.
+
+
+
+\section{Quasi-coherent sheaves on stacks}
+\label{section-quasi-coherent}
+
+\noindent
+These are defined and discussed in the chapter
+Cohomology of Stacks, Section \ref{stacks-cohomology-section-introduction}.
+Derived categories of modules are discussed in the chapter
+Derived Categories of Stacks, Section \ref{stacks-perfect-section-introduction}.
+A lot more could be added to these chapters.
+
+
+
+\section{Flat and smooth}
+\label{section-flat-smooth}
+
+\noindent
+Artin's theorem that having a flat surjection from a scheme is a replacement
+for the smooth surjective condition. This is now available as
+Criteria for Representability, Theorem \ref{criteria-theorem-bootstrap}.
+
+
+\section{Artin's representability theorem}
+\label{section-representability}
+
+\noindent
+This is discussed in the chapter
+Artin's Axioms, Section \ref{artin-section-introduction}.
+We also have an application, see
+Quot, Theorem \ref{quot-theorem-coherent-algebraic}.
+There should be a lot more applications and the chapter
+itself has to be cleaned up as well.
+
+
+\section{DM stacks are finitely covered by schemes}
+\label{section-dm-finite-cover}
+
+\noindent
+We already have the corresponding result for algebraic spaces, see
+Limits of Spaces, Section \ref{spaces-limits-section-finite-cover}.
+What is missing is the result for DM and quasi-DM stacks.
+
+
+\section{Martin Olsson's paper on properness}
+\label{section-proper-parametrization}
+
+\noindent
+This proves two notions of proper are the same. The first part of this
+is now available in the form of Chow's lemma for algebraic stacks, see
+More on Morphisms of Stacks, Theorem
+\ref{stacks-more-morphisms-theorem-chow-finite-type}.
+As a consequence we show that it suffices to use DVR's
+in checking the valuative criterion for properness for
+algebraic stacks in certain cases, see
+More on Morphisms of Stacks, Section
+\ref{stacks-more-morphisms-section-Noetherian-valuative-criterion}.
+
+
+\section{Proper pushforward of coherent sheaves}
+\label{section-proper-pushforward}
+
+\noindent
+We can start working on this now that we have Chow's lemma for
+algebraic stacks, see previous section.
+
+
+\section{Keel and Mori}
+\label{section-keel-mori}
+
+\noindent
+See \cite{K-M}. Their result has been added in
+More on Morphisms of Stacks, Section
+\ref{stacks-more-morphisms-section-Keel-Mori}.
+
+
+\section{Add more here}
+\label{section-add-more}
+
+\noindent
+Actually, no we should never have started this list as part of
+the Stacks project itself! There is a todo list somewhere else
+which is much easier to update.
+
+
+\input{chapters}
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

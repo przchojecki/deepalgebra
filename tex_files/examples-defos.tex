@@ -1,0 +1,2960 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Deformation Problems}
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+The goal of this chapter is to work out examples of the general theory
+developed in the chapters Formal Deformation Theory,
+Deformation Theory, The Cotangent Complex.
+
+\medskip\noindent
+Section 3 of the paper \cite{Sch} by Schlessinger discusses some
+examples as well.
+
+
+
+
+
+
+\section{Examples of deformation problems}
+\label{section-examples}
+
+\noindent
+List of things that should go here:
+\begin{enumerate}
+\item Deformations of schemes:
+\begin{enumerate}
+\item The Rim-Schlessinger condition.
+\item Computing the tangent space.
+\item Computing the infinitesimal deformations.
+\item The deformation category of an affine hypersurface.
+\end{enumerate}
+\item Deformations of sheaves (for example fix $X/S$, a finite type point
+$s$ of $S$, and a quasi-coherent sheaf $\mathcal{F}_s$ over $X_s$).
+\item Deformations of algebraic spaces (very similar to deformations
+of schemes; maybe even easier?).
+\item Deformations of maps (eg morphisms between schemes; you can fix
+both or one of the target and/or source).
+\item Add more here.
+\end{enumerate}
+
+
+
+
+
+\section{General outline}
+\label{section-general}
+
+\noindent
+This section lays out the procedure for discussing the next few examples.
+
+\medskip\noindent
+Step I. For each section we fix a Noetherian ring $\Lambda$ and
+we fix a finite ring map $\Lambda \to k$ where $k$ is a field.
+As usual we let $\mathcal{C}_\Lambda = \mathcal{C}_{\Lambda, k}$
+be our base category, see
+Formal Deformation Theory,
+Definition \ref{formal-defos-definition-CLambda}.
+
+\medskip\noindent
+Step II. In each section we define a category $\mathcal{F}$
+cofibred in groupoids over $\mathcal{C}_\Lambda$. Occassionally
+we will consider instead a functor
+$F : \mathcal{C}_\Lambda \to \textit{Sets}$.
+
+\medskip\noindent
+Step III. We explain to what extend $\mathcal{F}$ satisfies
+the Rim-Schlesssinger condition (RS) discussed in
+Formal Deformation Theory, Section \ref{formal-defos-section-RS-condition}.
+Similarly, we may discuss to what extend our $\mathcal{F}$
+satisfies (S1) and (S2) or to what extend $F$ satisfies
+the corresponding Schlessinger's conditions (H1) and (H2).
+See Formal Deformation Theory, Section
+\ref{formal-defos-section-schlessinger-conditions}.
+
+\medskip\noindent
+Step IV. Let $x_0$ be an object of $\mathcal{F}(k)$, in other words an object
+of $\mathcal{F}$ over $k$. In this chapter we will use the notation
+$$
+\Deformationcategory_{x_0} = \mathcal{F}_{x_0}
+$$
+to denote the predeformation category constructed in
+Formal Deformation Theory, Remark
+\ref{formal-defos-remark-localize-cofibered-groupoid}.
+If $\mathcal{F}$ satisfies (RS), then
+$\Deformationcategory_{x_0}$ is a deformation category
+(Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-localize-RS})
+and satisfies (S1) and (S2)
+(Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-RS-implies-S1-S2}).
+If (S1) and (S2) are satisfied, then
+an important question is whether the tangent space
+$$
+T\Deformationcategory_{x_0} = T_{x_0}\mathcal{F} = T\mathcal{F}_{x_0}
+$$
+(see Formal Deformation Theory, Remark
+\ref{formal-defos-remark-tangent-space-cofibered-groupoid} and
+Definition \ref{formal-defos-definition-tangent-space})
+is finite dimensional. Namely, this insures that
+$\Deformationcategory_{x_0}$ has a versal formal object
+(Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-versal-object-existence}).
+
+\medskip\noindent
+Step V. If $\mathcal{F}$ passes Step IV, then the next question is whether
+the $k$-vector space
+$$
+\text{Inf}(\Deformationcategory_{x_0}) = \text{Inf}_{x_0}(\mathcal{F})
+$$
+of infinitesimal automorphisms of $x_0$ is finite dimensional.
+Namely, if true, this implies that
+$\Deformationcategory_{x_0}$ admits a presentation by a
+smooth prorepresentable groupoid in functors on $\mathcal{C}_\Lambda$, see
+Formal Deformation Theory, Theorem
+\ref{formal-defos-theorem-presentation-deformation-groupoid}.
+
+
+
+
+\section{Finite projective modules}
+\label{section-finite-projective-modules}
+
+\noindent
+This section is just a warmup. Of course finite projective modules
+should not have any ``moduli''.
+
+\begin{example}[Finite projective modules]
+\label{example-finite-projective-modules}
+Let $\mathcal{F}$ be the category defined as follows
+\begin{enumerate}
+\item an object is a pair $(A, M)$ consisting of an
+object $A$ of $\mathcal{C}_\Lambda$ and a
+finite projective $A$-module $M$, and
+\item a morphism $(f, g) : (B, N) \to (A, M)$ consists of
+a morphism $f : B \to A$ in $\mathcal{C}_\Lambda$ together
+with a map $g : N \to M$ which is $f$-linear and induces
+an isomorpism $N \otimes_{B, f} A \cong M$.
+\end{enumerate}
+The functor $p : \mathcal{F} \to \mathcal{C}_\Lambda$ sends $(A, M)$ to $A$
+and $(f, g)$ to $f$. It is clear that $p$ is cofibred in groupoids.
+Given a finite dimensional $k$-vector space $V$,
+let $x_0 = (k, V)$ be the corresponding object of $\mathcal{F}(k)$.
+We set
+$$
+\Deformationcategory_V = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\noindent
+Since every finite projective module over a local ring is finite free
+(Algebra, Lemma \ref{algebra-lemma-finite-projective})
+we see that
+$$
+\begin{matrix}
+\text{isomorphism classes} \\
+\text{of objects of }\mathcal{F}(A)
+\end{matrix}
+= \coprod\nolimits_{n \geq 0} \{*\}
+$$
+Although this means that the deformation theory of $\mathcal{F}$
+is essentially trivial, we still work through the steps outlined
+in Section \ref{section-general} to provide an easy example.
+
+\begin{lemma}
+\label{lemma-finite-projective-modules-RS}
+Example \ref{example-finite-projective-modules}
+satisfies the Rim-Schlessinger condition (RS).
+In particular, $\Deformationcategory_V$ is a deformation category
+for any finite dimensional vector space $V$ over $k$.
+\end{lemma}
+
+\begin{proof}
+Let $A_1 \to A$ and $A_2 \to A$ be morphisms of $\mathcal{C}_\Lambda$.
+Assume $A_2 \to A$ is surjective. According to
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-RS-2-categorical}
+it suffices to show that the functor
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+is an equivalence of categories.
+
+\medskip\noindent
+Thus we have to show that the category of finite projective modules
+over $A_1 \times_A A_2$ is equivalent to the fibre product
+of the categories of finite projective modules over $A_1$ and $A_2$
+over the category of finite projective modules over $A$.
+This is a special case of More on Algebra, Lemma
+\ref{more-algebra-lemma-finitely-presented-module-over-fibre-product}.
+We recall that the inverse functor sends the triple
+$(M_1, M_2, \varphi)$ where
+$M_1$ is a finite projective $A_1$-module,
+$M_2$ is a finite projective $A_2$-module, and
+$\varphi : M_1 \otimes_{A_1} A \to M_2 \otimes_{A_2} A$
+is an isomorphism of $A$-module, to the finite projective
+$A_1 \times_A A_2$-module $M_1 \times_\varphi M_2$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-projective-modules-TI}
+In Example \ref{example-finite-projective-modules}
+let $V$ be a finite dimensional $k$-vector space. Then
+$$
+T\Deformationcategory_V = (0)
+\quad\text{and}\quad
+\text{Inf}(\Deformationcategory_V) = \text{End}_k(V)
+$$
+are finite dimensional.
+\end{lemma}
+
+\begin{proof}
+With $\mathcal{F}$ as in Example \ref{example-finite-projective-modules}
+set $x_0 = (k, V) \in \Ob(\mathcal{F}(k))$.
+Recall that $T\Deformationcategory_V = T_{x_0}\mathcal{F}$
+is the set of isomorphism
+classes of pairs $(x, \alpha)$ consisting of an object $x$ of $\mathcal{F}
+$ over the dual numbers $k[\epsilon]$ and a morphism
+$\alpha : x \to x_0$ of $\mathcal{F}$ lying over $k[\epsilon] \to k$.
+
+\medskip\noindent
+Up to isomorphism, there is a unique pair $(M, \alpha)$ consisting of a
+finite projective module $M$ over $k[\epsilon]$
+and $k[\epsilon]$-linear map $\alpha : M \to V$
+which induces an isomorphism $M \otimes_{k[\epsilon]} k \to V$.
+For example, if $V = k^{\oplus n}$, then we take
+$M = k[\epsilon]^{\oplus n}$ with the obvious map $\alpha$.
+
+\medskip\noindent
+Similarly, $\text{Inf}(\Deformationcategory_V) = \text{Inf}_{x_0}(\mathcal{F})$
+is the set of automorphisms
+of the trivial deformation $x'_0$ of $x_0$ over $k[\epsilon]$.
+See Formal Deformation Theory, Definition
+\ref{formal-defos-definition-infinitesimal-auts} for details.
+
+\medskip\noindent
+Given $(M, \alpha)$ as in the second paragraph, we see that an element of
+$\text{Inf}_{x_0}(\mathcal{F})$ is an automorphism $\gamma : M \to M$ with
+$\gamma \bmod \epsilon = \text{id}$. Then we can write
+$\gamma = \text{id}_M + \epsilon \psi$ where
+$\psi : M/\epsilon M \to M/\epsilon M$ is $k$-linear.
+Using $\alpha$ we can think of $\psi$ as an element of
+$\text{End}_k(V)$ and this finishes the proof.
+\end{proof}
+
+
+
+
+\section{Representations of a group}
+\label{section-representations}
+
+\noindent
+The deformation theory of representations can be very interesting.
+
+\begin{example}[Representations of a group]
+\label{example-representations}
+Let $\Gamma$ be a group.
+Let $\mathcal{F}$ be the category defined as follows
+\begin{enumerate}
+\item an object is a triple $(A, M, \rho)$ consisting of an
+object $A$ of $\mathcal{C}_\Lambda$, a finite projective $A$-module $M$,
+and a homomorphism $\rho : \Gamma \to \text{GL}_A(M)$, and
+\item a morphism $(f, g) : (B, N, \tau) \to (A, M, \rho)$ consists of
+a morphism $f : B \to A$ in $\mathcal{C}_\Lambda$ together
+with a map $g : N \to M$ which is $f$-linear and $\Gamma$-equivariant
+and induces an isomorpism $N \otimes_{B, f} A \cong M$.
+\end{enumerate}
+The functor $p : \mathcal{F} \to \mathcal{C}_\Lambda$ sends $(A, M, \rho)$
+to $A$ and $(f, g)$ to $f$. It is clear that $p$ is cofibred in groupoids.
+Given a finite dimensional $k$-vector space $V$ and a representation
+$\rho_0 : \Gamma \to \text{GL}_k(V)$,
+let $x_0 = (k, V, \rho_0)$ be the corresponding object of $\mathcal{F}(k)$.
+We set
+$$
+\Deformationcategory_{V, \rho_0} = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\noindent
+Since every finite projective module over a local ring is finite free
+(Algebra, Lemma \ref{algebra-lemma-finite-projective})
+we see that
+$$
+\begin{matrix}
+\text{isomorphism classes} \\
+\text{of objects of }\mathcal{F}(A)
+\end{matrix}
+=
+\coprod\nolimits_{n \geq 0}\quad
+\begin{matrix}
+\text{GL}_n(A)\text{-conjugacy classes of}\\
+\text{homomorphisms }\rho : \Gamma \to \text{GL}_n(A)
+\end{matrix}
+$$
+This is already more interesting than the discussion in
+Section \ref{section-finite-projective-modules}.
+
+\begin{lemma}
+\label{lemma-representations-RS}
+Example \ref{example-representations}
+satisfies the Rim-Schlessinger condition (RS).
+In particular, $\Deformationcategory_{V, \rho_0}$ is a deformation category
+for any finite dimensional representation
+$\rho_0 : \Gamma \to \text{GL}_k(V)$.
+\end{lemma}
+
+\begin{proof}
+Let $A_1 \to A$ and $A_2 \to A$ be morphisms of $\mathcal{C}_\Lambda$.
+Assume $A_2 \to A$ is surjective. According to
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-RS-2-categorical}
+it suffices to show that the functor
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+is an equivalence of categories.
+
+\medskip\noindent
+Consider an object
+$$
+((A_1, M_1, \rho_1), (A_2, M_2, \rho_2), (\text{id}_A, \varphi))
+$$
+of the category $\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$.
+Then, as seen in the proof of Lemma \ref{lemma-finite-projective-modules-RS},
+we can consider the finite projective
+$A_1 \times_A A_2$-module $M_1 \times_\varphi M_2$.
+Since $\varphi$ is compatible with the given actions we obtain
+$$
+\rho_1 \times \rho_2 : \Gamma \longrightarrow
+\text{GL}_{A_1 \times_A A_2}(M_1 \times_\varphi M_2)
+$$
+Then $(M_1 \times_\varphi M_2, \rho_1 \times \rho_2)$
+is an object of $\mathcal{F}(A_1 \times_A A_2)$.
+This construction determines a quasi-inverse to our functor.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-representations-TI}
+In Example \ref{example-representations} let 
+$\rho_0 : \Gamma \to \text{GL}_k(V)$
+be a finite dimensional representation. Then
+$$
+T\Deformationcategory_{V, \rho_0} = \Ext^1_{k[\Gamma]}(V, V) =
+H^1(\Gamma, \text{End}_k(V))
+\quad\text{and}\quad
+\text{Inf}(\Deformationcategory_{V, \rho_0}) = H^0(\Gamma, \text{End}_k(V))
+$$
+Thus $\text{Inf}(\Deformationcategory_{V, \rho_0})$
+is always finite dimensional
+and $T\Deformationcategory_{V, \rho_0}$ is finite dimensional
+if $\Gamma$ is finitely generated.
+\end{lemma}
+
+\begin{proof}
+We first deal with the infinitesimal automorphisms.
+Let $M = V \otimes_k k[\epsilon]$ with induced action
+$\rho_0' : \Gamma \to \text{GL}_n(M)$.
+Then an infinitesimal automorphism, i.e., an element of
+$\text{Inf}(\Deformationcategory_{V, \rho_0})$,
+is given by an automorphism
+$\gamma = \text{id} + \epsilon \psi : M \to M$
+as in the proof of Lemma \ref{lemma-finite-projective-modules-TI},
+where moreover $\psi$ has to commute
+with the action of $\Gamma$ (given by $\rho_0$).
+Thus we see that
+$$
+\text{Inf}(\Deformationcategory_{V, \rho_0}) = H^0(\Gamma, \text{End}_k(V))
+$$
+as predicted in the lemma.
+
+\medskip\noindent
+Next, let $(k[\epsilon], M, \rho)$ be an object of $\mathcal{F}$
+over $k[\epsilon]$ and let $\alpha : M \to V$ be a $\Gamma$-equivariant map
+inducing an isomorphism $M/\epsilon M \to V$.
+Since $M$ is free as a $k[\epsilon]$-module we obtain
+an extension of $\Gamma$-modules
+$$
+0 \to V \to M \xrightarrow{\alpha} V \to 0
+$$
+We omit the detailed construction of the map on the left.
+Conversely, if we have an extension of $\Gamma$-modules as
+above, then we can use this to make a $k[\epsilon]$-module
+structure on $M$ and get an object of $\mathcal{F}(k[\epsilon])$
+together with a map $\alpha$ as above.
+It follows that
+$$
+T\Deformationcategory_{V, \rho_0} = \Ext^1_{k[\Gamma]}(V, V)
+$$
+as predicted in the lemma. This is equal to
+$H^1(\Gamma, \text{End}_k(V))$ by
+\'Etale Cohomology, Lemma \ref{etale-cohomology-lemma-ext-modules-hom}.
+
+\medskip\noindent
+The statement on dimensions follows from
+\'Etale Cohomology, Lemma
+\ref{etale-cohomology-lemma-finite-dim-group-cohomology}.
+\end{proof}
+
+
+
+
+\section{Continuous representations}
+\label{section-continuous-representations}
+
+\noindent
+A very interesting thing one can do is to take an infinite Galois
+group and study the deformation theory of its representations, see
+\cite{Mazur-deforming}.
+
+\begin{example}[Representations of a topological group]
+\label{example-continuous-representations}
+Let $\Gamma$ be a topological group.
+Let $\mathcal{F}$ be the category defined as follows
+\begin{enumerate}
+\item an object is a triple $(A, M, \rho)$ consisting of an
+object $A$ of $\mathcal{C}_\Lambda$, a finite projective $A$-module $M$,
+and a continuous homomorphism $\rho : \Gamma \to \text{GL}_A(M)$
+where $\text{GL}_A(M)$ is given the discrete topology\footnote{An alternative
+would be to require the $A$-module $M$ with $G$-action given by $\rho$
+is an $A\text{-}G$-module as defined in \'Etale Cohomology, Definition
+\ref{etale-cohomology-definition-G-module-continuous}. However,
+since $M$ is a finite $A$-module, this is equivalent.}, and
+\item a morphism $(f, g) : (B, N, \tau) \to (A, M, \rho)$ consists of
+a morphism $f : B \to A$ in $\mathcal{C}_\Lambda$ together
+with a map $g : N \to M$ which is $f$-linear and $\Gamma$-equivariant
+and induces an isomorpism $N \otimes_{B, f} A \cong M$.
+\end{enumerate}
+The functor $p : \mathcal{F} \to \mathcal{C}_\Lambda$ sends $(A, M, \rho)$
+to $A$ and $(f, g)$ to $f$. It is clear that $p$ is cofibred in groupoids.
+Given a finite dimensional $k$-vector space $V$ and a
+continuous representation $\rho_0 : \Gamma \to \text{GL}_k(V)$,
+let $x_0 = (k, V, \rho_0)$ be the corresponding object of $\mathcal{F}(k)$.
+We set
+$$
+\Deformationcategory_{V, \rho_0} = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\noindent
+Since every finite projective module over a local ring is finite free
+(Algebra, Lemma \ref{algebra-lemma-finite-projective})
+we see that
+$$
+\begin{matrix}
+\text{isomorphism classes} \\
+\text{of objects of }\mathcal{F}(A)
+\end{matrix}
+=
+\coprod\nolimits_{n \geq 0}\quad
+\begin{matrix}
+\text{GL}_n(A)\text{-conjugacy classes of}\\
+\text{continuous homomorphisms }\rho : \Gamma \to \text{GL}_n(A)
+\end{matrix}
+$$
+
+\begin{lemma}
+\label{lemma-continuous-representations-RS}
+Example \ref{example-continuous-representations}
+satisfies the Rim-Schlessinger condition (RS).
+In particular, $\Deformationcategory_{V, \rho_0}$ is a deformation category
+for any finite dimensional continuous representation
+$\rho_0 : \Gamma \to \text{GL}_k(V)$.
+\end{lemma}
+
+\begin{proof}
+The proof is exactly the same as the proof of
+Lemma \ref{lemma-representations-RS}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-continuous-representations-TI}
+In Example \ref{example-continuous-representations} let
+$\rho_0 : \Gamma \to \text{GL}_k(V)$ be a finite dimensional
+continuous representation. Then
+$$
+T\Deformationcategory_{V, \rho_0} = H^1(\Gamma, \text{End}_k(V))
+\quad\text{and}\quad
+\text{Inf}(\Deformationcategory_{V, \rho_0}) = H^0(\Gamma, \text{End}_k(V))
+$$
+Thus $\text{Inf}(\Deformationcategory_{V, \rho_0})$
+is always finite dimensional
+and $T\Deformationcategory_{V, \rho_0}$ is finite dimensional
+if $\Gamma$ is topologically finitely generated.
+\end{lemma}
+
+\begin{proof}
+The proof is exactly the same as the proof of
+Lemma \ref{lemma-representations-TI}.
+\end{proof}
+
+
+
+\section{Graded algebras}
+\label{section-graded-algebras}
+
+\noindent
+We will use the example in this section in the proof that the stack of
+polarized proper schemes is an algebraic stack. For this reason we will
+consider commutative graded algebras whose homogeneous parts are
+finite projective modules (sometimes called ``locally finite'').
+
+\begin{example}[Graded algebras]
+\label{example-graded-algebras}
+Let $\mathcal{F}$ be the category defined as follows
+\begin{enumerate}
+\item an object is a pair $(A, P)$ consisting of an
+object $A$ of $\mathcal{C}_\Lambda$ and a graded $A$-algebra $P$
+such that $P_d$ is a finite projective $A$-module for all $d \geq 0$, and
+\item a morphism $(f, g) : (B, Q) \to (A, P)$ consists of
+a morphism $f : B \to A$ in $\mathcal{C}_\Lambda$ together
+with a map $g : Q \to P$ which is $f$-linear and induces an
+isomorpism $Q \otimes_{B, f} A \cong P$.
+\end{enumerate}
+The functor $p : \mathcal{F} \to \mathcal{C}_\Lambda$ sends $(A, P)$
+to $A$ and $(f, g)$ to $f$. It is clear that $p$ is cofibred in groupoids.
+Given a graded $k$-algebra $P$ with $\dim_k(P_d) < \infty$ for all
+$d \geq 0$, let $x_0 = (k, P)$ be the corresponding object of $\mathcal{F}(k)$.
+We set
+$$
+\Deformationcategory_P = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\begin{lemma}
+\label{lemma-graded-algebras-RS}
+Example \ref{example-graded-algebras}
+satisfies the Rim-Schlessinger condition (RS).
+In particular, $\Deformationcategory_P$ is a deformation category
+for any graded $k$-algebra $P$.
+\end{lemma}
+
+\begin{proof}
+Let $A_1 \to A$ and $A_2 \to A$ be morphisms of $\mathcal{C}_\Lambda$.
+Assume $A_2 \to A$ is surjective. According to
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-RS-2-categorical}
+it suffices to show that the functor
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+is an equivalence of categories.
+
+\medskip\noindent
+Consider an object
+$$
+((A_1, P_1), (A_2, P_2), (\text{id}_A, \varphi))
+$$
+of the category $\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$.
+Then we consider $P_1 \times_\varphi P_2$. Since
+$\varphi : P_1 \otimes_{A_1} A \to P_2 \otimes_{A_2} A$
+is an isomorphism of graded algebras, we see that the graded pieces
+of $P_1 \times_\varphi P_2$ are finite projective $A_1 \times_A A_2$-modules,
+see proof of Lemma \ref{lemma-finite-projective-modules-RS}.
+Thus $P_1 \times_\varphi P_2$ is an object of $\mathcal{F}(A_1 \times_A A_2)$.
+This construction determines a quasi-inverse to our functor
+and the proof is complete.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-graded-algebras-TI}
+In Example \ref{example-graded-algebras} let $P$ be a graded $k$-algebra.
+Then
+$$
+T\Deformationcategory_P
+\quad\text{and}\quad
+\text{Inf}(\Deformationcategory_P) = \text{Der}_k(P, P)
+$$
+are finite dimensional if $P$ is finitely generated over $k$.
+\end{lemma}
+
+\begin{proof}
+We first deal with the infinitesimal automorphisms.
+Let $Q = P \otimes_k k[\epsilon]$.
+Then an element of $\text{Inf}(\Deformationcategory_P)$
+is given by an automorphism
+$\gamma = \text{id} + \epsilon \delta : Q \to Q$
+as above where now $\delta : P \to P$.
+The fact that $\gamma$ is graded implies that
+$\delta$ is homogeneous of degree $0$.
+The fact that $\gamma$ is $k$-linear implies that
+$\delta$ is $k$-linear.
+The fact that $\gamma$ is multiplicative implies that
+$\delta$ is a $k$-derivation.
+Conversely, given a $k$-derivation $\delta : P \to P$
+homogeneous of degree $0$, we obtain an automorphism
+$\gamma = \text{id} + \epsilon \delta$ as above.
+Thus we see that
+$$
+\text{Inf}(\Deformationcategory_P) = \text{Der}_k(P, P)
+$$
+as predicted in the lemma.
+Clearly, if $P$ is generated in degrees $P_i$,
+$0 \leq i \leq N$, then $\delta$ is determined by
+the linear maps $\delta_i : P_i \to P_i$ for
+$0 \leq i \leq N$ and we see that
+$$
+\dim_k \text{Der}_k(P, P) < \infty
+$$
+as desired.
+
+\medskip\noindent
+To finish the proof of the lemma we show that there is a finite
+dimensional deformation space. To do this we
+choose a presentation
+$$
+k[X_1, \ldots, X_n]/(F_1, \ldots, F_m) \longrightarrow P
+$$
+of graded $k$-algebras where $\deg(X_i) = d_i$ and
+$F_j$ is homogeneous of degree $e_j$.
+Let $Q$ be any graded $k[\epsilon]$-algebra
+finite free in each degree which comes with an isomorphsm
+$\alpha : Q/\epsilon Q \to P$ so that $(Q, \alpha)$ defines
+an element of $T\Deformationcategory_P$.
+Choose a homogeneous element $q_i \in Q$ of degree $d_i$
+mapping to the image of $X_i$ in $P$.
+Then we obtain
+$$
+k[\epsilon][X_1, \ldots, X_n] \longrightarrow Q,\quad
+X_i \longmapsto q_i
+$$
+and since $P = Q/\epsilon Q$ this map is surjective by Nakayama's lemma.
+A small diagram chase shows we can choose homogeneous elements
+$F_{\epsilon, j} \in k[\epsilon][X_1, \ldots, X_n]$ of degree $e_j$
+mapping to zero in $Q$ and mapping to $F_j$ in $k[X_1, \ldots, X_n]$.
+Then
+$$
+k[\epsilon][X_1, \ldots, X_n]/(F_{\epsilon, 1}, \ldots, F_{\epsilon, m})
+\longrightarrow Q
+$$
+is a presentation of $Q$ by flatness of $Q$ over $k[\epsilon]$.
+Write
+$$
+F_{\epsilon, j} =  F_j + \epsilon G_j
+$$
+There is some ambiguity in the vector $(G_1, \ldots, G_m)$.
+First, using different choices of $F_{\epsilon, j}$
+we can modify $G_j$ by an arbitrary element of degree $e_j$
+in the kernel of $k[X_1, \ldots, X_n] \to P$.
+Hence, instead of $(G_1, \ldots, G_m)$, we remember the
+element
+$$
+(g_1, \ldots, g_m) \in P_{e_1} \oplus \ldots \oplus P_{e_m}
+$$
+where $g_j$ is the image of $G_j$ in $P_{e_j}$.
+Moreover, if we change our choice of $q_i$ into $q_i + \epsilon p_i$
+with $p_i$ of degree $d_i$ then a computation (omitted) shows
+that $g_j$ changes into
+$$
+g_j^{new} = g_j - \sum\nolimits_{i = 1}^n p_i \partial F_j / \partial X_i
+$$
+We conclude that the isomorphism class of $Q$ is determined by the
+image of the vector $(G_1, \ldots, G_m)$ in the $k$-vector space
+$$
+W  = \Coker(P_{d_1} \oplus \ldots \oplus P_{d_n}
+\xrightarrow{(\frac{\partial F_j}{\partial X_i})}
+P_{e_1} \oplus \ldots \oplus P_{e_m})
+$$
+In this way we see that we obtain an injection
+$$
+T\Deformationcategory_P \longrightarrow W
+$$
+Since $W$ visibly has finite dimension, we conclude that the lemma is true.
+\end{proof}
+
+
+
+
+
+\section{Rings}
+\label{section-rings}
+
+\noindent
+The deformation theory of rings is the same as the deformation theory
+of affine schemes. For rings and schemes when we talk about deformations
+it means we are thinking about {\it flat} deformations.
+
+\begin{example}[Rings]
+\label{example-rings}
+Let $\mathcal{F}$ be the category defined as follows
+\begin{enumerate}
+\item an object is a pair $(A, P)$ consisting of an
+object $A$ of $\mathcal{C}_\Lambda$ and a flat $A$-algebra $P$, and
+\item a morphism $(f, g) : (B, Q) \to (A, P)$ consists of
+a morphism $f : B \to A$ in $\mathcal{C}_\Lambda$ together
+with a map $g : Q \to P$ which is $f$-linear and induces an
+isomorpism $Q \otimes_{B, f} A \cong P$.
+\end{enumerate}
+The functor $p : \mathcal{F} \to \mathcal{C}_\Lambda$ sends $(A, P)$
+to $A$ and $(f, g)$ to $f$. It is clear that $p$ is cofibred in groupoids.
+Given a $k$-algebra $P$, let $x_0 = (k, P)$ be the corresponding object
+of $\mathcal{F}(k)$. We set
+$$
+\Deformationcategory_P = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\begin{lemma}
+\label{lemma-rings-RS}
+Example \ref{example-rings}
+satisfies the Rim-Schlessinger condition (RS).
+In particular, $\Deformationcategory_P$ is a deformation category
+for any $k$-algebra $P$.
+\end{lemma}
+
+\begin{proof}
+Let $A_1 \to A$ and $A_2 \to A$ be morphisms of $\mathcal{C}_\Lambda$.
+Assume $A_2 \to A$ is surjective. According to
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-RS-2-categorical}
+it suffices to show that the functor
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+is an equivalence of categories.
+This is a special case of More on Algebra, Lemma
+\ref{more-algebra-lemma-properties-algebras-over-fibre-product}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-rings-TI}
+In Example \ref{example-rings} let $P$ be a $k$-algebra. Then
+$$
+T\Deformationcategory_P = \text{Ext}^1_P(\NL_{P/k}, P)
+\quad\text{and}\quad
+\text{Inf}(\Deformationcategory_P) = \text{Der}_k(P, P)
+$$
+\end{lemma}
+
+\begin{proof}
+Recall that $\text{Inf}(\Deformationcategory_P)$ is the set of
+automorphisms of the trivial deformation
+$P[\epsilon] = P \otimes_k k[\epsilon]$ of $P$ to $k[\epsilon]$
+equal to the identity modulo $\epsilon$.
+By Deformation Theory, Lemma \ref{defos-lemma-huge-diagram}
+this is equal to $\Hom_P(\Omega_{P/k}, P)$ which in turn is
+equal to $\text{Der}_k(P, P)$ by
+Algebra, Lemma \ref{algebra-lemma-universal-omega}.
+
+\medskip\noindent
+Recall that $T\Deformationcategory_P$ is the set of isomorphism classes
+of flat deformations $Q$ of $P$ to $k[\epsilon]$, more precisely,
+the set of isomorphism classes of $\Deformationcategory_P(k[\epsilon])$.
+Recall that a $k[\epsilon]$-algebra $Q$ with $Q/\epsilon Q = P$
+is flat over $k[\epsilon]$ if and only if
+$$
+0 \to P \xrightarrow{\epsilon} Q \to P \to 0
+$$
+is exact. This is proven in More on Morphisms, Lemma
+\ref{more-morphisms-lemma-deform} and more generally in
+Deformation Theory, Lemma \ref{defos-lemma-deform-module}.
+Thus we may apply
+Deformation Theory, Lemma \ref{defos-lemma-choices}
+to see that the set of isomorphism classes of such
+deformations is equal to $\text{Ext}^1_P(\NL_{P/k}, P)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth}
+In Example \ref{example-rings} let $P$ be a smooth $k$-algebra. Then
+$T\Deformationcategory_P = (0)$.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-rings-TI} we have to show
+$\text{Ext}^1_P(\NL_{P/k}, P) = (0)$.
+Since $k \to P$ is smooth $\NL_{P/k}$ is quasi-isomorphic to the
+complex consisting of a finite projective
+$P$-module placed in degree $0$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-finite-type-rings-TI}
+In Lemma \ref{lemma-rings-TI} if $P$ is a finite type $k$-algebra, then
+\begin{enumerate}
+\item $\text{Inf}(\Deformationcategory_P)$ is finite dimensional if and only if
+$\dim(P) = 0$, and
+\item $T\Deformationcategory_P$ is finite dimensional if
+$\Spec(P) \to \Spec(k)$ is smooth except at a finite number of points.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of (1). We view $\text{Der}_k(P, P)$ as a $P$-module.
+If it has finite dimension over $k$, then it has finite length
+as a $P$-module, hence it is supported in finitely many
+closed points of $\Spec(P)$
+(Algebra, Lemma \ref{algebra-lemma-simple-pieces}).
+Since $\text{Der}_k(P, P) = \Hom_P(\Omega_{P/k}, P)$
+we see that
+$\text{Der}_k(P, P)_\mathfrak p = \text{Der}_k(P_\mathfrak p, P_\mathfrak p)$
+for any prime $\mathfrak p \subset P$
+(this uses Algebra, Lemmas
+\ref{algebra-lemma-differentials-localize},
+\ref{algebra-lemma-differentials-finitely-presented}, and
+\ref{algebra-lemma-hom-from-finitely-presented}).
+Let $\mathfrak p$ be a minimal prime ideal of $P$
+corresponding to an irreducible component of dimension $d > 0$.
+Then $P_\mathfrak p$ is an Artinian local ring
+essentially of finite type over $k$ with residue field
+and $\Omega_{P_\mathfrak p/k}$ is nonzero for example by
+Algebra, Lemma \ref{algebra-lemma-characterize-smooth-over-field}.
+Any nonzero finite module over an Artinian local ring
+has both a sub and a quotient module isomorphic to the residue field.
+Thus we find that
+$\text{Der}_k(P_\mathfrak p, P_\mathfrak p) =
+\Hom_{P_\mathfrak p}(\Omega_{P_\mathfrak p/k}, P_\mathfrak p)$
+is nonzero too. Combining all of the above we find that (1) is true.
+
+\medskip\noindent
+Proof of (2). For a prime $\mathfrak p$ of $P$ we will use that
+$\NL_{P_\mathfrak p/k} = (\NL_{P/k})_\mathfrak p$
+(Algebra, Lemma \ref{algebra-lemma-localize-NL})
+and we will
+use that
+$\text{Ext}_P^1(\NL_{P/k}, P)_\mathfrak p =
+\text{Ext}_{P_\mathfrak p}^1(\NL_{P_\mathfrak p/k}, P_\mathfrak p)$
+(More on Algebra, Remark
+\ref{more-algebra-remark-pseudo-coherence-and-base-change-ext}).
+Given a prime $\mathfrak p \subset P$
+then $k \to P$ is smooth at $\mathfrak p$ if and only if
+$(\NL_{P/k})_\mathfrak p$ is quasi-isomorphic
+to a finite projective module placed in degree $0$ (this follows
+immediately from the definition of a smooth ring map but it also
+follows from the stronger Algebra, Lemma \ref{algebra-lemma-smooth-at-point}).
+
+\medskip\noindent
+Assume that $P$ is smooth over $k$ at all but finitely many primes.
+Then these ``bad'' primes are maximal ideals
+$\mathfrak m_1, \ldots, \mathfrak m_n \subset P$ by
+Algebra, Lemma \ref{algebra-lemma-finite-type-algebra-finite-nr-primes}
+and the fact that the ``bad'' primes form a closed subset of $\Spec(P)$.
+For $\mathfrak p \not \in \{\mathfrak m_1, \ldots, \mathfrak m_n\}$
+we have $\text{Ext}^1_P(\NL_{P/k}, P)_\mathfrak p = 0$ by the results above.
+Thus $\text{Ext}^1_P(\NL_{P/k}, P)$ is a finite $P$-module
+whose support is contained in $\{\mathfrak m_1, \ldots, \mathfrak m_r\}$.
+By Algebra, Proposition
+\ref{algebra-proposition-minimal-primes-associated-primes}
+for example, we find that the dimension over $k$ of
+$\text{Ext}^1_P(\NL_{P/k}, P)$ is a finite integer combination
+of $\dim_k \kappa(\mathfrak m_i)$ and hence finite by
+the Hilbert Nullstellensatz
+(Algebra, Theorem \ref{algebra-theorem-nullstellensatz}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-localization}
+In Example \ref{example-rings} let $P$ be a $k$-algebra.
+Let $S \subset P$ be a multiplicative subset. There is a natural functor
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{S^{-1}P}
+$$
+of deformation categories.
+\end{lemma}
+
+\begin{proof}
+Given a deformation of $P$ we can take the localization
+of it to get a deformation of the localization; this is
+clear and we encourage the reader to skip the proof. More precisely,
+let $(A, Q) \to (k, P)$ be a morphism in $\mathcal{F}$, i.e.,
+an object of $\Deformationcategory_P$. Let $S_Q \subset Q$ be the
+inverse image of $S$. Then
+Hence $(A, S_Q^{-1}Q) \to (k, S^{-1}P)$
+is the desired object of $\Deformationcategory_{S^{-1}P}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-henselization}
+In Example \ref{example-rings} let $P$ be a $k$-algebra.
+Let $J \subset P$ be an ideal.
+Denote $(P^h, J^h)$ the henselization of the pair $(P, J)$.
+There is a natural functor
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{P^h}
+$$
+of deformation categories.
+\end{lemma}
+
+\begin{proof}
+Given a deformation of $P$ we can take the henselization
+of it to get a deformation of the henselization; this is
+clear and we encourage the reader to skip the proof. More precisely,
+let $(A, Q) \to (k, P)$ be a morphism in $\mathcal{F}$, i.e.,
+an object of $\Deformationcategory_P$. Denote $J_Q \subset Q$ the inverse
+image of $J$ in $Q$. Let $(Q^h, J_Q^h)$ be the henselization of
+the pair $(Q, J_Q)$. Recall that $Q \to Q^h$ is flat
+(More on Algebra, Lemma \ref{more-algebra-lemma-henselization-flat})
+and hence $Q^h$ is flat over $A$.
+By More on Algebra, Lemma \ref{more-algebra-lemma-henselization-integral}
+we see that the map $Q^h \to P^h$ induces an isomorphism
+$Q^h \otimes_A k = Q^h \otimes_Q P = P^h$.
+Hence $(A, Q^h) \to (k, P^h)$ is the desired object of
+$\Deformationcategory_{P^h}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-strict-henselization}
+In Example \ref{example-rings} let $P$ be a $k$-algebra.
+Assume $P$ is a local ring and let $P^{sh}$ be a strict henselization of $P$.
+There is a natural functor
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{P^{sh}}
+$$
+of deformation categories.
+\end{lemma}
+
+\begin{proof}
+Given a deformation of $P$ we can take the strict henselization
+of it to get a deformation of the strict henselization; this is
+clear and we encourage the reader to skip the proof. More precisely,
+let $(A, Q) \to (k, P)$ be a morphism in $\mathcal{F}$, i.e.,
+an object of $\Deformationcategory_P$. Since the kernel of the surjection
+$Q \to P$ is nilpotent, we find that $Q$ is a local ring with the
+same residue field as $P$. Let $Q^{sh}$ be the strict henselization
+of $Q$. Recall that $Q \to Q^{sh}$ is flat
+(More on Algebra, Lemma \ref{more-algebra-lemma-dumb-properties-henselization})
+and hence $Q^{sh}$ is flat over $A$.
+By Algebra, Lemma \ref{algebra-lemma-quotient-strict-henselization}
+we see that the map $Q^{sh} \to P^{sh}$ induces an isomorphism
+$Q^{sh} \otimes_A k = Q^{sh} \otimes_Q P = P^{sh}$.
+Hence $(A, Q^{sh}) \to (k, P^{sh})$ is the desired object of
+$\Deformationcategory_{P^{sh}}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-completion}
+In Example \ref{example-rings} let $P$ be a $k$-algebra.
+Assume $P$ Noetherian and let $J \subset P$ be an ideal.
+Denote $P^\wedge$ the $J$-adic completion.
+There is a natural functor
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{P^\wedge}
+$$
+of deformation categories.
+\end{lemma}
+
+\begin{proof}
+Given a deformation of $P$ we can take the completion
+of it to get a deformation of the completion; this is
+clear and we encourage the reader to skip the proof. More precisely,
+let $(A, Q) \to (k, P)$ be a morphism in $\mathcal{F}$, i.e.,
+an object of $\Deformationcategory_P$. Observe that $Q$ is a Noetherian
+ring: the kernel of the surjective ring map $Q \to P$ is
+nilpotent and finitely generated and $P$ is Noetherian; apply
+Algebra, Lemma \ref{algebra-lemma-completion-Noetherian}.
+Denote $J_Q \subset Q$ the inverse
+image of $J$ in $Q$. Let $Q^\wedge$ be the $J_Q$-adic completion of $Q$.
+Recall that $Q \to Q^\wedge$ is flat
+(Algebra, Lemma \ref{algebra-lemma-completion-flat})
+and hence $Q^\wedge$ is flat over $A$.
+The induced map $Q^\wedge \to P^\wedge$ induces an isomorphism
+$Q^\wedge \otimes_A k = Q^\wedge \otimes_Q P = P^\wedge$ by
+Algebra, Lemma \ref{algebra-lemma-completion-tensor} for example.
+Hence $(A, Q^\wedge) \to (k, P^\wedge)$
+is the desired object of $\Deformationcategory_{P^\wedge}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-power-series-rings-TI}
+In Lemma \ref{lemma-rings-TI} if $P = k[[x_1, \ldots, x_n]]/(f)$
+for some nonzero $f \in (x_1, \ldots, x_n)^2$, then
+\begin{enumerate}
+\item $\text{Inf}(\Deformationcategory_P)$ is finite dimensional
+if and only if $n = 1$, and
+\item $T\Deformationcategory_P$ is finite dimensional if
+$$
+\sqrt{(f, \partial f/\partial x_1, \ldots,  \partial f/\partial x_n)} =
+(x_1, \ldots, x_n)
+$$
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of (1). Consider the derivations $\partial/\partial x_i$ of
+$k[[x_1, \ldots, x_n]]$ over $k$. Write $f_i = \partial f/\partial x_i$.
+The derivation
+$$
+\theta = \sum h_i \partial/\partial x_i
+$$
+of $k[[x_1, \ldots, x_n]]$
+induces a derivation of $P = k[[x_1, \ldots, x_n]]/(f)$
+if and only if
+$\sum h_i f_i \in (f)$. Moreover, the induced derivation of $P$
+is zero if and only if $h_i \in (f)$ for $i = 1, \ldots, n$.
+Thus we find
+$$
+\Ker((f_1, \ldots, f_n) : P^{\oplus n} \longrightarrow P) \subset
+\text{Der}_k(P, P)
+$$
+The left hand side is a finite dimensional $k$-vector space only if
+$n = 1$; we omit the proof. We also leave it to the reader to see
+that the right hand side has finite dimension if $n = 1$.
+This proves (1).
+
+\medskip\noindent
+Proof of (2). Let $Q$ be a flat deformation of $P$ over $k[\epsilon]$
+as in the proof of Lemma \ref{lemma-rings-TI}. Choose lifts $q_i \in Q$
+of the image of $x_i$ in $P$. Then $Q$ is a complete local ring
+with maximal ideal generated by $q_1, \ldots, q_n$ and $\epsilon$
+(small argument omitted). Thus we get a surjection
+$$
+k[\epsilon][[x_1, \ldots, x_n]] \longrightarrow Q,\quad
+x_i \longmapsto q_i
+$$
+Choose an element of the form
+$f + \epsilon g \in k[\epsilon][[x_1, \ldots, x_n]]$
+mapping to zero in $Q$. Observe that $g$ is well defined modulo $(f)$.
+Since $Q$ is flat over $k[\epsilon]$ we get
+$$
+Q = k[\epsilon][[x_1, \ldots, x_n]]/(f + \epsilon g)
+$$
+Finally, if we changing the choice of $q_i$ amounts to
+changing the coordinates $x_i$ into $x_i + \epsilon h_i$
+for some $h_i \in k[[x_1, \ldots, x_n]]$. Then
+$f + \epsilon g$ changes into $f + \epsilon (g + \sum h_i f_i)$
+where $f_i = \partial f/\partial x_i$. Thus we see that the
+isomorphism class of the deformation $Q$ is determined
+by an element of
+$$
+k[[x_1, \ldots, x_n]]/
+(f, \partial f/\partial x_1, \ldots,  \partial f/\partial x_n)
+$$
+This has finite dimension over $k$ if and only if
+its support is the closed point of $k[[x_1, \ldots, x_n]]$
+if and only if
+$\sqrt{(f, \partial f/\partial x_1, \ldots,  \partial f/\partial x_n)} =
+(x_1, \ldots, x_n)$.
+\end{proof}
+
+
+
+
+
+
+\section{Schemes}
+\label{section-schemes}
+
+\noindent
+The deformation theory of schemes.
+
+\begin{example}[Schemes]
+\label{example-schemes}
+Let $\mathcal{F}$ be the category defined as follows
+\begin{enumerate}
+\item an object is a pair $(A, X)$ consisting of an
+object $A$ of $\mathcal{C}_\Lambda$ and a scheme $X$ flat over $A$, and
+\item a morphism $(f, g) : (B, Y) \to (A, X)$ consists of
+a morphism $f : B \to A$ in $\mathcal{C}_\Lambda$ together
+with a morphism $g : X \to Y$ such that
+$$
+\xymatrix{
+X \ar[r]_g \ar[d] & Y \ar[d] \\
+\Spec(A) \ar[r]^f & \Spec(B)
+}
+$$
+is a cartesian commutative diagram of schemes.
+\end{enumerate}
+The functor $p : \mathcal{F} \to \mathcal{C}_\Lambda$ sends $(A, X)$
+to $A$ and $(f, g)$ to $f$. It is clear that $p$ is cofibred in groupoids.
+Given a scheme $X$ over $k$, let $x_0 = (k, X)$ be the corresponding object
+of $\mathcal{F}(k)$. We set
+$$
+\Deformationcategory_X = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\begin{lemma}
+\label{lemma-schemes-RS}
+Example \ref{example-schemes}
+satisfies the Rim-Schlessinger condition (RS).
+In particular, $\Deformationcategory_X$ is a deformation category
+for any scheme $X$ over $k$.
+\end{lemma}
+
+\begin{proof}
+Let $A_1 \to A$ and $A_2 \to A$ be morphisms of $\mathcal{C}_\Lambda$.
+Assume $A_2 \to A$ is surjective. According to
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-RS-2-categorical}
+it suffices to show that the functor
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+is an equivalence of categories.
+Observe that
+$$
+\xymatrix{
+\Spec(A) \ar[r] \ar[d] & \Spec(A_2) \ar[d] \\
+\Spec(A_1) \ar[r] &
+\Spec(A_1 \times_A A_2)
+}
+$$
+is a pushout diagram as in More on Morphisms, Lemma
+\ref{more-morphisms-lemma-pushout-along-thickening}.
+Thus the lemma is a special case of More on Morphisms, Lemma
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-schemes-TI}
+In Example \ref{example-schemes} let $X$ be a scheme over $k$. Then
+$$
+\text{Inf}(\Deformationcategory_X) =
+\text{Ext}^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X) =
+\Hom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X) =
+\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)
+$$
+and
+$$
+T\Deformationcategory_X =
+\text{Ext}^1_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)
+$$
+\end{lemma}
+
+\begin{proof}
+Recall that $\text{Inf}(\Deformationcategory_X)$ is the set of
+automorphisms of the trivial deformation
+$X' = X \times_{\Spec(k)} \Spec(k[\epsilon])$ of $X$ to $k[\epsilon]$
+equal to the identity modulo $\epsilon$.
+By Deformation Theory, Lemma \ref{defos-lemma-deform}
+this is equal to $\text{Ext}^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)$.
+The equality $\text{Ext}^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X) =
+\Hom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X)$ follows from
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-netherlander-quasi-coherent}.
+The equality
+$\Hom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X) =
+\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)$
+follows from Morphisms, Lemma
+\ref{morphisms-lemma-universal-derivation-universal}.
+
+\medskip\noindent
+Recall that $T_{x_0}\Deformationcategory_X$ is the set of isomorphism classes
+of flat deformations $X'$ of $X$ to $k[\epsilon]$, more precisely,
+the set of isomorphism classes of $\Deformationcategory_X(k[\epsilon])$.
+Thus the second statement of the lemma follows from
+Deformation Theory, Lemma \ref{defos-lemma-deform}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-schemes-TI}
+In Lemma \ref{lemma-schemes-TI} if $X$ is proper over $k$, then
+$\text{Inf}(\Deformationcategory_X)$ and $T\Deformationcategory_X$ are
+finite dimensional.
+\end{lemma}
+
+\begin{proof}
+By the lemma we have to show
+$\Ext^1_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)$ and
+$\Ext^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)$ are finite
+dimensional. By More on Morphisms, Lemma
+\ref{more-morphisms-lemma-netherlander-fp}
+and the fact that $X$ is Noetherian, we see that
+$\NL_{X/k}$ has coherent cohomology sheaves zero except
+in degrees $0$ and $-1$.
+By Derived Categories of Schemes, Lemma \ref{perfect-lemma-ext-finite}
+the displayed $\Ext$-groups are finite $k$-vector spaces
+and the proof is complete.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-open}
+In Example \ref{example-schemes} let $X$ be a scheme over $k$.
+Let $U \subset X$ be an open subscheme.
+There is a natural functor
+$$
+\Deformationcategory_X \longrightarrow \Deformationcategory_U
+$$
+of deformation categories.
+\end{lemma}
+
+\begin{proof}
+Given a deformation of $X$ we can take the corresponding open
+of it to get a deformation of $U$. We omit the details.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-affine}
+In Example \ref{example-schemes} let $X = \Spec(P)$ be an
+affine scheme over $k$. With $\Deformationcategory_P$ as in
+Example \ref{example-rings} there is a natural equivalence
+$$
+\Deformationcategory_X \longrightarrow \Deformationcategory_P
+$$
+of deformation categories.
+\end{lemma}
+
+\begin{proof}
+The functor sends $(A, Y)$ to $\Gamma(Y, \mathcal{O}_Y)$.
+This works because
+any deformation of $X$ is affine by
+More on Morphisms, Lemma \ref{more-morphisms-lemma-thickening-affine-scheme}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-local-ring}
+In Example \ref{example-schemes} let $X$ be a scheme over $k$
+Let $p \in X$ be a point. With $\Deformationcategory_{\mathcal{O}_{X, p}}$
+as in Example \ref{example-rings} there is a natural functor
+$$
+\Deformationcategory_X
+\longrightarrow
+\Deformationcategory_{\mathcal{O}_{X, p}}
+$$
+of deformation categories.
+\end{lemma}
+
+\begin{proof}
+Choose an affine open $U = \Spec(P) \subset X$ containing $p$.
+Then $\mathcal{O}_{X, p}$ is a localization of $P$. We combine
+the functors from
+Lemmas \ref{lemma-open}, \ref{lemma-affine}, and \ref{lemma-localization}.
+\end{proof}
+
+\begin{situation}
+\label{situation-glueing}
+Let $\Lambda \to k$ be as in Section \ref{section-general}.
+Let $X$ be a scheme over $k$ which has an affine open covering
+$X = U_1 \cup U_2$ with $U_{12} = U_1 \cap U_2$ affine too.
+Write $U_1 = \Spec(P_1)$, $U_2 = \Spec(P_2)$ and $U_{12} = \Spec(P_{12})$.
+Let $\Deformationcategory_X$, $\Deformationcategory_{U_1}$,
+$\Deformationcategory_{U_2}$, and $\Deformationcategory_{U_{12}}$
+be as in Example \ref{example-schemes} and let
+$\Deformationcategory_{P_1}$, $\Deformationcategory_{P_2}$, and
+$\Deformationcategory_{P_{12}}$ be as in Example \ref{example-rings}.
+\end{situation}
+
+\begin{lemma}
+\label{lemma-glueing}
+In Situation \ref{situation-glueing}
+there is an equivalence
+$$
+\Deformationcategory_X =
+\Deformationcategory_{P_1}
+\times_{\Deformationcategory_{P_{12}}}
+\Deformationcategory_{P_2}
+$$
+of deformation categories, see Examples \ref{example-schemes} and
+\ref{example-rings}.
+\end{lemma}
+
+\begin{proof}
+It suffices to show that the functors of Lemma \ref{lemma-open}
+define an equivalence
+$$
+\Deformationcategory_X \longrightarrow
+\Deformationcategory_{U_1}
+\times_{\Deformationcategory_{U_{12}}}
+\Deformationcategory_{U_2}
+$$
+because then we can apply Lemma \ref{lemma-affine} to translate into rings.
+To do this we construct a quasi-inverse. Denote
+$F_i : \Deformationcategory_{U_i} \to \Deformationcategory_{U_{12}}$
+the functor of Lemma \ref{lemma-open}.
+An object of the RHS is given by an $A$ in $\mathcal{C}_\Lambda$,
+objects $(A, V_1) \to (k, U_1)$ and $(A, V_2) \to (k, U_2)$, and
+a morphism
+$$
+g : F_1(A, V_1) \to F_2(A, V_2)
+$$
+Now $F_i(A, V_i) = (A, V_{i, 3 - i})$ where $V_{i, 3 - i} \subset V_i$
+is the open subscheme whose base change to $k$ is $U_{12} \subset U_i$.
+The morphism $g$ defines an isomorphism
+$V_{1, 2} \to V_{2, 1}$ of schemes over $A$ compatible
+with $\text{id} : U_{12} \to U_{12}$ over $k$.
+Thus $(\{1, 2\}, V_i, V_{i, 3 - i}, g, g^{-1})$ is a glueing
+data as in Schemes, Section \ref{schemes-section-glueing-schemes}.
+Let $Y$ be the glueing, see Schemes, Lemma \ref{schemes-lemma-glue}.
+Then $Y$ is a scheme over $A$ and the
+compatibilities mentioned above show that
+there is a canonical isomorphism
+$Y \times_{\Spec(A)} \Spec(k) = X$.
+Thus $(A, Y) \to (k, X)$ is an object of $\Deformationcategory_X$.
+We omit the verification that this construction is a functor
+and is quasi-inverse to the given one.
+\end{proof}
+
+
+
+
+
+
+\section{Morphisms of Schemes}
+\label{section-schemes-morphisms}
+
+\noindent
+The deformation theory of morphisms of schemes.
+Of course this is just an example of
+deformations of diagrams of schemes.
+
+\begin{example}[Morphisms of schemes]
+\label{example-schemes-morphisms}
+Let $\mathcal{F}$ be the category defined as follows
+\begin{enumerate}
+\item an object is a pair $(A, X \to Y)$ consisting of an
+object $A$ of $\mathcal{C}_\Lambda$ and a morphism
+$X \to Y$ of schemes over $A$ with both $X$ and $Y$ flat over $A$, and
+\item a morphism $(f, g, h) : (A', X' \to Y') \to (A, X \to Y)$ consists of
+a morphism $f : A' \to A$ in $\mathcal{C}_\Lambda$ together
+with morphisms of schemes $g : X \to X'$ and $h : Y \to Y'$ such that
+$$
+\xymatrix{
+X \ar[r]_g \ar[d] & X' \ar[d] \\
+Y \ar[r]_h \ar[d] & Y' \ar[d] \\
+\Spec(A) \ar[r]^f & \Spec(A')
+}
+$$
+is a commutative diagram of schemes where both squares are cartesian.
+\end{enumerate}
+The functor $p : \mathcal{F} \to \mathcal{C}_\Lambda$ sends $(A, X \to Y)$
+to $A$ and $(f, g, h)$ to $f$. It is clear that $p$ is cofibred in groupoids.
+Given a morphism of schemes $X \to Y$ over $k$, let $x_0 = (k, X \to Y)$
+be the corresponding object of $\mathcal{F}(k)$. We set
+$$
+\Deformationcategory_{X \to Y} = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\begin{lemma}
+\label{lemma-schemes-morphisms-RS}
+Example \ref{example-schemes-morphisms}
+satisfies the Rim-Schlessinger condition (RS).
+In particular, $\Deformationcategory_{X \to Y}$ is a deformation category
+for any morphism of schemes $X \to Y$ over $k$.
+\end{lemma}
+
+\begin{proof}
+Let $A_1 \to A$ and $A_2 \to A$ be morphisms of $\mathcal{C}_\Lambda$.
+Assume $A_2 \to A$ is surjective. According to
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-RS-2-categorical}
+it suffices to show that the functor
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+is an equivalence of categories.
+Observe that
+$$
+\xymatrix{
+\Spec(A) \ar[r] \ar[d] & \Spec(A_2) \ar[d] \\
+\Spec(A_1) \ar[r] &
+\Spec(A_1 \times_A A_2)
+}
+$$
+is a pushout diagram as in More on Morphisms, Lemma
+\ref{more-morphisms-lemma-pushout-along-thickening}.
+Thus the lemma follows immediately from
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}
+as this describes the category of schemes flat over $A_1 \times_A A_2$
+as the fibre product of the category of schemes flat over $A_1$
+with the category of schemes flat over $A_2$ over the category of
+schemes flat over $A$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-schemes-morphisms-TI}
+In Example \ref{example-schemes} let $X \to Y$ be a morphism of schemes
+over $k$. There is a canonical exact sequence of $k$-vector spaces
+$$
+\xymatrix{
+0 \ar[r] &
+\text{Inf}(\Deformationcategory_{X \to Y}) \ar[r] &
+\text{Inf}(\Deformationcategory_X \times \Deformationcategory_Y) \ar[r] &
+\text{Der}_k(\mathcal{O}_Y, f_*\mathcal{O}_X) \ar[lld] \\
+& T\Deformationcategory_{X \to Y} \ar[r] &
+T(\Deformationcategory_X \times \Deformationcategory_Y) \ar[r] &
+\text{Ext}^1_{\mathcal{O}_X}(Lf^*\NL_{Y/k}, \mathcal{O}_X)
+}
+$$
+\end{lemma}
+
+\begin{proof}
+The obvious map of deformation categories
+$\Deformationcategory_{X \to Y} \to
+\Deformationcategory_X \times \Deformationcategory_Y$
+gives two of the arrows in the exact sequence of the lemma.
+Denote $f : X \to Y$ the given morphism.
+Recall that $\text{Inf}(\Deformationcategory_{X \to Y})$
+is the set of automorphisms of the trivial deformation
+$$
+f' :  X' = X \times_{\Spec(k)} \Spec(k[\epsilon])
+\xrightarrow{f \times \text{id}}
+Y' = Y \times_{\Spec(k)} \Spec(k[\epsilon])
+$$
+of $X \to Y$ to $k[\epsilon]$ equal to the identity modulo $\epsilon$.
+This is clearly the same thing as pairs
+$(\alpha, \beta) \in
+\text{Inf}(\Deformationcategory_X \times \Deformationcategory_Y)$
+of infinitesimal automorphisms of $X$ and $Y$ compatible with $f'$, i.e.,
+such that $f' \circ \alpha = \beta \circ f'$.
+By Deformation Theory, Lemma \ref{defos-lemma-huge-diagram-ringed-spaces}
+for an arbitrary pair $(\alpha, \beta)$ the difference between
+the morphism $f' : X' \to Y'$ and the morphism
+$\beta^{-1} \circ f' \circ \alpha : X' \to Y'$ defines an elment
+in
+$$
+\text{Der}_k(\mathcal{O}_Y, f_*\mathcal{O}_X) =
+\Hom_{\mathcal{O}_Y}(\Omega_{Y/k}, f_*\mathcal{O}_X)
+$$
+Equality by More on Morphisms, Lemma
+\ref{more-morphisms-lemma-netherlander-quasi-coherent}.
+This defines the last top horizontal arrow and shows exactness
+in the first two places. For the map
+$$
+\text{Der}_k(\mathcal{O}_Y, f_*\mathcal{O}_X)
+\to
+T\Deformationcategory_{X \to Y}
+$$
+we interpret elements of the source as morphisms
+$f_\epsilon : X' \to Y'$ over $\Spec(k[\epsilon])$
+equal to $f$ modulo $\epsilon$
+using Deformation Theory, Lemma \ref{defos-lemma-huge-diagram-ringed-spaces}.
+We send $f_\epsilon$ to the isomorphism class of
+$(f_\epsilon : X' \to Y')$ in $T\Deformationcategory_{X \to Y}$.
+Note that $(f_\epsilon : X' \to Y')$ is isomorphic to the
+trivial deformation $(f' : X' \to Y')$ exactly when
+$f_\epsilon  = \beta^{-1} \circ f \circ \alpha$ for some
+pair $(\alpha, \beta)$ which implies exactness in the third spot.
+Clearly, if some first order deformation
+$(f_\epsilon : X_\epsilon \to Y_\epsilon)$
+maps to zero in $T(\Deformationcategory_X \times \Deformationcategory_Y)$,
+then we can choose isomorphisms $X' \to X_\epsilon$ and $Y' \to Y_\epsilon$
+and we conclude we are in the image of the south-west arrow.
+Therefore we have exactness at the fourth spot.
+Finally, given two first order deformations $X_\epsilon$, $Y_\epsilon$
+of $X$, $Y$ there is an obstruction in
+$$
+ob(X_\epsilon, Y_\epsilon) \in
+\text{Ext}^1_{\mathcal{O}_X}(Lf^*\NL_{Y/k}, \mathcal{O}_X)
+$$
+which vanishes if and only if $f : X \to Y$ lifts to
+$X_\epsilon \to Y_\epsilon$, see
+Deformation Theory, Lemma \ref{defos-lemma-huge-diagram-ringed-spaces}.
+This finishes the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-schemes-morphisms-TI}
+In Lemma \ref{lemma-schemes-morphisms-TI} if $X$ and $Y$ are both
+proper over $k$, then
+$\text{Inf}(\Deformationcategory_{X \to Y})$ and
+$T\Deformationcategory_{X \to Y}$ are finite dimensional.
+\end{lemma}
+
+\begin{proof}
+Omitted. Hint: argue as in Lemma \ref{lemma-proper-schemes-TI}
+and use the exact sequence of the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-schemes-morphisms-smooth-to-base}
+\begin{reference}
+This is discussed in \cite[Section 5.3]{Ravi-Murphys-Law} and
+\cite[Theorem 3.3]{Ran-deformations}.
+\end{reference}
+In Example \ref{example-schemes} let $f : X \to Y$ be a morphism of schemes
+over $k$. If $f_*\mathcal{O}_X = \mathcal{O}_Y$ and $R^1f_*\mathcal{O}_X = 0$,
+then the morphism of deformation categories
+$$
+\Deformationcategory_{X \to Y} \to \Deformationcategory_X
+$$
+is an equivalence.
+\end{lemma}
+
+\begin{proof}
+We construct a quasi-inverse to the forgetful functor of the lemma.
+Namely, suppose that $(A, U)$ is an object of $\Deformationcategory_X$.
+The given map $X \to U$ is a finite order thickening and we can use
+it to identify the underlying topological spaces of $U$ and $X$, see
+More on Morphisms, Section \ref{more-morphisms-section-thickenings}.
+Thus we may and do think of $\mathcal{O}_U$ as a sheaf of
+$A$-algebras on $X$; moreover the fact that $U \to \Spec(A)$ is
+flat, means that $\mathcal{O}_U$ is flat as a sheaf of $A$-modules.
+In particular, we have a filtration
+$$
+0 = \mathfrak m_A^n\mathcal{O}_U \subset
+\mathfrak m_A^{n - 1}\mathcal{O}_U \subset \ldots \subset
+\mathfrak m_A^2\mathcal{O}_U \subset
+\mathfrak m_A\mathcal{O}_U \subset \mathcal{O}_U
+$$
+with subquotients equal to
+$\mathcal{O}_X \otimes_k \mathfrak m_A^i/\mathfrak m_A^{i + 1}$
+by flatness, see More on Morphisms, Lemma \ref{more-morphisms-lemma-deform}
+or the more general Deformation Theory, Lemma \ref{defos-lemma-deform-module}.
+Set
+$$
+\mathcal{O}_V = f_*\mathcal{O}_U
+$$
+viewed as sheaf of $A$-algebras on $Y$. Since
+$R^1f_*\mathcal{O}_X = 0$ we find by the description above that
+$R^1f_*(\mathfrak m_A^i\mathcal{O}_U/\mathfrak m_A^{i + 1}\mathcal{O}_U) = 0$
+for all $i$. This implies that the sequences
+$$
+0 \to
+(f_*\mathcal{O}_X) \otimes_k \mathfrak m_A^i/\mathfrak m_A^{i + 1} \to
+f_*(\mathcal{O}_U/\mathfrak m_A^{i + 1}\mathcal{O}_U) \to
+f_*(\mathcal{O}_U/\mathfrak m_A^i\mathcal{O}_U) \to 0
+$$
+are exact for all $i$. Reading the references given above backwards
+(and using induction) we find that $\mathcal{O}_V$ is a flat
+sheaf of $A$-algebras with
+$\mathcal{O}_V/\mathfrak m_A\mathcal{O}_V = \mathcal{O}_Y$.
+Using More on Morphisms, Lemma
+\ref{more-morphisms-lemma-first-order-thickening}
+we find that $(Y, \mathcal{O}_V)$ is a scheme, call it $V$.
+The equality $\mathcal{O}_V = f_*\mathcal{O}_U$ defines a
+morphism of ringed spaces $U \to V$ which is easily seen to be
+a morphism of schemes. This finishes the proof by the
+flatness already esthablished.
+\end{proof}
+
+
+
+
+
+
+
+\section{Algebraic spaces}
+\label{section-algebraic-spaces}
+
+\noindent
+The deformation theory of algebraic spaces.
+
+\begin{example}[Algebraic spaces]
+\label{example-spaces}
+Let $\mathcal{F}$ be the category defined as follows
+\begin{enumerate}
+\item an object is a pair $(A, X)$ consisting of an
+object $A$ of $\mathcal{C}_\Lambda$ and an algebraic space
+$X$ flat over $A$, and
+\item a morphism $(f, g) : (B, Y) \to (A, X)$ consists of
+a morphism $f : B \to A$ in $\mathcal{C}_\Lambda$ together
+with a morphism $g : X \to Y$ of algebraic spaces over $\Lambda$
+such that
+$$
+\xymatrix{
+X \ar[r]_g \ar[d] & Y \ar[d] \\
+\Spec(A) \ar[r]^f & \Spec(B)
+}
+$$
+is a cartesian commutative diagram of algebraic spaces.
+\end{enumerate}
+The functor $p : \mathcal{F} \to \mathcal{C}_\Lambda$ sends $(A, X)$
+to $A$ and $(f, g)$ to $f$. It is clear that $p$ is cofibred in groupoids.
+Given an algebraic space $X$ over $k$, let
+$x_0 = (k, X)$ be the corresponding object of $\mathcal{F}(k)$. We set
+$$
+\Deformationcategory_X = \mathcal{F}_{x_0}
+$$
+\end{example}
+
+\begin{lemma}
+\label{lemma-spaces-RS}
+Example \ref{example-spaces}
+satisfies the Rim-Schlessinger condition (RS).
+In particular, $\Deformationcategory_X$ is a deformation category
+for any algebraic space $X$ over $k$.
+\end{lemma}
+
+\begin{proof}
+Let $A_1 \to A$ and $A_2 \to A$ be morphisms of $\mathcal{C}_\Lambda$.
+Assume $A_2 \to A$ is surjective. According to
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-RS-2-categorical}
+it suffices to show that the functor
+$\mathcal{F}(A_1 \times_A A_2) \to
+\mathcal{F}(A_1) \times_{\mathcal{F}(A)} \mathcal{F}(A_2)$
+is an equivalence of categories.
+Observe that
+$$
+\xymatrix{
+\Spec(A) \ar[r] \ar[d] & \Spec(A_2) \ar[d] \\
+\Spec(A_1) \ar[r] &
+\Spec(A_1 \times_A A_2)
+}
+$$
+is a pushout diagram as in Pushouts of Spaces, Lemma
+\ref{spaces-pushouts-lemma-pushout-along-thickening}.
+Thus the lemma is a special case of Pushouts of Spaces, Lemma
+\ref{spaces-pushouts-lemma-equivalence-categories-spaces-pushout-flat}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-spaces-TI}
+In Example \ref{example-spaces} let $X$ be an algebraic space over $k$. Then
+$$
+\text{Inf}(\Deformationcategory_X) =
+\text{Ext}^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X) =
+\Hom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X) =
+\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)
+$$
+and
+$$
+T\Deformationcategory_X =
+\text{Ext}^1_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)
+$$
+\end{lemma}
+
+\begin{proof}
+Recall that $\text{Inf}(\Deformationcategory_X)$ is the set of
+automorphisms of the trivial deformation
+$X' = X \times_{\Spec(k)} \Spec(k[\epsilon])$ of $X$ to $k[\epsilon]$
+equal to the identity modulo $\epsilon$.
+By Deformation Theory, Lemma \ref{defos-lemma-deform-spaces}
+this is equal to $\text{Ext}^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)$.
+The equality $\text{Ext}^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X) =
+\Hom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X)$ follows from
+More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-netherlander-quasi-coherent}.
+The equality
+$\Hom_{\mathcal{O}_X}(\Omega_{X/k}, \mathcal{O}_X) =
+\text{Der}_k(\mathcal{O}_X, \mathcal{O}_X)$
+follows from More on Morphisms of Spaces, Definition
+\ref{spaces-more-morphisms-definition-sheaf-differentials} and
+Modules on Sites, Definition
+\ref{sites-modules-definition-module-differentials}.
+
+\medskip\noindent
+Recall that $T_{x_0}\Deformationcategory_X$ is the set of isomorphism classes
+of flat deformations $X'$ of $X$ to $k[\epsilon]$, more precisely,
+the set of isomorphism classes of $\Deformationcategory_X(k[\epsilon])$.
+Thus the second statement of the lemma follows from
+Deformation Theory, Lemma \ref{defos-lemma-deform-spaces}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-proper-spaces-TI}
+In Lemma \ref{lemma-spaces-TI} if $X$ is proper over $k$, then
+$\text{Inf}(\Deformationcategory_X)$ and $T\Deformationcategory_X$ are
+finite dimensional.
+\end{lemma}
+
+\begin{proof}
+By the lemma we have to show
+$\Ext^1_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)$ and
+$\Ext^0_{\mathcal{O}_X}(\NL_{X/k}, \mathcal{O}_X)$ are finite
+dimensional. By More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-netherlander-fp}
+and the fact that $X$ is Noetherian, we see that
+$\NL_{X/k}$ has coherent cohomology sheaves zero except
+in degrees $0$ and $-1$.
+By Derived Categories of Spaces, Lemma \ref{spaces-perfect-lemma-ext-finite}
+the displayed $\Ext$-groups are finite $k$-vector spaces
+and the proof is complete.
+\end{proof}
+
+
+
+
+
+\section{Deformations of completions}
+\label{section-compare}
+
+\noindent
+In this section we compare the deformation problem posed
+by an algebra and its completion.
+We first discuss ``liftability''.
+
+\begin{lemma}
+\label{lemma-lift-equivalence-module-derived}
+Let $A' \to A$ be a surjection of rings with nilpotent kernel.
+Let $A' \to P'$ be a flat ring map.
+Set $P = P' \otimes_{A'} A$.
+Let $M$ be an $A$-flat $P$-module.
+Then the following are equivalent
+\begin{enumerate}
+\item there is an $A'$-flat $P'$-module $M'$ with
+$M' \otimes_{P'} P = M$, and
+\item there is an object $K' \in D^-(P')$ with
+$K' \otimes_{P'}^\mathbf{L} P = M$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Suppose that $M'$ is as in (1). Then
+$$
+M = M' \otimes_P P' = M' \otimes_{A'} A =
+M' \otimes_A^\mathbf{L} A' = M' \otimes_{P'}^\mathbf{L} P
+$$
+The first two equalities are clear, the third holds because
+$M'$ is flat over $A'$, and the fourth holds by
+More on Algebra, Lemma \ref{more-algebra-lemma-base-change-comparison}.
+Thus (2) holds. Conversely, suppose $K'$ is as in (2).
+We may and do assume $M$ is nonzero.
+Let $t$ be the largest integer such that $H^t(K')$ is nonzero
+(exists because $M$ is nonzero).
+Then $H^t(K') \otimes_{P'} P = H^t(K' \otimes_{P'}^\mathbf{L} P)$
+is zero if $t > 0$. Since the kernel of $P' \to P$ is nilpotent
+this implies $H^t(K') = 0$ by Nakayama's lemma a contradiction.
+Hence $t = 0$ (the case $t < 0$ is absurd as well).
+Then $M' = H^0(K')$ is a $P'$-module such that $M = M' \otimes_{P'} P$
+and the spectral sequence for Tor gives an injective map
+$$
+\text{Tor}_1^{P'}(M', P) \to H^{-1}(M' \otimes_{P'}^\mathbf{L} P) = 0
+$$
+By the reference on derived base change above
+$0 = \text{Tor}_1^{P'}(M', P) = \text{Tor}_1^{A'}(M', A)$.
+We conclude that $M'$ is $A'$-flat by
+Algebra, Lemma \ref{algebra-lemma-what-does-it-mean}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lift-equivalence-module}
+Consider a commutative diagram of Noetherian rings
+$$
+\xymatrix{
+A' \ar[d] \ar[r] &
+P' \ar[d] \ar[r] &
+Q' \ar[d] \\
+A \ar[r] &
+P \ar[r] &
+Q
+}
+$$
+with cartesian squares, with flat horizontal arrows, and with
+surjective vertial arrows whose kernels are nilpotent.
+Let $J' \subset P'$ be an ideal such that $P'/J' = Q'/J'Q'$.
+Let $M$ be an $A$-flat $P$-module.
+Assume for all $g \in J'$ there exists an $A'$-flat $(P')_g$-module
+lifting $M_g$. Then the following are equivalent
+\begin{enumerate}
+\item $M$ has an $A'$-flat lift to a $P'$-module, and
+\item $M \otimes_P Q$ has an $A'$-flat lift to a $Q'$-module.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $I = \Ker(A' \to A)$. By induction on the integer $n > 1$
+such that $I^n = 0$ we reduce to the case where $I$ is an ideal
+of square zero; details omitted.
+We translate the condition of liftability of
+$M$ into the problem of finding an object of $D^-(P')$ as in
+Lemma \ref{lemma-lift-equivalence-module-derived}.
+The obstruction to doing this is the element
+$$
+\omega(M) \in \text{Ext}^2_P(M, M \otimes_P^\mathbf{L} IP) =
+\text{Ext}^2_P(M, M \otimes_P IP)
+$$
+constructed in
+Deformation Theory, Lemma \ref{defos-lemma-canonical-class-algebra}.
+The equality in the displayed formula holds as
+$M \otimes_P^\mathbf{L} IP = M \otimes_P IP$
+since $M$ and $P$ are $A$-flat\footnote{Choose a resolution
+$F_\bullet \to I$ by free $A$-modules. Since $A \to P$ is flat,
+$P \otimes_A F_\bullet$ is a free resolution of $IP$.
+Hence $M \otimes_P^\mathbf{L} IP$ is represented by
+$M \otimes_P P \otimes_A F_\bullet = M \otimes_A F_\bullet$.
+This only has cohomology in degree $0$ as $M$ is $A$-flat.}.
+The obstruction for lifting $M \otimes_P Q$ is similarly
+the element
+$$
+\omega(M \otimes_P Q) \in
+\text{Ext}^2_Q(M \otimes_P Q, (M \otimes_P Q) \otimes_Q IQ)
+$$
+which is the image of $\omega(M)$ by the functoriality
+of the construction $\omega(-)$ of
+Deformation Theory, Lemma \ref{defos-lemma-canonical-class-algebra}.
+By More on Algebra, Lemma \ref{more-algebra-lemma-base-change-RHom}
+we have
+$$
+\text{Ext}^2_Q(M \otimes_P Q, (M \otimes_P Q) \otimes_Q IQ) =
+\text{Ext}^2_P(M, M \otimes_P IP) \otimes_P Q
+$$
+here we use that $P$ is Noetherian and $M$ finite.
+Our assumption on $P' \to Q'$ guarantees that for an $P$-module $E$
+the map $E \to E \otimes_P Q$ is bijective on $J'$-power torsion, see
+More on Algebra, Lemma
+\ref{more-algebra-lemma-neighbourhood-equivalence}.
+Thus we conclude that it suffices to show $\omega(M)$
+is $J'$-power torsion. In other words, it suffices to show that
+$\omega(M)$ dies in
+$$
+\text{Ext}^2_P(M, M \otimes_P IP)_g =
+\text{Ext}^2_{P_g}(M_g, M_g \otimes_{P_g} IP_g)
+$$
+for all $g \in J'$. Howeover, by the compatibility of formation of $\omega(M)$
+with base change again, we conclude that this is true as $M_g$
+is assumed to have a lift (of course you have to use the whole
+string of equivalences again).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-lift-equivalence}
+Let $A' \to A$ be a surjective map of Noetherian rings with nilpotent kernel.
+Let $A \to B$ be a finite type flat ring map.
+Let $\mathfrak b \subset B$ be an ideal such that
+$\Spec(B) \to \Spec(A)$ is syntomic on the complement of $V(\mathfrak b)$.
+Then $B$ has a flat lift to $A'$ if and only if the $\mathfrak b$-adic
+completion $B^\wedge$ has a flat lift to $A'$.
+\end{lemma}
+
+\begin{proof}
+Choose an $A$-algebra surjection $P = A[x_1, \ldots, x_n] \to B$.
+Let $\mathfrak p \subset P$ be the inverse image of $\mathfrak b$.
+Set $P' = A'[x_1, \ldots, x_n]$ and denote $\mathfrak p' \subset P'$
+the inverse image of $\mathfrak p$. (Of course $\mathfrak p$
+and $\mathfrak p'$ do not designate prime ideals here.)
+We will denote $P^\wedge$ and $(P')^\wedge$ the respective completions.
+
+\medskip\noindent
+Suppose $A' \to B'$ is a flat lift of $A \to B$, in other words,
+$A' \to B'$ is flat and there is an $A$-algebra isomorphism
+$B = B' \otimes_{A'} A$. Then we can choose an $A'$-algebra map
+$P' \to B'$ lifting the given surjection $P \to B$.
+By Nakayama's lemma (Algebra, Lemma \ref{algebra-lemma-NAK})
+we find that $B'$ is a quotient of $P'$. In particular, we find
+that we can endow $B'$ with an $A'$-flat $P'$-module structure
+lifting $B$ as an $A$-flat $P$-module.
+Conversely, if we can lift $B$ to a $P'$-module $M'$ flat over $A'$,
+then $M'$ is a cyclic module $M' \cong P'/J'$ (using Nakayama again)
+and setting $B' = P'/J'$ we find a flat lift of $B$ as an algebra.
+
+\medskip\noindent
+Set $C = B^\wedge$ and $\mathfrak c = \mathfrak bC$.
+Suppose that $A' \to C'$ is a flat lift of $A \to C$.
+Then $C'$ is complete with respect to the inverse image $\mathfrak c'$
+of $\mathfrak c$
+(Algebra, Lemma \ref{algebra-lemma-complete-modulo-nilpotent}).
+We choose an $A'$-algebra map $P' \to C'$ lifting
+the $A$-algebra map $P \to C$. These maps pass through
+completions to give surjections $P^\wedge \to C$ and $(P')^\wedge \to C'$
+(for the second again using Nakayama's lemma).
+In particular, we find that we can endow $C'$ with an $A'$-flat
+$(P')^\wedge$-module structure lifting $C$ as an $A$-flat $P^\wedge$-module.
+Conversely, if we can lift $C$ to a $(P')^\wedge$-module $N'$ flat over $A'$,
+then $N'$ is a cyclic module $N' \cong (P')^\wedge/\tilde J$
+(using Nakayama again) and setting $C' = (P')^\wedge/\tilde J$
+we find a flat lift of $C$ as an algebra.
+
+\medskip\noindent
+Observe that $P' \to (P')^\wedge$ is a flat ring map which
+induces an isomorphism $P'/\mathfrak p' = (P')^\wedge/\mathfrak p'(P')^\wedge$.
+We conclude that our lemma is a consequence of
+Lemma \ref{lemma-lift-equivalence-module} provided we can
+show that $B_g$ lifts to an $A'$-flat $P'_g$-module for
+$g \in \mathfrak p'$. However, the ring map $A \to B_g$ is syntomic
+and hence lifts to an $A'$-flat algebra $B'$ by
+Smoothing Ring Maps, Proposition \ref{smoothing-proposition-lift-smooth}.
+Since $A' \to P'_g$ is smooth, we can lift $P_g \to B_g$
+to a surjective map $P'_g \to B'$ as before and we get what we want.
+\end{proof}
+
+\noindent
+Notation. Let $A \to B$ be a ring map. Let $N$ be a $B$-module.
+We denote $\text{Exal}_A(B, N)$ the set of isomorphism classes
+of extensions
+$$
+0 \to N \to C \to B \to 0
+$$
+of $A$-algebras such that $N$ is an ideal of square zero in $C$.
+Given a second such $0 \to N \to C' \to B \to 0$ an isomorphism
+is a $A$-algebra isomorpism $C \to C'$ such that the diagram
+$$
+\xymatrix{
+0 \ar[r] &
+N \ar[r] \ar[d]_{\text{id}} &
+C \ar[r] \ar[d] &
+B \ar[r] \ar[d]_{\text{id}} & 0 \\
+0 \ar[r] &
+N \ar[r] &
+C' \ar[r] &
+B \ar[r] & 0
+}
+$$
+commutes. The assignment $N \mapsto \text{Exal}_A(B, N)$
+is a functor which transforms products into products.
+Hence this is an additive functor and $\text{Exal}_A(B, N)$
+has a natural $B$-module structure. In fact, by
+Deformation Theory, Lemma \ref{defos-lemma-choices}
+we have $\text{Exal}_A(B, N) = \text{Ext}^1_B(\NL_{B/A}, N)$.
+
+\begin{lemma}
+\label{lemma-first-order-completion}
+Let $k$ be a field. Let $B$ be a finite type $k$-algebra.
+Let $J \subset B$ be an ideal such that
+$\Spec(B) \to \Spec(k)$ is smooth on the complement of $V(J)$.
+Let $N$ be a finite $B$-module.
+Then there is a canonical bijection
+$$
+\text{Exal}_k(B, N) \to \text{Exal}_k(B^\wedge, N^\wedge)
+$$
+Here $B^\wedge$ and $N^\wedge$ are the $J$-adic completions.
+\end{lemma}
+
+\begin{proof}
+The map is given by completion: given $0 \to N \to C \to B \to 0$
+in $\text{Exal}_k(B, N)$ we send it to the completion $C^\wedge$
+of $C$ with respect to the inverse image of $J$. Compare with
+the proof of Lemma \ref{lemma-completion}.
+
+\medskip\noindent
+Since $k \to B$ is of finite presentation the complex
+$\NL_{B/k}$ can be represented by a complex
+$N^{-1} \to N^0$ where $N^i$ is a finite $B$-module, see
+Algebra, Section \ref{algebra-section-netherlander} and
+in particular
+Algebra, Lemma \ref{algebra-lemma-NL-homotopy}.
+As $B$ is Noetherian, this means that $\NL_{B/k}$
+is pseudo-coherent. For $g \in J$ the $k$-algebra $B_g$
+is smooth and hence $(\NL_{B/k})_g = \NL_{B_g/k}$
+is quasi-isomorphic to a finite projective $B$-module sitting in degree $0$.
+Thus $\text{Ext}^i_B(\NL_{B/k}, N)_g = 0$ for $i \geq 1$
+and any $B$-module $N$. By
+More on Algebra, Lemma \ref{more-algebra-lemma-ext-annihilated-into}
+we conclude that
+$$
+\text{Ext}^1_B(\NL_{B/k}, N) \longrightarrow
+\lim_n \text{Ext}^1_B(\NL_{B/k}, N/J^n N)
+$$
+is an isomorphism for any finite $B$-module $N$.
+
+\medskip\noindent
+Injectivity of the map.
+Suppose that $0 \to N \to C \to B \to 0$ is in $\text{Exal}_k(B, N)$
+and maps to zero in $\text{Exal}_k(B^\wedge, N^\wedge)$.
+Choose a splitting $C^\wedge = B^\wedge \oplus N^\wedge$.
+Then the induced map $C \to C^\wedge \to N^\wedge$
+gives maps $C \to N/J^nN$ for all $n$.
+Hence we see that our element is in the kernel of the maps
+$$
+\text{Ext}^1_B(\NL_{B/k}, N) \to
+\text{Ext}^1_B(\NL_{B/k}, N/J^n N)
+$$
+for all $n$. By the previous paragraph we conclude that
+our element is zero.
+
+\medskip\noindent
+Surjectivity of the map. Let $0 \to N^\wedge \to C' \to B^\wedge \to 0$
+be an element of $\text{Exal}_k(B^\wedge, N^\wedge)$.
+Pulling back by $B \to B^\wedge$ we get an element
+$0 \to N^\wedge \to C'' \to B \to 0$ in
+$\text{Exal}_k(B, N^\wedge)$.
+we have
+$$
+\text{Ext}^1_B(\NL_{B/k}, N^\wedge) =
+\text{Ext}^1_B(\NL_{B/k}, N) \otimes_B B^\wedge =
+\text{Ext}^1_B(\NL_{B/k}, N)
+$$
+The first equality as $N^\wedge = N \otimes_B B^\wedge$
+(Algebra, Lemma \ref{algebra-lemma-completion-tensor})
+and
+More on Algebra, Remark \ref{more-algebra-remark-pseudo-coherence-and-ext}.
+The second equality because $\text{Ext}^1_B(\NL_{B/k}, N)$
+is $J$-power torsion (see above), $B \to B^\wedge$ is flat and induces
+an isomorphism $B/J \to B^\wedge/JB^\wedge$, and
+More on Algebra, Lemma \ref{more-algebra-lemma-neighbourhood-equivalence}.
+Thus we can find a $C \in \text{Exal}_k(B, N)$ mapping to $C''$ in
+$\text{Exal}_k(B, N^\wedge)$.
+Thus
+$$
+0 \to N^\wedge \to C' \to B^\wedge \to 0
+\quad\text{and}\quad
+0 \to N^\wedge \to C^\wedge \to B^\wedge \to 0
+$$
+are two elements of $\text{Exal}_k(B^\wedge, N^\wedge)$
+mapping to the same element of $\text{Exal}_k(B, N^\wedge)$.
+Taking the difference we get an element
+$0 \to N^\wedge \to C' \to B^\wedge \to 0$ of
+$\text{Exal}_k(B^\wedge, N^\wedge)$
+whose image in $\text{Exal}_k(B, N^\wedge)$ is zero.
+This means there exists
+$$
+\xymatrix{
+0 \ar[r] &
+N^\wedge \ar[r] &
+C' \ar[r] &
+B^\wedge \ar[r] & 0 \\
+& & B \ar[u]^\sigma \ar[ru]
+}
+$$
+Let $J' \subset C'$ be the inverse image of $JB^\wedge \subset B^\wedge$.
+To finish the proof it suffices to note that
+$\sigma$ is continuous for the $J$-adic topology on $B$
+and the $J'$-adic topology on $C'$ and that $C'$ is $J'$-adically complete by
+Algebra, Lemma \ref{algebra-lemma-complete-modulo-nilpotent}
+(here we also use that $C'$ is Noetherian; small detail omitted).
+Namely, this means that $\sigma$ factors through the
+completion $B^\wedge$ and $C' = 0$ in $\text{Exal}_k(B^\wedge, N^\wedge)$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-completion}
+In Example \ref{example-rings} let $P$ be a $k$-algebra.
+Let $J \subset P$ be an ideal.
+Denote $P^\wedge$ the $J$-adic completion. If
+\begin{enumerate}
+\item $k \to P$ is of finite type, and
+\item $\Spec(P) \to \Spec(k)$ is smooth on the complement of $V(J)$.
+\end{enumerate}
+then the functor between deformation categories of
+Lemma \ref{lemma-completion}
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{P^\wedge}
+$$
+is smooth and induces an isomorphism on tangent spaces.
+\end{lemma}
+
+\begin{proof}
+We know that $\Deformationcategory_P$ and $\Deformationcategory_{P^\wedge}$
+are deformation categories by Lemma \ref{lemma-rings-RS}.
+Thus it suffices to check
+our functor identifies tangent spaces and a correspondence
+between liftability, see
+Formal Deformation Theory, Lemma \ref{formal-defos-lemma-easy-check-smooth}.
+The property on liftability is proven in
+Lemma \ref{lemma-lift-equivalence}
+and the isomorphism on tangent spaces is the special case of
+Lemma \ref{lemma-first-order-completion} where $N = B$.
+\end{proof}
+
+
+
+\section{Deformations of localizations}
+\label{section-compare-localization}
+
+\noindent
+In this section we compare the deformation problem posed
+by an algebra and its localization at a multiplicative subset.
+We first discuss ``liftability''.
+
+\begin{lemma}
+\label{lemma-lift-equivalence-localization}
+Let $A' \to A$ be a surjective map of Noetherian rings with nilpotent kernel.
+Let $A \to B$ be a finite type flat ring map.
+Let $S \subset B$ be a multiplicative subset such that
+if $\Spec(B) \to \Spec(A)$ is not syntomic at $\mathfrak q$,
+then $S \cap \mathfrak q = \emptyset$.
+Then $B$ has a flat lift to $A'$ if and only if
+$S^{-1}B$ has a flat lift to $A'$.
+\end{lemma}
+
+\begin{proof}
+This proof is the same as the proof of
+Lemma \ref{lemma-lift-equivalence} but easier. We suggest the
+reader to skip the proof.
+Choose an $A$-algebra surjection $P = A[x_1, \ldots, x_n] \to B$.
+Let $S_P \subset P$ be the inverse image of $S$.
+Set $P' = A'[x_1, \ldots, x_n]$ and denote $S_{P'} \subset P'$
+the inverse image of $S_P$.
+
+\medskip\noindent
+Suppose $A' \to B'$ is a flat lift of $A \to B$, in other words,
+$A' \to B'$ is flat and there is an $A$-algebra isomorphism
+$B = B' \otimes_{A'} A$. Then we can choose an $A'$-algebra map
+$P' \to B'$ lifting the given surjection $P \to B$.
+By Nakayama's lemma (Algebra, Lemma \ref{algebra-lemma-NAK})
+we find that $B'$ is a quotient of $P'$. In particular, we find
+that we can endow $B'$ with an $A'$-flat $P'$-module structure
+lifting $B$ as an $A$-flat $P$-module.
+Conversely, if we can lift $B$ to a $P'$-module $M'$ flat over $A'$,
+then $M'$ is a cyclic module $M' \cong P'/J'$ (using Nakayama again)
+and setting $B' = P'/J'$ we find a flat lift of $B$ as an algebra.
+
+\medskip\noindent
+Set $C = S^{-1}B$. Suppose that $A' \to C'$ is a flat lift of $A \to C$.
+Elements of $C'$ which map to invertible elements of $C$ are invertible.
+We choose an $A'$-algebra map $P' \to C'$ lifting
+the $A$-algebra map $P \to C$. By the remark above
+these maps pass through localizations to give surjections
+$S_P^{-1}P \to C$ and $S_{P'}^{-1}P' \to C'$
+(for the second use Nakayama's lemma).
+In particular, we find that we can endow $C'$ with an $A'$-flat
+$S_{P'}^{-1}P'$-module structure lifting $C$ as an $A$-flat
+$S_P^{-1}P$-module. Conversely, if we can lift $C$ to a
+$S_{P'}^{-1}P'$-module $N'$ flat over $A'$, then $N'$
+is a cyclic module $N' \cong S_{P'}^{-1}P'/\tilde J$
+(using Nakayama again) and setting $C' = S_{P'}^{-1}P'/\tilde J$
+we find a flat lift of $C$ as an algebra.
+
+\medskip\noindent
+The syntomic locus of a morphism of schemes is open by definition.
+Let $J_B \subset B$ be an ideal cutting out the set of points
+in $\Spec(B)$ where $\Spec(B) \to \Spec(A)$ is not syntomic.
+Denote $J_P \subset P$ and $J_{P'} \subset P'$ the corresponding
+ideals. Observe that $P' \to S_{P'}^{-1}P'$ is a flat ring map which
+induces an isomorphism $P'/J_{P'} = S_{P'}^{-1}P'/J_{P'}S_{P'}^{-1}P'$
+by our assumption on $S$ in the lemma, namely, the assumption
+in the lemma is exactly that $B/J_B = S^{-1}(B/J_B)$.
+We conclude that our lemma is a consequence of
+Lemma \ref{lemma-lift-equivalence-module} provided we can
+show that $B_g$ lifts to an $A'$-flat $P'_g$-module for
+$g \in J_B$. However, the ring map $A \to B_g$ is syntomic
+and hence lifts to an $A'$-flat algebra $B'$ by
+Smoothing Ring Maps, Proposition \ref{smoothing-proposition-lift-smooth}.
+Since $A' \to P'_g$ is smooth, we can lift $P_g \to B_g$
+to a surjective map $P'_g \to B'$ as before and we get what we want.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-first-order-localization}
+Let $k$ be a field. Let $B$ be a finite type $k$-algebra.
+Let $S \subset B$ be a multiplicative subset ideal such that
+if $\Spec(B) \to \Spec(k)$ is not smooth at $\mathfrak q$
+then $S \cap \mathfrak q = \emptyset$.
+Let $N$ be a finite $B$-module.
+Then there is a canonical bijection
+$$
+\text{Exal}_k(B, N) \to \text{Exal}_k(S^{-1}B, S^{-1}N)
+$$
+\end{lemma}
+
+\begin{proof}
+This proof is the same as the proof of
+Lemma \ref{lemma-first-order-completion} but easier. We suggest the
+reader to skip the proof.
+The map is given by localization: given $0 \to N \to C \to B \to 0$
+in $\text{Exal}_k(B, N)$ we send it to the localization $S_C^{-1}C$
+of $C$ with respect to the inverse image $S_C \subset C$ of $S$.
+Compare with the proof of Lemma \ref{lemma-localization}.
+
+\medskip\noindent
+The smooth locus of a morphism of schemes is open by definition.
+Let $J \subset B$ be an ideal cutting out the set of points
+in $\Spec(B)$ where $\Spec(B) \to \Spec(A)$ is not smooth.
+Since $k \to B$ is of finite presentation the complex
+$\NL_{B/k}$ can be represented by a complex
+$N^{-1} \to N^0$ where $N^i$ is a finite $B$-module, see
+Algebra, Section \ref{algebra-section-netherlander} and
+in particular
+Algebra, Lemma \ref{algebra-lemma-NL-homotopy}.
+As $B$ is Noetherian, this means that $\NL_{B/k}$
+is pseudo-coherent. For $g \in J$ the $k$-algebra $B_g$
+is smooth and hence $(\NL_{B/k})_g = \NL_{B_g/k}$
+is quasi-isomorphic to a finite projective $B$-module sitting in degree $0$.
+Thus $\text{Ext}^i_B(\NL_{B/k}, N)_g = 0$ for $i \geq 1$
+and any $B$-module $N$. Finally, we have
+$$
+\text{Ext}^1_{S^{-1}B}(\NL_{S^{-1}B/k}, S^{-1}N) =
+\text{Ext}^1_B(\NL_{B/k}, N) \otimes_B S^{-1}B =
+\text{Ext}^1_B(\NL_{B/k}, N)
+$$
+The first equality by
+More on Algebra, Lemma \ref{more-algebra-lemma-base-change-RHom}
+and Algebra, Lemma \ref{algebra-lemma-localize-NL}.
+The second because $\text{Ext}^1_B(\NL_{B/k}, N)$ is $J$-power
+torsion and elements of $S$ act invertibly on $J$-power torsion modules.
+This concludes the proof by the description of $\text{Exal}_A(B, N)$
+as $\text{Ext}^1_B(\NL_{B/A}, N)$ given just above
+Lemma \ref{lemma-first-order-completion}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-localization}
+In Example \ref{example-rings} let $P$ be a $k$-algebra.
+Let $S \subset P$ be a multiplicative subset. If
+\begin{enumerate}
+\item $k \to P$ is of finite type, and
+\item $\Spec(P) \to \Spec(k)$ is smooth at all points of
+$V(g)$ for all $g \in S$.
+\end{enumerate}
+then the functor between deformation categories of
+Lemma \ref{lemma-localization}
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{S^{-1}P}
+$$
+is smooth and induces an isomorphism on tangent spaces.
+\end{lemma}
+
+\begin{proof}
+We know that $\Deformationcategory_P$ and $\Deformationcategory_{S^{-1}P}$
+are deformation categories by Lemma \ref{lemma-rings-RS}.
+Thus it suffices to check
+our functor identifies tangent spaces and a correspondence
+between liftability, see
+Formal Deformation Theory, Lemma \ref{formal-defos-lemma-easy-check-smooth}.
+The property on liftability is proven in
+Lemma \ref{lemma-lift-equivalence-localization}
+and the isomorphism on tangent spaces is the special case of
+Lemma \ref{lemma-first-order-localization} where $N = B$.
+\end{proof}
+
+
+
+\section{Deformations of henselizations}
+\label{section-compare-henselization}
+
+\noindent
+In this section we compare the deformation problem posed
+by an algebra and its completion.
+We first discuss ``liftability''.
+
+\begin{lemma}
+\label{lemma-lift-equivalence-henselization}
+Let $A' \to A$ be a surjective map of Noetherian rings with nilpotent kernel.
+Let $A \to B$ be a finite type flat ring map.
+Let $\mathfrak b \subset B$ be an ideal such that
+$\Spec(B) \to \Spec(A)$ is syntomic on the complement of $V(\mathfrak b)$.
+Let $(B^h, \mathfrak b^h)$ be the henselization of the pair $(B, \mathfrak b)$.
+Then $B$ has a flat lift to $A'$ if and only if $B^h$ has a flat lift to $A'$.
+\end{lemma}
+
+\begin{proof}[First proof]
+This proof is a cheat. Namely, if $B$ has a flat lift $B'$, then
+taking the henselization $(B')^h$ we obtain a flat lift of $B^h$
+(compare with the proof of Lemma \ref{lemma-henselization}).
+Conversely, suppose that $C'$ is an $A'$-flat lift of $(B')^h$.
+Then let $\mathfrak c' \subset C'$ be the inverse image of the
+ideal $\mathfrak b^h$. Then the completion $(C')^\wedge$ of
+$C'$ with respect to $\mathfrak c'$ is a lift of $B^\wedge$ (details omitted).
+Hence we see that $B$ has a flat lift by
+Lemma \ref{lemma-lift-equivalence}.
+\end{proof}
+
+\begin{proof}[Second proof]
+Choose an $A$-algebra surjection $P = A[x_1, \ldots, x_n] \to B$.
+Let $\mathfrak p \subset P$ be the inverse image of $\mathfrak b$.
+Set $P' = A'[x_1, \ldots, x_n]$ and denote $\mathfrak p' \subset P'$
+the inverse image of $\mathfrak p$. (Of course $\mathfrak p$
+and $\mathfrak p'$ do not designate prime ideals here.)
+We will denote $P^h$ and $(P')^h$ the respective henselizations.
+We will use that taking henselizations is functorial and that
+the henselization of a quotient is the corresponding quotient
+of the henselization, see
+More on Algebra, Lemmas
+\ref{more-algebra-lemma-irreducible-henselian-pair-connected} and
+\ref{more-algebra-lemma-henselization-integral}.
+
+\medskip\noindent
+Suppose $A' \to B'$ is a flat lift of $A \to B$, in other words,
+$A' \to B'$ is flat and there is an $A$-algebra isomorphism
+$B = B' \otimes_{A'} A$. Then we can choose an $A'$-algebra map
+$P' \to B'$ lifting the given surjection $P \to B$.
+By Nakayama's lemma (Algebra, Lemma \ref{algebra-lemma-NAK})
+we find that $B'$ is a quotient of $P'$. In particular, we find
+that we can endow $B'$ with an $A'$-flat $P'$-module structure
+lifting $B$ as an $A$-flat $P$-module.
+Conversely, if we can lift $B$ to a $P'$-module $M'$ flat over $A'$,
+then $M'$ is a cyclic module $M' \cong P'/J'$ (using Nakayama again)
+and setting $B' = P'/J'$ we find a flat lift of $B$ as an algebra.
+
+\medskip\noindent
+Set $C = B^h$ and $\mathfrak c = \mathfrak bC$.
+Suppose that $A' \to C'$ is a flat lift of $A \to C$.
+Then $C'$ is henselian with respect to the inverse image
+$\mathfrak c'$ of $\mathfrak c$
+(by More on Algebra, Lemma \ref{more-algebra-lemma-henselian-henselian-pair}
+and the fact that the kernel of $C' \to C$ is nilpotent).
+We choose an $A'$-algebra map $P' \to C'$ lifting
+the $A$-algebra map $P \to C$. These maps pass through
+henselizations to give surjections $P^h \to C$ and $(P')^h \to C'$
+(for the second again using Nakayama's lemma).
+In particular, we find that we can endow $C'$ with an $A'$-flat
+$(P')^h$-module structure lifting $C$ as an $A$-flat $P^h$-module.
+Conversely, if we can lift $C$ to a $(P')^h$-module $N'$ flat over $A'$,
+then $N'$ is a cyclic module $N' \cong (P')^h/\tilde J$
+(using Nakayama again) and setting $C' = (P')^h/\tilde J$
+we find a flat lift of $C$ as an algebra.
+
+\medskip\noindent
+Observe that $P' \to (P')^h$ is a flat ring map which
+induces an isomorphism $P'/\mathfrak p' = (P')^h/\mathfrak p'(P')^h$
+(More on Algebra, Lemma \ref{more-algebra-lemma-henselization-flat}).
+We conclude that our lemma is a consequence of
+Lemma \ref{lemma-lift-equivalence-module} provided we can
+show that $B_g$ lifts to an $A'$-flat $P'_g$-module for
+$g \in \mathfrak p'$. However, the ring map $A \to B_g$ is syntomic
+and hence lifts to an $A'$-flat algebra $B'$ by
+Smoothing Ring Maps, Proposition \ref{smoothing-proposition-lift-smooth}.
+Since $A' \to P'_g$ is smooth, we can lift $P_g \to B_g$
+to a surjective map $P'_g \to B'$ as before and we get what we want.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-first-order-henselization}
+Let $k$ be a field. Let $B$ be a finite type $k$-algebra.
+Let $J \subset B$ be an ideal such that
+$\Spec(B) \to \Spec(k)$ is smooth on the complement of $V(J)$.
+Let $N$ be a finite $B$-module.
+Then there is a canonical bijection
+$$
+\text{Exal}_k(B, N) \to \text{Exal}_k(B^h, N^h)
+$$
+Here $(B^h, J^h)$ is the henselization of $(B, J)$
+and $N^h = N \otimes_B B^h$.
+\end{lemma}
+
+\begin{proof}
+This proof is the same as the proof of
+Lemma \ref{lemma-first-order-completion} but easier. We suggest the
+reader to skip the proof.
+The map is given by henselization: given $0 \to N \to C \to B \to 0$
+in $\text{Exal}_k(B, N)$ we send it to the
+henselization $C^h$
+of $C$ with respect to the inverse image $J_C \subset C$ of $J$.
+Compare with the proof of Lemma \ref{lemma-henselization}.
+
+\medskip\noindent
+Since $k \to B$ is of finite presentation the complex
+$\NL_{B/k}$ can be represented by a complex
+$N^{-1} \to N^0$ where $N^i$ is a finite $B$-module, see
+Algebra, Section \ref{algebra-section-netherlander} and
+in particular
+Algebra, Lemma \ref{algebra-lemma-NL-homotopy}.
+As $B$ is Noetherian, this means that $\NL_{B/k}$
+is pseudo-coherent. For $g \in J$ the $k$-algebra $B_g$
+is smooth and hence $(\NL_{B/k})_g = \NL_{B_g/k}$
+is quasi-isomorphic to a finite projective $B$-module sitting in degree $0$.
+Thus $\text{Ext}^i_B(\NL_{B/k}, N)_g = 0$ for $i \geq 1$
+and any $B$-module $N$. Finally, we have
+\begin{align*}
+\text{Ext}^1_{B^h}(\NL_{B^h/k}, N^h)
+& =
+\text{Ext}^1_{B^h}(\NL_{B/k} \otimes_B B^h, N \otimes_B B^h) \\
+& =
+\text{Ext}^1_B(\NL_{B/k}, N) \otimes_B B^h \\
+& =
+\text{Ext}^1_B(\NL_{B/k}, N)
+\end{align*}
+The first equality by
+More on Algebra, Lemma \ref{more-algebra-lemma-henselization-NL}
+(or rather its analogue for henselizations of pairs).
+The second by
+More on Algebra, Lemma \ref{more-algebra-lemma-base-change-RHom}.
+The third because $\text{Ext}^1_B(\NL_{B/k}, N)$ is $J$-power
+torsion, the map $B \to B^h$ is flat and induces an isomorphism
+$B/J \to B^h/JB^h$ (More on Algebra, Lemma
+\ref{more-algebra-lemma-henselization-flat}), and
+More on Algebra, Lemma \ref{more-algebra-lemma-neighbourhood-equivalence}.
+This concludes the proof by the description of $\text{Exal}_A(B, N)$
+as $\text{Ext}^1_B(\NL_{B/A}, N)$ given just above
+Lemma \ref{lemma-first-order-completion}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smooth-henselization}
+In Example \ref{example-rings} let $P$ be a $k$-algebra.
+Let $J \subset P$ be an ideal.
+Denote $(P^h, J^h)$ the henselization of the pair $(P, J)$. If
+\begin{enumerate}
+\item $k \to P$ is of finite type, and
+\item $\Spec(P) \to \Spec(k)$ is smooth on the complement of $V(J)$,
+\end{enumerate}
+then the functor between deformation categories of
+Lemma \ref{lemma-henselization}
+$$
+\Deformationcategory_P \longrightarrow \Deformationcategory_{P^h}
+$$
+is smooth and induces an isomorphism on tangent spaces.
+\end{lemma}
+
+\begin{proof}
+We know that $\Deformationcategory_P$ and $\Deformationcategory_{P^h}$
+are deformation categories by Lemma \ref{lemma-rings-RS}.
+Thus it suffices to check
+our functor identifies tangent spaces and a correspondence
+between liftability, see
+Formal Deformation Theory, Lemma \ref{formal-defos-lemma-easy-check-smooth}.
+The property on liftability is proven in
+Lemma \ref{lemma-lift-equivalence-henselization}
+and the isomorphism on tangent spaces is the special case of
+Lemma \ref{lemma-first-order-henselization} where $N = B$.
+\end{proof}
+
+
+
+\section{Application to isolated singularities}
+\label{section-isolated}
+
+\noindent
+We apply the discussion above to study the deformation theory
+of a finite type algebra with finitely many singular points.
+
+\begin{lemma}
+\label{lemma-isolated}
+In Example \ref{example-rings} let $P$ be a $k$-algebra.
+Assume that $k \to P$ is of finite type and that $\Spec(P) \to \Spec(k)$
+is smooth except at the maximal ideals
+$\mathfrak m_1, \ldots, \mathfrak m_n$ of $P$.
+Let $P_{\mathfrak m_i}$, $P_{\mathfrak m_i}^h$, $P_{\mathfrak m_i}^\wedge$
+be the local ring, henselization, completion.
+Then the maps of deformation categories
+$$
+\Deformationcategory_P \to
+\prod \Deformationcategory_{P_{\mathfrak m_i}} \to
+\prod \Deformationcategory_{P_{\mathfrak m_i}^h} \to
+\prod \Deformationcategory_{P_{\mathfrak m_i}^\wedge}
+$$
+are smooth and induce isomorphisms on their finite dimensional
+tangent spaces.
+\end{lemma}
+
+\begin{proof}
+The tangent space is finite dimensional by
+Lemma \ref{lemma-finite-type-rings-TI}.
+The functors between the categories are constructed
+in Lemmas \ref{lemma-localization}, \ref{lemma-henselization}, and
+\ref{lemma-completion} (we omit some verifications of the form:
+the completion of the henselization is the completion).
+
+\medskip\noindent
+Set $J = \mathfrak m_1 \cap \ldots \cap \mathfrak m_n$ and apply
+Lemma \ref{lemma-smooth-completion} to get that
+$\Deformationcategory_P \to \Deformationcategory_{P^\wedge}$
+is smooth and induces an isomorphism on tangent spaces
+where $P^\wedge$ is the $J$-adic completion of $P$.
+However, since $P^\wedge = \prod P_{\mathfrak m_i}^\wedge$
+we see that the map $\Deformationcategory_P \to
+\prod \Deformationcategory_{P_{\mathfrak m_i}^\wedge}$
+is smooth and induces an isomorphism on tangent spaces.
+
+\medskip\noindent
+Let $(P^h, J^h)$ be the henselization of the pair $(P, J)$.
+Then $P^h = \prod P_{\mathfrak m_i}^h$ (look at idempotents
+and use More on Algebra, Lemma
+\ref{more-algebra-lemma-characterize-henselian-pair}).
+Hence we can apply Lemma \ref{lemma-smooth-henselization}
+to conclude as in the case of completion.
+
+\medskip\noindent
+To get the the final case it suffices to show that
+$\Deformationcategory_{P_{\mathfrak m_i}} \to
+\Deformationcategory_{P_{\mathfrak m_i}^\wedge}$
+is smooth and induce isomorphisms on tangent spaces for each $i$ separately.
+To do this, we may replace $P$ by a principal localization
+whose only singular point is a maximal ideal $\mathfrak m$
+(corresponding to $\mathfrak m_i$ in the original $P$).
+Then we can apply
+Lemma \ref{lemma-smooth-localization}
+with multiplicative subset $S = P \setminus \mathfrak m$ to conclude.
+Minor details omitted.
+\end{proof}
+
+
+
+
+
+
+\section{Unobstructed deformation problems}
+\label{section-unobstructed}
+
+\noindent
+Let $p : \mathcal{F} \to \mathcal{C}_\Lambda$ be a
+category cofibred in groupoids. Recall that we say $\mathcal{F}$
+is {\it smooth} or {\it unobstructed} if $p$ is smooth.
+This means that given a surjection $\varphi : A' \to A$ in
+$\mathcal{C}_\Lambda$ and $x \in \Ob(\mathcal{F}(A))$
+there exists a morphism $f : x' \to x$ in $\mathcal{F}$
+with $p(f) = \varphi$.
+See Formal Deformation Theory, Section \ref{formal-defos-section-smooth}.
+In this section we give some geometrically meaningful examples.
+
+\begin{lemma}
+\label{lemma-lci-unobstructed}
+In Example \ref{example-rings} let $P$ be a local complete
+intersection over $k$ (Algebra, Definition \ref{algebra-definition-lci-field}).
+Then $\Deformationcategory_P$ is unobstructed.
+\end{lemma}
+
+\begin{proof}
+Let $(A, Q) \to (k, P)$ be an object of $\Deformationcategory_P$.
+Then we see that $A \to Q$ is a syntomic ring map by
+Algebra, Definition \ref{algebra-definition-lci}.
+Hence for any surjection $A' \to A$ in $\mathcal{C}_\Lambda$
+we see that there is a morphism $(A', Q') \to (A, Q)$
+lifting $A' \to A$ by
+Smoothing Ring Maps, Proposition \ref{smoothing-proposition-lift-smooth}.
+This proves the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-glueing-smooth}
+In Situation \ref{situation-glueing} if $U_{12} \to \Spec(k)$ is smooth,
+then the morphism
+$$
+\Deformationcategory_X
+\longrightarrow
+\Deformationcategory_{U_1} \times \Deformationcategory_{U_2} =
+\Deformationcategory_{P_1} \times \Deformationcategory_{P_2}
+$$
+is smooth. If in addition
+$U_1$ is a local complete intersection over $k$, then
+$$
+\Deformationcategory_X
+\longrightarrow
+\Deformationcategory_{U_2} = \Deformationcategory_{P_2}
+$$
+is smooth.
+\end{lemma}
+
+\begin{proof}
+The equality signs hold by Lemma \ref{lemma-affine}.
+Let us think of $\mathcal{C}_\Lambda$ as a deformation
+category over $\mathcal{C}_\Lambda$ as in
+Formal Deformation Theory, Section \ref{formal-defos-section-smooth}.
+Then
+$$
+\Deformationcategory_{P_1} \times \Deformationcategory_{P_2} =
+\Deformationcategory_{P_1}
+\times_{\mathcal{C}_\Lambda}
+\Deformationcategory_{P_2},
+$$
+see Formal Deformation Theory, Remarks
+\ref{formal-defos-remarks-cofibered-groupoids}
+(\ref{formal-defos-item-product}).
+Using
+Lemma \ref{lemma-glueing}
+the first statement is that the functor
+$$
+\Deformationcategory_{P_1}
+\times_{\Deformationcategory_{P_{12}}}
+\Deformationcategory_{P_2}
+\longrightarrow
+\Deformationcategory_{P_1}
+\times_{\mathcal{C}_\Lambda}
+\Deformationcategory_{P_2}
+$$
+is smooth. This follows from Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-map-fibre-products-smooth} as long as
+we can show that $T\Deformationcategory_{P_{12}} = (0)$.
+This vanishing follows from Lemma \ref{lemma-smooth}
+as $P_{12}$ is smooth over $k$.
+For the second statement it suffices to show that
+$\Deformationcategory_{P_1} \to \mathcal{C}_\Lambda$
+is smooth, see Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-smooth-properties}.
+In other words, we have to show $\Deformationcategory_{P_1}$
+is unobstructed, which is Lemma \ref{lemma-lci-unobstructed}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-curve-isolated}
+In Example \ref{example-schemes} let $X$ be a scheme over $k$. Assume
+\begin{enumerate}
+\item $X$ is separated, finite type over $k$ and $\dim(X) \leq 1$,
+\item $X \to \Spec(k)$ is smooth except at the closed
+points $p_1, \ldots, p_n \in X$.
+\end{enumerate}
+Let $\mathcal{O}_{X, p_1}$, $\mathcal{O}_{X, p_1}^h$,
+$\mathcal{O}_{X, p_1}^\wedge$ be the local ring, henselization, completion.
+Consider the maps of deformation categories
+$$
+\Deformationcategory_X
+\longrightarrow
+\prod \Deformationcategory_{\mathcal{O}_{X, p_i}}
+\longrightarrow
+\prod \Deformationcategory_{\mathcal{O}_{X, p_i}^h}
+\longrightarrow
+\prod \Deformationcategory_{\mathcal{O}_{X, p_i}^\wedge}
+$$
+The first arrow is smooth and the second and third arrows
+are smooth and induce isomorphisms on tangent spaces.
+\end{lemma}
+
+\begin{proof}
+Choose an affine open $U_2 \subset X$ containing
+$p_1, \ldots, p_n$ and the generic point of every irreducible
+component of $X$. This is possible by
+Varieties, Lemma \ref{varieties-lemma-dim-1-quasi-projective}
+and Properties, Lemma \ref{properties-lemma-ample-finite-set-in-affine}.
+Then $X \setminus U_2$ is finite and we can choose an affine open
+$U_1 \subset X \setminus \{p_1, \ldots, p_n\}$ such that
+$X = U_1 \cup U_2$. Set $U_{12} = U_1 \cap U_2$.
+Then $U_1$ and $U_{12}$ are smooth affine schemes over $k$.
+We conclude that
+$$
+\Deformationcategory_X \longrightarrow \Deformationcategory_{U_2}
+$$
+is smooth by Lemma \ref{lemma-glueing-smooth}.
+Applying Lemmas \ref{lemma-affine} and \ref{lemma-isolated} we win.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-curve-isolated-lci}
+In Example \ref{example-schemes} let $X$ be a scheme over $k$. Assume
+\begin{enumerate}
+\item $X$ is separated, finite type over $k$ and $\dim(X) \leq 1$,
+\item $X$ is a local complete intersection over $k$, and
+\item $X \to \Spec(k)$ is smooth except at finitely many points.
+\end{enumerate}
+Then $\Deformationcategory_X$ is unobstructed.
+\end{lemma}
+
+\begin{proof}
+Let $p_1, \ldots, p_n \in X$ be the points where $X \to \Spec(k)$
+isn't smooth. Choose an affine open $U_2 \subset X$ containing
+$p_1, \ldots, p_n$ and the generic point of every irreducible
+component of $X$. This is possible by
+Varieties, Lemma \ref{varieties-lemma-dim-1-quasi-projective}
+and Properties, Lemma \ref{properties-lemma-ample-finite-set-in-affine}.
+Then $X \setminus U_2$ is finite and we can choose an affine open
+$U_1 \subset X \setminus \{p_1, \ldots, p_n\}$ such that
+$X = U_1 \cup U_2$. Set $U_{12} = U_1 \cap U_2$.
+Then $U_1$ and $U_{12}$ are smooth affine schemes over $k$.
+We conclude that
+$$
+\Deformationcategory_X \longrightarrow \Deformationcategory_{U_2}
+$$
+is smooth by Lemma \ref{lemma-glueing-smooth}.
+Applying Lemmas \ref{lemma-affine} and \ref{lemma-lci-unobstructed} we win.
+\end{proof}
+
+
+
+
+\section{Smoothings}
+\label{section-smoothing}
+
+\noindent
+Suppose given a finite type scheme or algebraic space $X$ over a field $k$.
+It is often useful to find a flat morphism of finite type $Y \to \Spec(k[[t]])$
+whose generic fibre is smooth and whose special fibre is isomorphic to $X$.
+Such a thing is called a smoothing of $X$. In this section we will find
+a smoothing for $1$-dimensional separated $X$ which have isolated
+local complete intersection singularities.
+
+\begin{lemma}
+\label{lemma-criterion-smoothing}
+Let $k$ be a field. Set $S = \Spec(k[[t]])$ and
+$S_n = \Spec(k[t]/(t^n))$. Let $Y \to S$ be a proper, flat morphism
+of schemes whose special fibre $X$ is Cohen-Macaulay and
+equidimensional of dimension $d$. Denote $X_n = Y \times_S S_n$.
+If for some $n \geq 1$ the $d$the Fitting ideal of $\Omega_{X_n/S_n}$
+contains $t^{n - 1}$, then the generic fibre of $Y \to S$ is smooth.
+\end{lemma}
+
+\begin{proof}
+By More on Morphisms, Lemma
+\ref{more-morphisms-lemma-flat-finite-presentation-CM-open}
+we see that $Y \to S$ is a Cohen-Macaulay morphism.
+By Morphisms, Lemma
+\ref{morphisms-lemma-flat-finite-presentation-CM-fibres-relative-dimension}
+we see that $Y \to S$ has relative dimension $d$.
+By Divisors, Lemma \ref{divisors-lemma-d-fitting-ideal-omega-smooth}
+the $d$th Fitting ideal $\mathcal{I} \subset \mathcal{O}_Y$
+of $\Omega_{Y/S}$ cuts out the singular locus of the morphism $Y \to S$.
+In other words, $V(\mathcal{I}) \subset Y$ is the closed subset
+of points where $Y \to S$ is not smooth.
+By Divisors, Lemma \ref{divisors-lemma-base-change-and-fitting-ideal-omega}
+formation of this Fitting ideal commutes with base change.
+By assumption we see that $t^{n - 1}$ is a section of
+$\mathcal{I} + t^n\mathcal{O}_Y$. Thus for every
+$x \in X = V(t) \subset Y$ we conclude that
+$t^{n - 1} \in \mathcal{I}_x$ where $\mathcal{I}_x$ is the stalk at $x$.
+This implies that $V(\mathcal{I}) \subset V(t)$ in an
+open neighbourhood of $X$ in $Y$. Since $Y \to S$
+is proper, this implies $V(\mathcal{I}) \subset V(t)$
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-jouanolou-type-thing}
+Let $k$ be a field. Let $1 \leq c \leq n$ be integers.
+Let $f_1, \ldots, f_c \in k[x_1, \ldots x_n]$ be elements.
+Let $a_{ij}$, $0 \leq i \leq n$, $1 \leq j \leq c$ be
+variables. Consider
+$$
+g_j = f_j + a_{0j} + a_{1j}x_1 + \ldots + a_{nj}x_n \in
+k[a_{ij}][x_1, \ldots, x_n]
+$$
+Denote $Y \subset \mathbf{A}^{n + c(n + 1)}_k$
+the closed subscheme cut out by $g_1, \ldots, g_c$.
+Denote $\pi : Y \to \mathbf{A}^{c(n + 1)}_k$ the projection
+onto the affine space with variables $a_{ij}$.
+Then there is a nonempty Zariski open 
+of $\mathbf{A}^{c(n + 1)}_k$ over which $\pi$ is smooth.
+\end{lemma}
+
+\begin{proof}
+Recall that the set of points where $\pi$ is smooth is open.
+Thus the complement, i.e., the singular locus, is closed.
+By Chevalley's theorem (in the form of
+Morphisms, Lemma \ref{morphisms-lemma-chevalley})
+the image of the singular locus is constructible.
+Hence if the generic point of $\mathbf{A}^{c(n + 1)}_k$
+is not in the image of the singular locus, then
+the lemma follows (by Topology, Lemma
+\ref{topology-lemma-generic-point-in-constructible} for example).
+Thus we have to show there is no point
+$y \in Y$ where $\pi$ is not smooth mapping to
+the generic point of $\mathbf{A}^{c(n + 1)}_k$.
+Consider the matrix of partial derivatives
+$$
+(\frac{\partial g_j}{\partial x_i}) =
+(\frac{\partial f_j}{\partial x_i} + a_{ij})
+$$
+The image of this matrix in $\kappa(y)$ must have rank $< c$
+since otherwise $\pi$ would be smooth at $y$, see discussion in
+Smoothing Ring Maps, Section \ref{smoothing-section-singular-ideal}.
+Thus we can find $\lambda_1, \ldots, \lambda_c \in \kappa(y)$
+not all zero such that the vector $(\lambda_1, \ldots, \lambda_c)$
+is in the kernel of this matrix.
+After renumbering we may assume $\lambda_1 \not = 0$.
+Dividing by $\lambda_1$ we may assume our vector has
+the form $(1, \lambda_2, \ldots, \lambda_c)$.
+Then we obtain
+$$
+a_{i1} = -
+\frac{\partial f_j}{\partial x_1} -
+\sum\nolimits_{j = 2, \ldots, c} \lambda_j(\frac{\partial f_j}{\partial x_i} + a_{ij})
+$$
+in $\kappa(y)$ for $i = 1, \ldots, n$. Moreover, since $y \in Y$ we also
+have
+$$
+a_{0j} = -f_j - a_{1j}x_1 - \ldots - a_{nj}x_n
+$$
+in $\kappa(y)$. This means that the subfield of $\kappa(y)$
+generated by $a_{ij}$ is contained in the subfield of $\kappa(y)$
+generated by the images of $x_1, \ldots, x_n, \lambda_2, \ldots, \lambda_c$,
+and $a_{ij}$ except for $a_{i1}$ and $a_{0j}$.
+We count and we see that the transcendence degree of this is
+at most $c(n + 1) - 1$. Hence $y$ cannot map to the generic point
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smoothing-affine-lci}
+Let $k$ be a field. Let $A$ be a global complete interesection
+over $k$. There exists a flat finite type ring map
+$k[[t]] \to B$ with $B/tB \cong A$ such that
+$B[1/t]$ is smooth over $k((t))$.
+\end{lemma}
+
+\begin{proof}
+Write $A = k[x_1, \ldots, x_n]/(f_1, \ldots, f_c)$ as in
+Algebra, Definition \ref{algebra-definition-lci-field}.
+We are going to choose
+$a_{ij} \in (t) \subset k[[t]]$ and set
+$$
+g_j = f_j + a_{0j} + a_{1j}x_1 + \ldots + a_{nj}x_n \in
+k[[t]][x_1, \ldots, x_n]
+$$
+After doing this we take
+$B = k[[t]][x_1, \ldots, x_n]/(g_1, \ldots, g_c)$.
+We claim that $k[[t]] \to B$ is flat at every prime ideal
+lying over $(t)$. Namely, the elements $f_1, \ldots, f_c$
+form a regular sequence in the local ring at any prime ideal
+$\mathfrak p$ of $k[x_1, \ldots, x_n]$ containing $f_1, \ldots, f_c$
+(Algebra, Lemma \ref{algebra-lemma-lci}). Thus $g_1, \ldots, g_c$
+is locally a lift of a regular sequence and we can apply
+Algebra, Lemma \ref{algebra-lemma-grothendieck-regular-sequence}.
+Flatness at primes lying over $(0) \subset k[[t]]$ is automatic
+because $k((t)) = k[[t]]_{(0)}$ is a field. Thus $B$ is flat
+over $k[[t]]$.
+
+\medskip\noindent
+All that remains is to show that for suitable choices
+of $a_{ij}$ the generic fibre $B_{(0)}$ is smooth over
+$k((t))$. For this we have to show that we can choose
+our $a_{ij}$ so that the induced morphism
+$$
+(a_{ij}) : \Spec(k[[t]]) \longrightarrow \mathbf{A}^{c(n + 1)}_k
+$$
+maps into the nonempty Zariski open of
+Lemma \ref{lemma-jouanolou-type-thing}.
+This is clear because there is no nonzero polynomial in the
+$a_{ij}$ which vanishes on $(t)^{\oplus c(n + 1)}$.
+(We leave this as an exercise to the reader.)
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smoothing-artinian-lci}
+Let $k$ be a field. Let $A$ be a finite dimensional $k$-algebra
+which is a local complete intersection over $k$. Then there is
+a finite flat $k[[t]]$-algebra $B$ with $B/tB \cong A$
+and $B[1/t]$ \'etale over $k((t))$.
+\end{lemma}
+
+\begin{proof}
+Since $A$ is Artinian
+(Algebra, Lemma \ref{algebra-lemma-finite-dimensional-algebra}),
+we can write $A$ as a product of local Artinian rings
+(Algebra, Lemma \ref{algebra-lemma-artinian-finite-length}).
+Thus it suffices to prove the lemma if $A$ is local
+(this uses that being a local complete intersection is
+preserved under taking principal localizations, see
+Algebra, Lemma \ref{algebra-lemma-localize-lci}).
+In this case $A$ is a global complete intersection.
+Consider the algebra $B$ constructed in
+Lemma \ref{lemma-smoothing-affine-lci}.
+Then $k[[t]] \to B$ is quasi-finite at the unique prime of $B$
+lying over $(t)$ (Algebra, Definition \ref{algebra-definition-quasi-finite}).
+Observe that $k[[t]]$ is a henselian local ring
+(Algebra, Lemma \ref{algebra-lemma-complete-henselian}).
+Thus $B = B' \times C$ where $B'$ is finite over $k[[t]]$
+and $C$ has no prime lying over $(t)$, see
+Algebra, Lemma \ref{algebra-lemma-characterize-henselian}.
+Then $B'$ is the ring we are looking for
+(recall that \'etale is the same thing as
+smooth of relative dimension $0$).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smoothing-at-lci-point}
+Let $k$ be a field. Let $A$ be a $k$-algebra. Assume
+\begin{enumerate}
+\item $A$ is a local ring essentially of finite type over $k$,
+\item $A$ is a complete intersection over $k$
+(Algebra, Definition \ref{algebra-definition-lci-local-ring}).
+\end{enumerate}
+Set $d = \dim(A) + \text{trdeg}_k(\kappa)$ where $\kappa$
+is the residue field of $A$. Then there exists an integer $n$
+and a flat, essentially of finite type ring map
+$k[[t]] \to B$ with $B/tB \cong A$ such that $t^n$ is in the
+$d$th Fitting ideal of $\Omega_{B/k[[t]]}$.
+\end{lemma}
+
+\begin{proof}
+By Algebra, Lemma \ref{algebra-lemma-lci-local} we can write $A$ as the
+localization at a prime $\mathfrak p$ of a global complete intersection $P$
+over $k$. Observe that $\dim(P) = d$ by
+Algebra, Lemma \ref{algebra-lemma-dimension-at-a-point-finite-type-field}.
+By Lemma \ref{lemma-smoothing-affine-lci} we can find a
+flat, finite type ring map $k[[t]] \to Q$ such that $P \cong Q/tQ$ and
+such that $k((t)) \to Q[1/t]$ is smooth. It follows from the construction
+of $Q$ in the lemma that $k[[t]] \to Q$ is a relative global
+complete intersection of relative dimension $d$; alternatively,
+Algebra, Lemma \ref{algebra-lemma-syntomic} tells us that $Q$ or a
+suitable principal localization of $Q$ is such a global complete intersection.
+Hence by Divisors, Lemma \ref{divisors-lemma-d-fitting-ideal-omega-smooth}
+the $d$th Fitting ideal $I \subset Q$ of $\Omega_{Q/k[[t]]}$
+cuts out the singular locus of $\Spec(Q) \to \Spec(k[[t]])$.
+Thus $t^n \in I$ for some $n$.
+Let $\mathfrak q \subset Q$
+be the inverse image of $\mathfrak p$. Set $B = Q_\mathfrak q$.
+The lemma is proved.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smoothing-proper-curve-isolated-lci}
+Let $X$ be a scheme over a field $k$. Assume
+\begin{enumerate}
+\item $X$ is proper over $k$,
+\item $X$ is a local complete intersection over $k$,
+\item $X$ has dimension $\leq 1$, and
+\item $X \to \Spec(k)$ is smooth except at finitely many points.
+\end{enumerate}
+Then there exists a flat projective morphism $Y \to \Spec(k[[t]])$
+whose generic fibre is smooth and whose special fibre is
+isomorphic to $X$.
+\end{lemma}
+
+\begin{proof}
+Observe that $X$ is Cohen-Macaulay, see
+Algebra, Lemma \ref{algebra-lemma-lci-CM}.
+Thus $X = X' \amalg X''$ with $\dim(X') = 0$
+and $X''$ equidimensional of dimension $1$, see Morphisms, Lemma
+\ref{morphisms-lemma-flat-finite-presentation-CM-fibres-relative-dimension}.
+Since $X'$ is finite over $k$ (Varieties, Lemma
+\ref{varieties-lemma-algebraic-scheme-dim-0})
+we can find $Y' \to \Spec(k[[t]])$ with special
+fibre $X'$ and generic fibre smooth by
+Lemma \ref{lemma-smoothing-artinian-lci}.
+Thus it suffices to prove the lemma for $X''$.
+After replacing $X$ by $X''$ we have $X$ is
+Cohen-Macaulay and equidimensional of dimension $1$.
+
+\medskip\noindent
+We are going to use deformation theory for the situation $\Lambda = k \to k$.
+Let $p_1, \ldots, p_r \in X$ be the closed singular points of $X$, i.e.,
+the points where $X \to \Spec(k)$ isn't smooth. For each $i$ we pick
+an integer $n_i$ and a flat, essentially of finite type ring map
+$$
+k[[t]] \longrightarrow B_i
+$$
+with $B_i/tB_i \cong \mathcal{O}_{X, p_i}$ such that
+$t^{n_i}$ is in the $1$st Fitting ideal of $\Omega_{B_i/k[[t]]}$.
+This is possible by Lemma \ref{lemma-smoothing-at-lci-point}.
+Observe that the system $(B_i/t^nB_i)$ defines a formal object of
+$\Deformationcategory_{\mathcal{O}_{X, p_i}}$ over $k[[t]]$.
+By Lemma \ref{lemma-curve-isolated} the map
+$$
+\Deformationcategory_X
+\longrightarrow
+\prod\nolimits_{i = 1, \ldots, r} \Deformationcategory_{\mathcal{O}_{X, p_i}}
+$$
+is a smooth map between deformation categories. Hence by
+Formal Deformation Theory, Lemma
+\ref{formal-defos-lemma-smooth-morphism-essentially-surjective}
+there exists a formal object $(X_n)$ in $\Deformationcategory_X$
+mapping to the formal object $\prod_i (B_i/t^n)$ by the arrow above.
+By More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-formal-algebraic-space-proper-reldim-1}
+there exists a projective scheme $Y$ over $k[[t]]$ and compatible
+isomorphisms $Y \times_{\Spec(k[[t]])} \Spec(k[t]/(t^n)) \cong X_n$.
+By More on Morphisms, Lemma
+\ref{more-morphisms-lemma-check-flatness-on-infinitesimal-nbhds}
+we see that $Y \to \Spec(k[[t]])$ is flat.
+Since $X$ is Cohen-Macaulay and equidimensional of dimension $1$
+we may apply Lemma \ref{lemma-criterion-smoothing}
+to check $Y$ has smooth generic fibre\footnote{Warning: in general it is
+{\bf not} true that the local ring of $Y$ at the point
+$p_i$ is isomorphic to $B_i$. We only know that this is true after
+dividing by $t^n$ on both sides!}.
+Choose $n$ strictly larger than the maximum of the integers $n_i$ found above.
+It we can show $t^{n - 1}$ is in the first Fitting ideal of
+$\Omega_{X_n/S_n}$ with $S_n = \Spec(k[t]/(t^n))$, then the proof is done.
+To do this it suffices to prove this is true in each of
+the local rings of $X_n$ at closed points $p$.
+However, if $p$ corresponds to a smooth point for $X \to \Spec(k)$,
+then $\Omega_{X_n/S_n, p}$ is free of rank $1$ and the first Fitting
+ideal is equal to the local ring. If $p = p_i$ for some $i$, then
+$$
+\Omega_{X_n/S_n, p_i} =
+\Omega_{(B_i/t^nB_i)/(k[t]/(t^n))} =
+\Omega_{B_i/k[[t]]}/t^n\Omega_{B_i/k[[t]]}
+$$
+Since taking Fitting ideals commutes with base change
+(with already used this but in this algebraic setting
+it follows from More on Algebra, Lemma
+\ref{more-algebra-lemma-fitting-ideal-basics}),
+and since $n - 1 \geq n_i$ we see that $t^{n - 1}$ is
+in the Fitting ideal of this module over $B_i/t^nB_i$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-smoothing-curve-isolated-lci}
+Let $k$ be a field and let $X$ be a scheme over $k$. Assume
+\begin{enumerate}
+\item $X$ is separated, finite type over $k$ and $\dim(X) \leq 1$,
+\item $X$ is a local complete intersection over $k$, and
+\item $X \to \Spec(k)$ is smooth except at finitely many points.
+\end{enumerate}
+Then there exists a flat, separated, finite type morphism $Y \to \Spec(k[[t]])$
+whose generic fibre is smooth and whose special fibre is
+isomorphic to $X$.
+\end{lemma}
+
+\begin{proof}
+If $X$ is reduced, then we can choose an embedding
+$X \subset \overline{X}$ as in
+Varieties, Lemma \ref{varieties-lemma-reduced-dim-1-projective-completion}.
+Writing $X = \overline{X} \setminus \{x_1, \ldots, x_n\}$
+we see that $\mathcal{O}_{\overline{X}, x_i}$ is a discrete
+valuation ring and hence in particular a local complete intersection
+(Algebra, Definition \ref{algebra-definition-lci-local-ring}).
+Thus $\overline{X}$ is a local complete intersection
+over $k$ because this holds over the open $X$ and
+at the points $x_i$ by Algebra, Lemma \ref{algebra-lemma-lci-local}.
+Thus we may apply Lemma \ref{lemma-smoothing-proper-curve-isolated-lci}
+to find a projective flat morphism $\overline{Y} \to \Spec(k[[t]])$
+whose generic fibre is smooth and whose special fibre
+is $\overline{X}$. Then we remove $x_1, \ldots, x_n$
+from $\overline{Y}$ to obtain $Y$.
+
+\medskip\noindent
+In the general case, write $X = X' \amalg X''$ where
+with $\dim(X') = 0$ and $X''$ equidimensional of dimension $1$.
+Then $X''$ is reduced and the first paragraph applies to it.
+On the other hand, $X'$ can be dealt with
+as in the proof of Lemma \ref{lemma-smoothing-proper-curve-isolated-lci}.
+Some details omitted.
+\end{proof}
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

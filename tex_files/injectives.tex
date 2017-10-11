@@ -1,0 +1,2266 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Injectives}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+In future chapters we will use the existence of injectives and
+K-injective complexes to do cohomology of sheaves of modules on
+ringed sites. In this chapter we explain how to produce injectives
+and K-injective complexes first for modules on sites and later
+more generally for Grothendieck abelian categories.
+
+\medskip\noindent
+We observe that we already know that the category of
+abelian groups and the category of modules over a ring have
+enough injectives, see More on Algebra, Sections
+\ref{more-algebra-section-abelian-groups} and
+\ref{more-algebra-section-injectives-modules}
+
+
+
+
+
+\section{Baer's argument for modules}
+\label{section-baer}
+
+\noindent
+There is another, more set-theoretic approach to showing that any $R$-module
+$M$ can be imbedded in an injective module. This approach constructs
+the injective module by a transfinite colimit of push-outs. While this
+method is somewhat abstract and more complicated than the one of
+More on Algebra, Section \ref{more-algebra-section-injectives-modules},
+it is also more general. Apparently this method originates with Baer,
+and was revisited by Cartan and Eilenberg in
+\cite{Cartan-Eilenberg} and by Grothendieck in \cite{Tohoku}.
+There Grothendieck uses it to show that
+many other abelian categories have enough injectives. We will get back to
+the general case later (Section \ref{section-grothendieck-categories}).
+
+\medskip\noindent
+We begin with a few set theoretic remarks.
+Let $\{B_{\beta}\}_{\beta \in \alpha}$ be an inductive system of
+objects in some category $\mathcal{C}$, indexed by
+an ordinal $\alpha$. Assume that $\colim_{\beta \in \alpha} B_\beta$
+exists in $\mathcal{C}$. If $A$ is an object of $\mathcal{C}$, then there is a
+natural map
+\begin{equation}
+\label{equation-compare}
+\colim_{\beta \in \alpha} \Mor_\mathcal{C}(A, B_\beta)
+\longrightarrow
+\Mor_\mathcal{C}(A, \colim_{\beta \in \alpha} B_\beta).
+\end{equation}
+because if one is given a map $A \to B_\beta$ for some $\beta$, one
+naturally gets a map from $A$  into the colimit by composing with
+$B_\beta \to \colim_{\beta \in \alpha} B_\alpha$.
+Note that the left colimit is one of sets! In general, (\ref{equation-compare})
+is neither injective or surjective.
+
+\begin{example}
+\label{example-not-surjective}
+Consider the category of sets. Let $A = \mathbf{N}$ and
+$B_n = \{1, \ldots, n\}$ be the inductive system indexed by the natural numbers
+where $B_n \to B_m$ for $n \leq m$ is the obvious map. Then
+$\colim B_n = \mathbf{N}$, so there is a map
+$A \to \colim B_n$, which does not factor as $A \to B_m$
+for any $m$. Consequently,
+$\colim \Mor(A, B_n) \to \Mor(A, \colim B_n)$
+is not surjective.
+\end{example}
+
+\begin{example}
+\label{example-not-injective}
+Next we give an example where the map fails to be injective. Let $B_n =
+\mathbf{N}/\{1,  2, \ldots, n\}$, that is, the quotient set of
+$\mathbf{N}$ with the first $n$ elements collapsed to one element.
+There are natural maps $B_n \to B_m$ for $n \leq m$, so the
+$\{B_n\}$ form a system of sets over $\mathbf{N}$. It is easy to see that
+$\colim B_n = \{*\}$: it is the one-point set.
+So it follows that $\Mor(A, \colim B_n)$ is a one-element set
+for every set $A$.
+However, $\colim \Mor(A , B_n)$ is {\bf not} a one-element set.
+Consider the family of maps $A \to B_n$ which are just the natural projections
+$\mathbf{N} \to \mathbf{N}/\{1, 2, \ldots, n\}$ and the family of
+maps $A \to B_n$ which map the whole of $A$ to the class of $1$.
+These two families of maps are distinct at each step and thus are distinct in
+$\colim \Mor(A, B_n)$, but they induce the same map
+$A \to \colim B_n$.
+\end{example}
+
+\noindent
+Nonetheless, if we map out of a finite set then
+(\ref{equation-compare}) is an isomorphism always.
+
+\begin{lemma}
+\label{lemma-out-of-finite}
+Suppose that, in (\ref{equation-compare}), $\mathcal{C}$ is the category
+of sets and $A$ is a {\it finite set}, then the map is a bijection.
+\end{lemma}
+
+\begin{proof}
+Let $f : A \to \colim B_\beta$.
+The range of $f$ is finite, containing say
+elements $c_1, \ldots, c_r \in \colim B_\beta$.
+These all come from some elements in $B_\beta$ for $\beta \in \alpha$
+large by definition of the colimit. Thus we can define
+$\widetilde{f} : A \to B_\beta$ lifting $f$ at a finite stage.
+This proves that (\ref{equation-compare}) is surjective.
+Next, suppose two maps $f : A \to B_\gamma, f' : A \to B_{\gamma'}$
+define the same map $A \to \colim B_\beta$.
+Then each of the finitely many elements of $A$ gets sent to the same point in
+the colimit. By definition of the colimit for sets, there is
+$\beta \geq \gamma, \gamma'$ such that the finitely many elements of
+$A$ get sent to the same points in $B_\beta$ under $f$ and $f'$.
+This proves that (\ref{equation-compare}) is injective.
+\end{proof}
+
+\noindent
+The most interesting case of the lemma is when $\alpha = \omega$, i.e.,
+when the system $\{B_\beta\}$ is a system $\{B_n\}_{n \in \mathbf{N}}$
+over the natural numbers as in
+Examples \ref{example-not-surjective} and
+\ref{example-not-injective}.
+The essential idea is that $A$ is ``small'' relative to the long chain of
+compositions $B_1 \to B_2 \to \ldots$, so that it has to factor through a
+finite step. A more general version of this lemma can be found in
+Sets, Lemma \ref{sets-lemma-map-from-set-lifts}.
+Next, we generalize this to the category of modules.
+
+\begin{definition}
+\label{definition-small}
+Let $\mathcal{C}$ be a category, let $I \subset \text{Arrows}(\mathcal{C})$,
+and let $\alpha$ be an ordinal. An object $A$ of $\mathcal{C}$ is said to
+be {\it $\alpha$-small with respect to $I$} if whenever $\{B_\beta\}$ is
+a system over $\alpha$ with transition maps in $I$, then
+the map (\ref{equation-compare}) is an isomorphism.
+\end{definition}
+
+\noindent
+In the rest of this section we shall restrict ourselves
+to the category of $R$-modules for a fixed commutative ring $R$.
+We shall also take $I$ to be the collection of injective maps, i.e., the
+{\it monomorphisms} in the category of modules over $R$. In this case, for
+any system $\{B_\beta\}$ as in the definition each of the maps
+$$
+B_\beta \to \colim_{\beta \in \alpha} B_\beta
+$$
+is an injection. It follows that the map (\ref{equation-compare}) is an
+{\it injection}. We can in fact interpret the $B_\beta$'s as submodules
+of the module $B = \colim_{\beta \in \alpha} B_\beta$, and then we
+have $B = \bigcup_{\beta \in \alpha} B_\beta$. This is not an abuse of
+notation if we identify $B_\alpha$ with the image in the colimit.
+We now want to show that modules are always small for ``large'' ordinals
+$\alpha$.
+
+\begin{proposition}
+\label{proposition-modules-are-small}
+Let $R$ be a ring. Let $M$ be an $R$-module.
+Let $\kappa$ the cardinality of the set of submodules of $M$.
+If $\alpha$ is an ordinal whose cofinality is bigger than $\kappa$,
+then $M$ is $\alpha$-small with respect to injections.
+\end{proposition}
+
+\begin{proof}
+The proof is straightforward, but let us first think about a special case.
+If $M$ is finite, then the claim is that for any inductive system
+$\{B_\beta\}$ with injections between them, parametrized by a
+limit ordinal, any map $M \to \colim B_\beta$ factors through one of
+the $B_\beta$. And this we proved in
+Lemma \ref{lemma-out-of-finite}.
+
+\medskip\noindent
+Now we start the proof in the general case.
+We need only show that the map (\ref{equation-compare}) is a surjection.
+Let $f : M \to \colim B_\beta$ be a map.
+Consider the subobjects $\{f^{-1}(B_\beta)\}$ of $M$, where $B_\beta$
+is considered as a subobject of the colimit $B = \bigcup_\beta B_\beta$.
+If one of these, say $f^{-1}(B_\beta)$, fills $M$,
+then the map factors through $B_\beta$.
+
+\medskip\noindent
+So suppose to the contrary that all of the $f^{-1}(B_\beta)$ were proper
+subobjects of $M$. However, we know that
+$$
+\bigcup f^{-1}(B_\beta) = f^{-1}\left(\bigcup B_\beta\right) = M.
+$$
+Now there are at most $\kappa$ different subobjects of $M$ that occur among
+the $f^{-1}(B_\alpha)$, by hypothesis.
+Thus we can find a subset $S \subset \alpha$ of cardinality at most
+$\kappa$ such that as $\beta'$ ranges over $S$, the
+$f^{-1}(B_{\beta'})$ range over \emph{all} the $f^{-1}(B_\alpha)$.
+
+\medskip\noindent
+However, $S$ has an upper bound $\widetilde{\alpha} < \alpha$ as
+$\alpha$ has cofinality bigger than $\kappa$. In particular, all the
+$f^{-1}(B_{\beta'})$, $\beta' \in S$ are contained in
+$f^{-1}(B_{\widetilde{\alpha}})$.
+It follows that $f^{-1}(B_{\widetilde{\alpha}}) = M$.
+In particular, the map $f$ factors through $B_{\widetilde{\alpha}}$.
+\end{proof}
+
+\noindent
+From this lemma we will be able to deduce the existence of lots of injectives.
+Let us recall the criterion of Baer.
+
+\begin{lemma}
+\label{lemma-criterion-baer}
+Let $R$ be a ring. An $R$-module $Q$ is injective if and only if in every
+commutative diagram
+$$
+\xymatrix{
+\mathfrak{a} \ar[d] \ar[r] &  Q \\
+R \ar@{-->}[ru]
+}
+$$
+for $\mathfrak{a} \subset R$ an ideal, the dotted arrow exists.
+\end{lemma}
+
+\begin{proof}
+Assume $Q$ satisfies the assumption of the lemma.
+Let $M \subset N$ be $R$-modules, and let $\varphi : M \to Q$ be an
+$R$-module map. Arguing as in the proof of
+More on Algebra, Lemma \ref{more-algebra-lemma-injective-abelian}
+we see that it suffices to prove that if $M \not = N$, then we
+can find an $R$-module $M'$, $M \subset M' \subset N$
+such that (a) the inclusion $M \subset M'$ is strict,
+and (b) $\varphi$ can be extended to $M'$.
+To find $M'$, let $x \in N$, $x \not \in M$. Let $\psi : R \to N$,
+$r \mapsto rx$. Set $\mathfrak{a} = \psi^{-1}(M)$. By assumption the
+morphism
+$$
+\mathfrak a \xrightarrow{\psi} M \xrightarrow{\varphi} Q
+$$
+can be extended to a morphism $\varphi' : R \to Q$.
+Note that $\varphi'$ annihilates the kernel of $\psi$ (as this is true
+for $\varphi$). Thus $\varphi'$ gives rise to a morphism
+$\varphi'' : \Im(\psi) \to Q$ which agrees with $\varphi$
+on the intersection $M \cap \Im(\psi)$ by construction.
+Thus $\varphi$ and $\varphi''$ glue to give an extension
+of $\varphi$ to the strictly bigger module
+$M' = \mathcal{F} + \Im(\psi)$.
+\end{proof}
+
+\noindent
+If $M$ is an $R$-module, then in general we may have a semi-complete
+diagram as in
+Lemma \ref{lemma-criterion-baer}.
+In it, we can form the \emph{push-out}
+$$
+\xymatrix{
+\mathfrak{a} \ar[d]  \ar[r] &  Q \ar[d] \\
+R \ar[r] &  R \oplus_{\mathfrak{a}} Q.
+}
+$$
+Here the vertical map is injective, and the diagram commutes. The point is
+that we can extend $\mathfrak{a} \to Q$ to $R$ \emph{if} we extend $Q$ to the
+larger module $R \oplus_{\mathfrak{a}} Q$.
+
+\medskip\noindent
+The key point of Baer's argument is to repeat this procedure
+transfinitely many times. To do this we first define, given an $R$-module
+$M$ the following (huge) pushout
+\begin{equation}
+\label{equation-huge-diagram}
+\vcenter{
+\xymatrix{
+\bigoplus_{\mathfrak a}
+\bigoplus_{\varphi \in \Hom_R(\mathfrak a, M)}
+\mathfrak{a} \ar[r] \ar[d] & M \ar[d] \\
+\bigoplus_{\mathfrak a}
+\bigoplus_{\varphi \in \Hom_R(\mathfrak a, M)}
+R \ar[r] &  \mathbf{M}(M).
+}
+}
+\end{equation}
+Here the top horizontal arrow maps the element $a \in \mathfrak a$
+in the summand corresponding to $\varphi$ to the element $\varphi(a) \in M$.
+The left vertical arrow maps $a \in \mathfrak a$ in the summand corresponding
+to $\varphi$ simply to the element $a \in R$ in the summand corresponding
+to $\varphi$. The fundamental properties of this construction are
+formulated in the following lemma.
+
+\begin{lemma}
+\label{lemma-construction}
+Let $R$ be a ring.
+\begin{enumerate}
+\item The construction $M \mapsto (M \to \mathbf{M}(M))$
+is functorial in $M$.
+\item The map $M \to \mathbf{M}(M)$ is injective.
+\item For any ideal $\mathfrak{a}$ and any $R$-module map
+$\varphi : \mathfrak a \to M$ there is an $R$-module map
+$\varphi' : R \to \mathbf{M}(M)$ such that
+$$
+\xymatrix{
+\mathfrak{a} \ar[d] \ar[r]_\varphi &  M \ar[d] \\
+R \ar[r]^{\varphi'} & \mathbf{M}(M)
+}
+$$
+commutes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Parts (2) and (3) are immediate from the construction.
+To see (1), let $\chi : M \to N$ be an $R$-module map. We claim there exists
+a canonical commutative diagram
+$$
+\xymatrix{
+\bigoplus_{\mathfrak a}
+\bigoplus_{\varphi \in \Hom_R(\mathfrak a, M)}
+\mathfrak{a} \ar[r] \ar[d] \ar[rrd] & M \ar[rrd]^\chi \\
+\bigoplus_{\mathfrak a}
+\bigoplus_{\varphi \in \Hom_R(\mathfrak a, M)}
+R \ar[rrd] & &
+\bigoplus_{\mathfrak a}
+\bigoplus_{\psi \in \Hom_R(\mathfrak a, N)}
+\mathfrak{a} \ar[r] \ar[d] & N \\
+& & \bigoplus_{\mathfrak a}
+\bigoplus_{\psi \in \Hom_R(\mathfrak a, N)}
+R
+}
+$$
+which induces the desired map $\mathbf{M}(M) \to \mathbf{M}(N)$.
+The middle east-south-east arrow maps the summand $\mathfrak a$
+corresponding to $\varphi$ via $\text{id}_{\mathfrak a}$ to the
+summand $\mathfrak a$ corresponding to $\psi = \chi \circ \varphi$.
+Similarly for the lower east-south-east arrow. Details omitted.
+\end{proof}
+
+\noindent
+The idea will now be to apply the functor $\mathbf{M}$ a transfinite number
+of times. We define for each ordinal $\alpha$ a functor $\mathbf{M}_\alpha$
+on the category of $R$-modules, together with a natural injection $N \to
+\mathbf{M}_\alpha(N)$. We do this by transfinite induction.
+First, $\mathbf{M}_1 = \mathbf{M}$ is the functor defined above.
+Now, suppose given an ordinal $\alpha$, and suppose $\mathbf{M}_{\alpha'}$
+is defined for $\alpha' < \alpha$. If $\alpha$ has an immediate predecessor
+$\widetilde{\alpha}$, we let
+$$
+\mathbf{M}_\alpha = \mathbf{M} \circ \mathbf{M}_{\widetilde{\alpha}}.
+$$
+If not, i.e., if $\alpha$ is a limit ordinal, we let
+$$
+\mathbf{M}_{\alpha}(N) =
+\colim_{\alpha' < \alpha} \mathbf{M}_{\alpha'}(N).
+$$
+It is clear (e.g., inductively) that the $\mathbf{M}_{\alpha}(N)$
+form an inductive system over ordinals, so this is reasonable.
+
+\begin{theorem}
+\label{theorem-baer-grothendieck}
+Let $\kappa$ be the cardinality of the set of ideals in $R$, and
+let $\alpha$ be an ordinal whose cofinality is greater than
+$\kappa$. Then $\mathbf{M}_\alpha(N)$ is an injective $R$-module,
+and $N \to \mathbf{M}_\alpha(N)$ is a functorial injective embedding.
+\end{theorem}
+
+\begin{proof}
+By Baer's criterion
+Lemma \ref{lemma-criterion-baer},
+it suffices to show that if $\mathfrak{a} \subset R$ is an ideal, then
+any map $f : \mathfrak{a} \to \mathbf{M}_\alpha(N)$ extends to
+$R \to \mathbf{M}_\alpha(N)$. However, we know since $\alpha$ is a limit
+ordinal that
+$$
+\mathbf{M}_{\alpha}(N) =
+\colim_{\beta < \alpha} \mathbf{M}_{\beta}(N),
+$$
+so by
+Proposition \ref{proposition-modules-are-small},
+we find that
+$$
+\Hom_R(\mathfrak{a}, \mathbf{M}_{\alpha}(N)) =
+\colim_{\beta < \alpha} \Hom_R(\mathfrak a, \mathbf{M}_{\beta}(N)).
+$$
+This means in particular that there is some $\beta' < \alpha$
+such that $f$ factors through the submodule $\mathbf{M}_{\beta'}(N)$, as
+$$
+f : \mathfrak{a} \to \mathbf{M}_{\beta'}(N) \to
+\mathbf{M}_{\alpha}(N).
+$$
+However, by the fundamental property of the functor $\mathbf{M}$,
+see Lemma \ref{lemma-construction} part (3),
+we know that the map $\mathfrak{a} \to \mathbf{M}_{\beta'}(N)$
+can be extended to
+$$
+R \to \mathbf{M}( \mathbf{M}_{\beta'}(N)) =
+\mathbf{M}_{\beta' + 1}(N),
+$$
+and the last object imbeds in $\mathbf{M}_{\alpha}(N)$ (as
+$\beta' + 1 < \alpha$ since $\alpha$ is a limit ordinal).
+In particular, $f$ can be extended to $\mathbf{M}_{\alpha}(N)$.
+\end{proof}
+
+
+
+
+\section{G-modules}
+\label{section-G-modules}
+
+\noindent
+We will see later
+(Differential Graded Algebra, Section \ref{dga-section-modules-noncommutative})
+that the category of modules over an algebra has
+functorial injective embeddings. The construction is exactly the same
+as the construction in
+More on Algebra, Section \ref{more-algebra-section-injectives-modules}.
+
+\begin{lemma}
+\label{lemma-G-modules}
+Let $G$ be a topological group. Let $R$ be a ring.
+The category $\text{Mod}_{R, G}$ of $R\text{-}G$-modules, see
+\'Etale Cohomology, Definition
+\ref{etale-cohomology-definition-G-module-continuous},
+has functorial injective hulls. In particular this holds
+for the category of discrete $G$-modules.
+\end{lemma}
+
+\begin{proof}
+By the remark above the lemma the category $\text{Mod}_{R[G]}$
+has functorial injective embeddings.
+Consider the forgetful functor
+$v : \text{Mod}_{R, G} \to \text{Mod}_{R[G]}$.
+This functor is fully faithful, transforms injective maps into
+injective maps and has a right adjoint, namely
+$$
+u : M \mapsto u(M) = \{x \in M \mid \text{stabilizer of }x\text{ is open}\}
+$$
+Since $v(M) = 0 \Rightarrow M = 0$ we conclude by
+Homology, Lemma \ref{homology-lemma-adjoint-functorial-injectives}.
+\end{proof}
+
+
+
+\section{Abelian sheaves on a space}
+\label{section-abelian-sheaves-space}
+
+
+\begin{lemma}
+\label{lemma-abelian-sheaves-space}
+Let $X$ be a topological space.
+The category of abelian sheaves on $X$ has enough injectives.
+In fact it has functorial injective embeddings.
+\end{lemma}
+
+\begin{proof}
+For an abelian group $A$ we denote $j : A \to J(A)$ the functorial
+injective embedding constructed in
+More on Algebra, Section \ref{more-algebra-section-injectives-modules}.
+Let $\mathcal{F}$ be an abelian sheaf on $X$.
+By Sheaves, Example \ref{sheaves-example-sheaf-product-pointwise}
+the assignment
+$$
+\mathcal{I} : U \mapsto
+\mathcal{I}(U) = \prod\nolimits_{x\in U} J(\mathcal{F}_x)
+$$
+is an abelian sheaf. There is a canonical map $\mathcal{F} \to \mathcal{I}$
+given by mapping $s \in \mathcal{F}(U)$ to $\prod_{x \in U} j(s_x)$
+where $s_x \in \mathcal{F}_x$ denotes the germ of $s$ at $x$.
+This map is injective, see
+Sheaves, Lemma \ref{sheaves-lemma-sheaf-subset-stalks}
+for example.
+
+\medskip\noindent
+It remains to prove the following: Given a rule
+$x \mapsto I_x$ which assigns to each point $x \in X$ an injective
+abelian group the sheaf $\mathcal{I} : U \mapsto \prod_{x \in U} I_x$
+is injective. Note that
+$$
+\mathcal{I} = \prod\nolimits_{x \in X} i_{x, *}I_x
+$$
+is the product of the skyscraper sheaves $i_{x, *}I_x$ (see
+Sheaves, Section \ref{sheaves-section-skyscraper-sheaves} for notation.)
+We have
+$$
+\Mor_{\textit{Ab}}(\mathcal{F}_x, I_x)
+=
+\Mor_{\textit{Ab}(X)}(\mathcal{F}, i_{x, *}I_x).
+$$
+see Sheaves, Lemma \ref{sheaves-lemma-stalk-skyscraper-adjoint}. Hence it is
+clear that each $i_{x, *}I_x$ is injective. Hence the injectivity of
+$\mathcal{I}$ follows from
+Homology, Lemma \ref{homology-lemma-product-injectives}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Sheaves of modules on a ringed space}
+\label{section-sheaves-modules-space}
+
+
+\begin{lemma}
+\label{lemma-sheaves-modules-space}
+Let $(X, \mathcal{O}_X)$ be a ringed space, see
+Sheaves, Section \ref{sheaves-section-ringed-spaces}.
+The category of sheaves of $\mathcal{O}_X$-modules on $X$
+has enough injectives. In fact it has functorial injective embeddings.
+\end{lemma}
+
+\begin{proof}
+For any ring $R$ and any $R$-module $M$ we denote
+$j : M \to J_R(M)$ the functorial
+injective embedding constructed in
+More on Algebra, Section \ref{more-algebra-section-injectives-modules}.
+Let $\mathcal{F}$ be a sheaf of $\mathcal{O}_X$-modules on $X$.
+By Sheaves, Examples \ref{sheaves-example-sheaf-product-pointwise}
+and \ref{sheaves-example-sheaf-product-pointwise-algebraic-structure}
+the assignment
+$$
+\mathcal{I} : U \mapsto
+\mathcal{I}(U) = \prod\nolimits_{x\in U} J_{\mathcal{O}_{X, x}}(\mathcal{F}_x)
+$$
+is an abelian sheaf.
+There is a canonical map $\mathcal{F} \to \mathcal{I}$
+given by mapping $s \in \mathcal{F}(U)$ to $\prod_{x \in U} j(s_x)$
+where $s_x \in \mathcal{F}_x$ denotes the germ of $s$ at $x$.
+This map is injective, see
+Sheaves, Lemma \ref{sheaves-lemma-sheaf-subset-stalks}
+for example.
+
+\medskip\noindent
+It remains to prove the following: Given a rule
+$x \mapsto I_x$ which assigns to each point $x \in X$ an injective
+$\mathcal{O}_{X, x}$-module
+the sheaf $\mathcal{I} : U \mapsto \prod_{x \in U} I_x$
+is injective. Note that
+$$
+\mathcal{I} = \prod\nolimits_{x \in X} i_{x, *}I_x
+$$
+is the product of the skyscraper sheaves $i_{x, *}I_x$ (see
+Sheaves, Section \ref{sheaves-section-skyscraper-sheaves} for notation.)
+We have
+$$
+\Hom_{\mathcal{O}_{X, x}}(\mathcal{F}_x, I_x)
+=
+\Hom_{\mathcal{O}_X}(\mathcal{F}, i_{x, *}I_x).
+$$
+see Sheaves, Lemma \ref{sheaves-lemma-stalk-skyscraper-adjoint}. Hence it is
+clear that each $i_{x, *}I_x$ is an injective $\mathcal{O}_X$-module
+(see Homology, Lemma \ref{homology-lemma-adjoint-preserve-injectives} or argue
+directly). Hence the injectivity of $\mathcal{I}$ follows from
+Homology, Lemma \ref{homology-lemma-product-injectives}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Abelian presheaves on a category}
+\label{section-injectives-presheaves}
+
+\noindent
+Let $\mathcal{C}$ be a category. Recall that this means that
+$\Ob(\mathcal{C})$ is a set. On the one hand, consider abelian
+presheaves on $\mathcal{C}$, see
+Sites, Section \ref{sites-section-presheaves}.
+On the other hand, consider families of abelian groups
+indexed by elements of $\Ob(\mathcal{C})$; in other
+words presheaves on the discrete category with underlying set
+of objects $\Ob(\mathcal{C})$. Let us denote this
+discrete category simply $\Ob(\mathcal{C})$.
+There is a natural functor
+$$
+i : \Ob(\mathcal{C}) \longrightarrow \mathcal{C}
+$$
+and hence there is a natural restriction or forgetful functor
+$$
+v = i^p :
+\textit{PAb}(\mathcal{C})
+\longrightarrow
+\textit{PAb}(\Ob(\mathcal{C}))
+$$
+compare Sites, Section \ref{sites-section-functoriality-PSh}.
+We will denote presheaves
+on $\mathcal{C}$ by $B$ and presheaves on
+$\Ob(\mathcal{C})$ by $A$.
+
+\medskip\noindent
+There are also two functors, namely $i_p$ and ${}_pi$
+which assign an abelian presheaf on $\mathcal{C}$
+to an abelian presheaf on $\Ob(\mathcal{C})$, see
+Sites, Sections \ref{sites-section-functoriality-PSh} and
+\ref{sites-section-more-functoriality-PSh}.
+Here we will use $u = {}_pi$ which is defined (in the case at hand)
+as follows:
+$$
+uA(U) = \prod\nolimits_{U' \to U} A(U').
+$$
+So an element is a family $(a_\phi)_\phi$ with $\phi$
+ranging through all morphisms in $\mathcal{C}$ with target $U$.
+The restriction map on $uA$ corresponding to $g : V \to U$
+maps our element $(a_\phi)_\phi$ to the element
+$(a_{g \circ \psi})_\psi$.
+
+\medskip\noindent
+There is a canonical surjective map $vuA \to A$ and a canonical
+injective map $B \to uvB$. We leave it to the reader to show that
+$$
+\Mor_{\textit{PAb}(\mathcal{C})}(B, uA)
+=
+\Mor_{\textit{PAb}(\Ob(\mathcal{C}))}(vB, A).
+$$
+in this simple case; the general case is in
+Sites, Section \ref{sites-section-functoriality-PSh}.
+Thus the pair $(u, v)$ is an example of a pair of adjoint
+functors, see
+Categories, Section \ref{categories-section-adjoint}.
+
+\medskip\noindent
+At this point we can list the following facts
+about the situation above.
+\begin{enumerate}
+\item The functors $u$ and $v$ are exact. This follows from
+the explicit description of these functors given above.
+\item In particular the functor $v$ transforms injective maps
+into injective maps.
+\item The category $\textit{PAb}(\Ob(\mathcal{C}))$
+has enough injectives.
+\item In fact there is a functorial injective embedding
+$A \mapsto \big(A \to J(A)\big)$ as in
+Homology, Definition \ref{homology-definition-functorial-injective-embedding}.
+Namely, we can take $J(A)$ to be the
+presheaf $U\mapsto J(A(U))$, where
+$J(-)$ is the functor constructed in
+More on Algebra, Section \ref{more-algebra-section-injectives-modules}
+for the ring $\mathbf{Z}$.
+\end{enumerate}
+Putting all of this together gives us the following procedure
+for embedding objects $B$ of $\textit{PAb}(\mathcal{C}))$ into
+an injective object: $B \to uJ(vB)$. See
+Homology, Lemma \ref{homology-lemma-adjoint-functorial-injectives}.
+
+\begin{proposition}
+\label{proposition-presheaves-injectives}
+For abelian presheaves on a category there is a functorial injective
+embedding.
+\end{proposition}
+
+\begin{proof}
+See discussion above.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Abelian Sheaves on a site}
+\label{section-injectives-sheaves}
+
+\noindent
+Let $\mathcal{C}$ be a site. In this section we prove that there are
+enough injectives for abelian sheaves on $\mathcal{C}$.
+
+\medskip\noindent
+Denote
+$i : \textit{Ab}(\mathcal{C}) \longrightarrow \textit{PAb}(\mathcal{C})$
+the forgetful functor from abelian sheaves to abelian presheaves.
+Let
+${}^\# : \textit{PAb}(\mathcal{C}) \longrightarrow \textit{Ab}(\mathcal{C})$
+denote the sheafification functor. Recall that ${}^\#$ is a left adjoint
+to $i$, that ${}^\#$ is exact, and that $i\mathcal{F}^\# = \mathcal{F}$
+for any abelian sheaf $\mathcal{F}$. Finally, let
+$\mathcal{G} \to J(\mathcal{G})$ denote the canonical
+embedding into an injective presheaf we found in
+Section \ref{section-injectives-presheaves}.
+
+\medskip\noindent
+For any sheaf $\mathcal{F}$ in $\textit{Ab}(\mathcal{C})$ and
+any ordinal $\beta$ we define a sheaf
+$J_\beta(\mathcal{F})$ by transfinite induction.
+We set $J_0(\mathcal{F}) = \mathcal{F}$.
+We define $J_1(\mathcal{F}) = J(i\mathcal{F})^\#$.
+Sheafification of the canonical map $i\mathcal{F} \to J(i\mathcal{F})$
+gives a functorial map
+$$
+\mathcal{F} \longrightarrow J_1(\mathcal{F})
+$$
+which is injective as $\#$ is exact. We set
+$J_{\alpha + 1}(\mathcal{F}) = J_1(J_\alpha(\mathcal{F}))$.
+So that there are canonical injective maps
+$J_\alpha(\mathcal{F}) \to J_{\alpha + 1}(\mathcal{F})$.
+For a limit ordinal $\beta$, we define
+$$
+J_\beta(\mathcal{F}) = \colim_{\alpha < \beta} J_\alpha(\mathcal{F}).
+$$
+Note that this is a directed colimit. Hence for any ordinals $\alpha < \beta$
+we have an injective map $J_\alpha(\mathcal{F}) \to J_\beta(\mathcal{F})$.
+
+\begin{lemma}
+\label{lemma-map-into-next-one}
+With notation as above.
+Suppose that $\mathcal{G}_1 \to \mathcal{G}_2$ is an injective
+map of abelian sheaves on $\mathcal{C}$. Let $\alpha$ be an ordinal
+and let $\mathcal{G}_1 \to J_\alpha(\mathcal{F})$ be a morphism
+of sheaves. There exists a morphism $\mathcal{G}_2 \to
+J_{\alpha + 1}(\mathcal{F})$ such that the following diagram commutes
+$$
+\xymatrix{
+\mathcal{G}_1 \ar[d] \ar[r] & \mathcal{G}_2 \ar[d] \\
+J_{\alpha}(\mathcal{F}) \ar[r] & J_{\alpha + 1}(\mathcal{F}) }
+$$
+\end{lemma}
+
+\begin{proof}
+This is because the map $i\mathcal{G}_1 \to i\mathcal{G}_2$ is injective
+and hence $i\mathcal{G}_1 \to iJ_\alpha(\mathcal{F})$ extends to
+$i\mathcal{G}_2 \to J(iJ_\alpha(\mathcal{F}))$ which gives the
+desired map after applying the sheafification functor.
+\end{proof}
+
+\noindent
+This lemma says that somehow the system $\{J_{\alpha}(\mathcal{F})\}$
+is an injective embedding of $\mathcal{F}$. Of course
+we cannot take the limit over all $\alpha$ because they form a class
+and not a set. However, the idea is now that you don't have to check
+injectivity on all injections $\mathcal{G}_1 \to \mathcal{G}_2$, plus
+the following lemma.
+
+\begin{lemma}
+\label{lemma-map-into-smaller}
+Suppose that $\mathcal{G}_i$, $i\in I$ is set of abelian sheaves
+on $\mathcal{C}$. There exists an ordinal $\beta$ such that
+for any sheaf $\mathcal{F}$, any $i\in I$, and any map
+$\varphi : \mathcal{G}_i \to J_\beta(\mathcal{F})$ there exists an
+$\alpha < \beta$ such that $ \varphi $ factors through
+$J_\alpha(\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+This reduces to the case of a single sheaf $\mathcal{G}$
+by taking the direct sum of all the $\mathcal{G}_i$.
+
+\medskip\noindent
+Consider the sets
+$$
+S = \coprod\nolimits_{U \in \Ob(\mathcal{C})} \mathcal{G}(U).
+$$
+and
+$$
+T_\beta
+=
+\coprod\nolimits_{U \in \Ob(\mathcal{C})} J_\beta(\mathcal{F})(U)
+$$
+Then $T_\beta = \colim_{\alpha < \beta} T_\alpha$
+with injective transition maps.
+A morphism $\mathcal{G} \to J_\beta(\mathcal{F})$ factors
+through $J_\alpha(\mathcal{F})$ if and only if
+the associated map $S \to T_\beta$ factors through $T_\alpha$.
+By
+Sets, Lemma \ref{sets-lemma-map-from-set-lifts}
+if the cofinality of $\beta$ is bigger than the cardinality
+of $S$, then the result of the lemma is true. Hence the lemma
+follows from the fact that there are ordinals with arbitrarily
+large cofinality, see
+Sets, Proposition \ref{sets-proposition-exist-ordinals-large-cofinality}.
+\end{proof}
+
+\noindent
+Recall that for an object $X$ of $\mathcal{C}$ we denote $\mathbf{Z}_X$
+the presheaf of abelian groups $\Gamma(U, \mathbf{Z}_X) =
+\oplus_{U \to X} \mathbf{Z}$, see
+Modules on Sites, Section \ref{sites-modules-section-free-abelian-presheaf}.
+The sheaf associated to this presheaf
+is denoted $\mathbf{Z}_X^\#$, see
+Modules on Sites, Section \ref{sites-modules-section-free-abelian-sheaf}.
+It can be characterized by
+the property
+\begin{equation}
+\label{equation-free-sheaf-on}
+\Mor_{\textit{Ab}(\mathcal{C})}(\mathbf{Z}_X^\#, \mathcal{G})
+=
+\mathcal{G}(X)
+\end{equation}
+where the element $\varphi$ of the left hand side is mapped
+to $\varphi(1 \cdot \text{id}_X)$ in the right hand side. We can use these
+sheaves to characterize injective abelian sheaves.
+
+\begin{lemma}
+\label{lemma-characterize-injectives}
+Suppose $\mathcal{J}$ is a sheaf of abelian groups with the following
+property: For all $X\in \Ob(\mathcal{C})$, for any abelian subsheaf
+$\mathcal{S} \subset \mathbf{Z}_X^\#$ and any morphism
+$\varphi : \mathcal{S} \to \mathcal{J}$, there exists a morphism
+$\mathbf{Z}_X^\# \to \mathcal{J}$ extending $\varphi$.
+Then $\mathcal{J}$ is an injective sheaf of abelian groups.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{F} \to \mathcal{G}$ be an injective map
+of abelian sheaves. Suppose $\varphi : \mathcal{F} \to \mathcal{J}$
+is a morphism. Arguing as in the proof of
+More on Algebra, Lemma \ref{more-algebra-lemma-injective-abelian}
+we see that it suffices
+to prove that if $\mathcal{F} \not = \mathcal{G}$, then we
+can find an abelian sheaf $\mathcal{F}'$,
+$\mathcal{F} \subset \mathcal{F}' \subset \mathcal{G}$
+such that (a) the inclusion $\mathcal{F} \subset \mathcal{F}'$ is strict,
+and (b) $\varphi$ can be extended to $\mathcal{F}'$.
+To find $\mathcal{F}'$, let $X$ be an object of $\mathcal{C}$ such
+that the inclusion $\mathcal{F}(X) \subset \mathcal{G}(X)$
+is strict. Pick $s \in \mathcal{G}(X)$, $s \not \in \mathcal{F}(X)$.
+Let $\psi : \mathbf{Z}_X^\# \to \mathcal{G}$ be the morphism corresponding
+to the section $s$ via (\ref{equation-free-sheaf-on}). Set
+$\mathcal{S} = \psi^{-1}(\mathcal{F})$. By assumption the morphism
+$$
+\mathcal{S} \xrightarrow{\psi} \mathcal{F} \xrightarrow{\varphi} \mathcal{J}
+$$
+can be extended to a morphism $\varphi' : \mathbf{Z}_X^\# \to \mathcal{J}$.
+Note that $\varphi'$ annihilates the kernel of $\psi$ (as this is true
+for $\varphi$). Thus $\varphi'$ gives rise to a morphism
+$\varphi'' : \Im(\psi) \to \mathcal{J}$
+which agrees with $\varphi$ on the intersection
+$\mathcal{F} \cap \Im(\psi)$ by construction.
+Thus $\varphi$ and $\varphi''$ glue to give an extension
+of $\varphi$ to the strictly bigger subsheaf
+$\mathcal{F}' = \mathcal{F} + \Im(\psi)$.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-sheaves-injectives}
+The category of sheaves of abelian groups on a
+site has enough injectives. In fact there exists
+a functorial injective embedding, see
+Homology, Definition \ref{homology-definition-functorial-injective-embedding}.
+\end{theorem}
+
+\begin{proof}
+Let $\mathcal{G}_i$, $i \in I$ be a set of abelian
+sheaves such that every subsheaf of every $\mathbf{Z}_X^\#$
+occurs as one of the $\mathcal{G}_i$. Apply
+Lemma \ref{lemma-map-into-smaller} to this collection to
+get an ordinal $\beta$. We claim that for any sheaf of abelian
+groups $\mathcal{F}$ the map $\mathcal{F} \to J_\beta(\mathcal{F})$
+is an injection of $\mathcal{F}$ into an injective.
+Note that by construction the assignment
+$\mathcal{F} \mapsto \big(\mathcal{F} \to J_\beta(\mathcal{F})\big)$
+is indeed functorial.
+
+\medskip\noindent
+The proof of the claim comes from the fact that by
+Lemma \ref{lemma-characterize-injectives} it suffices to extend any
+morphism $\gamma : \mathcal{G} \to J_\beta(\mathcal{F})$
+from a subsheaf $\mathcal{G}$ of some $\mathbf{Z}_X^\#$ to all of
+$\mathbf{Z}_X^\#$. Then by Lemma \ref{lemma-map-into-smaller} the
+map $\gamma$ lifts into $J_\alpha(\mathcal{F})$ for some
+$\alpha < \beta$. Finally, we apply Lemma \ref{lemma-map-into-next-one}
+to get the desired extension of $\gamma$ to a morphism
+into $J_{\alpha + 1}(\mathcal{F}) \to J_\beta(\mathcal{F})$.
+\end{proof}
+
+
+
+
+
+
+\section{Modules on a ringed site}
+\label{section-sheaves-modules}
+
+\noindent
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{O}$ be a sheaf of rings on $\mathcal{C}$.
+By analogy with
+More on Algebra, Section \ref{more-algebra-section-injectives-modules}
+let us try to prove that there are enough injective
+$\mathcal{O}$-modules. First of all, we pick an injective
+embedding
+$$
+\bigoplus\nolimits_{U, \mathcal{I}}
+j_{U!}\mathcal{O}_U/\mathcal{I}
+\longrightarrow
+\mathcal{J}
+$$
+where $\mathcal{J}$ is an injective abelian sheaf (which
+exists by the previous section). Here the direct sum is
+over all objects $U$ of $\mathcal{C}$ and over all
+$\mathcal{O}$-submodules $\mathcal{I} \subset j_{U!}\mathcal{O}_U$.
+Please see
+Modules on Sites, Section \ref{sites-modules-section-localize}
+to read about the functors restriction and
+extension by $0$ for the localization functor
+$j_U : \mathcal{C}/U \to \mathcal{C}$.
+
+\medskip\noindent
+For any sheaf of $\mathcal{O}$-modules $\mathcal{F}$ denote
+$$
+\mathcal{F}^\vee
+=
+\SheafHom(\mathcal{F}, \mathcal{J})
+$$
+with its natural $\mathcal{O}$-module structure.
+Insert here future reference to internal hom.
+We will also need
+a canonical flat resolution of a sheaf of $\mathcal{O}$-modules.
+This we can do as follows: For any $\mathcal{O}$-module
+$\mathcal{F}$ we denote
+$$
+F(\mathcal{F})
+=
+\bigoplus\nolimits_{U \in \Ob(\mathcal{C}), s \in \mathcal{F}(U)}
+j_{U!}\mathcal{O}_U.
+$$
+This is a flat sheaf of $\mathcal{O}$-modules which comes equipped
+with a canonical surjection $F(\mathcal{F}) \to \mathcal{F}$, see
+Modules on Sites, Lemma \ref{sites-modules-lemma-module-quotient-flat}.
+Moreover the construction $\mathcal{F} \mapsto F(\mathcal{F})$
+is functorial in $\mathcal{F}$.
+
+\begin{lemma}
+\label{lemma-vee-exact-sheaves}
+The functor $\mathcal{F} \mapsto \mathcal{F}^\vee$ is exact.
+\end{lemma}
+
+\begin{proof}
+This because $\mathcal{J}$ is an injective abelian sheaf.
+\end{proof}
+
+\noindent
+There is a canonical map $ev : \mathcal{F} \to (\mathcal{F}^\vee)^\vee$
+given by evaluation: given $x \in \mathcal{F}(U)$ we let
+$ev(x) \in (\mathcal{F}^\vee)^\vee =
+\SheafHom(\mathcal{F}^\vee, \mathcal{J})$
+be the map $\varphi \mapsto \varphi(x)$.
+
+\begin{lemma}
+\label{lemma-ev-injective-sheaves}
+For any $\mathcal{O}$-module $\mathcal{F}$ the evaluation map
+$ev : \mathcal{F} \to (\mathcal{F}^\vee)^\vee$ is injective.
+\end{lemma}
+
+\begin{proof}
+You can check this using the definition of $\mathcal{J}$.
+Namely, if $s \in \mathcal{F}(U)$ is not zero, then let
+$j_{U!}\mathcal{O}_U \to \mathcal{F}$ be the map of
+$\mathcal{O}$-modules it corresponds to via adjunction.
+Let $\mathcal{I}$ be the kernel of this map. There exists
+a nonzero map $\mathcal{F} \supset j_{U!}\mathcal{O}_U/\mathcal{I}
+\to \mathcal{J}$ which does not annihilate $s$. As $\mathcal{J}$ is
+an injective $\mathcal{O}$-module, this extends to a map
+$\varphi : \mathcal{F} \to \mathcal{J}$.
+Then $ev(s)(\varphi) = \varphi(s) \not = 0$ which is what we had to prove.
+\end{proof}
+
+\noindent
+The canonical surjection
+$F(\mathcal{F}) \to \mathcal{F}$ of $\mathcal{O}$-modules turns into a
+a canonical injection, see above, of $\mathcal{O}$-modules
+$$
+(\mathcal{F}^\vee)^\vee \longrightarrow (F(\mathcal{F}^\vee))^\vee.
+$$
+Set $J(\mathcal{F}) = (F(\mathcal{F}^\vee))^\vee$.
+The composition of $ev$ with this
+the displayed map gives
+$\mathcal{F} \to J(\mathcal{F})$ functorially in $\mathcal{F}$.
+
+\begin{lemma}
+\label{lemma-JM-injective-sheaves}
+Let $\mathcal{O}$ be a sheaf of rings.
+For every $\mathcal{O}$-module $\mathcal{F}$ the
+$\mathcal{O}$-module $J(\mathcal{F})$ is injective.
+\end{lemma}
+
+\begin{proof}
+We have to show that the functor
+$\Hom_\mathcal{O}(\mathcal{G}, J(\mathcal{F}))$
+is exact. Note that
+\begin{eqnarray*}
+\Hom_\mathcal{O}(\mathcal{G}, J(\mathcal{F}))
+& = &
+\Hom_\mathcal{O}(\mathcal{G}, (F(\mathcal{F}^\vee))^\vee) \\
+& = &
+\Hom_\mathcal{O}
+(\mathcal{G}, \SheafHom(F(\mathcal{F}^\vee), \mathcal{J})) \\
+& = &
+\Hom(\mathcal{G} \otimes_\mathcal{O} F(\mathcal{F}^\vee), \mathcal{J})
+\end{eqnarray*}
+Thus what we want follows from the fact that $F(\mathcal{F}^\vee)$
+is flat and $\mathcal{J}$ is injective.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-sheaves-modules-injectives}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{O}$ be a sheaf of rings on $\mathcal{C}$.
+The category of sheaves of $\mathcal{O}$-modules on a
+site has enough injectives. In fact there exists
+a functorial injective embedding, see
+Homology, Definition \ref{homology-definition-functorial-injective-embedding}.
+\end{theorem}
+
+\begin{proof}
+From the discussion in this section.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-presheaves-modules}
+Let $\mathcal{C}$ be a category.
+Let $\mathcal{O}$ be a presheaf of rings on $\mathcal{C}$.
+The category $\textit{PMod}(\mathcal{O})$ of presheaves of
+$\mathcal{O}$-modules has functorial injective embeddings.
+\end{proposition}
+
+\begin{proof}
+We could prove this along the lines of the discussion in
+Section \ref{section-injectives-presheaves}. But instead we argue using the
+theorem above. Endow $\mathcal{C}$ with the structure of a site by letting the
+set of coverings of an object $U$ consist of all singletons $\{f : V \to U\}$
+where $f$ is an isomorphism. We omit the verification that this defines a site.
+A sheaf for this topology is the same as a presheaf (proof omitted). Hence the
+theorem applies.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Embedding abelian categories}
+\label{section-embedding}
+
+\noindent
+In this section we show that an abelian category embeds in the
+category of abelian sheaves on a site having enough points.
+The site will be the one described in the following lemma.
+
+\begin{lemma}
+\label{lemma-site-abelian-category}
+Let $\mathcal{A}$ be an abelian category.
+Let
+$$
+\text{Cov} = \{\{f : V \to U\} \mid f\text{ is surjective}\}.
+$$
+Then $(\mathcal{A}, \text{Cov})$ is a site, see
+Sites, Definition \ref{sites-definition-site}.
+\end{lemma}
+
+\begin{proof}
+Note that $\Ob(\mathcal{A})$ is a set by our conventions
+about categories. An isomorphism is a surjective morphism.
+The composition of surjective morphisms is surjective.
+And the base change of a surjective morphism in $\mathcal{A}$
+is surjective, see
+Homology, Lemma \ref{homology-lemma-epimorphism-universal-abelian-category}.
+\end{proof}
+
+\noindent
+Let $\mathcal{A}$ be a pre-additive category. In this case the
+Yoneda embedding $\mathcal{A} \to \textit{PSh}(\mathcal{A})$, $X \mapsto h_X$
+factors through a functor $\mathcal{A} \to \textit{PAb}(\mathcal{A})$.
+
+\begin{lemma}
+\label{lemma-embedding}
+Let $\mathcal{A}$ be an abelian category.
+Let $\mathcal{C} = (\mathcal{A}, \text{Cov})$ be the
+site defined in
+Lemma \ref{lemma-site-abelian-category}.
+Then $X \mapsto h_X$ defines a fully faithful, exact functor
+$$
+\mathcal{A} \longrightarrow \textit{Ab}(\mathcal{C}).
+$$
+Moreover, the site $\mathcal{C}$ has enough points.
+\end{lemma}
+
+\begin{proof}
+Suppose that $f : V \to U$ is a surjective morphism of $\mathcal{A}$.
+Let $K = \Ker(f)$. Recall that
+$V \times_U V = \Ker((f, -f) : V \oplus V \to U)$, see
+Homology, Example \ref{homology-example-fibre-product-pushouts}.
+In particular there exists an injection $K \oplus K \to V \times_U V$.
+Let $p, q : V \times_U V \to V$ be the two projection morphisms.
+Note that $p - q : V \times_U V \to V$ is a morphism such that
+$f \circ (p  - q) = 0$. Hence $p - q$ factors through $K \to V$.
+Let us denote this morphism by $c : V \times_U V \to K$.
+And since the composition $K \oplus K \to V \times_U V \to K$
+is surjective, we conclude that $c$ is surjective. It follows that
+$$
+V \times_U V \xrightarrow{p - q} V \to U \to 0
+$$
+is an exact sequence of $\mathcal{A}$.
+Hence for an object $X$ of $\mathcal{A}$ the sequence
+$$
+0 \to
+\Hom_\mathcal{A}(U, X) \to
+\Hom_\mathcal{A}(V, X) \to
+\Hom_\mathcal{A}(V \times_U V, X)
+$$
+is an exact sequence of abelian groups, see
+Homology, Lemma \ref{homology-lemma-check-exactness}.
+This means that $h_X$ satisfies the sheaf condition
+on $\mathcal{C}$.
+
+\medskip\noindent
+The functor is fully faithful by
+Categories, Lemma \ref{categories-lemma-yoneda}.
+The functor is a left exact functor between abelian categories by
+Homology, Lemma \ref{homology-lemma-check-exactness}.
+To show that it is right exact, let $X \to Y$ be a surjective morphism
+of $\mathcal{A}$. Let $U$ be an object of $\mathcal{A}$, and let
+$s \in h_Y(U) = \Mor_\mathcal{A}(U, Y)$ be a section of $h_Y$
+over $U$. By
+Homology, Lemma \ref{homology-lemma-epimorphism-universal-abelian-category}
+the projection $U \times_Y X \to U$ is surjective.
+Hence $\{V = U \times_Y X \to U\}$ is a covering of $U$ such that
+$s|_V$ lifts to a section of $h_X$. This proves that
+$h_X \to h_Y$ is a surjection of abelian sheaves, see
+Sites, Lemma \ref{sites-lemma-mono-epi-sheaves}.
+
+\medskip\noindent
+The site $\mathcal{C}$ has enough points by
+Sites, Proposition \ref{sites-proposition-criterion-points}.
+\end{proof}
+
+\begin{remark}
+\label{remark-embedding}
+The Freyd-Mitchell embedding theorem says there exists a fully faithful
+exact functor from any abelian category $\mathcal{A}$
+to the category of modules over a ring.
+Lemma \ref{lemma-embedding}
+is not quite as strong. But the result is suitable for the
+Stacks project as we have to understand sheaves of abelian groups on
+sites in detail anyway. Moreover, ``diagram chasing'' works in the category
+of abelian sheaves on $\mathcal{C}$, for example by working with sections over
+objects, or by working on the level of stalks using that $\mathcal{C}$ has
+enough points. To see how to deduce the Freyd-Mitchell embedding theorem from
+Lemma \ref{lemma-embedding}
+see
+Remark \ref{remark-embedding-freyd}.
+\end{remark}
+
+\begin{remark}
+\label{remark-embedding-big}
+If $\mathcal{A}$ is a ``big'' abelian category, i.e., if $\mathcal{A}$
+has a class of objects, then
+Lemma \ref{lemma-embedding}
+does not work. In this case, given any set of objects
+$E \subset \Ob(\mathcal{A})$ there exists an abelian full subcategory
+$\mathcal{A}' \subset \mathcal{A}$ such that
+$\Ob(\mathcal{A}')$ is a set and $E \subset \Ob(\mathcal{A}')$.
+Then one can apply
+Lemma \ref{lemma-embedding}
+to $\mathcal{A}'$. One can use this to prove that results depending on
+a diagram chase hold in $\mathcal{A}$.
+\end{remark}
+
+\begin{remark}
+\label{remark-embedding-freyd}
+Let $\mathcal{C}$ be a site.
+Note that $\textit{Ab}(\mathcal{C})$ has enough injectives, see
+Theorem \ref{theorem-sheaves-injectives}.
+(In the case that $\mathcal{C}$ has enough points this is straightforward
+because  $p_*I$ is an injective sheaf if $I$ is an injective
+$\mathbf{Z}$-module and $p$ is a point.)
+Also, $\textit{Ab}(\mathcal{C})$ has a cogenerator (details omitted).
+Hence
+Lemma \ref{lemma-embedding}
+proves that we have a fully faithful, exact embedding
+$\mathcal{A} \to \mathcal{B}$ where $\mathcal{B}$ has a
+cogenerator and enough injectives.
+We can apply this to $\mathcal{A}^{opp}$ and we get a
+fully faithful exact functor
+$i : \mathcal{A} \to \mathcal{D} = \mathcal{B}^{opp}$
+where $\mathcal{D}$ has enough projectives and a generator. Hence
+$\mathcal{D}$ has a projective generator $P$.
+Set $R = \Mor_\mathcal{D}(P, P)$. Then
+$$
+\mathcal{A} \longrightarrow \text{Mod}_R, \quad
+X \longmapsto \Hom_\mathcal{D}(P, X).
+$$
+One can check this is a fully faithful, exact functor.
+In other words, one retrieves the
+Freyd-Mitchell theorem mentioned in
+Remark \ref{remark-embedding}
+above.
+\end{remark}
+
+\begin{remark}
+\label{remark-embed-exact-category}
+The arguments proving
+Lemmas \ref{lemma-site-abelian-category} and
+\ref{lemma-embedding}
+work also for {\it exact categories}, see
+\cite[Appendix A]{Buhler} and
+\cite[1.1.4]{BBD}.
+We quickly review this here and we add more details if we ever
+need it in the Stacks project.
+
+\medskip\noindent
+Let $\mathcal{A}$ be an additive category.
+A {\it kernel-cokernel} pair is a pair $(i, p)$
+of morphisms of $\mathcal{A}$ with
+$i : A \to B$, $p : B \to C$ such that $i$ is the kernel of
+$p$ and $p$ is the cokernel of $i$.
+Given a set $\mathcal{E}$ of kernel-cokernel pairs we say
+$i : A \to B$ is an {\it admissible monomorphism}
+if $(i, p) \in \mathcal{E}$ for some morphism $p$.
+Similarly we say a morphism $p : B \to C$ is an {\it admissible epimorphism}
+if $(i, p) \in \mathcal{E}$ for some morphism $i$.
+The pair $(\mathcal{A}, \mathcal{E})$ is said to be an
+{\it exact category} if the following axioms hold
+\begin{enumerate}
+\item $\mathcal{E}$ is closed under isomorphisms of kernel-cokernel
+pairs,
+\item for any object $A$ the morphism $1_A$ is both an admissible epimorphism
+and an admissible monomorphism,
+\item admissible monomorphisms are stable under composition,
+\item admissible epimorphisms are stable under composition,
+\item the push-out of an admissible monomorphism $i : A \to B$ via
+any morphism $A \to A'$ exist and the induced morphism $i' : A' \to B'$
+is an admissible monomorphism, and
+\item the base change of an admissible epimorphism $p : B \to C$ via
+any morphism $C' \to C$ exist and the induced morphism $p' : B' \to C'$
+is an admissible epimorphism.
+\end{enumerate}
+Given such a structure let $\mathcal{C} = (\mathcal{A}, \text{Cov})$
+where coverings (i.e., elements of $\text{Cov}$) are given by
+admissible epimorphisms. The axioms listed above
+immediately imply that this is a site. Consider the functor
+$$
+F : \mathcal{A} \longrightarrow \textit{Ab}(\mathcal{C}), \quad
+X \longmapsto h_X
+$$
+exactly as in
+Lemma \ref{lemma-embedding}.
+It turns out that this functor is fully faithful, exact, and reflects
+exactness. Moreover, any extension of objects in the essential image
+of $F$ is in the essential image of $F$.
+\end{remark}
+
+
+
+
+
+
+\section{Grothendieck's AB conditions}
+\label{section-grothendieck-conditions}
+
+\noindent
+This and the next few sections are mostly interesting for ``big'' abelian
+categories, i.e., those categories listed in
+Categories, Remark \ref{categories-remark-big-categories}.
+A good case to keep in mind is the category of sheaves of modules
+on a ringed site.
+
+\medskip\noindent
+Grothendieck proved the existence of injectives in great generality
+in the paper \cite{Tohoku}. He used the following conditions to single
+out abelian categories with special properties.
+
+\begin{definition}
+\label{definition-grothendieck-conditions}
+Let $\mathcal{A}$ be an abelian category. We name some conditions
+\begin{enumerate}
+\item[AB3] $\mathcal{A}$ has direct sums,
+\item[AB4] $\mathcal{A}$ has AB3 and direct sums are exact,
+\item[AB5] $\mathcal{A}$ has AB3 and filtered colimits are exact.
+\end{enumerate}
+Here are the dual notions
+\begin{enumerate}
+\item[AB3*] $\mathcal{A}$ has products,
+\item[AB4*] $\mathcal{A}$ has AB3* and products are exact,
+\item[AB5*] $\mathcal{A}$ has AB3* and filtered limits are exact.
+\end{enumerate}
+We say an object $U$ of $\mathcal{A}$ is a {\it generator} if
+for every $N \subset M$, $N \not = M$ in $\mathcal{A}$ there exists a morphism
+$U \to M$ which does not factor through $N$.
+We say $\mathcal{A}$ is a {\it Grothendieck abelian category} if
+it has AB5 and a generator.
+\end{definition}
+
+\noindent
+Discussion: A direct sum in an abelian category is a coproduct.
+If an abelian category has direct sums (i.e., AB3), then it has colimits, see
+Categories, Lemma \ref{categories-lemma-colimits-coproducts-coequalizers}. 
+Similarly if $\mathcal{A}$ has AB3* then it has limits, see
+Categories, Lemma \ref{categories-lemma-limits-products-equalizers}. 
+Exactness of direct sums means the following: given an index set $I$
+and short exact sequences
+$$
+0 \to A_i \to B_i \to C_i \to 0,\quad i \in I
+$$
+in $\mathcal{A}$ then the sequence
+$$
+0 \to
+\bigoplus\nolimits_{i \in I} A_i \to
+\bigoplus\nolimits_{i \in I} B_i \to
+\bigoplus\nolimits_{i \in I} C_i \to 0
+$$
+is exact as well. Without assuming AB4 it is only true in general that
+the sequence is exact on the right (i.e., taking direct sums is a right
+exact functor if direct sums exist). Similarly, exactness of filtered
+colimits means the following: given a directed set $I$
+and a system of short exact sequences
+$$
+0 \to A_i \to B_i \to C_i \to 0
+$$
+over $I$ in $\mathcal{A}$ then the sequence
+$$
+0 \to
+\colim_{i \in I} A_i \to
+\colim_{i \in I} B_i \to
+\colim_{i \in I} C_i \to 0
+$$
+is exact as well. Without assuming AB5 it is only true in general that
+the sequence is exact on the right (i.e., taking colimits is a right
+exact functor if colimits exist). A similar explanation holds for
+AB4* and AB5*.
+
+
+
+\section{Injectives in Grothendieck categories}
+\label{section-grothendieck-categories}
+
+\noindent
+The existence of a generator implies that given an object $M$ of a
+Grothendieck abelian category $\mathcal{A}$ there is a set of subobjects.
+(This may not be true for a general ``big'' abelian category.)
+
+\begin{lemma}
+\label{lemma-set-of-subobjects}
+Let $\mathcal{A}$ be an abelian category with a generator $U$ and
+$X$ and object of $\mathcal{A}$. If $\kappa$ is the cardinality of
+$\Mor(U, X)$ then
+\begin{enumerate}
+\item There does not exist a strictly increasing
+(or strictly decreasing) chain of subobjects
+of $X$ indexed by a cardinal bigger than $\kappa$.
+\item If $\alpha$ is an ordinal of cofinality $> \kappa$
+then any increasing (or decreasing) sequence of subobjects
+of $X$ indexed by $\alpha$ is eventually constant.
+\item The cardinality of the set of subobjects of $X$
+is $\leq 2^\kappa$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For (1) assume $\kappa' > \kappa$ is a cardinal and assume
+$X_i$, $i \in \kappa'$ is strictly increasing. Then take for
+each $i$ a $\phi_i \in \Mor(U, X)$ such that $\phi_i$ factors through
+$X_{i + 1}$ but not through $X_i$. Then the morphisms $\phi_i$
+are distinct, which contradicts the definition of $\kappa$.
+
+\medskip\noindent
+Part (2) follows from the definition of cofinality and (1).
+
+\medskip\noindent
+Proof of (3). For any subobject $Y \subset X$
+define $S_Y \in \mathcal{P}(\Mor(U, X))$ (power set) as
+$S_Y = \{\phi \in \Mor(U,X) : \phi)\text{ factors through }Y\}$.
+Then $Y = Y'$ if and only if $S_Y = S_{Y'}$. Hence the cardinality
+of the set of subobjects is at most the cardinality of this power set.
+\end{proof}
+
+\noindent
+By Lemma \ref{lemma-set-of-subobjects} the following definition makes sense.
+
+\begin{definition}
+\label{definition-size}
+Let $\mathcal{A}$ be a Grothendieck abelian category.
+Let $M$ be an object of $\mathcal{A}$.
+The {\it size} $|M|$ of $M$ is the cardinality of the set of subobjects
+of $M$.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-size-goes-down}
+Let $\mathcal{A}$ be a Grothendieck abelian category.
+If $0 \to M' \to M \to M'' \to 0$ is a short exact sequence of
+$\mathcal{A}$, then $|M'|, |M''| \leq |M|$.
+\end{lemma}
+
+\begin{proof}
+Immediate from the definitions.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-set-iso-classes-bounded-size}
+Let $\mathcal{A}$ be a Grothendieck abelian category with generator $U$.
+\begin{enumerate}
+\item If $|M| \leq \kappa$, then $M$ is the quotient of a direct
+sum of at most $\kappa$ copies of $U$.
+\item For every cardinal $\kappa$ there exists a set of isomorphism classes
+of objects $M$ with $|M| \leq \kappa$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For (1) choose for every proper subobject $M' \subset M$ a morphism
+$\varphi_{M'} : U \to M$ whose image is not contained in $M'$. Then
+$\bigoplus_{M' \subset M} \varphi_{M'} : \bigoplus_{M' \subset N} U \to M$
+is surjective. It is clear that (1) implies (2).
+\end{proof}
+
+\begin{proposition}
+\label{proposition-objects-are-small}
+Let $\mathcal{A}$ be a Grothendieck abelian category. Let $M$ be an
+object of $\mathcal{A}$. Let $\kappa = |M|$.
+If $\alpha$ is an ordinal whose cofinality is bigger than $\kappa$,
+then $M$ is $\alpha$-small with respect to injections.
+\end{proposition}
+
+\begin{proof}
+Please compare with Proposition \ref{proposition-modules-are-small}.
+We need only show that the map (\ref{equation-compare}) is a surjection.
+Let $f : M \to \colim B_\beta$ be a map.
+Consider the subobjects $\{f^{-1}(B_\beta)\}$ of $M$, where $B_\beta$
+is considered as a subobject of the colimit $B = \bigcup_\beta B_\beta$.
+If one of these, say $f^{-1}(B_\beta)$, fills $M$,
+then the map factors through $B_\beta$.
+
+\medskip\noindent
+So suppose to the contrary that all of the $f^{-1}(B_\beta)$ were proper
+subobjects of $M$. However, because $\mathcal{A}$ has
+AB5 we have
+$$
+\colim f^{-1}(B_\beta) = f^{-1}\left(\colim B_\beta\right) = M.
+$$
+Now there are at most $\kappa$ different subobjects of $M$ that occur among
+the $f^{-1}(B_\alpha)$, by hypothesis.
+Thus we can find a subset $S \subset \alpha$ of cardinality at most
+$\kappa$ such that as $\beta'$ ranges over $S$, the
+$f^{-1}(B_{\beta'})$ range over \emph{all} the $f^{-1}(B_\alpha)$.
+
+\medskip\noindent
+However, $S$ has an upper bound $\widetilde{\alpha} < \alpha$ as
+$\alpha$ has cofinality bigger than $\kappa$. In particular, all the
+$f^{-1}(B_{\beta'})$, $\beta' \in S$ are contained in
+$f^{-1}(B_{\widetilde{\alpha}})$.
+It follows that $f^{-1}(B_{\widetilde{\alpha}}) = M$.
+In particular, the map $f$ factors through $B_{\widetilde{\alpha}}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-injective}
+\begin{slogan}
+To check that an object is injective, one only needs to check that lifting
+holds for subobjects of a generator.
+\end{slogan}
+Let $\mathcal{A}$ be a Grothendieck abelian category with generator $U$.
+An object $I$ of $\mathcal{A}$ is injective if and only if in every
+commutative diagram
+$$
+\xymatrix{
+M \ar[d] \ar[r] &  I \\
+U \ar@{-->}[ru]
+}
+$$
+for $M \subset U$ a subobject, the dotted arrow exists.
+\end{lemma}
+
+\begin{proof}
+Please see Lemma \ref{lemma-criterion-baer} for the case of modules.
+Choose an injection $A \subset B$ and a morphism $\varphi : A \to I$.
+Consider the set $S$ of pairs $(A', \varphi')$ consisting of
+subobjects $A \subset A' \subset B$ and a morphism $\varphi' : A' \to I$
+extending $\varphi$. Define a partial ordering on this set in the obvious
+manner. Choose a totally ordered subset $T \subset S$. Then
+$$
+A' = \colim_{t \in T} A_t \xrightarrow{\colim_{t \in T} \varphi_t} I
+$$
+is an upper bound. Hence by Zorn's lemma the set $S$ has a maximal element
+$(A', \varphi')$. We claim that $A' = B$. If not, then choose a morphism
+$\psi : U \to B$ which does not factor through $A'$. Set
+$N = A' \cap \psi(U)$. Set $M = \psi^{-1}(N)$. Then the map
+$$
+M \to N \to A' \xrightarrow{\varphi'} I
+$$
+can be extended to a morphism $\chi : U \to I$. Since
+$\chi|_{\Ker(\psi)} = 0$ we see that $\chi$ factors as
+$$
+U \to \Im(\psi) \xrightarrow{\varphi''} I
+$$
+Since $\varphi'$ and $\varphi''$ agree on $N = A' \cap \Im(\psi)$
+we see that combined the define a morphism $A' + \Im(\psi) \to I$
+contradicting the assumed maximality of $A'$.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-injective-embedding-grothendieck}
+Let $\mathcal{A}$ be a Grothendieck abelian category.
+Then $\mathcal{A}$ has functorial injective embeddings.
+\end{theorem}
+
+\begin{proof}
+Please compare with the proof of
+Theorem \ref{theorem-baer-grothendieck}.
+Choose a generator $U$ of $\mathcal{A}$. For an object $M$ we define
+$\mathbf{M}(M)$ by the following pushout diagram
+$$
+\xymatrix{
+\bigoplus_{N \subset U}
+\bigoplus_{\varphi \in \Hom(N, M)}
+N \ar[r] \ar[d] & M \ar[d] \\
+\bigoplus_{N \subset U}
+\bigoplus_{\varphi \in \Hom(U, M)}
+U \ar[r] &  \mathbf{M}(M).
+}
+$$
+Note that $M \to \mathbf{M}(N)$ is a functor and that there
+exist functorial injective maps $M \to \mathbf{M}(M)$. By transfinite
+induction we define functors $\mathbf{M}_\alpha(M)$ for every
+ordinal $\alpha$. Namely, set $\mathbf{M}_0(M) = M$. Given
+$\mathbf{M}_\alpha(M)$ set
+$\mathbf{M}_{\alpha + 1}(M) = \mathbf{M}(\mathbf{M}_\alpha(M))$.
+For a limit ordinal $\beta$ set
+$$
+\mathbf{M}_\beta(M) = \colim_{\alpha < \beta} \mathbf{M}_\alpha(M).
+$$
+Finally, choose an ordinal $\alpha$ whose cofinality is greater than $|U|$, see
+Sets, Proposition \ref{sets-proposition-exist-ordinals-large-cofinality}.
+We claim that $M \to \mathbf{M}_\alpha(M)$ is the desired functorial
+injective embedding. Namely, if $N \subset U$ is a subobject and
+$\varphi : N \to \mathbf{M}_\alpha(M)$ is a morphism, then we see that
+$\varphi$ factors through $\mathbf{M}_{\alpha'}(M)$ for some
+$\alpha' < \alpha$ by
+Proposition \ref{proposition-objects-are-small}.
+By construction of $\mathbf{M}(-)$ we see that $\varphi$ extends to
+a morphism from $U$ into $\mathbf{M}_{\alpha' + 1}(M)$ and hence into
+$\mathbf{M}_\alpha(M)$. By
+Lemma \ref{lemma-characterize-injective}
+we conclude that $\mathbf{M}_\alpha(M)$ is injective.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{K-injectives in Grothendieck categories}
+\label{section-K-injective}
+
+\noindent
+The material in this section is taken from the paper \cite{serpe}
+authored by Serp\'e. This paper generalizes some of the results
+of \cite{Spaltenstein} by Spaltenstein to general Grothendieck abelian
+categories. Our Lemma \ref{lemma-characterize-K-injective}
+is only implicit in the paper by Serp\'e. Our approach is to mimic
+Grothendieck's proof of
+Theorem \ref{theorem-injective-embedding-grothendieck}.
+
+\begin{lemma}
+\label{lemma-surjection-bounded-size}
+Let $\mathcal{A}$ be a Grothendieck abelian category with generator $U$.
+Let $c$ be the function on cardinals defined by
+$c(\kappa) = |\bigoplus_{\alpha \in \kappa} U|$. If $\pi : M \to N$ is a
+surjection then there exists a subobject $M' \subset M$ which surjects
+onto $N$ with $|N'| \leq c(|N|)$.
+\end{lemma}
+
+\begin{proof}
+For every proper subobject $N' \subset N$ choose a morphism
+$\varphi_{N'} : U \to M$ such that $U \to M \to N$ does not factor
+through $N'$. Set
+$$
+N' = \Im\left(
+\bigoplus\nolimits_{N' \subset N} \varphi_{N'} :
+\bigoplus\nolimits_{N' \subset N} U \longrightarrow M\right)
+$$
+Then $N'$ works.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-acyclic-quotient-complexes-bounded-size}
+Let $\mathcal{A}$ be a Grothendieck abelian category. There exists a cardinal
+$\kappa$ such that given any acyclic complex $M^\bullet$ we have
+\begin{enumerate}
+\item if $M^\bullet$ is nonzero, there is a nonzero subcomplex
+$N^\bullet$ which is bounded above, acyclic, and $|N^n| \leq \kappa$,
+\item there exists a surjection of complexes
+$$
+\bigoplus\nolimits_{i \in I} M_i^\bullet \longrightarrow M^\bullet
+$$
+where $M_i^\bullet$ is bounded above, acyclic, and $|M_i^n| \leq \kappa$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choose a generator $U$ of $\mathcal{A}$. Denote $c$ the function of
+Lemma \ref{lemma-surjection-bounded-size}.
+Set $\kappa = \sup \{c^n(|U|), n = 1, 2, 3, \ldots\}$.
+Let $n \in \mathbf{Z}$ and let $\psi : U \to M^n$ be a morphism.
+In order to prove (1) and (2) it suffices to prove there exists a subcomplex
+$N^\bullet \subset M^\bullet$ which is bounded above, acyclic, and
+$|N^m| \leq \kappa$, such that $\psi$ factors through $N^n$.
+To do this set $N^n = \Im(\psi)$, $N^{n + 1} = \Im(U \to M^n \to M^{n + 1})$,
+and $N^m = 0$ for $m \geq n + 2$.
+Suppose we have constructed $N^m \subset M^m$ for all $m \geq k$ such that
+\begin{enumerate}
+\item $\text{d}(N^m) \subset N^{m + 1}$, $m \geq k$,
+\item $\Im(N^{m - 1} \to N^m) = \Ker(N^m \to N^{m + 1})$ for
+all $m \geq k + 1$, and
+\item $|N^m| \leq c^{\max\{n - m, 0\}}(|U|)$.
+\end{enumerate}
+for some $k \leq n$. Because $M^\bullet$ is acyclic, we see that the subobject
+$\text{d}^{-1}(\Ker(N^k \to N^{k + 1})) \subset M^{k - 1}$ surjects onto
+$\Ker(N^k \to N^{k + 1})$. Thus we can choose $N^{k - 1} \subset M^{k - 1}$
+surjecting onto $\Ker(N^k \to N^{k + 1})$ with
+$|N^{k - 1}| \leq c^{n - k + 1}(|U|)$ by
+Lemma \ref{lemma-surjection-bounded-size}. The proof is finished by
+induction on $k$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-characterize-K-injective}
+Let $\mathcal{A}$ be a Grothendieck abelian category.
+Let $\kappa$ be a cardinal as in
+Lemma \ref{lemma-acyclic-quotient-complexes-bounded-size}.
+Suppose that $I^\bullet$ is a complex such that
+\begin{enumerate}
+\item each $I^j$ is injective, and
+\item for every bounded above acyclic complex $M^\bullet$
+such that $|M^n| \leq \kappa$
+we have $\Hom_{K(\mathcal{A})}(M^\bullet, I^\bullet) = 0$.
+\end{enumerate}
+Then $I^\bullet$ is an $K$-injective complex.
+\end{lemma}
+
+\begin{proof}
+Let $M^\bullet$ be an acyclic complex. We are going to construct by
+induction on the ordinal $\alpha$ an acyclic subcomplex
+$K_\alpha^\bullet \subset M^\bullet$ as follows.
+For $\alpha = 0$ we set $N_0^\bullet = 0$. For $\alpha > 0$
+we proceed as follows:
+\begin{enumerate}
+\item If $\alpha = \beta + 1$ and $K_\beta^\bullet = M^\bullet$
+then we choose $K_\alpha^\bullet = K_\beta^\bullet$.
+\item If $\alpha = \beta + 1$ and $K_\beta^\bullet \not = M^\bullet$
+then $M^\bullet/K_\beta^\bullet$ is a nonzero acyclic complex.
+We choose a subcomplex $N_\alpha^\bullet \subset M^\bullet/K_\beta^\bullet$
+as in Lemma \ref{lemma-acyclic-quotient-complexes-bounded-size}.
+Finally, we let $K_\alpha^\bullet \subset M^\bullet$
+be the inverse image of $N_\alpha^\bullet$.
+\item If $\alpha$ is a limit ordinal we set
+$N_\beta^\bullet = \colim N_\alpha^\bullet$.
+\end{enumerate}
+It is clear that $M^\bullet = K_\alpha^\bullet$ for a suitably large
+ordinal $\alpha$. We will prove that
+$$
+\Hom_{K(\mathcal{A})}(K_\alpha^\bullet, I^\bullet)
+$$
+is zero by transfinite induction on $\alpha$. It holds for $\alpha = 0$
+since $K_0^\bullet$ is zero. Suppose it holds for $\beta$ and
+$\alpha = \beta + 1$. In case (1) of the list above the result is clear.
+In case (2) there is a short exact sequence of complexes
+$$
+0 \to K_\beta^\bullet \to K_\alpha^\bullet \to N_\alpha^\bullet \to 0
+$$
+Since each component of $I^\bullet$ is injective we see that we obtain
+an exact sequence
+$$
+\Hom_{K(\mathcal{A})}(K_\beta^\bullet, I^\bullet) \to
+\Hom_{K(\mathcal{A})}(K_\alpha^\bullet, I^\bullet) \to
+\Hom_{K(\mathcal{A})}(N_\alpha^\bullet, I^\bullet)
+$$
+By induction the term on the left is zero and by assumption on $I^\bullet$
+the term on the right is zero. Thus the middle group is zero too.
+Finally, suppose that $\alpha$ is a limit ordinal. Then we see that
+$$
+\Hom^\bullet(K_\alpha^\bullet, I^\bullet) =
+\lim_{\beta < \alpha} \Hom^\bullet(K_\beta^\bullet, I^\bullet)
+$$
+with notation as in
+More on Algebra, Section \ref{more-algebra-section-hom-complexes}.
+These complexes compute morphisms in $K(\mathcal{A})$ by
+More on Algebra, Equation
+(\ref{more-algebra-equation-cohomology-hom-complex}).
+Note that the transition maps in the system are surjective
+because $I^j$ is surjective for each $j$. Moreover, for a limit
+ordinal $\alpha$ we have equality of limit and value
+(see displayed formula above). Thus we may apply
+Homology, Lemma \ref{homology-lemma-ML-over-ordinals}
+to conclude.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-functorial-homotopies}
+Let $\mathcal{A}$ be a Grothendieck abelian category.
+Let $(K_i^\bullet)_{i \in I}$ be a set of acyclic complexes.
+There exists a functor $M^\bullet \mapsto \mathbf{M}^\bullet(M^\bullet)$
+and a natural transformation
+$j_{M^\bullet} : M^\bullet \to \mathbf{M}^\bullet(M^\bullet)$
+such
+\begin{enumerate}
+\item $j_{M^\bullet}$ is a (termwise) injective quasi-isomorphism, and
+\item for every $i \in I$ and $w : K_i^\bullet \to M^\bullet$
+the morphism $j_{M^\bullet} \circ w$ is homotopic to zero.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+For every $i \in I$ choose a (termwise) injective map of complexes
+$K_i^\bullet \to L_i^\bullet$ which is homotopic to zero with
+$L_i^\bullet$ quasi-isomorphic to zero. For example, take $L_i^\bullet$
+to be the cone on the identity of $K_i^\bullet$.
+We define $\mathbf{M}^\bullet(M^\bullet)$ by the following pushout diagram
+$$
+\xymatrix{
+\bigoplus_{i \in I}
+\bigoplus_{w : K_i^\bullet \to M^\bullet}
+K_i^\bullet \ar[r] \ar[d] & M^\bullet \ar[d] \\
+\bigoplus_{i \in I}
+\bigoplus_{w : K_i^\bullet \to M^\bullet}
+L_i^\bullet \ar[r] &  \mathbf{M}^\bullet(M^\bullet).
+}
+$$
+Then $M^\bullet \to \mathbf{M}^\bullet(M^\bullet)$ is a functor. The right
+vertical arrow defines the functorial injective map $j_{M^\bullet}$.
+The cokernel of $j_{M^\bullet}$ is isomorphic to the direct sum of
+the cokernels of the maps $K_i^\bullet \to L_i^\bullet$ hence acyclic.
+Thus $j_{M^\bullet}$ is a quasi-isomorphism. Part (2) holds by construction.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-functorial-injective}
+Let $\mathcal{A}$ be a Grothendieck abelian category.
+There exists a functor $M^\bullet \mapsto \mathbf{N}^\bullet(M^\bullet)$
+and a natural transformation
+$j_{M^\bullet} : M^\bullet \to \mathbf{N}^\bullet(M^\bullet)$
+such
+\begin{enumerate}
+\item $j_{M^\bullet}$ is a (termwise) injective quasi-isomorphism, and
+\item for every $n \in \mathbf{Z}$ the map $M^n \to \mathbf{N}^n(M^\bullet)$
+factors through a subobject $I^n \subset \mathbf{N}^n(M^\bullet)$ where $I^n$
+is an injective object of $\mathcal{A}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choose a functorial injective embeddings $i_M : M \to I(M)$, see
+Theorem \ref{theorem-injective-embedding-grothendieck}.
+For every complex $M^\bullet$ denote $J^\bullet(M^\bullet)$ the complex
+with terms $J^n(M^\bullet) = I(M^n) \oplus I(M^{n + 1})$ and differential
+$$
+d_{J^\bullet(M^\bullet)} =
+\left(
+\begin{matrix}
+0 & 1 \\
+0 & 0
+\end{matrix}
+\right)
+$$
+There exists a canonical injective map of complexes
+$u_{M^\bullet} : M^\bullet \to J^\bullet(M^\bullet)$ by mapping $M^n$ to
+$I(M^n) \oplus I(M^{n + 1})$ via the maps $i_{M^n} : M^n \to I(M^n)$ and
+$i_{M^{n + 1}} \circ d : M^n \to M^{n + 1} \to I(M^{n + 1})$. Hence a
+short exact sequence of complexes
+$$
+0 \to M^\bullet \xrightarrow{u_{M^\bullet}}
+J^\bullet(M^\bullet) \xrightarrow{v_{M^\bullet}}
+Q^\bullet(M^\bullet) \to 0
+$$
+functorial in $M^\bullet$. Set
+$$
+\mathbf{N}^\bullet(M^\bullet) = C(v_{M^\bullet})^\bullet[-1].
+$$
+Note that
+$$
+\mathbf{N}^n(M^\bullet) = Q^{n - 1}(M^\bullet) \oplus J^n(M^\bullet)
+$$
+with differential
+$$
+\left(
+\begin{matrix}
+- d^{n - 1}_{Q^\bullet(M^\bullet)} & - v^n_{M^\bullet} \\
+0 & d^n_{J^\bullet(M)}
+\end{matrix}
+\right)
+$$
+Hence we see that there is a map of complexes
+$j_{M^\bullet} : M^\bullet \to \mathbf{N}^\bullet(M^\bullet)$
+induced by $u$. It is injective and factors through an injective subobject
+by construction. The map $j_{M^\bullet}$ is a quasi-isomorphism as one
+can prove by looking at the long exact sequence of cohomology associated
+to the short exact sequences of complexes above.
+\end{proof}
+
+\begin{theorem}
+\label{theorem-K-injective-embedding-grothendieck}
+\begin{slogan}
+Existence of K-injective complexes for Grothendieck abelian categories.
+\end{slogan}
+Let $\mathcal{A}$ be a Grothendieck abelian category.
+For every complex $M^\bullet$ there exists a quasi-isomorphism
+$M^\bullet \to I^\bullet$ such that $M^n \to I^n$ is injective and $I^n$
+is an injective object of $\mathcal{A}$ for all $n$ and $I^\bullet$
+is a K-injective complex. Moreover, the construction is functorial in
+$M^\bullet$.
+\end{theorem}
+
+\begin{proof}
+Please compare with the proof of
+Theorem \ref{theorem-baer-grothendieck}
+and
+Theorem \ref{theorem-injective-embedding-grothendieck}.
+Choose a cardinal $\kappa$ as in
+Lemmas \ref{lemma-acyclic-quotient-complexes-bounded-size} and
+\ref{lemma-characterize-K-injective}.
+Choose a set $(K_i^\bullet)_{i \in I}$
+of bounded above, acyclic complexes
+such that every bounded above acyclic complex $K^\bullet$
+such that $|K^n| \leq \kappa$ is isomorphic to $K_i^\bullet$ for some
+$i \in I$. This is possible by
+Lemma \ref{lemma-set-iso-classes-bounded-size}.
+Denote $\mathbf{M}^\bullet(-)$ the functor constructed in
+Lemma \ref{lemma-functorial-homotopies}.
+Denote $\mathbf{N}^\bullet(-)$ the functor constructed in
+Lemma \ref{lemma-functorial-injective}.
+Both of these functors come with injective transformations
+$\text{id} \to \mathbf{M}$ and $\text{id} \to \mathbf{N}$.
+
+\medskip\noindent
+By transfinite induction we define a sequence of functors
+$\mathbf{T}_\alpha(-)$ and corresponding transformations
+$\text{id} \to \mathbf{T}_\alpha$. Namely we set
+$\mathbf{T}_0(M^\bullet) = M^\bullet$. If $\mathbf{T}_\alpha$ is
+given then we set
+$$
+\mathbf{T}_{\alpha + 1}(M^\bullet) =
+\mathbf{N}^\bullet(\mathbf{M}^\bullet(\mathbf{T}_\alpha(M^\bullet)))
+$$
+If $\beta$ is a limit ordinal we set
+$$
+\mathbf{T}_\beta(M^\bullet) =
+\colim_{\alpha < \beta} \mathbf{T}_\alpha(M^\bullet)
+$$
+The transition maps of the system are injective quasi-isomorphisms.
+By AB5 we see that the colimit is still quasi-isomorphic to $M^\bullet$.
+We claim that $M^\bullet \to \mathbf{T}_\alpha(M^\bullet)$
+does the job if the cofinality of $\alpha$ is larger than
+$\max(\kappa, |U|)$ where $U$ is a generator of $\mathcal{A}$.
+Namely, it suffices to check conditions (1) and (2) of
+Lemma \ref{lemma-characterize-K-injective}.
+
+\medskip\noindent
+For (1) we use the criterion of
+Lemma \ref{lemma-characterize-injective}.
+Suppose that $M \subset U$ and $\varphi : M \to \mathbf{T}^n_\alpha(M^\bullet)$
+is a morphism for some $n \in \mathbf{Z}$. By
+Proposition \ref{proposition-objects-are-small}
+we see that $\varphi$ factor through
+$\mathbf{T}^n_{\alpha'}(M^\bullet)$ for some $\alpha' < \alpha$.
+In particular, by the construction of the functor
+$\mathbf{N}^\bullet(-)$ we see that $\varphi$ factors through
+an injective object of $\mathcal{A}$ which shows that $\varphi$
+lifts to a morphism on $U$.
+
+\medskip\noindent
+For (2) let $w : K^\bullet  \to \mathbf{T}_\alpha(M^\bullet)$
+be a morphism of complexes where $K^\bullet$ is a bounded above acyclic
+complex such that $|K^n| \leq \kappa$. Then $K^\bullet \cong K_i^\bullet$
+for some $i \in I$. Moreover, by
+Proposition \ref{proposition-objects-are-small}
+once again we see that $w$ factor through
+$\mathbf{T}^n_{\alpha'}(M^\bullet)$ for some $\alpha' < \alpha$.
+In particular, by the construction of the functor
+$\mathbf{M}^\bullet(-)$ we see that $w$ is homotopic to zero.
+This finishes the proof.
+\end{proof}
+
+
+
+
+
+
+
+\section{Additional remarks on Grothendieck abelian categories}
+\label{section-additional-Grothendieck}
+
+\noindent
+In this section we put some results on Grothendieck abelian categories
+which are folklore.
+
+\begin{lemma}
+\label{lemma-grothendieck-brown}
+Let $\mathcal{A}$ be a Grothendieck abelian category.
+Let $F : \mathcal{A}^{opp} \to \textit{Sets}$ be a functor.
+Then $F$ is representable if and only if $F$ commutes with colimits, i.e.,
+$$
+F(\colim_i N_i) = \lim F(N_i)
+$$
+for any diagram $\mathcal{I} \to \mathcal{A}$, $i \in \mathcal{I}$.
+\end{lemma}
+
+\begin{proof}
+If $F$ is representable, then it commutes with colimits by definition
+of colimits.
+
+\medskip\noindent
+Assume that $F$ commutes with colimits. Then $F(M \oplus N) = F(M) \prod F(N)$
+and we can use this to define a group structure on $F(M)$. Hence we get
+$F : \mathcal{A} \to \textit{Ab}$ which is additive and right exact, i.e.,
+transforms a short exact sequence $0 \to K \to L \to M \to 0$ into an exact
+sequence $F(K) \leftarrow F(L) \leftarrow F(M) \leftarrow 0$ (compare with
+Homology, Section \ref{homology-section-functors}).
+
+\medskip\noindent
+Let $U$ be a generator for $\mathcal{A}$. Set $A = \bigoplus_{s \in F(U)} U$.
+Let $s_{univ} = (s)_{s \in F(U)} \in F(A) = \prod_{s \in F(U)} F(U)$. Let
+$A' \subset A$ be the largest subobject such that $s_{univ}$ restricts to
+zero on $A'$. This exists because $\mathcal{A}$ is a Grothendieck category
+and because $F$ commutes with colimits. Because $F$ commutes with colimits
+there exists a unique element $\overline{s}_{univ} \in F(A/A')$ which
+maps to $s_{univ}$ in $F(A)$. We claim that $A/A'$ represents $F$, in
+other words, the Yoneda map
+$$
+\overline{s}_{univ} : h_{A/A'} \longrightarrow F
+$$
+is an isomorphism. Let $M \in \Ob(\mathcal{A})$ and $s \in F(M)$. Consider
+the surjection
+$$
+c_M :
+A_M = \bigoplus\nolimits_{\varphi \in \Hom_\mathcal{A}(U, M)} U
+\longrightarrow
+M.
+$$
+This gives $F(c_M)(s) = (s_\varphi) \in \prod_\varphi F(U)$.
+Consider the map
+$$
+\psi :
+A_M = \bigoplus\nolimits_{\varphi \in \Hom_\mathcal{A}(U, M)} U
+\longrightarrow
+\bigoplus\nolimits_{s \in F(U)} U = A
+$$
+which maps the summand corresponding to $\varphi$ to the summand
+corresponding to $s_\varphi$ by the identity map on $U$. Then $s_{univ}$
+maps to $(s_\varphi)_\varphi$ by construction.
+in other words the right square in the diagram
+$$
+\xymatrix{
+A' \ar[r] &
+A \ar@{..>}[r]_{s_{univ}} & F \\
+K \ar[r] \ar[u]^{?} & A_M \ar[u]^\psi \ar[r] &
+M \ar@{..>}[u]_s
+}
+$$
+commutes. Let $K = \Ker(A_M \to M)$. Since $s$ restricts to zero
+on $K$ we see that $\psi(K) \subset A'$ by definition of $A'$. Hence there
+is an induced morphism $M \to A/A'$. This construction gives an inverse
+to the map $h_{A/A'}(M) \to F(M)$ (details omitted).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-grothendieck-products}
+A Grothendieck abelian category has Ab3*.
+\end{lemma}
+
+\begin{proof}
+Let $M_i$, $i \in I$ be a family of objects of $\mathcal{A}$ indexed
+by a set $I$. The functor $F = \prod_{i \in I} h_{M_i}$
+commutes with colimits. Hence
+Lemma \ref{lemma-grothendieck-brown}
+applies.
+\end{proof}
+
+\begin{remark}
+\label{remark-existence-D}
+In the chapter on derived categories we consistently work with
+``small'' abelian categories (as is the convention in the Stacks
+project). For a ``big'' abelian category $\mathcal{A}$ it isn't clear
+that the derived category $D(\mathcal{A})$ exists because it isn't
+clear that morphisms in the derived category are sets. In general this
+isn't true, see
+Examples, Lemma \ref{examples-lemma-big-abelian-category}.
+However, if $\mathcal{A}$ is a Grothendieck abelian category, and given
+$K^\bullet, L^\bullet$ in $K(\mathcal{A})$, then by
+Theorem \ref{theorem-K-injective-embedding-grothendieck}
+there exists a quasi-isomorphism $L^\bullet \to I^\bullet$ to a
+K-injective complex $I^\bullet$ and
+Derived Categories, Lemma \ref{derived-lemma-K-injective} shows that
+$$
+\Hom_{D(\mathcal{A})}(K^\bullet, L^\bullet) =
+\Hom_{K(\mathcal{A})}(K^\bullet, I^\bullet)
+$$
+which is a set. Some examples of Grothendieck abelian categories
+are the category of modules over a ring, or more generally
+the category of sheaves of modules on a ringed site.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-derived-products}
+Let $\mathcal{A}$ be a Grothendieck abelian category.
+Then
+\begin{enumerate}
+\item $D(\mathcal{A})$ has both direct sums and products,
+\item direct sums are obtained by taking termwise direct sums of
+any complexes,
+\item products are obtained by taking termwise products of
+K-injective complexes.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Let $K^\bullet_i$, $i \in I$ be a family of objects of $D(\mathcal{A})$
+indexed by a set $I$. We claim that the termwise direct sum
+$\bigoplus_{i \in I} K^\bullet_i$ is a direct sum in $D(\mathcal{A})$.
+Namely, let $I^\bullet$ be a K-injective complex. Then we have
+\begin{align*}
+\Hom_{D(\mathcal{A})}(\bigoplus\nolimits_{i \in I} K^\bullet_i, I^\bullet)
+& =
+\Hom_{K(\mathcal{A})}(\bigoplus\nolimits_{i \in I} K^\bullet_i, I^\bullet) \\
+& =
+\prod\nolimits_{i \in I} \Hom_{K(\mathcal{A})}(K^\bullet_i, I^\bullet) \\
+& =
+\prod\nolimits_{i \in I} \Hom_{D(\mathcal{A})}(K^\bullet_i, I^\bullet)
+\end{align*}
+as desired. This is sufficient since any complex can be represented
+by a K-injective complex by
+Theorem \ref{theorem-K-injective-embedding-grothendieck}.
+To construct the product, choose a K-injective resolution
+$K_i^\bullet \to I_i^\bullet$ for each $i$. Then we claim that
+$\prod_{i \in I} I_i^\bullet$ is a product in $D(\mathcal{A})$.
+This follows from
+Derived Categories, Lemma \ref{derived-lemma-product-K-injective}.
+\end{proof}
+
+\begin{remark}
+\label{remark-direct-sum-product-derived}
+Let $R$ be a ring. Suppose that $M_n$, $n \in \mathbf{Z}$ are $R$-modules.
+Denote $E_n = M_n[-n] \in D(R)$. We claim that $E = \bigoplus M_n[-n]$ is
+{\it both} the direct sum and the product of the objects $E_n$ in $D(R)$.
+To see that it is the direct sum, take a look at the proof of
+Lemma \ref{lemma-derived-products}.
+To see that it is the direct product, take injective resolutions
+$M_n \to I_n^\bullet$. By the proof of
+Lemma \ref{lemma-derived-products}
+we have
+$$
+\prod E_n = \prod I_n^\bullet[-n]
+$$
+in $D(R)$. Since products in $\text{Mod}_R$ are exact, we see that
+$\prod I_n^\bullet$ is quasi-isomorphic to $E$. This works more generally
+in $D(\mathcal{A})$ where $\mathcal{A}$ is a Grothendieck abelian
+category with Ab4*.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-RF-commutes-with-Rlim}
+Let $F : \mathcal{A} \to \mathcal{B}$ be an additive functor of
+abelian categories. Assume
+\begin{enumerate}
+\item $\mathcal{A}$ is a Grothendieck abelian category,
+\item $\mathcal{B}$ has exact countable products, and
+\item $F$ commutes with countable products.
+\end{enumerate}
+Then
+$RF : D(\mathcal{A}) \to D(\mathcal{B})$ commutes with derived limits.
+\end{lemma}
+
+\begin{proof}
+Observe that $RF$ exists as $\mathcal{A}$ has enough K-injectives
+(Theorem \ref{theorem-K-injective-embedding-grothendieck}
+and
+Derived Categories, Lemma \ref{derived-lemma-K-injective-defined}).
+The statement means that if $K = R\lim K_n$, then
+$RF(K) = R\lim RF(K_n)$. See
+Derived Categories, Definition \ref{derived-definition-derived-limit}
+for notation. Since $RF$ is an exact functor of triangulated
+categories it suffices to see that $RF$ commutes with countable
+products of objects of $D(\mathcal{A})$. In the proof of
+Lemma \ref{lemma-derived-products}
+we have seen that products in $D(\mathcal{A})$ are computed by
+taking products of K-injective complexes and moreover that a
+product of K-injective complexes is K-injective.
+Moreover, in Derived Categories, Lemma
+\ref{derived-lemma-products}
+we have seen that products in $D(\mathcal{B})$ are computed
+by taking termwise products.
+Since $RF$ is computed by applying $F$ to a K-injective
+representative and since we've assumed $F$ commutes with
+countable products, the lemma follows.
+\end{proof}
+
+\noindent
+The following lemma is some kind of generalization of
+the existence of Cartan-Eilenberg resolutions
+(Derived Categories, Section \ref{derived-section-cartan-eilenberg}).
+
+\begin{lemma}
+\label{lemma-K-injective-embedding-filtration}
+Let $\mathcal{A}$ be a Grothendieck abelian category.
+Let $K^\bullet$ be a filtered complex of $\mathcal{A}$, see
+Homology, Definition \ref{homology-definition-filtered-complex}.
+Then there exists a morphism $j : K^\bullet \to J^\bullet$
+of filtered complexes of $\mathcal{A}$ such that
+\begin{enumerate}
+\item $J^n$, $F^pJ^n$, $J^n/F^pJ^n$ and $F^pJ^n/F^{p'}J^n$ are injective
+objects of $\mathcal{A}$,
+\item $J^\bullet$, $F^pJ^\bullet$, $J^\bullet/F^pJ^\bullet$, and
+$F^pJ^\bullet/F^{p'}J^\bullet$ are K-injective complexes,
+\item $j$ induces quasi-isomorphisms
+$K^\bullet \to J^\bullet$,
+$F^pK^\bullet \to F^pJ^\bullet$,
+$K^\bullet/F^pK^\bullet \to J^\bullet/F^pJ^\bullet$, and
+$F^pK^\bullet/F^{p'}K^\bullet \to F^pJ^\bullet/F^{p'}J^\bullet$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+By Theorem \ref{theorem-K-injective-embedding-grothendieck}
+we obtain quasi-isomorphisms $i : K^\bullet \to I^\bullet$ and
+$i^p : F^pK^\bullet \to I^{p, \bullet}$ as well as commutative diagrams
+$$
+\vcenter{
+\xymatrix{
+K^\bullet \ar[d]_i & F^pK^\bullet \ar[l] \ar[d]_{i^p} \\
+I^\bullet & I^{p, \bullet} \ar[l]_{\alpha^p}
+}
+}
+\quad\text{and}\quad
+\vcenter{
+\xymatrix{
+F^{p'}K^\bullet \ar[d]_{i^{p'}} &
+F^pK^\bullet \ar[l] \ar[d]_{i^p} \\
+I^{p', \bullet} &
+I^{p, \bullet} \ar[l]_{\alpha^{p p'}}
+}
+}
+\quad\text{for }p' \leq p
+$$
+such that $\alpha^p \circ \alpha^{p' p} = \alpha^{p'}$
+and $\alpha^{p'p''} \circ \alpha^{pp'} = \alpha^{pp''}$.
+The problem is that the maps $\alpha^P : I^{p, \bullet} \to I^\bullet$
+need not be injective. For each $p$ we choose an injection
+$t^p : I^{p, \bullet} \to J^{p, \bullet}$ into an acyclic K-injective
+complex $J^{p, \bullet}$ whose terms are injective objects of $\mathcal{A}$
+(first map to the cone on the identity and then use the theorem).
+Choose a map of complexes $s^p : I^\bullet \to J^{p, \bullet}$
+such that the following diagram commutes
+$$
+\xymatrix{
+K^\bullet \ar[d]_i & F^pK^\bullet \ar[l] \ar[d]_{i^p} \\
+I^\bullet \ar[rd]_{s^p} & I^{p, \bullet} \ar[d]^{t^p} \\
+& J^{p, \bullet}
+}
+$$
+This is possible: the composition $F^pK^\bullet \to J^{p, \bullet}$
+is homotopic to zero because $J^{p, \bullet}$ is acyclic and K-injective
+(Derived Categories, Lemma \ref{derived-lemma-K-injective}).
+Since the objects $J^{p, n - 1}$ are injective and since
+$F^pK^n \to K^n \to I^n$ are injective morphisms, we
+can lift the maps $F^pK^n \to J^{p, n - 1}$ giving the homotopy
+to a map $h^n : I^n \to J^{p, n - 1}$. Then we set $s^p$
+equal to $h \circ \text{d} + \text{d} \circ h$.
+(Warning: It will not be the case that $t^p = s^p \circ \alpha^p$,
+so we have to be careful not to use this below.)
+
+\medskip\noindent
+Consider
+$$
+J^\bullet = I^\bullet \times \prod\nolimits_p J^{p, \bullet}
+$$
+Because products in $D(\mathcal{A})$ are given by taking
+products of K-injective complexes
+(Lemma \ref{lemma-derived-products})
+and since $J^{p, \bullet}$
+is isomorphic to $0$ in $D(\mathcal{A})$ we see that
+$J^\bullet \to I^\bullet$ is an isomorphism in $D(\mathcal{A})$.
+Consider the map
+$$
+j = i \times (s^p \circ i)_{p \in \mathbf{Z}} :
+K^\bullet
+\longrightarrow
+I^\bullet \times \prod\nolimits_p J^{p, \bullet} = J^\bullet
+$$
+By our remarks above this is a quasi-isomorphism. It is also injective.
+For $p \in \mathbf{Z}$ we let $F^pJ^\bullet \subset J^\bullet$ be
+$$
+\Im\left(
+\alpha^p \times (t^{p'} \circ \alpha^{pp'})_{p' \leq p} :
+I^{p, \bullet}
+\to
+I^\bullet \times \prod\nolimits_{p' \leq p} J^{p', \bullet}
+\right)
+\times \prod\nolimits_{p' > p} J^{p', \bullet}
+$$
+This complex is isomorphic to the complex
+$I^{p, \bullet} \times \prod_{p' > p} J^{p, \bullet}$
+as $\alpha^{pp} = \text{id}$ and $t^p$ is injective.
+Hence $F^pJ^\bullet$ is quasi-isomorphic to $I^{p, \bullet}$ (argue
+as above). We have $j(F^pK^\bullet) \subset F^pJ^\bullet$ because
+of the commutativity of the diagram above. The corresponding
+map of complexes $F^pK^\bullet \to F^pJ^\bullet$ is a quasi-isomorphism
+by what we just said. Finally, to see that
+$F^{p + 1}J^\bullet \subset F^pJ^\bullet$
+use that $\alpha^{p + 1p} \circ \alpha^{pp'} = \alpha^{p + 1p'}$
+and the commutativity of the first displayed diagram
+in the first paragraph of the proof.
+
+\medskip\noindent
+We claim that $j : K^\bullet \to J^\bullet$ is a solution to the
+problem posed by the lemma. Namely, $F^pJ^n$ is an injective object
+of $\mathcal{A}$ because it is isomorphic to
+$I^{p, n} \times \prod_{p' > p} J^{p', n}$ and products of
+injectives are injective. Then the injective map $F^pJ^n \to J^n$
+splits and hence the quotient $J^n/F^pJ^n$ is injective as well
+as a direct summand of the injective object $J^n$.
+Similarly for $F^pJ^n/F^{p'}J^n$. This in particular means
+that $0 \to F^pJ^\bullet \to J^\bullet \to J^\bullet/F^pJ^\bullet \to 0$
+is a termwise split short exact sequence of complexes, hence defines
+a distinguished triangle in $K(\mathcal{A})$ by fiat.
+Since $J^\bullet$ and $F^pJ^\bullet$ are K-injective complexes
+we see that the same is true for $J^\bullet/F^pJ^\bullet$
+by Derived Categories, Lemma \ref{derived-lemma-triangle-K-injective}.
+A similar argument shows that $F^pJ^\bullet/F^{p'}J^\bullet$
+is K-injective. By construction $j : K^\bullet \to J^\bullet$
+and the induced maps $F^pK^\bullet \to F^pJ^\bullet$ are
+quasi-isomorphisms. Using the long exact cohomology sequences
+of the complexes in play we find that the same holds for
+$K^\bullet/F^pK^\bullet \to J^\bullet/F^pJ^\bullet$ and
+$F^pK^\bullet/F^{p'}K^\bullet \to F^pJ^\bullet/F^{p'}J^\bullet$.
+\end{proof}
+
+
+
+
+
+
+
+\input{chapters}
+
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

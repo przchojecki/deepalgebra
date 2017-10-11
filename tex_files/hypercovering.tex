@@ -1,0 +1,3002 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{Hypercoverings}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+Let $\mathcal{C}$ be a site, see Sites, Definition \ref{sites-definition-site}.
+Let $X$ be an object of $\mathcal{C}$.
+Given an abelian sheaf $\mathcal{F}$
+on $\mathcal{C}$ we would like to compute
+its cohomology groups
+$$
+H^i(X, \mathcal{F}).
+$$
+According to our general definitions (Cohomology on Sites, Section
+\ref{sites-cohomology-section-cohomology-sheaves})
+this cohomology group is computed by
+choosing an injective resolution
+$
+0 \to \mathcal{F} \to \mathcal{I}^0 \to \mathcal{I}^1 \to \ldots
+$
+and setting
+$$
+H^i(X, \mathcal{F})
+=
+H^i(
+\Gamma(X, \mathcal{I}^0) \to
+\Gamma(X, \mathcal{I}^1) \to
+\Gamma(X, \mathcal{I}^2)\to \ldots)
+$$
+The goal of this chapter is to show that we may also compute these
+cohomology groups without choosing an injective resolution
+(in the case that $\mathcal{C}$ has fibre products). To do this
+we will use hypercoverings.
+
+\medskip\noindent
+A hypercovering in a site is a generalization of a covering, see
+\cite[Expos\'e V, Sec. 7]{SGA4}. Given a hypercovering $K$ of an object
+$X$, there is a {\v C}ech to cohomology spectral sequence
+expressing the cohomology of an abelian sheaf $\mathcal{F}$
+over $X$ in terms of the cohomology of the sheaf over the
+components $K_n$ of $K$. It turns out that there are always
+enough hypercoverings, so that taking the colimit over all hypercoverings,
+the spectral sequence degenerates and the cohomology of $\mathcal{F}$
+over $X$ is computed by the colimit of the {\v C}ech cohomology groups.
+
+\medskip\noindent
+A more general gadget one can consider is a simplicial augmentation where
+one has cohomological descent, see \cite[Expos\'e Vbis]{SGA4}. A nice
+manuscript on cohomological descent is the text by Brian Conrad, see
+\url{http://math.stanford.edu/~conrad/papers/hypercover.pdf}.
+We will come back to these issue in the chapter on simplicial spaces
+where we will show, for example, that proper hypercoverings of
+``locally compact'' topological spaces are of cohomological
+descent (Simplicial Spaces, Section
+\ref{spaces-simplicial-section-proper-hypercovering}).
+Our method of attack will be to reduce this statement to the {\v C}ech to
+cohomology spectral sequence constructed in this chapter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Semi-representable objects}
+\label{section-semi-representable}
+
+\noindent
+In order to start we make the following definition.
+The letters ``SR'' stand for Semi-Representable.
+
+\begin{definition}
+\label{definition-SR}
+Let $\mathcal{C}$ be a category. We denote $\text{SR}(\mathcal{C})$
+the category of {\it semi-representable objects} defined as follows
+\begin{enumerate}
+\item objects are families of objects $\{U_i\}_{i \in I}$, and
+\item morphisms $\{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$ are given by
+a map $\alpha : I \to J$ and for each $i \in I$
+a morphism $f_i : U_i \to V_{\alpha(i)}$ of $\mathcal{C}$.
+\end{enumerate}
+Let $X \in \Ob(\mathcal{C})$ be an object of $\mathcal{C}$.
+The category of {\it semi-representable objects over $X$}
+is the category
+$\text{SR}(\mathcal{C}, X) = \text{SR}(\mathcal{C}/X)$.
+\end{definition}
+
+\noindent
+This definition is essentially equivalent to
+\cite[Expos\'e V, Subsection 7.3.0]{SGA4}. Note that
+this is a ``big'' category. We will later ``bound'' the size of the index
+sets $I$ that we need for hypercoverings of $X$. We can then redefine
+$\text{SR}(\mathcal{C}, X)$ to become a category. Let's spell out
+the objects and morphisms $\text{SR}(\mathcal{C}, X)$:
+\begin{enumerate}
+\item objects are families of morphisms
+$\{U_i \to X\}_{i \in I}$, and
+\item morphisms $\{U_i \to X\}_{i \in I} \to
+\{V_j \to X\}_{j \in J}$ are given by
+a map $\alpha : I \to J$ and for each $i \in I$
+a morphism $f_i : U_i \to V_{\alpha(i)}$ over $X$.
+\end{enumerate}
+There is a forgetful functor
+$\text{SR}(\mathcal{C}, X) \to \text{SR}(\mathcal{C})$.
+
+\begin{definition}
+\label{definition-SR-F}
+Let $\mathcal{C}$ be a category.
+We denote $F$ the functor {\it which associates a presheaf to a
+semi-representable object}. In a formula
+\begin{eqnarray*}
+F : \text{SR}(\mathcal{C}) & \longrightarrow & \textit{PSh}(\mathcal{C}) \\
+\{U_i\}_{i \in I} & \longmapsto & \amalg_{i\in I} h_{U_i}
+\end{eqnarray*}
+where $h_U$ denotes the representable presheaf associated to
+the object $U$.
+\end{definition}
+
+\noindent
+Given a morphism $U \to X$ we obtain a morphism $h_U \to h_X$ of representable
+presheaves. Thus we often think of $F$ on $\text{SR}(\mathcal{C}, X)$
+as a functor into the category of presheaves of sets over $h_X$,
+namely $\textit{PSh}(\mathcal{C})/h_X$. Here is a picture:
+$$
+\xymatrix{
+\text{SR}(\mathcal{C}, X) \ar[r]_F \ar[d] &
+\textit{PSh}(\mathcal{C})/h_X \ar[d] \\
+\text{SR}(\mathcal{C}) \ar[r]^F &
+\textit{PSh}(\mathcal{C})
+}
+$$
+Next we discuss the existence of limits in the category of semi-representable
+objects.
+
+\begin{lemma}
+\label{lemma-coprod-prod-SR}
+Let $\mathcal{C}$ be a category.
+\begin{enumerate}
+\item the category $\text{SR}(\mathcal{C})$ has coproducts
+and $F$ commutes with them,
+\item the functor $F : \text{SR}(\mathcal{C}) \to \textit{PSh}(\mathcal{C})$
+commutes with limits,
+\item if $\mathcal{C}$ has fibre products, then $\text{SR}(\mathcal{C})$
+has fibre products,
+\item if $\mathcal{C}$ has products of pairs, then
+$\text{SR}(\mathcal{C})$ has products of pairs,
+\item if $\mathcal{C}$ has equalizers, so does $\text{SR}(\mathcal{C})$, and
+\item if $\mathcal{C}$ has a final object, so does $\text{SR}(\mathcal{C})$.
+\end{enumerate}
+Let $X \in \Ob(\mathcal{C})$.
+\begin{enumerate}
+\item the category $\text{SR}(\mathcal{C}, X)$ has coproducts
+and $F$ commutes with them,
+\item if $\mathcal{C}$ has fibre products, then $\text{SR}(\mathcal{C}, X)$
+has finite limits and
+$F : \text{SR}(\mathcal{C}, X) \to \textit{PSh}(\mathcal{C})/h_X$
+commutes with them.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of the results on $\text{SR}(\mathcal{C})$.
+Proof of (1). The coproduct of $\{U_i\}_{i \in I}$ and $\{V_j\}_{j \in J}$ is
+$\{U_i\}_{i \in I} \amalg \{V_j\}_{j \in J}$, in other words, the family
+of objects whose index set is $I \amalg J$ and for an element
+$k \in I \amalg J$ gives $U_i$ if $k = i \in I$ and gives $V_j$ if
+$k = j \in J$. Similarly for coproducts
+of families of objects. It is clear that $F$ commutes with these.
+
+\medskip\noindent
+Proof of (2). For $U$ in $\Ob(\mathcal{C})$ consider the object $\{U\}$ of
+$\text{SR}(\mathcal{C})$. It is clear that
+$\Mor_{\text{SR}(\mathcal{C})}(\{U\}, K)) = F(K)(U)$
+for $K \in \Ob(\text{SR}(\mathcal{C}))$. Since limits of presheaves
+are computed at the level of sections
+(Sites, Section \ref{sites-section-limits-colimits-PSh})
+we conclude that $F$ commutes with limits.
+
+\medskip\noindent
+Proof of (3). Suppose given a morphism
+$(\alpha, f_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+and a morphism
+$(\beta, g_k) : \{W_k\}_{k \in K} \to \{V_j\}_{j \in J}$.
+The fibred product of these morphisms is given by
+$$
+\{ U_i \times_{f_i, V_j, g_k} W_k\}_{(i, j, k) \in I \times J \times K
+\text{ such that } j = \alpha(i) = \beta(k)}
+$$
+The fibre products exist if $\mathcal{C}$ has fibre products.
+
+\medskip\noindent
+Proof of (4). The product of $\{U_i\}_{i \in I}$ and $\{V_j\}_{j \in J}$ is
+$\{U_i \times V_j\}_{i \in I, j \in J}$. The products exist if
+$\mathcal{C}$ has products.
+
+\medskip\noindent
+Proof of (5). The equalizer of two maps
+$(\alpha, f_i), (\alpha', f'_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+is
+$$
+\{
+\text{Eq}(f_i, f'_i : U_i \to V_{\alpha(i)})
+\}_{i \in I,\ \alpha(i) = \alpha'(i)}
+$$
+The equalizers exist if $\mathcal{C}$ has equalizers.
+
+\medskip\noindent
+Proof of (6). If $X$ is a final object of $\mathcal{C}$, then
+$\{X\}$ is a final object of $\text{SR}(\mathcal{C})$.
+
+\medskip\noindent
+Proof of the statements about $\text{SR}(\mathcal{C}, X)$.
+These follow from the results above applied to the category
+$\mathcal{C}/X$ using that
+$\text{SR}(\mathcal{C}/X) = \text{SR}(\mathcal{C}, X)$ and that
+$\textit{PSh}(\mathcal{C}/X) = \textit{PSh}(\mathcal{C})/h_X$
+(Sites, Lemma \ref{sites-lemma-essential-image-j-shriek} applied
+to $\mathcal{C}$ endowed with the chaotic topology). However
+we also argue directly as follows.
+It is clear that the coproduct of
+$\{U_i \to X\}_{i \in I}$ and $\{V_j \to X\}_{j \in J}$
+is $\{U_i \to X\}_{i \in I} \amalg \{V_j \to X\}_{j \in J}$
+and similarly for coproducts of
+families of families of morphisms with target $X$.
+The object $\{X \to X\}$ is a final
+object of $\text{SR}(\mathcal{C}, X)$.
+Suppose given a morphism
+$(\alpha, f_i) : \{U_i \to X\}_{i \in I} \to \{V_j \to X\}_{j \in J}$
+and a morphism
+$(\beta, g_k) : \{W_k \to X\}_{k \in K} \to \{V_j \to X\}_{j \in J}$.
+The fibred product of these morphisms is given by
+$$
+\{ U_i \times_{f_i, V_j, g_k} W_k \to X \}_{(i, j, k) \in I \times J \times K
+\text{ such that } j = \alpha(i) = \beta(k)}
+$$
+The fibre products exist by the assumption that
+$\mathcal{C}$ has fibre products.
+Thus $\text{SR}(\mathcal{C}, X)$ has finite limits,
+see Categories, Lemma \ref{categories-lemma-finite-limits-exist}.
+We omit verifying the statements on the functor $F$ in this case.
+\end{proof}
+
+
+
+
+
+\section{Hypercoverings}
+\label{section-hypercoverings}
+
+\noindent
+If we assume our category is a site, then we can make the following
+definition.
+
+\begin{definition}
+\label{definition-covering-SR}
+Let $\mathcal{C}$ be a site. Let
+$f = (\alpha, f_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+be a morphism in the category $\text{SR}(\mathcal{C})$.
+We say that $f$ is a {\it covering} if for every $j \in J$ the
+family of morphisms $\{U_i \to V_j\}_{i \in I, \alpha(i) = j}$
+is a covering for the site $\mathcal{C}$.
+Let $X$ be an object of $\mathcal{C}$.
+A morphism $K \to L$ in $\text{SR}(\mathcal{C}, X)$ is
+a {\it covering} if its image in $\text{SR}(\mathcal{C})$ is
+a covering.
+\end{definition}
+
+\begin{lemma}
+\label{lemma-covering-permanence}
+Let $\mathcal{C}$ be a site.
+\begin{enumerate}
+\item A composition of coverings in $\text{SR}(\mathcal{C})$
+is a covering.
+\item If $K \to L$ is a covering in $\text{SR}(\mathcal{C})$
+and $L' \to L$ is a morphism, then $L' \times_L K$ exists
+and $L' \times_L K \to L'$ is a covering.
+\item If $\mathcal{C}$ has products of pairs, and
+$A \to B$ and $K \to L$ are coverings in $\text{SR}(\mathcal{C})$,
+then $A \times K \to B \times L$ is a covering.
+\end{enumerate}
+Let $X \in \Ob(\mathcal{C})$. Then (1) and (2) holds for
+$\text{SR}(\mathcal{C}, X)$ and (3) holds if $\mathcal{C}$
+has fibre products.
+\end{lemma}
+
+\begin{proof}
+Part (1) is immediate from the axioms of a site.
+Part (2) follows by the construction of fibre products
+in $\text{SR}(\mathcal{C})$ in the proof of
+Lemma \ref{lemma-coprod-prod-SR}
+and the requirement that the morphisms in a covering
+of $\mathcal{C}$ are representable.
+Part (3) follows by thinking of $A \times K \to B \times L$
+as the composition $A \times K \to B \times K \to B \times L$
+and hence a composition of basechanges of coverings.
+The final statement follows because $\text{SR}(\mathcal{C}, X) =
+\text{SR}(\mathcal{C}/X)$.
+\end{proof}
+
+\noindent
+By Lemma \ref{lemma-coprod-prod-SR} and
+Simplicial, Lemma \ref{simplicial-lemma-existence-cosk}
+the coskeleton of a truncated simplicial object of
+$\text{SR}(\mathcal{C}, X)$ exists if $\mathcal{C}$ has fibre products.
+Hence the following definition makes sense.
+
+\begin{definition}
+\label{definition-hypercovering}
+Let $\mathcal{C}$ be a site. Assume $\mathcal{C}$ has fibre products.
+Let $X \in \Ob(\mathcal{C})$ be an object of $\mathcal{C}$.
+A {\it hypercovering of $X$} is a simplicial object
+$K$ of $\text{SR}(\mathcal{C}, X)$ such that
+\begin{enumerate}
+\item The object $K_0$ is a covering of $X$ for the site $\mathcal{C}$.
+\item For every $n \geq 0$ the canonical morphism
+$$
+K_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n K)_{n + 1}
+$$
+is a covering in the sense defined above.
+\end{enumerate}
+\end{definition}
+
+\noindent
+Condition (1) makes sense since each object of
+$\text{SR}(\mathcal{C}, X)$ is after all a family
+of morphisms with target $X$. It could also be
+formulated as saying that the morphism of $K_0$ to
+the final object of $\text{SR}(\mathcal{C}, X)$
+is a covering.
+
+\begin{example}
+\label{example-cech}
+Let $\{U_i \to X\}_{i \in I}$ be a covering of the site $\mathcal{C}$.
+Set $K_0 = \{U_i \to X\}_{i \in I}$.
+Then $K_0$ is a $0$-truncated simplicial object of
+$\text{SR}(\mathcal{C}, X)$. Hence we may form
+$$
+K = \text{cosk}_0 K_0.
+$$
+Clearly $K$ passes condition (1) of Definition \ref{definition-hypercovering}.
+Since all the morphisms $K_{n + 1} \to (\text{cosk}_n \text{sk}_n K)_{n + 1}$
+are isomorphisms by
+Simplicial, Lemma \ref{simplicial-lemma-cosk-up}
+it also passes condition (2). Note that
+the terms $K_n$ are the usual
+$$
+K_n = \{
+U_{i_0} \times_X U_{i_1} \times_X \ldots \times_X U_{i_n} \to X
+\}_{(i_0, i_1, \ldots, i_n) \in I^{n + 1}}
+$$
+\end{example}
+
+\begin{lemma}
+\label{lemma-hypercoverings-set}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X \in \Ob(\mathcal{C})$ be an object of $\mathcal{C}$.
+The collection of all hypercoverings of $X$ forms a set.
+\end{lemma}
+
+\begin{proof}
+Since $\mathcal{C}$ is a site, the set of all coverings of
+$X$ forms a set. Thus we see that the collection
+of possible $K_0$ forms a set. Suppose we have shown that
+the collection of all possible $K_0, \ldots, K_n$ form
+a set. Then it is enough to show that given
+$K_0, \ldots, K_n$ the collection of all possible
+$K_{n + 1}$ forms a set. And this is clearly true since
+we have to choose $K_{n + 1}$ among all possible coverings
+of $(\text{cosk}_n \text{sk}_n K)_{n + 1}$.
+\end{proof}
+
+\begin{remark}
+\label{remark-hypercoverings-really-set}
+The lemma does not just say that there is a cofinal
+system of choices of hypercoverings that is a set,
+but that really the hypercoverings form a set.
+\end{remark}
+
+\noindent
+The category of presheaves on $\mathcal{C}$ has
+finite (co)limits. Hence the functors $\text{cosk}_n$
+exists for presheaves of sets.
+
+\begin{lemma}
+\label{lemma-hypercovering-F}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X \in \Ob(\mathcal{C})$ be an object of $\mathcal{C}$.
+Let $K$ be a hypercovering of $X$.
+Consider the simplicial object $F(K)$ of $\textit{PSh}(\mathcal{C})$,
+endowed with its augmentation to the constant simplicial presheaf $h_X$.
+\begin{enumerate}
+\item The morphism of presheaves $F(K)_0 \to h_X$ becomes
+a surjection after sheafification.
+\item The morphism
+$$
+(d^1_0, d^1_1) :
+F(K)_1
+\longrightarrow
+F(K)_0 \times_{h_X} F(K)_0
+$$
+becomes a surjection after sheafification.
+\item For every $n \geq 1$ the morphism
+$$
+F(K)_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n F(K))_{n + 1}
+$$
+turns into a surjection after sheafification.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We will use the fact that if
+$\{U_i \to U\}_{i \in I}$ is a covering of the site
+$\mathcal{C}$, then the morphism
+$$
+\amalg_{i \in I} h_{U_i} \to h_U
+$$
+becomes surjective after sheafification, see
+Sites, Lemma \ref{sites-lemma-covering-surjective-after-sheafification}.
+Thus the first assertion follows immediately.
+
+\medskip\noindent
+For the second assertion, note that according to
+Simplicial, Example \ref{simplicial-example-cosk0}
+the simplicial object $\text{cosk}_0 \text{sk}_0 K$
+has terms $K_0 \times \ldots \times K_0$. Thus
+according to the definition of a hypercovering we
+see that $(d^1_0, d^1_1) : K_1 \to K_0 \times K_0$ is a
+covering. Hence (2) follows from the claim above
+and the fact that $F$ transforms products into fibred
+products over $h_X$.
+
+\medskip\noindent
+For the third, we claim that
+$\text{cosk}_n \text{sk}_n F(K) =
+F(\text{cosk}_n \text{sk}_n K)$ for $n \geq 1$.
+To prove this, denote temporarily $F'$ the functor
+$\text{SR}(\mathcal{C}, X) \to \textit{PSh}(\mathcal{C})/h_X$.
+By Lemma \ref{lemma-coprod-prod-SR} the functor
+$F'$ commutes with finite limits.
+By our description of the $\text{cosk}_n$ functor in
+Simplicial, Section \ref{simplicial-section-skeleton}
+we see that $\text{cosk}_n \text{sk}_n F'(K) =
+F'(\text{cosk}_n \text{sk}_n K)$.
+Recall that the category used in the description of
+$(\text{cosk}_n U)_m$ in
+Simplicial, Lemma \ref{simplicial-lemma-existence-cosk}
+is the category $(\Delta/[m])^{opp}_{\leq n}$. It is an
+amusing exercise to show that $(\Delta/[m])_{\leq n}$ is
+a connected category (see
+Categories, Definition \ref{categories-definition-category-connected})
+as soon as $n \geq 1$. Hence,
+Categories, Lemma \ref{categories-lemma-connected-limit-over-X}
+shows that $\text{cosk}_n \text{sk}_n F'(K) =
+\text{cosk}_n \text{sk}_n F(K)$. Whence the claim.
+Property (2) follows from this, because now we see that
+the morphism in (2) is the result of applying the
+functor $F$ to a covering as in Definition \ref{definition-covering-SR},
+and the result follows from the first fact mentioned
+in this proof.
+\end{proof}
+
+
+
+\section{Acyclicity}
+\label{section-acyclicity}
+
+\noindent
+Let $\mathcal{C}$ be a site.
+For a presheaf of sets $\mathcal{F}$ we denote $\mathbf{Z}_\mathcal{F}$
+the presheaf of abelian groups defined by the rule
+$$
+\mathbf{Z}_\mathcal{F}(U) = \text{free abelian group on }\mathcal{F}(U).
+$$
+We will sometimes call this the {\it free abelian presheaf on $\mathcal{F}$}.
+Of course the construction $\mathcal{F} \mapsto \mathbf{Z}_\mathcal{F}$
+is a functor and it is left adjoint to the forgetful functor
+$\textit{PAb}(\mathcal{C}) \to \textit{PSh}(\mathcal{C})$.
+Of course the sheafification $\mathbf{Z}_\mathcal{F}^\#$ is
+a sheaf of abelian groups, and the functor
+$\mathcal{F} \mapsto \mathbf{Z}_\mathcal{F}^\#$ is a
+left adjoint as well. We sometimes call $\mathbf{Z}_\mathcal{F}^\#$
+the {\it free abelian sheaf on $\mathcal{F}$}.
+
+\medskip\noindent
+For an object $X$ of the site $\mathcal{C}$ we denote
+$\mathbf{Z}_X$ the free abelian presheaf on $h_X$, and
+we denote $\mathbf{Z}_X^\#$ its sheafification.
+
+\begin{definition}
+\label{definition-homology}
+Let $\mathcal{C}$ be a site.
+Let $K$ be a simplicial object of $\textit{PSh}(\mathcal{C})$.
+By the above we get a simplicial object $\mathbf{Z}_K^\#$ of
+$\textit{Ab}(\mathcal{C})$. We can take its associated
+complex of abelian presheaves $s(\mathbf{Z}_K^\#)$, see
+Simplicial, Section \ref{simplicial-section-complexes}.
+The {\it homology of $K$} is the homology of the
+complex of abelian sheaves $s(\mathbf{Z}_K^\#)$.
+\end{definition}
+
+\noindent
+In other words, the {\it $i$th homology $H_i(K)$ of $K$}
+is the sheaf of abelian groups $H_i(K) = H_i(s(\mathbf{Z}_K^\#))$.
+In this section we worry about the homology in case $K$
+is a hypercovering of an object $X$ of $\mathcal{C}$.
+
+\begin{lemma}
+\label{lemma-compare-cosk0}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{F} \to \mathcal{G}$ be a morphism
+of presheaves of sets. Denote $K$ the simplicial
+object of $\textit{PSh}(\mathcal{C})$ whose $n$th
+term is the $(n + 1)$st fibre product of $\mathcal{F}$
+over $\mathcal{G}$, see
+Simplicial, Example \ref{simplicial-example-fibre-products-simplicial-object}.
+Then, if $\mathcal{F} \to \mathcal{G}$ is surjective after
+sheafification, we have
+$$
+H_i(K) =
+\left\{
+\begin{matrix}
+0 & \text{if} & i > 0\\
+\mathbf{Z}_\mathcal{G}^\# & \text{if} & i = 0
+\end{matrix}
+\right.
+$$
+The isomorphism in degree $0$ is given by the
+morphism $H_0(K) \to \mathbf{Z}_\mathcal{G}^\#$
+coming from the map $(\mathbf{Z}_K^\#)_0 =
+\mathbf{Z}_\mathcal{F}^\# \to \mathbf{Z}_\mathcal{G}^\#$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{G}' \subset \mathcal{G}$ be the image of
+the morphism $\mathcal{F} \to \mathcal{G}$.
+Let $U \in \Ob(\mathcal{C})$. Set
+$A = \mathcal{F}(U)$ and $B = \mathcal{G}'(U)$.
+Then the simplicial set $K(U)$ is equal to the simplicial
+set with $n$-simplices given by
+$$
+A \times_B A \times_B \ldots \times_B A\ (n + 1 \text{ factors)}.
+$$
+By Simplicial, Lemma \ref{simplicial-lemma-cosk-minus-one-equivalence}
+the morphism $K(U) \to B$ is a trivial Kan fibration.
+Thus it is a homotopy equivalence
+(Simplicial, Lemma \ref{simplicial-lemma-cosk-minus-one-equivalence}).
+Hence applying the functor ``free abelian group on'' to this
+we deduce that
+$$
+\mathbf{Z}_K(U) \longrightarrow \mathbf{Z}_B
+$$
+is a homotopy equivalence. Note that $s(\mathbf{Z}_B)$ is
+the complex
+$$
+\ldots \to
+\bigoplus\nolimits_{b \in B}\mathbf{Z} \xrightarrow{0}
+\bigoplus\nolimits_{b \in B}\mathbf{Z} \xrightarrow{1}
+\bigoplus\nolimits_{b \in B}\mathbf{Z} \xrightarrow{0}
+\bigoplus\nolimits_{b \in B}\mathbf{Z} \to 0
+$$
+see Simplicial, Lemma \ref{simplicial-lemma-homology-eilenberg-maclane}.
+Thus we see that
+$H_i(s(\mathbf{Z}_K(U))) = 0$ for $i > 0$, and
+$H_0(s(\mathbf{Z}_K(U))) = \bigoplus_{b \in B}\mathbf{Z}
+= \bigoplus_{s \in \mathcal{G}'(U)} \mathbf{Z}$.
+These identifications are compatible with restriction
+maps.
+
+\medskip\noindent
+We conclude that $H_i(s(\mathbf{Z}_K)) = 0$ for $i > 0$ and
+$H_0(s(\mathbf{Z}_K)) = \mathbf{Z}_{\mathcal{G}'}$, where here
+we compute homology groups in $\textit{PAb}(\mathcal{C})$. Since
+sheafification is an exact functor we deduce the result
+of the lemma. Namely, the exactness implies
+that $H_0(s(\mathbf{Z}_K))^\# = H_0(s(\mathbf{Z}_K^\#))$,
+and similarly for other indices.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-acyclicity}
+Let $\mathcal{C}$ be a site.
+Let $f : L \to K$ be a morphism of
+simplicial objects of $\textit{PSh}(\mathcal{C})$.
+Let $n \geq 0$ be an integer.
+Assume that
+\begin{enumerate}
+\item For $i < n$ the morphism $L_i \to K_i$ is an isomorphism.
+\item The morphism $L_n \to K_n$ is surjective after sheafification.
+\item The canonical map $L \to \text{cosk}_n \text{sk}_n L$ is an isomorphism.
+\item The canonical map $K \to \text{cosk}_n \text{sk}_n K$ is an isomorphism.
+\end{enumerate}
+Then $H_i(f) : H_i(L) \to H_i(K)$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+This proof is exactly the same as the proof of
+Lemma \ref{lemma-compare-cosk0} above. Namely,
+we first let $K_n' \subset K_n$ be the sub presheaf
+which is the image of the map $L_n \to K_n$. Assumption
+(2) means that the sheafification of $K_n'$ is equal to
+the sheafification of $K_n$. Moreover, since $L_i = K_i$
+for all $i < n$ we see that get an $n$-truncated
+simplicial presheaf $U$ by taking
+$U_0 = L_0 = K_0, \ldots, U_{n - 1} = L_{n - 1} = K_{n - 1}, U_n = K'_n$.
+Denote $K' = \text{cosk}_n U$, a simplicial presheaf.
+Because we can construct $K'_m$ as a finite limit, and
+since sheafification is exact, we see that
+$(K'_m)^\# = K_m$. In other words, $(K')^\# = K^\#$.
+We conclude, by exactness of sheafification once more,
+that $H_i(K) = H_i(K')$. Thus it suffices to prove the lemma
+for the morphism $L \to K'$, in other words, we may
+assume that $L_n \to K_n$ is a surjective morphism
+of {\it presheaves}!
+
+\medskip\noindent
+In this case, for any object $U$ of $\mathcal{C}$ we
+see that the morphism of simplicial sets
+$$
+L(U) \longrightarrow K(U)
+$$
+satisfies all the assumptions of
+Simplicial, Lemma \ref{simplicial-lemma-section}.
+Hence it is a trivial Kan fibration. In particular it is
+a homotopy equivalence
+(Simplicial, Lemma \ref{simplicial-lemma-trivial-kan-homotopy}).
+Thus
+$$
+\mathbf{Z}_L(U) \longrightarrow \mathbf{Z}_K(U)
+$$
+is a homotopy equivalence too. This for all $U$.
+The result follows.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-acyclic-hypercover-sheaves}
+Let $\mathcal{C}$ be a site.
+Let $K$ be a simplicial presheaf.
+Let $\mathcal{G}$ be a presheaf.
+Let $K \to \mathcal{G}$ be an augmentation of $K$
+towards $\mathcal{G}$. Assume that
+\begin{enumerate}
+\item The morphism of presheaves $K_0 \to \mathcal{G}$ becomes
+a surjection after sheafification.
+\item The morphism
+$$
+(d^1_0, d^1_1) :
+K_1
+\longrightarrow
+K_0 \times_\mathcal{G} K_0
+$$
+becomes a surjection after sheafification.
+\item For every $n \geq 1$ the morphism
+$$
+K_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n K)_{n + 1}
+$$
+turns into a surjection after sheafification.
+\end{enumerate}
+Then $H_i(K) = 0$ for $i > 0$ and
+$H_0(K) = \mathbf{Z}_\mathcal{G}^\#$.
+\end{lemma}
+
+\begin{proof}
+Denote $K^n = \text{cosk}_n \text{sk}_n K$ for $n \geq 1$.
+Define $K^0$ as the simplicial object with terms
+$(K^0)_n$ equal to the $(n + 1)$-fold fibred product
+$K_0 \times_\mathcal{G} \ldots \times_\mathcal{G} K_0$,
+see Simplicial,
+Example \ref{simplicial-example-fibre-products-simplicial-object}.
+We have morphisms
+$$
+K \longrightarrow \ldots \to K^n \to K^{n - 1} \to \ldots \to K^1 \to K^0.
+$$
+The morphisms $K \to K^i$, $K^j \to K^i$ for $j \geq i \geq 1$ come
+from the universal properties of the $\text{cosk}_n$ functors.
+The morphism $K^1 \to K^0$ is the canonical morphism
+from
+Simplicial, Remark \ref{simplicial-remark-augmentation}.
+We also recall that $K^0 \to \text{cosk}_1 \text{sk}_1 K^0$
+is an isomorphism, see
+Simplicial, Lemma \ref{simplicial-lemma-cosk-minus-one}.
+
+\medskip\noindent
+By Lemma \ref{lemma-compare-cosk0} we see that
+$H_i(K^0) = 0$ for $i > 0$ and $H_0(K^0) = \mathbf{Z}_\mathcal{G}^\#$.
+
+\medskip\noindent
+Pick $n \geq 1$. Consider the morphism $K^n \to K^{n - 1}$.
+It is an isomorphism on terms of degree $< n$.
+Note that $K^n \to \text{cosk}_n \text{sk}_n K^n$ and
+$K^{n - 1} \to \text{cosk}_n \text{sk}_n K^{n - 1}$
+are isomorphisms. Note that $(K^n)_n = K_n$ and
+that $(K^{n - 1})_n = (\text{cosk}_{n - 1} \text{sk}_{n - 1} K)_n$.
+Hence by assumption, we have that $(K^n)_n \to (K^{n - 1})_n$
+is a morphism of presheaves which becomes surjective after
+sheafification. By Lemma \ref{lemma-acyclicity} we conclude that
+$H_i(K^n) = H_i(K^{n - 1})$.
+Combined with the above this proves the lemma.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hypercovering-acyclic}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of of $\mathcal{C}$.
+Let $K$ be a hypercovering of $X$.
+The homology of the simplicial presheaf $F(K)$ is
+$0$ in degrees $> 0$ and equal to $\mathbf{Z}_X^\#$
+in degree $0$.
+\end{lemma}
+
+\begin{proof}
+Combine Lemmas \ref{lemma-acyclic-hypercover-sheaves}
+and \ref{lemma-hypercovering-F}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{{\v C}ech cohomology and hypercoverings}
+\label{section-hyper-cech}
+
+\noindent
+Let $\mathcal{C}$ be a site. Consider a presheaf of
+abelian groups $\mathcal{F}$ on the site $\mathcal{C}$.
+It defines a functor
+\begin{eqnarray*}
+\mathcal{F} : \text{SR}(\mathcal{C})^{opp}
+& \longrightarrow &
+\textit{Ab} \\
+\{U_i\}_{i \in I} &
+\longmapsto &
+\prod\nolimits_{i \in I} \mathcal{F}(U_i)
+\end{eqnarray*}
+Thus a simplicial object $K$ of $\text{SR}(\mathcal{C})$
+is turned into a cosimplicial object $\mathcal{F}(K)$ of $\textit{Ab}$.
+The cochain complex $s(\mathcal{F})(K))$ associated to $\mathcal{F}(K)$
+(Simplicial, Section
+\ref{simplicial-section-dold-kan-cosimplicial})
+is called the {\v C}ech complex of $\mathcal{F}$ with
+respect to the simplicial object $K$. We set
+$$
+\check{H}^i(K, \mathcal{F})
+=
+H^i(s(\mathcal{F}(K))).
+$$
+and we call it the $i$th {\v C}ech cohomology group
+of $\mathcal{F}$ with respect to $K$.
+In this section we prove analogues of some of the results for
+{\v C}ech cohomology of open coverings proved in
+Cohomology, Sections \ref{cohomology-section-cech},
+\ref{cohomology-section-cech-functor} and
+\ref{cohomology-section-cech-cohomology-cohomology}.
+
+\begin{lemma}
+\label{lemma-h0-cech}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+Let $K$ be a hypercovering of $X$.
+Let $\mathcal{F}$ be a sheaf of abelian groups on $\mathcal{C}$.
+Then $\check{H}^0(K, \mathcal{F}) = \mathcal{F}(X)$.
+\end{lemma}
+
+\begin{proof}
+We have
+$$
+\check{H}^0(K, \mathcal{F})
+=
+\Ker(\mathcal{F}(K_0) \longrightarrow \mathcal{F}(K_1))
+$$
+Write $K_0 = \{U_i \to X\}$. It is a covering in the site
+$\mathcal{C}$. As well, we have that $K_1 \to K_0 \times K_0$
+is a covering in $\text{SR}(\mathcal{C}, X)$. Hence we may
+write $K_1 = \amalg_{i_0, i_1 \in I} \{V_{i_0i_1j} \to X\}$
+so that the morphism $K_1 \to K_0 \times K_0$ is given
+by coverings $\{V_{i_0i_1j} \to U_{i_0} \times_X U_{i_1}\}$
+of the site $\mathcal{C}$. Thus we can further identify
+$$
+\check{H}^0(K, \mathcal{F})
+=
+\Ker(
+\prod\nolimits_i \mathcal{F}(U_i)
+\longrightarrow
+\prod\nolimits_{i_0i_1 j} \mathcal{F}(V_{i_0i_1j})
+)
+$$
+with obvious map. The sheaf property of $\mathcal{F}$
+implies that $\check{H}^0(K, \mathcal{F}) = H^0(X, \mathcal{F})$.
+\end{proof}
+
+\noindent
+In fact this property characterizes the abelian sheaves among all
+abelian presheaves on $\mathcal{C}$ of course.
+The analogue of Cohomology, Lemma \ref{lemma-injective-trivial-cech}
+in this case is the following.
+
+\begin{lemma}
+\label{lemma-injective-trivial-cech}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+Let $K$ be a hypercovering of $X$.
+Let $\mathcal{I}$ be an injective sheaf of abelian groups on $\mathcal{C}$.
+Then
+$$
+\check{H}^p(K, \mathcal{I}) =
+\left\{
+\begin{matrix}
+\mathcal{I}(X) & \text{if} & p = 0 \\
+0 & \text{if} & p > 0
+\end{matrix}
+\right.
+$$
+\end{lemma}
+
+\begin{proof}
+Observe that for any object $Z = \{U_i \to X\}$ of
+$\text{SR}(\mathcal{C}, X)$ and any abelian sheaf
+$\mathcal{F}$ on $\mathcal{C}$ we have
+\begin{eqnarray*}
+\mathcal{F}(Z)
+& = &
+\prod \mathcal{F}(U_i) \\
+& = &
+\prod \Mor_{\textit{PSh}(\mathcal{C})}(h_{U_i}, \mathcal{F})\\
+& = &
+\Mor_{\textit{PSh}(\mathcal{C})}(F(Z), \mathcal{F})\\
+& = &
+\Mor_{\textit{PAb}(\mathcal{C})}(\mathbf{Z}_{F(Z)}, \mathcal{F}) \\
+& = &
+\Mor_{\textit{Ab}(\mathcal{C})}(\mathbf{Z}_{F(Z)}^\#, \mathcal{F})
+\end{eqnarray*}
+Thus we see, for any simplicial object $K$ of
+$\text{SR}(\mathcal{C}, X)$ that we have
+\begin{equation}
+\label{equation-identify-cech}
+s(\mathcal{F}(K))
+=
+\Hom_{\textit{Ab}(\mathcal{C})}(s(\mathbf{Z}_{F(K)}^\#), \mathcal{F})
+\end{equation}
+see Definition \ref{definition-homology} for notation.
+The complex of sheaves $s(\mathbf{Z}_{F(K)}^\#)$ is quasi-isomorphic
+to $\mathbf{Z}_X^\#$ if $K$ is a hypercovering, see
+Lemma \ref{lemma-hypercovering-acyclic}. We conclude
+that if $\mathcal{I}$ is an injective abelian sheaf, and
+$K$ a hypercovering, then the complex $s(\mathcal{I}(K))$
+is acyclic except possibly in degree $0$.
+In other words, we have
+$$
+\check{H}^i(K, \mathcal{I}) = 0
+$$
+for $i > 0$. Combined with Lemma \ref{lemma-h0-cech} the lemma is proved.
+\end{proof}
+
+\noindent
+Next we come to the analogue of Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-cech-spectral-sequence}.
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{F}$ be a sheaf of abelian groups on $\mathcal{C}$.
+Recall that $\underline{H}^i(\mathcal{F})$ indicates the presheaf
+of abelian groups on $\mathcal{C}$ which is defined by the
+rule $\underline{H}^i(\mathcal{F}) : U \longmapsto H^i(U, \mathcal{F})$.
+We extend this to $\text{SR}(\mathcal{C})$ as in the introduction
+to this section.
+
+\begin{lemma}
+\label{lemma-cech-spectral-sequence}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+Let $K$ be a hypercovering of $X$.
+Let $\mathcal{F}$ be a sheaf of abelian groups on $\mathcal{C}$.
+There is a map
+$$
+s(\mathcal{F}(K))
+\longrightarrow
+R\Gamma(X, \mathcal{F})
+$$
+in $D^{+}(\textit{Ab})$ functorial in $\mathcal{F}$, which induces
+natural transformations
+$$
+\check{H}^i(K, -) \longrightarrow H^i(X, -)
+$$
+as functors $\textit{Ab}(\mathcal{C}) \to \textit{Ab}$. Moreover,
+there is a spectral sequence $(E_r, d_r)_{r \geq 0}$ with
+$$
+E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))
+$$
+converging to $H^{p + q}(X, \mathcal{F})$.
+This spectral sequence is functorial in $\mathcal{F}$ and
+in the hypercovering $K$.
+\end{lemma}
+
+\begin{proof}
+We could prove this by the same method as employed in the corresponding
+lemma in the chapter on cohomology. Instead let us prove this by a
+double complex argument.
+
+\medskip\noindent
+Choose an injective resolution $\mathcal{F} \to \mathcal{I}^\bullet$
+in the category of abelian sheaves on $\mathcal{C}$. Consider the
+double complex $A^{\bullet, \bullet}$ with terms
+$$
+A^{p, q} = \mathcal{I}^q(K_p)
+$$
+where the differential $d_1^{p, q} : A^{p, q} \to A^{p + 1, q}$
+is the one coming from the differential $\mathcal{I}^p \to \mathcal{I}^{p + 1}$
+and the differential $d_2^{p, q} : A^{p, q} \to A^{p, q + 1}$ is the
+one coming from the differential on the complex
+$s(\mathcal{I}^p(K))$ associated to the cosimplicial abelian group
+$\mathcal{I}^p(K)$ as explained above.
+As usual we denote $sA^\bullet$ the simple complex associated to
+the double complex $A^{\bullet, \bullet}$.
+We will use the two spectral
+sequences $({}'E_r, {}'d_r)$ and $({}''E_r, {}''d_r)$
+associated to this double complex, see
+Homology, Section \ref{homology-section-double-complex}.
+
+\medskip\noindent
+By Lemma \ref{lemma-injective-trivial-cech}
+the complexes $s(\mathcal{I}^p(K))$ are acyclic in
+positive degrees and have $H^0$ equal to $\mathcal{I}^p(X)$.
+Hence by
+Homology, Lemma \ref{homology-lemma-double-complex-gives-resolution}
+and its proof the spectral sequence $({}'E_r, {}'d_r)$ degenerates,
+and the natural map
+$$
+\mathcal{I}^\bullet(X) \longrightarrow sA^\bullet
+$$
+is a quasi-isomorphism of complexes of abelian groups. In particular
+we conclude that $H^n(sA^\bullet) = H^n(X, \mathcal{F})$.
+
+\medskip\noindent
+The map $s(\mathcal{F}(K)) \longrightarrow R\Gamma(X, \mathcal{F})$ of
+the lemma is the composition of the natural map
+$s(\mathcal{F}(K)) \to sA^\bullet$ followed by the inverse
+of the displayed quasi-isomorphism above. This works because
+$\mathcal{I}^\bullet(X)$ is a representative of $R\Gamma(X, \mathcal{F})$.
+
+\medskip\noindent
+Consider the spectral sequence $({}''E_r, {}''d_r)_{r \geq 0}$. By
+Homology, Lemma \ref{homology-lemma-ss-double-complex}
+we see that
+$$
+{}''E_2^{p, q} = H^p_{II}(H^q_I(A^{\bullet, \bullet}))
+$$
+In other words, we first take cohomology with respect to
+$d_1$ which gives the groups
+${}''E_1^{p, q} = \underline{H}^p(\mathcal{F})(K_q)$.
+Hence it is indeed the case (by the description of the differential
+${}''d_1$) that
+${}''E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))$.
+And by the other spectral sequence above we see that this one
+converges to $H^n(X, \mathcal{F})$ as desired.
+
+\medskip\noindent
+We omit the proof of the statements regarding the functoriality of
+the above constructions in the abelian sheaf $\mathcal{F}$ and the
+hypercovering $K$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+\section{Hypercoverings a la Verdier}
+\label{section-hypercoverings-verdier}
+
+\noindent
+The astute reader will have noticed that all we need in order
+to get the {\v C}ech to cohomology spectral sequence for a
+hypercovering of an object $X$, is the
+conclusion of Lemma \ref{lemma-hypercovering-F}.
+Therefore the following definition makes sense.
+
+\begin{definition}
+\label{definition-hypercovering-variant}
+Let $\mathcal{C}$ be a site. Assume $\mathcal{C}$ has equalizers
+and fibre products. Let $\mathcal{G}$ be a presheaf of sets.
+A {\it hypercovering of $\mathcal{G}$} is a simplicial object
+$K$ of $\text{SR}(\mathcal{C})$ endowed with an augmentation
+$F(K) \to \mathcal{G}$ such that
+\begin{enumerate}
+\item $F(K_0) \to \mathcal{G}$ becomes surjective
+after sheafification,
+\item $F(K_1) \to F(K_0) \times_\mathcal{G} F(K_0)$
+becomes surjective after sheafification, and
+\item $F(K_{n + 1}) \longrightarrow F((\text{cosk}_n \text{sk}_n K)_{n + 1})$
+for $n \geq 1$ becomes surjective after sheafification.
+\end{enumerate}
+We say that a simplicial object $K$ of $\text{SR}(\mathcal{C})$
+is a {\it hypercovering} if $K$ is a hypercovering of the final
+object $*$ of $\textit{PSh}(\mathcal{C})$.
+\end{definition}
+
+\noindent
+The assumption that $\mathcal{C}$ has fibre products and equalizers
+guarantees that $\text{SR}(\mathcal{C})$ has fibre products
+and equalizers and $F$ commutes with these
+(Lemma \ref{lemma-coprod-prod-SR}) which suffices
+to define the coskeleton functors used (see
+Simplicial, Remark \ref{simplicial-remark-existence-cosk} and
+Categories, Lemma \ref{categories-lemma-fibre-products-equalizers-exist}).
+If $\mathcal{C}$ is general, we can replace the condition (3) by the
+condition that
+$F(K_{n + 1}) \longrightarrow ((\text{cosk}_n \text{sk}_n F(K))_{n + 1})$
+for $n \geq 1$ becomes surjective after sheafification and the
+results of this section remain valid.
+
+\medskip\noindent
+Let $\mathcal{F}$ be an abelian sheaf on $\mathcal{C}$.
+In the previous section, we defined the {\v C}ech complex of $\mathcal{F}$
+with respect to a simplicial object $K$ of $\text{SR}(\mathcal{C})$.
+Next, given a presheaf $\mathcal{G}$ we set
+$$
+H^0(\mathcal{G}, \mathcal{F}) =
+\Mor_{\textit{PSh}(\mathcal{C})}(\mathcal{G}, \mathcal{F}) =
+\Mor_{\Sh(\mathcal{C})}(\mathcal{G}^\#, \mathcal{F}) =
+H^0(\mathcal{G}^\#, \mathcal{F})
+$$
+with notation as in
+Cohomology on Sites, Section \ref{sites-cohomology-section-limp}.
+This is a left exact functor and its higher derived functors
+(briefly studied in
+Cohomology on Sites, Section \ref{sites-cohomology-section-limp})
+will be denoted $H^i(\mathcal{G}, \mathcal{F})$.
+We will show that given a hypercovering $K$ of $\mathcal{G}$,
+there is a {\v C}ech to cohomology spectral sequence converging to the
+cohomology $H^i(\mathcal{G}, \mathcal{F})$.
+Note that if $\mathcal{G} = *$, then
+$H^i(*, \mathcal{F}) = H^i(\mathcal{C}, \mathcal{F})$ recovers
+the cohomology of $\mathcal{F}$ on the site $\mathcal{C}$.
+
+\begin{lemma}
+\label{lemma-h0-cech-variant}
+Let $\mathcal{C}$ be a site with equalizers and fibre products.
+Let $\mathcal{G}$ be a presheaf on $\mathcal{C}$.
+Let $K$ be a hypercovering of $\mathcal{G}$.
+Let $\mathcal{F}$ be a sheaf of abelian groups on $\mathcal{C}$.
+Then $\check{H}^0(K, \mathcal{F}) = H^0(\mathcal{G}, \mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+This follows from the definition of $H^0(\mathcal{G}, \mathcal{F})$
+and the fact that
+$$
+\xymatrix{
+F(K_1) \ar@<1ex>[r] \ar@<-1ex>[r] &
+F(K_0) \ar[r] & \mathcal{G}
+}
+$$
+becomes an coequalizer diagram after sheafification.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-injective-trivial-cech-variant}
+Let $\mathcal{C}$ be a site with equalizers and fibre products.
+Let $\mathcal{G}$ be a presheaf on $\mathcal{C}$.
+Let $K$ be a hypercovering of $\mathcal{G}$.
+Let $\mathcal{I}$ be an injective sheaf of abelian groups on $\mathcal{C}$.
+Then
+$$
+\check{H}^p(K, \mathcal{I}) =
+\left\{
+\begin{matrix}
+H^0(\mathcal{G}, \mathcal{I}) & \text{if} & p = 0 \\
+0 & \text{if} & p > 0
+\end{matrix}
+\right.
+$$
+\end{lemma}
+
+\begin{proof}
+By (\ref{equation-identify-cech}) we have
+$$
+s(\mathcal{F}(K))
+=
+\Hom_{\textit{Ab}(\mathcal{C})}(s(\mathbf{Z}_{F(K)}^\#), \mathcal{F})
+$$
+The complex $s(\mathbf{Z}_{F(K)}^\#)$ is quasi-isomorphic
+to $\mathbf{Z}_\mathcal{G}^\#$, see
+Lemma \ref{lemma-acyclic-hypercover-sheaves}. We conclude
+that if $\mathcal{I}$ is an injective abelian sheaf, then
+the complex $s(\mathcal{I}(K))$ is acyclic except possibly in degree $0$.
+In other words, we have $\check{H}^i(K, \mathcal{I}) = 0$
+for $i > 0$. Combined with Lemma \ref{lemma-h0-cech-variant}
+the lemma is proved.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cech-spectral-sequence-variant}
+Let $\mathcal{C}$ be a site with equalizers and fibre products.
+Let $\mathcal{G}$ be a presheaf on $\mathcal{C}$.
+Let $K$ be a hypercovering of $\mathcal{G}$.
+Let $\mathcal{F}$ be a sheaf of abelian groups on $\mathcal{C}$.
+There is a map
+$$
+s(\mathcal{F}(K)) \longrightarrow R\Gamma(\mathcal{G}, \mathcal{F})
+$$
+in $D^{+}(\textit{Ab})$ functorial in $\mathcal{F}$, which induces
+a natural transformation
+$$
+\check{H}^i(K, -) \longrightarrow H^i(\mathcal{G}, -)
+$$
+of functors $\textit{Ab}(\mathcal{C}) \to \textit{Ab}$. Moreover,
+there is a spectral sequence $(E_r, d_r)_{r \geq 0}$ with
+$$
+E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))
+$$
+converging to $H^{p + q}(\mathcal{G}, \mathcal{F})$.
+This spectral sequence is functorial in $\mathcal{F}$ and
+in the hypercovering $K$.
+\end{lemma}
+
+\begin{proof}
+Choose an injective resolution $\mathcal{F} \to \mathcal{I}^\bullet$
+in the category of abelian sheaves on $\mathcal{C}$. Consider the
+double complex $A^{\bullet, \bullet}$ with terms
+$$
+A^{p, q} = \mathcal{I}^q(K_p)
+$$
+where the differential $d_1^{p, q} : A^{p, q} \to A^{p + 1, q}$
+is the one coming from the differential $\mathcal{I}^p \to \mathcal{I}^{p + 1}$
+and the differential $d_2^{p, q} : A^{p, q} \to A^{p, q + 1}$ is the
+one coming from the differential on the complex
+$s(\mathcal{I}^p(K))$ associated to the cosimplicial abelian group
+$\mathcal{I}^p(K)$ as explained above.
+We will use the two spectral
+sequences $({}'E_r, {}'d_r)$ and $({}''E_r, {}''d_r)$
+associated to this double complex, see
+Homology, Section \ref{homology-section-double-complex}.
+
+\medskip\noindent
+By Lemma \ref{lemma-injective-trivial-cech-variant} the complexes
+$s(\mathcal{I}^p(K))$ are acyclic in positive degrees and have
+$H^0$ equal to $H^0(\mathcal{G}, \mathcal{I}^p)$. Hence by
+Homology, Lemma \ref{homology-lemma-double-complex-gives-resolution}
+and its proof the spectral sequence $({}'E_r, {}'d_r)$ degenerates,
+and the natural map
+$$
+H^0(\mathcal{G}, \mathcal{I}^\bullet) \longrightarrow
+\text{Tot}(A^{\bullet, \bullet})
+$$
+is a quasi-isomorphism of complexes of abelian groups. The map
+$s(\mathcal{F}(K)) \longrightarrow R\Gamma(\mathcal{G}, \mathcal{F})$
+of the lemma is the composition of the natural map
+$s(\mathcal{F}(K)) \to \text{Tot}(A^{\bullet, \bullet})$
+followed by the inverse of the displayed quasi-isomorphism above.
+This works because $H^0(\mathcal{G}, \mathcal{I}^\bullet)$
+is a representative of $R\Gamma(\mathcal{G}, \mathcal{F})$.
+
+\medskip\noindent
+Consider the spectral sequence $({}''E_r, {}''d_r)_{r \geq 0}$. By
+Homology, Lemma \ref{homology-lemma-ss-double-complex}
+we see that
+$$
+{}''E_2^{p, q} = H^p_{II}(H^q_I(A^{\bullet, \bullet}))
+$$
+In other words, we first take cohomology with respect to
+$d_1$ which gives the groups
+${}''E_1^{p, q} = \underline{H}^p(\mathcal{F})(K_q)$.
+Hence it is indeed the case (by the description of the differential
+${}''d_1$) that
+${}''E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))$.
+Since this spectral sequence converges to the cohomology of
+$\text{Tot}(A^{\bullet, \bullet})$ the proof is finished.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cech-spectral-sequence-verdier}
+Let $\mathcal{C}$ be a site with equalizers and fibre products.
+Let $K$ be a hypercovering.
+Let $\mathcal{F}$ be an abelian sheaf. There is a
+spectral sequence $(E_r, d_r)_{r \geq 0}$ with
+$$
+E_2^{p, q} = \check{H}^p(K, \underline{H}^q(\mathcal{F}))
+$$
+converging to the global cohomology groups $H^{p + q}(\mathcal{F})$.
+\end{lemma}
+
+\begin{proof}
+This is a special case of Lemma \ref{lemma-cech-spectral-sequence-variant}.
+\end{proof}
+
+
+
+
+
+
+
+\section{Covering hypercoverings}
+\label{section-covering}
+
+\noindent
+Here are some ways to construct hypercoverings.
+We note that since the category
+$\text{SR}(\mathcal{C}, X)$ has fibre products
+the category of simplicial objects
+of $\text{SR}(\mathcal{C}, X)$ has fibre products
+as well, see Simplicial, Lemma \ref{simplicial-lemma-fibre-product}.
+
+\begin{lemma}
+\label{lemma-funny-gamma}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+Let $K, L, M$ be simplicial objects of $\text{SR}(\mathcal{C}, X)$.
+Let $a : K \to L$, $b : M \to L$ be morphisms.
+Assume
+\begin{enumerate}
+\item $K$ is a hypercovering of $X$,
+\item the morphism $M_0 \to L_0$ is a covering, and
+\item for all $n \geq 0$ in the diagram
+$$
+\xymatrix{
+M_{n + 1} \ar[dd] \ar[rr] \ar[rd]^\gamma &
+&
+(\text{cosk}_n \text{sk}_n M)_{n + 1} \ar[dd] \\
+&
+L_{n + 1}
+\times_{(\text{cosk}_n \text{sk}_n L)_{n + 1}}
+(\text{cosk}_n \text{sk}_n M)_{n + 1}
+\ar[ld] \ar[ru]
+& \\
+L_{n + 1} \ar[rr] & & (\text{cosk}_n \text{sk}_n L)_{n + 1}
+}
+$$
+the arrow $\gamma$ is a covering.
+\end{enumerate}
+Then the fibre product $K \times_L M$ is a hypercovering of $X$.
+\end{lemma}
+
+\begin{proof}
+The morphism $(K \times_L M)_0 = K_0 \times_{L_0} M_0 \to K_0$
+is a base change of a covering by (2), hence a covering, see
+Lemma \ref{lemma-covering-permanence}. And $K_0 \to \{X \to X\}$
+is a covering by (1). Thus $(K \times_L M)_0 \to \{X \to X\}$
+is a covering by Lemma \ref{lemma-covering-permanence}. Hence
+$K \times_L M$ satisfies the first condition of Definition
+\ref{definition-hypercovering}.
+
+\medskip\noindent
+We still have to check that
+$$
+K_{n + 1} \times_{L_{n + 1}} M_{n + 1} = (K \times_L M)_{n + 1}
+\longrightarrow
+(\text{cosk}_n \text{sk}_n (K \times_L M))_{n + 1}
+$$
+is a covering for all $n \geq 0$. We abbreviate as follows:
+$A = (\text{cosk}_n \text{sk}_n K)_{n + 1}$,
+$B = (\text{cosk}_n \text{sk}_n L)_{n + 1}$, and
+$C = (\text{cosk}_n \text{sk}_n M)_{n + 1}$.
+The functor $\text{cosk}_n \text{sk}_n$ commutes with fibre products,
+see Simplicial, Lemma \ref{simplicial-lemma-cosk-fibre-product}.
+Thus the right hand side above is equal to $A \times_B C$.
+Consider the following commutative diagram
+$$
+\xymatrix{
+K_{n + 1} \times_{L_{n + 1}} M_{n + 1} \ar[r] \ar[d] &
+M_{n + 1} \ar[d] \ar[rd]_\gamma \ar[rrd] &
+& \\
+K_{n + 1} \ar[r] \ar[rd] &
+L_{n + 1} \ar[rrd] &
+L_{n + 1} \times_B C \ar[l] \ar[r] &
+C \ar[d] \\
+&
+A \ar[rr] &
+&
+B
+}
+$$
+This diagram shows that
+$$
+K_{n + 1} \times_{L_{n + 1}} M_{n + 1}
+=
+(K_{n + 1} \times_B C)
+\times_{(L_{n + 1} \times_B C), \gamma}
+M_{n + 1}
+$$
+Now, $K_{n + 1} \times_B C \to A \times_B C$
+is a base change of the covering $K_{n + 1} \to A$
+via the morphism $A \times_B C \to A$, hence is a
+covering. By assumption (3) the morphism $\gamma$ is a covering.
+Hence the morphism
+$$
+(K_{n + 1} \times_B C)
+\times_{(L_{n + 1} \times_B C), \gamma}
+M_{n + 1}
+\longrightarrow
+K_{n + 1} \times_B C
+$$
+is a covering as a base change of a covering.
+The lemma follows as a composition of coverings
+is a covering.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-product-hypercoverings}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+If $K, L$ are hypercoverings of $X$, then
+$K \times L$ is a hypercovering of $X$.
+\end{lemma}
+
+\begin{proof}
+You can either verify this directly, or use
+Lemma \ref{lemma-funny-gamma} above and check that $L \to \{X \to X\}$
+has property (3).
+\end{proof}
+
+
+\noindent
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+Since the category $\text{SR}(\mathcal{C}, X)$ has coproducts and
+finite limits, it is permissible to speak about the objects
+$U \times K$ and $\Hom(U, K)$ for certain simplicial sets $U$
+(for example those with finitely many nondegenerate simplices)
+and any simplicial object $K$ of $\text{SR}(\mathcal{C}, X)$.
+See Simplicial, Sections
+\ref{simplicial-section-product-with-simplicial-sets} and
+\ref{simplicial-section-hom-from-simplicial-sets}.
+
+\begin{lemma}
+\label{lemma-covering}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+Let $K$ be a hypercovering of $X$.
+Let $k \geq 0$ be an integer.
+Let $u : Z \to K_k$ be a covering in
+in $\text{SR}(\mathcal{C}, X)$.
+Then there exists a morphism of hypercoverings
+$f: L \to K$ such that $L_k \to K_k$
+factors through $u$.
+\end{lemma}
+
+\begin{proof}
+Denote $Y = K_k$. Let $C[k]$ be the cosimplicial set defined in
+Simplicial, Example \ref{simplicial-example-simplex-cosimplicial-set}.
+We will use the description of $\Hom(C[k], Y)$ and $\Hom(C[k], Z)$
+given in
+Simplicial, Lemma \ref{simplicial-lemma-morphism-into-product}.
+There is a canonical morphism
+$K \to \Hom(C[k], Y)$ corresponding to $\text{id} : K_k = Y \to Y$.
+Consider the morphism $\Hom(C[k], Z) \to \Hom(C[k], Y)$
+which on degree $n$ terms is the morphism
+$$
+\prod\nolimits_{\alpha : [k] \to [n]} Z
+\longrightarrow
+\prod\nolimits_{\alpha : [k] \to [n]} Y
+$$
+using the given morphism $Z \to Y$ on each factor. Set
+$$
+L = K \times_{\Hom(C[k], Y)} \Hom(C[k], Z).
+$$
+The morphism $L_k \to K_k$ sits in to a commutative diagram
+$$
+\xymatrix{
+L_k \ar[r] \ar[d] &
+\prod_{\alpha : [k] \to [k]} Z \ar[r]^-{\text{pr}_{\text{id}_{[k]}}} \ar[d] &
+Z \ar[d] \\
+K_k \ar[r] &
+\prod_{\alpha : [k] \to [k]} Y \ar[r]^-{\text{pr}_{\text{id}_{[k]}}} &
+Y
+}
+$$
+Since the composition of the two bottom arrows is the identity
+we conclude that we have the desired factorization.
+
+\medskip\noindent
+We still have to show that $L$ is a hypercovering of $X$.
+To see this we will use Lemma \ref{lemma-funny-gamma}.
+Condition (1) is satisfied by assumption.
+For (2), the morphism
+$$
+\Hom(C[k], Z)_0 \to \Hom(C[k], Y)_0
+$$
+is a covering because it is isomorphic to $Z \to Y$ as
+there is only one morphism $[k] \to [0]$.
+
+\medskip\noindent
+Let us consider condition (3) for $n = 0$. Then, since
+$(\text{cosk}_0 T)_1 = T \times T$
+(Simplicial, Example \ref{simplicial-example-cosk0})
+and since $\Hom(C[k], Z)_1 = \prod_{\alpha : [k] \to [1]} Z$
+we obtain the diagram
+$$
+\xymatrix{
+\prod\nolimits_{\alpha : [k] \to [1]} Z \ar[r] \ar[d] &
+Z \times Z \ar[d] \\
+\prod\nolimits_{\alpha : [k] \to [1]} Y \ar[r] &
+Y \times Y
+}
+$$
+with horizontal arrows corresponding to the projection onto the factors
+corresponding to the two nonsurjective $\alpha$. Thus the arrow $\gamma$
+is the morphism
+$$
+\prod\nolimits_{\alpha : [k] \to [1]} Z
+\longrightarrow
+\prod\nolimits_{\alpha : [k] \to [1]\text{ not onto}} Z
+\times
+\prod\nolimits_{\alpha : [k] \to [1]\text{ onto}} Y
+$$
+which is a product of coverings and hence a covering by
+Lemma \ref{lemma-covering-permanence}.
+
+\medskip\noindent
+Let us consider condition (3) for $n > 0$. We claim there is an
+injective map $\tau : S' \to S$ of finite sets, such that for any
+object $T$ of $\text{SR}(\mathcal{C}, X)$ the morphism
+\begin{equation}
+\label{equation-map}
+\Hom(C[k], T)_{n + 1} \to
+(\text{cosk}_n \text{sk}_n \Hom(C[k], T))_{n + 1}
+\end{equation}
+is isomorphic to the projection $\prod_{s \in S} T \to \prod_{s' \in S'} T$
+functorially in $T$. If this is true, then we see, arguing as in the previous
+paragraph, that the arrow $\gamma$ is the morphism
+$$
+\prod\nolimits_{s \in S} Z
+\longrightarrow
+\prod\nolimits_{s \in S'} Z
+\times
+\prod\nolimits_{s \not\in \tau(S')} Y
+$$
+which is a product of coverings and hence a covering by
+Lemma \ref{lemma-covering-permanence}. By construction, we have
+$\Hom(C[k], T)_{n + 1} = \prod_{\alpha : [k] \to [n + 1]} T$
+(see Simplicial, Lemma \ref{simplicial-lemma-morphism-into-product}).
+Correspondingly we take $S = \text{Map}([k], [n + 1])$.
+On the other hand, Simplicial, Lemma \ref{simplicial-lemma-formula-limit},
+provides a description of points of
+$(\text{cosk}_n \text{sk}_n \Hom(C[k], T))_{n + 1}$
+as sequences $(f_0, \ldots, f_{n + 1})$ of points of $\Hom(C[k], T)_n$
+satisfying $d^n_{j - 1} f_i = d^n_i f_j$ for $0 \leq i < j \leq n + 1$.
+We can write $f_i = (f_{i, \alpha})$ with $f_{i, \alpha}$ a point of $T$
+and $\alpha \in \text{Map}([k], [n])$. The conditions translate into
+$$
+f_{i, \delta^n_{j - 1} \circ \beta} = f_{j, \delta_i^n \circ \beta}
+$$
+for any $0 \leq i < j \leq n + 1$ and $\beta : [k] \to [n - 1]$. Thus we
+see that
+$$
+S' = \{0, \ldots, n + 1\} \times \text{Map}([k], [n]) / \sim
+$$
+where the equivalence relation is generated by the equivalences
+$$
+(i, \delta^n_{j - 1} \circ \beta) \sim (j, \delta_i^n \circ \beta)
+$$
+for $0 \leq i < j \leq n + 1$ and $\beta : [k] \to [n - 1]$.
+A computation (omitted) shows that the morphism (\ref{equation-map})
+corresponds to the map $S' \to S$ which sends $(i, \alpha)$ to
+$\delta^{n + 1}_i \circ \alpha \in S$. (It may be a comfort to the
+reader to see that this map is well defined by part (1) of
+Simplicial, Lemma \ref{simplicial-lemma-relations-face-degeneracy}.)
+To finish the proof it suffices to show that if
+$\alpha, \alpha' : [k] \to [n]$ and $0 \leq i < j \leq n + 1$
+are such that
+$$
+\delta^{n + 1}_i \circ \alpha = \delta^{n + 1}_j \circ \alpha'
+$$
+then we have $\alpha = \delta^n_{j - 1} \circ \beta$
+and $\alpha' = \delta_i^n \circ \beta$ for some $\beta : [k] \to [n - 1]$.
+This is easy to see and omitted.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-covering-sheaf}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+Let $K$ be a hypercovering of $X$.
+Let $n \geq 0$ be an integer.
+Let $u : \mathcal{F} \to F(K_n)$ be a morphism
+of presheaves which becomes surjective
+on sheafification.
+Then there exists a morphism of hypercoverings
+$f: L \to K$ such that $F(f_n) : F(L_n) \to F(K_n)$
+factors through $u$.
+\end{lemma}
+
+\begin{proof}
+Write $K_n = \{U_i \to X\}_{i \in I}$.
+Thus the map $u$ is a morphism of presheaves of sets
+$u : \mathcal{F} \to \amalg h_{u_i}$.
+The assumption on $u$ means that for every
+$i \in I$ there exists a covering $\{U_{ij} \to U_i\}_{j \in I_i}$
+of the site $\mathcal{C}$ and a morphism of presheaves
+$t_{ij} : h_{U_{ij}} \to \mathcal{F}$ such that
+$u \circ t_{ij}$ is the map $h_{U_{ij}} \to h_{U_i}$
+coming from the morphism $U_{ij} \to U_i$.
+Set $J = \amalg_{i \in I} I_i$, and let
+$\alpha : J \to I$ be the obvious map.
+For $j \in J$ denote $V_j = U_{\alpha(j)j}$. Set
+$Z = \{V_j \to X\}_{j \in J}$.
+Finally, consider the morphism
+$u' : Z \to K_n$ given by $\alpha : J \to I$
+and the morphisms $V_j = U_{\alpha(j)j} \to U_{\alpha(j)}$
+above. Clearly, this is a covering in the
+category $\text{SR}(\mathcal{C}, X)$, and by
+construction $F(u') : F(Z) \to F(K_n)$ factors through $u$.
+Thus the result follows from Lemma \ref{lemma-covering} above.
+\end{proof}
+
+
+\section{Adding simplices}
+\label{section-adding-simplices}
+
+\noindent
+In this section we prove some technical lemmas which we will need later.
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+As we pointed out in Section \ref{section-covering} above,
+the objects $U \times K$ and $\Hom(U, K)$
+for certain simplicial sets $U$
+and any simplicial object $K$ of $\text{SR}(\mathcal{C}, X)$
+are defined. See Simplicial, Sections
+\ref{simplicial-section-product-with-simplicial-sets} and
+\ref{simplicial-section-hom-from-simplicial-sets}.
+
+\begin{lemma}
+\label{lemma-one-more-simplex}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+Let $K$ be a hypercovering of $X$.
+Let $U \subset V$ be simplicial sets, with $U_n, V_n$
+finite nonempty for all $n$.
+Assume that $U$ has finitely many nondegenerate simplices.
+Suppose $n \geq 0$ and $x \in V_n$,
+$x \not \in U_n$ are such that
+\begin{enumerate}
+\item $V_i = U_i$ for $i < n$,
+\item $V_n = U_n \cup \{x\}$,
+\item any $z \in V_j$, $z \not \in U_j$ for $j > n$
+is degenerate.
+\end{enumerate}
+Then the morphism
+$$
+\Hom(V, K)_0
+\longrightarrow
+\Hom(U, K)_0
+$$
+of $\text{SR}(\mathcal{C}, X)$ is a covering.
+\end{lemma}
+
+\begin{proof}
+If $n = 0$, then it follows easily that $V = U \amalg \Delta[0]$
+(see below). In this case $\Hom(V, K)_0 =
+\Hom(U, K)_0 \times K_0$. The result, in this case, then follows
+from Lemma \ref{lemma-covering-permanence}.
+
+\medskip\noindent
+Let $a : \Delta[n] \to V$ be the morphism associated to $x$
+as in Simplicial, Lemma \ref{simplicial-lemma-simplex-map}.
+Let us write $\partial \Delta[n] = i_{(n-1)!} \text{sk}_{n - 1} \Delta[n]$
+for the $(n - 1)$-skeleton of $\Delta[n]$.
+Let $b : \partial \Delta[n] \to U$ be the restriction
+of $a$ to the $(n - 1)$ skeleton of $\Delta[n]$. By
+Simplicial, Lemma \ref{simplicial-lemma-glue-simplex}
+we have $V = U \amalg_{\partial \Delta[n]} \Delta[n]$. By
+Simplicial, Lemma
+\ref{simplicial-lemma-hom-from-coprod}
+we get that
+$$
+\xymatrix{
+\Hom(V, K)_0 \ar[r] \ar[d] &
+\Hom(U, K)_0 \ar[d] \\
+\Hom(\Delta[n], K)_0 \ar[r] &
+\Hom(\partial \Delta[n], K)_0
+}
+$$
+is a fibre product square. Thus it suffices to show that
+the bottom horizontal arrow is a covering. By
+Simplicial, Lemma \ref{simplicial-lemma-cosk-shriek}
+this arrow is identified with
+$$
+K_n \to (\text{cosk}_{n - 1} \text{sk}_{n - 1} K)_n
+$$
+and hence is a covering by definition of a hypercovering.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-add-simplices}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+Let $K$ be a hypercovering of $X$.
+Let $U \subset V$ be simplicial sets, with $U_n, V_n$
+finite nonempty for all $n$.
+Assume that $U$ and $V$ have finitely many nondegenerate simplices.
+Then the morphism
+$$
+\Hom(V, K)_0
+\longrightarrow
+\Hom(U, K)_0
+$$
+of $\text{SR}(\mathcal{C}, X)$ is a covering.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-one-more-simplex}
+above, it suffices to prove a simple lemma
+about inclusions of simplicial sets $U \subset V$ as in the
+lemma. And this is exactly the result of
+Simplicial, Lemma \ref{simplicial-lemma-add-simplices}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-degeneracy-maps-coverings}
+Let $\mathcal{C}$ be a site with fibre products. Let $X$ be an object of
+$\mathcal{C}$. Let $K$ be a hypercovering of $X$. Then
+\begin{enumerate}
+\item $K_n$ is a covering of $X$ for each $n \geq 0$,
+\item $d^n_i : K_n \to K_{n - 1}$ is a covering for all $n \geq 1$
+and $0 \leq i \leq n$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Recall that $K_0$ is a covering of $X$ by
+Definition \ref{definition-hypercovering}
+and that this is equivalent to saying that
+$K_0 \to \{X \to X\}$ is a covering in the sense
+of Definition \ref{definition-covering-SR}.
+Hence (1) follows from (2) because it will prove that
+the composition
+$K_n \to K_{n - 1} \to \ldots \to K_0 \to \{X \to X\}$
+is a covering by Lemma \ref{lemma-covering-permanence}.
+
+\medskip\noindent
+Proof of (2). Observe that
+$\Mor(\Delta[n], K)_0 = K_n$ by
+Simplicial, Lemma \ref{simplicial-lemma-exists-hom-from-simplicial-set-finite}.
+Therefore (2) follows from Lemma \ref{lemma-add-simplices}
+applied to the $n + 1$ different inclusions $\Delta[n - 1] \to \Delta[n]$.
+\end{proof}
+
+\begin{remark}
+\label{remark-P-covering}
+A useful special case of Lemmas \ref{lemma-add-simplices} and
+\ref{lemma-degeneracy-maps-coverings} is the following.
+Suppose we have a category $\mathcal{C}$ having fibre products.
+Let $P \subset \text{Arrows}(\mathcal{C})$ be a subset
+stable under base change, stable under composition,
+and containing all isomorphisms. Then one says a
+{\it $P$-hypercovering} is an augmentation $a : U \to X$
+from a simplicial object of $\mathcal{C}$ such that
+\begin{enumerate}
+\item $U_0 \to X$ is in $P$,
+\item $U_1 \to U_0 \times_X U_0$ is in $P$,
+\item $U_{n + 1} \to (\text{cosk}_n\text{sk}_n U)_{n + 1}$
+is in $P$ for $n \geq 1$.
+\end{enumerate}
+The category $\mathcal{C}/X$ has all finite limits, hence the
+coskeleta used in the formulation above exist
+(see Categories, Lemma \ref{categories-lemma-finite-limits-exist}).
+Then we claim that the morphisms $U_n \to X$ and $d^n_i : U_n \to U_{n - 1}$
+are in $P$. This follows from the aforementioned
+lemmas by turning $\mathcal{C}$ into a site whose coverings
+are $\{f : V \to U\}$ with $f \in P$ and taking $K$ given by
+$K_n = \{U_n \to X\}$.
+\end{remark}
+
+
+\section{Homotopies}
+\label{section-homotopies}
+
+\noindent
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+Let $L$ be a simplicial object of $\text{SR}(\mathcal{C}, X)$.
+According to
+Simplicial, Lemma \ref{simplicial-lemma-exists-hom-from-simplicial-set-finite}
+there exists an object $\Hom(\Delta[1], L)$
+in the category $\text{Simp}(\text{SR}(\mathcal{C}, X))$ which represents the
+functor
+$$
+T
+\longmapsto
+\Mor_{\text{Simp}(\text{SR}(\mathcal{C}, X))}(\Delta[1] \times T, L)
+$$
+There is a canonical morphism
+$$
+\Hom(\Delta[1], L) \to L \times L
+$$
+coming from $e_i : \Delta[0] \to \Delta[1]$ and the identification
+$\Hom(\Delta[0], L) = L$.
+
+\begin{lemma}
+\label{lemma-hom-hypercovering}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+Let $L$ be a simplicial object of $\text{SR}(\mathcal{C}, X)$.
+Let $n \geq 0$. Consider the commutative diagram
+\begin{equation}
+\label{equation-diagram}
+\xymatrix{
+\Hom(\Delta[1], L)_{n + 1} \ar[r] \ar[d] &
+(\text{cosk}_n \text{sk}_n \Hom(\Delta[1], L))_{n + 1} \ar[d] \\
+(L \times L)_{n + 1} \ar[r] &
+(\text{cosk}_n \text{sk}_n (L \times L))_{n + 1}
+}
+\end{equation}
+coming from the morphism defined above.
+We can identify the terms in this diagram as follows,
+where
+$\partial \Delta[n + 1] = i_{n!}\text{sk}_n \Delta[n + 1]$
+is the $n$-skeleton of the $(n + 1)$-simplex:
+\begin{eqnarray*}
+\Hom(\Delta[1], L)_{n + 1}
+& = &
+\Hom(\Delta[1] \times \Delta[n + 1], L)_0 \\
+(\text{cosk}_n \text{sk}_n \Hom(\Delta[1], L))_{n + 1}
+& = &
+\Hom(\Delta[1] \times \partial \Delta[n + 1], L)_0 \\
+(L \times L)_{n + 1}
+& = &
+\Hom(
+(\Delta[n + 1] \amalg \Delta[n + 1], L)_0 \\
+(\text{cosk}_n \text{sk}_n (L \times L))_{n + 1}
+& = &
+\Hom(
+\partial \Delta[n + 1]
+\amalg
+\partial \Delta[n + 1], L)_0
+\end{eqnarray*}
+and the morphism between these objects of $\text{SR}(\mathcal{C}, X)$
+come from the commutative diagram of simplicial sets
+\begin{equation}
+\label{equation-dual-diagram}
+\xymatrix{
+\Delta[1] \times \Delta[n + 1] &
+\Delta[1] \times \partial\Delta[n + 1] \ar[l] \\
+\Delta[n + 1] \amalg \Delta[n + 1] \ar[u] &
+\partial\Delta[n + 1] \amalg \partial\Delta[n + 1]
+\ar[l] \ar[u]
+}
+\end{equation}
+Moreover the fibre product of the bottom arrow and the
+right arrow in (\ref{equation-diagram}) is equal to
+$$
+\Hom(U, L)_0
+$$
+where $U \subset \Delta[1] \times \Delta[n + 1]$
+is the smallest simplicial subset such that both
+$\Delta[n + 1] \amalg \Delta[n + 1]$ and
+$\Delta[1] \times \partial\Delta[n + 1]$ map into it.
+\end{lemma}
+
+\begin{proof}
+The first and third equalities are
+Simplicial, Lemma \ref{simplicial-lemma-exists-hom-from-simplicial-set-finite}.
+The second and fourth follow from the cited lemma combined with
+Simplicial, Lemma \ref{simplicial-lemma-cosk-shriek}.
+The last assertion follows from the fact that
+$U$ is the push-out of the bottom and right arrow of the
+diagram (\ref{equation-dual-diagram}), via
+Simplicial, Lemma \ref{simplicial-lemma-hom-from-coprod}.
+To see that $U$ is equal to this push-out it suffices
+to see that the intersection of
+$\Delta[n + 1] \amalg \Delta[n + 1]$ and
+$\Delta[1] \times \partial\Delta[n + 1]$
+in $\Delta[1] \times \Delta[n + 1]$ is equal to
+$\partial\Delta[n + 1] \amalg \partial\Delta[n + 1]$.
+This we leave to the reader.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-homotopy}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+Let $K, L$ be hypercoverings of $X$.
+Let $a, b : K \to L$ be morphisms of hypercoverings.
+There exists a morphism of hypercoverings
+$c : K' \to K$ such that $a \circ c$ is homotopic
+to $b \circ c$.
+\end{lemma}
+
+\begin{proof}
+Consider the following commutative diagram
+$$
+\xymatrix{
+K' \ar@{=}[r]^-{def} \ar[rd]_c &
+K \times_{(L \times L)} \Hom(\Delta[1], L)
+\ar[r] \ar[d] & \Hom(\Delta[1], L) \ar[d] \\
+& K \ar[r]^{(a, b)} & L \times L
+}
+$$
+By the functorial property of $\Hom(\Delta[1], L)$
+the composition of the horizontal morphisms
+corresponds to a morphism $K' \times \Delta[1] \to L$ which
+defines a homotopy between $c \circ a$ and $c \circ b$.
+Thus if we can show that $K'$ is a
+hypercovering of $X$, then we obtain the lemma.
+To see this we will apply Lemma \ref{lemma-funny-gamma}
+to the pair of morphisms $K \to L \times L$
+and $\Hom(\Delta[1], L) \to L \times L$.
+Condition (1) of Lemma \ref{lemma-funny-gamma} is satisfied.
+Condition (2) of Lemma \ref{lemma-funny-gamma} is true because
+$\Hom(\Delta[1], L)_0 = L_1$, and the morphism
+$(d^1_0, d^1_1) : L_1 \to L_0 \times L_0$ is a
+covering of $\text{SR}(\mathcal{C}, X)$ by our
+assumption that $L$ is a hypercovering.
+To prove condition (3) of Lemma \ref{lemma-funny-gamma}
+we use Lemma \ref{lemma-hom-hypercovering} above. According
+to this lemma the morphism $\gamma$ of condition (3) of Lemma
+\ref{lemma-funny-gamma} is the morphism
+$$
+\Hom(\Delta[1] \times \Delta[n + 1], L)_0
+\longrightarrow
+\Hom(U, L)_0
+$$
+where $U \subset \Delta[1] \times \Delta[n + 1]$.
+According to Lemma \ref{lemma-add-simplices}
+this is a covering and hence the claim has been proven.
+\end{proof}
+
+\begin{remark}
+\label{remark-contractible-category}
+Note that the crux of the proof is to use
+Lemma \ref{lemma-add-simplices}. This lemma
+is completely general and does not care about the
+exact shape of the simplicial sets (as long as they
+have only finitely many nondegenerate simplices).
+It seems altogether reasonable to expect a result
+of the following kind:
+Given any morphism $a : K \times \partial \Delta[k]
+\to L$, with $K$ and $L$ hypercoverings, there
+exists a morphism of hypercoverings $c : K' \to K$
+and a morphism  $g : K' \times \Delta[k] \to L$
+such that
+$g|_{K' \times \partial \Delta[k]} =
+a \circ (c \times \text{id}_{\partial \Delta[k]})$.
+In other words, the category of hypercoverings is in
+a suitable sense contractible.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Cohomology and hypercoverings}
+\label{section-cohomology}
+
+\noindent
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$.
+Let $\mathcal{F}$ be a sheaf of abelian groups on $\mathcal{C}$.
+Let $K, L$ be hypercoverings of $X$.
+If $a, b : K \to L$ are homotopic maps,
+then $\mathcal{F}(a), \mathcal{F}(b) : \mathcal{F}(K) \to \mathcal{F}(L)$
+are homotopic maps, see
+Simplicial, Lemma \ref{simplicial-lemma-functorial-homotopy}.
+Hence have the same effect on cohomology groups of the associated
+cochain complexes, see
+Simplicial, Lemma \ref{simplicial-lemma-homotopy-s-Q}.
+We are going to use this to define the colimit over all
+hypercoverings.
+
+\medskip\noindent
+Let us temporarily denote $\text{HC}(\mathcal{C}, X)$
+the category of hypercoverings of $X$. We have seen that
+this is a category and not a ``big'' category,
+see Lemma \ref{lemma-hypercoverings-set}.
+This will be the index category for our diagram, see
+Categories, Section \ref{categories-section-limits} for notation.
+Consider the diagram
+$$
+\check{H}^i(-, \mathcal{F}) :
+\text{HC}(\mathcal{C}, X)
+\longrightarrow
+\textit{Ab}.
+$$
+By Lemma \ref{lemma-product-hypercoverings} and
+Lemma \ref{lemma-homotopy}, and the remark on homotopies above,
+this diagram is directed, see
+Categories, Definition \ref{categories-definition-directed}.
+Thus the colimit
+$$
+\check{H}^i_{\text{HC}}(X, \mathcal{F})
+=
+\colim_{K \in \text{HC}(\mathcal{C}, X)}
+\check{H}^i(K, \mathcal{F})
+$$
+has a particularly simple description (see location cited).
+
+\begin{theorem}
+\label{theorem-cohomology-hypercoverings}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $X$ be an object of $\mathcal{C}$. Let $i \geq 0$.
+The functors
+\begin{eqnarray*}
+\textit{Ab}(\mathcal{C}) & \longrightarrow & \textit{Ab} \\
+\mathcal{F} & \longmapsto & H^i(X, \mathcal{F}) \\
+\mathcal{F} & \longmapsto & \check{H}^i_{\text{HC}}(X, \mathcal{F})
+\end{eqnarray*}
+are canonically isomorphic.
+\end{theorem}
+
+\begin{proof}[Proof using spectral sequences.]
+Suppose that $\xi \in H^p(X, \mathcal{F})$ for some $p \geq 0$.
+Let us show that $\xi$ is in the image of the map
+$\check{H}^p(X, \mathcal{F}) \to H^p(X, \mathcal{F})$ of
+Lemma \ref{lemma-cech-spectral-sequence}
+for some hypercovering $K$ of $X$.
+
+\medskip\noindent
+This is true if $p = 0$ by Lemma \ref{lemma-h0-cech}.
+If $p = 1$, choose a {\v C}ech hypercovering $K$ of $X$ as in
+Example \ref{example-cech} starting with a covering
+$K_0 = \{U_i \to X\}$ in the site $\mathcal{C}$ such that
+$\xi|_{U_i} = 0$, see
+Cohomology on Sites,
+Lemma \ref{sites-cohomology-lemma-kill-cohomology-class-on-covering}.
+It follows immediately from the spectral sequence
+in Lemma \ref{lemma-cech-spectral-sequence} that $\xi$ comes
+from an element of $\check{H}^1(K, \mathcal{F})$ in this case.
+In general, choose any hypercovering $K$ of $X$ such
+that $\xi$ maps to zero in $\underline{H}^p(\mathcal{F})(K_0)$
+(using Example \ref{example-cech} and
+Cohomology on Sites,
+Lemma \ref{sites-cohomology-lemma-kill-cohomology-class-on-covering}
+again).
+By the spectral sequence of Lemma \ref{lemma-cech-spectral-sequence}
+the obstruction for $\xi$ to come from an element of
+$\check{H}^p(K, \mathcal{F})$ is a sequence of elements
+$\xi_1, \ldots, \xi_{p - 1}$ with
+$\xi_q \in \check{H}^{p - q}(K, \underline{H}^q(\mathcal{F}))$
+(more precisely the images of the $\xi_q$ in certain subquotients
+of these groups).
+
+\medskip\noindent
+We can inductively replace the hypercovering $K$ by refinements
+such that the obstructions $\xi_1, \ldots, \xi_{p - 1}$ restrict to zero
+(and not just the images
+in the subquotients -- so no subtlety here). Indeed, suppose we have
+already managed to reach the situation where
+$\xi_{q + 1}, \ldots, \xi_{p - 1}$ are zero.
+Note that $\xi_q \in \check{H}^{p - q}(K, \underline{H}^q(\mathcal{F}))$
+is the class of some element
+$$
+\tilde \xi_q \in
+\underline{H}^q(\mathcal{F})(K_{p - q}) =
+\prod H^q(U_i, \mathcal{F})
+$$
+if $K_{p - q} = \{U_i \to X\}_{i \in I}$. Let $\xi_{q, i}$
+be the component of $\tilde \xi_q$ in $H^q(U_i, \mathcal{F})$.
+As $q \geq 1$ we can use
+Cohomology on Sites,
+Lemma \ref{sites-cohomology-lemma-kill-cohomology-class-on-covering}
+yet again to choose coverings $\{U_{i, j} \to U_i\}$
+of the site such that each restriction $\xi_{q, i}|_{U_{i, j}} = 0$.
+Consider the object $Z = \{U_{i, j} \to X\}$ of the category
+$\text{SR}(\mathcal{C}, X)$ and its obvious morphism
+$u : Z \to K_{p - q}$. It is clear that $u$ is a covering, see
+Definition \ref{definition-covering-SR}. By
+Lemma \ref{lemma-covering} there
+exists a morphism $L \to K$ of hypercoverings of $X$ such that
+$L_{p - q} \to K_{p - q}$ factors through $u$. Then clearly the
+image of $\xi_q$ in $\underline{H}^q(\mathcal{F})(L_{p - q})$.
+is zero. Since the spectral sequence of
+Lemma \ref{lemma-cech-spectral-sequence}
+is functorial this means that after replacing $K$ by $L$ we reach the
+situation where $\xi_q, \ldots, \xi_{p - 1}$ are all zero.
+Continuing like this we end up with a hypercovering where they are all
+zero and hence $\xi$ is in the image of the map
+$\check{H}^p(X, \mathcal{F}) \to H^p(X, \mathcal{F})$.
+
+\medskip\noindent
+Suppose that $K$ is a hypercovering of $X$, that
+$\xi \in \check{H}^p(K, \mathcal{F})$ and that the image of
+$\xi$ under the map
+$\check{H}^p(X, \mathcal{F}) \to H^p(X, \mathcal{F})$ of
+Lemma \ref{lemma-cech-spectral-sequence}
+is zero. To finish the proof of the theorem we have to show that
+there exists a morphism of hypercoverings $L \to K$ such that
+$\xi$ restricts to zero in $\check{H}^p(L, \mathcal{F})$.
+By the spectral sequence of Lemma \ref{lemma-cech-spectral-sequence}
+the vanishing of the image of $\xi$ in $H^p(X, \mathcal{F})$
+means that there exist elements $\xi_1, \ldots, \xi_{p - 2}$
+with $\xi_q \in \check{H}^{p - 1 - q}(K, \underline{H}^q(\mathcal{F}))$
+(more precisely the images of these in certain subquotients)
+such that the images $d_{q + 1}^{p - 1 - q, q}\xi_q$ (in the spectral
+sequence) add up to $\xi$. Hence by exactly the same mechanism as above
+we can find a morphism of hypercoverings $L \to K$ such that
+the restrictions of the elements $\xi_q$, $q = 1, \ldots, p - 2$
+in $\check{H}^{p - 1 - q}(L, \underline{H}^q(\mathcal{F}))$ are zero.
+Then it follows that $\xi$ is zero since the morphism $L \to K$
+induces a morphism of spectral sequences according to
+Lemma \ref{lemma-cech-spectral-sequence}.
+\end{proof}
+
+\begin{proof}[Proof without using spectral sequences.]
+We have seen the result for $i = 0$, see Lemma \ref{lemma-h0-cech}.
+We know that the functors $H^i(X, -)$ form a universal $\delta$-functor, see
+Derived Categories, Lemma \ref{derived-lemma-higher-derived-functors}.
+In order to prove the theorem it suffices to show that
+the sequence of functors $\check{H}^i_{HC}(X, -)$ forms a
+$\delta$-functor. Namely we know that {\v C}ech cohomology
+is zero on injective sheaves (Lemma \ref{lemma-injective-trivial-cech})
+and then we can apply
+Homology, Lemma \ref{homology-lemma-efface-implies-universal}.
+
+\medskip\noindent
+Let
+$$
+0 \to \mathcal{F} \to \mathcal{G} \to \mathcal{H} \to 0
+$$
+be a short exact sequence of abelian sheaves on $\mathcal{C}$.
+Let $\xi \in \check{H}^p_{HC}(X, \mathcal{H})$. Choose a hypercovering
+$K$ of $X$ and an element $\sigma \in \mathcal{H}(K_p)$ representing
+$\xi$ in cohomology. There is a corresponding exact sequence of
+complexes
+$$
+0 \to s(\mathcal{F}(K)) \to s(\mathcal{G}(K)) \to s(\mathcal{H}(K))
+$$
+but we are not assured that there is a zero on the right also and this
+is the only thing that
+prevents us from defining $\delta(\xi)$ by a simple application of the
+snake lemma. Recall that
+$$
+\mathcal{H}(K_p) = \prod \mathcal{H}(U_i)
+$$
+if $K_p = \{U_i \to X\}$. Let $\sigma =\prod \sigma_i$ with
+$\sigma_i \in \mathcal{H}(U_i)$. Since $\mathcal{G} \to \mathcal{H}$ is
+a surjection of sheaves we see that there exist coverings
+$\{U_{i, j} \to U_i\}$ such that $\sigma_i|_{U_{i, j}}$ is the
+image of some element $\tau_{i, j} \in \mathcal{G}(U_{i, j})$.
+Consider the object $Z = \{U_{i, j} \to X\}$ of the category
+$\text{SR}(\mathcal{C}, X)$ and its obvious morphism
+$u : Z \to K_p$. It is clear that $u$ is a covering, see
+Definition \ref{definition-covering-SR}. By
+Lemma \ref{lemma-covering} there
+exists a morphism $L \to K$ of hypercoverings of $X$ such that
+$L_p \to K_p$ factors through $u$. After replacing $K$ by $L$
+we may therefore assume that $\sigma$ is the image of an
+element $\tau \in \mathcal{G}(K_p)$. Note that $d(\sigma) = 0$,
+but not necessarily $d(\tau) = 0$. Thus $d(\tau) \in \mathcal{F}(K_{p + 1})$
+is a cocycle. In this situation we define
+$\delta(\xi)$ as the class of the cocycle $d(\tau)$ in
+$\check{H}^{p + 1}_{HC}(X, \mathcal{F})$.
+
+\medskip\noindent
+At this point there are several things to verify:
+(a) $\delta(\xi)$ does not depend on the choice of $\tau$,
+(b) $\delta(\xi)$ does not depend on the choice of the hypercovering
+$L \to K$ such that $\sigma$ lifts, and
+(c) $\delta(\xi)$ does not depend on the initial hypercovering and
+$\sigma$ chosen to represent $\xi$. We omit the verification of
+(a), (b), and (c); the independence of the choices of the hypercoverings
+really comes down to Lemmas \ref{lemma-product-hypercoverings}
+and \ref{lemma-homotopy}. We also omit the verification that
+$\delta$ is functorial with respect to morphisms of short exact
+sequences of abelian sheaves on $\mathcal{C}$.
+
+\medskip\noindent
+Finally, we have to verify that with this definition of $\delta$
+our short exact sequence of abelian sheaves above leads to a
+long exact sequence of {\v C}ech cohomology groups.
+First we show that if $\delta(\xi) = 0$ (with $\xi$ as above) then
+$\xi$ is the image of some element
+$\xi' \in \check{H}^p_{HC}(X, \mathcal{G})$.
+Namely, if $\delta(\xi) = 0$, then, with notation as above, we
+see that the class of $d(\tau)$ is zero in
+$\check{H}^{p + 1}_{HC}(X, \mathcal{F})$. Hence there exists
+a morphism of hypercoverings $L \to K$ such that the restriction
+of $d(\tau)$ to an element of $\mathcal{F}(L_{p + 1})$ is
+equal to $d(\upsilon)$ for some $\upsilon \in \mathcal{F}(L_p)$.
+This implies that $\tau|_{L_p} + \upsilon$ form a
+cocycle, and determine a class $\xi' \in \check{H}^p(L, \mathcal{G})$
+which maps to $\xi$ as desired.
+
+\medskip\noindent
+We omit the proof that if $\xi' \in \check{H}^{p + 1}_{HC}(X, \mathcal{F})$
+maps to zero in $\check{H}^{p + 1}_{HC}(X, \mathcal{G})$, then it is
+equal to $\delta(\xi)$ for some $\xi \in \check{H}^p_{HC}(X, \mathcal{H})$.
+\end{proof}
+
+\noindent
+Next, we deduce Verdier's case of
+Theorem \ref{theorem-cohomology-hypercoverings}
+by a sleight of hand.
+
+\begin{proposition}
+\label{proposition-cohomology-hypercoverings}
+Let $\mathcal{C}$ be a site with fibre products and products of pairs.
+Let $\mathcal{F}$ be an abelian sheaf on $\mathcal{C}$.
+Let $i \geq 0$. Then
+\begin{enumerate}
+\item for every $\xi \in H^i(\mathcal{F})$ there exists a hypercovering
+$K$ such that $\xi$ is in the image of the canonical map
+$\check{H}^i(K, \mathcal{F}) \to H^i(\mathcal{F})$, and
+\item if $K, L$ are hypercoverings and $\xi_K \in \check{H}^i(K, \mathcal{F})$,
+$\xi_L \in \check{H}^i(L, \mathcal{F})$ are elements mapping
+to the same element of $H^i(\mathcal{F})$, then there exists
+a hypercovering $M$ and morphisms $M \to K$ and $M \to L$ such
+that $\xi_K$ and $\xi_L$ map to the same element of
+$\check{H}^i(M, \mathcal{F})$.
+\end{enumerate}
+In other words, modulo set theoretical issues, the cohomology
+groups of $\mathcal{F}$ on $\mathcal{C}$ are the colimit of
+the {\v C}ech cohomology groups of $\mathcal{F}$ over all hypercoverings.
+\end{proposition}
+
+\begin{proof}
+This result is a trivial consequence of
+Theorem \ref{theorem-cohomology-hypercoverings}.
+Namely, we can artificially replace $\mathcal{C}$ with a slightly
+bigger site $\mathcal{C}'$ such that
+(I) $\mathcal{C}'$ has a final object $X$ and (II)
+hypercoverings in $\mathcal{C}$ are more or less the
+same thing as hypercoverings of $X$ in $\mathcal{C}'$.
+But due to the nature of things, there is quite a bit of
+bookkeeping to do.
+
+\medskip\noindent
+Let us call a family of morphisms $\{U_i \to U\}$ in $\mathcal{C}$
+with fixed target a {\it weak covering} if the sheafification of the
+map $\prod_{i \in I} h_{U_i} \to h_U$ becomes surjective.
+We construct a new site $\mathcal{C}'$ as follows
+\begin{enumerate}
+\item as a category set $\Ob(\mathcal{C}') = \Ob(\mathcal{C}) \amalg \{X\}$
+and add a unique morphism to $X$ from every object of $\mathcal{C}'$,
+\item $\mathcal{C}'$ has fibre products as fibre products and products
+of pairs exist in $\mathcal{C}$,
+\item coverings of $\mathcal{C}'$ are weak coverings of $\mathcal{C}$
+together with those $\{U_i \to X\}_{i \in I}$ such that either $U_i = X$
+for some $i$, or $U_i \not = X$ for all $i$ and the map
+$\prod h_{U_i} \to *$ of presheaves on $\mathcal{C}$ becomes
+surjective after sheafification on $\mathcal{C}$,
+\item we apply Sets, Lemma \ref{sets-lemma-coverings-site}
+to restrict the coverings to obtain our site $\mathcal{C}'$.
+\end{enumerate}
+Then $\Sh(\mathcal{C}') = \Sh(\mathcal{C})$ because the inclusion
+functor $\mathcal{C} \to \mathcal{C}'$ is a special cocontinuous functor
+(see Sites, Definition \ref{sites-definition-special-cocontinuous-functor}).
+We omit the straightforward verifications.
+
+\medskip\noindent
+Choose a covering $\{U_i \to X\}$ of $\mathcal{C}'$ such that $U_i$ is an
+object of $\mathcal{C}$ for all $i$ (possible because
+$\mathcal{C} \to \mathcal{C}'$ is special cocontinuous).
+Then $K_0 = \{U_i \to X\}$ is a covering in the
+site $\mathcal{C}'$ constructed above. We view $K_0$ as an object of
+$\text{SR}(\mathcal{C}', X)$ and we set $K_{init} = \text{cosk}_0(K_0)$.
+Then $K_{init}$ is a hypercovering of $X$, see
+Example \ref{example-cech}. Note that every $K_{init, n}$ has the shape
+$\{W_j \to X\}$ with $W_j \in \Ob(\mathcal{C})$.
+
+\medskip\noindent
+Proof of (1). Choose $\xi \in H^i(\mathcal{F}) = H^i(X, \mathcal{F}')$
+where $\mathcal{F}'$ is the abelian sheaf on $\mathcal{C}'$ corresponding
+to $\mathcal{F}$ on $\mathcal{C}$. By
+Theorem \ref{theorem-cohomology-hypercoverings}
+there exists a morphism of hypercoverings $K' \to K_{init}$
+of $X$ in $\mathcal{C}'$ such that $\xi$ comes from an element
+of $\check{H}^i(K', \mathcal{F})$.
+Write $K'_n = \{U_{n, j} \to X\}$. Now since $K'_n$ maps to
+$K_{init, n}$ we see that $U_{n, j}$ is an object of $\mathcal{C}$.
+Hence we can define a simplicial object $K$ of $\text{SR}(\mathcal{C})$
+by setting $K_n = \{U_{n, j}\}$. Since coverings in
+$\mathcal{C}'$ consisting of families of morphisms of $\mathcal{C}$
+are weak coverings, we see that $K$ is a hypercovering in the sense
+of Definition \ref{definition-hypercovering-variant}.
+Finally, since $\mathcal{F}'$ is the unique sheaf on $\mathcal{C}'$
+whose restriction to $\mathcal{C}$ is equal to $\mathcal{F}$
+we see that the {\v C}ech complexes $s(\mathcal{F}(K))$
+and $s(\mathcal{F}'(K'))$ are identical and (1) follows.
+(Compatibility with map into cohomology groups omitted.)
+
+\medskip\noindent
+Proof of (2). Let $K$ and $L$ be hypercoverings in $\mathcal{C}$.
+Let $K'$ and $L'$ be the simplicial objects of $\text{SR}(\mathcal{C}', X)$
+gotten from $K$ and $L$ by the functor
+$\text{SR}(\mathcal{C}) \to \text{SR}(\mathcal{C}', X)$,
+$\{U_i\} \mapsto \{U_i \to X\}$. As before we have equality of
+{\v C}ech complexes and hence we obtain $\xi_{K'}$ and
+$\xi_{L'}$ mapping to the same cohomology class of $\mathcal{F}'$
+over $\mathcal{C}'$. After possibly enlarging our choice
+of coverings in $\mathcal{C}'$ (due to a set theoretical issue)
+we may assume that $K'$ and $L'$ are hypercoverings of $X$ in
+$\mathcal{C}'$; this is true by our definition of hypercoverings in
+Definition \ref{definition-hypercovering-variant} and
+the fact that weak coverings in $\mathcal{C}$ give coverings in
+$\mathcal{C}'$. By
+Theorem \ref{theorem-cohomology-hypercoverings}
+there exists a hypercovering $M'$ of $X$ in $\mathcal{C}'$
+and morphisms $M' \to K'$, $M' \to L'$, and $M' \to K_{init}$
+such that $\xi_{K'}$ and $\xi_{L'}$ restrict to the same element of
+$\check{H}^i(M', \mathcal{F})$. Unwinding this statement as above
+we find that (2) is true.
+\end{proof}
+
+
+
+
+
+\section{Hypercoverings of spaces}
+\label{section-hypercoverings-spaces}
+
+\noindent
+The theory above is mildly interesting even in the case of topological
+spaces. In this case we can work out what a hypercovering is and see
+what the result actually says.
+
+\medskip\noindent
+Let $X$ be a topological space. Consider the site $X_{Zar}$
+of Sites, Example \ref{sites-example-site-topological}. Recall that
+an object of $X_{Zar}$ is simply an open of $X$ and that morphisms
+of $X_{Zar}$ correspond simply to inclusions. So what is a
+hypercovering of $X$ for the site $X_{Zar}$?
+
+\medskip\noindent
+Let us first unwind Definition \ref{definition-SR}.
+An object of $\text{SR}(X_{Zar}, X)$ is simply given by a set
+$I$ and for each $i \in I$ an open $U_i \subset X$.
+Let us denote this by $\{U_i\}_{i \in I}$ since there can be no
+confusion about the morphism $U_i \to X$.
+A morphism $\{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+between two such objects is given by a map of sets
+$\alpha : I \to J$ such that $U_i \subset V_{\alpha(i)}$ for all
+$i \in I$. When is such a morphism a covering? This is the case
+if and only if for every $j \in J$ we have
+$V_j = \bigcup_{i\in I, \ \alpha(i) = j} U_i$ (and is
+a covering in the site $X_{Zar}$).
+
+\medskip\noindent
+Using the above we get the following description of a hypercovering
+in the site $X_{Zar}$. A hypercovering of $X$ in $X_{Zar}$
+is given by the following data
+\begin{enumerate}
+\item a simplicial set $I$ (see
+Simplicial, Section \ref{simplicial-section-simplicial-set}), and
+\item for each $n \geq 0$ and every $i \in I_n$ an open set $U_i \subset X$.
+\end{enumerate}
+We will denote such a collection of data by the notation $(I, \{U_i\})$.
+In order for this to be a hypercovering of $X$ we require
+the following properties
+\begin{itemize}
+\item for $i \in I_n$ and $0 \leq a \leq n$
+we have $U_i \subset U_{d^n_a(i)}$,
+\item for $i \in I_n$ and $0 \leq a \leq n$ we have $U_i = U_{s^n_a(i)}$,
+\item we have
+\begin{equation}
+\label{equation-covering-X}
+X = \bigcup\nolimits_{i \in I_0} U_i,
+\end{equation}
+\item for every $i_0, i_1 \in I_0$, we have
+\begin{equation}
+\label{equation-covering-two}
+U_{i_0} \cap U_{i_1} =
+\bigcup\nolimits_{i \in I_1, \ d^1_0(i) = i_0, \ d^1_1(i) = i_1} U_i,
+\end{equation}
+\item for every $n \geq 1$ and every
+$(i_0, \ldots, i_{n + 1}) \in (I_n)^{n + 2}$ such that
+$d^n_{b - 1}(i_a) = d^n_a(i_b)$ for all $0\leq a < b\leq n + 1$
+we have
+\begin{equation}
+\label{equation-covering-general}
+U_{i_0} \cap \ldots \cap U_{i_{n + 1}} =
+\bigcup\nolimits_{i \in I_{n + 1},
+\ d^{n + 1}_a(i) = i_a, \ a = 0, \ldots, n + 1} U_i,
+\end{equation}
+\item each of the open coverings (\ref{equation-covering-X}),
+(\ref{equation-covering-two}), and (\ref{equation-covering-general})
+is an element of $\text{Cov}(X_{Zar})$
+(this is a set theoretic condition, bounding
+the size of the index sets of the coverings).
+\end{itemize}
+Conditions (\ref{equation-covering-X}) and
+(\ref{equation-covering-two}) should be familiar from the
+chapter on sheaves on spaces for example, and condition
+(\ref{equation-covering-general}) is the natural generalization.
+
+\begin{remark}
+\label{remark-not-covering-set}
+One feature of this description is that if one of the multiple
+intersections $U_{i_0} \cap \ldots \cap U_{i_{n + 1}}$ is empty then
+the covering on the right hand side may be the empty covering.
+Thus it is not automatically the case that the maps
+$I_{n + 1} \to (\text{cosk}_n\text{sk}_n I)_{n + 1}$ are surjective.
+This means that the geometric realization of $I$ may be an interesting
+(non-contractible) space.
+
+\medskip\noindent
+In fact, let $I'_n \subset I_n$ be the subset
+consisting of those simplices $i \in I_n$ such that
+$U_i \not = \emptyset$. It is easy to see that $I' \subset I$
+is a subsimplicial set, and that $(I', \{U_i\})$ is a hypercovering.
+Hence we can always refine a hypercovering to a hypercovering where
+none of the opens $U_i$ is empty.
+\end{remark}
+
+\begin{remark}
+\label{remark-repackage-into-simplicial-space}
+Let us repackage this information in yet another way.
+Namely, suppose that $(I, \{U_i\})$ is a hypercovering of
+the topological space $X$. Given this data we can construct
+a simplicial topological space $U_\bullet$ by setting
+$$
+U_n = \coprod\nolimits_{i \in I_n} U_i,
+$$
+and where for given $\varphi : [n] \to [m]$ we let
+morphisms $U(\varphi) : U_n \to U_m$ be the morphism
+coming from the inclusions $U_i \subset U_{\varphi(i)}$
+for $i \in I_n$. This simplicial topological space comes
+with an augmentation $\epsilon : U_\bullet \to X$.
+With this morphism the simplicial space $U_\bullet$ becomes
+a hypercovering of $X$ along which one has cohomological descent
+in the sense of \cite[Expos\'e Vbis]{SGA4}.
+In other words, $H^n(U_\bullet, \epsilon^*\mathcal{F}) = H^n(X, \mathcal{F})$.
+(Insert future reference here to cohomology over simplicial
+spaces and cohomological descent formulated in those terms.)
+Suppose that $\mathcal{F}$ is an abelian sheaf on $X$.
+In this case the spectral sequence of Lemma \ref{lemma-cech-spectral-sequence}
+becomes the spectral sequence with $E_1$-term
+$$
+E_1^{p, q} = H^q(U_p, \epsilon_q^*\mathcal{F})
+\Rightarrow
+H^{p + q}(U_\bullet, \epsilon^*\mathcal{F}) = H^{p + q}(X, \mathcal{F})
+$$
+comparing the total cohomology of $\epsilon^*\mathcal{F}$
+to the cohomology groups of $\mathcal{F}$ over the pieces
+of $U_\bullet$. (Insert future reference to this spectral sequence
+here.)
+\end{remark}
+
+\noindent
+In topology we often want to find hypercoverings of $X$ which
+have the property that all the $U_i$ come from a given basis for the topology
+of $X$ and that all the coverings
+(\ref{equation-covering-two}) and (\ref{equation-covering-general})
+are from a given cofinal collection of coverings.
+Here are two example lemmas.
+
+\begin{lemma}
+\label{lemma-basis-hypercovering}
+Let $X$ be a topological space.
+Let $\mathcal{B}$ be a basis for the topology of $X$.
+There exists a hypercovering $(I, \{U_i\})$ of $X$
+such that each $U_i$ is an element of $\mathcal{B}$.
+\end{lemma}
+
+\begin{proof}
+Let $n \geq 0$.
+Let us say that an {\it $n$-truncated hypercovering} of $X$ is
+given by an $n$-truncated simplicial set $I$ and for each
+$i \in I_a$, $0 \leq a \leq n$ an open $U_i$ of $X$ such that
+the conditions defining a hypercovering hold whenever they make sense.
+In other words we require the inclusion relations and covering
+conditions only when all simplices that occur in them
+are $a$-simplices with $a \leq n$. The lemma follows if we can prove
+that given a $n$-truncated hypercovering $(I, \{U_i\})$ with
+all $U_i \in \mathcal{B}$ we can extend it to an $(n + 1)$-truncated
+hypercovering without adding any $a$-simplices for $a \leq n$.
+This we do as follows. First we consider the $(n + 1)$-truncated
+simplicial set $I'$ defined by
+$I' = \text{sk}_{n + 1}(\text{cosk}_n I)$.
+Recall that
+$$
+I'_{n + 1} =
+\left\{
+\begin{matrix}
+(i_0, \ldots, i_{n + 1}) \in (I_n)^{n + 2} \text{ such that}\\
+d^n_{b - 1}(i_a) = d^n_a(i_b) \text{ for all }0\leq a < b\leq n + 1
+\end{matrix}
+\right\}
+$$
+If $i' \in I'_{n + 1}$ is degenerate, say $i' = s^n_a(i)$ then we set
+$U_{i'} = U_i$ (this is forced on us anyway by the second condition).
+We also set $J_{i'} = \{i'\}$ in this case.
+If $i' \in I'_{n + 1}$ is nondegenerate, say
+$i' = (i_0, \ldots, i_{n + 1})$, then we choose a set
+$J_{i'}$ and an open covering
+\begin{equation}
+\label{equation-choose-covering}
+U_{i_0} \cap \ldots \cap U_{i_{n + 1}} =
+\bigcup\nolimits_{i \in J_{i'}} U_i,
+\end{equation}
+with $U_i \in \mathcal{B}$ for $i \in J_{i'}$.
+Set
+$$
+I_{n + 1} = \coprod\nolimits_{i' \in I'_{n + 1}} J_{i'}
+$$
+There is a canonical map $\pi : I_{n + 1} \to I'_{n + 1}$ which is
+a bijection over the set of degenerate simplices in $I'_{n + 1}$ by
+construction.
+For $i \in I_{n + 1}$ we define $d^{n + 1}_a(i) = d^{n + 1}_a(\pi(i))$.
+For $i \in I_n$ we define $s^n_a(i) \in I_{n + 1}$ as the unique
+simplex lying over the degenerate simplex $s^n_a(i) \in I'_{n + 1}$.
+We omit the verification that this defines an $(n + 1)$-truncated
+hypercovering of $X$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-quasi-separated-quasi-compact-hypercovering}
+Let $X$ be a topological space.
+Let $\mathcal{B}$ be a basis for the topology of $X$.
+Assume that
+\begin{enumerate}
+\item $X$ is quasi-compact,
+\item each $U \in \mathcal{B}$ is quasi-compact open, and
+\item the intersection of any two quasi-compact opens in
+$X$ is quasi-compact.
+\end{enumerate}
+Then there exists a hypercovering $(I, \{U_i\})$ of $X$ with the
+following properties
+\begin{enumerate}
+\item each $U_i$ is an element of the basis $\mathcal{B}$,
+\item each of the $I_n$ is a finite set, and in particular
+\item each of the coverings  (\ref{equation-covering-X}),
+(\ref{equation-covering-two}), and (\ref{equation-covering-general})
+is finite.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+This follows directly from the construction in the proof of
+Lemma \ref{lemma-basis-hypercovering} if we choose finite coverings
+by elements of $\mathcal{B}$ in (\ref{equation-choose-covering}).
+Details omitted.
+\end{proof}
+
+
+
+
+
+
+
+\section{Constructing hypercoverings}
+\label{section-hypercovering-sites}
+
+\noindent
+Let $\mathcal{C}$ be a site. In this section we will think of a
+simplicial object of $\text{SR}(\mathcal{C})$ as follows.
+As usual, we set $K_n = K([n])$ and we denote $K(\varphi) : K_n \to K_m$
+the morphism associated to $\varphi : [m] \to [n]$.
+We may write $K_n = \{U_{n, i}\}_{i \in I_n}$. For
+$\varphi : [m] \to [n]$ the morphism $K(\varphi) : K_n \to K_m$
+is given by a map $\alpha(\varphi) : I_n \to I_m$ and morphisms
+$f_{\varphi, i} : U_{n, i} \to U_{m, \alpha(\varphi)(i)}$
+for $i \in I_n$. The fact that $K$ is a simplicial object of
+$\text{SR}(\mathcal{C})$ implies that $(I_n, \alpha(\varphi))$
+is a simplicial set
+and that $f_{\psi, \alpha(\varphi)(i)} \circ f_{\varphi, i} =
+f_{\varphi \circ \psi, i}$ when $\psi : [l] \to [m]$.
+
+\begin{lemma}
+\label{lemma-split}
+Let $\mathcal{C}$ be a site. Let $K$ be an $r$-truncated simplicial object
+of $\text{SR}(\mathcal{C})$. The following are equivalent
+\begin{enumerate}
+\item $K$ is split (Simplicial, Definition \ref{simplicial-definition-split}),
+\item $f_{\varphi, i} : U_{n, i} \to U_{m, \alpha(\varphi)(i)}$
+is an isomorphism for $r \geq n \geq 0$,
+$\varphi : [m] \to [n]$ surjective, $i \in I_n$, and
+\item $f_{\sigma^n_j, i} : U_{n, i} \to U_{n + 1, \alpha(\sigma^n_j)(i)}$
+is an isomorphism for $0 \leq j \leq n < r$, $i \in I_n$.
+\end{enumerate}
+The same holds for simplicial objects if in (2) and (3)
+we set $r = \infty$.
+\end{lemma}
+
+\begin{proof}
+The splitting of a simplicial set is unique and is given by
+the nondegenerate indices $N(I_n)$ in each degree $n$, see
+Simplicial, Lemma \ref{simplicial-lemma-splitting-simplicial-sets}.
+The coproduct of two objects $\{U_i\}_{i \in I}$ and $\{U_j\}_{j \in J}$
+of $\text{SR}(\mathcal{C})$ is given by $\{U_l\}_{l \in I \amalg J}$
+with obvious notation. Hence a splitting of $K$ must be given by
+$N(K_n) = \{U_i\}_{i \in N(I_n)}$. The equivalence of (1) and (2)
+now follows by unwinding the definitions. The equivalence of (2)
+and (3) follows from the fact that any surjection
+$\varphi : [m] \to [n]$ is a composition of morphisms
+$\sigma^k_j$ with $k = n, n + 1, \ldots, m - 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hypercovering-object}
+Let $\mathcal{C}$ be a site with fibre products.
+Let $\mathcal{B} \subset \Ob(\mathcal{C})$ be a subset.
+Assume
+\begin{enumerate}
+\item any object $U$ of $\mathcal{C}$ has a covering
+$\{U_j \to U\}_{j \in J}$ with $U_j \in \mathcal{B}$, and
+\item if $\{U_j \to U\}_{j \in J}$ is a covering
+with $U_j \in \mathcal{B}$ and $\{U' \to U\}$ is a morphism with
+$U' \in \mathcal{B}$, then $\{U_j \to U\}_{j \in J} \amalg \{U' \to U\}$
+is a covering.
+\end{enumerate}
+Then for any $X$ in $\mathcal{C}$ there is a hypercovering $K$
+of $X$ such that $K_n = \{U_{n, i}\}_{i \in I_n}$
+with $U_{n, i} \in \mathcal{B}$ for all $i \in I_n$.
+\end{lemma}
+
+\begin{proof}
+A warmup for this proof is the proof of
+Lemma \ref{lemma-basis-hypercovering} and
+we encourage the reader to read that proof first.
+
+\medskip\noindent
+First we replace $\mathcal{C}$ by the site $\mathcal{C}/X$.
+After doing so we may assume that $X$ is the final object
+of $\mathcal{C}$ and that $\mathcal{C}$ has all finite limits
+(Categories, Lemma \ref{categories-lemma-finite-limits-exist}).
+
+\medskip\noindent
+Let $n \geq 0$. Let us say that an
+{\it $n$-truncated $\mathcal{B}$-hypercovering of $X$}
+is given by an $n$-truncated simplicial object $K$
+of $\text{SR}(\mathcal{C})$
+such that for $i \in I_a$, $0 \leq a \leq n$
+we have $U_{a, i} \in \mathcal{B}$ and such that
+$K_0$ is a covering of $X$ and
+$K_{a + 1} \to (\text{cosk}_a \text{sk}_a K)_{a + 1}$
+for $a = 0, \ldots, n - 1$
+is a covering as in Definition \ref{definition-covering-SR}.
+
+\medskip\noindent
+Since $X$ has a covering $\{U_{0, i} \to X\}_{i \in I_0}$
+with $U_i \in \mathcal{B}$ by assumption, we get a $0$-truncated
+$\mathcal{B}$-hypercovering of $X$. Observe that any $0$-truncated
+$\mathcal{B}$-hypercovering of $X$ is split, see
+Lemma \ref{lemma-split}.
+
+\medskip\noindent
+The lemma follows if we can prove for $n \geq 0$ that given a
+split $n$-truncated $\mathcal{B}$-hypercovering $K$ of $X$
+we can extend it to a
+split $(n + 1)$-truncated $\mathcal{B}$-hypercovering of $X$.
+
+\medskip\noindent
+Construction of the extension. Consider the $(n + 1)$-truncated simplicial
+object $K' = \text{sk}_{n + 1}(\text{cosk}_n K)$ of $\text{SR}(\mathcal{C})$.
+Write
+$$
+K'_{n + 1} = \{U'_{n + 1, i}\}_{i \in I'_{n + 1}}
+$$
+Since $K = \text{sk}_n K'$ we have $K_a = K'_a$ for $0 \leq a \leq n$.
+For every $i' \in I'_{n + 1}$ we choose a covering
+\begin{equation}
+\label{equation-choose-covering-B}
+\{g_{n + 1, j} : U_{n + 1, j} \to U'_{n + 1, i'}\}_{j \in J_{i'}}
+\end{equation}
+with $U_{n + 1, j} \in \mathcal{B}$ for $j \in J_{i'}$.
+This is possible by our assumption on $\mathcal{B}$ in the lemma.
+For $0 \leq m \leq n$ denote $N_m \subset I_m$ the subset of
+nondegenerate indices. We set
+$$
+I_{n + 1} =
+\coprod\nolimits_{\varphi : [n + 1] \to [m]\text{ surjective, }0\leq m \leq n}
+N_m \amalg
+\coprod\nolimits_{i' \in I'_{n + 1}} J_{i'}
+$$
+For $j \in I_{n + 1}$ we set
+$$
+U_{n + 1, j} =
+\left\{
+\begin{matrix}
+U_{m, i} & \text{if} &
+j = (\varphi, i) & \text{where} & \varphi : [n + 1] \to [m], i \in N_m \\
+U_{n + 1, j} & \text{if} &
+j \in J_{i'} & \text{where} & i' \in I'_{n + 1}
+\end{matrix}
+\right.
+$$
+with obvious notation. We set $K_{n + 1} = \{U_{n + 1, j}\}_{j \in I_{n + 1}}$.
+By construction $U_{n + 1, j}$ is an element
+of $\mathcal{B}$ for all $j \in I_{n + 1}$. Let us define compatible
+maps
+$$
+I_{n + 1} \to I'_{n + 1}
+\quad\text{and}\quad
+K_{n + 1} \to K'_{n + 1}
+$$
+Namely, the first map is given by
+$(\varphi, i) \mapsto \alpha'(\varphi)(i)$ and
+$(j \in J_{i'}) \mapsto i'$.
+For the second map we use the morphisms
+$$
+f'_{\varphi, i} : U_{m, i} \to U'_{n + 1, \alpha'(\varphi)(i)}
+\quad\text{and}\quad
+g_{n + 1, j} : U_{n + 1, j} \to U'_{n + 1, i'}
+$$
+We claim the morphism
+$$
+K_{n + 1} \to K'_{n + 1} =
+(\text{cosk}_n \text{sk}_n K')_{n + 1} =
+(\text{cosk}_n K)_{n + 1}
+$$
+is a covering as in Definition \ref{definition-covering-SR}.
+Namely, if $i' \in I'_{n + 1}$, then either $i'$ is nondegenerate
+and the inverse image of $i'$ in $I_{n + 1}$ is equal to $J_{i'}$
+and we get a covering of $U'_{n + 1, i'}$ by our choice
+(\ref{equation-choose-covering-B}), or $i'$ is degenerate and
+the inverse image of $i'$ in $I_{n + 1}$ is
+$J_{i'} \amalg \{(\varphi, i)\}$ for a unique pair $(\varphi, i)$
+and we get a covering by our choice (\ref{equation-choose-covering-B})
+and assumption (2) of the lemma.
+
+\medskip\noindent
+To finish the proof we have to define the morphisms
+$K(\varphi) : K_{n + 1} \to K_m$ corresponding to morphisms
+$\varphi : [m] \to [n + 1]$, $0 \leq m \leq n$ and the morphisms
+$K(\varphi) : K_m \to K_{n + 1}$ corresponding to morphisms
+$\varphi : [n + 1] \to [m]$, $0 \leq m \leq n$
+satisfying suitable composition relations.
+For the first kind we use the composition
+$$
+K_{n + 1} \to K'_{n + 1} \xrightarrow{K'(\varphi)} K'_m = K_m
+$$
+to define $K(\varphi) : K_{n + 1} \to K_m$.
+For the second kind, suppose given $\varphi : [n + 1] \to [m]$,
+$0 \leq m \leq n$. We define the corresponding morphism
+$K(\varphi) : K_m \to K_{n + 1}$ as follows:
+\begin{enumerate}
+\item for $i \in I_m$ there is a unique surjective map
+$\psi : [m] \to [m_0]$ and a unique $i_0 \in I_{m_0}$ nondegenerate
+such that $\alpha(\psi)(i_0) = i$\footnote{For example, if $i$ is
+nondegenerate, then $m = m_0$ and $\psi = \text{id}_{[m]}$.},
+\item we set $\varphi_0 = \psi_0 \circ \varphi : [n + 1] \to [m_0]$
+and we map
+$i \in I_m$ to $(\varphi_0, i_0) \in I_{n + 1}$, in other words,
+$\alpha(\varphi)(i) = (\varphi_0, i_0)$, and
+\item the morphism
+$f_{\varphi, i} : U_{m, i} \to U_{n + 1, \alpha(\varphi)(i)} = U_{m_0, i_0}$
+is the inverse of the isomorphism $f_{\psi, i_0} : U_{m_0, i_0} \to U_{m, i}$
+(see Lemma \ref{lemma-split}).
+\end{enumerate}
+We omit the straightforward but cumbersome verification that this defines
+a split $(n + 1)$-truncated $\mathcal{B}$-hypercovering of $X$
+extending the given $n$-truncated one. In fact, everything is clear
+from the above, except for the verification that the morphisms
+$K(\varphi)$ compose correctly for all $\varphi : [a] \to [b]$
+with $0 \leq a, b \leq n + 1$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hypercovering-site}
+Let $\mathcal{C}$ be a site with equalizers and fibre products.
+Let $\mathcal{B} \subset \Ob(\mathcal{C})$ be a subset. Assume
+that any object of $\mathcal{C}$ has a covering
+whose members are elements of $\mathcal{B}$.
+Then there is a hypercovering $K$ such that
+$K_n = \{U_i\}_{i \in I_n}$ with $U_i \in \mathcal{B}$
+for all $i \in I_n$.
+\end{lemma}
+
+\begin{proof}
+This proof is almost the same as the proof of
+Lemma \ref{lemma-hypercovering-object}. We will
+only explain the differences.
+
+\medskip\noindent
+Let $n \geq 1$. Let us say that an
+{\it $n$-truncated $\mathcal{B}$-hypercovering}
+is given by an $n$-truncated simplicial
+object $K$ of $\text{SR}(\mathcal{C})$
+such that for $i \in I_a$, $0 \leq a \leq n$
+we have $U_{a, i} \in \mathcal{B}$ and such that
+\begin{enumerate}
+\item $F(K_0)^\# \to *$ is surjective,
+\item $F(K_1)^\# \to F(K_0)^\# \times F(K_0)^\#$ is surjective,
+\item $F(K_{a + 1})^\# \to F((\text{cosk}_a \text{sk}_a K)_{a + 1})^\#$
+for $a = 1, \ldots, n - 1$ is surjective.
+\end{enumerate}
+We first explicitly construct a split $1$-truncated $\mathcal{B}$-hypercovering.
+
+\medskip\noindent
+Take $I_0 = \mathcal{B}$ and $K_0 = \{U\}_{U \in \mathcal{B}}$.
+Then (1) holds by our assumption on $\mathcal{B}$. Set
+$$
+\Omega =
+\{(U, V, W, a, b) \mid U, V, W \in \mathcal{B}, a : U \to V, b : U \to W\}
+$$
+Then we set $I_1 = I_0 \amalg \Omega$. For $i \in I_1$ we set
+$U_{1, i} = U_{0, i}$ if $i \in I_0$ and $U_{1, i} = U$
+if $i = (U, V, W, a, b) \in \Omega$. The map
+$K(\sigma^0_0) : K_0 \to K_1$ corresponds to the
+inclusion $\alpha(\sigma^0_0) : I_0 \to I_1$
+and the identity $f_{\sigma^0_0, i} : U_{0, i} \to U_{1, i}$
+on objects. The maps $K(\delta^1_0), K(\delta^1_1) : K_1 \to K_0$
+correspond to the two maps $I_1 \to I_0$ which are the
+identity on $I_0 \subset I_1$ and map $(U, V, W, a, b) \in \Omega \subset I_1$
+to $V$, resp.\ $W$. The corresponding morphisms
+$f_{\delta^1_0, i}, f_{\delta^1_1, i} : U_{1, i} \to U_{0, i}$ are
+the identity if $i \in I_0$ and $a, b$ in case $i = (U, V, W, a, b) \in \Omega$.
+The reason that (2) holds is that any section of
+$F(K_0)^\# \times F(K_0)^\#$ over an object $U$ of $\mathcal{C}$
+comes, after replacing $U$ by the members of a covering,
+from a map $U \to F(K_0) \times F(K_0)$.
+This in turn means we have $V, W \in \mathcal{B}$
+and two morphisms $U \to V$ and $U \to W$. Further replacing
+$U$ by the members of a covering we may assume $U \in \mathcal{B}$
+as desired.
+
+\medskip\noindent
+The lemma follows if we can prove that given a split
+$n$-truncated $\mathcal{B}$-hypercovering $K$ for $n \geq 1$
+we can extend it to a split $(n + 1)$-truncated $\mathcal{B}$-hypercovering.
+Here the argument proceeds exactly as in the proof of
+Lemma \ref{lemma-hypercovering-object}.
+We omit the precise details, except for the following comments.
+First, we do not need assumption (2) in the proof of the current
+lemma as we do not need the morphism
+$K_{n + 1} \to (\text{cosk}_n K)_{n + 1}$ to be covering;
+we only need it to induce a surjection on associated sheaves of sets
+which follows from
+Sites, Lemma \ref{sites-lemma-covering-surjective-after-sheafification}.
+Second, the assumption that $\mathcal{C}$ has fibre products and equalizers
+guarantees that $\text{SR}(\mathcal{C})$ has fibre products
+and equalizers and $F$ commutes with these
+(Lemma \ref{lemma-coprod-prod-SR}). This suffices
+assure us the coskeleton functors used exist (see
+Simplicial, Remark \ref{simplicial-remark-existence-cosk} and
+Categories, Lemma \ref{categories-lemma-fibre-products-equalizers-exist}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hypercovering-morphism-sites}
+Let $f : \mathcal{C} \to \mathcal{D}$ be a morphism of sites
+given by the functor $u : \mathcal{D} \to \mathcal{C}$.
+Assume $\mathcal{D}$ and $\mathcal{C}$ have equalizers and
+fibre products and $u$ commutes with them.
+If a simplicial object $K$ of $\text{SR}(\mathcal{D})$
+is a hypercovering, then $u(K)$ is a hypercovering.
+\end{lemma}
+
+\begin{proof}
+If we write $K_n = \{U_{n, i}\}_{i \in I_n}$ as in the introduction
+to this section, then $u(K)$ is the object of $\text{SR}(\mathcal{C})$
+given by $u(K_n) = \{u(U_i)\}_{i \in I_n}$.
+By Sites, Lemma \ref{sites-lemma-pullback-representable-sheaf}
+we have $f^{-1}h_U^\# = h_{u(U)}^\#$ for $U \in \Ob(\mathcal{D})$.
+This means that $f^{-1}F(K_n)^\# = F(u(K_n))^\#$ for all $n$.
+Let us check the conditions (1), (2), (3) for $u(K)$ to be a
+hypercovering from Definition \ref{definition-hypercovering-variant}.
+Since $f^{-1}$ is an exact functor, we find that
+$$
+F(u(K_0))^\# = f^{-1}F(K_0)^\# \to f^{-1}* = *
+$$
+is surjective as a pullback of a surjective map and we get (1).
+Similarly,
+$$
+F(u(K_1))^\# = f^{-1}F(K_1)^\# \to
+f^{-1} (F(K_0) \times F(K_0))^\# = F(u(K_0))^\# \times F(u(K_0))^\#
+$$
+is surjective as a pullback and we get (2). For condition (3),
+in order to conclude by the same method it suffices if
+$$
+F((\text{cosk}_n \text{sk}_n u(K))_{n + 1})^\# =
+f^{-1}F((\text{cosk}_n \text{sk}_n K)_{n + 1})^\#
+$$
+The above shows that $f^{-1}F(-) = F(u(-))$. Thus it suffices to show
+that $u$ commutes with the limits used in defining
+$(\text{cosk}_n \text{sk}_n K)_{n + 1}$ for $n \geq 1$.
+By Simplicial, Remark \ref{simplicial-remark-existence-cosk}
+these limits are finite connected limits and $u$ commutes with these
+by assumption.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-hypercovering-continuous-functor}
+Let $\mathcal{C}$, $\mathcal{D}$ be sites. Let
+$u : \mathcal{D} \to \mathcal{C}$ be a continuous functor.
+Assume $\mathcal{D}$ and $\mathcal{C}$ have fibre products
+and $u$ commutes with them. Let $Y \in \mathcal{D}$ and
+$K \in \text{SR}(\mathcal{D}, Y)$ a hypercovering of $Y$.
+Then $u(K)$ is a hypercovering of $u(Y)$.
+\end{lemma}
+
+\begin{proof}
+This is easier than the proof of Lemma \ref{lemma-hypercovering-morphism-sites}
+because the notion of being a hypercovering of an object is stronger, see
+Definitions \ref{definition-hypercovering} and \ref{definition-covering-SR}.
+Namely, $u$ sends coverings to coverings by the definition of
+a morphism of sites. It suffices to check $u$ commutes with the
+limits used in defining
+$(\text{cosk}_n \text{sk}_n K)_{n + 1}$ for $n \geq 1$.
+This is clear because the induced functor
+$\mathcal{D}/Y \to \mathcal{C}/X$ commutes with all finite limits
+(and source and target have all finite limits by
+Categories, Lemma \ref{categories-lemma-finite-limits-exist}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-w-contractible}
+Let $\mathcal{C}$ be a site. Let $\mathcal{B} \subset \Ob(\mathcal{C})$
+be a subset. Assume
+\begin{enumerate}
+\item $\mathcal{C}$ has fibre products,
+\item for all $X \in \Ob(\mathcal{C})$ there exists a finite covering
+$\{U_i \to X\}_{i \in I}$ with $U_i \in \mathcal{B}$,
+\item if $\{U_i \to X\}_{i \in I}$ is a finite covering with
+$U_i \in \mathcal{B}$ and $U \to X$ is a morphism with $U \in \mathcal{B}$,
+then $\{U_i \to X\}_{i \in I} \amalg \{U \to X\}$ is a covering.
+\end{enumerate}
+Then for every $X$ there exists a hypercovering $K$ of $X$
+such that each $K_n = \{U_{n, i} \to X\}_{i \in I_n}$ with
+$I_n$ finite and $U_{n, i} \in \mathcal{B}$.
+\end{lemma}
+
+\begin{proof}
+This lemma is the analogue of
+Lemma \ref{lemma-quasi-separated-quasi-compact-hypercovering}
+for sites. To prove the lemma we follow exactly the proof of
+Lemma \ref{lemma-hypercovering-object}
+paying attention to the following two points
+\begin{enumerate}
+\item[(a)] We choose our initial covering $\{U_{0, i} \to X\}_{i \in I_0}$
+with $U_{0, i} \in \mathcal{B}$ such that the index set $I_0$ is finite, and
+\item[(b)] in choosing the coverings
+(\ref{equation-choose-covering-B})
+we choose $J_{i'}$ finite.
+\end{enumerate}
+The reader sees easily that with these modifications we end up
+with finite index sets $I_n$ for all $n$.
+\end{proof}
+
+\begin{remark}
+\label{remark-taking-disjoint-unions}
+Let $\mathcal{C}$ be a site. Let
+$K$ and $L$ be objects of $\text{SR}(\mathcal{C})$.
+Write $K = \{U_i\}_{i \in I}$ and $L = \{V_j\}_{j \in J}$.
+Assume $U = \coprod_{i \in I} U_i$ and $V = \coprod_{j \in J} V_j$
+exist. Then we get
+$$
+\Mor_{\text{SR}(\mathcal{C})}(K, L) \longrightarrow \Mor_\mathcal{C}(U, V)
+$$
+as follows. Given $f : K \to L$ given by $\alpha : I \to J$
+and $f_i : U_i \to V_{\alpha(i)}$ we obtain a transformation of functors
+$$
+\Mor_\mathcal{C}(V, -) =
+\prod\nolimits_{j \in J} \Mor_\mathcal{C}(V_j, -)
+\to
+\prod\nolimits_{i \in I} \Mor_\mathcal{C}(U_i, -) =
+\Mor_\mathcal{C}(U, -)
+$$
+sending $(g_j)_{j \in J}$ to
+$(g_{\alpha(i)} \circ f_i)_{i \in I}$. Hence the Yoneda lemma
+produces the corresponding map $U \to V$. Of course, $U \to V$
+maps the summand $U_i$ into the summand $V_{\alpha(i)}$ via
+the morphism $f_i$.
+\end{remark}
+
+\begin{remark}
+\label{remark-take-unions-hypercovering}
+Let $\mathcal{C}$ be a site. Assume $\mathcal{C}$ has
+fibre products and equalizers and let $K$ be a hypercovering.
+Write $K_n = \{U_{n, i}\}_{i \in I_n}$. Suppose that
+\begin{enumerate}
+\item[(a)] $U_n = \coprod_{i \in I_n} U_{n, i}$ exists, and
+\item[(b)] $\coprod_{i \in I_n} h_{U_{n, i}} \to h_{U_n}$ induces
+an isomorphism on sheafifications.
+\end{enumerate}
+Then we get another simplicial object $L$ of $\text{SR}(\mathcal{C})$
+with $L_n = \{U_n\}$, see
+Remark \ref{remark-taking-disjoint-unions}.
+Now we claim that $L$ is a hypercovering.
+To see this we check conditions (1), (2), (3) of
+Definition \ref{definition-hypercovering-variant}.
+Condition (1) follows from (b) and (1) for $K$.
+Condition (2) follows in exactly the same way.
+Condition (3) follows because
+\begin{align*}
+F((\text{cosk}_n \text{sk}_n L)_{n + 1})^\#
+& =
+((\text{cosk}_n \text{sk}_n F(L)^\#)_{n + 1}) \\
+& =
+((\text{cosk}_n \text{sk}_n F(K)^\#)_{n + 1}) \\
+& =
+F((\text{cosk}_n \text{sk}_n K)_{n + 1})^\#
+\end{align*}
+for $n \geq 1$ and hence the condition for $K$ implies the condition for
+$L$ exactly as in (1) and (2).
+Note that $F$ commutes with connected limits and sheafification is exact
+proving the first and last equality; the middle equality follows as
+$F(K)^\# = F(L)^\#$ by (b).
+\end{remark}
+
+\begin{remark}
+\label{remark-take-unions-hypercovering-X}
+Let $\mathcal{C}$ be a site. Let $X \in \Ob(\mathcal{C})$.
+Assume $\mathcal{C}$ has fibre products and let $K$ be a hypercovering of $X$.
+Write $K_n = \{U_{n, i}\}_{i \in I_n}$. Suppose that
+\begin{enumerate}
+\item[(a)] $U_n = \coprod_{i \in I_n} U_{n, i}$ exists,
+\item[(b)] given morphisms
+$(\alpha, f_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$ and
+$(\beta, g_k) : \{W_k\}_{k \in K} \to \{V_j\}_{j \in J}$
+in $\text{SR}(\mathcal{C})$ such that
+$U = \coprod U_i$, $V = \coprod V_j$, and $W = \coprod W_j$
+exist, then $U \times_V W =
+\coprod_{(i, j, k), \alpha(i) = j = \beta(k)} U_i \times_{V_i} W_k$,
+\item[(c)] if $(\alpha, f_i) : \{U_i\}_{i \in I} \to \{V_j\}_{j \in J}$
+is a covering in the sense of
+Definition \ref{definition-covering-SR}
+and $U = \coprod U_i$ and $V = \coprod V_j$ exist,
+then the corresponding morphism $U \to V$
+of Remark \ref{remark-taking-disjoint-unions}
+is a covering of $\mathcal{C}$.
+\end{enumerate}
+Then we get another simplicial object $L$ of $\text{SR}(\mathcal{C})$
+with $L_n = \{U_n\}$, see
+Remark \ref{remark-taking-disjoint-unions}.
+Now we claim that $L$ is a hypercovering of $X$.
+To see this we check conditions (1), (2) of
+Definition \ref{definition-hypercovering}.
+Condition (1) follows from (c) and (1) for $K$
+because (1) for $K$ says $K_0 = \{U_{0, i}\}_{i \in I_0}$
+is a covering of $\{X\}$ in the sense of
+Definition \ref{definition-covering-SR}.
+Condition (2) follows because $\mathcal{C}/X$ has
+all finite limits hence $\text{SR}(\mathcal{C}/X)$
+has all finite limits, and condition (b) says the
+construction of ``taking disjoint unions'' commutes
+with these fimite limits. Thus the morphism
+$$
+L_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n L)_{n + 1}
+$$
+is a covering as it is the consequence of applying our
+``taking disjoint unions'' functor to the morphism
+$$
+K_{n + 1} \longrightarrow (\text{cosk}_n \text{sk}_n K)_{n + 1}
+$$
+which is assumed to be a covering in the sense of
+Definition \ref{definition-covering-SR} by (2) for $K$.
+This makes sense because property (b) in particular assures
+us that if we start with a finite diagram of
+semi-representable objects over $X$
+for which we can take disjoint unions, then
+the limit of the diagram in $\text{SR}(\mathcal{C}/X)$
+still is a semi-representable object over $X$ for which
+we can take disjoint unions.
+\end{remark}
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}

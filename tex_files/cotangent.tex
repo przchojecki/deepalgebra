@@ -1,0 +1,4550 @@
+\input{preamble}
+
+% OK, start here.
+%
+\begin{document}
+
+\title{The Cotangent Complex}
+
+
+\maketitle
+
+\phantomsection
+\label{section-phantom}
+
+\tableofcontents
+
+\section{Introduction}
+\label{section-introduction}
+
+\noindent
+The goal of this chapter is to construct the cotangent complex of a
+ring map, of a morphism of schemes, and of a morphism of algebraic spaces.
+Some references are the notes \cite{quillenhomology}, the paper
+\cite{quillencohomology}, and the books
+\cite{Andre} and \cite{cotangent}.
+
+
+
+
+\section{Advice for the reader}
+\label{section-advice-reader}
+
+\noindent
+In writing this chapter we have tried to minimize
+the use of simplicial techniques. We view the choice of a {\it resolution}
+$P_\bullet$ of a ring $B$ over a ring $A$ as a tool to calculating the
+{\it homology} of abelian sheaves on the category $\mathcal{C}_{B/A}$, see
+Remark \ref{remark-resolution}. This is similar to the role played
+by a ``good cover'' to compute cohomology using the {\v C}ech complex.
+To read a bit on homology on categories, please visit
+Cohomology on Sites, Section \ref{sites-cohomology-section-homology}.
+The derived lower shriek functor $L\pi_!$ is to homology what
+$R\Gamma(\mathcal{C}_{B/A}, -)$ is to cohomology. The category
+$\mathcal{C}_{B/A}$, studied in Section \ref{section-compute-L-pi-shriek},
+is the opposite of the category of factorizations $A \to P \to B$ where $P$
+is a polynomial algebra over $A$. This category comes with maps of sheaves
+of rings
+$$
+\underline{A} \longrightarrow \mathcal{O} \longrightarrow \underline{B}
+$$
+where over the object $U =  (P \to B)$ we have $\mathcal{O}(U) = P$. 
+It turns out that we obtain the cotangent complex of $B$ over $A$ as
+$$
+L_{B/A} =
+L\pi_!(\Omega_{\mathcal{O}/\underline{A}} \otimes_\mathcal{O} \underline{B})
+$$
+see Lemma \ref{lemma-compute-cotangent-complex}. We have consistently tried
+to use this point of view to prove the basic properties of cotangent
+complexes of ring maps. In particular, all of the results can be proven
+without relying on the existence of standard resolutions, although we have
+not done so. The theory is quite satisfactory, except that
+perhaps the proof of the fundamental triangle
+(Proposition \ref{proposition-triangle}) uses just a little
+bit more theory on derived lower shriek functors.
+To provide the reader with an alternative,
+we give a rather complete sketch of an approach to this result
+based on simple properties of standard resolutions in
+Remarks \ref{remark-triangle} and \ref{remark-explicit-map}.
+
+\medskip\noindent
+Our approach to the cotangent complex for morphisms of ringed topoi,
+morphisms of schemes, morphisms of algebraic spaces, etc
+is to deduce as much as possible from the case of ``plain ring maps''
+discussed above.
+
+
+
+
+
+\section{The cotangent complex of a ring map}
+\label{section-cotangent-ring-map}
+
+\noindent
+Let $A$ be a ring. Let $\textit{Alg}_A$ be the category of $A$-algebras.
+Consider the pair of adjoint functors $(F, i)$ where
+$i : \textit{Alg}_A \to \textit{Sets}$ is the forgetful functor and
+$F : \textit{Sets} \to \textit{Alg}_A$ assigns to a set $E$ the polynomial
+algebra $A[E]$ on $E$ over $A$. Let $X_\bullet$ be the simplicial object of
+$\text{Fun}(\textit{Alg}_A, \textit{Alg}_A)$ constructed in
+Simplicial, Section \ref{simplicial-section-standard}.
+
+\medskip\noindent
+Consider an $A$-algebra $B$. Denote $P_\bullet = X_\bullet(B)$ the resulting
+simplicial $A$-algebra. Recall that $P_0 = A[B]$, $P_1 = A[A[B]]$, and so on.
+In particular each term $P_n$ is a polynomial $A$-algebra.
+Recall also that there is an augmentation
+$$
+\epsilon : P_\bullet \longrightarrow B
+$$
+where we view $B$ as a constant simplicial $A$-algebra.
+
+\begin{definition}
+\label{definition-standard-resolution}
+Let $A \to B$ be a ring map. The {\it standard resolution of $B$ over $A$}
+is the augmentation $\epsilon : P_\bullet \to B$ with terms
+$$
+P_0 = A[B],\quad P_1 = A[A[B]],\quad \ldots
+$$
+and maps as constructed above.
+\end{definition}
+
+\noindent
+It will turn out that we can use the standard resolution
+to compute left derived functors in certain settings.
+
+\begin{definition}
+\label{definition-cotangent-complex-ring-map}
+The {\it cotangent complex} $L_{B/A}$ of a ring map $A \to B$
+is the complex of $B$-modules associated to the simplicial $B$-module
+$$
+\Omega_{P_\bullet/A} \otimes_{P_\bullet, \epsilon} B
+$$
+where $\epsilon : P_\bullet \to B$ is the standard resolution
+of $B$ over $A$.
+\end{definition}
+
+\noindent
+In Simplicial, Section \ref{simplicial-section-complexes} we associate a
+chain complex to a simplicial module, but here we work with cochain complexes.
+Thus the term $L_{B/A}^{-n}$ in degree $-n$ is the $B$-module
+$\Omega_{P_n/A} \otimes_{P_n, \epsilon_n} B$ and $L_{B/A}^m = 0$
+for $m > 0$.
+
+\begin{remark}
+\label{remark-variant-cotangent-complex}
+Let $A \to B$ be a ring map. Let $\mathcal{A}$ be the category of
+arrows $\psi : C \to B$ of $A$-algebras and let $\mathcal{S}$ be
+the category of maps $E \to B$ where $E$ is a set. There are adjoint
+functors $i : \mathcal{A} \to \mathcal{S}$ (the forgetful functor)
+and $F : \mathcal{S} \to \mathcal{A}$ which sends $E \to B$ to
+$A[E] \to B$. Let $X_\bullet$ be the simplicial object of
+$\text{Fun}(\mathcal{A}, \mathcal{A})$ constructed in
+Simplicial, Section \ref{simplicial-section-standard}.
+The diagram
+$$
+\xymatrix{
+\mathcal{A} \ar[d] \ar[r] & \mathcal{S} \ar@<1ex>[l] \ar[d] \\
+\textit{Alg}_A \ar[r] & \textit{Sets} \ar@<1ex>[l]
+}
+$$
+commutes. It follows that $X_\bullet(\text{id}_B : B \to B)$
+is equal to the standard resolution of $B$ over $A$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-colimit-cotangent-complex}
+Let $A_i \to B_i$ be a system of ring maps over a directed index
+set $I$. Then $\colim L_{B_i/A_i} = L_{\colim B_i/\colim A_i}$.
+\end{lemma}
+
+\begin{proof}
+This is true because the forgetful functor
+$i : A\textit{-Alg} \to \textit{Sets}$ and its adjoint
+$F : \textit{Sets} \to A\textit{-Alg}$ commute with filtered colimits.
+Moreover, the functor $B/A \mapsto \Omega_{B/A}$ does as well
+(Algebra, Lemma \ref{algebra-lemma-colimit-differentials}).
+\end{proof}
+
+
+
+
+
+\section{Simplicial resolutions and derived lower shriek}
+\label{section-compute-L-pi-shriek}
+
+\noindent
+Let $A \to B$ be a ring map. Consider the category of $A$-algebra maps
+$\alpha : P \to B$ where $P$ is a polynomial algebra over $A$
+(in some set\footnote{It suffices to consider sets of cardinality
+at most the cardinality of $B$.} of variables).
+Let $\mathcal{C} = \mathcal{C}_{B/A}$ denote the {\bf opposite}
+of this category. The reason for
+taking the opposite is that we want to think of objects
+$(P, \alpha)$ as corresponding to the diagram of affine schemes
+$$
+\xymatrix{
+\Spec(B) \ar[d] \ar[r] & \Spec(P) \ar[ld] \\
+\Spec(A)
+}
+$$
+We endow $\mathcal{C}$ with the chaotic topology
+(Sites, Example \ref{sites-example-indiscrete}), i.e., we endow
+$\mathcal{C}$ with the structure of a site where coverings are given by
+identities so that all presheaves are sheaves.
+Moreover, we endow $\mathcal{C}$ with two sheaves of rings. The first
+is the sheaf $\mathcal{O}$ which sends to object $(P, \alpha)$ to $P$.
+Then second is the constant sheaf $B$, which we will denote
+$\underline{B}$. We obtain the following diagram of morphisms of
+ringed topoi
+\begin{equation}
+\label{equation-pi}
+\vcenter{
+\xymatrix{
+(\Sh(\mathcal{C}), \underline{B}) \ar[r]_i \ar[d]_\pi &
+(\Sh(\mathcal{C}), \mathcal{O}) \\
+(\Sh(*), B)
+}
+}
+\end{equation}
+The morphism $i$ is the identity on underlying topoi and
+$i^\sharp : \mathcal{O} \to \underline{B}$ is the obvious map.
+The map $\pi$ is as in Cohomology on Sites, Example
+\ref{sites-cohomology-example-category-to-point}.
+An important role will be played in the following
+by the derived functors
+$
+Li^* : D(\mathcal{O}) \longrightarrow D(\underline{B})
+$
+left adjoint to $Ri_* = i_* : D(\underline{B}) \to D(\mathcal{O})$ and
+$
+L\pi_! : D(\underline{B}) \longrightarrow D(B)
+$
+left adjoint to $\pi^* = \pi^{-1} : D(B) \to D(\underline{B})$.
+
+\begin{lemma}
+\label{lemma-identify-pi-shriek}
+With notation as above let $P_\bullet$ be a simplicial $A$-algebra
+endowed with an augmentation $\epsilon : P_\bullet \to B$.
+Assume each $P_n$ is a polynomial algebra over $A$ and $\epsilon$
+is a trivial Kan fibration on underlying simplicial sets. Then
+$$
+L\pi_!(\mathcal{F}) = \mathcal{F}(P_\bullet, \epsilon)
+$$
+in $D(\textit{Ab})$, resp.\ $D(B)$ functorially in $\mathcal{F}$ in
+$\textit{Ab}(\mathcal{C})$, resp.\ $\textit{Mod}(\underline{B})$.
+\end{lemma}
+
+\begin{proof}
+We will use the criterion of Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution} to prove this.
+Given an object $U = (Q, \beta)$ of $\mathcal{C}$ we have to show that
+$$
+S_\bullet = \Mor_\mathcal{C}((Q, \beta), (P_\bullet, \epsilon))
+$$
+is homotopy equivalent to a singleton.
+Write $Q = A[E]$ for some set $E$ (this is possible by our choice of
+the category $\mathcal{C}$). We see that
+$$
+S_\bullet = \Mor_{\textit{Sets}}((E, \beta|_E), (P_\bullet, \epsilon))
+$$
+Let $*$ be the constant simplicial set on a singleton. For $b \in B$
+let $F_{b, \bullet}$ be the simplicial set defined by the cartesian
+diagram
+$$
+\xymatrix{
+F_{b, \bullet} \ar[r] \ar[d] & P_\bullet \ar[d]_\epsilon \\
+{*} \ar[r]^b & B
+}
+$$
+With this notation $S_\bullet = \prod_{e \in E} F_{\beta(e), \bullet}$.
+Since we assumed $\epsilon$ is a trivial Kan fibration we see that
+$F_{b, \bullet} \to *$ is a trivial Kan fibration
+(Simplicial, Lemma \ref{simplicial-lemma-trivial-kan-base-change}).
+Thus $S_\bullet \to *$ is a trivial Kan fibration
+(Simplicial, Lemma \ref{simplicial-lemma-product-trivial-kan}).
+Therefore $S_\bullet$ is homotopy equivalent to $*$
+(Simplicial, Lemma \ref{simplicial-lemma-trivial-kan-homotopy}).
+\end{proof}
+
+\noindent
+In particular, we can use the standard resolution of $B$ over $A$
+to compute derived lower shriek.
+
+\begin{lemma}
+\label{lemma-pi-shriek-standard}
+Let $A \to B$ be a ring map. Let $\epsilon : P_\bullet \to B$
+be the standard resolution of $B$ over $A$. Let $\pi$ be as in
+(\ref{equation-pi}). Then
+$$
+L\pi_!(\mathcal{F}) = \mathcal{F}(P_\bullet, \epsilon)
+$$
+in $D(\textit{Ab})$, resp.\ $D(B)$ functorially in $\mathcal{F}$ in
+$\textit{Ab}(\mathcal{C})$, resp.\ $\textit{Mod}(\underline{B})$.
+\end{lemma}
+
+\begin{proof}[First proof]
+We will apply Lemma \ref{lemma-identify-pi-shriek}.
+Since the terms $P_n$ are polynomial algebras we see the first
+assumption of that lemma is satisfied. The second assumption is proved
+as follows. By
+Simplicial, Lemma \ref{simplicial-lemma-standard-simplicial-homotopy}
+the map $\epsilon$ is a homotopy equivalence of underlying
+simplicial sets. By
+Simplicial, Lemma \ref{simplicial-lemma-homotopy-equivalence}
+this implies $\epsilon$ induces a quasi-isomorphism of associated
+complexes of abelian groups. By
+Simplicial, Lemma \ref{simplicial-lemma-qis-simplicial-abelian-groups}
+this implies that $\epsilon$ is a trivial Kan fibration of underlying
+simplicial sets.
+\end{proof}
+
+\begin{proof}[Second proof]
+We will use the criterion of Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}.
+Let $U = (Q, \beta)$ be an object of $\mathcal{C}$.
+We have to show that
+$$
+S_\bullet = \Mor_\mathcal{C}((Q, \beta), (P_\bullet, \epsilon))
+$$
+is homotopy equivalent to a singleton. Write $Q = A[E]$ for some set $E$
+(this is possible by our choice of the category $\mathcal{C}$). Using the
+notation of Remark \ref{remark-variant-cotangent-complex} we see that
+$$
+S_\bullet = \Mor_\mathcal{S}((E \to B), i(P_\bullet \to B))
+$$
+By Simplicial, Lemma \ref{simplicial-lemma-standard-simplicial-homotopy}
+the map $i(P_\bullet \to B) \to i(B \to B)$ is a homotopy equivalence
+in $\mathcal{S}$. Hence $S_\bullet$ is homotopy equivalent to
+$$
+\Mor_\mathcal{S}((E \to B), (B \to B)) = \{*\}
+$$
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compute-cotangent-complex}
+Let $A \to B$ be a ring map.  Let $\pi$ and $i$ be as in (\ref{equation-pi}).
+There is a canonical isomorphism
+$$
+L_{B/A} = L\pi_!(Li^*\Omega_{\mathcal{O}/A}) =
+L\pi_!(i^*\Omega_{\mathcal{O}/A}) =
+L\pi_!(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B})
+$$
+in $D(B)$.
+\end{lemma}
+
+\begin{proof}
+For an object $\alpha : P \to B$ of the category $\mathcal{C}$
+the module $\Omega_{P/A}$ is a free $P$-module. Thus
+$\Omega_{\mathcal{O}/A}$ is a flat $\mathcal{O}$-module. Hence
+$Li^*\Omega_{\mathcal{O}/A} = i^*\Omega_{\mathcal{O}/A}$ is the sheaf
+of $\underline{B}$-modules which associates to $\alpha : P \to A$ the
+$B$-module $\Omega_{P/A} \otimes_{P, \alpha} B$.
+By Lemma \ref{lemma-pi-shriek-standard}
+we see that the right hand side is computed by
+the value of this sheaf on the standard resolution which is our
+definition of the left hand side
+(Definition \ref{definition-cotangent-complex-ring-map}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pi-lower-shriek-constant-sheaf}
+If $A \to B$ is a ring map, then $L\pi_!(\pi^{-1}M) = M$
+with $\pi$ as in (\ref{equation-pi}).
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-identify-pi-shriek} which tells us
+$L\pi_!(\pi^{-1}M)$ is computed by $(\pi^{-1}M)(P_\bullet, \epsilon)$
+which is the constant simplicial object on $M$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-identify-H0}
+If $A \to B$ is a ring map, then $H^0(L_{B/A}) = \Omega_{B/A}$.
+\end{lemma}
+
+\begin{proof}
+We will prove this by a direct calculation.
+We will use the identification of Lemma \ref{lemma-compute-cotangent-complex}.
+There is clearly a map from $\Omega_{\mathcal{O}/A} \otimes \underline{B}$
+to the constant sheaf with value $\Omega_{B/A}$. Thus this map induces
+a map
+$$
+H^0(L_{B/A}) = H^0(L\pi_!(\Omega_{\mathcal{O}/A} \otimes \underline{B}))
+= \pi_!(\Omega_{\mathcal{O}/A} \otimes \underline{B}) \to \Omega_{B/A}
+$$
+By choosing an object $P \to B$ of $\mathcal{C}_{B/A}$ with $P \to B$
+surjective we see that this map is surjective (by
+Algebra, Lemma \ref{algebra-lemma-differential-surjective}).
+To show that it is injective, suppose that $P \to B$ is an object
+of $\mathcal{C}_{B/A}$ and that $\xi \in \Omega_{P/A} \otimes_P B$
+is an element which maps to zero in $\Omega_{B/A}$.
+We first choose factorization $P \to P' \to B$ such that $P' \to B$
+is surjective and $P'$ is a polynomial algebra over $A$.
+We may replace $P$ by $P'$. If $B = P/I$, then the kernel
+$\Omega_{P/A} \otimes_P B \to \Omega_{B/A}$ is the image of
+$I/I^2$ (Algebra, Lemma \ref{algebra-lemma-differential-seq}).
+Say $\xi$ is the image of $f \in I$.
+Then we consider the two maps $a, b : P' = P[x] \to P$, the first of which
+maps $x$ to $0$ and the second of which maps $x$ to $f$ (in both
+cases $P[x] \to B$ maps $x$ to zero). We see that $\xi$ and $0$
+are the image of $\text{d}x \otimes 1$ in $\Omega_{P'/A} \otimes_{P'} B$.
+Thus $\xi$ and $0$ have the same image in the colimit (see
+Cohomology on Sites, Example \ref{sites-cohomology-example-category-to-point})
+$\pi_!(\Omega_{\mathcal{O}/A} \otimes \underline{B})$ as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pi-lower-shriek-polynomial-algebra}
+If $B$ is a polynomial algebra over the ring $A$, then
+with $\pi$ as in (\ref{equation-pi}) we have that
+$\pi_!$ is exact and $\pi_!\mathcal{F} = \mathcal{F}(B \to B)$.
+\end{lemma}
+
+\begin{proof}
+This follows from Lemma \ref{lemma-identify-pi-shriek} which tells us
+the constant simplicial algebra on $B$ can be used to compute $L\pi_!$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cotangent-complex-polynomial-algebra}
+If $B$ is a polynomial algebra over the ring $A$, then
+$L_{B/A}$ is quasi-isomorphic to $\Omega_{B/A}[0]$.
+\end{lemma}
+
+\begin{proof}
+Immediate from
+Lemmas \ref{lemma-compute-cotangent-complex} and
+\ref{lemma-pi-lower-shriek-polynomial-algebra}.
+\end{proof}
+
+
+
+
+
+\section{Constructing a resolution}
+\label{section-polynomial}
+
+\noindent
+In the Noetherian finite type case we can construct a ``small'' simplicial
+resolution for finite type ring maps.
+
+\begin{lemma}
+\label{lemma-polynomial}
+Let $A$ be a Noetherian ring. Let $A \to B$ be a finite type ring map.
+Let $\mathcal{A}$ be the category of $A$-algebra maps $C \to B$. Let
+$n \geq 0$ and let $P_\bullet$ be a simplicial object of $\mathcal{A}$
+such that
+\begin{enumerate}
+\item $P_\bullet \to B$ is a trivial Kan fibration of simplicial sets,
+\item $P_k$ is finite type over $A$ for $k \leq n$,
+\item $P_\bullet = \text{cosk}_n \text{sk}_n P_\bullet$ as simplicial
+objects of $\mathcal{A}$.
+\end{enumerate}
+Then $P_{n + 1}$ is a finite type $A$-algebra.
+\end{lemma}
+
+\begin{proof}
+Although the proof we give of this lemma is straightforward, it is a bit
+messy. To clarify the idea we explain what happens for low $n$ before giving
+the proof in general. For example, if $n = 0$, then (3) means that
+$P_1 = P_0 \times_B P_0$. Since the ring map $P_0 \to B$ is surjective, this
+is of finite type over $A$ by
+More on Algebra, Lemma \ref{more-algebra-lemma-fibre-product-finite-type}.
+
+\medskip\noindent
+If $n = 1$, then (3) means that
+$$
+P_2 = \{(f_0, f_1, f_2) \in P_1^3 \mid
+d_0f_0 = d_0f_1,\ d_1f_0 = d_0f_2,\ d_1f_1 = d_1f_2 \}
+$$
+where the equalities take place in $P_0$. Observe that the triple
+$$
+(d_0f_0, d_1f_0, d_1f_1) = (d_0f_1, d_0f_2, d_1f_2)
+$$
+is an element of the fibre product $P_0 \times_B P_0 \times_B P_0$ over $B$
+because the maps $d_i : P_1 \to P_0$ are morphisms over $B$. Thus we get
+a map
+$$
+\psi : P_2 \longrightarrow P_0 \times_B P_0 \times_B P_0
+$$
+The fibre of $\psi$ over an element
+$(g_0, g_1, g_2) \in P_0 \times_B P_0 \times_B P_0$
+is the set of triples $(f_0, f_1, f_2)$ of $1$-simplices
+with $(d_0, d_1)(f_0) = (g_0, g_1)$, $(d_0, d_1)(f_1) = (g_0, g_2)$,
+and $(d_0, d_1)(f_2) = (g_1, g_2)$. As $P_\bullet \to B$ is a trivial
+Kan fibration the map $(d_0, d_1) : P_1 \to P_0 \times_B P_0$ is
+surjective. Thus we see that $P_2$ fits into the cartesian diagram
+$$
+\xymatrix{
+P_2 \ar[d] \ar[r] & P_1^3 \ar[d] \\
+P_0 \times_B P_0 \times_B P_0 \ar[r] & (P_0 \times_B P_0)^3
+}
+$$
+By More on Algebra, Lemma \ref{more-algebra-lemma-formal-consequence}
+we conclude. The general case is similar, but requires a bit more notation.
+
+\medskip\noindent
+The case $n > 1$. By Simplicial, Lemma \ref{simplicial-lemma-cosk-above-object}
+the condition $P_\bullet = \text{cosk}_n \text{sk}_n P_\bullet$
+implies the same thing is true in the category of simplicial
+$A$-algebras and hence in the category of sets (as the forgetful
+functor from $A$-algebras to sets commutes with limits). Thus
+$$
+P_{n + 1} =
+\Mor(\Delta[n + 1], P_\bullet) =
+\Mor(\text{sk}_n \Delta[n + 1], \text{sk}_n P_\bullet)
+$$
+by Simplicial, Lemma \ref{simplicial-lemma-simplex-map} and
+Equation (\ref{simplicial-equation-cosk}). We will prove by induction
+on $1 \leq k < m \leq n + 1$ that the ring
+$$
+Q_{k, m} = \Mor(\text{sk}_k \Delta[m], \text{sk}_k P_\bullet)
+$$
+is of finite type over $A$. The case $k = 1$, $1 < m \leq n + 1$
+is entirely similar to the discussion above in the case $n = 1$.
+Namely, there is a cartesian diagram
+$$
+\xymatrix{
+Q_{1, m} \ar[d] \ar[r] & P_1^N \ar[d] \\
+P_0 \times_B \ldots \times_B P_0 \ar[r] & (P_0 \times_B P_0)^N
+}
+$$
+where $N = {m + 1 \choose 2}$. We conclude as before.
+
+\medskip\noindent
+Let $1 \leq k_0 \leq n$ and assume $Q_{k, m}$ is of finite type
+over $A$ for all $1 \leq k \leq k_0$ and $k < m \leq n + 1$.
+For $k_0 + 1 < m \leq n + 1$ we claim there is a cartesian square
+$$
+\xymatrix{
+Q_{k_0 + 1, m} \ar[d] \ar[r] & P_{k_0 + 1}^N \ar[d] \\
+Q_{k_0, m} \ar[r] & Q_{k_0, k_0 + 1}^N
+}
+$$
+where $N$ is the number of nondegenerate $(k_0 + 1)$-simplices
+of $\Delta[m]$. Namely, to see this is true, think of an element of
+$Q_{k_0 + 1, m}$ as a function $f$ from the $(k_0 + 1)$-skeleton
+of $\Delta[m]$ to $P_\bullet$. We can restrict $f$ to the $k_0$-skeleton
+which gives the left vertical map of the diagram. We can also restrict
+to each nondegenerate $(k_0 + 1)$-simplex which gives the top horizontal
+arrow. Moreover, to give such an $f$ is the same thing as giving its
+restriction to $k_0$-skeleton and to each nondegenerate
+$(k_0 + 1)$-face, provided these agree on the overlap, and this
+is exactly the content of the diagram. Moreover, the fact that
+$P_\bullet \to B$ is a trivial Kan fibration implies that
+the map
+$$
+P_{k_0} \to Q_{k_0, k_0 + 1} = \Mor(\partial \Delta[k_0 + 1], P_\bullet)
+$$
+is surjective as every map $\partial \Delta[k_0 + 1] \to B$ can be extended
+to $\Delta[k_0 + 1] \to B$ for $k_0 \geq 1$ (small argument about constant
+simplicial sets omitted). Since by induction hypothesis the rings
+$Q_{k_0, m}$, $Q_{k_0, k_0 + 1}$ are finite type $A$-algebras, so is
+$Q_{k_0 + 1, m}$ by
+More on Algebra, Lemma \ref{more-algebra-lemma-formal-consequence}
+once more.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-polynomial}
+Let $A$ be a Noetherian ring. Let $A \to B$ be a finite type ring map.
+There exists a simplicial $A$-algebra $P_\bullet$ with an augmentation
+$\epsilon : P_\bullet \to B$ such that each $P_n$ is a polynomial algebra
+of finite type over $A$ and such that $\epsilon$ is a trivial
+Kan fibration of simplicial sets.
+\end{proposition}
+
+\begin{proof}
+Let $\mathcal{A}$ be the category of $A$-algebra maps $C \to B$.
+In this proof our simplicial objects and skeleton and coskeleton
+functors will be taken in this category.
+
+\medskip\noindent
+Choose a polynomial algebra $P_0$ of finite type over $A$ and a surjection
+$P_0 \to B$. As a first approximation we take
+$P_\bullet = \text{cosk}_0(P_0)$. In other words, $P_\bullet$ is the simplicial
+$A$-algebra with terms $P_n = P_0 \times_A \ldots \times_A P_0$.
+(In the final paragraph of the proof this simplicial object will
+be denoted $P^0_\bullet$.) By
+Simplicial, Lemma \ref{simplicial-lemma-cosk-minus-one-equivalence}
+the map $P_\bullet \to B$ is a trivial Kan fibration of simplicial sets.
+Also, observe that $P_\bullet = \text{cosk}_0 \text{sk}_0 P_\bullet$.
+
+\medskip\noindent
+Suppose for some $n \geq 0$ we have constructed $P_\bullet$
+(in the final paragraph of the proof this will be $P^n_\bullet$)
+such that
+\begin{enumerate}
+\item[(a)] $P_\bullet \to B$ is a trivial Kan fibration of simplicial sets,
+\item[(b)] $P_k$ is a finitely generated polynomial algebra for
+$0 \leq k \leq n$, and
+\item[(c)] $P_\bullet = \text{cosk}_n \text{sk}_n P_\bullet$
+\end{enumerate}
+By Lemma \ref{lemma-polynomial}
+we can find a finitely generated polynomial algebra $Q$ over $A$
+and a surjection $Q \to P_{n + 1}$. Since $P_n$ is a polynomial algebra
+the $A$-algebra maps $s_i : P_n \to P_{n + 1}$ lift to maps
+$s'_i : P_n \to Q$. Set $d'_j : Q \to P_n$ equal to the composition of
+$Q \to P_{n + 1}$ and $d_j : P_{n + 1} \to P_n$.
+We obtain a truncated simplicial object $P'_\bullet$ of $\mathcal{A}$
+by setting $P'_k = P_k$ for $k \leq n$ and $P'_{n + 1} = Q$ and morphisms
+$d'_i = d_i$ and $s'_i = s_i$ in degrees $k \leq n - 1$ and using the
+morphisms $d'_j$ and $s'_i$ in degree $n$. Extend this to a full simplicial
+object $P'_\bullet$ of $\mathcal{A}$ using $\text{cosk}_{n + 1}$. By
+functoriality of the coskeleton functors there is a morphism
+$P'_\bullet \to P_\bullet$ of simplicial objects extending the
+given morphism of $(n + 1)$-truncated simplicial objects.
+(This morphism will be denoted $P^{n + 1}_\bullet \to P^n_\bullet$
+in the final paragraph of the proof.)
+
+\medskip\noindent
+Note that conditions (b) and (c) are satisfied for $P'_\bullet$ with $n$
+replaced by $n + 1$. We claim the map $P'_\bullet \to P_\bullet$ satisfies
+assumptions (1), (2), (3), and (4) of
+Simplicial, Lemmas \ref{simplicial-lemma-section}
+with $n + 1$ instead of $n$. Conditions (1) and (2) hold by construction.
+By Simplicial, Lemma \ref{simplicial-lemma-cosk-above-object}
+we see that we have
+$P_\bullet = \text{cosk}_{n + 1}\text{sk}_{n + 1}P_\bullet$
+and
+$P'_\bullet = \text{cosk}_{n + 1}\text{sk}_{n + 1}P'_\bullet$
+not only in $\mathcal{A}$ but also in the category of $A$-algebras,
+whence in the category of sets (as the forgetful functor from $A$-algebras
+to sets commutes with all limits). This proves (3) and (4). Thus the lemma
+applies and $P'_\bullet \to P_\bullet$ is a trivial Kan fibration. By
+Simplicial, Lemma \ref{simplicial-lemma-trivial-kan-composition}
+we conclude that $P'_\bullet \to B$ is a trivial Kan fibration and (a)
+holds as well.
+
+\medskip\noindent
+To finish the proof we take the inverse limit $P_\bullet = \lim P^n_\bullet$
+of the sequence of simplicial algebras
+$$
+\ldots \to P^2_\bullet \to P^1_\bullet \to P^0_\bullet
+$$
+constructed above. The map $P_\bullet \to B$ is a trivial Kan fibration by
+Simplicial, Lemma \ref{simplicial-lemma-limit-trivial-kan}.
+However, the construction above stabilizes in each degree
+to a fixed finitely generated polynomial algebra as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-pi-shriek-finite}
+Let $A$ be a Noetherian ring. Let $A \to B$ be a finite type ring map.
+Let $\pi$, $\underline{B}$ be as in (\ref{equation-pi}).
+If $\mathcal{F}$ is an $\underline{B}$-module such that
+$\mathcal{F}(P, \alpha)$ is a finite $B$-module for all
+$\alpha : P = A[x_1, \ldots, x_n] \to B$, then the cohomology modules
+of $L\pi_!(\mathcal{F})$ are finite $B$-modules.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-identify-pi-shriek} and
+Proposition \ref{proposition-polynomial}
+we can compute $L\pi_!(\mathcal{F})$ by a complex
+constructed out of the values of $\mathcal{F}$ on finite type
+polynomial algebras.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cotangent-finite}
+Let $A$ be a Noetherian ring. Let $A \to B$ be a finite type ring map.
+Then $H^n(L_{B/A})$ is a finite $B$-module for all $n \in \mathbf{Z}$.
+\end{lemma}
+
+\begin{proof}
+Apply Lemmas \ref{lemma-compute-cotangent-complex} and
+\ref{lemma-pi-shriek-finite}.
+\end{proof}
+
+\begin{remark}[Resolutions]
+\label{remark-resolution}
+Let $A \to B$ be any ring map. Let us call an augmented simplicial $A$-algebra
+$\epsilon : P_\bullet \to B$ a {\it resolution of $B$ over $A$} if
+each $P_n$ is a polynomial algebra and $\epsilon$ is a trivial Kan fibration
+of simplicial sets. If $P_\bullet \to B$ is an augmentation of a simplicial
+$A$-algebra with each $P_n$ a polynomial algebra surjecting onto $B$, then
+the following are equivalent
+\begin{enumerate}
+\item $\epsilon : P_\bullet \to B$ is a resolution of $B$ over $A$,
+\item $\epsilon : P_\bullet \to B$ is a quasi-isomorphism on
+associated complexes,
+\item $\epsilon : P_\bullet \to B$ induces a homotopy equivalence
+of simplicial sets.
+\end{enumerate}
+To see this use Simplicial, Lemmas
+\ref{simplicial-lemma-trivial-kan-homotopy},
+\ref{simplicial-lemma-homotopy-equivalence}, and
+\ref{simplicial-lemma-qis-simplicial-abelian-groups}.
+A resolution $P_\bullet$ of $B$ over $A$ gives a cosimplicial object
+$U_\bullet$ of $\mathcal{C}_{B/A}$ as in Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}
+and it follows that
+$$
+L\pi_!\mathcal{F} = \mathcal{F}(P_\bullet)
+$$
+functorially in $\mathcal{F}$, see Lemma \ref{lemma-identify-pi-shriek}.
+The (formal part of the) proof of Proposition \ref{proposition-polynomial}
+shows that resolutions exist. We also have seen in the first proof of
+Lemma \ref{lemma-pi-shriek-standard} that the standard resolution of $B$
+over $A$ is a resolution (so that this terminology doesn't lead to a conflict).
+However, the argument in the proof of Proposition \ref{proposition-polynomial}
+shows the existence of resolutions without appealing to the simplicial
+computations in Simplicial, Section \ref{simplicial-section-standard}.
+Moreover, for {\it any} choice of resolution we have a canonical isomorphism
+$$
+L_{B/A} = \Omega_{P_\bullet/A} \otimes_{P_\bullet, \epsilon} B
+$$
+in $D(B)$ by Lemma \ref{lemma-compute-cotangent-complex}. The freedom to
+choose an arbitrary resolution can be quite useful.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-O-homology-B-homology}
+Let $A \to B$ be a ring map. Let $\pi$, $\mathcal{O}$, $\underline{B}$
+be as in (\ref{equation-pi}). For any $\mathcal{O}$-module $\mathcal{F}$
+we have
+$$
+L\pi_!(\mathcal{F}) = L\pi_!(Li^*\mathcal{F}) =
+L\pi_!(\mathcal{F} \otimes_\mathcal{O}^\mathbf{L} \underline{B})
+$$
+in $D(\textit{Ab})$.
+\end{lemma}
+
+\begin{proof}
+It suffices to verify the assumptions of Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-O-homology-qis}
+hold for $\mathcal{O} \to \underline{B}$ on $\mathcal{C}_{B/A}$.
+We will use the results of Remark \ref{remark-resolution} without
+further mention. Choose a resolution $P_\bullet$ of $B$ over $A$ to get a
+suitable cosimplicial object $U_\bullet$ of $\mathcal{C}_{B/A}$.
+Since $P_\bullet \to B$ induces a quasi-isomorphism on associated
+complexes of abelian groups we see that $L\pi_!\mathcal{O} = B$.
+On the other hand $L\pi_!\underline{B}$ is computed by
+$\underline{B}(U_\bullet) = B$. This verifies the second assumption of
+Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-O-homology-qis}
+and we are done with the proof.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-apply-O-B-comparison}
+Let $A \to B$ be a ring map. Let $\pi$, $\mathcal{O}$, $\underline{B}$
+be as in (\ref{equation-pi}). We have
+$$
+L\pi_!(\mathcal{O}) = L\pi_!(\underline{B}) = B
+\quad\text{and}\quad
+L_{B/A} = L\pi_!(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}) =
+L\pi_!(\Omega_{\mathcal{O}/A})
+$$
+in $D(\textit{Ab})$.
+\end{lemma}
+
+\begin{proof}
+This is just an application of Lemma \ref{lemma-O-homology-B-homology}
+(and the first equality on the right is
+Lemma \ref{lemma-compute-cotangent-complex}).
+\end{proof}
+
+\noindent
+Here is a special case of the fundamental triangle that is easy to prove.
+
+\begin{lemma}
+\label{lemma-special-case-triangle}
+Let $A \to B \to C$ be ring maps. If $B$ is a polynomial algebra over
+$A$, then there is a distinguished triangle 
+$L_{B/A} \otimes_B^\mathbf{L} C \to L_{C/A} \to L_{C/B} \to
+L_{B/A} \otimes_B^\mathbf{L} C[1]$ in $D(C)$.
+\end{lemma}
+
+\begin{proof}
+We will use the observations of Remark \ref{remark-resolution}
+without further mention. Choose a resolution $\epsilon : P_\bullet \to C$
+of $C$ over $B$ (for example the standard resolution). Since $B$ is a
+polynomial algebra over $A$ we see that $P_\bullet$ is also a resolution of
+$C$ over $A$. Hence $L_{C/A}$ is computed by
+$\Omega_{P_\bullet/A} \otimes_{P_\bullet, \epsilon} C$
+and $L_{C/B}$ is computed by
+$\Omega_{P_\bullet/B} \otimes_{P_\bullet, \epsilon} C$.
+Since for each $n$ we have the short exact sequence
+$0 \to \Omega_{B/A} \otimes_B P_n \to \Omega_{P_n/A} \to \Omega_{P_n/B}$
+(Algebra, Lemma \ref{algebra-lemma-ses-formally-smooth})
+and since $L_{B/A} = \Omega_{B/A}[0]$
+(Lemma \ref{lemma-cotangent-complex-polynomial-algebra})
+we obtain the result.
+\end{proof}
+
+\begin{example}
+\label{example-resolution-length-two}
+Let $A \to B$ be a ring map. In this example we 
+will construct an ``explicit'' resolution $P_\bullet$ of $B$ over $A$ of
+length $2$. To do this we follow the procedure of the proof of
+Proposition \ref{proposition-polynomial}, see also the discussion in
+Remark \ref{remark-resolution}.
+
+\medskip\noindent
+We choose a surjection $P_0 = A[u_i] \to B$ where $u_i$ is a set of
+variables. Choose generators $f_t \in P_0$, $t \in T$ of the ideal
+$\Ker(P_0 \to B)$. We choose $P_1 = A[u_i, x_t]$ with face maps
+$d_0$ and $d_1$ the unique $A$-algebra maps with $d_j(u_i) = u_i$
+and $d_0(x_t) = 0$ and $d_1(x_t) = f_t$. The map $s_0 : P_0 \to P_1$
+is the unique $A$-algebra map with $s_0(u_i) = u_i$. It is clear that
+$$
+P_1 \xrightarrow{d_0 - d_1} P_0 \to B \to 0
+$$
+is exact, in particular the map $(d_0, d_1) : P_1 \to P_0 \times_B P_0$
+is surjective. Thus, if $P_\bullet$ denotes the $1$-truncated
+simplicial $A$-algebra given by $P_0$, $P_1$, $d_0$, $d_1$, and $s_0$, then
+the augmentation $\text{cosk}_1(P_\bullet) \to B$ is a trivial Kan fibration.
+The next step of the procedure in the proof of
+Proposition \ref{proposition-polynomial}
+is to choose a polynomial algebra $P_2$ and a surjection
+$$
+P_2 \longrightarrow \text{cosk}_1(P_\bullet)_2
+$$
+Recall that
+$$
+\text{cosk}_1(P_\bullet)_2 =
+\{(g_0, g_1, g_2) \in P_1^3 \mid d_0(g_0) = d_0(g_1),
+d_1(g_0) = d_0(g_2), d_1(g_1) = d_1(g_2)\}
+$$
+Thinking of $g_i \in P_1$ as a polynomial in $x_t$ the conditions
+are
+$$
+g_0(0) = g_1(0),\quad
+g_0(f_t) = g_2(0),\quad
+g_1(f_t) = g_2(f_t)
+$$
+Thus $\text{cosk}_1(P_\bullet)_2$ contains the elements
+$y_t = (x_t, x_t, f_t)$ and $z_t = (0, x_t, x_t)$.
+Every element $G$ in $\text{cosk}_1(P_\bullet)_2$ is
+of the form $G = H + (0, 0, g)$ where $H$ is in the image
+of $A[u_i, y_t, z_t] \to \text{cosk}_1(P_\bullet)_2$. Here
+$g \in P_1$ is a polynomial with vanishing
+constant term such that $g(f_t) = 0$ in $P_0$. Observe that
+\begin{enumerate}
+\item $g = x_t x_{t'} - f_t x_{t'}$ and
+\item $g = \sum r_t x_t$ with $r_t \in P_0$ if $\sum r_t f_t = 0$ in $P_0$
+\end{enumerate}
+are elements of $P_1$ of the desired form. Let
+$$
+Rel = \Ker(\bigoplus\nolimits_{t \in T} P_0 \longrightarrow P_0),\quad
+(r_t) \longmapsto \sum r_tf_t
+$$
+We set $P_2 = A[u_i, y_t, z_t, v_r, w_{t, t'}]$ where
+$r = (r_t) \in Rel$, with map
+$$
+P_2 \longrightarrow \text{cosk}_1(P_\bullet)_2
+$$
+given by $y_t  \mapsto (x_t, x_t, f_t)$,
+$z_t \mapsto (0, x_t, x_t)$,
+$v_r \mapsto (0, 0, \sum r_t x_t)$, and
+$w_{t, t'} \mapsto (0, 0, x_t x_{t'} - f_t x_{t'})$. A calculation
+(omitted) shows that this map is surjective. Our choice of the
+map displayed above determines the maps $d_0, d_1, d_2 : P_2 \to P_1$.
+Finally, the procedure in the proof of
+Proposition \ref{proposition-polynomial}
+tells us to choose the maps $s_0, s_1 : P_1 \to P_2$ lifting the two
+maps $P_1 \to \text{cosk}_1(P_\bullet)_2$. It is clear that we can take
+$s_i$ to be the unique $A$-algebra maps determined by
+$s_0(x_t) = y_t$ and $s_1(x_t) = z_t$.
+\end{example}
+
+
+
+
+
+
+
+
+\section{Functoriality}
+\label{section-functoriality}
+
+\noindent
+In this section we consider a commutative square
+\begin{equation}
+\label{equation-commutative-square}
+\vcenter{
+\xymatrix{
+B \ar[r] & B' \\
+A \ar[u] \ar[r] & A' \ar[u]
+}
+}
+\end{equation}
+of ring maps. We claim there is a canonical $B$-linear map of complexes
+$$
+L_{B/A} \longrightarrow L_{B'/A'}
+$$
+associated to this diagram. Namely, if $P_\bullet \to B$ is the
+standard resolution of $B$ over $A$ and $P'_\bullet \to B'$ is the
+standard resolution of $B'$ over $A'$, then there is a canonical map
+$P_\bullet \to P'_\bullet$
+of simplicial $A$-algebras compatible with the augmentations
+$P_\bullet \to B$ and $P'_\bullet \to B'$. This can be seen in terms
+of the construction of standard resolutions in
+Simplicial, Section \ref{simplicial-section-standard}
+but in the special case at hand it probably suffices to say simply
+that the maps
+$$
+P_0 = A[B] \longrightarrow A'[B'] = P'_0,\quad
+P_1 = A[A[B]] \longrightarrow A'[A'[B']] = P'_1,
+$$
+and so on are given by the given maps $A \to A'$ and $B \to B'$.
+The desired map $L_{B/A} \to L_{B'/A'}$ then comes from the associated
+maps $\Omega_{P_n/A} \to \Omega_{P'_n/A'}$.
+
+\medskip\noindent
+Another description of the functoriality map can be given as follows.
+Let $\mathcal{C} = \mathcal{C}_{B/A}$ and $\mathcal{C}' = \mathcal{C}_{B'/A}'$
+be the categories considered in Section \ref{section-compute-L-pi-shriek}.
+There is a functor
+$$
+u : \mathcal{C} \longrightarrow \mathcal{C}',\quad
+(P, \alpha) \longmapsto (P \otimes_A A', c \circ (\alpha \otimes 1))
+$$
+where $c : B \otimes_A A' \to B'$ is the obvious map. As discussed in
+Cohomology on Sites, Example
+\ref{sites-cohomology-example-morphism-categories}
+we obtain a morphism of topoi $g : \Sh(\mathcal{C}) \to \Sh(\mathcal{C}')$
+and a commutative diagram of maps of ringed topoi
+\begin{equation}
+\label{equation-double-square}
+\vcenter{
+\xymatrix{
+(\Sh(\mathcal{C}), \underline{B}) \ar[d]_\pi &
+(\Sh(\mathcal{C}'), \underline{B'}) \ar[d]_\pi \ar[l]^h \ar[r]_g &
+(\Sh(\mathcal{C}), \underline{B'}) \ar[d]_{\pi'} \\
+(\Sh(*), B) &
+(\Sh(*), B') \ar[l]_f \ar[r] &
+(\Sh(*), B')
+}
+}
+\end{equation}
+Here $h$ is the identity on underlying topoi and given by the ring map
+$B \to B'$ on sheaves of rings. 
+By Cohomology on Sites, Remark
+\ref{sites-cohomology-remark-morphism-fibred-categories}
+given $\mathcal{F}$ on $\mathcal{C}$ and $\mathcal{F}'$ on $\mathcal{C}'$
+and a transformation $t : \mathcal{F} \to g^{-1}\mathcal{F}'$
+we obtain a canonical map $L\pi_!(\mathcal{F}) \to L\pi'_!(\mathcal{F}')$.
+If we apply this to the sheaves
+$$
+\mathcal{F} : (P, \alpha) \mapsto \Omega_{P/A} \otimes_P B,\quad
+\mathcal{F}' : (P', \alpha') \mapsto \Omega_{P'/A'} \otimes_{P'} B',
+$$
+and the transformation $t$ given by the canonical maps
+$$
+\Omega_{P/A} \otimes_P B \longrightarrow
+\Omega_{P \otimes_A A'/A'} \otimes_{P \otimes_A A'} B'
+$$
+to get a canonical map
+$$
+L\pi_!(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B})
+\longrightarrow
+L\pi'_!(\Omega_{\mathcal{O}'/A'} \otimes_{\mathcal{O}'} \underline{B'})
+$$
+By Lemma \ref{lemma-compute-cotangent-complex} this gives
+$L_{B/A} \to L_{B'/A'}$. We omit the verification that this map
+agrees with the map defined above in terms of simplicial
+resolutions.
+
+\begin{lemma}
+\label{lemma-flat-base-change}
+Assume (\ref{equation-commutative-square}) induces a quasi-isomorphism
+$B \otimes_A^\mathbf{L} A' = B'$. Then, with notation as in
+(\ref{equation-double-square}) and
+$\mathcal{F}' \in \textit{Ab}(\mathcal{C}')$,
+we have $L\pi_!(g^{-1}\mathcal{F}') = L\pi'_!(\mathcal{F}')$.
+\end{lemma}
+
+\begin{proof}
+We use the results of Remark \ref{remark-resolution} without
+further mention. We will apply Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-get-it-now}. Let $P_\bullet \to B$ be a resolution.
+If we can show that $u(P_\bullet) = P_\bullet \otimes_A A' \to B'$
+is a quasi-isomorphism, then we are done. The complex of $A$-modules
+$s(P_\bullet)$ associated to $P_\bullet$ (viewed as a simplicial $A$-module)
+is a free $A$-module resolution of $B$. Namely, $P_n$ is a free $A$-module and
+$s(P_\bullet) \to B$ is a quasi-isomorphism. Thus $B \otimes_A^\mathbf{L} A'$
+is computed by $s(P_\bullet) \otimes_A A' = s(P_\bullet \otimes_A A')$.
+Therefore the assumption of the lemma signifies that
+$\epsilon' : P_\bullet \otimes_A A' \to B'$ is a quasi-isomorphism.
+\end{proof}
+
+\noindent
+The following lemma in particular applies when $A \to A'$ is flat
+and $B' = B \otimes_A A'$ (flat base change).
+
+\begin{lemma}
+\label{lemma-flat-base-change-cotangent-complex}
+If (\ref{equation-commutative-square}) induces a quasi-isomorphism
+$B \otimes_A^\mathbf{L} A' = B'$, then the functoriality map
+induces an isomorphism
+$$
+L_{B/A} \otimes_B^\mathbf{L} B' \longrightarrow L_{B'/A'}
+$$
+\end{lemma}
+
+\begin{proof}
+We will use the notation introduced in Equation (\ref{equation-double-square}).
+We have
+$$
+L_{B/A} \otimes_B^\mathbf{L} B' =
+L\pi_!(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B})
+\otimes_B^\mathbf{L} B' =
+L\pi_!(Lh^*(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}))
+$$
+the first equality by Lemma \ref{lemma-compute-cotangent-complex}
+and the second by Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-change-of-rings}.
+Since $\Omega_{\mathcal{O}/A}$ is a flat $\mathcal{O}$-module,
+we see that $\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}$
+is a flat $\underline{B}$-module. Thus
+$Lh^*(\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}) =
+\Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B'}$
+which is equal to
+$g^{-1}(\Omega_{\mathcal{O}'/A'} \otimes_{\mathcal{O}'} \underline{B'})$
+by inspection.
+we conclude by Lemma \ref{lemma-flat-base-change}
+and the fact that $L_{B'/A'}$ is computed by
+$L\pi'_!(\Omega_{\mathcal{O}'/A'} \otimes_{\mathcal{O}'} \underline{B'})$.
+\end{proof}
+
+\begin{remark}
+\label{remark-homotopy-triangle}
+Suppose that we are given a square (\ref{equation-commutative-square})
+such that there exists an arrow $\kappa : B \to A'$ making the diagram
+commute:
+$$
+\xymatrix{
+B \ar[r]_\beta \ar[rd]_\kappa & B' \\
+A \ar[u] \ar[r]^\alpha & A' \ar[u]
+}
+$$
+In this case we claim the functoriality map $P_\bullet \to P'_\bullet$
+is homotopic to the composition $P_\bullet \to B \to A' \to P'_\bullet$.
+Namely, using $\kappa$ the functoriality map factors as
+$$
+P_\bullet \to P_{A'/A', \bullet} \to P'_\bullet
+$$
+where $P_{A'/A', \bullet}$ is the standard resolution of $A'$ over $A'$.
+Since $A'$ is the polynomial algebra on the empty set over $A'$ we
+see from Simplicial, Lemma \ref{simplicial-lemma-standard-simplicial-homotopy}
+that the augmentation $\epsilon_{A'/A'} : P_{A'/A', \bullet} \to A'$
+is a homotopy equivalence of simplicial rings. Observe that the homotopy
+inverse map $c : A' \to P_{A'/A', \bullet}$ constructed in the proof of
+that lemma is just the structure morphism, hence
+we conclude what we want because the two compositions
+$$
+\xymatrix{
+P_\bullet \ar[r] &
+P_{A'/A', \bullet} \ar@<1ex>[rr]^{\text{id}}
+\ar@<-1ex>[rr]_{c \circ \epsilon_{A'/A'}} & &
+P_{A'/A', \bullet} \ar[r] &
+P'_\bullet
+}
+$$
+are the two maps discussed above and these are homotopic
+(Simplicial, Remark \ref{simplicial-remark-homotopy-pre-post-compose}).
+Since the second map $P_\bullet \to P'_\bullet$ induces the zero
+map $\Omega_{P_\bullet/A} \to \Omega_{P'_\bullet/A'}$ we conclude
+that the functoriality map $L_{B/A} \to L_{B'/A'}$ is homotopic
+to zero in this case.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-cotangent-complex-product}
+Let $A \to B$ and $A \to C$ be ring maps.
+Then the map $L_{B \times C/A} \to L_{B/A} \oplus L_{C/A}$ is
+an isomorphism in $D(B \times C)$.
+\end{lemma}
+
+\begin{proof}
+Although this lemma can be deduced from the fundamental triangle
+we will give a direct and elementary proof of this now.
+Factor the ring map $A \to B \times C$ as $A \to A[x] \to B \times C$
+where $x \mapsto (1, 0)$. By Lemma \ref{lemma-special-case-triangle}
+we have a distinguished triangle
+$$
+L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} (B \times C) \to L_{B \times C/A} \to
+L_{B \times C/A[x]} \to L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} (B \times C)[1]
+$$
+in $D(B \times C)$. Similarly we have the distinguished triangles
+$$
+\begin{matrix}
+L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} B \to L_{B/A} \to L_{B/A[x]}
+\to L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} B[1] \\
+L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} C \to L_{C/A} \to L_{C/A[x]}
+\to L_{A[x]/A} \otimes_{A[x]}^\mathbf{L} C[1]
+\end{matrix}
+$$
+Thus it suffices to prove the result for $B \times C$ over $A[x]$.
+Note that $A[x] \to A[x, x^{-1}]$ is flat, that
+$(B \times C) \otimes_{A[x]} A[x, x^{-1}] = B \otimes_{A[x]} A[x, x^{-1}]$,
+and that $C \otimes_{A[x]} A[x, x^{-1}] = 0$.
+Thus by base change (Lemma \ref{lemma-flat-base-change-cotangent-complex})
+the map $L_{B \times C/A[x]} \to L_{B/A[x]} \oplus L_{C/A[x]}$
+becomes an isomorphism after inverting $x$.
+In the same way one shows that the map becomes an isomorphism after
+inverting $x - 1$. This proves the lemma.
+\end{proof}
+
+
+
+
+\section{The fundamental triangle}
+\label{section-triangle}
+
+\noindent
+In this section we consider a sequence of ring maps $A \to B \to C$.
+It is our goal to show that this triangle gives rise to a distinguished
+triangle
+\begin{equation}
+\label{equation-triangle}
+L_{B/A} \otimes_B^\mathbf{L} C \to L_{C/A} \to L_{C/B} \to
+L_{B/A} \otimes_B^\mathbf{L} C[1]
+\end{equation}
+in $D(C)$. This will be proved in Proposition \ref{proposition-triangle}.
+For an alternative approach see Remark \ref{remark-triangle}.
+
+\medskip\noindent
+Consider the category $\mathcal{C}_{C/B/A}$
+wich is the {\bf opposite} of the category whose objects are
+$(P \to B, Q \to C)$ where
+\begin{enumerate}
+\item $P$ is a polynomial algebra over $A$,
+\item $P \to B$ is an $A$-algebra homomorphism,
+\item $Q$ is a polynomial algebra over $P$, and
+\item $Q \to C$ is a $P$-algebra-homomorphism.
+\end{enumerate}
+We take the opposite as we want to think of $(P \to B, Q \to C)$
+as corresponding to the commutative diagram
+$$
+\xymatrix{
+\Spec(C) \ar[d] \ar[r] & \Spec(Q) \ar[d] \\
+\Spec(B) \ar[d] \ar[r] & \Spec(P) \ar[dl] \\
+\Spec(A)
+}
+$$
+Let $\mathcal{C}_{B/A}$, $\mathcal{C}_{C/A}$, $\mathcal{C}_{C/B}$
+be the categories considered in Section \ref{section-compute-L-pi-shriek}.
+There are functors
+$$
+\begin{matrix}
+u_1 : \mathcal{C}_{C/B/A} \to \mathcal{C}_{B/A}, &
+(P \to B, Q \to C) \mapsto (P \to B) \\
+u_2 : \mathcal{C}_{C/B/A} \to \mathcal{C}_{C/A}, &
+(P \to B, Q \to C) \mapsto (Q \to C) \\
+u_3 : \mathcal{C}_{C/B/A} \to \mathcal{C}_{C/B}, &
+(P \to B, Q \to C) \mapsto (Q \otimes_P B \to C)
+\end{matrix}
+$$
+These functors induce corresponding morphisms of topoi $g_i$.
+Let us denote $\mathcal{O}_i = g_i^{-1}\mathcal{O}$ so that we
+get morphisms of ringed topoi
+\begin{equation}
+\label{equation-three-maps}
+\begin{matrix}
+g_1 : (\Sh(\mathcal{C}_{C/B/A}), \mathcal{O}_1)
+\longrightarrow (\Sh(\mathcal{C}_{B/A}), \mathcal{O}) \\
+g_2 : (\Sh(\mathcal{C}_{C/B/A}), \mathcal{O}_2)
+\longrightarrow (\Sh(\mathcal{C}_{C/A}), \mathcal{O}) \\
+g_3 : (\Sh(\mathcal{C}_{C/B/A}), \mathcal{O}_3)
+\longrightarrow (\Sh(\mathcal{C}_{C/B}), \mathcal{O})
+\end{matrix}
+\end{equation}
+Let us denote
+$\pi : \Sh(\mathcal{C}_{C/B/A}) \to \Sh(*)$,
+$\pi_1 : \Sh(\mathcal{C}_{B/A}) \to \Sh(*)$,
+$\pi_2 : \Sh(\mathcal{C}_{C/A}) \to \Sh(*)$, and
+$\pi_3 : \Sh(\mathcal{C}_{C/B}) \to \Sh(*)$,
+so that $\pi = \pi_i \circ g_i$.
+We will obtain our distinguished triangle from the identification
+of the cotangent complex in Lemma \ref{lemma-compute-cotangent-complex}
+and the following lemmas.
+
+\begin{lemma}
+\label{lemma-triangle-ses}
+With notation as in (\ref{equation-three-maps}) set
+$$
+\begin{matrix}
+\Omega_1 = \Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}
+\text{ on }\mathcal{C}_{B/A} \\
+\Omega_2 = \Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{C}
+\text{ on }\mathcal{C}_{C/A} \\
+\Omega_3 = \Omega_{\mathcal{O}/B} \otimes_\mathcal{O} \underline{C}
+\text{ on }\mathcal{C}_{C/B}
+\end{matrix}
+$$
+Then we have a canonical short exact sequence of sheaves
+of $\underline{C}$-modules
+$$
+0 \to g_1^{-1}\Omega_1 \otimes_{\underline{B}} \underline{C} \to
+g_2^{-1}\Omega_2 \to
+g_3^{-1}\Omega_3 \to 0
+$$
+on $\mathcal{C}_{C/B/A}$.
+\end{lemma}
+
+\begin{proof}
+Recall that $g_i^{-1}$ is gotten by simply precomposing with $u_i$.
+Given an object $U = (P \to B, Q \to C)$ we have a split
+short exact sequence
+$$
+0 \to \Omega_{P/A} \otimes Q \to \Omega_{Q/A} \to \Omega_{Q/P} \to 0
+$$
+for example by Algebra, Lemma \ref{algebra-lemma-ses-formally-smooth}.
+Tensoring with $C$ over $Q$ we obtain a short exact sequence
+$$
+0 \to \Omega_{P/A} \otimes C \to \Omega_{Q/A} \otimes C \to
+\Omega_{Q/P} \otimes C \to 0
+$$
+We have $\Omega_{P/A} \otimes C = \Omega_{P/A} \otimes B \otimes C$
+whence this is the value of
+$g_1^{-1}\Omega_1 \otimes_{\underline{B}} \underline{C}$
+on $U$. The module $\Omega_{Q/A} \otimes C$ is the value of
+$g_2^{-1}\Omega_2$ on $U$.
+We have $\Omega_{Q/P} \otimes C = \Omega_{Q \otimes_P B/B} \otimes C$
+by Algebra, Lemma \ref{algebra-lemma-differentials-base-change}
+hence this is the value of
+$g_3^{-1}\Omega_3$ on $U$. Thus the short exact sequence of the
+lemma comes from assigning to $U$ the last displayed short exact
+sequence.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-polynomial-on-top}
+With notation as in (\ref{equation-three-maps})
+suppose that $C$ is a polynomial algebra over $B$. Then
+$L\pi_!(g_3^{-1}\mathcal{F}) = L\pi_{3, !}\mathcal{F} = \pi_{3, !}\mathcal{F}$
+for any abelian sheaf $\mathcal{F}$ on $\mathcal{C}_{C/B}$
+\end{lemma}
+
+\begin{proof}
+Write $C = B[E]$ for some set $E$. Choose a resolution
+$P_\bullet \to B$ of $B$ over $A$. For every $n$ consider
+the object $U_n = (P_n \to B, P_n[E] \to C)$ of $\mathcal{C}_{C/B/A}$.
+Then $U_\bullet$ is a cosimplicial object of $\mathcal{C}_{C/B/A}$.
+Note that $u_3(U_\bullet)$ is the constant cosimplicial
+object of $\mathcal{C}_{C/B}$ with value $(C \to C)$.
+We will prove that the object $U_\bullet$ of $\mathcal{C}_{C/B/A}$
+satisfies the hypotheses of
+Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}.
+This implies the lemma as it shows that $L\pi_!(g_3^{-1}\mathcal{F})$
+is computed by the constant simplicial abelian group
+$\mathcal{F}(C \to C)$ which is the value of
+$L\pi_{3, !}\mathcal{F} = \pi_{3, !}\mathcal{F}$ by
+Lemma \ref{lemma-pi-lower-shriek-polynomial-algebra}.
+
+\medskip\noindent
+Let $U = (\beta : P \to B, \gamma : Q \to C)$ be an object of
+$\mathcal{C}_{C/B/A}$. We may write $P = A[S]$ and $Q = A[S \amalg T]$
+by the definition of our category $\mathcal{C}_{C/B/A}$. We have to show that
+$$
+\Mor_{\mathcal{C}_{C/B/A}}(U_\bullet, U)
+$$
+is homotopy equivalent to a singleton simplicial set $*$. Observe that this
+simplicial set is the product
+$$
+\prod\nolimits_{s \in S} F_s \times \prod\nolimits_{t \in T} F'_t
+$$
+where $F_s$ is the corresponding simplicial set for
+$U_s = (A[\{s\}] \to B, A[\{s\}] \to C)$
+and $F'_t$ is the corresponding simplicial set for
+$U_t = (A \to B, A[\{t\}] \to C)$. Namely, the object $U$
+is the product $\prod U_s \times \prod U_t$ in $\mathcal{C}_{C/B/A}$.
+It suffices each $F_s$ and $F'_t$ is homotopy equivalent to $*$, see
+Simplicial, Lemma \ref{simplicial-lemma-products-homotopy}.
+The case of $F_s$ follows as $P_\bullet \to B$ is a trivial Kan
+fibration (as a resolution) and $F_s$ is the fibre of this map over
+$\beta(s)$. (Use Simplicial, Lemmas
+\ref{simplicial-lemma-trivial-kan-base-change} and
+\ref{simplicial-lemma-trivial-kan-homotopy}).
+The case of $F'_t$ is more interesting. Here we are saying that
+the fibre of
+$$
+P_\bullet[E] \longrightarrow C = B[E]
+$$
+over $\gamma(t) \in C$ is homotopy equivalent to a point. In fact we
+will show this map is a trivial Kan fibration. Namely,
+$P_\bullet \to B$ is a trivial can fibration. For any ring $R$
+we have
+$$
+R[E] =
+\colim_{\Sigma \subset \text{Map}(E, \mathbf{Z}_{\geq 0})\text{ finite}}
+\prod\nolimits_{I \in \Sigma} R
+$$
+(filtered colimit). Thus the displayed map of simplicial sets is a
+filtered colimit of trivial Kan fibrations, whence a trivial Kan fibration
+by Simplicial, Lemma \ref{simplicial-lemma-filtered-colimit-trivial-kan}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-triangle-compute-lower-shriek}
+With notation as in (\ref{equation-three-maps}) we have
+$Lg_{i, !} \circ g_i^{-1} = \text{id}$ for $i = 1, 2, 3$
+and hence also $L\pi_! \circ g_i^{-1} = L\pi_{i, !}$ for
+$i = 1, 2, 3$.
+\end{lemma}
+
+\begin{proof}
+Proof for $i = 1$. We claim the functor $\mathcal{C}_{C/B/A}$
+is a fibred category over $\mathcal{C}_{B/A}$
+Namely, suppose given $(P \to B, Q \to C)$
+and a morphism $(P' \to B) \to (P \to B)$ of $\mathcal{C}_{B/A}$.
+Recall that this means we have an $A$-algebra homomorphism
+$P \to P'$ compatible with maps to $B$. Then we set $Q' = Q \otimes_P P'$
+with induced map to $C$ and the morphism
+$$
+(P' \to B, Q' \to C) \longrightarrow (P \to B, Q \to C)
+$$
+in $\mathcal{C}_{C/B/A}$ (note reversal arrows again) is strongly cartesian
+in $\mathcal{C}_{C/B/A}$ over $\mathcal{C}_{B/A}$. Moreover, observe
+that the fibre category of $u_1$ over $P \to B$ is the category
+$\mathcal{C}_{C/P}$. Let $\mathcal{F}$ be an abelian sheaf on
+$\mathcal{C}_{B/A}$. Since we have a fibred category we may apply
+Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-compute-left-derived-pi-shriek}.
+Thus $L_ng_{1, !}g_1^{-1}\mathcal{F}$ is the (pre)sheaf
+which assigns to $U \in \Ob(\mathcal{C}_{B/A})$ the $n$th homology of
+$g_1^{-1}\mathcal{F}$ restricted to the fibre category over $U$.
+Since these restrictions are constant the desired result follows from
+Lemma \ref{lemma-pi-lower-shriek-constant-sheaf}
+via our identifications of fibre categories above.
+
+\medskip\noindent
+The case $i = 2$.
+We claim $\mathcal{C}_{C/B/A}$ is a fibred category over $\mathcal{C}_{C/A}$
+is a fibred category. Namely, suppose given $(P \to B, Q \to C)$
+and a morphism $(Q' \to C) \to (Q \to C)$ of $\mathcal{C}_{C/A}$.
+Recall that this means we have a $B$-algebra homomorphism
+$Q \to Q'$ compatible with maps to $C$. Then
+$$
+(P \to B, Q' \to C) \longrightarrow (P \to B, Q \to C)
+$$
+is strongly cartesian in $\mathcal{C}_{C/B/A}$ over $\mathcal{C}_{C/A}$.
+Note that the fibre category of $u_2$ over $Q \to C$ has an final
+(beware reversal arrows) object, namely, $(A \to B, Q \to C)$. Let
+$\mathcal{F}$ be an abelian sheaf on $\mathcal{C}_{C/A}$.
+Since we have a fibred category we may apply
+Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-compute-left-derived-pi-shriek}.
+Thus $L_ng_{2, !}g_2^{-1}\mathcal{F}$ is the (pre)sheaf
+which assigns to $U \in \Ob(\mathcal{C}_{C/A})$ the $n$th homology of
+$g_1^{-1}\mathcal{F}$ restricted to the fibre category over $U$.
+Since these restrictions are constant the desired result follows from
+Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-initial-final}
+because the fibre categories all have final objects.
+
+\medskip\noindent
+The case $i = 3$. In this case we will apply
+Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-compute-left-derived-g-shriek}
+to $u = u_3 : \mathcal{C}_{C/B/A} \to \mathcal{C}_{C/B}$
+and $\mathcal{F}' = g_3^{-1}\mathcal{F}$ for some abelian sheaf
+$\mathcal{F}$ on $\mathcal{C}_{C/B}$.
+Suppose $U = (\overline{Q} \to C)$ is an object of $\mathcal{C}_{C/B}$.
+Then $\mathcal{I}_U = \mathcal{C}_{\overline{Q}/B/A}$ (again beware
+of reversal of arrows). The sheaf $\mathcal{F}'_U$ is given by the
+rule $(P \to B, Q \to \overline{Q}) \mapsto \mathcal{F}(Q \otimes_P B \to C)$.
+In other words, this sheaf is the pullback of a sheaf
+on $\mathcal{C}_{\overline{Q}/C}$ via the morphism
+$\Sh(\mathcal{C}_{\overline{Q}/B/A}) \to \Sh(\mathcal{C}_{\overline{Q}/B})$.
+Thus Lemma \ref{lemma-polynomial-on-top} shows that
+$H_n(\mathcal{I}_U, \mathcal{F}'_U) = 0$ for $n > 0$
+and equal to $\mathcal{F}(\overline{Q} \to C)$ for $n = 0$.
+The aforementioned Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-compute-left-derived-g-shriek}
+implies that $Lg_{3, !}(g_3^{-1}\mathcal{F}) = \mathcal{F}$ and
+the proof is done.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-triangle}
+Let $A \to B \to C$ be ring maps. There is a canonical distinguished
+triangle
+$$
+L_{B/A} \otimes_B^\mathbf{L} C \to L_{C/A} \to L_{C/B} \to
+L_{B/A} \otimes_B^\mathbf{L} C[1]
+$$
+in $D(C)$.
+\end{proposition}
+
+\begin{proof}
+Consider the short exact sequence of sheaves of
+Lemma \ref{lemma-triangle-ses}
+and apply the derived functor $L\pi_!$ to obtain a distinguished
+triangle
+$$
+L\pi_!(g_1^{-1}\Omega_1 \otimes_{\underline{B}} \underline{C}) \to
+L\pi_!(g_2^{-1}\Omega_2) \to
+L\pi_!(g_3^{-1}\Omega_3) \to
+L\pi_!(g_1^{-1}\Omega_1 \otimes_{\underline{B}} \underline{C})[1]
+$$
+in $D(C)$. Using Lemmas \ref{lemma-triangle-compute-lower-shriek} and
+\ref{lemma-compute-cotangent-complex}
+we see that the second and third terms agree with $L_{C/A}$ and $L_{C/B}$
+and the first one equals
+$$
+L\pi_{1, !}(\Omega_1 \otimes_{\underline{B}} \underline{C}) =
+L\pi_{1, !}(\Omega_1) \otimes_B^\mathbf{L} C =
+L_{B/A} \otimes_B^\mathbf{L} C
+$$
+The first equality by Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-change-of-rings}
+(and flatness of $\Omega_1$ as a sheaf of modules over $\underline{B}$)
+and the second by Lemma \ref{lemma-compute-cotangent-complex}.
+\end{proof}
+
+\begin{remark}
+\label{remark-triangle}
+We sketch an alternative, perhaps simpler, proof of the existence of
+the fundamental triangle.
+Let $A \to B \to C$ be ring maps and assume that $B \to C$ is injective.
+Let $P_\bullet \to B$ be the standard resolution of $B$ over $A$ and
+let $Q_\bullet \to C$ be the standard resolution of $C$ over $B$.
+Picture
+$$
+\xymatrix{
+P_\bullet : &
+A[A[A[B]]] \ar[d]
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+A[A[B]] \ar[d]
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+&
+A[B] \ar[d] \ar@<0ex>[l] \ar[r] &
+B \\
+Q_\bullet : &
+A[A[A[C]]]
+\ar@<2ex>[r]
+\ar@<0ex>[r]
+\ar@<-2ex>[r]
+&
+A[A[C]]
+\ar@<1ex>[r]
+\ar@<-1ex>[r]
+\ar@<1ex>[l]
+\ar@<-1ex>[l]
+&
+A[C] \ar@<0ex>[l] \ar[r] &
+C
+}
+$$
+Observe that since $B \to C$ is injective, the ring $Q_n$ is a
+polynomial algebra over $P_n$ for all $n$. Hence we obtain a cosimplicial
+object in $\mathcal{C}_{C/B/A}$ (beware reversal arrows).
+Now set $\overline{Q}_\bullet = Q_\bullet \otimes_{P_\bullet} B$.
+The key to the proof of Proposition \ref{proposition-triangle}
+is to show that $\overline{Q}_\bullet$ is a resolution of $C$ over $B$.
+This follows from Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-O-homology-qis}
+applied to $\mathcal{C} = \Delta$, $\mathcal{O} = P_\bullet$,
+$\mathcal{O}' = B$, and $\mathcal{F} = Q_\bullet$ (this uses that $Q_n$
+is flat over $P_n$; see Cohomology on Sites, Remark
+\ref{sites-cohomology-remark-simplicial-modules} to relate simplicial modules
+to sheaves). The key fact implies that the distinguished triangle of
+Proposition \ref{proposition-triangle}
+is the distinguished triangle associated to the short exact sequence
+of simplicial $C$-modules
+$$
+0 \to
+\Omega_{P_\bullet/A} \otimes_{P_\bullet} C \to
+\Omega_{Q_\bullet/A} \otimes_{Q_\bullet} C \to
+\Omega_{\overline{Q}_\bullet/B} \otimes_{\overline{Q}_\bullet} C \to 0
+$$
+which is deduced from the short exact sequences
+$0 \to \Omega_{P_n/A} \otimes_{P_n} Q_n \to \Omega_{Q_n/A} \to
+\Omega_{Q_n/P_n} \to 0$ of
+Algebra, Lemma \ref{algebra-lemma-ses-formally-smooth}.
+Namely, by Remark \ref{remark-resolution} and the key fact the complex on the
+right hand side represents $L_{C/B}$ in $D(C)$.
+
+\medskip\noindent
+If $B \to C$ is not injective, then we can use the above to get a
+fundamental triangle for $A \to B \to B \times C$. Since
+$L_{B \times C/B} \to L_{B/B} \oplus L_{C/B}$ and
+$L_{B \times C/A} \to L_{B/A} \oplus L_{C/A}$
+are quasi-isomorphism in $D(B \times C)$
+(Lemma \ref{lemma-cotangent-complex-product})
+this induces the desired distinguished triangle in $D(C)$
+by tensoring with the flat ring map $B \times C \to C$.
+\end{remark}
+
+\begin{remark}
+\label{remark-explicit-map}
+Let $A \to B \to C$ be ring maps with $B \to C$ injective.
+Recall the notation $P_\bullet$, $Q_\bullet$, $\overline{Q}_\bullet$ of
+Remark \ref{remark-triangle}.
+Let $R_\bullet$ be the standard resolution of $C$ over $B$.
+In this remark we explain how to get the canonical identification
+of $\Omega_{\overline{Q}_\bullet/B} \otimes_{\overline{Q}_\bullet} C$
+with $L_{C/B} = \Omega_{R_\bullet/B} \otimes_{R_\bullet} C$.
+Let $S_\bullet \to B$ be the standard resolution of $B$ over $B$.
+Note that the functoriality map $S_\bullet \to R_\bullet$ identifies
+$R_n$ as a polynomial algebra over $S_n$ because $B \to C$ is injective.
+For example in degree $0$ we have the map $B[B] \to B[C]$, in degree
+$1$ the map $B[B[B]] \to B[B[C]]$, and so on. Thus
+$\overline{R}_\bullet = R_\bullet \otimes_{S_\bullet} B$
+is a simplicial polynomial algebra
+over $B$ as well and it follows (as in Remark \ref{remark-triangle}) from
+Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-O-homology-qis}
+that $\overline{R}_\bullet \to C$ is a resolution. Since we have
+a commutative diagram
+$$
+\xymatrix{
+Q_\bullet \ar[r] & R_\bullet \\
+P_\bullet \ar[u] \ar[r] & S_\bullet \ar[u] \ar[r] & B
+}
+$$
+we obtain a canonical map
+$\overline{Q}_\bullet = Q_\bullet \otimes_{P_\bullet} B \to
+\overline{R}_\bullet$. Thus the maps
+$$
+L_{C/B} = \Omega_{R_\bullet/B} \otimes_{R_\bullet} C
+\longrightarrow
+\Omega_{\overline{R}_\bullet/B} \otimes_{\overline{R}_\bullet} C
+\longleftarrow
+\Omega_{\overline{Q}_\bullet/B} \otimes_{\overline{Q}_\bullet} C
+$$
+are quasi-isomorphisms (Remark \ref{remark-resolution}) and composing
+one with the inverse of the other gives the desired identification.
+\end{remark}
+
+
+
+
+
+\section{Localization and \'etale ring maps}
+\label{section-localization}
+
+\noindent
+In this section we study what happens if we localize our rings.
+Let $A \to A' \to B$ be ring maps such that $B = B \otimes_A^\mathbf{L} A'$.
+This happens for example if $A' = S^{-1}A$ is the localization of $A$
+at a multiplicative subset $S \subset A$. In this
+case for an abelian sheaf $\mathcal{F}'$ on $\mathcal{C}_{B/A'}$
+the homology of $g^{-1}\mathcal{F}'$ over $\mathcal{C}_{B/A}$ agrees with
+the homology of $\mathcal{F}'$ over $\mathcal{C}_{B/A'}$, see
+Lemma \ref{lemma-flat-base-change} for a precise statement.
+
+\begin{lemma}
+\label{lemma-localize-at-bottom}
+Let $A \to A' \to B$ be ring maps such that $B = B \otimes_A^\mathbf{L} A'$.
+Then $L_{B/A} = L_{B/A'}$ in $D(B)$.
+\end{lemma}
+
+\begin{proof}
+According to the discussion above (i.e., using
+Lemma \ref{lemma-flat-base-change})
+and Lemma \ref{lemma-compute-cotangent-complex}
+we have to show that the sheaf given
+by the rule $(P \to B) \mapsto \Omega_{P/A} \otimes_P B$ on $\mathcal{C}_{B/A}$
+is the pullback of the sheaf given by the rule
+$(P \to B) \mapsto \Omega_{P/A'} \otimes_P B$.
+The pullback functor $g^{-1}$ is given by precomposing with the
+functor $u : \mathcal{C}_{B/A} \to \mathcal{C}_{B/A'}$,
+$(P \to B) \mapsto (P \otimes_A A' \to B)$.
+Thus we have to show that
+$$
+\Omega_{P/A} \otimes_P B =
+\Omega_{P \otimes_A A'/A'} \otimes_{(P \otimes_A A')} B
+$$
+By Algebra, Lemma \ref{algebra-lemma-differentials-base-change}
+the right hand side is equal to
+$$
+(\Omega_{P/A} \otimes_A A') \otimes_{(P \otimes_A A')} B
+$$
+Since $P$ is a polynomial algebra over $A$ the module
+$\Omega_{P/A}$ is free and the equality is obvious.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-derived-diagonal}
+Let $A \to B$ be a ring map such that $B = B \otimes_A^\mathbf{L} B$.
+Then $L_{B/A} = 0$ in $D(B)$.
+\end{lemma}
+
+\begin{proof}
+This is true because $L_{B/A} = L_{B/B} = 0$ by
+Lemmas \ref{lemma-localize-at-bottom} and
+\ref{lemma-cotangent-complex-polynomial-algebra}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-bootstrap}
+Let $A \to B$ be a ring map such that $\text{Tor}^A_i(B, B) = 0$ for $i > 0$
+and such that $L_{B/B \otimes_A B} = 0$.
+Then $L_{B/A} = 0$ in $D(B)$.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-flat-base-change-cotangent-complex} we see that
+$L_{B/A} \otimes_B^\mathbf{L} (B \otimes_A B) = L_{B \otimes_A B/B}$.
+Now we use the distinguished triangle (\ref{equation-triangle})
+$$
+L_{B \otimes_A B/B} \otimes^\mathbf{L}_{(B \otimes_A B)} B \to
+L_{B/B} \to L_{B/B \otimes_A B} \to
+L_{B \otimes_A B/B} \otimes^\mathbf{L}_{(B \otimes_A B)} B[1]
+$$
+associated to the ring maps $B \to B \otimes_A B \to B$ and the vanishing of
+$L_{B/B}$ (Lemma \ref{lemma-cotangent-complex-polynomial-algebra}) and
+$L_{B/B \otimes_A B}$ (assumed) to see that
+$$
+0 =
+L_{B \otimes_A B/B} \otimes^\mathbf{L}_{(B \otimes_A B)} B =
+L_{B/A} \otimes_B^\mathbf{L} (B \otimes_A B)
+\otimes^\mathbf{L}_{(B \otimes_A B)} B = L_{B/A}
+$$
+as desired.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-when-zero}
+The cotangent complex $L_{B/A}$ is zero in each of the following cases:
+\begin{enumerate}
+\item $A \to B$ and $B \otimes_A B \to B$ are flat, i.e., $A \to B$
+is weakly \'etale
+(More on Algebra, Definition \ref{more-algebra-definition-weakly-etale}),
+\item $A \to B$ is a flat epimorphism of rings,
+\item $B = S^{-1}A$ for some multiplicative subset $S \subset A$,
+\item $A \to B$ is unramified and flat,
+\item $A \to B$ is \'etale,
+\item $A \to B$ is a filtered colimit of ring maps for which
+the cotangent complex vanishes,
+\item $B$ is a henselization of a local ring of $A$,
+\item $B$ is a strict henselization of a local ring of $A$, and
+\item add more here.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+In case (1) we may apply
+Lemma \ref{lemma-derived-diagonal}
+to the surjective flat ring map $B \otimes_A B \to B$
+to conclude that $L_{B \otimes_A B/B} = 0$ and then we use
+Lemma \ref{lemma-bootstrap}
+to conclude. The cases (2) -- (5) are each special cases of (1).
+Part (6) follows from Lemma \ref{lemma-colimit-cotangent-complex}.
+Parts (7) and (8) follows from the fact that (strict) henselizations
+are filtered colimits of \'etale ring extensions of $A$, see
+Algebra, Lemmas \ref{algebra-lemma-henselization-different} and
+\ref{algebra-lemma-strict-henselization-different}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-localize-on-top}
+Let $A \to B \to C$ be ring maps such that $L_{C/B} = 0$.
+Then $L_{C/A} = L_{B/A} \otimes_B^\mathbf{L} C$.
+\end{lemma}
+
+\begin{proof}
+This is a trivial consequence of 
+the distinguished triangle (\ref{equation-triangle}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-localize}
+Let $A \to B$ be ring maps and $S \subset A$, $T \subset B$ multiplicative
+subsets such that $S$ maps into $T$.
+Then $L_{T^{-1}B/S^{-1}A} = L_{B/A} \otimes_B T^{-1}B$
+in $D(T^{-1}B)$.
+\end{lemma}
+
+\begin{proof}
+Lemma \ref{lemma-localize-on-top} shows that
+$L_{T^{-1}B/A} = L_{B/A} \otimes_B T^{-1}B$
+and Lemma \ref{lemma-localize-at-bottom}
+shows that $L_{T^{-1}B/A} = L_{T^{-1}B/S^{-1}A}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-cotangent-complex-henselization}
+Let $A \to B$ be a local ring homomorphism of local rings.
+Let $A^h \to B^h$, resp.\ $A^{sh} \to B^{sh}$ be the induced
+maps of henselizations, resp.\ strict henselizations.
+Then
+$$
+L_{B^h/A^h} = L_{B^h/A} = L_{B/A} \otimes_B^\mathbf{L} B^h
+\quad\text{resp.}\quad
+L_{B^{sh}/A^{sh}} = L_{B^{sh}/A} = L_{B/A} \otimes_B^\mathbf{L} B^{sh}
+$$
+in $D(B^h)$, resp.\ $D(B^{sh})$.
+\end{lemma}
+
+\begin{proof}
+The complexes $L_{A^h/A}$, $L_{A^{sh}/A}$, $L_{B^h/B}$, and
+$L_{B^{sh}/B}$ are all zero by Lemma \ref{lemma-when-zero}.
+Using the fundamental distinguished triangle (\ref{equation-triangle})
+for $A \to B \to B^h$ we obtain
+$L_{B^h/A} = L_{B/A} \otimes_B^\mathbf{L} B^h$.
+Using the fundamental triangle for $A \to A^h \to B^h$
+we obtain $L_{B^h/A^h} = L_{B^h/A}$.
+Similarly for strict henselizations.
+\end{proof}
+
+
+
+
+\section{Smooth ring maps}
+\label{section-smooth}
+
+\noindent
+Let $C \to B$ be a surjection of rings with kernel $I$. Let us call such
+a ring map ``weakly quasi-regular'' if $I/I^2$ is a flat $B$-module and
+$\text{Tor}_*^C(B, B)$ is the exterior algebra on $I/I^2$.
+The generalization to ``smooth ring maps'' of what is done in
+Lemma \ref{lemma-when-zero} for ``\'etale ring maps'' is to look
+at flat ring maps $A \to B$ such that the multiplication map
+$B \otimes_A B \to B$ is weakly quasi-regular. For the moment we just stick to
+smooth ring maps.
+
+\begin{lemma}
+\label{lemma-when-projective}
+If $A \to B$ is a smooth ring map, then $L_{B/A} = \Omega_{B/A}[0]$.
+\end{lemma}
+
+\begin{proof}
+We have the agreement in cohomological degree $0$ by
+Lemma \ref{lemma-identify-H0}.
+Thus it suffices to prove the other cohomology groups
+are zero. It suffices to prove this locally on $\Spec(B)$ as
+$L_{B_g/A} = (L_{B/A})_g$ for $g \in B$ by Lemma \ref{lemma-localize-on-top}.
+Thus we may assume that $A \to B$ is standard smooth
+(Algebra, Lemma \ref{algebra-lemma-smooth-syntomic}), i.e.,
+that we can factor $A \to B$ as
+$A \to A[x_1, \ldots, x_n] \to B$ with $A[x_1, \ldots, x_n] \to B$
+\'etale. In this case Lemmas \ref{lemma-when-zero} and
+Lemma \ref{lemma-localize-on-top} show that
+$L_{B/A} = L_{A[x_1, \ldots, x_n]/A} \otimes B$
+whence the conclusion by
+Lemma \ref{lemma-cotangent-complex-polynomial-algebra}.
+\end{proof}
+
+
+
+
+
+\section{Comparison with the naive cotangent complex}
+\label{section-surjections}
+
+\noindent
+The naive cotangent complex was introduced in
+Algebra, Section \ref{algebra-section-netherlander}.
+
+\begin{remark}
+\label{remark-make-map}
+Let $A \to B$ be a ring map.  Working on $\mathcal{C}_{B/A}$ as in
+Section \ref{section-compute-L-pi-shriek} let
+$\mathcal{J} \subset \mathcal{O}$ be the kernel of
+$\mathcal{O} \to \underline{B}$. Note that $L\pi_!(\mathcal{J}) = 0$ by
+Lemma \ref{lemma-apply-O-B-comparison}. Set
+$\Omega =  \Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}$
+so that
+$L_{B/A} = L\pi_!(\Omega)$ by Lemma \ref{lemma-compute-cotangent-complex}.
+It follows that $L\pi_!(\mathcal{J} \to \Omega) = L\pi_!(\Omega) = L_{B/A}$.
+Thus, for any object $U = (P \to B)$ of $\mathcal{C}_{B/A}$ we obtain a map
+\begin{equation}
+\label{equation-comparison-map-A}
+(J \to \Omega_{P/A} \otimes_P B) \longrightarrow L_{B/A}
+\end{equation}
+where $J = \Ker(P \to B)$ in $D(A)$, see
+Cohomology on Sites, Remark
+\ref{sites-cohomology-remark-map-evaluation-to-derived}.
+Continuing in this manner, note that
+$L\pi_!(\mathcal{J} \otimes_\mathcal{O}^\mathbf{L} \underline{B}) =
+L\pi_!(\mathcal{J}) = 0$ by
+Lemma \ref{lemma-O-homology-B-homology}.
+Since $\text{Tor}_0^\mathcal{O}(\mathcal{J}, \underline{B}) =
+\mathcal{J}/\mathcal{J}^2$
+the spectral sequence
+$$
+H_p(\mathcal{C}_{B/A}, \text{Tor}_q^\mathcal{O}(\mathcal{J}, \underline{B}))
+\Rightarrow 
+H_{p + q}(\mathcal{C}_{B/A},
+\mathcal{J} \otimes_\mathcal{O}^\mathbf{L} \underline{B}) = 0
+$$
+(dual of
+Derived Categories, Lemma \ref{derived-lemma-two-ss-complex-functor})
+implies that
+$H_0(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2) = 0$
+and $H_1(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2) = 0$.
+It follows that the complex of $\underline{B}$-modules
+$\mathcal{J}/\mathcal{J}^2 \to \Omega$ satisfies
+$\tau_{\geq -1}L\pi_!(\mathcal{J}/\mathcal{J}^2 \to \Omega) =
+\tau_{\geq -1}L_{B/A}$.
+Thus, for any object $U = (P \to B)$ of $\mathcal{C}_{B/A}$ we obtain a map
+\begin{equation}
+\label{equation-comparison-map}
+(J/J^2 \to \Omega_{P/A} \otimes_P B) \longrightarrow \tau_{\geq -1}L_{B/A}
+\end{equation}
+in $D(B)$, see
+Cohomology on Sites, Remark
+\ref{sites-cohomology-remark-map-evaluation-to-derived}.
+\end{remark}
+
+\noindent
+The first case is where we have a surjection of rings.
+
+\begin{lemma}
+\label{lemma-surjection}
+\begin{slogan}
+The cohomology of the cotangent complex of a surjective ring map is trivial in
+degree zero; it is the kernel modulo its square in degree $-1$.
+\end{slogan}
+Let $A \to B$ be a surjective ring map with kernel $I$.
+Then $H^0(L_{B/A}) = 0$ and $H^{-1}(L_{B/A}) = I/I^2$.
+This isomorphism comes from the map (\ref{equation-comparison-map})
+for the object $(A \to B)$ of $\mathcal{C}_{B/A}$.
+\end{lemma}
+
+\begin{proof}
+We will show below (using the surjectivity of $A \to B$)
+that there exists a short exact sequence
+$$
+0 \to \pi^{-1}(I/I^2) \to \mathcal{J}/\mathcal{J}^2 \to \Omega \to 0
+$$
+of sheaves on $\mathcal{C}_{B/A}$. Taking $L\pi_!$ and
+the associated long exact sequence of homology, and using the
+vanishing of $H_1(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2)$ and
+$H_0(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2)$
+shown in Remark \ref{remark-make-map} we obtain what we want using
+Lemma \ref{lemma-pi-lower-shriek-constant-sheaf}.
+
+\medskip\noindent
+What is left is to verify the local statement mentioned above.
+For every object $U = (P \to B)$ of $\mathcal{C}_{B/A}$
+we can choose an isomorphism $P = A[E]$ such that the map
+$P \to B$ maps each $e \in E$ to zero. Then
+$J = \mathcal{J}(U) \subset P = \mathcal{O}(U)$
+is equal to $J = IP + (e; e \in E)$. The value on $U$ of the short sequence
+of sheaves above is the sequence
+$$
+0 \to I/I^2 \to J/J^2 \to \Omega_{P/A} \otimes_P B \to 0
+$$
+Verification omitted (hint: the only tricky point is that
+$IP \cap J^2 = IJ$; which follows for example from
+More on Algebra, Lemma \ref{more-algebra-lemma-conormal-sequence-H1-regular}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-relation-with-naive-cotangent-complex}
+Let $A \to B$ be a ring map. Then $\tau_{\geq -1}L_{B/A}$
+is canonically quasi-isomorphic to the naive cotangent complex.
+\end{lemma}
+
+\begin{proof}
+Consider $P = A[B] \to B$ with kernel $I$. The naive cotangent
+complex $\NL_{B/A}$ of $B$ over $A$ is the complex
+$I/I^2 \to \Omega_{P/A} \otimes_P B$,
+see Algebra, Definition \ref{algebra-definition-naive-cotangent-complex}.
+Observe that in (\ref{equation-comparison-map}) we have already
+constructed a canonical map
+$$
+c : \NL_{B/A} \longrightarrow \tau_{\geq -1}L_{B/A}
+$$
+Consider the distinguished triangle (\ref{equation-triangle})
+$$
+L_{P/A} \otimes_P^\mathbf{L} B \to L_{B/A} \to L_{B/P} \to 
+(L_{P/A} \otimes_P^\mathbf{L} B)[1]
+$$
+associated to the ring maps $A \to A[B] \to B$. We know that
+$L_{P/A} = \Omega_{P/A}[0] = \NL_{P/A}$ in $D(P)$
+(Lemma \ref{lemma-cotangent-complex-polynomial-algebra}
+and
+Algebra, Lemma \ref{algebra-lemma-NL-polynomial-algebra})
+and that
+$\tau_{\geq -1}L_{B/P} = I/I^2[1] = \NL_{B/P}$ in $D(B)$
+(Lemma \ref{lemma-surjection} and
+Algebra, Lemma \ref{algebra-lemma-NL-surjection}).
+To show $c$ is a quasi-isomorphism it suffices by
+Algebra, Lemma \ref{algebra-lemma-exact-sequence-NL}
+and the long exact cohomology sequence associated to the
+distinguished triangle
+to show that the maps $L_{P/A} \to L_{B/A} \to L_{B/P}$ are compatible
+on cohomology groups with the corresponding maps
+$\NL_{P/A} \to \NL_{B/A} \to \NL_{B/P}$
+of the naive cotangent complex. We omit the verification.
+\end{proof}
+
+\begin{remark}
+\label{remark-explicit-comparison-map}
+We can make the comparison map of
+Lemma \ref{lemma-relation-with-naive-cotangent-complex}
+explicit in the following way.
+Let $P_\bullet$ be the standard resolution of $B$
+over $A$.
+Let $I = \Ker(A[B] \to B)$.
+Recall that $P_0 = A[B]$. The map of the
+lemma is given by the commutative diagram
+$$
+\xymatrix{
+L_{B/A} \ar[d] & \ldots \ar[r] &
+\Omega_{P_2/A} \otimes_{P_2} B
+\ar[r] \ar[d] &
+\Omega_{P_1/A} \otimes_{P_1} B
+\ar[r] \ar[d] &
+\Omega_{P_0/A} \otimes_{P_0} B
+\ar[d] \\
+\NL_{B/A} & \ldots \ar[r] &
+0 \ar[r] & 
+I/I^2 \ar[r] &
+\Omega_{P_0/A} \otimes_{P_0} B
+}
+$$
+We construct the downward arrow with target $I/I^2$
+by sending $\text{d}f \otimes b$ to the class of
+$(d_0(f) - d_1(f))b$ in $I/I^2$. Here $d_i : P_1 \to P_0$,
+$i = 0, 1$ are the two face maps of the simplicial structure.
+This makes sense as $d_0 - d_1$ maps $P_1$ into $I = \Ker(P_0 \to B)$.
+We omit the verification that this rule is well defined.
+Our map is compatible with the differential
+$\Omega_{P_1/A} \otimes_{P_1} B \to \Omega_{P_0/A} \otimes_{P_0} B$
+as this differential maps $\text{d}f \otimes b$ to
+$\text{d}(d_0(f) - d_1(f)) \otimes b$. Moreover, the differential
+$\Omega_{P_2/A} \otimes_{P_2} B \to \Omega_{P_1/A} \otimes_{P_1} B$
+maps $\text{d}f \otimes b$ to $\text{d}(d_0(f) - d_1(f) + d_2(f)) \otimes b$
+which are annihilated by our downward arrow. Hence a map of complexes.
+We omit the verification that this is the same as the map of
+Lemma \ref{lemma-relation-with-naive-cotangent-complex}.
+\end{remark}
+
+\begin{remark}
+\label{remark-surjection}
+Adopt notation as in Remark \ref{remark-make-map}. The arguments given
+there show that the differential
+$$
+H_2(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2)
+\longrightarrow
+H_0(\mathcal{C}_{B/A}, \text{Tor}_1^\mathcal{O}(\mathcal{J}, \underline{B}))
+$$
+of the spectral sequence is an isomorphism. Let $\mathcal{C}'_{B/A}$
+denote the full subcategory of $\mathcal{C}_{B/A}$ consisting of surjective
+maps $P \to B$. The agreement of the cotangent complex with the naive
+cotangent complex (Lemma \ref{lemma-relation-with-naive-cotangent-complex})
+shows that we have an exact sequence of sheaves
+$$
+0 \to \underline{H_1(L_{B/A})} \to
+\mathcal{J}/\mathcal{J}^2 \xrightarrow{\text{d}} \Omega \to
+\underline{H_2(L_{B/A})} \to 0
+$$
+on $\mathcal{C}'_{B/A}$. It follows that $\Ker(d)$ and
+$\Coker(d)$ on the whole category $\mathcal{C}_{B/A}$ have
+vanishing higher homology groups, since
+these are computed by the homology groups of constant simplicial abelian
+groups by Lemma \ref{lemma-identify-pi-shriek}. Hence we conclude
+that
+$$
+H_n(\mathcal{C}_{B/A}, \mathcal{J}/\mathcal{J}^2) \to H_n(L_{B/A})
+$$
+is an isomorphism for all $n \geq 2$. Combined with the remark above
+we obtain the formula
+$H_2(L_{B/A}) =
+H_0(\mathcal{C}_{B/A}, \text{Tor}_1^\mathcal{O}(\mathcal{J}, \underline{B}))$.
+\end{remark}
+
+
+
+
+
+\section{A spectral sequence of Quillen}
+\label{section-spectral-sequence}
+
+\noindent
+In this section we discuss a spectral sequence relating derived
+tensor product to the cotangent complex.
+
+\begin{lemma}
+\label{lemma-vanishing-symmetric-powers}
+Notation and assumptions as in
+Cohomology on Sites, Example \ref{sites-cohomology-example-category-to-point}.
+Assume $\mathcal{C}$ has a cosimplicial object as in
+Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}.
+Let $\mathcal{F}$ be a flat $\underline{B}$-module such that
+$H_0(\mathcal{C}, \mathcal{F}) = 0$.
+Then $H_l(\mathcal{C}, \text{Sym}_{\underline{B}}^k(\mathcal{F})) = 0$
+for $l < k$.
+\end{lemma}
+
+\begin{proof}
+We drop the subscript ${}_{\underline{B}}$ from tensor products, wedge powers,
+and symmetric powers. We will prove the lemma by induction on $k$.
+The cases $k = 0, 1$ follow from the assumptions. If $k > 1$ consider
+the exact complex
+$$
+\ldots \to
+\wedge^2\mathcal{F} \otimes \text{Sym}^{k - 2}\mathcal{F} \to
+\mathcal{F} \otimes \text{Sym}^{k - 1}\mathcal{F} \to
+\text{Sym}^k\mathcal{F} \to 0
+$$
+with differentials as in the Koszul complex. If we think of this as a
+resolution of $\text{Sym}^k\mathcal{F}$, then this gives a first quadrant
+spectral sequence
+$$
+E_1^{p, q} =
+H_p(\mathcal{C},
+\wedge^{q + 1}\mathcal{F} \otimes \text{Sym}^{k - q - 1}\mathcal{F})
+\Rightarrow
+H_{p + q}(\mathcal{C}, \text{Sym}^k(\mathcal{F}))
+$$
+By Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-eilenberg-zilber}
+we have
+$$
+L\pi_!(\wedge^{q + 1}\mathcal{F} \otimes \text{Sym}^{k - q - 1}\mathcal{F}) =
+L\pi_!(\wedge^{q + 1}\mathcal{F}) \otimes_B^\mathbf{L}
+L\pi_!(\text{Sym}^{k - q - 1}\mathcal{F}))
+$$
+It follows (from the construction of derived tensor products) that
+the induction hypothesis combined with the vanishing
+of $H_0(\mathcal{C}, \wedge^{q + 1}(\mathcal{F})) = 0$ will prove what we want.
+This is true because $\wedge^{q + 1}(\mathcal{F})$ is a quotient
+of $\mathcal{F}^{\otimes q + 1}$ and
+$H_0(\mathcal{C}, \mathcal{F}^{\otimes q + 1})$
+is a quotient of $H_0(\mathcal{C}, \mathcal{F})^{\otimes q + 1}$
+which is zero.
+\end{proof}
+
+\begin{remark}
+\label{remark-first-homology-symmetric-power}
+In the situation of Lemma \ref{lemma-vanishing-symmetric-powers}
+one can show that
+$H_k(\mathcal{C}, \text{Sym}^k(\mathcal{F})) =
+\wedge^k_B(H_1(\mathcal{C}, \mathcal{F}))$.
+Namely, it can be deduced from the proof that
+$H_k(\mathcal{C}, \text{Sym}^k(\mathcal{F}))$ is the $S_k$-coinvariants
+of
+$$
+H^{-k}(L\pi_!(\mathcal{F}) \otimes_B^\mathbf{L}
+L\pi_!(\mathcal{F}) \otimes_B^\mathbf{L}
+\ldots \otimes_B^\mathbf{L} L\pi_!(\mathcal{F})) =
+H_1(\mathcal{C}, \mathcal{F})^{\otimes k}
+$$
+Thus our claim is that this action is given by the usual action
+of $S_k$ on the tensor product multiplied by the sign character.
+To prove this one has to work through the sign conventions
+in the definition of the total complex associated to a
+multi-complex. We omit the verification.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-map-tors-zero}
+Let $A$ be a ring. Let $P = A[E]$ be a polynomial ring.
+Set $I = (e; e \in E) \subset P$. The maps
+$\text{Tor}_i^P(A, I^{n + 1}) \to \text{Tor}_i^P(A, I^n)$
+are zero for all $i$ and $n$.
+\end{lemma}
+
+\begin{proof}
+Denote $x_e \in P$ the variable corresponding to $e \in E$.
+A free resolution of $A$ over $P$ is given by the Koszul complex
+$K_\bullet$ on the $x_e$. Here $K_i$ has basis given by wedges
+$e_1 \wedge \ldots \wedge e_i$, $e_1, \ldots, e_i \in E$ and $d(e) = x_e$.
+Thus $K_\bullet \otimes_P I^n = I^nK_\bullet$ computes
+$\text{Tor}_i^P(A, I^n)$. Observe that everything is graded
+with $\deg(x_e) = 1$, $\deg(e) = 1$, and $\deg(a) = 0$ for $a \in A$.
+Suppose $\xi \in I^{n + 1}K_i$ is a cocycle homogeneous of degree $m$.
+Note that $m \geq i + 1 + n$. Then $\xi = \text{d}\eta$ for some
+$\eta \in K_{i + 1}$ as $K_\bullet$ is exact in degrees $ > 0$.
+(The case $i = 0$ is left to the reader.)
+Now $\deg(\eta) = m \geq i + 1 + n$. Hence writing $\eta$
+in terms of the basis we see the coordinates are in $I^n$.
+Thus $\xi$ maps to zero in the homology of $I^nK_\bullet$ as desired.
+\end{proof}
+
+\begin{theorem}[Quillen spectral sequence]
+\label{theorem-quillen-spectral-sequence}
+Let $A \to B$ be a surjective ring map. Consider the sheaf
+$\Omega = \Omega_{\mathcal{O}/A} \otimes_\mathcal{O} \underline{B}$ of
+$\underline{B}$-modules on $\mathcal{C}_{B/A}$, see
+Section \ref{section-compute-L-pi-shriek}.
+Then there is a spectral sequence with $E_1$-page
+$$
+E_1^{p, q} =
+H_{- p - q}(\mathcal{C}_{B/A}, \text{Sym}^p_{\underline{B}}(\Omega))
+\Rightarrow \text{Tor}^A_{- p - q}(B, B)
+$$
+with $d_r$ of bidegree $(r, -r + 1)$.
+Moreover, $H_i(\mathcal{C}_{B/A}, \text{Sym}^k_{\underline{B}}(\Omega)) = 0$
+for $i < k$.
+\end{theorem}
+
+\begin{proof}
+Let $I \subset A$ be the kernel of $A \to B$. Let
+$\mathcal{J} \subset \mathcal{O}$
+be the kernel of $\mathcal{O} \to \underline{B}$. Then
+$I\mathcal{O} \subset \mathcal{J}$. Set
+$\mathcal{K} = \mathcal{J}/I\mathcal{O}$ and
+$\overline{\mathcal{O}} = \mathcal{O}/I\mathcal{O}$.
+
+\medskip\noindent
+For every object $U = (P \to B)$ of $\mathcal{C}_{B/A}$
+we can choose an isomorphism $P = A[E]$ such that the map
+$P \to B$ maps each $e \in E$ to zero. Then
+$J = \mathcal{J}(U) \subset P = \mathcal{O}(U)$
+is equal to $J = IP + (e; e \in E)$. Moreover
+$\overline{\mathcal{O}}(U) = B[E]$ and $K = \mathcal{K}(U) = (e; e \in E)$
+is the ideal generated by the variables in the polynomial ring $B[E]$.
+In particular it is clear that
+$$
+K/K^2 \xrightarrow{\text{d}} \Omega_{P/A} \otimes_P B
+$$
+is a bijection. In other words, $\Omega = \mathcal{K}/\mathcal{K}^2$
+and $\text{Sym}_B^k(\Omega) = \mathcal{K}^k/\mathcal{K}^{k + 1}$.
+Note that $\pi_!(\Omega) = \Omega_{B/A} = 0$ (Lemma \ref{lemma-identify-H0})
+as $A \to B$ is surjective
+(Algebra, Lemma \ref{algebra-lemma-trivial-differential-surjective}).
+By Lemma \ref{lemma-vanishing-symmetric-powers} we conclude that
+$$
+H_i(\mathcal{C}_{B/A}, \mathcal{K}^k/\mathcal{K}^{k + 1}) =
+H_i(\mathcal{C}_{B/A}, \text{Sym}^k_{\underline{B}}(\Omega)) = 0
+$$
+for $i < k$. This proves the final statement of the theorem.
+
+\medskip\noindent
+The approach to the theorem is to note that
+$$
+B \otimes_A^\mathbf{L} B = L\pi_!(\mathcal{O}) \otimes_A^\mathbf{L} B =
+L\pi_!(\mathcal{O} \otimes_{\underline{A}}^\mathbf{L} \underline{B}) =
+L\pi_!(\overline{\mathcal{O}})
+$$
+The first equality by Lemma \ref{lemma-apply-O-B-comparison},
+the second equality by
+Cohomology on Sites, Lemma \ref{sites-cohomology-lemma-change-of-rings}, and
+the third equality as $\mathcal{O}$ is flat over $\underline{A}$.
+The sheaf $\overline{\mathcal{O}}$ has a filtration
+$$
+\ldots \subset
+\mathcal{K}^3 \subset
+\mathcal{K}^2 \subset
+\mathcal{K} \subset
+\overline{\mathcal{O}}
+$$
+This induces a filtration $F$ on a complex $C$ representing
+$L\pi_!(\overline{\mathcal{O}})$ with $F^pC$ representing
+$L\pi_!(\mathcal{K}^p)$ (construction of $C$ and $F$ omitted).
+Consider the spectral sequence of
+Homology, Section \ref{homology-section-filtered-complex}
+associated to $(C, F)$. It has $E_1$-page
+$$
+E_1^{p, q} = H_{- p - q}(\mathcal{C}_{B/A}, \mathcal{K}^p/\mathcal{K}^{p + 1})
+\quad\Rightarrow\quad
+H_{- p - q}(\mathcal{C}_{B/A}, \overline{\mathcal{O}}) = 
+\text{Tor}_{- p - q}^A(B, B)
+$$
+and differentials $E_r^{p, q} \to E_r^{p + r, q - r + 1}$. To show convergence
+we will show that for every $k$ there exists a $c$ such that
+$H_i(\mathcal{C}_{B/A}, \mathcal{K}^n) = 0$
+for $i < k$ and $n > c$\footnote{A posteriori
+the ``correct'' vanishing $H_i(\mathcal{C}_{B/A}, \mathcal{K}^n) = 0$ for
+$i < n$ can be concluded.}.
+
+\medskip\noindent
+Given $k \geq 0$ set $c = k^2$. We claim that
+$$
+H_i(\mathcal{C}_{B/A}, \mathcal{K}^{n + c}) \to
+H_i(\mathcal{C}_{B/A}, \mathcal{K}^n)
+$$
+is zero for $i < k$ and all $n \geq 0$. Note that
+$\mathcal{K}^n/\mathcal{K}^{n + c}$ has a finite filtration whose successive
+quotients $\mathcal{K}^m/\mathcal{K}^{m + 1}$, $n \leq m < n + c$
+have $H_i(\mathcal{C}_{B/A}, \mathcal{K}^m/\mathcal{K}^{m + 1}) = 0$
+for $i < n$ (see above). Hence the claim implies
+$H_i(\mathcal{C}_{B/A}, \mathcal{K}^{n + c}) = 0$ for $i < k$ and all
+$n \geq k$ which is what we need to show.
+
+\medskip\noindent
+Proof of the claim. Recall that for any $\mathcal{O}$-module $\mathcal{F}$
+the map $\mathcal{F} \to \mathcal{F} \otimes_\mathcal{O}^\mathbf{L} B$
+induces an isomorphism on applying $L\pi_!$, see
+Lemma \ref{lemma-O-homology-B-homology}.
+Consider the map
+$$
+\mathcal{K}^{n + k} \otimes_\mathcal{O}^\mathbf{L} B
+\longrightarrow
+\mathcal{K}^n \otimes_\mathcal{O}^\mathbf{L} B
+$$
+We claim that this map induces the zero map on cohomology sheaves
+in degrees $0, -1, \ldots, - k + 1$. If this second claim holds, then
+the $k$-fold composition
+$$
+\mathcal{K}^{n + c} \otimes_\mathcal{O}^\mathbf{L} B
+\longrightarrow
+\mathcal{K}^n \otimes_\mathcal{O}^\mathbf{L} B
+$$
+factors through $\tau_{\leq -k}\mathcal{K}^n \otimes_\mathcal{O}^\mathbf{L} B$
+hence induces zero on $H_i(\mathcal{C}_{B/A}, -) = L_i\pi_!( - )$
+for $i < k$, see
+Derived Categories, Lemma \ref{derived-lemma-trick-vanishing-composition}.
+By the remark above this means the same thing is true for
+$H_i(\mathcal{C}_{B/A}, \mathcal{K}^{n + c}) \to
+H_i(\mathcal{C}_{B/A}, \mathcal{K}^n)$
+which proves the (first) claim.
+
+\medskip\noindent
+Proof of the second claim. The statement is local, hence we may work
+over an object $U = (P \to B)$ as above. We have to show
+the maps
+$$
+\text{Tor}_i^P(B, K^{n + k}) \to \text{Tor}_i^P(B, K^n)
+$$
+are zero for $i < k$. There is a spectral sequence
+$$
+\text{Tor}_a^P(P/IP, \text{Tor}_b^{P/IP}(B, K^n))
+\Rightarrow
+\text{Tor}_{a + b}^P(B, K^n),
+$$
+see More on Algebra, Example \ref{more-algebra-example-tor-change-rings}.
+Thus it suffices to prove the maps
+$$
+\text{Tor}_i^{P/IP}(B, K^{n + 1}) \to \text{Tor}_i^{P/IP}(B, K^n)
+$$
+are zero for all $i$. This is Lemma \ref{lemma-map-tors-zero}.
+\end{proof}
+
+\begin{remark}
+\label{remark-elucidate-ss}
+In the situation of Theorem \ref{theorem-quillen-spectral-sequence}
+let $I = \Ker(A \to B)$. Then
+$H^{-1}(L_{B/A}) = H_1(\mathcal{C}_{B/A}, \Omega) = I/I^2$, see
+Lemma \ref{lemma-surjection}.
+Hence $H_k(\mathcal{C}_{B/A}, \text{Sym}^k(\Omega)) = \wedge^k_B(I/I^2)$ by
+Remark \ref{remark-first-homology-symmetric-power}. Thus the
+$E_1$-page looks like
+$$
+\begin{matrix}
+B \\
+0 \\
+0 & I/I^2 \\
+0 & H^{-2}(L_{B/A}) \\
+0 & H^{-3}(L_{B/A}) & \wedge^2(I/I^2) \\
+0 & H^{-4}(L_{B/A}) & H_3(\mathcal{C}_{B/A}, \text{Sym}^2(\Omega)) \\
+0 & H^{-5}(L_{B/A}) & H_4(\mathcal{C}_{B/A}, \text{Sym}^2(\Omega)) &
+\wedge^3(I/I^2)
+\end{matrix}
+$$
+with horizontal differential. Thus we obtain edge maps
+$\text{Tor}_i^A(B, B) \to H^{-i}(L_{B/A})$, $i > 0$ and
+$\wedge^i_B(I/I^2) \to \text{Tor}_i^A(B, B)$. Finally, we have
+$\text{Tor}_1^A(B, B) = I/I^2$ and there is a
+five term exact sequence
+$$
+\text{Tor}_3^A(B, B) \to H^{-3}(L_{B/A}) \to \wedge^2_B(I/I^2) \to
+\text{Tor}_2^A(B, B) \to H^{-2}(L_{B/A}) \to 0
+$$
+of low degree terms.
+\end{remark}
+
+\begin{remark}
+\label{remark-elucidate-degree-two}
+Let $A \to B$ be a ring map. Let $P_\bullet$ be a resolution of
+$B$ over $A$ (Remark \ref{remark-resolution}).
+Set $J_n = \Ker(P_n \to B)$. Note that
+$$
+\text{Tor}_2^{P_n}(B, B) = 
+\text{Tor}_1^{P_n}(J_n, B) =
+\Ker(J_n \otimes_{P_n} J_n \to J_n^2).
+$$
+Hence $H_2(L_{B/A})$ is canonically equal to
+$$
+\Coker(\text{Tor}_2^{P_1}(B, B) \to \text{Tor}_2^{P_0}(B, B))
+$$
+by Remark \ref{remark-surjection}. To make this more explicit we choose
+$P_2$, $P_1$, $P_0$ as in Example \ref{example-resolution-length-two}.
+We claim that
+$$
+\text{Tor}_2^{P_1}(B, B) =
+\wedge^2(\bigoplus\nolimits_{t \in T} B)\ \oplus
+\ \bigoplus\nolimits_{t \in T} J_0\ \oplus
+\ \text{Tor}_2^{P_0}(B, B)
+$$
+Namely, the basis elements $x_t \wedge x_{t'}$ of the first summand
+corresponds to the element $x_t \otimes x_{t'} - x_{t'} \otimes x_t$
+of $J_1 \otimes_{P_1} J_1$. For $f \in J_0$ the element $x_t \otimes f$
+of the second summand corresponds to the element
+$x_t \otimes s_0(f) - s_0(f) \otimes x_t$ of $J_1 \otimes_{P_1} J_1$.
+Finally, the map $\text{Tor}_2^{P_0}(B, B) \to \text{Tor}_2^{P_1}(B, B)$
+is given by $s_0$. The map
+$d_0 - d_1 : \text{Tor}_2^{P_1}(B, B) \to \text{Tor}_2^{P_0}(B, B)$
+is zero on the last summand, maps $x_t \otimes f$ to
+$f \otimes f_t - f_t \otimes f$, and maps $x_t \wedge x_{t'}$
+to $f_t \otimes f_{t'} - f_{t'} \otimes f_t$. All in all we conclude
+that there is an exact sequence
+$$
+\wedge^2_B(J_0/J_0^2) \to \text{Tor}_2^{P_0}(B, B) \to H^{-2}(L_{B/A}) \to 0
+$$
+In this way we obtain a direct proof of a consequence of Quillen's spectral
+sequence discussed in Remark \ref{remark-elucidate-ss}.
+\end{remark}
+
+
+
+
+
+
+\section{Comparison with Lichtenbaum-Schlessinger}
+\label{section-compare-higher}
+
+\noindent
+Let $A \to B$ be a ring map. In \cite{Lichtenbaum-Schlessinger}
+there is a fairly explicit determination of $\tau_{\geq -2}L_{B/A}$
+which is often used in calculations of versal deformation spaces of
+singularities. The construction follows.
+Choose a polynomial algebra $P$ over $A$
+and a surjection $P \to B$ with kernel $I$. Choose generators
+$f_t$, $t \in T$ for $I$ which induces a surjection
+$F = \bigoplus_{t \in T} P \to I$ with $F$ a free $P$ algebra.
+Let $Rel \subset F$ be the kernel of $F \to I$, in other words
+$Rel$ is the set of relations among the $f_t$. Let $TrivRel \subset Rel$
+be the submodule of trivial relations, i.e., the submodule of $Rel$
+generated by the elements $(\ldots, f_{t'}, 0, \ldots, 0, -f_t, 0, \ldots)$.
+Consider the complex of $B$-modules
+\begin{equation}
+\label{equation-lichtenbaum-schlessinger}
+Rel/TrivRel \longrightarrow
+F \otimes_P B \longrightarrow
+\Omega_{P/A} \otimes_P B
+\end{equation}
+where the last term is placed in degree $0$. The first map is the obvious
+one and the second map sends the basis element corresponding to $t \in T$
+to $\text{d}f_t \otimes 1$.
+
+\begin{definition}
+\label{definition-biderivation}
+Let $A \to B$ be a ring map. Let $M$ be a $(B, B)$-bimodule
+over $A$. An {\it $A$-biderivation} is an $A$-linear map $\lambda : B \to M$
+such that $\lambda(xy) = x\lambda(y) + \lambda(x)y$.
+\end{definition}
+
+\noindent
+For a polynomial algebra the biderivations are easy to describe.
+
+\begin{lemma}
+\label{lemma-polynomial-ring-unique}
+Let $P = A[S]$ be a polynomial ring over $A$. Let $M$ be a $(P, P)$-bimodule
+over $A$. Given $m_s \in M$ for $s \in S$, there exists a unique
+$A$-biderivation $\lambda : P \to M$ mapping $s$ to $m_s$ for $s \in S$.
+\end{lemma}
+
+\begin{proof}
+We set
+$$
+\lambda(s_1 \ldots s_t) =
+\sum s_1 \ldots s_{i - 1} m_{s_i} s_{i + 1} \ldots s_t
+$$
+in $M$. Extending by $A$-linearity we obtain a biderivation.
+\end{proof}
+
+\noindent
+Here is the comparison statement. The reader may also read about this
+in \cite[page 206, Proposition 12]{Andre-Homologie} or in the paper
+\cite{Doncel} which extends the complex
+(\ref{equation-lichtenbaum-schlessinger}) by one term and the comparison
+to $\tau_{\geq -3}$.
+
+\begin{lemma}
+\label{lemma-compare-higher}
+In the situation above denote $L$ the complex
+(\ref{equation-lichtenbaum-schlessinger}).
+There is a canonical map $L_{B/A} \to L$ in $D(A)$ which
+induces an isomorphism $\tau_{\geq -2}L_{B/A} \to L$ in $D(B)$.
+\end{lemma}
+
+\begin{proof}
+Let $P_\bullet \to B$ be a resolution of $B$ over $A$
+(Remark \ref{remark-resolution}). We will identify $L_{B/A}$ with
+$\Omega_{P_\bullet/A} \otimes B$. To construct the map we
+make some choices.
+
+\medskip\noindent
+Choose an $A$-algebra map $\psi : P_0 \to P$ compatible with the
+given maps $P_0 \to B$ and $P \to B$.
+
+\medskip\noindent
+Write $P_1 = A[S]$ for some set $S$. For $s \in S$ we may write
+$$
+\psi(d_0(s) - d_1(s)) = \sum p_{s, t} f_t
+$$
+for some $p_{s, t} \in P$. Think of $F = \bigoplus_{t \in T} P$
+as a $(P_1, P_1)$-bimodule via the maps $(\psi \circ d_0, \psi \circ d_1)$.
+By Lemma \ref{lemma-polynomial-ring-unique} we obtain a unique
+$A$-biderivation $\lambda : P_1 \to F$ mapping $s$ to the vector with
+coordinates $p_{s, t}$. By construction the composition
+$$
+P_1 \longrightarrow F \longrightarrow P
+$$
+sends $f \in P_1$ to $\psi(d_0(f) - d_1(f))$ because the map
+$f \mapsto \psi(d_0(f) - d_1(f))$ is an $A$-biderivation agreeing with
+the composition on generators.
+
+\medskip\noindent
+For $g \in P_2$ we claim that $\lambda(d_0(g) - d_1(g) + d_2(g))$
+is an element of $Rel$. Namely, by the last remark of the previous
+paragraph the image of $\lambda(d_0(g) - d_1(g) + d_2(g))$ in $P$ is
+$$
+\psi((d_0 - d_1)(d_0(g) - d_1(g) + d_2(g)))
+$$
+which is zero by Simplicial, Section \ref{simplicial-section-complexes}).
+
+\medskip\noindent
+The choice of $\psi$ determines a map
+$$
+\text{d}\psi \otimes 1 :
+\Omega_{P_0/A} \otimes B
+\longrightarrow
+\Omega_{P/A} \otimes B
+$$
+Composing $\lambda$ with the map $F \to F \otimes B$ gives a
+usual $A$-derivation as the two $P_1$-module structures on
+$F \otimes B$ agree. Thus $\lambda$ determines a map
+$$
+\overline{\lambda} :
+\Omega_{P_1/A} \otimes B
+\longrightarrow
+F \otimes B
+$$
+Finally, We obtain a $B$-linear map
+$$
+q :
+\Omega_{P_2/A} \otimes B
+\longrightarrow
+Rel/TrivRel
+$$
+by mapping $\text{d}g$ to the class of $\lambda(d_0(g) - d_1(g) + d_2(g))$
+in the quotient.
+
+\medskip\noindent
+The diagram
+$$
+\xymatrix{
+\Omega_{P_3/A} \otimes B \ar[r] \ar[d] &
+\Omega_{P_2/A} \otimes B \ar[r] \ar[d]_q &
+\Omega_{P_1/A} \otimes B \ar[r] \ar[d]_{\overline{\lambda}} &
+\Omega_{P_0/A} \otimes B \ar[d]_{\text{d}\psi \otimes 1} \\
+0 \ar[r] &
+Rel/TrivRel \ar[r] &
+F \otimes B \ar[r] &
+\Omega_{P/A} \otimes B
+}
+$$
+commutes (calculation omitted) and we obtain the map of the lemma.
+By Remark \ref{remark-explicit-comparison-map} and
+Lemma \ref{lemma-relation-with-naive-cotangent-complex} we see that this map
+induces isomorphisms $H_1(L_{B/A}) \to H_1(L)$ and $H_0(L_{B/A}) \to H_0(L)$.
+
+\medskip\noindent
+It remains to see that our map $L_{B/A} \to L$ induces an isomorphism
+$H_2(L_{B/A}) \to H_2(L)$. Choose a resolution of $B$ over $A$ with
+$P_0 = P = A[u_i]$ and then $P_1$ and $P_2$ as in
+Example \ref{example-resolution-length-two}.
+In Remark \ref{remark-elucidate-degree-two} we have constructed an exact
+sequence
+$$
+\wedge^2_B(J_0/J_0^2) \to \text{Tor}_2^{P_0}(B, B) \to H^{-2}(L_{B/A}) \to 0
+$$
+where $P_0 = P$ and $J_0 = \Ker(P \to B) = I$.
+Calculating the Tor group using the short exact sequences
+$0 \to I \to P \to B \to 0$ and $0 \to Rel \to F \to I \to 0$
+we find that
+$\text{Tor}_2^P(B, B) = \Ker(Rel \otimes B \to F \otimes B)$.
+The image of the map $\wedge^2_B(I/I^2) \to \text{Tor}_2^P(B, B)$
+under this identification is exactly the image of $TrivRel \otimes B$.
+Thus we see that $H_2(L_{B/A}) \cong H_2(L)$.
+
+\medskip\noindent
+Finally, we have to check that our map $L_{B/A} \to L$ actually induces
+this isomorphism. We will use the notation and results discussed in
+Example \ref{example-resolution-length-two} and
+Remarks \ref{remark-elucidate-degree-two} and \ref{remark-surjection}
+without further mention. Pick an element $\xi$ of
+$\text{Tor}_2^{P_0}(B, B) = \Ker(I \otimes_P I \to I^2)$.
+Write $\xi = \sum h_{t', t}f_{t'} \otimes f_t$ for some
+$h_{t', t} \in P$. Tracing through the exact sequences above we
+find that $\xi$ corresponds to the image in $Rel \otimes B$
+of the element $r \in Rel \subset F = \bigoplus_{t \in T} P$ with
+$t$th coordinate $r_t = \sum_{t' \in T} h_{t', t}f_{t'}$.
+On the other hand, $\xi$ corresponds to the element of
+$H_2(L_{B/A}) = H_2(\Omega)$ which is the image
+via $\text{d} : H_2(\mathcal{J}/\mathcal{J}^2) \to H_2(\Omega)$
+of the boundary of $\xi$ under the $2$-extension
+$$
+0 \to
+\text{Tor}_2^\mathcal{O}(\underline{B}, \underline{B})
+\to 
+\mathcal{J} \otimes_\mathcal{O} \mathcal{J} \to \mathcal{J}
+\to
+\mathcal{J}/\mathcal{J}^2 \to 0
+$$
+We compute the successive transgressions of our element. First we have
+$$
+\xi = (d_0 - d_1)(- \sum s_0(h_{t', t} f_{t'}) \otimes x_t)
+$$
+and next we have
+$$
+\sum s_0(h_{t', t} f_{t'}) x_t = d_0(v_r) - d_1(v_r) + d_2(v_r)
+$$
+by our choice of the variables $v$ in
+Example \ref{example-resolution-length-two}.
+We may choose our map $\lambda$ above such that
+$\lambda(u_i) = 0$ and $\lambda(x_t) = - e_t$ where $e_t \in F$
+denotes the basis vector corresponding to $t \in T$.
+Hence the construction of our map $q$ above sends $\text{d}v_r$ to
+$$
+\lambda(\sum s_0(h_{t', t} f_{t'}) x_t) =
+\sum\nolimits_t \left(\sum\nolimits_{t'} h_{t', t}f_{t'}\right) e_t
+$$
+matching the image of $\xi$ in $Rel \otimes B$ (the two minus signs
+we found above cancel out). This agreement finishes the proof.
+\end{proof}
+
+\begin{remark}[Functoriality of the Lichtenbaum-Schlessinger complex]
+\label{remark-functoriality-lichtenbaum-schlessinger}
+Consider a commutative square
+$$
+\xymatrix{
+A' \ar[r] & B' \\
+A \ar[u] \ar[r] & B \ar[u]
+}
+$$
+of ring maps. Choose a factorization
+$$
+\xymatrix{
+A' \ar[r] & P' \ar[r] & B' \\
+A \ar[u] \ar[r] & P \ar[u] \ar[r] & B \ar[u]
+}
+$$
+with $P$ a polynomial algebra over $A$ and $P'$ a polynomial algebra over $A'$.
+Choose generators $f_t$, $t \in T$ for $\Ker(P \to B)$.
+For $t \in T$ denote $f'_t$ the image of $f_t$ in $P'$.
+Choose $f'_s \in P'$ such that the elements $f'_t$ for
+$t \in T' = T \amalg S$ generate the kernel
+of $P' \to B'$. Set $F = \bigoplus_{t \in T} P$ and
+$F' = \bigoplus_{t' \in T'} P'$. Let $Rel = \Ker(F \to P)$
+and $Rel' = \Ker(F' \to P')$ where the maps are given
+by multiplication by $f_t$, resp.\ $f'_t$ on the coordinates.
+Finally, set $TrivRel$, resp.\ $TrivRel'$ equal to the submodule
+of $Rel$, resp.\ $TrivRel$ generated by the elements
+$(\ldots, f_{t'}, 0, \ldots, 0, -f_t, 0, \ldots)$
+for $t, t' \in T$, resp.\ $T'$. Having made these choices we obtain a
+canonical commutative diagram
+$$
+\xymatrix{
+L' : &
+Rel'/TrivRel' \ar[r] &
+F' \otimes_{P'} B' \ar[r] &
+\Omega_{P'/A'} \otimes_{P'} B' \\
+L : \ar[u] &
+Rel/TrivRel \ar[r] \ar[u] &
+F \otimes_P B \ar[r] \ar[u] &
+\Omega_{P/A} \otimes_P B \ar[u]
+}
+$$
+Moreover, tracing through the choices made in the proof of
+Lemma \ref{lemma-compare-higher}
+the reader sees that one obtains a commutative diagram
+$$
+\xymatrix{
+L_{B'/A'} \ar[r] & L' \\
+L_{B/A} \ar[r] \ar[u] & L \ar[u]
+}
+$$
+\end{remark}
+
+
+
+
+
+\section{The cotangent complex of a local complete intersection}
+\label{section-lci}
+
+\noindent
+If $A \to B$ is a local complete intersection map, then
+$L_{B/A}$ is a perfect complex. The key to proving this is
+the following lemma.
+
+\begin{lemma}
+\label{lemma-special-case}
+Let $A = \mathbf{Z}[x] \to B = \mathbf{Z}$ be the ring map which sends
+$x$ to $0$. Let $I = (x) \subset A$. Then $L_{B/A}$ is quasi-isomorphic to
+$I/I^2[1]$.
+\end{lemma}
+
+\begin{proof}
+There are several ways to prove this. For example one can explicitly construct
+a resolution of $B$ over $A$ and compute. Or one can use the spectral sequence
+of Quillen (Theorem \ref{theorem-quillen-spectral-sequence})
+and the vanishing of $\text{Tor}_i^A(B, B)$ for $i > 1$.
+Finally, one can use (\ref{equation-triangle}) which is what we will do here.
+Namely, consider the distinguished triangle
+$$
+L_{\mathbf{Z}[x]/\mathbf{Z}} \otimes_{\mathbf{Z}[x]} \mathbf{Z} \to
+L_{\mathbf{Z}/\mathbf{Z}} \to
+L_{\mathbf{Z}/\mathbf{Z}[x]}\to
+L_{\mathbf{Z}[x]/\mathbf{Z}} \otimes_{\mathbf{Z}[x]} \mathbf{Z}[1]
+$$
+The complex $L_{\mathbf{Z}[x]/\mathbf{Z}}$ is quasi-isomorphic to
+$\Omega_{\mathbf{Z}[x]/\mathbf{Z}}$ by
+Lemma \ref{lemma-cotangent-complex-polynomial-algebra}.
+The complex $L_{\mathbf{Z}/\mathbf{Z}}$ is zero in $D(\mathbf{Z})$ by
+Lemma \ref{lemma-when-zero}.
+Thus we see that $L_{B/A}$ has only one nonzero cohomology group
+which is as described in the lemma by Lemma \ref{lemma-surjection}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-mod-regular-sequence}
+Let $A \to B$ be a surjective ring map whose kernel $I$ is generated
+by a regular sequence. Then $L_{B/A}$ is quasi-isomorphic to $I/I^2[1]$.
+\end{lemma}
+
+\begin{proof}
+This is true if $I = (0)$. If $I = (f)$ is generated by a single
+nonzerodivisor, then consider the ring map $\mathbf{Z}[x] \to A$
+which sends $x$ to $f$. By assumption we have
+$B = A \otimes_{\mathbf{Z}[x]}^\mathbf{L} \mathbf{Z}$.
+Thus we obtain $L_{B/A} = I/I^2[1]$ from
+Lemmas \ref{lemma-flat-base-change-cotangent-complex} and
+\ref{lemma-special-case}.
+
+\medskip\noindent
+We prove the general case by induction. Suppose that we have
+$I = (f_1, \ldots, f_r)$ where $f_1, \ldots, f_r$ is a regular sequence.
+Set $C = A/(f_1, \ldots, f_{r - 1})$. By induction the result is
+true for $A \to C$ and $C \to B$. We have a distinguished triangle
+(\ref{equation-triangle})
+$$
+L_{C/A} \otimes_C^\mathbf{L} B \to L_{B/A} \to L_{B/C} \to
+L_{C/A} \otimes_C^\mathbf{L} B[1]
+$$
+which shows that $L_{B/A}$ has only one nonzero cohomology group
+which is as described in the lemma by Lemma \ref{lemma-surjection}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-mod-Koszul-regular-ideal}
+Let $A \to B$ be a surjective ring map whose kernel $I$ is Koszul.
+Then $L_{B/A}$ is quasi-isomorphic to $I/I^2[1]$.
+\end{lemma}
+
+\begin{proof}
+Flat locally on $\Spec(A)$ the ideal $I$ is generated by a regular
+sequence, see More on Algebra, Lemma
+\ref{more-algebra-lemma-Koszul-regular-flat-locally-regular}.
+Hence this follows from
+Lemma \ref{lemma-flat-base-change-cotangent-complex}
+and flat descent.
+\end{proof}
+
+\begin{proposition}
+\label{proposition-cotangent-complex-local-complete-intersection}
+Let $A \to B$ be a local complete intersection map.
+Then $L_{B/A}$ is a perfect complex with tor amplitude in $[-1, 0]$.
+\end{proposition}
+
+\begin{proof}
+Choose a surjection $P = A[x_1, \ldots, x_n] \to B$ with kernel $J$.
+By Lemma \ref{lemma-relation-with-naive-cotangent-complex}
+we see that $J/J^2 \to \bigoplus B\text{d}x_i$
+is quasi-isomorphic to $\tau_{\geq -1}L_{B/A}$.
+Note that $J/J^2$ is finite projective
+(More on Algebra, Lemma
+\ref{more-algebra-lemma-quasi-regular-ideal-finite-projective}),
+hence $\tau_{\geq -1}L_{B/A}$ is a perfect complex with
+tor amplitude in $[-1, 0]$.
+Thus it suffices to show that $H^i(L_{B/A}) = 0$ for $i \not \in [-1, 0]$.
+This follows from (\ref{equation-triangle})
+$$
+L_{P/A} \otimes_P^\mathbf{L} B \to L_{B/A} \to L_{B/P} \to
+L_{P/A} \otimes_P^\mathbf{L} B[1]
+$$
+and Lemma \ref{lemma-mod-Koszul-regular-ideal}
+to see that $H^i(L_{B/P})$ is zero unless $i \in \{-1, 0\}$.
+(We also use Lemma \ref{lemma-cotangent-complex-polynomial-algebra}
+for the term on the left.)
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Tensor products and the cotangent complex}
+\label{section-tensor-product}
+
+\noindent
+Let $R$ be a ring and let $A$, $B$ be $R$-algebras. In this section we
+discuss $L_{A \otimes_R B/R}$. Most of the information we want is contained
+in the following diagram
+\begin{equation}
+\label{equation-tensor-product}
+\vcenter{
+\xymatrix{
+L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B) \ar[r] &
+L_{A \otimes_R B/B} \ar[r] &
+E \\
+L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B) \ar[r] \ar@{=}[u] &
+L_{A \otimes_R B/R} \ar[r] \ar[u] &
+L_{A \otimes_R B/A} \ar[u] \\
+ &
+L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B) \ar[u] \ar@{=}[r] &
+L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B) \ar[u]
+}
+}
+\end{equation}
+Explanation: The middle row is the fundamental triangle
+(\ref{equation-triangle}) for the ring maps $R \to A \to A \otimes_R B$.
+The middle column is the fundamental triangle
+(\ref{equation-triangle}) for the ring maps $R \to B \to A \otimes_R B$.
+Next, $E$ is an object of $D(A \otimes_R B)$ which ``fits'' into the
+upper right corner, i.e., which turns both the top row
+and the right column into distinguished triangles. Such an $E$
+exists by Derived Categories, Proposition \ref{derived-proposition-9}
+applied to the lower left square (with $0$ placed in the missing
+spot). To be more explicit, we could for example define $E$ as the cone
+(Derived Categories, Definition \ref{derived-definition-cone})
+of the map of complexes
+$$
+L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B) \oplus
+L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B)
+\longrightarrow
+L_{A \otimes_R B/R}
+$$
+and get the two maps with target $E$ by an application of TR3.
+In the Tor independent case the object $E$ is zero.
+
+\begin{lemma}
+\label{lemma-tensor-product-tor-independent}
+If $A$ and $B$ are Tor independent $R$-algebras, then the object $E$
+in (\ref{equation-tensor-product}) is zero. In this case we have
+$$
+L_{A \otimes_R B/R} =
+L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B) \oplus
+L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B)
+$$
+which is represented by the complex
+$L_{A/R} \otimes_R B \oplus L_{B/R} \otimes_R A $
+of $A \otimes_R B$-modules.
+\end{lemma}
+
+\begin{proof}
+The first two statements are immediate from
+Lemma \ref{lemma-flat-base-change-cotangent-complex}.
+The last statement follows as $L_{A/R}$ is a complex
+of free $A$-modules, hence $L_{A/R} \otimes_A^\mathbf{L} (A \otimes_R B)$
+is represented by
+$L_{A/R} \otimes_A (A \otimes_R B) = L_{A/R} \otimes_R B$
+\end{proof}
+
+\noindent
+In general we can say this about the object $E$.
+
+\begin{lemma}
+\label{lemma-tensor-product}
+Let $R$ be a ring and let $A$, $B$ be $R$-algebras. The object $E$
+in (\ref{equation-tensor-product}) satisfies
+$$
+H^i(E) =
+\left\{
+\begin{matrix}
+0 & \text{if} & i \geq -1 \\
+\text{Tor}_1^R(A, B) & \text{if} & i = -2
+\end{matrix}
+\right.
+$$
+\end{lemma}
+
+\begin{proof}
+We use the description of $E$ as the cone on
+$L_{B/R} \otimes_B^\mathbf{L} (A \otimes_R B) \to L_{A \otimes_R B/A}$.
+By Lemma \ref{lemma-compare-higher} the canonical truncations
+$\tau_{\geq -2}L_{B/R}$ and $\tau_{\geq -2}L_{A \otimes_R B/A}$
+are computed by the Lichtenbaum-Schlessinger complex
+(\ref{equation-lichtenbaum-schlessinger}).
+These isomorphisms are compatible with functoriality
+(Remark \ref{remark-functoriality-lichtenbaum-schlessinger}).
+Thus in this proof we work with the Lichtenbaum-Schlessinger complexes.
+
+\medskip\noindent
+Choose a polynomial algebra $P$ over $R$ and a surjection $P \to B$.
+Choose generators $f_t \in P$, $t \in T$ of the kernel of this surjection.
+Let $Rel \subset F = \bigoplus_{t \in T} P$ be the kernel of the map
+$F \to P$ which maps the basis vector corresponding to $t$ to $f_t$.
+Set $P_A = A \otimes_R P$ and $F_A = A \otimes_R F = P_A \otimes_P F$.
+Let $Rel_A$ be the kernel of the map $F_A \to P_A$. Using the exact sequence
+$$
+0 \to Rel \to F \to P \to B \to 0
+$$
+and standard short exact sequences for Tor we obtain an exact sequence
+$$
+A \otimes_R Rel \to Rel_A \to \text{Tor}_1^R(A, B) \to 0
+$$
+Note that $P_A \to A \otimes_R B$ is a surjection whose kernel is generated
+by the elements $1 \otimes f_t$ in $P_A$. Denote $TrivRel_A \subset Rel_A$
+the $P_A$-submodule generated by the elements
+$(\ldots, 1 \otimes f_{t'}, 0, \ldots,
+0, - 1 \otimes f_t \otimes 1, 0, \ldots)$.
+Since $TrivRel \otimes_R A \to TrivRel_A$ is surjective, we find a
+canonical exact sequence
+$$
+A \otimes_R (Rel/TrivRel) \to Rel_A/TrivRel_A \to \text{Tor}_1^R(A, B) \to 0
+$$
+The map of Lichtenbaum-Schlessinger complexes is given by the diagram
+$$
+\xymatrix{
+Rel_A/TrivRel_A \ar[r] &
+F_A \otimes_{P_A} (A \otimes_R B) \ar[r] &
+\Omega_{P_A/A \otimes_R B} \otimes_{P_A} (A \otimes_R B) \\
+Rel/TrivRel \ar[r] \ar[u]_{-2} &
+F \otimes_P B \ar[r] \ar[u]_{-1} &
+\Omega_{P/A} \otimes_P B \ar[u]_0
+}
+$$
+Note that vertical maps $-1$ and $-0$ induce an isomorphism after applying
+the functor $A \otimes_R - = P_A \otimes_P -$ to the source and the vertical
+map $-2$ gives exactly the map whose cokernel is the desired Tor module
+as we saw above.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Deformations of ring maps and the cotangent complex}
+\label{section-deformations}
+
+\noindent
+This section is the continuation of
+Deformation Theory, Section \ref{defos-section-deformations}
+which we urge the reader to read first.
+We start with a surjective ring map $A' \to A$
+whose kernel is an ideal $I$ of square zero. Moreover we assume
+given a ring map $A \to B$, a $B$-module $N$, and an $A$-module map
+$c : I \to N$. In this section we ask ourselves whether we can find
+the question mark fitting into the following diagram
+\begin{equation}
+\label{equation-to-solve}
+\vcenter{
+\xymatrix{
+0 \ar[r] & N \ar[r] & {?} \ar[r] & B \ar[r] & 0 \\
+0 \ar[r] & I \ar[u]^c \ar[r] & A' \ar[u] \ar[r] & A \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+and moreover how unique the solution is (if it exists). More precisely,
+we look for a surjection of $A'$-algebras $B' \to B$ whose kernel is
+identified with $N$ such that $A' \to B'$ induces the given map $c$.
+We will say $B'$ is a {\it solution} to (\ref{equation-to-solve}).
+
+\begin{lemma}
+\label{lemma-find-obstruction}
+In the situation above we have
+\begin{enumerate}
+\item There is a canonical element $\xi \in \Ext^2_B(L_{B/A}, N)$
+whose vanishing is a sufficient and necessary condition for the existence
+of a solution to (\ref{equation-to-solve}).
+\item If there exists a solution, then then the set of
+isomorphism classes of solutions is principal homogeneous under
+$\Ext^1_B(L_{B/A}, N)$.
+\item Given a solution $B'$, the set of automorphisms of $B'$
+fitting into (\ref{equation-to-solve}) is canonically isomorphic
+to $\Ext^0_B(L_{B/A}, N)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Via the identifications $\NL_{B/A} = \tau_{\geq -1}L_{B/A}$
+(Lemma \ref{lemma-relation-with-naive-cotangent-complex}) and
+$H^0(L_{B/A}) = \Omega_{B/A}$
+(Lemma \ref{lemma-identify-H0})
+we have seen parts (2) and (3) in
+Deformation Theory, Lemmas \ref{defos-lemma-huge-diagram} and
+\ref{defos-lemma-choices}.
+
+\medskip\noindent
+Proof of (1). We will use the results of
+Deformation Theory, Lemma \ref{defos-lemma-extensions-of-rings}
+without further mention.
+Let $\alpha \in \Ext^1_A(\NL_{A/\mathbf{Z}}, I)$
+be the element corresponding to the isomorphism class of $A'$.
+The existence of $B'$ corresponds to an element
+$\beta \in \Ext_B^1(\NL_{B/\mathbf{Z}}, N)$
+which maps to the image of $\alpha$ in
+$\Ext^1_A(\NL_{A/\mathbf{Z}}, N)$. Note that
+$$
+\Ext^1_A(\NL_{A/\mathbf{Z}}, N) =
+\Ext^1_A(L_{A/\mathbf{Z}}, N) =
+\Ext^1_B(L_{A/\mathbf{Z}} \otimes_A^\mathbf{L} B, N)
+$$
+and
+$$
+\Ext^1_B(\NL_{B/\mathbf{Z}}, N) =
+\Ext^1_B(L_{B/\mathbf{Z}}, N)
+$$
+by Lemma \ref{lemma-relation-with-naive-cotangent-complex}.
+Since the distinguished triangle (\ref{equation-triangle})
+for $\mathbf{Z} \to A \to B$ gives rise to a long exact sequence
+$$
+\ldots \to
+\Ext^1_B(L_{B/\mathbf{Z}}, N) \to
+\Ext^1_B(L_{A/\mathbf{Z}} \otimes_A^\mathbf{L} B, N) \to
+\Ext^2_B(L_{B/A}, N) \to \ldots
+$$
+we obtain the result with $\xi$ the image of $\alpha$.
+\end{proof}
+
+
+
+
+
+\section{The Atiyah class of a module}
+\label{section-atiyah}
+
+\noindent
+Let $A \to B$ be a ring map. Let $M$ be a $B$-module.
+Let $P \to B$ be an object of $\mathcal{C}_{B/A}$
+(Section \ref{section-compute-L-pi-shriek}).
+Consider the extension of principal parts
+$$
+0 \to \Omega_{P/A} \otimes_P M \to P^1_{P/A}(M) \to M \to 0
+$$
+see Algebra, Lemma \ref{algebra-lemma-sequence-of-principal-parts}.
+This sequence is functorial in $P$ by
+Algebra, Remark \ref{algebra-remark-functoriality-principal-parts}.
+Thus we obtain a short exact sequence of sheaves of $\mathcal{O}$-modules
+$$
+0 \to \Omega_{\mathcal{O}/\underline{A}} \otimes_\mathcal{O} \underline{M} \to
+P^1_{\mathcal{O}/\underline{A}}(M) \to \underline{M} \to 0
+$$
+on $\mathcal{C}_{B/A}$. We have
+$L\pi_!(\Omega_{\mathcal{O}/\underline{A}} \otimes_\mathcal{O} \underline{M})
+= L_{B/A} \otimes_B M = L_{B/A} \otimes_B^\mathbf{L} M$
+by Lemma \ref{lemma-pi-shriek-standard} and the flatness of
+the terms of $L_{B/A}$.
+We have $L\pi_!(\underline{M}) = M$ by
+Lemma \ref{lemma-pi-lower-shriek-constant-sheaf}.
+Thus a distinguished triangle
+\begin{equation}
+\label{equation-atiyah}
+L_{B/A} \otimes_B^\mathbf{L} M \to
+L\pi_!\left(P^1_{\mathcal{O}/\underline{A}}(M)\right) \to M
+\to L_{B/A} \otimes_B^\mathbf{L} M [1]
+\end{equation}
+in $D(B)$. Here we use Cohomology on Sites, Remark
+\ref{sites-cohomology-remark-O-homology-B-homology-general}
+to get a distinguished triangle in $D(B)$ and not just in $D(A)$.
+
+\begin{definition}
+\label{definition-atiyah-class}
+Let $A \to B$ be a ring map. Let $M$ be a $B$-module.
+The map $M \to L_{B/A} \otimes_B^\mathbf{L} M[1]$
+in (\ref{equation-atiyah}) is called the {\it Atiyah class} of $M$.
+\end{definition}
+
+
+
+
+\section{The cotangent complex}
+\label{section-cotangent-complex}
+
+\noindent
+In this section we discuss the cotangent complex of a map of sheaves
+of rings on a site. In later sections we specialize this to obtain
+the cotangent complex of a morphism of ringed topoi, a morphism of
+ringed spaces, a morphism of schemes, a morphism of algebraic space, etc.
+
+\medskip\noindent
+Let $\mathcal{C}$ be a site and let $\Sh(\mathcal{C})$ denote the
+associated topos. Let $\mathcal{A}$ denote a sheaf of rings
+on $\mathcal{C}$. Let $\mathcal{A}\textit{-Alg}$ be the category of
+$\mathcal{A}$-algebras. Consider the pair of adjoint functors $(F, i)$ where
+$i : \mathcal{A}\textit{-Alg} \to \Sh(\mathcal{C})$ is the forgetful functor and
+$F : \Sh(\mathcal{C}) \to \mathcal{A}\textit{-Alg}$ assigns to a sheaf of sets
+$\mathcal{E}$ the polynomial algebra $\mathcal{A}[\mathcal{E}]$ on
+$\mathcal{E}$ over $\mathcal{A}$.
+Let $X_\bullet$ be the simplicial object of
+$\text{Fun}(\mathcal{A}\textit{-Alg}, \mathcal{A}\textit{-Alg})$
+constructed in
+Simplicial, Section \ref{simplicial-section-standard}.
+
+\medskip\noindent
+Now assume that $\mathcal{A} \to \mathcal{B}$ is a homomorphism of sheaves
+of rings. Then $\mathcal{B}$ is an object of the category
+$\mathcal{A}\textit{-Alg}$. Denote
+$\mathcal{P}_\bullet = X_\bullet(\mathcal{B})$ the resulting
+simplicial $\mathcal{A}$-algebra.
+Recall that
+$\mathcal{P}_0 = \mathcal{A}[\mathcal{B}]$,
+$\mathcal{P}_1 = \mathcal{A}[\mathcal{A}[\mathcal{B}]]$, and so on.
+Recall also that there is an augmentation
+$$
+\epsilon : \mathcal{P}_\bullet \longrightarrow \mathcal{B}
+$$
+where we view $\mathcal{B}$ as a constant simplicial $\mathcal{A}$-algebra.
+
+\begin{definition}
+\label{definition-standard-resolution-sheaves-rings}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{A} \to \mathcal{B}$ be a homomorphism of sheaves of rings
+on $\mathcal{C}$. The {\it standard resolution of $\mathcal{B}$ over
+$\mathcal{A}$} is the augmentation
+$\epsilon : \mathcal{P}_\bullet \to \mathcal{B}$
+with terms
+$$
+\mathcal{P}_0 = \mathcal{A}[\mathcal{B}],\quad
+\mathcal{P}_1 = \mathcal{A}[\mathcal{A}[\mathcal{B}]],\quad \ldots
+$$
+and maps as constructed above.
+\end{definition}
+
+\noindent
+With this definition in hand the cotangent complex of a map of sheaves
+of rings is defined as follows.
+We will use the module of differentials as defined in
+Modules on Sites, Section \ref{sites-modules-section-differentials}.
+
+\begin{definition}
+\label{definition-cotangent-complex-morphism-sheaves-rings}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{A} \to \mathcal{B}$ be a homomorphism of sheaves of rings
+on $\mathcal{C}$.
+The {\it cotangent complex} $L_{\mathcal{B}/\mathcal{A}}$
+is the complex of $\mathcal{B}$-modules associated to the
+simplicial module
+$$
+\Omega_{\mathcal{P}_\bullet/\mathcal{A}}
+\otimes_{\mathcal{P}_\bullet, \epsilon} \mathcal{B}
+$$
+where $\epsilon : \mathcal{P}_\bullet \to \mathcal{B}$
+is the standard resolution of $\mathcal{B}$ over
+$\mathcal{A}$. We usually think of $L_{\mathcal{B}/\mathcal{A}}$
+as an object of $D(\mathcal{B})$.
+\end{definition}
+
+\noindent
+These constructions satisfy a functoriality similar to that discussed
+in Section \ref{section-functoriality}. Namely, given a commutative diagram
+\begin{equation}
+\label{equation-commutative-square-sheaves}
+\vcenter{
+\xymatrix{
+\mathcal{B} \ar[r] & \mathcal{B}' \\
+\mathcal{A} \ar[u] \ar[r] & \mathcal{A}' \ar[u]
+}
+}
+\end{equation}
+of sheaves of rings on $\mathcal{C}$ there is a canonical
+$\mathcal{B}$-linear map of complexes
+$$
+L_{\mathcal{B}/\mathcal{A}} \longrightarrow L_{\mathcal{B}'/\mathcal{A}'}
+$$
+constructed as follows. If $\mathcal{P}_\bullet \to \mathcal{B}$ is the
+standard resolution of $\mathcal{B}$ over $\mathcal{A}$ and
+$\mathcal{P}'_\bullet \to \mathcal{B}'$ is the
+standard resolution of $\mathcal{B}'$ over $\mathcal{A}'$,
+then there is a canonical map $\mathcal{P}_\bullet \to \mathcal{P}'_\bullet$
+of simplicial $\mathcal{A}$-algebras compatible with the augmentations
+$\mathcal{P}_\bullet \to \mathcal{B}$ and
+$\mathcal{P}'_\bullet \to \mathcal{B}'$. The maps
+$$
+\mathcal{P}_0 = \mathcal{A}[\mathcal{B}]
+\longrightarrow
+\mathcal{A}'[\mathcal{B}'] = \mathcal{P}'_0,
+\quad
+\mathcal{P}_1 = \mathcal{A}[\mathcal{A}[\mathcal{B}]]
+\longrightarrow
+\mathcal{A}'[\mathcal{A}'[\mathcal{B}']] = \mathcal{P}'_1
+$$
+and so on are given by the given maps $\mathcal{A} \to \mathcal{A}'$
+and $\mathcal{B} \to \mathcal{B}'$. The desired map
+$L_{\mathcal{B}/\mathcal{A}} \to L_{\mathcal{B}'/\mathcal{A}'}$
+then comes from the associated maps on sheaves of differentials.
+
+\begin{lemma}
+\label{lemma-pullback-cotangent-morphism-topoi}
+Let $f : \Sh(\mathcal{D}) \to \Sh(\mathcal{C})$ be a morphism of topoi.
+Let $\mathcal{A} \to \mathcal{B}$ be a homomorphism of sheaves of rings
+on $\mathcal{C}$. Then
+$f^{-1}L_{\mathcal{B}/\mathcal{A}} = L_{f^{-1}\mathcal{B}/f^{-1}\mathcal{A}}$.
+\end{lemma}
+
+\begin{proof}
+The diagram
+$$
+\xymatrix{
+\mathcal{A}\textit{-Alg} \ar[d]_{f^{-1}} \ar[r] &
+\Sh(\mathcal{C}) \ar@<1ex>[l] \ar[d]^{f^{-1}} \\
+f^{-1}\mathcal{A}\textit{-Alg} \ar[r] & \Sh(\mathcal{D}) \ar@<1ex>[l]
+}
+$$
+commutes.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compute-L-morphism-sheaves-rings}
+Let $\mathcal{C}$ be a site. Let $\mathcal{A} \to \mathcal{B}$ be a
+homomorphism of sheaves of rings on $\mathcal{C}$. Then
+$H^i(L_{\mathcal{B}/\mathcal{A}})$ is the sheaf associated to the
+presheaf $U \mapsto H^i(L_{\mathcal{B}(U)/\mathcal{A}(U)})$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{C}'$ be the site we get by endowing $\mathcal{C}$ with the
+chaotic topology (presheaves are sheaves). There is a morphism of topoi
+$f : \Sh(\mathcal{C}) \to \Sh(\mathcal{C}')$ where $f_*$ is the inclusion
+of sheaves into presheaves and $f^{-1}$ is sheafification.
+By Lemma \ref{lemma-pullback-cotangent-morphism-topoi}
+it suffices to prove the result for $\mathcal{C}'$, i.e.,
+in case $\mathcal{C}$ has the chaotic topology.
+
+\medskip\noindent
+If $\mathcal{C}$ carries the chaotic topology, then
+$L_{\mathcal{B}/\mathcal{A}}(U)$ is equal to
+$L_{\mathcal{B}(U)/\mathcal{A}(U)}$ because
+$$
+\xymatrix{
+\mathcal{A}\textit{-Alg} \ar[d]_{\text{sections over }U} \ar[r] &
+\Sh(\mathcal{C}) \ar@<1ex>[l] \ar[d]^{\text{sections over }U} \\
+\mathcal{A}(U)\textit{-Alg} \ar[r] & \textit{Sets} \ar@<1ex>[l]
+}
+$$
+commutes.
+\end{proof}
+
+\begin{remark}
+\label{remark-map-sections-over-U}
+It is clear from the proof of
+Lemma \ref{lemma-compute-L-morphism-sheaves-rings}
+that for any $U \in \Ob(\mathcal{C})$ there is a canonical map
+$L_{\mathcal{B}(U)/\mathcal{A}(U)} \to L_{\mathcal{B}/\mathcal{A}}(U)$
+of complexes of $\mathcal{B}(U)$-modules. Moreover, these maps
+are compatible with restriction maps and the complex
+$L_{\mathcal{B}/\mathcal{A}}$
+is the sheafification of the rule $U \mapsto L_{\mathcal{B}(U)/\mathcal{A}(U)}$.
+\end{remark}
+
+\begin{lemma}
+\label{lemma-H0-L-morphism-sheaves-rings}
+Let $\mathcal{C}$ be a site. Let $\mathcal{A} \to \mathcal{B}$ be a
+homomorphism of sheaves of rings on $\mathcal{C}$. Then
+$H^0(L_{\mathcal{B}/\mathcal{A}}) = \Omega_{\mathcal{B}/\mathcal{A}}$.
+\end{lemma}
+
+\begin{proof}
+Follows from Lemmas \ref{lemma-compute-L-morphism-sheaves-rings}
+and \ref{lemma-identify-H0} and
+Modules on Sites, Lemma \ref{sites-modules-lemma-differentials-sheafify}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compute-L-product-sheaves-rings}
+Let $\mathcal{C}$ be a site. Let $\mathcal{A} \to \mathcal{B}$
+and $\mathcal{A} \to \mathcal{B}'$ be homomorphisms of sheaves of rings
+on $\mathcal{C}$. Then
+$$
+L_{\mathcal{B} \times \mathcal{B}'/\mathcal{A}}
+\longrightarrow
+L_{\mathcal{B}/\mathcal{A}} \oplus L_{\mathcal{B}'/\mathcal{A}}
+$$
+is an isomorphism in $D(\mathcal{B} \times \mathcal{B}')$.
+\end{lemma}
+
+\begin{proof}
+By Lemma \ref{lemma-compute-L-morphism-sheaves-rings}
+it suffices to prove this for ring maps.
+In the case of rings this is
+Lemma \ref{lemma-cotangent-complex-product}.
+\end{proof}
+
+\noindent
+The fundamental triangle for the cotangent complex of sheaves of rings
+is an easy consequence of the result for homomorphisms of rings.
+
+\begin{lemma}
+\label{lemma-triangle-sheaves-rings}
+Let $\mathcal{D}$ be a site. Let $\mathcal{A} \to \mathcal{B} \to \mathcal{C}$
+be homomorphisms of sheaves of rings on $\mathcal{D}$.
+There is a canonical distinguished triangle
+$$
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{C}
+\to L_{\mathcal{C}/\mathcal{A}} \to L_{\mathcal{C}/\mathcal{B}} \to
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{C}[1]
+$$
+in $D(\mathcal{C})$.
+\end{lemma}
+
+\begin{proof}
+We will use the method described in
+Remarks \ref{remark-triangle} and \ref{remark-explicit-map}
+to construct the triangle; we will freely use the results mentioned there.
+As in those remarks we first construct the triangle in case
+$\mathcal{B} \to \mathcal{C}$ is an injective map of sheaves of rings.
+In this case we set
+\begin{enumerate}
+\item $\mathcal{P}_\bullet$ is the standard resolution of $\mathcal{B}$
+over $\mathcal{A}$,
+\item $\mathcal{Q}_\bullet$ is the standard resolution of $\mathcal{C}$
+over $\mathcal{A}$,
+\item $\mathcal{R}_\bullet$ is the standard resolution of $\mathcal{C}$
+over $\mathcal{B}$,
+\item $\mathcal{S}_\bullet$ is the standard resolution of $\mathcal{B}$
+over $\mathcal{B}$,
+\item $\overline{\mathcal{Q}}_\bullet =
+\mathcal{Q}_\bullet \otimes_{\mathcal{P}_\bullet} \mathcal{B}$, and
+\item $\overline{\mathcal{R}}_\bullet =
+\mathcal{R}_\bullet \otimes_{\mathcal{S}_\bullet} \mathcal{B}$.
+\end{enumerate}
+The distinguished triangle is the distinguished triangle associated
+to the short exact sequence
+of simplicial $\mathcal{C}$-modules
+$$
+0 \to
+\Omega_{\mathcal{P}_\bullet/\mathcal{A}}
+\otimes_{\mathcal{P}_\bullet} \mathcal{C} \to
+\Omega_{\mathcal{Q}_\bullet/\mathcal{A}}
+\otimes_{\mathcal{Q}_\bullet} \mathcal{C} \to
+\Omega_{\overline{\mathcal{Q}}_\bullet/\mathcal{B}}
+\otimes_{\overline{\mathcal{Q}}_\bullet} \mathcal{C} \to 0
+$$
+The first two terms are equal to the first two terms of the triangle
+of the statement of the lemma. The identification of the last term with
+$L_{\mathcal{C}/\mathcal{B}}$ uses the quasi-isomorphisms of complexes
+$$
+L_{\mathcal{C}/\mathcal{B}} =
+\Omega_{\mathcal{R}_\bullet/\mathcal{B}}
+\otimes_{\mathcal{R}_\bullet} \mathcal{C}
+\longrightarrow
+\Omega_{\overline{\mathcal{R}}_\bullet/\mathcal{B}}
+\otimes_{\overline{\mathcal{R}}_\bullet} \mathcal{C}
+\longleftarrow
+\Omega_{\overline{\mathcal{Q}}_\bullet/\mathcal{B}}
+\otimes_{\overline{\mathcal{Q}}_\bullet} \mathcal{C}
+$$
+All the constructions used above can first be done on the level
+of presheaves and then sheafified. Hence to prove sequences are exact,
+or that map are quasi-isomorphisms it suffices to prove the corresponding
+statement for the ring maps
+$\mathcal{A}(U) \to \mathcal{B}(U) \to \mathcal{C}(U)$
+which are known. This finishes the proof in the case that
+$\mathcal{B} \to \mathcal{C}$ is injective.
+
+\medskip\noindent
+In general, we reduce to the case where $\mathcal{B} \to \mathcal{C}$ is
+injective by replacing $\mathcal{C}$ by $\mathcal{B} \times \mathcal{C}$ if
+necessary. This is possible by the argument given in
+Remark \ref{remark-triangle} by
+Lemma \ref{lemma-compute-L-product-sheaves-rings}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-stalk-cotangent-complex}
+Let $\mathcal{C}$ be a site. Let $\mathcal{A} \to \mathcal{B}$ be a
+homomorphism of sheaves of rings on $\mathcal{C}$. If $p$ is a point
+of $\mathcal{C}$, then
+$(L_{\mathcal{B}/\mathcal{A}})_p = L_{\mathcal{B}_p/\mathcal{A}_p}$.
+\end{lemma}
+
+\begin{proof}
+This is a special case of Lemma \ref{lemma-pullback-cotangent-morphism-topoi}.
+\end{proof}
+
+\noindent
+For the construction of the naive cotangent complex and its properties
+we refer to
+Modules on Sites, Section \ref{sites-modules-section-netherlander}.
+
+\begin{lemma}
+\label{lemma-compare-cotangent-complex-with-naive}
+Let $\mathcal{C}$ be a site. Let $\mathcal{A} \to \mathcal{B}$ be a
+homomorphism of sheaves of rings on $\mathcal{C}$.
+There is a canonical map
+$L_{\mathcal{B}/\mathcal{A}} \to \NL_{\mathcal{B}/\mathcal{A}}$
+which identifies the naive cotangent complex with the truncation
+$\tau_{\geq -1}L_{\mathcal{B}/\mathcal{A}}$.
+\end{lemma}
+
+\begin{proof}
+Let $\mathcal{P}_\bullet$ be the standard resolution of $\mathcal{B}$
+over $\mathcal{A}$.
+Let $\mathcal{I} = \Ker(\mathcal{A}[\mathcal{B}] \to \mathcal{B})$.
+Recall that $\mathcal{P}_0 = \mathcal{A}[\mathcal{B}]$. The map of the
+lemma is given by the commutative diagram
+$$
+\xymatrix{
+L_{\mathcal{B}/\mathcal{A}} \ar[d] & \ldots \ar[r] &
+\Omega_{\mathcal{P}_2/\mathcal{A}} \otimes_{\mathcal{P}_2} \mathcal{B}
+\ar[r] \ar[d] &
+\Omega_{\mathcal{P}_1/\mathcal{A}} \otimes_{\mathcal{P}_1} \mathcal{B}
+\ar[r] \ar[d] &
+\Omega_{\mathcal{P}_0/\mathcal{A}} \otimes_{\mathcal{P}_0} \mathcal{B}
+\ar[d] \\
+\NL_{\mathcal{B}/\mathcal{A}} & \ldots \ar[r] &
+0 \ar[r] & 
+\mathcal{I}/\mathcal{I}^2 \ar[r] &
+\Omega_{\mathcal{P}_0/\mathcal{A}} \otimes_{\mathcal{P}_0} \mathcal{B}
+}
+$$
+We construct the downward arrow with target $\mathcal{I}/\mathcal{I}^2$
+by sending a local section $\text{d}f \otimes b$ to the class of
+$(d_0(f) - d_1(f))b$ in $\mathcal{I}/\mathcal{I}^2$.
+Here $d_i : \mathcal{P}_1 \to \mathcal{P}_0$,
+$i = 0, 1$ are the two face maps of the simplicial structure.
+This makes sense as $d_0 - d_1$ maps $\mathcal{P}_1$ into
+$\mathcal{I} = \Ker(\mathcal{P}_0 \to \mathcal{B})$.
+We omit the verification that this rule is well defined.
+Our map is compatible with the differential
+$\Omega_{\mathcal{P}_1/\mathcal{A}} \otimes_{\mathcal{P}_1} \mathcal{B}
+\to \Omega_{\mathcal{P}_0/\mathcal{A}} \otimes_{\mathcal{P}_0} \mathcal{B}$
+as this differential maps a local section $\text{d}f \otimes b$ to
+$\text{d}(d_0(f) - d_1(f)) \otimes b$. Moreover, the differential
+$\Omega_{\mathcal{P}_2/\mathcal{A}} \otimes_{\mathcal{P}_2} \mathcal{B}
+\to \Omega_{\mathcal{P}_1/\mathcal{A}} \otimes_{\mathcal{P}_1} \mathcal{B}$
+maps a local section $\text{d}f \otimes b$ to
+$\text{d}(d_0(f) - d_1(f) + d_2(f)) \otimes b$
+which are annihilated by our downward arrow. Hence a map of complexes.
+
+\medskip\noindent
+To see that our map induces an isomorphism on the cohomology sheaves
+$H^0$ and $H^{-1}$ we argue as follows. Let $\mathcal{C}'$ be the site
+with the same underlying category as $\mathcal{C}$ but endowed with the
+chaotic topology. Let $f : \Sh(\mathcal{C}) \to \Sh(\mathcal{C}')$ be
+the morphism of topoi whose pullback functor is sheafification.
+Let $\mathcal{A}' \to \mathcal{B}'$ be the given map, but thought of
+as a map of sheaves of rings on $\mathcal{C}'$. The construction above
+gives a map $L_{\mathcal{B}'/\mathcal{A}'} \to \NL_{\mathcal{B}'/\mathcal{A}'}$
+on $\mathcal{C}'$ whose value over any object $U$ of $\mathcal{C}'$
+is just the map
+$$
+L_{\mathcal{B}(U)/\mathcal{A}(U)} \to \NL_{\mathcal{B}(U)/\mathcal{A}(U)}
+$$
+of Remark \ref{remark-explicit-comparison-map} which induces an isomorphism
+on $H^0$ and $H^{-1}$. Since
+$f^{-1}L_{\mathcal{B}'/\mathcal{A}'} = L_{\mathcal{B}/\mathcal{A}}$
+(Lemma \ref{lemma-pullback-cotangent-morphism-topoi})
+and
+$f^{-1}\NL_{\mathcal{B}'/\mathcal{A}'} = \NL_{\mathcal{B}/\mathcal{A}}$
+(Modules on Sites, Lemma \ref{sites-modules-lemma-pullback-NL})
+the lemma is proved.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\section{The Atiyah class of a sheaf of modules}
+\label{section-atiyah-general}
+
+\noindent
+Let $\mathcal{C}$ be a site. Let $\mathcal{A} \to \mathcal{B}$ be a
+homomorphism of sheaves of rings. Let $\mathcal{F}$ be a
+sheaf of $\mathcal{B}$-modules. Let $\mathcal{P}_\bullet \to \mathcal{B}$
+be the standard resolution of $\mathcal{B}$ over $\mathcal{A}$
+(Section \ref{section-cotangent-complex}).
+For every $n \geq 0$ consider the extension of principal parts
+\begin{equation}
+\label{equation-atiyah-extension}
+0 \to
+\Omega_{\mathcal{P}_n/\mathcal{A}} \otimes_{\mathcal{P}_n} \mathcal{F} \to
+\mathcal{P}^1_{\mathcal{P}_n/\mathcal{A}}(\mathcal{F}) \to
+\mathcal{F} \to 0
+\end{equation}
+see
+Modules on Sites, Lemma \ref{sites-modules-lemma-sequence-of-principal-parts}.
+The functoriality of this construction
+(Modules on Sites, Remark
+\ref{sites-modules-remark-functoriality-principal-parts})
+tells us (\ref{equation-atiyah-extension}) is the degree $n$ part of
+a short exact sequence of simplicial $\mathcal{P}_\bullet$-modules
+(Cohomology on Sites, Section
+\ref{sites-cohomology-section-simplicial-modules}).
+Using the functor $L\pi_! : D(\mathcal{P}_\bullet) \to D(\mathcal{B})$
+of Cohomology on Sites, Remark
+\ref{sites-cohomology-remark-homology-augmentation}
+(here we use that $\mathcal{P}_\bullet \to \mathcal{A}$ is a resolution)
+we obtain a distinguished triangle
+\begin{equation}
+\label{equation-atiyah-general}
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{F} \to
+L\pi_!\left(\mathcal{P}^1_{\mathcal{P}_\bullet/\mathcal{A}}(\mathcal{F})\right)
+\to \mathcal{F} \to
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{F} [1]
+\end{equation}
+in $D(\mathcal{B})$.
+
+\begin{definition}
+\label{definition-atiyah-class-general}
+Let $\mathcal{C}$ be a site.
+Let $\mathcal{A} \to \mathcal{B}$ be a homomorphism of sheaves of rings.
+Let $\mathcal{F}$ be a sheaf of $\mathcal{B}$-modules.
+The map $\mathcal{F} \to
+L_{\mathcal{B}/\mathcal{A}} \otimes_\mathcal{B}^\mathbf{L} \mathcal{F}[1]$
+in (\ref{equation-atiyah-general}) is called the {\it Atiyah class} of
+$\mathcal{F}$.
+\end{definition}
+
+
+
+
+
+
+
+
+
+\section{The cotangent complex of a morphism of ringed spaces}
+\label{section-cotangent-morphism-ringed-spaces}
+
+\noindent
+The cotangent complex of a morphism of ringed spaces is defined
+in terms of the cotangent complex we defined above.
+
+\begin{definition}
+\label{definition-cotangent-complex-morphism-ringed-spaces}
+Let $f : (X, \mathcal{O}_X) \to (S, \mathcal{O}_S)$ be a morphism of
+ringed spaces. The {\it cotangent complex} $L_f$ of $f$ is
+$L_f = L_{\mathcal{O}_X/f^{-1}\mathcal{O}_S}$.
+We will also use the notation
+$L_f = L_{X/S} = L_{\mathcal{O}_X/\mathcal{O}_S}$.
+\end{definition}
+
+\noindent
+More precisely, this means that we consider the cotangent complex
+(Definition \ref{definition-cotangent-complex-morphism-sheaves-rings})
+of the homomorphism $f^\sharp : f^{-1}\mathcal{O}_S \to \mathcal{O}_X$
+of sheaves of rings on the site associated to the topological space $X$
+(Sites, Example \ref{sites-example-site-topological}).
+
+\begin{lemma}
+\label{lemma-H0-L-morphism-ringed-spaces}
+Let $f : (X, \mathcal{O}_X) \to (S, \mathcal{O}_S)$ be a morphism of
+ringed spaces. Then $H^0(L_{X/S}) = \Omega_{X/S}$.
+\end{lemma}
+
+\begin{proof}
+Special case of Lemma \ref{lemma-H0-L-morphism-sheaves-rings}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-triangle-ringed-spaces}
+Let $f : X \to Y$ and $g : Y \to Z$ be morphisms of ringed spaces.
+Then there is a canonical distinguished triangle
+$$
+Lf^* L_{Y/Z} \to L_{X/Z} \to L_{X/Y} \to Lf^*L_{Y/Z}[1]
+$$
+in $D(\mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+Set $h = g \circ f$ so that $h^{-1}\mathcal{O}_Z = f^{-1}g^{-1}\mathcal{O}_Z$.
+By Lemma \ref{lemma-pullback-cotangent-morphism-topoi} we have
+$f^{-1}L_{Y/Z} = L_{f^{-1}\mathcal{O}_Y/h^{-1}\mathcal{O}_Z}$
+and this is a complex of flat $f^{-1}\mathcal{O}_Y$-modules.
+Hence the distinguished triangle above is an example of the
+distinguished triangle of
+Lemma \ref{lemma-triangle-sheaves-rings}
+with $\mathcal{A} = h^{-1}\mathcal{O}_Z$, $\mathcal{B} = f^{-1}\mathcal{O}_Y$,
+and $\mathcal{C} = \mathcal{O}_X$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-cotangent-complex-with-naive-ringed-spaces}
+Let $f : (X, \mathcal{O}_X) \to (Y, \mathcal{O}_Y)$ be a morphism of
+ringed spaces. There is a canonical map $L_{X/Y} \to \NL_{X/Y}$ which
+identifies the naive cotangent complex with the truncation
+$\tau_{\geq -1}L_{X/Y}$.
+\end{lemma}
+
+\begin{proof}
+Special case of Lemma \ref{lemma-compare-cotangent-complex-with-naive}.
+\end{proof}
+
+
+
+
+
+
+\section{Deformations of ringed spaces and the cotangent complex}
+\label{section-deformations-ringed-spaces}
+
+\noindent
+This section is the continuation of
+Deformation Theory, Section \ref{defos-section-deformations-ringed-spaces}
+which we urge the reader to read first. We briefly recall the setup.
+We have a first order thickening
+$t : (S, \mathcal{O}_S) \to (S', \mathcal{O}_{S'})$ of ringed spaces
+with $\mathcal{J} = \Ker(t^\sharp)$, a morphism of ringed spaces
+$f : (X, \mathcal{O}_X) \to (S, \mathcal{O}_S)$, an $\mathcal{O}_X$-module
+$\mathcal{G}$, and an $f$-map $c : \mathcal{J} \to \mathcal{G}$
+of sheaves of modules. We ask whether we can find
+the question mark fitting into the following diagram
+\begin{equation}
+\label{equation-to-solve-ringed-spaces}
+\vcenter{
+\xymatrix{
+0 \ar[r] & \mathcal{G} \ar[r] & {?} \ar[r] & \mathcal{O}_X \ar[r] & 0 \\
+0 \ar[r] & \mathcal{J} \ar[u]^c \ar[r] & \mathcal{O}_{S'} \ar[u] \ar[r] &
+\mathcal{O}_S \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+and moreover how unique the solution is (if it exists). More precisely,
+we look for a first order thickening
+$i : (X, \mathcal{O}_X) \to (X', \mathcal{O}_{X'})$
+and a morphism of thickenings $(f, f')$ as in
+Deformation Theory, Equation (\ref{defos-equation-morphism-thickenings})
+where $\Ker(i^\sharp)$ is identified with $\mathcal{G}$
+such that $(f')^\sharp$ induces the given map $c$.
+We will say $X'$ is a {\it solution} to
+(\ref{equation-to-solve-ringed-spaces}).
+
+\begin{lemma}
+\label{lemma-find-obstruction-ringed-spaces}
+In the situation above we have
+\begin{enumerate}
+\item There is a canonical element
+$\xi \in \Ext^2_{\mathcal{O}_X}(L_{X/S}, \mathcal{G})$
+whose vanishing is a sufficient and necessary condition for the existence
+of a solution to (\ref{equation-to-solve-ringed-spaces}).
+\item If there exists a solution, then then the set of
+isomorphism classes of solutions is principal homogeneous under
+$\Ext^1_{\mathcal{O}_X}(L_{X/S}, \mathcal{G})$.
+\item Given a solution $X'$, the set of automorphisms of $X'$
+fitting into (\ref{equation-to-solve-ringed-spaces}) is canonically isomorphic
+to $\Ext^0_{\mathcal{O}_X}(L_{X/S}, \mathcal{G})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Via the identifications $\NL_{X/S} = \tau_{\geq -1}L_{X/S}$
+(Lemma \ref{lemma-compare-cotangent-complex-with-naive-ringed-spaces})
+and
+$H^0(L_{X/S}) = \Omega_{X/S}$
+(Lemma \ref{lemma-H0-L-morphism-ringed-spaces})
+we have seen parts (2) and (3) in
+Deformation Theory, Lemmas \ref{defos-lemma-huge-diagram-ringed-spaces} and
+\ref{defos-lemma-choices-ringed-spaces}.
+
+\medskip\noindent
+Proof of (1). We will use the results of
+Deformation Theory, Lemma \ref{defos-lemma-extensions-of-ringed-spaces}
+without further mention.
+Let $\alpha \in \Ext^1_{\mathcal{O}_S}(\NL_{S/\mathbf{Z}}, \mathcal{J})$
+be the element corresponding to the isomorphism class of $S'$.
+The existence of $X'$ corresponds to an element
+$\beta \in \Ext_{\mathcal{O}_X}^1(\NL_{X/\mathbf{Z}}, \mathcal{G})$
+which maps to the image of $\alpha$ in
+$\Ext^1_{\mathcal{O}_X}(Lf^*\NL_{S/\mathbf{Z}}, \mathcal{G})$.
+Note that
+$$
+\Ext^1_{\mathcal{O}_X}(Lf^*\NL_{S/\mathbf{Z}}, \mathcal{G}) =
+\Ext^1_{\mathcal{O}_X}(Lf^*L_{S/\mathbf{Z}}, \mathcal{G})
+$$
+and
+$$
+\Ext^1_{\mathcal{O}_X}(\NL_{X/\mathbf{Z}}, \mathcal{G}) =
+\Ext^1_{\mathcal{O}_X}(L_{X/\mathbf{Z}}, \mathcal{G})
+$$
+by Lemma \ref{lemma-compare-cotangent-complex-with-naive-ringed-spaces}.
+The distinguished triangle of Lemma \ref{lemma-triangle-ringed-spaces}
+for $X \to S \to (*, \mathbf{Z})$ gives rise to a long exact sequence
+$$
+\ldots \to
+\Ext^1_{\mathcal{O}_X}(L_{X/\mathbf{Z}}, \mathcal{G}) \to
+\Ext^1_{\mathcal{O}_X}(Lf^*L_{S/\mathbf{Z}}, \mathcal{G}) \to
+\Ext^2_{\mathcal{O}_X}(L_{X/S}, \mathcal{G}) \to \ldots
+$$
+We obtain the result with $\xi$ the image of $\alpha$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{The cotangent complex of a morphism of ringed topoi}
+\label{section-cotangent-morphism-ringed-topoi}
+
+\noindent
+The cotangent complex of a morphism of ringed topoi is defined
+in terms of the cotangent complex we defined above.
+
+\begin{definition}
+\label{definition-cotangent-complex-morphism-ringed-topoi}
+Let $(f, f^\sharp) : (\Sh(\mathcal{C}), \mathcal{O}_\mathcal{C}) \to
+(\Sh(\mathcal{D}), \mathcal{O}_\mathcal{D})$ be a morphism of ringed topoi.
+The {\it cotangent complex} $L_f$ of $f$ is
+$L_f = L_{\mathcal{O}_\mathcal{C}/f^{-1}\mathcal{O}_\mathcal{D}}$.
+We sometimes write $L_f = L_{\mathcal{O}_\mathcal{C}/\mathcal{O}_\mathcal{D}}$.
+\end{definition}
+
+\noindent
+This definition applies to many situations, but it doesn't always produce
+the thing one expects. For example, if $f : X \to Y$ is a morphism of
+schemes, then $f$ induces a morphism of big \'etale sites
+$f_{big} : (\Sch/X)_\etale \to (\Sch/Y)_\etale$
+which is a morphism of ringed topoi (Descent, Remark
+\ref{descent-remark-change-topologies-ringed}).
+However, $L_{f_{big}} = 0$ since $(f_{big})^\sharp$ is an isomorphism.
+On the other hand, if we take $L_f$ where we think of $f$ as a morphism
+between the underlying Zariski ringed topoi, then $L_f$ does agree with
+the cotangent complex $L_{X/Y}$ (as defined below)
+whose zeroth cohomology sheaf is $\Omega_{X/Y}$.
+
+\begin{lemma}
+\label{lemma-H0-L-morphism-ringed-topoi}
+Let $f : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$ be a morphism of
+ringed topoi. Then $H^0(L_f) = \Omega_f$.
+\end{lemma}
+
+\begin{proof}
+Special case of Lemma \ref{lemma-H0-L-morphism-sheaves-rings}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-triangle-ringed-topoi}
+Let $f : (\Sh(\mathcal{C}_1), \mathcal{O}_1) \to
+(\Sh(\mathcal{C}_2), \mathcal{O}_2)$ and
+$g : (\Sh(\mathcal{C}_2), \mathcal{O}_2) \to
+(\Sh(\mathcal{C}_3), \mathcal{O}_3)$ be morphisms of ringed topoi.
+Then there is a canonical distinguished triangle
+$$
+Lf^* L_g \to L_{g \circ f} \to L_f \to Lf^*L_g[1]
+$$
+in $D(\mathcal{O}_1)$.
+\end{lemma}
+
+\begin{proof}
+Set $h = g \circ f$ so that $h^{-1}\mathcal{O}_3 = f^{-1}g^{-1}\mathcal{O}_3$.
+By Lemma \ref{lemma-pullback-cotangent-morphism-topoi} we have
+$f^{-1}L_g = L_{f^{-1}\mathcal{O}_2/h^{-1}\mathcal{O}_3}$
+and this is a complex of flat $f^{-1}\mathcal{O}_2$-modules.
+Hence the distinguished triangle above is an example of the
+distinguished triangle of
+Lemma \ref{lemma-triangle-sheaves-rings}
+with $\mathcal{A} = h^{-1}\mathcal{O}_3$, $\mathcal{B} = f^{-1}\mathcal{O}_2$,
+and $\mathcal{C} = \mathcal{O}_1$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-cotangent-complex-with-naive-ringed-topoi}
+Let $f : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$ be a morphism of
+ringed topoi. There is a canonical map $L_f \to \NL_f$ which
+identifies the naive cotangent complex with the truncation
+$\tau_{\geq -1}L_f$.
+\end{lemma}
+
+\begin{proof}
+Special case of Lemma \ref{lemma-compare-cotangent-complex-with-naive}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{Deformations of ringed topoi and the cotangent complex}
+\label{section-deformations-ringed-topoi}
+
+\noindent
+This section is the continuation of
+Deformation Theory, Section \ref{defos-section-deformations-ringed-topoi}
+which we urge the reader to read first. We briefly recall the setup.
+We have a first order thickening
+$t : (\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B}) \to
+(\Sh(\mathcal{B}'), \mathcal{O}_{\mathcal{B}'})$ of ringed topoi
+with $\mathcal{J} = \Ker(t^\sharp)$, a morphism of ringed topoi
+$f : (\Sh(\mathcal{C}), \mathcal{O}) \to
+(\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B})$, an $\mathcal{O}$-module
+$\mathcal{G}$, and a map $f^{-1}\mathcal{J} \to \mathcal{G}$
+of sheaves of $f^{-1}\mathcal{O}_\mathcal{B}$-modules.
+We ask whether we can find
+the question mark fitting into the following diagram
+\begin{equation}
+\label{equation-to-solve-ringed-topoi}
+\vcenter{
+\xymatrix{
+0 \ar[r] & \mathcal{G} \ar[r] & {?} \ar[r] & \mathcal{O}_X \ar[r] & 0 \\
+0 \ar[r] & f^{-1}\mathcal{J} \ar[u]^c \ar[r] &
+f^{-1}\mathcal{O}_{S'} \ar[u] \ar[r] &
+f^{-1}\mathcal{O}_S \ar[u] \ar[r] & 0
+}
+}
+\end{equation}
+and moreover how unique the solution is (if it exists). More precisely,
+we look for a first order thickening
+$i : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(\mathcal{C}'), \mathcal{O}')$
+and a morphism of thickenings $(f, f')$ as in
+Deformation Theory, Equation
+(\ref{defos-equation-morphism-thickenings-ringed-topoi})
+where $\Ker(i^\sharp)$ is identified with $\mathcal{G}$
+such that $(f')^\sharp$ induces the given map $c$.
+We will say $(\Sh(\mathcal{C}'), \mathcal{O}')$ is a {\it solution} to
+(\ref{equation-to-solve-ringed-topoi}).
+
+\begin{lemma}
+\label{lemma-find-obstruction-ringed-topoi}
+In the situation above we have
+\begin{enumerate}
+\item There is a canonical element
+$\xi \in \Ext^2_\mathcal{O}(L_f, \mathcal{G})$
+whose vanishing is a sufficient and necessary condition for the existence
+of a solution to (\ref{equation-to-solve-ringed-topoi}).
+\item If there exists a solution, then then the set of
+isomorphism classes of solutions is principal homogeneous under
+$\Ext^1_\mathcal{O}(L_f, \mathcal{G})$.
+\item Given a solution $X'$, the set of automorphisms of $X'$
+fitting into (\ref{equation-to-solve-ringed-topoi}) is canonically isomorphic
+to $\Ext^0_\mathcal{O}(L_f, \mathcal{G})$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Via the identifications $\NL_f = \tau_{\geq -1}L_f$
+(Lemma \ref{lemma-compare-cotangent-complex-with-naive-ringed-topoi}) and
+$H^0(L_{X/S}) = \Omega_{X/S}$
+(Lemma \ref{lemma-H0-L-morphism-ringed-topoi})
+we have seen parts (2) and (3) in
+Deformation Theory, Lemmas \ref{defos-lemma-huge-diagram-ringed-topoi} and
+\ref{defos-lemma-choices-ringed-topoi}.
+
+\medskip\noindent
+Proof of (1). We will use the results of
+Deformation Theory, Lemma \ref{defos-lemma-extensions-of-ringed-topoi}
+without further mention. Denote
+$$
+p : (\Sh(\mathcal{C}), \mathcal{O}) \to (\Sh(*), \mathbf{Z})
+\quad\text{and}\quad
+q : (\Sh(\mathcal{B}), \mathcal{O}_\mathcal{B}) \to (\Sh(*), \mathbf{Z}).
+$$
+Let $\alpha \in \Ext^1_{\mathcal{O}_\mathcal{B}}(\NL_q, \mathcal{J})$
+be the element corresponding to the isomorphism class of
+$\mathcal{O}_{\mathcal{B}'}$. The existence of $\mathcal{O}'$
+corresponds to an element
+$\beta \in \Ext_\mathcal{O}^1(\NL_p, \mathcal{G})$
+which maps to the image of $\alpha$ in
+$\Ext^1_{\mathcal{O}_X}(Lf^*\NL_q, \mathcal{G})$.
+Note that
+$$
+\Ext^1_{\mathcal{O}_X}(Lf^*\NL_q, \mathcal{G}) =
+\Ext^1_{\mathcal{O}_X}(Lf^*L_q, \mathcal{G})
+$$
+and
+$$
+\Ext^1_{\mathcal{O}_X}(\NL_p, \mathcal{G}) =
+\Ext^1_{\mathcal{O}_X}(L_p, \mathcal{G})
+$$
+by Lemma \ref{lemma-compare-cotangent-complex-with-naive-ringed-topoi}.
+The distinguished triangle of Lemma \ref{lemma-triangle-ringed-topoi}
+for $p = q \circ f$ gives rise to a long exact sequence
+$$
+\ldots \to
+\Ext^1_{\mathcal{O}_X}(L_p, \mathcal{G}) \to
+\Ext^1_{\mathcal{O}_X}(Lf^*L_q, \mathcal{G}) \to
+\Ext^2_{\mathcal{O}_X}(L_f, \mathcal{G}) \to \ldots
+$$
+We obtain the result with $\xi$ the image of $\alpha$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{The cotangent complex of a morphism of schemes}
+\label{section-cotangent-morphism-schemes}
+
+\noindent
+As promised above we define the cotangent complex of a morphism of
+schemes as follows.
+
+\begin{definition}
+\label{definition-cotangent-morphism-schemes}
+Let $f : X \to Y$ be a morphism of schemes. The {\it cotangent complex
+$L_{X/Y}$ of $X$ over $Y$} is the cotangent complex of $f$ as a
+morphism of ringed spaces
+(Definition \ref{definition-cotangent-complex-morphism-ringed-spaces}).
+\end{definition}
+
+\noindent
+In particular, the results of
+Section \ref{section-cotangent-morphism-ringed-spaces} apply
+to cotangent complexes of morphisms of schemes.
+The next lemma shows this definition is compatible with the definition
+for ring maps and it also implies that $L_{X/Y}$ is an
+object of $D_\QCoh(\mathcal{O}_X)$.
+
+\begin{lemma}
+\label{lemma-morphism-affine-schemes}
+Let $f : X \to Y$ be a morphism of schemes. Let $U = \Spec(A) \subset X$
+and $V = \Spec(B) \subset Y$ be affine opens such that $f(U) \subset V$.
+There is a canonical map
+$$
+\widetilde{L_{B/A}} \longrightarrow L_{X/Y}|_U
+$$
+of complexes which is an isomorphism in $D(\mathcal{O}_U)$.
+This map is compatible with restricting to smaller affine opens
+of $X$ and $Y$.
+\end{lemma}
+
+\begin{proof}
+By Remark \ref{remark-map-sections-over-U}
+there is a canonical map of complexes
+$L_{\mathcal{O}_X(U)/f^{-1}\mathcal{O}_Y(U)} \to L_{X/Y}(U)$
+of $B = \mathcal{O}_X(U)$-modules, which is compatible
+with further restrictions. Using the canonical map
+$A \to f^{-1}\mathcal{O}_Y(U)$ we obtain a canonical map
+$L_{B/A} \to L_{\mathcal{O}_X(U)/f^{-1}\mathcal{O}_Y(U)}$
+of complexes of $B$-modules.
+Using the universal property of the $\widetilde{\ }$
+functor (see Schemes, Lemma \ref{schemes-lemma-compare-constructions})
+we obtain a map as in the statement of the lemma.
+We may check this map is an isomorphism on cohomology sheaves
+by checking it induces isomorphisms on stalks.
+This follows immediately from
+Lemmas \ref{lemma-stalk-cotangent-complex} and \ref{lemma-localize}
+(and the description of the stalks of
+$\mathcal{O}_X$ and $f^{-1}\mathcal{O}_Y$
+at a point $\mathfrak p \in \Spec(B)$ as $B_\mathfrak p$ and
+$A_\mathfrak q$ where $\mathfrak q = A \cap \mathfrak p$; references
+used are Schemes, Lemma \ref{schemes-lemma-spec-sheaves}
+and
+Sheaves, Lemma \ref{sheaves-lemma-stalk-pullback}).
+\end{proof}
+
+\begin{lemma}
+\label{lemma-scheme-over-ring}
+Let $\Lambda$ be a ring. Let $X$ be a scheme over $\Lambda$.
+Then
+$$
+L_{X/\Spec(\Lambda)} = L_{\mathcal{O}_X/\underline{\Lambda}}
+$$
+where $\underline{\Lambda}$ is the constant sheaf with value
+$\Lambda$ on $X$.
+\end{lemma}
+
+\begin{proof}
+Let $p : X \to \Spec(\Lambda)$ be the structure morphism.
+Let $q : \Spec(\Lambda) \to (*, \Lambda)$ be the obvious morphism.
+By the distinguished triangle of Lemma \ref{lemma-triangle-ringed-spaces}
+it suffices to show that $L_q = 0$. To see this it suffices to
+show for $\mathfrak p \in \Spec(\Lambda)$ that
+$$
+(L_q)_\mathfrak p =
+L_{\mathcal{O}_{\Spec(\Lambda), \mathfrak p}/\Lambda} =
+L_{\Lambda_\mathfrak p/\Lambda}
+$$
+(Lemma \ref{lemma-stalk-cotangent-complex})
+is zero which follows from Lemma \ref{lemma-when-zero}.
+\end{proof}
+
+
+
+
+
+
+\section{The cotangent complex of a scheme over a ring}
+\label{section-cotangent-schemes-variant}
+
+\noindent
+Let $\Lambda$ be a ring and let $X$ be a scheme over $\Lambda$.
+Write $L_{X/\Spec(\Lambda)} = L_{X/\Lambda}$ which is justified
+by Lemma \ref{lemma-scheme-over-ring}.
+In this section we give a description of $L_{X/\Lambda}$ similar to
+Lemma \ref{lemma-compute-cotangent-complex}.
+Namely, we construct a category $\mathcal{C}_{X/\Lambda}$
+fibred over $X_{Zar}$ and endow it with a sheaf of (polynomial)
+$\Lambda$-algebras $\mathcal{O}$ such that
+$$
+L_{X/\Lambda} =
+L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}} \otimes_\mathcal{O}
+\underline{\mathcal{O}}_X).
+$$
+We will later use the category $\mathcal{C}_{X/\Lambda}$ to construct
+a naive obstruction theory for the stack of coherent sheaves.
+
+\medskip\noindent
+Let $\Lambda$ be a ring. Let $X$ be a scheme over $\Lambda$.
+Let $\mathcal{C}_{X/\Lambda}$ be the category whose objects are
+commutative diagrams
+\begin{equation}
+\label{equation-object}
+\vcenter{
+\xymatrix{
+X \ar[d] & U \ar[l] \ar[d] \\
+\Spec(\Lambda) & \mathbf{A} \ar[l]
+}
+}
+\end{equation}
+of schemes where
+\begin{enumerate}
+\item $U$ is an open subscheme of $X$,
+\item there exists an isomorphism $\mathbf{A} = \Spec(P)$
+where $P$ is a polynomial algebra over $\Lambda$ (on some set
+of variables).
+\end{enumerate}
+In other words, $\mathbf{A}$ is an (infinite dimensional) affine space over
+$\Spec(\Lambda)$. Morphisms are given by commutative diagrams.
+Recall that $X_{Zar}$ denotes the small Zariski site $X$.
+There is a forgetful functor
+$$
+u : \mathcal{C}_{X/\Lambda} \to X_{Zar},\ (U \to \mathbf{A}) \mapsto U
+$$
+Observe that the fibre category over $U$ is canonically equivalent
+to the category $\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ introduced
+in Section \ref{section-compute-L-pi-shriek}.
+
+\begin{lemma}
+\label{lemma-category-fibred}
+In the situation above the category
+$\mathcal{C}_{X/\Lambda}$ is fibred over $X_{Zar}$.
+\end{lemma}
+
+\begin{proof}
+Given an object $U \to \mathbf{A}$ of $\mathcal{C}_{X/\Lambda}$ and a morphism
+$U' \to U$ of $X_{Zar}$ consider the object $U' \to \mathbf{A}$ of
+$\mathcal{C}_{X/\Lambda}$ where $U' \to \mathbf{A}$ is the composition of
+$U \to \mathbf{A}$ and $U' \to U$. The morphism
+$(U' \to \mathbf{A}) \to (U \to \mathbf{A})$ of
+$\mathcal{C}_{X/\Lambda}$ is strongly cartesian over $X_{Zar}$.
+\end{proof}
+
+\noindent
+We endow $\mathcal{C}_{X/\Lambda}$ with the topology inherited from
+$X_{Zar}$ (see Stacks, Section \ref{stacks-section-topology}).
+The functor $u$ defines a morphism of topoi
+$\pi : \Sh(\mathcal{C}_{X/\Lambda}) \to \Sh(X_{Zar})$.
+The site $\mathcal{C}_{X/\Lambda}$ comes with several sheaves of rings.
+\begin{enumerate}
+\item The sheaf $\mathcal{O}$ given by the rule
+$(U \to \mathbf{A}) \mapsto \Gamma(\mathbf{A}, \mathcal{O}_\mathbf{A})$.
+\item The sheaf $\underline{\mathcal{O}}_X = \pi^{-1}\mathcal{O}_X$ given by
+the rule $(U \to \mathbf{A}) \mapsto \mathcal{O}_X(U)$.
+\item The constant sheaf $\underline{\Lambda}$.
+\end{enumerate}
+We obtain morphisms of ringed topoi
+\begin{equation}
+\label{equation-pi-schemes}
+\vcenter{
+\xymatrix{
+(\Sh(\mathcal{C}_{X/\Lambda}), \underline{\mathcal{O}}_X) \ar[r]_i \ar[d]_\pi &
+(\Sh(\mathcal{C}_{X/\Lambda}), \mathcal{O}) \\
+(\Sh(X_{Zar}), \mathcal{O}_X)
+}
+}
+\end{equation}
+The morphism $i$ is the identity on underlying topoi and
+$i^\sharp : \mathcal{O} \to \underline{\mathcal{O}}_X$
+is the obvious map.
+The map $\pi$ is a special case of Cohomology on Sites, Situation
+\ref{sites-cohomology-situation-fibred-category}.
+An important role will be played in the following
+by the derived functors
+$
+Li^* : D(\mathcal{O}) \longrightarrow D(\underline{\mathcal{O}}_X)
+$
+left adjoint to $Ri_* = i_* : D(\underline{\mathcal{O}}_X) \to D(\mathcal{O})$
+and
+$
+L\pi_! : D(\underline{\mathcal{O}}_X) \longrightarrow D(\mathcal{O}_X)
+$
+left adjoint to
+$\pi^* = \pi^{-1} : D(\mathcal{O}_X) \to D(\underline{\mathcal{O}}_X)$.
+We can compute $L\pi_!$ thanks to our earlier work.
+
+\begin{remark}
+\label{remark-compute-L-pi-shriek}
+In the situation above, for every $U \subset X$ open let
+$P_{\bullet, U}$ be the standard resolution of $\mathcal{O}_X(U)$
+over $\Lambda$. Set $\mathbf{A}_{n, U} = \Spec(P_{n, U})$. Then
+$\mathbf{A}_{\bullet, U}$
+is a cosimplicial object of the fibre category
+$\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ of
+$\mathcal{C}_{X/\Lambda}$ over $U$. Moreover, as discussed
+in Remark \ref{remark-resolution} we have that $\mathbf{A}_{\bullet, U}$
+is a cosimplicial object of $\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$
+as in Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}.
+Since the construction $U \mapsto \mathbf{A}_{\bullet, U}$ is functorial
+in $U$, given any (abelian) sheaf $\mathcal{F}$ on $\mathcal{C}_{X/\Lambda}$
+we obtain a complex of presheaves
+$$
+U \longmapsto \mathcal{F}(\mathbf{A}_{\bullet, U})
+$$
+whose cohomology groups compute the homology of $\mathcal{F}$ on the fibre
+category. We conclude by
+Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-compute-left-derived-pi-shriek}
+that the sheafification computes $L_n\pi_!(\mathcal{F})$.
+In other words, the complex of sheaves whose term in degree $-n$ is
+the sheafification of $U \mapsto \mathcal{F}(\mathbf{A}_{n, U})$ computes
+$L\pi_!(\mathcal{F})$.
+\end{remark}
+
+\noindent
+With this remark out of the way we can state the main
+result of this section.
+
+\begin{lemma}
+\label{lemma-cotangent-morphism-schemes}
+In the situation above there is a canonical isomorphism
+$$
+L_{X/\Lambda} = 
+L\pi_!(Li^*\Omega_{\mathcal{O}/\underline{\Lambda}}) =
+L\pi_!(i^*\Omega_{\mathcal{O}/\underline{\Lambda}}) =
+L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)
+$$
+in $D(\mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+We first observe that for any object $(U \to \mathbf{A})$ of
+$\mathcal{C}_{X/\Lambda}$
+the value of the sheaf $\mathcal{O}$ is a polynomial algebra over $\Lambda$.
+Hence $\Omega_{\mathcal{O}/\underline{\Lambda}}$ is a flat $\mathcal{O}$-module
+and we conclude the second and third equalities of the statement of the
+lemma hold.
+
+\medskip\noindent
+By Remark \ref{remark-compute-L-pi-shriek} the object
+$L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)$
+is computed as the sheafification of the complex of presheaves
+$$
+U \mapsto
+\left(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X\right)(\mathbf{A}_{\bullet, U})
+=
+\Omega_{P_{\bullet, U}/\Lambda} \otimes_{P_{\bullet, U}} \mathcal{O}_X(U) =
+L_{\mathcal{O}_X(U)/\Lambda}
+$$
+using notation as in Remark \ref{remark-compute-L-pi-shriek}.
+Now Remark \ref{remark-map-sections-over-U} shows that
+$L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)$
+computes the cotangent complex of the map of rings
+$\underline{\Lambda} \to \mathcal{O}_X$ on $X$.
+This is what we want by Lemma \ref{lemma-scheme-over-ring}.
+\end{proof}
+
+
+
+
+
+
+
+
+\section{The cotangent complex of a morphism of algebraic spaces}
+\label{section-cotangent-morphism-spaces}
+
+\noindent
+We define the cotangent complex of a morphism of algebraic spaces
+using the associated morphism between the small \'etale sites.
+
+\begin{definition}
+\label{definition-cotangent-morphism-spaces}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. The {\it cotangent complex $L_{X/Y}$ of $X$ over $Y$} is the
+cotangent complex of the morphism of ringed topoi $f_{small}$
+between the small \'etale sites of $X$ and $Y$
+(see
+Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-morphism-ringed-topoi}
+and
+Definition \ref{definition-cotangent-complex-morphism-ringed-topoi}).
+\end{definition}
+
+\noindent
+In particular, the results of
+Section \ref{section-cotangent-morphism-ringed-topoi} apply
+to cotangent complexes of morphisms of algebraic spaces.
+The next lemmas show this definition is compatible with the definition
+for ring maps and for schemes and that $L_{X/Y}$ is an
+object of $D_\QCoh(\mathcal{O}_X)$.
+
+\begin{lemma}
+\label{lemma-etale-localization}
+Let $S$ be a scheme. Consider a commutative diagram
+$$
+\xymatrix{
+U \ar[d]_p \ar[r]_g & V \ar[d]^q \\
+X \ar[r]^f & Y
+}
+$$
+of algebraic spaces over $S$ with $p$ and $q$ \'etale.
+Then there is a canonical identification
+$L_{X/Y}|_{U_\etale} = L_{U/V}$ in $D(\mathcal{O}_U)$.
+\end{lemma}
+
+\begin{proof}
+Formation of the cotangent complex commutes with pullback
+(Lemma \ref{lemma-pullback-cotangent-morphism-topoi}) and
+we have $p_{small}^{-1}\mathcal{O}_X = \mathcal{O}_U$ and
+$g_{small}^{-1}\mathcal{O}_{V_\etale} =
+p_{small}^{-1}f_{small}^{-1}\mathcal{O}_{Y_\etale}$
+because $q_{small}^{-1}\mathcal{O}_{Y_\etale} =
+\mathcal{O}_{V_\etale}$
+(Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-etale-exact-pullback}).
+Tracing through the definitions we conclude that
+$L_{X/Y}|_{U_\etale} = L_{U/V}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-compare-spaces-schemes}
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Assume $X$ and $Y$ representable by schemes $X_0$ and $Y_0$.
+Then there is a canonical identification
+$L_{X/Y} = \epsilon^*L_{X_0/Y_0}$ in $D(\mathcal{O}_X)$
+where $\epsilon$ is as in Derived Categories of Spaces, Section
+\ref{spaces-perfect-section-derived-quasi-coherent-etale}
+and $L_{X_0/Y_0}$ is as in
+ Definition \ref{definition-cotangent-morphism-schemes}.
+\end{lemma}
+
+\begin{proof}
+Let $f_0 : X_0 \to Y_0$ be the morphism of schemes corresponding to $f$.
+There is a canonical map
+$\epsilon^{-1}f_0^{-1}\mathcal{O}_{Y_0} \to f_{small}^{-1}\mathcal{O}_Y$
+compatible with
+$\epsilon^\sharp : \epsilon^{-1}\mathcal{O}_{X_0} \to \mathcal{O}_X$
+because there is a commutative diagram
+$$
+\xymatrix{
+X_{0, Zar} \ar[d]_{f_0} & X_\etale \ar[l]^\epsilon \ar[d]^f \\
+Y_{0, Zar} & Y_\etale \ar[l]_\epsilon
+}
+$$
+see Derived Categories of Spaces, Remark
+\ref{spaces-perfect-remark-match-total-direct-images}.
+Thus we obtain a canonical map
+$$
+\epsilon^{-1}L_{X_0/Y_0} =
+\epsilon^{-1}L_{\mathcal{O}_{X_0}/f_0^{-1}\mathcal{O}_{Y_0}} =
+L_{\epsilon^{-1}\mathcal{O}_{X_0}/\epsilon^{-1}f_0^{-1}\mathcal{O}_{Y_0}}
+\longrightarrow
+L_{\mathcal{O}_X/f^{-1}_{small}\mathcal{O}_Y} = L_{X/Y}
+$$
+by the functoriality discussed in Section \ref{section-cotangent-complex}
+and Lemma \ref{lemma-pullback-cotangent-morphism-topoi}.
+To see that the induced map $\epsilon^*L_{X_0/Y_0} \to L_{X/Y}$ is an
+isomorphism we may check on stalks at geometric points
+(Properties of Spaces, Theorem
+\ref{spaces-properties-theorem-exactness-stalks}).
+We will use Lemma \ref{lemma-stalk-cotangent-complex}
+to compute the stalks. Let $\overline{x} : \Spec(k) \to X_0$
+be a geometric point lying over $x \in X_0$, with
+$\overline{y} = f \circ \overline{x}$ lying over $y \in Y_0$. Then
+$$
+L_{X/Y, \overline{x}} =
+L_{\mathcal{O}_{X, \overline{x}}/\mathcal{O}_{Y, \overline{y}}}
+$$
+and
+$$
+(\epsilon^*L_{X_0/Y_0})_{\overline{x}} =
+L_{X_0/Y_0, x} \otimes_{\mathcal{O}_{X_0, x}}
+\mathcal{O}_{X, \overline{x}} =
+L_{\mathcal{O}_{X_0, x}/\mathcal{O}_{Y_0, y}}
+\otimes_{\mathcal{O}_{X_0, x}} \mathcal{O}_{X, \overline{x}}
+$$
+Some details omitted (hint: use that the stalk of a pullback
+is the stalk at the image point, see
+Sites, Lemma \ref{sites-lemma-point-morphism-sites},
+as well as the corresponding result for modules, see
+Modules on Sites, Lemma \ref{sites-modules-lemma-pullback-stalk}).
+Observe that $\mathcal{O}_{X, \overline{x}}$ is the strict
+henselization of $\mathcal{O}_{X_0, x}$ and similarly
+for $\mathcal{O}_{Y, \overline{y}}$
+(Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-describe-etale-local-ring}).
+Thus the result follows from
+Lemma \ref{lemma-cotangent-complex-henselization}.
+\end{proof}
+
+\begin{lemma}
+\label{lemma-space-over-ring}
+Let $\Lambda$ be a ring. Let $X$ be an algebraic space over $\Lambda$.
+Then
+$$
+L_{X/\Spec(\Lambda)} = L_{\mathcal{O}_X/\underline{\Lambda}}
+$$
+where $\underline{\Lambda}$ is the constant sheaf with value
+$\Lambda$ on $X_\etale$.
+\end{lemma}
+
+\begin{proof}
+Let $p : X \to \Spec(\Lambda)$ be the structure morphism.
+Let $q : \Spec(\Lambda)_\etale \to (*, \Lambda)$
+be the obvious morphism. By the distinguished triangle of
+Lemma \ref{lemma-triangle-ringed-topoi}
+it suffices to show that $L_q = 0$. To see this it suffices to
+show
+(Properties of Spaces, Theorem
+\ref{spaces-properties-theorem-exactness-stalks})
+for a geometric point $\overline{t} : \Spec(k) \to \Spec(\Lambda)$ that
+$$
+(L_q)_{\overline{t}} =
+L_{\mathcal{O}_{\Spec(\Lambda)_\etale, \overline{t}}/\Lambda}
+$$
+(Lemma \ref{lemma-stalk-cotangent-complex})
+is zero. Since $\mathcal{O}_{\Spec(\Lambda)_\etale, \overline{t}}$
+is a strict henselization of a local ring of $\Lambda$
+(Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-describe-etale-local-ring})
+this follows from Lemma \ref{lemma-when-zero}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{The cotangent complex of an algebraic space over a ring}
+\label{section-cotangent-spaces-variant}
+
+\noindent
+Let $\Lambda$ be a ring and let $X$ be an algebraic space over $\Lambda$.
+Write $L_{X/\Spec(\Lambda)} = L_{X/\Lambda}$ which is justified
+by Lemma \ref{lemma-space-over-ring}.
+In this section we give a description of $L_{X/\Lambda}$ similar to
+Lemma \ref{lemma-compute-cotangent-complex}.
+Namely, we construct a category $\mathcal{C}_{X/\Lambda}$
+fibred over $X_\etale$ and endow it with a sheaf of (polynomial)
+$\Lambda$-algebras $\mathcal{O}$ such that
+$$
+L_{X/\Lambda} =
+L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}} \otimes_\mathcal{O}
+\underline{\mathcal{O}}_X).
+$$
+We will later use the category $\mathcal{C}_{X/\Lambda}$ to construct
+a naive obstruction theory for the stack of coherent sheaves.
+
+\medskip\noindent
+Let $\Lambda$ be a ring. Let $X$ be an algebraic space over $\Lambda$.
+Let $\mathcal{C}_{X/\Lambda}$ be the category whose objects are
+commutative diagrams
+\begin{equation}
+\label{equation-object-space}
+\vcenter{
+\xymatrix{
+X \ar[d] & U \ar[l] \ar[d] \\
+\Spec(\Lambda) & \mathbf{A} \ar[l]
+}
+}
+\end{equation}
+of schemes where
+\begin{enumerate}
+\item $U$ is a scheme,
+\item $U \to X$ is \'etale,
+\item there exists an isomorphism $\mathbf{A} = \Spec(P)$
+where $P$ is a polynomial algebra over $\Lambda$ (on some set
+of variables).
+\end{enumerate}
+In other words, $\mathbf{A}$ is an (infinite dimensional) affine space over
+$\Spec(\Lambda)$. Morphisms are given by commutative diagrams.
+Recall that $X_\etale$ denotes the small \'etale site of $X$
+whose objects are schemes \'etale over $X$.
+There is a forgetful functor
+$$
+u : \mathcal{C}_{X/\Lambda} \to X_\etale,
+\quad
+(U \to \mathbf{A}) \mapsto U
+$$
+Observe that the fibre category over $U$ is canonically equivalent
+to the category $\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ introduced
+in Section \ref{section-compute-L-pi-shriek}.
+
+\begin{lemma}
+\label{lemma-category-fibred-space}
+In the situation above the category
+$\mathcal{C}_{X/\Lambda}$ is fibred over $X_\etale$.
+\end{lemma}
+
+\begin{proof}
+Given an object $U \to \mathbf{A}$ of $\mathcal{C}_{X/\Lambda}$ and a morphism
+$U' \to U$ of $X_\etale$ consider the object $U' \to \mathbf{A}$ of
+$\mathcal{C}_{X/\Lambda}$ where $U' \to \mathbf{A}$ is the composition of
+$U \to \mathbf{A}$
+and $U' \to U$. The morphism $(U' \to \mathbf{A}) \to (U \to \mathbf{A})$ of
+$\mathcal{C}_{X/\Lambda}$ is strongly cartesian over $X_\etale$.
+\end{proof}
+
+\noindent
+We endow $\mathcal{C}_{X/\Lambda}$ with the topology inherited from
+$X_\etale$ (see Stacks, Section \ref{stacks-section-topology}).
+The functor $u$ defines a morphism of topoi
+$\pi : \Sh(\mathcal{C}_{X/\Lambda}) \to \Sh(X_\etale)$.
+The site $\mathcal{C}_{X/\Lambda}$ comes with several sheaves of rings.
+\begin{enumerate}
+\item The sheaf $\mathcal{O}$ given by the rule
+$(U \to \mathbf{A}) \mapsto \Gamma(\mathbf{A}, \mathcal{O}_\mathbf{A})$.
+\item The sheaf $\underline{\mathcal{O}}_X = \pi^{-1}\mathcal{O}_X$ given by
+the rule $(U \to \mathbf{A}) \mapsto \mathcal{O}_X(U)$.
+\item The constant sheaf $\underline{\Lambda}$.
+\end{enumerate}
+We obtain morphisms of ringed topoi
+\begin{equation}
+\label{equation-pi-spaces}
+\vcenter{
+\xymatrix{
+(\Sh(\mathcal{C}_{X/\Lambda}), \underline{\mathcal{O}}_X) \ar[r]_i \ar[d]_\pi &
+(\Sh(\mathcal{C}_{X/\Lambda}), \mathcal{O}) \\
+(\Sh(X_\etale), \mathcal{O}_X)
+}
+}
+\end{equation}
+The morphism $i$ is the identity on underlying topoi and
+$i^\sharp : \mathcal{O} \to \underline{\mathcal{O}}_X$
+is the obvious map.
+The map $\pi$ is a special case of Cohomology on Sites, Situation
+\ref{sites-cohomology-situation-fibred-category}.
+An important role will be played in the following
+by the derived functors
+$
+Li^* : D(\mathcal{O}) \longrightarrow D(\underline{\mathcal{O}}_X)
+$
+left adjoint to $Ri_* = i_* : D(\underline{\mathcal{O}}_X) \to D(\mathcal{O})$
+and
+$
+L\pi_! : D(\underline{\mathcal{O}}_X) \longrightarrow D(\mathcal{O}_X)
+$
+left adjoint to
+$\pi^* = \pi^{-1} : D(\mathcal{O}_X) \to D(\underline{\mathcal{O}}_X)$.
+We can compute $L\pi_!$ thanks to our earlier work.
+
+\begin{remark}
+\label{remark-compute-L-pi-shriek-spaces}
+In the situation above, for every object $U \to X$ of $X_\etale$
+let $P_{\bullet, U}$ be the standard resolution of $\mathcal{O}_X(U)$
+over $\Lambda$. Set $\mathbf{A}_{n, U} = \Spec(P_{n, U})$.
+Then $\mathbf{A}_{\bullet, U}$
+is a cosimplicial object of the fibre category
+$\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$ of
+$\mathcal{C}_{X/\Lambda}$ over $U$. Moreover, as discussed
+in Remark \ref{remark-resolution} we have that $\mathbf{A}_{\bullet, U}$
+is a cosimplicial object of $\mathcal{C}_{\mathcal{O}_X(U)/\Lambda}$
+as in Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-compute-by-cosimplicial-resolution}.
+Since the construction $U \mapsto \mathbf{A}_{\bullet, U}$ is functorial
+in $U$, given any (abelian) sheaf $\mathcal{F}$ on $\mathcal{C}_{X/\Lambda}$
+we obtain a complex of presheaves
+$$
+U \longmapsto \mathcal{F}(\mathbf{A}_{\bullet, U})
+$$
+whose cohomology groups compute the homology of $\mathcal{F}$ on the fibre
+category. We conclude by
+Cohomology on Sites, Lemma
+\ref{sites-cohomology-lemma-compute-left-derived-pi-shriek}
+that the sheafification computes $L_n\pi_!(\mathcal{F})$.
+In other words, the complex of sheaves whose term in degree $-n$ is
+the sheafification of $U \mapsto \mathcal{F}(\mathbf{A}_{n, U})$ computes
+$L\pi_!(\mathcal{F})$.
+\end{remark}
+
+\noindent
+With this remark out of the way we can state the main
+result of this section.
+
+\begin{lemma}
+\label{lemma-cotangent-morphism-spaces}
+In the situation above there is a canonical isomorphism
+$$
+L_{X/\Lambda} = 
+L\pi_!(Li^*\Omega_{\mathcal{O}/\underline{\Lambda}}) =
+L\pi_!(i^*\Omega_{\mathcal{O}/\underline{\Lambda}}) =
+L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)
+$$
+in $D(\mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+We first observe that for any object $(U \to \mathbf{A})$ of
+$\mathcal{C}_{X/\Lambda}$
+the value of the sheaf $\mathcal{O}$ is a polynomial algebra over $\Lambda$.
+Hence $\Omega_{\mathcal{O}/\underline{\Lambda}}$ is a flat $\mathcal{O}$-module
+and we conclude the second and third equalities of the statement of the
+lemma hold.
+
+\medskip\noindent
+By Remark \ref{remark-compute-L-pi-shriek-spaces} the object
+$L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)$
+is computed as the sheafification of the complex of presheaves
+$$
+U \mapsto
+\left(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X\right)(\mathbf{A}_{\bullet, U})
+=
+\Omega_{P_{\bullet, U}/\Lambda} \otimes_{P_{\bullet, U}} \mathcal{O}_X(U) =
+L_{\mathcal{O}_X(U)/\Lambda}
+$$
+using notation as in Remark \ref{remark-compute-L-pi-shriek-spaces}.
+Now Remark \ref{remark-map-sections-over-U} shows that
+$L\pi_!(\Omega_{\mathcal{O}/\underline{\Lambda}}
+\otimes_\mathcal{O} \underline{\mathcal{O}}_X)$
+computes the cotangent complex of the map of rings
+$\underline{\Lambda} \to \mathcal{O}_X$ on $X_\etale$.
+This is what we want by Lemma \ref{lemma-space-over-ring}.
+\end{proof}
+
+
+
+
+
+
+\section{Fibre products of algebraic spaces and the cotangent complex}
+\label{section-fibre-product}
+
+\noindent
+Let $S$ be a scheme. Let $X \to B$ and $Y \to B$ be morphisms of algebraic
+spaces over $S$. Consider the fibre product $X \times_B Y$ with projection
+morphisms $p : X \times_B Y \to X$ and $q : X \times_B Y \to Y$.
+In this section we discuss $L_{X \times_B Y/B}$. Most of the
+information we want is contained in the following diagram
+\begin{equation}
+\label{equation-fibre-product}
+\vcenter{
+\xymatrix{
+Lp^*L_{X/B} \ar[r] &
+L_{X \times_B Y/Y} \ar[r] &
+E \\
+Lp^*L_{X/B} \ar[r] \ar@{=}[u] &
+L_{X \times_B Y/B} \ar[r] \ar[u] &
+L_{X \times_B Y/X} \ar[u] \\
+ &
+Lq^*L_{Y/B} \ar[u] \ar@{=}[r] &
+Lq^*L_{Y/B} \ar[u]
+}
+}
+\end{equation}
+Explanation: The middle row is the fundamental triangle of
+Lemma \ref{lemma-triangle-ringed-topoi} for the morphisms
+$X \times_B Y \to X \to B$. The middle column is the fundamental triangle
+for the morphisms $X \times_B Y \to Y \to B$.
+Next, $E$ is an object of $D(\mathcal{O}_{X \times_B Y})$ which ``fits''
+into the upper right corner, i.e., which turns both the top row
+and the right column into distinguished triangles. Such an $E$
+exists by Derived Categories, Proposition \ref{derived-proposition-9}
+applied to the lower left square (with $0$ placed in the missing
+spot). To be more explicit, we could for example define $E$ as the cone
+(Derived Categories, Definition \ref{derived-definition-cone})
+of the map of complexes
+$$
+Lp^*L_{X/B} \oplus Lq^*L_{Y/B} \longrightarrow L_{X \times_B Y/B}
+$$
+and get the two maps with target $E$ by an application of TR3.
+In the Tor independent case the object $E$ is zero.
+
+\begin{lemma}
+\label{lemma-fibre-product-tor-independent}
+In the situation above, if $X$ and $Y$ are Tor independent over $B$, then
+the object $E$ in (\ref{equation-fibre-product}) is zero. In this case we
+have
+$$
+L_{X \times_B Y/B} = Lp^*L_{X/B} \oplus Lq^*L_{Y/B}
+$$
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $W$ and a surjective \'etale morphism $W \to B$.
+Choose a scheme $U$ and a surjective \'etale morphism $U \to X \times_B W$.
+Choose a scheme $V$ and a surjective \'etale morphism $V \to Y \times_B W$.
+Then $U \times_W V \to X \times_B Y$ is surjective \'etale too.
+Hence it suffices to prove that the restriction of $E$ to $U \times_W V$
+is zero. By Lemma \ref{lemma-compare-spaces-schemes} and
+Derived Categories of Spaces, Lemma \ref{spaces-perfect-lemma-tor-independent}
+this reduces us to the case of schemes.
+Taking suitable affine opens we reduce to the case of affine schemes.
+Using 
+Lemma \ref{lemma-morphism-affine-schemes}
+we reduce to the case of a tensor product of rings, i.e., to
+Lemma \ref{lemma-tensor-product-tor-independent}.
+\end{proof}
+
+\noindent
+In general we can say the following about the object $E$.
+
+\begin{lemma}
+\label{lemma-fibre-product}
+Let $S$ be a scheme. Let $X \to B$ and $Y \to B$ be morphisms of algebraic
+spaces over $S$. The object $E$ in (\ref{equation-fibre-product}) satisfies
+$H^i(E) = 0$ for $i = 0, -1$ and for a geometric point
+$(\overline{x}, \overline{y}) : \Spec(k) \to X \times_B Y$ we have
+$$
+H^{-2}(E)_{(\overline{x}, \overline{y})} =
+\text{Tor}_1^R(A, B) \otimes_{A \otimes_R B} C
+$$
+where $R = \mathcal{O}_{B, \overline{b}}$, $A = \mathcal{O}_{X, \overline{x}}$,
+$B = \mathcal{O}_{Y, \overline{y}}$, and
+$C = \mathcal{O}_{X \times_B Y, (\overline{x}, \overline{y})}$.
+\end{lemma}
+
+\begin{proof}
+The formation of the cotangent complex commutes with taking stalks
+and pullbacks, see
+Lemmas \ref{lemma-stalk-cotangent-complex} and
+\ref{lemma-pullback-cotangent-morphism-topoi}.
+Note that $C$ is a henselization of $A \otimes_R B$.
+$L_{C/R} = L_{A \otimes_R B/R} \otimes_{A \otimes_R B} C$
+by the results of Section \ref{section-localization}.
+Thus the stalk of $E$ at our geometric point is the cone of the
+map $L_{A/R} \otimes C \to L_{A \otimes_R B/R} \otimes C$.
+Therefore the results of the lemma follow from
+the case of rings, i.e., Lemma \ref{lemma-tensor-product}.
+\end{proof}
+
+
+
+
+
+
+
+
+\input{chapters}
+
+\bibliography{my}
+\bibliographystyle{amsalpha}
+
+\end{document}
